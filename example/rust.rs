@@ -1,4 +1,7 @@
-let a = 5;
+let ada = 5;
 if (true) {
-  
+}
+
+fn log() {
+
 }
