@@ -3,7 +3,7 @@ mod render;
 
 fn main() {
     let matches = App::new("hl")
-        .version("1.0")
+        .version("0.1.0")
         .author("Ahmad Rosid <alahmadrosid@gmail.com>")
         .about("Syntax highlighting.")
         .arg(arg!([filepath] "File path to parse."))
@@ -19,4 +19,3 @@ fn main() {
         println!("{}", s);
     }
 }
-
