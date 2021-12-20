@@ -11,7 +11,7 @@ pub fn parse_file_path(path: &str) -> String {
     let mut html = String::new();
     let mut line = 1;
     html.push_str("<table>\n");
-    html.push_str("<tobody>\n");
+    html.push_str("<tbody>\n");
     html.push_str("<tr>");
     html.push_str(&format!("<td data-line=\"{}\"><td><td>", line));
     loop {
@@ -71,7 +71,7 @@ pub fn parse_file_path(path: &str) -> String {
         }
     }
 
-    html.push_str("</tobody>\n");
+    html.push_str("</tbody>\n");
     html.push_str("</table>");
     html
 }

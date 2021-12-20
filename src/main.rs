@@ -5,7 +5,7 @@ fn main() {
     let matches = App::new("hl")
         .version("1.0")
         .author("Ahmad Rosid <alahmadrosid@gmail.com>")
-        .about("Syntax hightlighting.")
+        .about("Syntax highlighting.")
         .arg(arg!([filepath] "File path to parse."))
         .subcommand(
             App::new("test")
