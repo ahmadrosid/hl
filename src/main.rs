@@ -1,5 +1,5 @@
-use clap::{arg, App};
-mod render;
+use clap::{App, arg};
+mod lexer;
 
 fn main() {
     let matches = App::new("hl")
@@ -15,7 +15,7 @@ fn main() {
         .get_matches();
 
     if let Some(filepath) = matches.value_of("filepath") {
-        let s = render::parse_file_path(filepath);
+        let s = lexer::render::parse_file_path(filepath);
         println!("{}", s);
     }
 }

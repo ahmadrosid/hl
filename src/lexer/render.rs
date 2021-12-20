@@ -1,10 +1,9 @@
 use std::fs;
-#[path = "lexer/mod.rs"]
-mod lexer;
+use crate::lexer;
 
 pub fn parse_file_path(path: &str) -> String {
-  let source_code = fs::read(path).expect(&format!("Filed reading file {}", path));
-  let input: Vec<char> = source_code.iter().map(|c| *c as char).collect::<Vec<_>>();
+    let source_code = fs::read(path).expect(&format!("Filed reading file {}", path));
+    let input: Vec<char> = source_code.iter().map(|c| *c as char).collect::<Vec<_>>();
     let mut l = lexer::Lexer::new(input);
     l.read_char();
 

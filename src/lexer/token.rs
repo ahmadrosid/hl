@@ -30,9 +30,9 @@ pub enum Token {
     GT(char)
 }
 
-pub fn get_keyword_token(ident: &Vec<char>) -> Result<Token, String> {
-    let identifier: String = ident.into_iter().collect();
-    match &identifier[..] {
+pub fn get_keyword_token(identifier: &Vec<char>) -> Result<Token, String> {
+    let identifiers: String = identifier.into_iter().collect();
+    match &identifiers[..] {
         "fn" => Ok(Token::FUNCTION),
         "let" => Ok(Token::LET),
         "true" => Ok(Token::TRUE),

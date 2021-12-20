@@ -1,4 +1,5 @@
 pub mod token;
+pub mod render;
 
 pub struct Lexer {
   input: Vec<char>,
@@ -18,7 +19,7 @@ fn is_digit(ch: char) -> bool {
 impl Lexer {
   pub fn new(input: Vec<char>) -> Self {
     Self {
-        input: input,
+        input,
         position: 0,
         read_position: 0,
         ch: '0'
@@ -114,22 +115,21 @@ pub fn next_token(&mut self) -> token::Token {
             tok = token::Token::EOF;
         }
         _ => {
-            if is_letter(self.ch) {
+            return if is_letter(self.ch) {
                 let ident: Vec<char> = read_identifier(self);
                 match token::get_keyword_token(&ident) {
-                    Ok(keywork_token) => {
-                        return keywork_token;
+                    Ok(keyword_token) => {
+                        keyword_token
                     },
                     Err(_err) => {
-                        return token::Token::IDENT(ident);
+                        token::Token::IDENT(ident)
                     }
                 }
             } else if is_digit(self.ch) {
                 let ident: Vec<char> = read_number(self);
-                return token::Token::INT(ident);
-            } 
-            else {
-                return token::Token::ILLEGAL
+                token::Token::INT(ident)
+            } else {
+                token::Token::ILLEGAL
             }
         }
     }
