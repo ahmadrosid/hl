@@ -1,0 +1,33 @@
+base:
+    PLUS: '+'
+    MINUS: '-'
+    LPARENT: '('
+    RPARENT: ')'
+    LBRACE: '{'
+    RBRACE: '}'
+    SPACE: ' '
+    ASSIGN: '='
+    COLON: ':'
+    SEMICOLON: ';'
+    GT: '>'
+    LT: '<'
+#    EQ: '=='
+#    NOTEQ: '!='
+    ASTERISK: '*'
+    EDNL: '\n'
+    TAB: '\t'
+
+constant:
+    TRUE: 'true'
+    FALSE: 'false'
+
+keyword:
+    FN: 'fn'
+    LET: 'let'
+    MUT: 'mut'
+    IF: 'if'
+    ELSE: 'else'
+    PUB: 'pub'
+    MATCH: 'match'
+    MOD: 'mod'
+    RETURN: 'return'
