@@ -9,16 +9,22 @@ pub fn parse_file_path(path: &str) -> String {
 
     let mut html = String::new();
     let mut line = 1;
-    html.push_str("<table>\n");
+    html.push_str("<table class=\"highlight-table\">\n");
     html.push_str("<tbody>\n");
     html.push_str("<tr>");
-    html.push_str(&format!("<td data-line=\"{}\"><td><td>", line));
+    html.push_str(&format!("<td class=\"hl-num\" data-line=\"{}\"></td><td>", line));
     loop {
         let token = l.next_token();
         if token == lexer::token::Token::EOF {
-            html.push_str("</td>\n");
+            html.push_str("</td></tr>\n");
             break;
         }
+
+        if token == lexer::token::Token::ILLEGAL {
+            println!("Illegal token position: {} {}", l.position, l.ch);
+            break;
+        }
+
         match token {
             lexer::token::Token::LET => {
                 html.push_str(&format!("<span class=\"hl-k\">{}</span>", format!("{:?}", token).to_lowercase()));
@@ -35,6 +41,15 @@ pub fn parse_file_path(path: &str) -> String {
             lexer::token::Token::SEMICOLON(value) => {
                 html.push_str(&format!("{}", value));
             }
+            lexer::token::Token::PATHSEPARATOR(value) => {
+                html.push_str(&format!("{}", value.iter().collect::<String>()));
+            }
+            lexer::token::Token::MEMBERACCESS(value) => {
+                html.push_str(&format!("{}", value));
+            }
+            lexer::token::Token::STRING(value) => {
+                html.push_str(&format!("<span class=\"hl-s\">{}</span>", value.iter().collect::<String>()));
+            }
             lexer::token::Token::IF => {
                 html.push_str(&format!("<span class=\"hl-k\">{}</span>", format!("{:?}", token).to_lowercase()));
             }
@@ -45,7 +60,7 @@ pub fn parse_file_path(path: &str) -> String {
                 html.push_str(&format!("<span class=\"hl-k\">{}</span>", "fn"));
             }
             lexer::token::Token::TRUE => {
-                html.push_str(&format!("{}", format!("{:?}", token).to_lowercase()));
+                html.push_str(&format!("<span class=\"hl-c\">{}</span>", format!("{:?}", token).to_lowercase()));
             }
             lexer::token::Token::RPAREN(value) => {
                 html.push_str(&format!("{}", value));
@@ -59,10 +74,13 @@ pub fn parse_file_path(path: &str) -> String {
             lexer::token::Token::SPACE => {
                 html.push_str(&format!("{}", " "));
             }
+            lexer::token::Token::TAB => {
+                html.push_str(&format!("{}", "    "));
+            }
             lexer::token::Token::ENL => {
                 line = line + 1;
                 html.push_str("</td></tr>\n");
-                html.push_str(&format!("<tr><td data-line=\"{}\"><td><td>", line));
+                html.push_str(&format!("<tr><td class=\"hl-num\" data-line=\"{}\"></td><td>", line));
             }
             _ => {
                 println!("{:?}", token);

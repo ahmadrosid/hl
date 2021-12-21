@@ -38,7 +38,7 @@ pub fn read_char(&mut self) {
 
 pub fn skip_whitespace(&mut self) {
     let ch = self.ch;
-    if ch == '\t' || ch == '\r' {
+    if ch == '\r' {
         self.read_char();
     }
 }
@@ -49,6 +49,16 @@ pub fn next_token(&mut self) -> token::Token {
         while l.position < l.input.len() && is_letter(l.ch) {
             l.read_char();
         }
+        l.input[position..l.position].to_vec()
+    };
+
+    let read_string = |l: &mut Lexer| -> Vec<char> {
+        let position = l.position;
+        l.read_char();
+        while l.position < l.input.len() && l.ch != '"' {
+            l.read_char()
+        }
+        l.read_char();
         l.input[position..l.position].to_vec()
     };
 
@@ -90,6 +100,18 @@ pub fn next_token(&mut self) -> token::Token {
         ';' => {
             tok = token::Token::SEMICOLON(self.ch);
         },
+        ':' => {
+            let next_ch = self.input[self.position+1];
+            if next_ch == ':' {
+                self.read_char();
+                tok = token::Token::PATHSEPARATOR(self.input[self.position-1..self.position+1].to_vec());
+            } else {
+                tok = token::Token::COLON(self.ch);
+            }
+        },
+        '.' => {
+            tok = token::Token::MEMBERACCESS(self.ch);
+        },
         '(' => {
             tok = token::Token::LPAREN(self.ch);
         },
@@ -111,23 +133,29 @@ pub fn next_token(&mut self) -> token::Token {
         '\n' => {
             tok = token::Token::ENL;
         }
+        '\t' => {
+            tok = token::Token::TAB;
+        }
         '0' => {
             tok = token::Token::EOF;
         }
         _ => {
             return if is_letter(self.ch) {
-                let ident: Vec<char> = read_identifier(self);
-                match token::get_keyword_token(&ident) {
+                let identifier: Vec<char> = read_identifier(self);
+                match token::get_keyword_token(&identifier) {
                     Ok(keyword_token) => {
                         keyword_token
                     },
                     Err(_err) => {
-                        token::Token::IDENT(ident)
+                        token::Token::IDENT(identifier)
                     }
                 }
             } else if is_digit(self.ch) {
-                let ident: Vec<char> = read_number(self);
-                token::Token::INT(ident)
+                let identifier: Vec<char> = read_number(self);
+                token::Token::INT(identifier)
+            } else if self.ch == '"' {
+                let str_value: Vec<char> = read_string(self);
+                token::Token::STRING(str_value)
             } else {
                 token::Token::ILLEGAL
             }
