@@ -1,0 +1,8 @@
+base:
+    PLUS: +
+    MINUS: -
+    LPARENT: (
+    RPARENT: )
+    LBRACE: {
+    RBRACE: }
+    SPACE: " "
