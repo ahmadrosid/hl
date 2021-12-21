@@ -61,7 +61,7 @@ pub fn parse_file_path(path: &str) -> String {
             }
             lexer::token::Token::ENL => {
                 line = line + 1;
-                html.push_str("</td>\n</tr>\n");
+                html.push_str("</td></tr>\n");
                 html.push_str(&format!("<tr><td data-line=\"{}\"><td><td>", line));
             }
             _ => {
