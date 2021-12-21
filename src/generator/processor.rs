@@ -97,13 +97,13 @@ impl Lexer {\n\
     \t}\n\
 }\n\n\
 pub fn read_char(&mut self) {\n\
-\tif self.read_position >= self.input.len() {\n\
-\t\tself.ch = '0';\n\
-\t} else {\n\
-\t\tself.ch = self.input[self.read_position];\n\
-\t}\n\
-\tself.position = self.read_position;\n\
-\tself.read_position = self.read_position + 1;\n\
+    \tif self.read_position >= self.input.len() {\n\
+        \t\tself.ch = '0';\n\
+    \t} else {\n\
+        \t\tself.ch = self.input[self.read_position];\n\
+    \t}\n\
+    \tself.position = self.read_position;\n\
+    \tself.read_position = self.read_position + 1;\n\
 }\n\
 \n\
 pub fn next_token(&mut self) -> token::Token {\n\
