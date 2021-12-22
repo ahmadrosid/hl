@@ -2,6 +2,8 @@
     font-family: ui-monospace,SFMono-Regular,SF Mono,Menlo,Consolas,Liberation Mono,monospace;
     color: #24292f;
     font-size: 14px;
+    word-wrap: normal;
+    white-space: pre;
 }
 
 .hl-num::before {
