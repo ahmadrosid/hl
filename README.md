@@ -1,5 +1,5 @@
 # HL (WIP)
-Syntax highlighting written in Rust. This project is intended to be used to generate html syntax highlighting from the given file.
+Syntax highlighting written in Rust. The project is designed to generate html syntax highlighting with the given file.
 
 ## Usage
 ```bash
