@@ -1,3 +1,4 @@
+slash_comment: true
 base:
   PLUS: '+'
   MINUS: '-'
@@ -11,7 +12,6 @@ base:
   SEMICOLON: ';'
   MEMBERACCESS: '.'
   COMMA: ','
-  SLASH: '/'
   GT: '>'
   LT: '<'
   AND: '&'

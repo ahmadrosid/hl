@@ -19,7 +19,6 @@ pub enum Token {
 	SEMICOLON(char),
 	MEMBERACCESS(char),
 	COMMA(char),
-	SLASH(char),
 	GT(char),
 	LT(char),
 	AND(char),
@@ -50,6 +49,7 @@ pub enum Token {
 	RETURN(Vec<char>),
 	DEFAULT(Vec<char>),
 	IMPORT(Vec<char>),
+	COMMENT(Vec<char>),
 }
 
 pub fn get_keyword_token(identifier: &Vec<char>) -> Result<Token, String> {

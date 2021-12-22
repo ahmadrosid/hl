@@ -62,6 +62,17 @@ impl Lexer {
 			l.input[position..l.position].to_vec()
 		};
 
+		let read_comment = |l: &mut Lexer| -> Vec<char> {
+			let position = l.position;
+			while l.position < l.input.len() {
+				l.read_char();
+				if l.input[l.position+1] == '\n' {
+					break;
+				}
+			}
+			l.input[position..l.position+1].to_vec()
+		};
+
 		let tok: token::Token;
 		match self.ch {
 			'+' => {
@@ -100,9 +111,6 @@ impl Lexer {
 			',' => {
 				tok = token::Token::COMMA(self.ch);
 			}
-			'/' => {
-				tok = token::Token::SLASH(self.ch);
-			}
 			'>' => {
 				tok = token::Token::GT(self.ch);
 			}
@@ -129,6 +137,13 @@ impl Lexer {
 					tok = token::Token::CH(self.ch);
 				} else {
 					tok = token::Token::EOF;
+				}
+			}
+			'/' => {
+				if self.input[self.position+1] == '/' {
+					tok = token::Token::COMMENT(read_comment(self));
+				} else {
+					tok = token::Token::ENDL(self.ch);
 				}
 			}
 			_ => {

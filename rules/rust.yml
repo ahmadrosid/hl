@@ -1,3 +1,4 @@
+slash_comment: true
 base:
     PLUS: '+'
     MINUS: '-'

@@ -59,6 +59,7 @@ pub enum Token {
 	VEC(Vec<char>),
 	KVEC(Vec<char>),
 	CRATE(Vec<char>),
+	COMMENT(Vec<char>),
 }
 
 pub fn get_keyword_token(identifier: &Vec<char>) -> Result<Token, String> {

@@ -65,11 +65,25 @@ impl Lexer {\n\
                 \t\t\t\tl.read_char();\n\
             \t\t\t}\n\
             \t\t\tl.input[position..l.position].to_vec()\n\
-        \t\t};\n\
-    \n\
-        \t\tlet tok: token::Token;\n\
+        \t\t};\n\n\
+    ");
+
+    if generator::slash_comment_enable(h) {
+        module.push_str("\t\tlet read_comment = |l: &mut Lexer| -> Vec<char> {\n\
+            \t\t\tlet position = l.position;\n\
+            \t\t\twhile l.position < l.input.len() {\n\
+                \t\t\t\tl.read_char();\n\
+                \t\t\t\tif l.input[l.position+1] == '\\n' {\n\
+                \t\t\t\t\tbreak;\n\
+                \t\t\t\t}\n\
+            \t\t\t}\n\
+            \t\t\tl.input[position..l.position+1].to_vec()\n\
+        \t\t};\n\n")
+    }
+
+    module.push_str("\t\tlet tok: token::Token;\n\
         \t\tmatch self.ch {\n\
-");
+    ");
 
     for (k, v) in generator::get_base(h) {
         module.push_str(&format!("\t\t\t'{}' => ", v.as_str().unwrap()));
@@ -89,6 +103,16 @@ impl Lexer {\n\
     module.push_str("\t\t\t\t\ttok = token::Token::EOF;\n");
     module.push_str("\t\t\t\t}\n");
     module.push_str("\t\t\t}\n");
+
+    if generator::slash_comment_enable(h) {
+        module.push_str("\t\t\t'/' => {\n");
+        module.push_str("\t\t\t\tif self.input[self.position+1] == '/' {\n");
+        module.push_str("\t\t\t\t\ttok = token::Token::COMMENT(read_comment(self));\n");
+        module.push_str("\t\t\t\t} else {\n");
+        module.push_str("\t\t\t\t\ttok = token::Token::ENDL(self.ch);\n");
+        module.push_str("\t\t\t\t}\n");
+        module.push_str("\t\t\t}\n");
+    }
 
     module.push_str("\t\t\t_ => {\n\
             \t\t\t\treturn if is_letter(self.ch) {\n\

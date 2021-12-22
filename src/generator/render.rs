@@ -38,6 +38,13 @@ pub fn generate_html(h: &Hash, name: String) -> String {
     html.push_str("\t\t\t\thtml.push(value);\n");
     html.push_str("\t\t\t}\n");
 
+    if generator::slash_comment_enable(h) {
+        html.push_str("\t\t\ttoken::Token::COMMENT(value) => {\n");
+        html.push_str("\t\t\t\thtml.push_str(&format!(\"<span class=\\\"hl-cmt\\\">{}</span>\", \
+        value.iter().collect::<String>()));\n");
+        html.push_str("\t\t\t}\n");
+    }
+
     for (k, _v) in generator::get_skip(h) {
         html.push_str("\t\t\t");
         html.push_str(&format!("token::Token::{}(value)", k.as_str().unwrap()));

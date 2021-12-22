@@ -12,7 +12,15 @@ mod render;
 pub fn parse(file_path: &str) -> String {
     let content = read_file(file_path);
     let docs = YamlLoader::load_from_str(&content).unwrap();
-    let required_key = vec!["base", "constant", "keyword", "skip", "entity", "prefix"];
+    let required_key = vec![
+        "base",
+        "constant",
+        "keyword",
+        "skip",
+        "entity",
+        "prefix",
+        "slash_comment"
+    ];
 
     let mut token_stub = String::new();
     let mut module_stub = String::new();
@@ -113,6 +121,13 @@ fn get_prefix(h: &Hash) -> &Hash {
         .unwrap()
         .as_hash()
         .unwrap()
+}
+
+fn slash_comment_enable(h: &Hash) -> bool {
+    return match h.get(&Yaml::String("slash_comment".to_string())) {
+        None => false,
+        Some(val) => val.as_bool().unwrap()
+    }
 }
 
 fn get_file_name(file_path: &str) -> String {

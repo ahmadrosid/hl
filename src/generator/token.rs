@@ -46,6 +46,10 @@ pub fn generate_token(h: &Hash) -> String {
         token.push_str("(Vec<char>),\n");
     }
 
+    if generator::slash_comment_enable(h) {
+        token.push_str("\tCOMMENT(Vec<char>),\n");
+    }
+
     token.push_str("}\n\n");
     token.push_str("pub fn get_keyword_token(identifier: &Vec<char>) -> Result<Token, String> {\n");
     token.push_str("\tlet identifiers: String = identifier.into_iter().collect();\n");

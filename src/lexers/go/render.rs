@@ -58,9 +58,6 @@ pub fn render_html(input: Vec<char>) -> String {
 			token::Token::COMMA(value) => {
 				html.push(value);
 			}
-			token::Token::SLASH(value) => {
-				html.push(value);
-			}
 			token::Token::GT(value) => {
 				html.push(value);
 			}
@@ -81,6 +78,9 @@ pub fn render_html(input: Vec<char>) -> String {
 			}
 			token::Token::CH(value) => {
 				html.push(value);
+			}
+			token::Token::COMMENT(value) => {
+				html.push_str(&format!("<span class=\"hl-cmt\">{}</span>", value.iter().collect::<String>()));
 			}
 			token::Token::IDENT(value) => {
 				html.push_str(&value.iter().collect::<String>());
