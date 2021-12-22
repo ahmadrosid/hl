@@ -1,0 +1,41 @@
+base:
+  PLUS: '+'
+  MINUS: '-'
+  LPAREN: '('
+  RPAREN: ')'
+  LBRACE: '{'
+  RBRACE: '}'
+  SPACE: ' '
+  ASSIGN: '='
+  COLON: ':'
+  SEMICOLON: ';'
+  MEMBERACCESS: '.'
+  COMMA: ','
+  GT: '>'
+  LT: '<'
+  AND: '&'
+  BANG: '!'
+  ASTERISK: '*'
+  TAB: '\t'
+  EOF: '0'
+
+constant:
+  TRUE: 'true'
+  FALSE: 'false'
+  STRING: ''
+  INT: ''
+
+skip:
+  IDENT: ''
+
+keyword:
+  FUNC: 'func'
+  FOR: 'for'
+  VAR: 'var'
+  IF: 'if'
+  ELSE: 'else'
+  MATCH: 'switch'
+  case: 'case'
+  RETURN: 'return'
+  DEFAULT: 'default'
+  IMPORT: 'import'

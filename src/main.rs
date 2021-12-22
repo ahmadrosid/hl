@@ -1,7 +1,7 @@
 use clap::{arg, App, AppSettings};
 mod generator;
 mod lexers;
-use crate::lexers::rust;
+use crate::lexers::{rust, go};
 
 fn main() {
     let matches = App::new("hl")
@@ -27,7 +27,7 @@ fn main() {
         }
         _ => {
             if let Some(filepath) = matches.value_of("FILE_PATH") {
-                let s = rust::render::render_html(filepath);
+                let s = go::render::render_html(filepath);
                 println!("{}", s);
             }
         }

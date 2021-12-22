@@ -21,10 +21,12 @@ pub fn generate_html(h: &Hash, name: String) -> String {
     html.push_str("\t\tline\n\t));\n\n");
     html.push_str("\tloop {\n");
     html.push_str("\t\tlet token = l.next_token();\n");
-    html.push_str("\t\tif token == rust::token::Token::EOF('0') {\n");
+    html.push_str(&format!("\t\tif token == {}::token::Token::EOF('0') ", name));
+    html.push_str("{\n");
     html.push_str("\t\t\thtml.push_str(\"</td></tr>\\n\");\n");
     html.push_str("\t\t\tbreak;\n\t\t}\n\n");
-    html.push_str("\t\tif token == rust::token::Token::ILLEGAL {\n");
+    html.push_str(&format!("\t\tif token == {}::token::Token::ILLEGAL ", name));
+    html.push_str("{\n");
     html.push_str("\t\t\tprintln!(\"Illegal token idx: {} char: {}\", l.position, l.ch);\n");
     html.push_str("\t\t\tbreak;\n\t\t}\n\n");
     html.push_str("\t\tmatch token {\n");
@@ -66,9 +68,8 @@ pub fn generate_html(h: &Hash, name: String) -> String {
         html.push_str("\t\t\t}\n");
     }
 
-
-    html.push_str("\t\t\t\
-    rust::token::Token::ENDL(_) => {\n\t\t\t\t\
+    html.push_str(&format!("\t\t\t{}", name));
+    html.push_str("::token::Token::ENDL(_) => {\n\t\t\t\t\
         line = line + 1;\n\t\t\t\t\
         html.push_str(\"</td></tr>\\n\");\n\t\t\t\t\
         html.push_str(&format!(\n\t\t\t\t\t\
