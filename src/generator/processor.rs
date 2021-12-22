@@ -26,10 +26,8 @@ pub fn process_token(h: &Hash) -> String {
     token.push_str("#[derive(Debug)]\n");
     token.push_str("pub enum Token {\n");
     token.push_str("\tILLEGAL,\n");
-    token.push_str("\tEOF,\n");
 
     token.push_str("\n\t// Base\n");
-
     for (k, _v) in get_base(h) {
         token.push_str("\t");
         token.push_str(k.as_str().unwrap());
@@ -47,7 +45,7 @@ pub fn process_token(h: &Hash) -> String {
     for (k, _v) in get_keyword(h) {
         token.push_str("\t");
         token.push_str(k.as_str().unwrap());
-        token.push_str("(Vec<char>),\n");
+        token.push_str(",\n");
     }
 
     token.push_str("}\n\n");
@@ -55,10 +53,16 @@ pub fn process_token(h: &Hash) -> String {
     token.push_str("\tlet identifiers: String = identifier.into_iter().collect();\n");
     token.push_str("\tmatch &identifiers[..] {\n");
 
+    for (k, v) in get_constant(h) {
+        if v.as_str().unwrap() != "" {
+            token.push_str(&format!("\t\t\"{}\" => ", v.as_str().unwrap()));
+            token.push_str(&format!("Ok(Token::{}(identifier.to_vec())),\n", k.as_str().unwrap()));
+        }
+    }
+
     for (k, v) in get_keyword(h) {
-        token.push_str("\t\t");
-        token.push_str(&format!("\"{}\" => ", v.as_str().unwrap()));
-        token.push_str(&format!("OK(Token::{}),\n", k.as_str().unwrap()));
+        token.push_str(&format!("\t\t\"{}\" => ", v.as_str().unwrap()));
+        token.push_str(&format!("Ok(Token::{}),\n", k.as_str().unwrap()));
     }
 
     token.push_str("\t\t_ => Err(String::from(\"Not a keyword\"))\n");
@@ -70,7 +74,8 @@ pub fn process_token(h: &Hash) -> String {
 
 pub fn process_module(h: &Hash) -> String {
     let mut module = String::new();
-    module.push_str("pub mod token;\n\n\
+    module.push_str("pub mod token;\n\
+pub mod render;\n\n\
 pub struct Lexer {\n\
     \tinput: Vec<char>,\n\
     \tpub position: usize,\n\
@@ -95,55 +100,79 @@ impl Lexer {\n\
         \t\t\tch: '0'\n\
         \t\t}\n\
     \t}\n\
-}\n\n\
-pub fn read_char(&mut self) {\n\
-    \tif self.read_position >= self.input.len() {\n\
-        \t\tself.ch = '0';\n\
-    \t} else {\n\
-        \t\tself.ch = self.input[self.read_position];\n\
+    \tpub fn read_char(&mut self) {\n\
+        \t\tif self.read_position >= self.input.len() {\n\
+            \t\t\tself.ch = '0';\n\
+        \t\t} else {\n\
+            \t\t\tself.ch = self.input[self.read_position];\n\
+        \t\t}\n\
+        \t\tself.position = self.read_position;\n\
+        \t\tself.read_position = self.read_position + 1;\n\
     \t}\n\
-    \tself.position = self.read_position;\n\
-    \tself.read_position = self.read_position + 1;\n\
-}\n\
-\n\
-pub fn next_token(&mut self) -> token::Token {\n\
-    \tlet read_identifier = |l: &mut Lexer| -> Vec<char> {\n\
-        \t\tlet position = l.position;\n\
-        \t\twhile l.position < l.input.len() && is_letter(l.ch) {\n\
+    \n\
+    \tpub fn next_token(&mut self) -> token::Token {\n\
+        \t\tlet read_identifier = |l: &mut Lexer| -> Vec<char> {\n\
+            \t\t\tlet position = l.position;\n\
+            \t\t\twhile l.position < l.input.len() && is_letter(l.ch) {\n\
+                \t\t\t\tl.read_char();\n\
+            \t\t\t}\n\
+            \t\t\tl.input[position..l.position].to_vec()\n\
+        \t\t};\n\
+    \n\
+        \t\tlet read_string = |l: &mut Lexer| -> Vec<char> {\n\
+            \t\t\tlet position = l.position;\n\
             \t\t\tl.read_char();\n\
-        \t\t}\n\
-        \t\tl.input[position..l.position].to_vec()\n\
-    \t};\n\
-\n\
-    \tlet read_string = |l: &mut Lexer| -> Vec<char> {\n\
-        \t\tlet position = l.position;\n\
-        \t\tl.read_char();\n\
-        \t\twhile l.position < l.input.len() && l.ch != '\"' {\n\
-            \t\t\tl.read_char()\n\
-        \t\t}\n\
-        \t\tl.read_char();\n\
-        \t\tl.input[position..l.position].to_vec()\n\
-    \t};\n\
-\n\
-    \tlet read_number = |l: &mut Lexer| -> Vec<char> {\n\
-        \t\tlet position = l.position;\n\
-        \t\twhile l.position < l.input.len() && is_digit(l.ch) {\n\
+            \t\t\twhile l.position < l.input.len() && l.ch != '\"' {\n\
+                \t\t\t\tl.read_char()\n\
+            \t\t\t}\n\
             \t\t\tl.read_char();\n\
-        \t\t}\n\
-        \t\tl.input[position..l.position].to_vec()\n\
-    \t};\n\
-\n\
-    \tlet tok: token::Token;\n\
-    \tmatch self.ch {\n\
+            \t\t\tl.input[position..l.position].to_vec()\n\
+        \t\t};\n\
+    \n\
+        \t\tlet read_number = |l: &mut Lexer| -> Vec<char> {\n\
+            \t\t\tlet position = l.position;\n\
+            \t\t\twhile l.position < l.input.len() && is_digit(l.ch) {\n\
+                \t\t\t\tl.read_char();\n\
+            \t\t\t}\n\
+            \t\t\tl.input[position..l.position].to_vec()\n\
+        \t\t};\n\
+    \n\
+        \t\tlet tok: token::Token;\n\
+        \t\tmatch self.ch {\n\
 ");
 
     for (k, v) in get_base(h) {
         module.push_str(&format!("\t\t'{}' => ", v.as_str().unwrap()));
         module.push_str("{\n");
         module.push_str(&format!("\t\t\ttok = token::Token::{}(self.ch);\n", k.as_str().unwrap()));
-        module.push_str("\t\t},\n");
+        module.push_str("\t\t}\n");
     }
 
+    module.push_str("\t\t_ => {\n\
+            \t\t\treturn if is_letter(self.ch) {\n\
+                \t\t\t\tlet identifier: Vec<char> = read_identifier(self);\n\
+                \t\t\t\tmatch token::get_keyword_token(&identifier) {\n\
+                    \t\t\t\t\t\tOk(keyword_token) => {\n\
+                        \t\t\t\t\t\t\tkeyword_token\n\
+                    \t\t\t\t\t\t},\n\
+                    \t\t\t\t\t\tErr(_err) => {\n\
+                        \t\t\t\t\t\t\ttoken::Token::IDENT(identifier)\n\
+                    \t\t\t\t\t\t}\n\
+                \t\t\t\t\t}\n\
+            \t\t\t\t} else if is_digit(self.ch) {\n\
+                \t\t\t\t\tlet identifier: Vec<char> = read_number(self);\n\
+                \t\t\t\t\ttoken::Token::INT(identifier)\n\
+            \t\t\t\t} else if self.ch == '\"' {\n\
+                \t\t\t\t\tlet str_value: Vec<char> = read_string(self);\n\
+                \t\t\t\t\ttoken::Token::STRING(str_value)\n\
+            \t\t\t\t} else {\n\
+                \t\t\t\t\ttoken::Token::ILLEGAL\n\
+            \t\t\t\t}\n\
+    \t\t\t}\n");
+
+    module.push_str("\t\t}\n");
+    module.push_str("\t\tself.read_char();\n");
+    module.push_str("\t\ttok\n");
     module.push_str("\t}\n");
     module.push_str("}\n");
     module

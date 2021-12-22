@@ -6,3 +6,7 @@ fn main() {
     if true {
     }
 }
+
+fn process(a: &str, b: char) {
+    println!(a, b);
+}

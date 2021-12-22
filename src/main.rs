@@ -1,6 +1,8 @@
-use clap::{App, AppSettings, arg};
-mod lexer;
+use clap::{arg, App, AppSettings};
 mod generator;
+// mod lexer;
+mod lexers;
+use crate::lexers::rust;
 
 fn main() {
     let matches = App::new("hl")
@@ -15,7 +17,6 @@ fn main() {
                 .about("Generate lexer.")
                 .arg(arg!([LEXER_PATH] "Lexer path"))
                 .setting(AppSettings::ArgRequiredElseHelp),
-
         )
         .get_matches();
 
@@ -27,9 +28,9 @@ fn main() {
         }
         _ => {
             if let Some(filepath) = matches.value_of("FILE_PATH") {
-                let s = lexer::render::parse_file_path(filepath);
+                let s = rust::render::parse_file_path(filepath);
                 println!("{}", s);
             }
-        },
+        }
     }
 }
