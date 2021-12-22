@@ -31,7 +31,6 @@ skip:
 
 entity:
     ENTITY: '.'
-    ENTITY_TAG: ''
 
 prefix:
     ENTITY_PREFIX: '.'

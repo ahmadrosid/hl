@@ -37,7 +37,6 @@ pub enum Token {
 
 	// Entity
 	ENTITY(Vec<char>),
-	ENTITY_TAG(Vec<char>),
 
 	// Keyword
 	FN(Vec<char>),
