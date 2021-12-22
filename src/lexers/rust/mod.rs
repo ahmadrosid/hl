@@ -115,14 +115,14 @@ impl Lexer {
 		'*' => {
 			tok = token::Token::ASTERISK(self.ch);
 		}
-		'\n' => {
-			tok = token::Token::ENDL(self.ch);
-		}
 		'\t' => {
 			tok = token::Token::TAB(self.ch);
 		}
 		'0' => {
 			tok = token::Token::EOF(self.ch);
+		}
+		'\n' => {
+			tok = token::Token::ENDL(self.ch);
 		}
 		_ => {
 			return if is_letter(self.ch) {

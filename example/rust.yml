@@ -18,7 +18,6 @@ base:
 #    EQ: '=='
 #    NOTEQ: '!='
     ASTERISK: '*'
-    ENDL: '\n'
     TAB: '\t'
     EOF: '0'
 
@@ -26,8 +25,10 @@ constant:
     TRUE: 'true'
     FALSE: 'false'
     STRING: ''
-    IDENT: ''
     INT: ''
+
+skip:
+    IDENT: ''
 
 keyword:
     FN: 'fn'
@@ -42,3 +43,5 @@ keyword:
     RETURN: 'return'
     WHERE: 'where'
     IMPL: 'impl'
+    CHAR: 'char'
+    STR: 'str'

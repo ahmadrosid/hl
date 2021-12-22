@@ -1,6 +1,5 @@
 use clap::{arg, App, AppSettings};
 mod generator;
-// mod lexer;
 mod lexers;
 use crate::lexers::rust;
 
@@ -24,11 +23,11 @@ fn main() {
         Some(("generate", sub_matches)) => {
             let lexer_path = sub_matches.value_of("LEXER_PATH").expect("required");
             let s = generator::parse(lexer_path);
-            println!("Generating {}\n{}", lexer_path, s);
+            println!("{}", s);
         }
         _ => {
             if let Some(filepath) = matches.value_of("FILE_PATH") {
-                let s = rust::render::parse_file_path(filepath);
+                let s = rust::render::render_html(filepath);
                 println!("{}", s);
             }
         }

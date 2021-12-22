@@ -2,6 +2,7 @@
 #[derive(Debug)]
 pub enum Token {
 	ILLEGAL,
+	ENDL(char),
 
 	// Base
 	PLUS(char),
@@ -21,7 +22,6 @@ pub enum Token {
 	AND(char),
 	BANG(char),
 	ASTERISK(char),
-	ENDL(char),
 	TAB(char),
 	EOF(char),
 
@@ -29,22 +29,26 @@ pub enum Token {
 	TRUE(Vec<char>),
 	FALSE(Vec<char>),
 	STRING(Vec<char>),
-	IDENT(Vec<char>),
 	INT(Vec<char>),
 
+	// Skip token
+	IDENT(Vec<char>),
+
 	// Keyword
-	FN,
-	FOR,
-	LET,
-	MUT,
-	IF,
-	ELSE,
-	PUB,
-	MATCH,
-	MOD,
-	RETURN,
-	WHERE,
-	IMPL,
+	FN(Vec<char>),
+	FOR(Vec<char>),
+	LET(Vec<char>),
+	MUT(Vec<char>),
+	IF(Vec<char>),
+	ELSE(Vec<char>),
+	PUB(Vec<char>),
+	MATCH(Vec<char>),
+	MOD(Vec<char>),
+	RETURN(Vec<char>),
+	WHERE(Vec<char>),
+	IMPL(Vec<char>),
+	CHAR(Vec<char>),
+	STR(Vec<char>),
 }
 
 pub fn get_keyword_token(identifier: &Vec<char>) -> Result<Token, String> {
@@ -52,18 +56,20 @@ pub fn get_keyword_token(identifier: &Vec<char>) -> Result<Token, String> {
 	match &identifiers[..] {
 		"true" => Ok(Token::TRUE(identifier.to_vec())),
 		"false" => Ok(Token::FALSE(identifier.to_vec())),
-		"fn" => Ok(Token::FN),
-		"for" => Ok(Token::FOR),
-		"let" => Ok(Token::LET),
-		"mut" => Ok(Token::MUT),
-		"if" => Ok(Token::IF),
-		"else" => Ok(Token::ELSE),
-		"pub" => Ok(Token::PUB),
-		"match" => Ok(Token::MATCH),
-		"mod" => Ok(Token::MOD),
-		"return" => Ok(Token::RETURN),
-		"where" => Ok(Token::WHERE),
-		"impl" => Ok(Token::IMPL),
+		"fn" => Ok(Token::FN(identifier.to_vec())),
+		"for" => Ok(Token::FOR(identifier.to_vec())),
+		"let" => Ok(Token::LET(identifier.to_vec())),
+		"mut" => Ok(Token::MUT(identifier.to_vec())),
+		"if" => Ok(Token::IF(identifier.to_vec())),
+		"else" => Ok(Token::ELSE(identifier.to_vec())),
+		"pub" => Ok(Token::PUB(identifier.to_vec())),
+		"match" => Ok(Token::MATCH(identifier.to_vec())),
+		"mod" => Ok(Token::MOD(identifier.to_vec())),
+		"return" => Ok(Token::RETURN(identifier.to_vec())),
+		"where" => Ok(Token::WHERE(identifier.to_vec())),
+		"impl" => Ok(Token::IMPL(identifier.to_vec())),
+		"char" => Ok(Token::CHAR(identifier.to_vec())),
+		"str" => Ok(Token::STR(identifier.to_vec())),
 		_ => Err(String::from("Not a keyword"))
 	}
 }

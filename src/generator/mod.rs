@@ -1,19 +1,22 @@
 extern crate yaml_rust;
 
-use yaml_rust::{YamlLoader, Yaml};
+use yaml_rust::{YamlLoader, Yaml, yaml::Hash};
 use std::io::Write;
 use std::path::Path;
 use std::fs;
 
-pub mod processor;
+mod module;
+mod token;
+mod render;
 
 pub fn parse(file_path: &str) -> String {
     let content = read_file(file_path);
     let docs = YamlLoader::load_from_str(&content).unwrap();
-    let required_key = vec!["base", "constant", "keyword"];
+    let required_key = vec!["base", "constant", "keyword", "skip"];
 
-    let mut token = String::new();
-    let mut module = String::new();
+    let mut token_stub = String::new();
+    let mut module_stub = String::new();
+    let mut render_stub = String::new();
 
     match *&docs[0] {
         Yaml::Hash(ref h) => {
@@ -23,8 +26,9 @@ pub fn parse(file_path: &str) -> String {
                     std::process::exit(0x01);
                 }
             }
-            token.push_str(&processor::process_token(h));
-            module.push_str(&processor::process_module(h));
+            token_stub.push_str(&token::generate_token(h));
+            module_stub.push_str(&module::generate_module(h));
+            render_stub.push_str(&render::generate_html(h, get_file_name(file_path)));
         }
         _ => {
             println!("{:?}", &docs[0]);
@@ -32,10 +36,12 @@ pub fn parse(file_path: &str) -> String {
     }
 
     let out_file_path = prepare_path(file_path);
-    write_file(&token, &out_file_path, &"token.rs");
-    write_file(&module, &out_file_path, &"mod.rs");
+    write_file(&token_stub, &out_file_path, &"token.rs");
+    write_file(&module_stub, &out_file_path, &"mod.rs");
+    write_file(&render_stub, &out_file_path, &"render.rs");
 
-    module
+    "Success!".to_string()
+    // render_stub
 }
 
 fn read_file(file_path: &str) -> String {
@@ -45,12 +51,10 @@ fn read_file(file_path: &str) -> String {
 }
 
 fn prepare_path(file_path: &str) -> String {
-    let ancestors = Path::new(& file_path).file_name().unwrap();
-    let name = ancestors.to_string_lossy().replace(&".yml", "");
-
+    let file_name = get_file_name(file_path);
     let cwd = std::env::current_dir().unwrap();
-    let out_file_path = format!("{}/src/lexers/{}", cwd.to_str().unwrap(), name);
-    println!("{}", out_file_path);
+    let out_file_path = format!("{}/src/lexers/{}", cwd.to_str().unwrap(), file_name);
+
     let create_dir = fs::create_dir_all(&out_file_path);
     if !create_dir.is_ok() {
         println!("Failed to create directory for : {}", out_file_path)
@@ -62,4 +66,37 @@ fn prepare_path(file_path: &str) -> String {
 fn write_file(content: &String, path: &String, file_name: &str) {
     let mut file = fs::File::create(format!("{}/{}", path, file_name)).unwrap();
     write!(&mut file, "{}", content).unwrap();
+}
+
+fn get_base(h: &Hash) -> &Hash {
+    h.get(&Yaml::String("base".to_string()))
+        .unwrap()
+        .as_hash()
+        .unwrap()
+}
+
+fn get_constant(h: &Hash) -> &Hash {
+    h.get(&Yaml::String("constant".to_string()))
+        .unwrap()
+        .as_hash()
+        .unwrap()
+}
+
+fn get_keyword(h: &Hash) -> &Hash {
+    h.get(&Yaml::String("keyword".to_string()))
+        .unwrap()
+        .as_hash()
+        .unwrap()
+}
+
+fn get_skip(h: &Hash) -> &Hash {
+    h.get(&Yaml::String("skip".to_string()))
+        .unwrap()
+        .as_hash()
+        .unwrap()
+}
+
+fn get_file_name(file_path: &str) -> String {
+    let ancestors = Path::new(& file_path).file_name().unwrap();
+    ancestors.to_string_lossy().replace(&".yml", "")
 }

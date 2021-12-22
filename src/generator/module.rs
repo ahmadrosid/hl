@@ -1,78 +1,7 @@
-use yaml_rust::yaml::{Yaml, Hash};
+use yaml_rust::yaml::Hash;
+use crate::generator;
 
-fn get_base(h: &Hash) -> &Hash {
-    h.get(&Yaml::String("base".to_string()))
-        .unwrap()
-        .as_hash()
-        .unwrap()
-}
-
-fn get_constant(h: &Hash) -> &Hash {
-    h.get(&Yaml::String("constant".to_string()))
-        .unwrap()
-        .as_hash()
-        .unwrap()
-}
-
-fn get_keyword(h: &Hash) -> &Hash {
-    h.get(&Yaml::String("keyword".to_string()))
-        .unwrap()
-        .as_hash()
-        .unwrap()
-}
-pub fn process_token(h: &Hash) -> String {
-    let mut token = String::new();
-    token.push_str("#[derive(PartialEq)]\n");
-    token.push_str("#[derive(Debug)]\n");
-    token.push_str("pub enum Token {\n");
-    token.push_str("\tILLEGAL,\n");
-
-    token.push_str("\n\t// Base\n");
-    for (k, _v) in get_base(h) {
-        token.push_str("\t");
-        token.push_str(k.as_str().unwrap());
-        token.push_str("(char),\n");
-    }
-
-    token.push_str("\n\t// Constants\n");
-    for (k, _v) in get_constant(h) {
-        token.push_str("\t");
-        token.push_str(k.as_str().unwrap());
-        token.push_str("(Vec<char>),\n");
-    }
-
-    token.push_str("\n\t// Keyword\n");
-    for (k, _v) in get_keyword(h) {
-        token.push_str("\t");
-        token.push_str(k.as_str().unwrap());
-        token.push_str(",\n");
-    }
-
-    token.push_str("}\n\n");
-    token.push_str("pub fn get_keyword_token(identifier: &Vec<char>) -> Result<Token, String> {\n");
-    token.push_str("\tlet identifiers: String = identifier.into_iter().collect();\n");
-    token.push_str("\tmatch &identifiers[..] {\n");
-
-    for (k, v) in get_constant(h) {
-        if v.as_str().unwrap() != "" {
-            token.push_str(&format!("\t\t\"{}\" => ", v.as_str().unwrap()));
-            token.push_str(&format!("Ok(Token::{}(identifier.to_vec())),\n", k.as_str().unwrap()));
-        }
-    }
-
-    for (k, v) in get_keyword(h) {
-        token.push_str(&format!("\t\t\"{}\" => ", v.as_str().unwrap()));
-        token.push_str(&format!("Ok(Token::{}),\n", k.as_str().unwrap()));
-    }
-
-    token.push_str("\t\t_ => Err(String::from(\"Not a keyword\"))\n");
-    token.push_str("\t}\n");
-    token.push_str("}\n");
-
-    token
-}
-
-pub fn process_module(h: &Hash) -> String {
+pub fn generate_module(h: &Hash) -> String {
     let mut module = String::new();
     module.push_str("pub mod token;\n\
 pub mod render;\n\n\
@@ -141,12 +70,16 @@ impl Lexer {\n\
         \t\tmatch self.ch {\n\
 ");
 
-    for (k, v) in get_base(h) {
+    for (k, v) in generator::get_base(h) {
         module.push_str(&format!("\t\t'{}' => ", v.as_str().unwrap()));
         module.push_str("{\n");
         module.push_str(&format!("\t\t\ttok = token::Token::{}(self.ch);\n", k.as_str().unwrap()));
         module.push_str("\t\t}\n");
     }
+
+    module.push_str("\t\t'\\n' => {\n");
+    module.push_str(&format!("\t\t\ttok = token::Token::{}(self.ch);\n", "ENDL"));
+    module.push_str("\t\t}\n");
 
     module.push_str("\t\t_ => {\n\
             \t\t\treturn if is_letter(self.ch) {\n\
