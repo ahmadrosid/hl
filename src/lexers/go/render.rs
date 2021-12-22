@@ -1,5 +1,6 @@
 use crate::go;
 use crate::go::token;
+
 pub fn render_html(input: Vec<char>) -> String {
 	let mut l = go::Lexer::new(input);
 	l.read_char();

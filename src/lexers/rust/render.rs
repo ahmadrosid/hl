@@ -1,5 +1,6 @@
 use crate::rust;
 use crate::rust::token;
+
 pub fn render_html(input: Vec<char>) -> String {
 	let mut l = rust::Lexer::new(input);
 	l.read_char();
