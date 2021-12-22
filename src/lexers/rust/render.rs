@@ -156,7 +156,6 @@ pub fn render_html(input: Vec<char>) -> String {
 				));
 			}
 			_ => {
-				// println!("{:?}", l.ch);
 				html.push(l.ch);
 				l.read_char();
 			}

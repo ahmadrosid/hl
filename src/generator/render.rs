@@ -80,7 +80,8 @@ pub fn generate_html(h: &Hash, name: String) -> String {
         ));\n\t\t\t\
     }\n\t\t\t\
     _ => {\n\t\t\t\t\
-    println!(\"{:?}\", token);\n\t\t\t\
+    html.push(l.ch);\n\t\t\t\t\
+    l.read_char();\n\t\t\t\
     }\n");
 
     html.push_str("\t\t}\n");
