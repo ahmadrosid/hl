@@ -16,7 +16,7 @@ pub fn render_html(input: Vec<char>) -> String {
 
 	loop {
 		let token = l.next_token();
-		if token == token::Token::EOF('0') {
+		if token == token::Token::EOF {
 			html.push_str("</td></tr>\n");
 			break;
 		}
@@ -76,7 +76,7 @@ pub fn render_html(input: Vec<char>) -> String {
 			token::Token::TAB(value) => {
 				html.push(value);
 			}
-			token::Token::EOF(value) => {
+			token::Token::CH(value) => {
 				html.push(value);
 			}
 			token::Token::IDENT(value) => {
@@ -143,6 +143,15 @@ pub fn render_html(input: Vec<char>) -> String {
 				html.push_str(&format!("<span class=\"hl-k\">{}</span>", value.iter().collect::<String>()));
 			}
 			token::Token::STR(value) => {
+				html.push_str(&format!("<span class=\"hl-k\">{}</span>", value.iter().collect::<String>()));
+			}
+			token::Token::KSTRING(value) => {
+				html.push_str(&format!("<span class=\"hl-k\">{}</span>", value.iter().collect::<String>()));
+			}
+			token::Token::VEC(value) => {
+				html.push_str(&format!("<span class=\"hl-k\">{}</span>", value.iter().collect::<String>()));
+			}
+			token::Token::KVEC(value) => {
 				html.push_str(&format!("<span class=\"hl-k\">{}</span>", value.iter().collect::<String>()));
 			}
 			token::Token::CRATE(value) => {

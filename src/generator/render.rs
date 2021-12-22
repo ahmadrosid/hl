@@ -18,7 +18,7 @@ pub fn generate_html(h: &Hash, name: String) -> String {
     html.push_str("\t\tline\n\t));\n\n");
     html.push_str("\tloop {\n");
     html.push_str("\t\tlet token = l.next_token();\n");
-    html.push_str("\t\tif token == token::Token::EOF('0') {\n");
+    html.push_str("\t\tif token == token::Token::EOF {\n");
     html.push_str("\t\t\thtml.push_str(\"</td></tr>\\n\");\n");
     html.push_str("\t\t\tbreak;\n\t\t}\n\n");
     html.push_str("\t\tmatch token {\n");
@@ -33,6 +33,10 @@ pub fn generate_html(h: &Hash, name: String) -> String {
             html.push_str("\t\t\t}\n");
         }
     }
+
+    html.push_str("\t\t\ttoken::Token::CH(value) => {\n");
+    html.push_str("\t\t\t\thtml.push(value);\n");
+    html.push_str("\t\t\t}\n");
 
     for (k, _v) in generator::get_skip(h) {
         html.push_str("\t\t\t");

@@ -17,7 +17,6 @@ base:
     BANG: '!'
     ASTERISK: '*'
     TAB: '\t'
-    EOF: '0'
 
 constant:
     TRUE: 'true'
@@ -53,4 +52,7 @@ keyword:
     IMPL: 'impl'
     CHAR: 'char'
     STR: 'str'
+    KSTRING: 'String'
+    VEC: 'Vec'
+    KVEC: 'vec'
     CRATE: 'crate'

@@ -16,7 +16,7 @@ pub fn render_html(input: Vec<char>) -> String {
 
 	loop {
 		let token = l.next_token();
-		if token == token::Token::EOF('0') {
+		if token == token::Token::EOF {
 			html.push_str("</td></tr>\n");
 			break;
 		}
@@ -79,7 +79,7 @@ pub fn render_html(input: Vec<char>) -> String {
 			token::Token::TAB(value) => {
 				html.push(value);
 			}
-			token::Token::EOF(value) => {
+			token::Token::CH(value) => {
 				html.push(value);
 			}
 			token::Token::IDENT(value) => {

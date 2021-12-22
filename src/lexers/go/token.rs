@@ -2,6 +2,8 @@
 #[derive(Debug)]
 pub enum Token {
 	ILLEGAL,
+	EOF,
+	CH(char),
 	ENDL(char),
 
 	// Base
@@ -24,7 +26,6 @@ pub enum Token {
 	BANG(char),
 	ASTERISK(char),
 	TAB(char),
-	EOF(char),
 
 	// Constants
 	TRUE(Vec<char>),

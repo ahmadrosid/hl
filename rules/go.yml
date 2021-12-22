@@ -18,7 +18,6 @@ base:
   BANG: '!'
   ASTERISK: '*'
   TAB: '\t'
-  EOF: '0'
 
 constant:
   TRUE: 'true'

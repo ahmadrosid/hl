@@ -7,6 +7,8 @@ pub fn generate_token(h: &Hash) -> String {
     token.push_str("#[derive(Debug)]\n");
     token.push_str("pub enum Token {\n");
     token.push_str("\tILLEGAL,\n");
+    token.push_str("\tEOF,\n");
+    token.push_str("\tCH(char),\n");
     token.push_str("\tENDL(char),\n");
 
     token.push_str("\n\t// Base\n");

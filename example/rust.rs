@@ -4,6 +4,8 @@ fn main() {
         .version("0.1.0");
     let ada = 5;
     if true {
+        String::new();
+        let a : Vec<char> = vec!['0'];
     }
 }
 

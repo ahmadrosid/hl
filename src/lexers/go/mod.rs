@@ -121,11 +121,15 @@ impl Lexer {
 			'\t' => {
 				tok = token::Token::TAB(self.ch);
 			}
-			'0' => {
-				tok = token::Token::EOF(self.ch);
-			}
 			'\n' => {
 				tok = token::Token::ENDL(self.ch);
+			}
+			'0' => {
+				if self.position < self.input.len() {
+					tok = token::Token::CH(self.ch);
+				} else {
+					tok = token::Token::EOF;
+				}
 			}
 			_ => {
 				return if is_letter(self.ch) {
