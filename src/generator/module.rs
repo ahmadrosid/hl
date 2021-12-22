@@ -72,72 +72,72 @@ impl Lexer {\n\
 ");
 
     for (k, v) in generator::get_base(h) {
-        module.push_str(&format!("\t\t'{}' => ", v.as_str().unwrap()));
+        module.push_str(&format!("\t\t\t'{}' => ", v.as_str().unwrap()));
         module.push_str("{\n");
-        module.push_str(&format!("\t\t\ttok = token::Token::{}(self.ch);\n", k.as_str().unwrap()));
-        module.push_str("\t\t}\n");
+        module.push_str(&format!("\t\t\t\ttok = token::Token::{}(self.ch);\n", k.as_str().unwrap()));
+        module.push_str("\t\t\t}\n");
     }
 
-    module.push_str("\t\t'\\n' => {\n");
-    module.push_str(&format!("\t\t\ttok = token::Token::{}(self.ch);\n", "ENDL"));
-    module.push_str("\t\t}\n");
+    module.push_str("\t\t\t'\\n' => {\n");
+    module.push_str(&format!("\t\t\t\ttok = token::Token::{}(self.ch);\n", "ENDL"));
+    module.push_str("\t\t\t}\n");
 
-    module.push_str("\t\t_ => {\n\
-            \t\t\treturn if is_letter(self.ch) {\n\
-                \t\t\t\tlet prev_pos = self.position;\n\
-                \t\t\t\tlet identifier: Vec<char> = read_identifier(self);\n\
-                \t\t\t\tmatch token::get_keyword_token(&identifier) {\n\
-                    \t\t\t\t\t\tOk(keyword_token) => {\n\
+    module.push_str("\t\t\t_ => {\n\
+            \t\t\t\treturn if is_letter(self.ch) {\n\
+                \t\t\t\t\tlet prev_pos = self.position;\n\
+                \t\t\t\t\tlet identifier: Vec<char> = read_identifier(self);\n\
+                \t\t\t\t\tmatch token::get_keyword_token(&identifier) {\n\
+                    \t\t\t\t\t\t\tOk(keyword_token) => {\n\
     ");
 
     for (k, v) in get_prefix(h) {
         if k.as_str().unwrap() == "ENTITY_TOKEN_SUFFIX" {
-            module.push_str("\t\t\t\t\t\t\t");
+            module.push_str("\t\t\t\t\t\t\t\t");
             module.push_str(&format!("if self.ch == '{}' ", v.as_str().unwrap()));
-            module.push_str("{\n\t\t\t\t\t\t\t\t");
-            module.push_str("self.read_char();\n\t\t\t\t\t\t\t\t");
+            module.push_str("{\n\t\t\t\t\t\t\t\t\t");
+            module.push_str("self.read_char();\n\t\t\t\t\t\t\t\t\t");
             module.push_str("return token::Token::ENTITY(self.input[prev_pos..self.position].to_vec());\n");
-            module.push_str("\t\t\t\t\t\t\t}\n");
+            module.push_str("\t\t\t\t\t\t\t\t}\n");
         }
     }
 
-    module.push_str("\t\t\t\t\t\t\tkeyword_token\n\
-                    \t\t\t\t\t\t},\n\
-                    \t\t\t\t\t\tErr(_err) => {\n\
+    module.push_str("\t\t\t\t\t\t\t\tkeyword_token\n\
+                    \t\t\t\t\t\t\t},\n\
+                    \t\t\t\t\t\t\tErr(_err) => {\n\
     ");
 
     for (k, v) in get_prefix(h) {
         if k.as_str().unwrap() == "ENTITY_PREFIX" {
-            module.push_str("\t\t\t\t\t\t\t");
+            module.push_str("\t\t\t\t\t\t\t\t");
             module.push_str(&format!("if self.input[prev_pos-1] == '{}' ", v.as_str().unwrap()));
             module.push_str("{\n");
-            module.push_str("\t\t\t\t\t\t\t\treturn token::Token::ENTITY(identifier)\n");
-            module.push_str("\t\t\t\t\t\t\t}\n");
+            module.push_str("\t\t\t\t\t\t\t\t\treturn token::Token::ENTITY(identifier)\n");
+            module.push_str("\t\t\t\t\t\t\t\t}\n");
         }
         if k.as_str().unwrap() == "ENTITY_SUFFIX" {
-            module.push_str("\t\t\t\t\t\t\t");
+            module.push_str("\t\t\t\t\t\t\t\t");
             module.push_str(&format!("if self.input[self.position] == '{}' ", v.as_str().unwrap()));
             module.push_str("{\n");
-            module.push_str("\t\t\t\t\t\t\t\treturn token::Token::ENTITY(identifier)\n");
-            module.push_str("\t\t\t\t\t\t\t}\n");
+            module.push_str("\t\t\t\t\t\t\t\t\treturn token::Token::ENTITY(identifier)\n");
+            module.push_str("\t\t\t\t\t\t\t\t}\n");
         }
     }
 
-    module.push_str("\t\t\t\t\t\t\ttoken::Token::IDENT(identifier)\n\
-                    \t\t\t\t\t\t}\n\
-                \t\t\t\t\t}\n\
-            \t\t\t\t} else if is_digit(self.ch) {\n\
-                \t\t\t\t\tlet identifier: Vec<char> = read_number(self);\n\
-                \t\t\t\t\ttoken::Token::INT(identifier)\n\
-            \t\t\t\t} else if self.ch == '\"' {\n\
-                \t\t\t\t\tlet str_value: Vec<char> = read_string(self);\n\
-                \t\t\t\t\ttoken::Token::STRING(str_value)\n\
-            \t\t\t\t} else {\n\
-                \t\t\t\t\ttoken::Token::ILLEGAL\n\
-            \t\t\t\t}\n\
-    \t\t\t}\n");
+    module.push_str("\t\t\t\t\t\t\t\ttoken::Token::IDENT(identifier)\n\
+                    \t\t\t\t\t\t\t}\n\
+                \t\t\t\t\t\t}\n\
+            \t\t\t\t\t} else if is_digit(self.ch) {\n\
+                \t\t\t\t\t\tlet identifier: Vec<char> = read_number(self);\n\
+                \t\t\t\t\t\ttoken::Token::INT(identifier)\n\
+            \t\t\t\t\t} else if self.ch == '\"' {\n\
+                \t\t\t\t\t\tlet str_value: Vec<char> = read_string(self);\n\
+                \t\t\t\t\t\ttoken::Token::STRING(str_value)\n\
+            \t\t\t\t\t} else {\n\
+                \t\t\t\t\t\ttoken::Token::ILLEGAL\n\
+            \t\t\t\t\t}\n\
+    \t\t\t\t}\n");
 
-    module.push_str("\t\t}\n");
+    module.push_str("\t\t\t}\n");
     module.push_str("\t\tself.read_char();\n");
     module.push_str("\t\ttok\n");
     module.push_str("\t}\n");

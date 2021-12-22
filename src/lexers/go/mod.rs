@@ -64,98 +64,98 @@ impl Lexer {
 
 		let tok: token::Token;
 		match self.ch {
-		'+' => {
-			tok = token::Token::PLUS(self.ch);
-		}
-		'-' => {
-			tok = token::Token::MINUS(self.ch);
-		}
-		'(' => {
-			tok = token::Token::LPAREN(self.ch);
-		}
-		')' => {
-			tok = token::Token::RPAREN(self.ch);
-		}
-		'{' => {
-			tok = token::Token::LBRACE(self.ch);
-		}
-		'}' => {
-			tok = token::Token::RBRACE(self.ch);
-		}
-		' ' => {
-			tok = token::Token::SPACE(self.ch);
-		}
-		'=' => {
-			tok = token::Token::ASSIGN(self.ch);
-		}
-		':' => {
-			tok = token::Token::COLON(self.ch);
-		}
-		';' => {
-			tok = token::Token::SEMICOLON(self.ch);
-		}
-		'.' => {
-			tok = token::Token::MEMBERACCESS(self.ch);
-		}
-		',' => {
-			tok = token::Token::COMMA(self.ch);
-		}
-		'/' => {
-			tok = token::Token::SLASH(self.ch);
-		}
-		'>' => {
-			tok = token::Token::GT(self.ch);
-		}
-		'<' => {
-			tok = token::Token::LT(self.ch);
-		}
-		'&' => {
-			tok = token::Token::AND(self.ch);
-		}
-		'!' => {
-			tok = token::Token::BANG(self.ch);
-		}
-		'*' => {
-			tok = token::Token::ASTERISK(self.ch);
-		}
-		'\t' => {
-			tok = token::Token::TAB(self.ch);
-		}
-		'0' => {
-			tok = token::Token::EOF(self.ch);
-		}
-		'\n' => {
-			tok = token::Token::ENDL(self.ch);
-		}
-		_ => {
-			return if is_letter(self.ch) {
-				let prev_pos = self.position;
-				let identifier: Vec<char> = read_identifier(self);
-				match token::get_keyword_token(&identifier) {
-						Ok(keyword_token) => {
-							keyword_token
-						},
-						Err(_err) => {
-							if self.input[prev_pos-1] == '.' {
-								return token::Token::ENTITY(identifier)
+			'+' => {
+				tok = token::Token::PLUS(self.ch);
+			}
+			'-' => {
+				tok = token::Token::MINUS(self.ch);
+			}
+			'(' => {
+				tok = token::Token::LPAREN(self.ch);
+			}
+			')' => {
+				tok = token::Token::RPAREN(self.ch);
+			}
+			'{' => {
+				tok = token::Token::LBRACE(self.ch);
+			}
+			'}' => {
+				tok = token::Token::RBRACE(self.ch);
+			}
+			' ' => {
+				tok = token::Token::SPACE(self.ch);
+			}
+			'=' => {
+				tok = token::Token::ASSIGN(self.ch);
+			}
+			':' => {
+				tok = token::Token::COLON(self.ch);
+			}
+			';' => {
+				tok = token::Token::SEMICOLON(self.ch);
+			}
+			'.' => {
+				tok = token::Token::MEMBERACCESS(self.ch);
+			}
+			',' => {
+				tok = token::Token::COMMA(self.ch);
+			}
+			'/' => {
+				tok = token::Token::SLASH(self.ch);
+			}
+			'>' => {
+				tok = token::Token::GT(self.ch);
+			}
+			'<' => {
+				tok = token::Token::LT(self.ch);
+			}
+			'&' => {
+				tok = token::Token::AND(self.ch);
+			}
+			'!' => {
+				tok = token::Token::BANG(self.ch);
+			}
+			'*' => {
+				tok = token::Token::ASTERISK(self.ch);
+			}
+			'\t' => {
+				tok = token::Token::TAB(self.ch);
+			}
+			'0' => {
+				tok = token::Token::EOF(self.ch);
+			}
+			'\n' => {
+				tok = token::Token::ENDL(self.ch);
+			}
+			_ => {
+				return if is_letter(self.ch) {
+					let prev_pos = self.position;
+					let identifier: Vec<char> = read_identifier(self);
+					match token::get_keyword_token(&identifier) {
+							Ok(keyword_token) => {
+								keyword_token
+							},
+							Err(_err) => {
+								if self.input[prev_pos-1] == '.' {
+									return token::Token::ENTITY(identifier)
+								}
+								if self.input[self.position] == '(' {
+									return token::Token::ENTITY(identifier)
+								}
+								token::Token::IDENT(identifier)
 							}
-							if self.input[self.position] == '(' {
-								return token::Token::ENTITY(identifier)
-							}
-							token::Token::IDENT(identifier)
 						}
+					} else if is_digit(self.ch) {
+						let identifier: Vec<char> = read_number(self);
+						token::Token::INT(identifier)
+					} else if self.ch == '"' {
+						let str_value: Vec<char> = read_string(self);
+						token::Token::STRING(str_value)
+					} else {
+						token::Token::ILLEGAL
 					}
-				} else if is_digit(self.ch) {
-					let identifier: Vec<char> = read_number(self);
-					token::Token::INT(identifier)
-				} else if self.ch == '"' {
-					let str_value: Vec<char> = read_string(self);
-					token::Token::STRING(str_value)
-				} else {
-					token::Token::ILLEGAL
 				}
 			}
-		}
 		self.read_char();
 		tok
 	}
