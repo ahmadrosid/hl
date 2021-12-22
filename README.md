@@ -1,7 +1,7 @@
-# HL (WIP)
+# 🌴 HL (WIP)
 Syntax highlighting written in Rust. The project is designed to generate html syntax highlighting with the given file.
 
-## Usage
+## 🚀 Usage
 ```bash
 USAGE:
     hl [OPTIONS] [FILE_PATH] [SUBCOMMAND]
@@ -19,12 +19,12 @@ SUBCOMMANDS:
     help                        Print this message or the help of the given subcommand(s)
 ```
 
-### Example Command
+### 💡 Example Command
 ```bash
 hl example/rust.rs -l rust
 ```
 
-### Example Result
+### 💡 Example Result
 ```html
 <table class="highlight-table">
 <tbody>
