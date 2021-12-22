@@ -15,7 +15,7 @@ pub fn render_html(input: Vec<char>) -> String {
 
 	loop {
 		let token = l.next_token();
-		if token == rust::token::Token::EOF('0') {
+		if token == token::Token::EOF('0') {
 			html.push_str("</td></tr>\n");
 			break;
 		}
@@ -147,7 +147,7 @@ pub fn render_html(input: Vec<char>) -> String {
 			token::Token::CRATE(value) => {
 				html.push_str(&format!("<span class=\"hl-k\">{}</span>", value.iter().collect::<String>()));
 			}
-			rust::token::Token::ENDL(_) => {
+			token::Token::ENDL(_) => {
 				line = line + 1;
 				html.push_str("</td></tr>\n");
 				html.push_str(&format!(
