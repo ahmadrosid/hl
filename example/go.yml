@@ -33,6 +33,10 @@ entity:
   ENTITY: '.'
   ENTITY_TAG: ''
 
+prefix:
+  ENTITY_PREFIX: '.'
+  ENTITY_SUFFIX: '('
+
 keyword:
   FUNC: 'func'
   FOR: 'for'

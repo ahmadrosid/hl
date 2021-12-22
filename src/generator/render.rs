@@ -5,10 +5,7 @@ pub fn generate_html(h: &Hash, name: String) -> String {
     let mut html = String::new();
     html.push_str(&format!("use crate::{};\n", name));
     html.push_str(&format!("use crate::{}::token;\n", name));
-    html.push_str("use std::fs::read;\n\n");
-    html.push_str("pub fn render_html(path: &str) -> String {\n");
-    html.push_str("\tlet source = read(path).expect(&format!(\"Filed reading file {}\", path));\n");
-    html.push_str("\tlet input: Vec<char> = source.iter().map(|c| *c as char).collect::<Vec<_>>();\n");
+    html.push_str("pub fn render_html(input: Vec<char>) -> String {\n");
     html.push_str(&format!("\tlet mut l = {}::Lexer::new(input);\n", name));
     html.push_str("\tl.read_char();\n");
     html.push_str("\tlet mut html = String::new();\n");

@@ -1,5 +1,6 @@
 use yaml_rust::yaml::Hash;
 use crate::generator;
+use crate::generator::get_prefix;
 
 pub fn generate_module(h: &Hash) -> String {
     let mut module = String::new();
@@ -87,16 +88,42 @@ impl Lexer {\n\
                 \t\t\t\tlet identifier: Vec<char> = read_identifier(self);\n\
                 \t\t\t\tmatch token::get_keyword_token(&identifier) {\n\
                     \t\t\t\t\t\tOk(keyword_token) => {\n\
-                        \t\t\t\t\t\t\tkeyword_token\n\
+    ");
+
+    for (k, v) in get_prefix(h) {
+        if k.as_str().unwrap() == "ENTITY_TOKEN_SUFFIX" {
+            module.push_str("\t\t\t\t\t\t\t");
+            module.push_str(&format!("if self.ch == '{}' ", v.as_str().unwrap()));
+            module.push_str("{\n\t\t\t\t\t\t\t\t");
+            module.push_str("self.read_char();\n\t\t\t\t\t\t\t\t");
+            module.push_str("return token::Token::ENTITY(self.input[prev_pos..self.position].to_vec());\n");
+            module.push_str("\t\t\t\t\t\t\t}\n");
+        }
+    }
+
+    module.push_str("\t\t\t\t\t\t\tkeyword_token\n\
                     \t\t\t\t\t\t},\n\
                     \t\t\t\t\t\tErr(_err) => {\n\
-                        \t\t\t\t\t\t\tif self.input[self.position] == '(' {\n\
-                        \t\t\t\t\t\t\t\treturn token::Token::ENTITY(identifier)\n\
-                        \t\t\t\t\t\t\t}\n\
-                        \t\t\t\t\t\t\tif self.input[prev_pos-1] == '.' {\n\
-                        \t\t\t\t\t\t\t\treturn token::Token::ENTITY(identifier)\n\
-                        \t\t\t\t\t\t\t}\n\
-                        \t\t\t\t\t\t\ttoken::Token::IDENT(identifier)\n\
+    ");
+
+    for (k, v) in get_prefix(h) {
+        if k.as_str().unwrap() == "ENTITY_PREFIX" {
+            module.push_str("\t\t\t\t\t\t\t");
+            module.push_str(&format!("if self.input[prev_pos-1] == '{}' ", v.as_str().unwrap()));
+            module.push_str("{\n");
+            module.push_str("\t\t\t\t\t\t\t\treturn token::Token::ENTITY(identifier)\n");
+            module.push_str("\t\t\t\t\t\t\t}\n");
+        }
+        if k.as_str().unwrap() == "ENTITY_SUFFIX" {
+            module.push_str("\t\t\t\t\t\t\t");
+            module.push_str(&format!("if self.input[self.position] == '{}' ", v.as_str().unwrap()));
+            module.push_str("{\n");
+            module.push_str("\t\t\t\t\t\t\t\treturn token::Token::ENTITY(identifier)\n");
+            module.push_str("\t\t\t\t\t\t\t}\n");
+        }
+    }
+
+    module.push_str("\t\t\t\t\t\t\ttoken::Token::IDENT(identifier)\n\
                     \t\t\t\t\t\t}\n\
                 \t\t\t\t\t}\n\
             \t\t\t\t} else if is_digit(self.ch) {\n\

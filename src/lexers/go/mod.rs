@@ -136,10 +136,10 @@ impl Lexer {
 							keyword_token
 						},
 						Err(_err) => {
-							if self.input[self.position] == '(' {
+							if self.input[prev_pos-1] == '.' {
 								return token::Token::ENTITY(identifier)
 							}
-							if self.input[prev_pos-1] == '.' {
+							if self.input[self.position] == '(' {
 								return token::Token::ENTITY(identifier)
 							}
 							token::Token::IDENT(identifier)

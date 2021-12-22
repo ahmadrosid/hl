@@ -1,10 +1,6 @@
 use crate::rust;
 use crate::rust::token;
-use std::fs::read;
-
-pub fn render_html(path: &str) -> String {
-	let source = read(path).expect(&format!("Filed reading file {}", path));
-	let input: Vec<char> = source.iter().map(|c| *c as char).collect::<Vec<_>>();
+pub fn render_html(input: Vec<char>) -> String {
 	let mut l = rust::Lexer::new(input);
 	l.read_char();
 	let mut html = String::new();
@@ -100,6 +96,9 @@ pub fn render_html(path: &str) -> String {
 				html.push_str(&format!("<span class=\"hl-c\">{}</span>", value.iter().collect::<String>()));
 			}
 			token::Token::FALSE(value) => {
+				html.push_str(&format!("<span class=\"hl-c\">{}</span>", value.iter().collect::<String>()));
+			}
+			token::Token::PRINTLN(value) => {
 				html.push_str(&format!("<span class=\"hl-c\">{}</span>", value.iter().collect::<String>()));
 			}
 			token::Token::STRING(value) => {

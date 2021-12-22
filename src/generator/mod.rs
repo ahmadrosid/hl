@@ -1,6 +1,5 @@
 extern crate yaml_rust;
 
-use std::fmt::format;
 use yaml_rust::{YamlLoader, Yaml, yaml::Hash};
 use std::io::Write;
 use std::path::Path;
@@ -13,7 +12,7 @@ mod render;
 pub fn parse(file_path: &str) -> String {
     let content = read_file(file_path);
     let docs = YamlLoader::load_from_str(&content).unwrap();
-    let required_key = vec!["base", "constant", "keyword", "skip", "entity"];
+    let required_key = vec!["base", "constant", "keyword", "skip", "entity", "prefix"];
 
     let mut token_stub = String::new();
     let mut module_stub = String::new();
@@ -104,6 +103,13 @@ fn get_entity(h: &Hash) -> &Hash {
 
 fn get_skip(h: &Hash) -> &Hash {
     h.get(&Yaml::String("skip".to_string()))
+        .unwrap()
+        .as_hash()
+        .unwrap()
+}
+
+fn get_prefix(h: &Hash) -> &Hash {
+    h.get(&Yaml::String("prefix".to_string()))
         .unwrap()
         .as_hash()
         .unwrap()

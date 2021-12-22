@@ -22,6 +22,7 @@ base:
 constant:
     TRUE: 'true'
     FALSE: 'false'
+    PRINTLN: 'println'
     STRING: ''
     INT: ''
 
@@ -31,6 +32,11 @@ skip:
 entity:
     ENTITY: '.'
     ENTITY_TAG: ''
+
+prefix:
+    ENTITY_PREFIX: '.'
+    ENTITY_SUFFIX: '('
+    ENTITY_TOKEN_SUFFIX: "!"
 
 keyword:
     FN: 'fn'
