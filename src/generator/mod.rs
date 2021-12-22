@@ -1,5 +1,6 @@
 extern crate yaml_rust;
 
+use std::fmt::format;
 use yaml_rust::{YamlLoader, Yaml, yaml::Hash};
 use std::io::Write;
 use std::path::Path;
@@ -12,7 +13,7 @@ mod render;
 pub fn parse(file_path: &str) -> String {
     let content = read_file(file_path);
     let docs = YamlLoader::load_from_str(&content).unwrap();
-    let required_key = vec!["base", "constant", "keyword", "skip"];
+    let required_key = vec!["base", "constant", "keyword", "skip", "entity"];
 
     let mut token_stub = String::new();
     let mut module_stub = String::new();
@@ -22,7 +23,7 @@ pub fn parse(file_path: &str) -> String {
         Yaml::Hash(ref h) => {
             for (k, _v) in h {
                 if !required_key.contains(&k.as_str().unwrap()) {
-                    println!("Invalid keys: {}", k.as_str().unwrap());
+                    println!("Invalid key: {}", k.as_str().unwrap());
                     std::process::exit(0x01);
                 }
             }
@@ -40,8 +41,13 @@ pub fn parse(file_path: &str) -> String {
     write_file(&module_stub, &out_file_path, &"mod.rs");
     write_file(&render_stub, &out_file_path, &"render.rs");
 
-    "Success!".to_string()
-    // render_stub
+    let mut message = String::new();
+    message.push_str("Success generate lexer for ");
+    message.push_str(&format!("\"{}\" language!\n", get_file_name(file_path)));
+    message.push_str(&format!("{}/token.rs\n", out_file_path));
+    message.push_str(&format!("{}/mod.rs\n", out_file_path));
+    message.push_str(&format!("{}/render.rs\n", out_file_path));
+    message
 }
 
 fn read_file(file_path: &str) -> String {
@@ -84,6 +90,13 @@ fn get_constant(h: &Hash) -> &Hash {
 
 fn get_keyword(h: &Hash) -> &Hash {
     h.get(&Yaml::String("keyword".to_string()))
+        .unwrap()
+        .as_hash()
+        .unwrap()
+}
+
+fn get_entity(h: &Hash) -> &Hash {
+    h.get(&Yaml::String("entity".to_string()))
         .unwrap()
         .as_hash()
         .unwrap()

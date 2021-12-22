@@ -66,6 +66,9 @@ pub fn render_html(path: &str) -> String {
 			token::Token::COMMA(value) => {
 				html.push(value);
 			}
+			token::Token::SLASH(value) => {
+				html.push(value);
+			}
 			token::Token::GT(value) => {
 				html.push(value);
 			}
@@ -89,6 +92,12 @@ pub fn render_html(path: &str) -> String {
 			}
 			token::Token::IDENT(value) => {
 				html.push_str(&value.iter().collect::<String>());
+			}
+			token::Token::ENTITY(value) => {
+				html.push_str(&format!("<span class=\"hl-en\">{}</span>", value.iter().collect::<String>()));
+			}
+			token::Token::ENTITY_TAG(value) => {
+				html.push_str(&format!("<span class=\"hl-en\">{}</span>", value.iter().collect::<String>()));
 			}
 			token::Token::TRUE(value) => {
 				html.push_str(&format!("<span class=\"hl-c\">{}</span>", value.iter().collect::<String>()));
@@ -120,7 +129,7 @@ pub fn render_html(path: &str) -> String {
 			token::Token::MATCH(value) => {
 				html.push_str(&format!("<span class=\"hl-k\">{}</span>", value.iter().collect::<String>()));
 			}
-			token::Token::case(value) => {
+			token::Token::CASE(value) => {
 				html.push_str(&format!("<span class=\"hl-k\">{}</span>", value.iter().collect::<String>()));
 			}
 			token::Token::RETURN(value) => {
@@ -130,9 +139,6 @@ pub fn render_html(path: &str) -> String {
 				html.push_str(&format!("<span class=\"hl-k\">{}</span>", value.iter().collect::<String>()));
 			}
 			token::Token::IMPORT(value) => {
-				html.push_str(&format!("<span class=\"hl-k\">{}</span>", value.iter().collect::<String>()));
-			}
-			token::Token::FMT(value) => {
 				html.push_str(&format!("<span class=\"hl-k\">{}</span>", value.iter().collect::<String>()));
 			}
 			go::token::Token::ENDL(_) => {

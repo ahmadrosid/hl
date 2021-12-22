@@ -15,8 +15,6 @@ base:
     LT: '<'
     AND: '&'
     BANG: '!'
-#    EQ: '=='
-#    NOTEQ: '!='
     ASTERISK: '*'
     TAB: '\t'
     EOF: '0'
@@ -30,9 +28,14 @@ constant:
 skip:
     IDENT: ''
 
+entity:
+    ENTITY: '.'
+    ENTITY_TAG: ''
+
 keyword:
     FN: 'fn'
     FOR: 'for'
+    LOOP: 'loop'
     LET: 'let'
     MUT: 'mut'
     IF: 'if'

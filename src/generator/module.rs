@@ -83,12 +83,19 @@ impl Lexer {\n\
 
     module.push_str("\t\t_ => {\n\
             \t\t\treturn if is_letter(self.ch) {\n\
+                \t\t\t\tlet prev_pos = self.position;\n\
                 \t\t\t\tlet identifier: Vec<char> = read_identifier(self);\n\
                 \t\t\t\tmatch token::get_keyword_token(&identifier) {\n\
                     \t\t\t\t\t\tOk(keyword_token) => {\n\
                         \t\t\t\t\t\t\tkeyword_token\n\
                     \t\t\t\t\t\t},\n\
                     \t\t\t\t\t\tErr(_err) => {\n\
+                        \t\t\t\t\t\t\tif self.input[self.position] == '(' {\n\
+                        \t\t\t\t\t\t\t\treturn token::Token::ENTITY(identifier)\n\
+                        \t\t\t\t\t\t\t}\n\
+                        \t\t\t\t\t\t\tif self.input[prev_pos-1] == '.' {\n\
+                        \t\t\t\t\t\t\t\treturn token::Token::ENTITY(identifier)\n\
+                        \t\t\t\t\t\t\t}\n\
                         \t\t\t\t\t\t\ttoken::Token::IDENT(identifier)\n\
                     \t\t\t\t\t\t}\n\
                 \t\t\t\t\t}\n\

@@ -34,9 +34,14 @@ pub enum Token {
 	// Skip token
 	IDENT(Vec<char>),
 
+	// Entity
+	ENTITY(Vec<char>),
+	ENTITY_TAG(Vec<char>),
+
 	// Keyword
 	FN(Vec<char>),
 	FOR(Vec<char>),
+	LOOP(Vec<char>),
 	LET(Vec<char>),
 	MUT(Vec<char>),
 	IF(Vec<char>),
@@ -59,6 +64,7 @@ pub fn get_keyword_token(identifier: &Vec<char>) -> Result<Token, String> {
 		"false" => Ok(Token::FALSE(identifier.to_vec())),
 		"fn" => Ok(Token::FN(identifier.to_vec())),
 		"for" => Ok(Token::FOR(identifier.to_vec())),
+		"loop" => Ok(Token::LOOP(identifier.to_vec())),
 		"let" => Ok(Token::LET(identifier.to_vec())),
 		"mut" => Ok(Token::MUT(identifier.to_vec())),
 		"if" => Ok(Token::IF(identifier.to_vec())),

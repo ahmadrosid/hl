@@ -17,6 +17,7 @@ pub enum Token {
 	SEMICOLON(char),
 	MEMBERACCESS(char),
 	COMMA(char),
+	SLASH(char),
 	GT(char),
 	LT(char),
 	AND(char),
@@ -34,6 +35,10 @@ pub enum Token {
 	// Skip token
 	IDENT(Vec<char>),
 
+	// Entity
+	ENTITY(Vec<char>),
+	ENTITY_TAG(Vec<char>),
+
 	// Keyword
 	FUNC(Vec<char>),
 	FOR(Vec<char>),
@@ -41,11 +46,10 @@ pub enum Token {
 	IF(Vec<char>),
 	ELSE(Vec<char>),
 	MATCH(Vec<char>),
-	case(Vec<char>),
+	CASE(Vec<char>),
 	RETURN(Vec<char>),
 	DEFAULT(Vec<char>),
 	IMPORT(Vec<char>),
-	FMT(Vec<char>),
 }
 
 pub fn get_keyword_token(identifier: &Vec<char>) -> Result<Token, String> {
@@ -59,11 +63,10 @@ pub fn get_keyword_token(identifier: &Vec<char>) -> Result<Token, String> {
 		"if" => Ok(Token::IF(identifier.to_vec())),
 		"else" => Ok(Token::ELSE(identifier.to_vec())),
 		"switch" => Ok(Token::MATCH(identifier.to_vec())),
-		"case" => Ok(Token::case(identifier.to_vec())),
+		"case" => Ok(Token::CASE(identifier.to_vec())),
 		"return" => Ok(Token::RETURN(identifier.to_vec())),
 		"default" => Ok(Token::DEFAULT(identifier.to_vec())),
 		"import" => Ok(Token::IMPORT(identifier.to_vec())),
-		"fmt" => Ok(Token::FMT(identifier.to_vec())),
 		_ => Err(String::from("Not a keyword"))
 	}
 }

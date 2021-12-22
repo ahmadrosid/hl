@@ -37,3 +37,13 @@
 .hl-c {
     color: #0550ae
 }
+
+/* Entity */
+.hl-en {
+    color: #8250df
+}
+
+/* Entity tag */
+.hl-ent {
+    color: #116329
+}

@@ -30,6 +30,13 @@ pub fn generate_token(h: &Hash) -> String {
         token.push_str("(Vec<char>),\n");
     }
 
+    token.push_str("\n\t// Entity\n");
+    for (k, _v) in generator::get_entity(h) {
+        token.push_str("\t");
+        token.push_str(k.as_str().unwrap());
+        token.push_str("(Vec<char>),\n");
+    }
+
     token.push_str("\n\t// Keyword\n");
     for (k, _v) in generator::get_keyword(h) {
         token.push_str("\t");

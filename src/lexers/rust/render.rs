@@ -90,6 +90,12 @@ pub fn render_html(path: &str) -> String {
 			token::Token::IDENT(value) => {
 				html.push_str(&value.iter().collect::<String>());
 			}
+			token::Token::ENTITY(value) => {
+				html.push_str(&format!("<span class=\"hl-en\">{}</span>", value.iter().collect::<String>()));
+			}
+			token::Token::ENTITY_TAG(value) => {
+				html.push_str(&format!("<span class=\"hl-en\">{}</span>", value.iter().collect::<String>()));
+			}
 			token::Token::TRUE(value) => {
 				html.push_str(&format!("<span class=\"hl-c\">{}</span>", value.iter().collect::<String>()));
 			}
@@ -106,6 +112,9 @@ pub fn render_html(path: &str) -> String {
 				html.push_str(&format!("<span class=\"hl-k\">{}</span>", value.iter().collect::<String>()));
 			}
 			token::Token::FOR(value) => {
+				html.push_str(&format!("<span class=\"hl-k\">{}</span>", value.iter().collect::<String>()));
+			}
+			token::Token::LOOP(value) => {
 				html.push_str(&format!("<span class=\"hl-k\">{}</span>", value.iter().collect::<String>()));
 			}
 			token::Token::LET(value) => {

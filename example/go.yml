@@ -11,6 +11,7 @@ base:
   SEMICOLON: ';'
   MEMBERACCESS: '.'
   COMMA: ','
+  SLASH: '/'
   GT: '>'
   LT: '<'
   AND: '&'
@@ -28,6 +29,10 @@ constant:
 skip:
   IDENT: ''
 
+entity:
+  ENTITY: '.'
+  ENTITY_TAG: ''
+
 keyword:
   FUNC: 'func'
   FOR: 'for'
@@ -35,7 +40,7 @@ keyword:
   IF: 'if'
   ELSE: 'else'
   MATCH: 'switch'
-  case: 'case'
+  CASE: 'case'
   RETURN: 'return'
   DEFAULT: 'default'
   IMPORT: 'import'

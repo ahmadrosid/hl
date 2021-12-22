@@ -100,6 +100,9 @@ impl Lexer {
 		',' => {
 			tok = token::Token::COMMA(self.ch);
 		}
+		'/' => {
+			tok = token::Token::SLASH(self.ch);
+		}
 		'>' => {
 			tok = token::Token::GT(self.ch);
 		}
@@ -126,12 +129,19 @@ impl Lexer {
 		}
 		_ => {
 			return if is_letter(self.ch) {
+				let prev_pos = self.position;
 				let identifier: Vec<char> = read_identifier(self);
 				match token::get_keyword_token(&identifier) {
 						Ok(keyword_token) => {
 							keyword_token
 						},
 						Err(_err) => {
+							if self.input[self.position] == '(' {
+								return token::Token::ENTITY(identifier)
+							}
+							if self.input[prev_pos-1] == '.' {
+								return token::Token::ENTITY(identifier)
+							}
 							token::Token::IDENT(identifier)
 						}
 					}
