@@ -22,10 +22,6 @@ pub fn generate_html(h: &Hash, name: String) -> String {
     html.push_str("{\n");
     html.push_str("\t\t\thtml.push_str(\"</td></tr>\\n\");\n");
     html.push_str("\t\t\tbreak;\n\t\t}\n\n");
-    html.push_str(&format!("\t\tif token == {}::token::Token::ILLEGAL ", name));
-    html.push_str("{\n");
-    html.push_str("\t\t\tprintln!(\"Illegal token idx: {} char: {}\", l.position, l.ch);\n");
-    html.push_str("\t\t\tbreak;\n\t\t}\n\n");
     html.push_str("\t\tmatch token {\n");
 
     for (k, _v) in generator::get_base(h) {

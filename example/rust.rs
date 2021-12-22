@@ -1,4 +1,4 @@
-
+// The comment section
 fn main() {
     let matches = App::new("hl")
         .version("0.1.0");

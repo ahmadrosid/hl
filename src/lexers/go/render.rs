@@ -20,11 +20,6 @@ pub fn render_html(input: Vec<char>) -> String {
 			break;
 		}
 
-		if token == go::token::Token::ILLEGAL {
-			println!("Illegal token idx: {} char: {}", l.position, l.ch);
-			break;
-		}
-
 		match token {
 			token::Token::PLUS(value) => {
 				html.push(value);

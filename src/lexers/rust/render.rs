@@ -20,11 +20,6 @@ pub fn render_html(input: Vec<char>) -> String {
 			break;
 		}
 
-		if token == rust::token::Token::ILLEGAL {
-			println!("Illegal token idx: {} char: {}", l.position, l.ch);
-			break;
-		}
-
 		match token {
 			token::Token::PLUS(value) => {
 				html.push(value);
@@ -161,7 +156,9 @@ pub fn render_html(input: Vec<char>) -> String {
 				));
 			}
 			_ => {
-				println!("{:?}", token);
+				// println!("{:?}", l.ch);
+				html.push(l.ch);
+				l.read_char();
 			}
 		}
 	}
