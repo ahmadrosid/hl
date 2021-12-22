@@ -45,3 +45,4 @@ keyword:
     IMPL: 'impl'
     CHAR: 'char'
     STR: 'str'
+    CRATE: 'crate'

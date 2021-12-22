@@ -144,6 +144,9 @@ pub fn render_html(path: &str) -> String {
 			token::Token::STR(value) => {
 				html.push_str(&format!("<span class=\"hl-k\">{}</span>", value.iter().collect::<String>()));
 			}
+			token::Token::CRATE(value) => {
+				html.push_str(&format!("<span class=\"hl-k\">{}</span>", value.iter().collect::<String>()));
+			}
 			rust::token::Token::ENDL(_) => {
 				line = line + 1;
 				html.push_str("</td></tr>\n");

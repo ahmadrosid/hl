@@ -49,6 +49,7 @@ pub enum Token {
 	IMPL(Vec<char>),
 	CHAR(Vec<char>),
 	STR(Vec<char>),
+	CRATE(Vec<char>),
 }
 
 pub fn get_keyword_token(identifier: &Vec<char>) -> Result<Token, String> {
@@ -70,6 +71,7 @@ pub fn get_keyword_token(identifier: &Vec<char>) -> Result<Token, String> {
 		"impl" => Ok(Token::IMPL(identifier.to_vec())),
 		"char" => Ok(Token::CHAR(identifier.to_vec())),
 		"str" => Ok(Token::STR(identifier.to_vec())),
+		"crate" => Ok(Token::CRATE(identifier.to_vec())),
 		_ => Err(String::from("Not a keyword"))
 	}
 }

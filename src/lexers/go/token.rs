@@ -45,6 +45,7 @@ pub enum Token {
 	RETURN(Vec<char>),
 	DEFAULT(Vec<char>),
 	IMPORT(Vec<char>),
+	FMT(Vec<char>),
 }
 
 pub fn get_keyword_token(identifier: &Vec<char>) -> Result<Token, String> {
@@ -62,6 +63,7 @@ pub fn get_keyword_token(identifier: &Vec<char>) -> Result<Token, String> {
 		"return" => Ok(Token::RETURN(identifier.to_vec())),
 		"default" => Ok(Token::DEFAULT(identifier.to_vec())),
 		"import" => Ok(Token::IMPORT(identifier.to_vec())),
+		"fmt" => Ok(Token::FMT(identifier.to_vec())),
 		_ => Err(String::from("Not a keyword"))
 	}
 }
