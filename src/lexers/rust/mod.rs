@@ -162,7 +162,7 @@ impl Lexer {
 								if self.input[prev_pos-1] == '.' {
 									return token::Token::ENTITY(identifier)
 								}
-								if self.input[self.position] == '(' {
+								if self.ch == '(' {
 									return token::Token::ENTITY(identifier)
 								}
 								token::Token::IDENT(identifier)
