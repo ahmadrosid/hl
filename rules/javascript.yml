@@ -1,0 +1,54 @@
+slash_comment: true
+slash_star_comment: true
+base:
+  PLUS: '+'
+  MINUS: '-'
+  LPAREN: '('
+  RPAREN: ')'
+  LBRACE: '{'
+  RBRACE: '}'
+  SPACE: ' '
+  ASSIGN: '='
+  COLON: ':'
+  SEMICOLON: ';'
+  MEMBERACCESS: '.'
+  COMMA: ','
+  GT: '>'
+  LT: '<'
+  AND: '&'
+  BANG: '!'
+  ASTERISK: '*'
+  TAB: '\t'
+
+constant:
+  TRUE: 'true'
+  FALSE: 'false'
+  UNDEFINED: 'undefined'
+  NULL: 'null'
+  STRING: ''
+  INT: ''
+
+skip:
+  IDENT: ''
+
+entity:
+  ENTITY: '.'
+
+prefix:
+  ENTITY_PREFIX: '.'
+  ENTITY_SUFFIX: '('
+
+keyword:
+  IMPORT: 'import'
+  AS: 'as'
+  NEW: 'new'
+  THIS: 'this'
+  CLASS: 'class'
+  VAR: 'var'
+  CONST: 'const'
+  LET: 'let'
+  FUNCTION: 'function'
+  FOR: 'for'
+  IF: 'if'
+  ELSE: 'else'
+  VOID: 'void'
