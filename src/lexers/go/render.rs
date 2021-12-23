@@ -1,8 +1,8 @@
-use crate::go;
-use crate::go::token;
+use crate::lexers::go::Lexer;
+use crate::lexers::go::token;
 
 pub fn render_html(input: Vec<char>) -> String {
-	let mut l = go::Lexer::new(input);
+	let mut l = Lexer::new(input);
 	l.read_char();
 	let mut html = String::new();
 	let mut line = 1;

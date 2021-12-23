@@ -9,6 +9,31 @@ mod module;
 mod token;
 mod render;
 
+macro_rules! get_by (
+    ($name:ident, $key:ident) => (
+pub fn $name(h: &Hash) -> Hash {
+    let constant = h.get(&Yaml::String(stringify!($key).to_string()));
+    let map = Hash::new();
+    return match constant {
+        None => map,
+        Some(val) => {
+            return match val.as_hash() {
+                None => map,
+                Some(h) => h.clone()
+            }
+        }
+    }
+}
+    );
+);
+
+get_by!(get_base, base);
+get_by!(get_constant, constant);
+get_by!(get_keyword, keyword);
+get_by!(get_prefix, prefix);
+get_by!(get_skip, skip);
+get_by!(get_entity, entity);
+
 pub fn parse(file_path: &str) -> String {
     let content = read_file(file_path);
     let docs = YamlLoader::load_from_str(&content).unwrap();
@@ -79,48 +104,6 @@ fn prepare_path(file_path: &str) -> String {
 fn write_file(content: &String, path: &String, file_name: &str) {
     let mut file = fs::File::create(format!("{}/{}", path, file_name)).unwrap();
     write!(&mut file, "{}", content).unwrap();
-}
-
-fn get_base(h: &Hash) -> &Hash {
-    h.get(&Yaml::String("base".to_string()))
-        .unwrap()
-        .as_hash()
-        .unwrap()
-}
-
-fn get_constant(h: &Hash) -> &Hash {
-    h.get(&Yaml::String("constant".to_string()))
-        .unwrap()
-        .as_hash()
-        .unwrap()
-}
-
-fn get_keyword(h: &Hash) -> &Hash {
-    h.get(&Yaml::String("keyword".to_string()))
-        .unwrap()
-        .as_hash()
-        .unwrap()
-}
-
-fn get_entity(h: &Hash) -> &Hash {
-    h.get(&Yaml::String("entity".to_string()))
-        .unwrap()
-        .as_hash()
-        .unwrap()
-}
-
-fn get_skip(h: &Hash) -> &Hash {
-    h.get(&Yaml::String("skip".to_string()))
-        .unwrap()
-        .as_hash()
-        .unwrap()
-}
-
-fn get_prefix(h: &Hash) -> &Hash {
-    h.get(&Yaml::String("prefix".to_string()))
-        .unwrap()
-        .as_hash()
-        .unwrap()
 }
 
 fn slash_comment_enable(h: &Hash) -> bool {

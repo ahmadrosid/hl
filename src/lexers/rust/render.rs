@@ -1,8 +1,8 @@
-use crate::rust;
-use crate::rust::token;
+use crate::lexers::rust::Lexer;
+use crate::lexers::rust::token;
 
 pub fn render_html(input: Vec<char>) -> String {
-	let mut l = rust::Lexer::new(input);
+	let mut l = Lexer::new(input);
 	l.read_char();
 	let mut html = String::new();
 	let mut line = 1;
