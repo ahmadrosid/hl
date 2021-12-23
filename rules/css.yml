@@ -1,0 +1,29 @@
+slash_comment: true
+slash_star_comment: true
+
+base:
+  CLASS: '.'
+  LBRACE: '{'
+  RBRACE: '}'
+  COLON: ':'
+  SEMICOLON: ';'
+
+constant:
+  STRING: ''
+  INT: ''
+
+skip:
+  IDENT: ''
+
+entity:
+  ENTITY: ''
+
+prefix:
+  ENTITY_PREFIX: '.'
+
+keyword:
+
+condition:
+  BREAK_ENTITY_PREFIX: "self.ch == ' ' || self.ch == '{' || self.ch == ',' || self.ch == '\\n'"
+  BREAK_ENTITY_SUFFIX: "self.ch == ' ' || self.ch == ':' || self.ch == '}' || self.ch == '\\n'"
+  ACCEPT_ENTITY_SUFFIX: "self.ch == '-' || self.ch == ':'"

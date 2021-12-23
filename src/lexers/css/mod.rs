@@ -73,19 +73,28 @@ impl Lexer {
 			l.input[position..l.position+1].to_vec()
 		};
 
+		let read_slash_star_comment = |l: &mut Lexer| -> Vec<char> {
+			let position = l.position;
+			while l.position < l.input.len() {
+				if l.position == l.input.len() {
+					break;
+				}
+				if l.input[l.position+1] == '*' {
+					if l.input[l.position+2] == '/' {
+						l.read_char();
+						l.read_char();
+						break;
+					}
+				}
+				l.read_char();
+			}
+			l.input[position..l.position+1].to_vec()
+		};
+
 		let tok: token::Token;
 		match self.ch {
-			'+' => {
-				tok = token::Token::PLUS(self.ch);
-			}
-			'-' => {
-				tok = token::Token::MINUS(self.ch);
-			}
-			'(' => {
-				tok = token::Token::LPAREN(self.ch);
-			}
-			')' => {
-				tok = token::Token::RPAREN(self.ch);
+			'.' => {
+				tok = token::Token::CLASS(self.ch);
 			}
 			'{' => {
 				tok = token::Token::LBRACE(self.ch);
@@ -93,41 +102,11 @@ impl Lexer {
 			'}' => {
 				tok = token::Token::RBRACE(self.ch);
 			}
-			' ' => {
-				tok = token::Token::SPACE(self.ch);
-			}
-			'=' => {
-				tok = token::Token::ASSIGN(self.ch);
-			}
 			':' => {
 				tok = token::Token::COLON(self.ch);
 			}
 			';' => {
 				tok = token::Token::SEMICOLON(self.ch);
-			}
-			'.' => {
-				tok = token::Token::MEMBERACCESS(self.ch);
-			}
-			',' => {
-				tok = token::Token::COMMA(self.ch);
-			}
-			'>' => {
-				tok = token::Token::GT(self.ch);
-			}
-			'<' => {
-				tok = token::Token::LT(self.ch);
-			}
-			'&' => {
-				tok = token::Token::AND(self.ch);
-			}
-			'!' => {
-				tok = token::Token::BANG(self.ch);
-			}
-			'*' => {
-				tok = token::Token::ASTERISK(self.ch);
-			}
-			'\t' => {
-				tok = token::Token::TAB(self.ch);
 			}
 			'\n' => {
 				tok = token::Token::ENDL(self.ch);
@@ -142,6 +121,8 @@ impl Lexer {
 			'/' => {
 				if self.input[self.position+1] == '/' {
 					tok = token::Token::COMMENT(read_slash_comment(self));
+				} else if self.input[self.position+1] == '*' {
+					tok = token::Token::COMMENT(read_slash_star_comment(self));
 				} else {
 					tok = token::Token::CH(self.ch);
 				}
@@ -152,16 +133,29 @@ impl Lexer {
 					let mut identifier: Vec<char> = read_identifier(self);
 					match token::get_keyword_token(&identifier) {
 							Ok(keyword_token) => {
-								if self.ch == '!' {
-									return token::Token::ENTITY(self.input[prev_pos..self.position].to_vec());
-								}
 								keyword_token
 							},
 							Err(_err) => {
 								if self.input[prev_pos-1] == '.' {
+									let position = self.position;
+									while self.position < self.input.len() {
+										if self.ch == ' ' || self.ch == '{' || self.ch == ',' || self.ch == '\n' {
+											break;
+										}
+										self.read_char();
+									}
+									identifier.append(&mut self.input[position..self.position].to_vec());
 									return token::Token::ENTITY(identifier)
 								}
-								if self.ch == '(' {
+								if self.ch == '-' || self.ch == ':' {
+									let position = self.position;
+									while self.position < self.input.len() {
+										if self.ch == ' ' || self.ch == ':' || self.ch == '}' || self.ch == '\n' {
+											break;
+										}
+										self.read_char();
+									}
+									identifier.append(&mut self.input[position..self.position].to_vec());
 									return token::Token::ENTITY(identifier)
 								}
 								token::Token::IDENT(identifier)
