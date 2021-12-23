@@ -15,8 +15,9 @@ OPTIONS:
     -V, --version       Print version information
 
 SUBCOMMANDS:
-    -g, --generate, generate    Generate lexer.
+    -g, --generate, generate    Generate lexer, this is for development only.
     help                        Print this message or the help of the given subcommand(s)
+
 ```
 
 ### 💡 Example Command

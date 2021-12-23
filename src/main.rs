@@ -17,7 +17,7 @@ fn main() {
             App::new("generate")
                 .short_flag('g')
                 .long_flag("generate")
-                .about("Generate lexer.")
+                .about("Generate lexer, this is for development only.")
                 .arg(arg!([LEXER_PATH] "Lexer path"))
                 .setting(AppSettings::ArgRequiredElseHelp),
         )
