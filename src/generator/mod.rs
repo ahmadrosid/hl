@@ -27,12 +27,26 @@ pub fn $name(h: &Hash) -> Hash {
     );
 );
 
+macro_rules! get_bool (
+    ($name:ident, $key:ident) => (
+pub fn $name(h: &Hash) -> bool {
+    return match h.get(&Yaml::String(stringify!($key).to_string())) {
+        None => false,
+        Some(val) => val.as_bool().unwrap()
+    }
+}
+    );
+);
+
 get_by!(get_base, base);
 get_by!(get_constant, constant);
 get_by!(get_keyword, keyword);
 get_by!(get_prefix, prefix);
 get_by!(get_skip, skip);
 get_by!(get_entity, entity);
+get_by!(get_condition, condition);
+get_bool!(slash_comment_enable, slash_comment);
+get_bool!(slash_star_comment_enable, slash_star_comment);
 
 pub fn parse(file_path: &str) -> String {
     let content = read_file(file_path);
@@ -44,7 +58,9 @@ pub fn parse(file_path: &str) -> String {
         "skip",
         "entity",
         "prefix",
-        "slash_comment"
+        "slash_comment",
+        "condition",
+        "slash_star_comment"
     ];
 
     let mut token_stub = String::new();
@@ -61,7 +77,7 @@ pub fn parse(file_path: &str) -> String {
             }
             token_stub.push_str(&token::generate_token(h));
             module_stub.push_str(&module::generate_module(h));
-            render_stub.push_str(&render::generate_html(h, get_file_name(file_path)));
+            render_stub.push_str(&render::generate_render_html(h, get_file_name(file_path)));
         }
         _ => {
             println!("{:?}", &docs[0]);
@@ -106,12 +122,12 @@ fn write_file(content: &String, path: &String, file_name: &str) {
     write!(&mut file, "{}", content).unwrap();
 }
 
-fn slash_comment_enable(h: &Hash) -> bool {
-    return match h.get(&Yaml::String("slash_comment".to_string())) {
-        None => false,
-        Some(val) => val.as_bool().unwrap()
-    }
-}
+// fn slash_comment_enable(h: &Hash) -> bool {
+//     return match h.get(&Yaml::String("slash_comment".to_string())) {
+//         None => false,
+//         Some(val) => val.as_bool().unwrap()
+//     }
+// }
 
 fn get_file_name(file_path: &str) -> String {
     let ancestors = Path::new(& file_path).file_name().unwrap();

@@ -1,6 +1,12 @@
+use yaml_rust::Yaml;
 use yaml_rust::yaml::Hash;
 use crate::generator;
-use crate::generator::get_prefix;
+use crate::generator::{
+    get_condition,
+    get_prefix,
+    slash_comment_enable,
+    slash_star_comment_enable
+};
 
 pub fn generate_module(h: &Hash) -> String {
     let mut module = String::new();
@@ -68,14 +74,34 @@ impl Lexer {\n\
         \t\t};\n\n\
     ");
 
-    if generator::slash_comment_enable(h) {
-        module.push_str("\t\tlet read_comment = |l: &mut Lexer| -> Vec<char> {\n\
+    if slash_comment_enable(h) {
+        module.push_str("\t\tlet read_slash_comment = |l: &mut Lexer| -> Vec<char> {\n\
             \t\t\tlet position = l.position;\n\
             \t\t\twhile l.position < l.input.len() {\n\
                 \t\t\t\tl.read_char();\n\
                 \t\t\t\tif l.input[l.position+1] == '\\n' {\n\
                 \t\t\t\t\tbreak;\n\
                 \t\t\t\t}\n\
+            \t\t\t}\n\
+            \t\t\tl.input[position..l.position+1].to_vec()\n\
+        \t\t};\n\n")
+    }
+
+    if slash_star_comment_enable(h) {
+        module.push_str("\t\tlet read_slash_star_comment = |l: &mut Lexer| -> Vec<char> {\n\
+            \t\t\tlet position = l.position;\n\
+            \t\t\twhile l.position < l.input.len() {\n\
+                \t\t\t\tif l.position == l.input.len() {\n\
+                \t\t\t\t\tbreak;\n\
+                \t\t\t\t}\n\
+                \t\t\t\tif l.input[l.position+1] == '*' {\n\
+                \t\t\t\t\tif l.input[l.position+2] == '/' {\n\
+                \t\t\t\t\t\tl.read_char();\n\
+                \t\t\t\t\t\tl.read_char();\n\
+                \t\t\t\t\t\tbreak;\n\
+                \t\t\t\t\t}\n\
+                \t\t\t\t}\n\
+                \t\t\t\tl.read_char();\n\
             \t\t\t}\n\
             \t\t\tl.input[position..l.position+1].to_vec()\n\
         \t\t};\n\n")
@@ -104,20 +130,32 @@ impl Lexer {\n\
     module.push_str("\t\t\t\t}\n");
     module.push_str("\t\t\t}\n");
 
-    if generator::slash_comment_enable(h) {
+    if slash_comment_enable(h) {
         module.push_str("\t\t\t'/' => {\n");
         module.push_str("\t\t\t\tif self.input[self.position+1] == '/' {\n");
-        module.push_str("\t\t\t\t\ttok = token::Token::COMMENT(read_comment(self));\n");
+        module.push_str("\t\t\t\t\ttok = token::Token::COMMENT(read_slash_comment(self));\n");
+        if slash_star_comment_enable(h) {
+            module.push_str("\t\t\t\t} else if self.input[self.position+1] == '*' {\n");
+            module.push_str("\t\t\t\t\ttok = token::Token::COMMENT(read_slash_star_comment(self));\n");
+        }
         module.push_str("\t\t\t\t} else {\n");
-        module.push_str("\t\t\t\t\ttok = token::Token::ENDL(self.ch);\n");
+        module.push_str("\t\t\t\t\ttok = token::Token::CH(self.ch);\n");
         module.push_str("\t\t\t\t}\n");
+        module.push_str("\t\t\t}\n");
+    } else if slash_star_comment_enable(h) {
+        module.push_str("\t\t\t'/' => {\n");
+        module.push_str("\t\t\t\tif self.input[self.position+1] == '*' {\n");
+        module.push_str("\t\t\t\t\ttok = token::Token::COMMENT(read_slash_star_comment(self));\n");
+        module.push_str("\t\t\t\t}\n");
+        module.push_str("\t\t\t\tself.read_char();\n");
+        module.push_str("\t\t\t\treturn tok;\n");
         module.push_str("\t\t\t}\n");
     }
 
     module.push_str("\t\t\t_ => {\n\
             \t\t\t\treturn if is_letter(self.ch) {\n\
                 \t\t\t\t\tlet prev_pos = self.position;\n\
-                \t\t\t\t\tlet identifier: Vec<char> = read_identifier(self);\n\
+                \t\t\t\t\tlet mut identifier: Vec<char> = read_identifier(self);\n\
                 \t\t\t\t\tmatch token::get_keyword_token(&identifier) {\n\
                     \t\t\t\t\t\t\tOk(keyword_token) => {\n\
     ");
@@ -127,9 +165,9 @@ impl Lexer {\n\
             module.push_str("\t\t\t\t\t\t\t\t");
             module.push_str(&format!("if self.ch == '{}' ", v.as_str().unwrap()));
             module.push_str("{\n\t\t\t\t\t\t\t\t\t");
-            module.push_str("self.read_char();\n\t\t\t\t\t\t\t\t\t");
             module.push_str("return token::Token::ENTITY(self.input[prev_pos..self.position].to_vec());\n");
             module.push_str("\t\t\t\t\t\t\t\t}\n");
+            break;
         }
     }
 
@@ -143,12 +181,51 @@ impl Lexer {\n\
             module.push_str("\t\t\t\t\t\t\t\t");
             module.push_str(&format!("if self.input[prev_pos-1] == '{}' ", v.as_str().unwrap()));
             module.push_str("{\n");
+            for (key, val) in get_condition(h) {
+                let key_str = key.as_str().unwrap();
+                let val_str= val.as_str().unwrap();
+                if key_str == "BREAK_ENTITY_PREFIX" {
+                    module.push_str("\t\t\t\t\t\t\t\t\tlet position = self.position;\n");
+                    module.push_str("\t\t\t\t\t\t\t\t\twhile self.position < self.input.len() {\n");
+                    module.push_str("\t\t\t\t\t\t\t\t\t\tif ");
+                    module.push_str(val_str);
+                    module.push_str(" {\n");
+                    module.push_str("\t\t\t\t\t\t\t\t\t\t\tbreak;\n");
+                    module.push_str("\t\t\t\t\t\t\t\t\t\t}\n");
+                    module.push_str("\t\t\t\t\t\t\t\t\t\tself.read_char();\n");
+                    module.push_str("\t\t\t\t\t\t\t\t\t}\n");
+                    module.push_str("\t\t\t\t\t\t\t\t\tidentifier.append(&mut self.input[position..self.position].to_vec());\n");
+                }
+                if key_str == "ACCEPT_ENTITY_SUFFIX" {
+                    module.push_str("\t\t\t\t\t\t\t\t\treturn token::Token::ENTITY(identifier)\n");
+                    module.push_str("\t\t\t\t\t\t\t\t}\n");
+                    module.push_str("\t\t\t\t\t\t\t\t");
+                    module.push_str(&format!("if {} ", val_str));
+                    module.push_str("{\n");
+                    module.push_str("\t\t\t\t\t\t\t\t\tlet position = self.position;\n");
+                    module.push_str("\t\t\t\t\t\t\t\t\twhile self.position < self.input.len() {\n");
+                    module.push_str("\t\t\t\t\t\t\t\t\t\tif ");
+                    module.push_str(
+                        get_condition(h)
+                            .get(&Yaml::String("BREAK_ENTITY_SUFFIX".to_string()))
+                            .unwrap()
+                            .as_str()
+                            .unwrap()
+                    );
+                    module.push_str(" {\n");
+                    module.push_str("\t\t\t\t\t\t\t\t\t\t\tbreak;\n");
+                    module.push_str("\t\t\t\t\t\t\t\t\t\t}\n");
+                    module.push_str("\t\t\t\t\t\t\t\t\t\tself.read_char();\n");
+                    module.push_str("\t\t\t\t\t\t\t\t\t}\n");
+                    module.push_str("\t\t\t\t\t\t\t\t\tidentifier.append(&mut self.input[position..self.position].to_vec());\n");
+                }
+            }
             module.push_str("\t\t\t\t\t\t\t\t\treturn token::Token::ENTITY(identifier)\n");
             module.push_str("\t\t\t\t\t\t\t\t}\n");
         }
         if k.as_str().unwrap() == "ENTITY_SUFFIX" {
             module.push_str("\t\t\t\t\t\t\t\t");
-            module.push_str(&format!("if self.input[self.position] == '{}' ", v.as_str().unwrap()));
+            module.push_str(&format!("if self.ch == '{}' ", v.as_str().unwrap()));
             module.push_str("{\n");
             module.push_str("\t\t\t\t\t\t\t\t\treturn token::Token::ENTITY(identifier)\n");
             module.push_str("\t\t\t\t\t\t\t\t}\n");

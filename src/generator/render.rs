@@ -1,7 +1,7 @@
 use yaml_rust::yaml::Hash;
 use crate::generator;
 
-pub fn generate_html(h: &Hash, name: String) -> String {
+pub fn generate_render_html(h: &Hash, name: String) -> String {
     let mut html = String::new();
     html.push_str(&format!("use crate::lexers::{}::Lexer;\n", name));
     html.push_str(&format!("use crate::lexers::{}::token;\n\n", name));
