@@ -45,3 +45,10 @@ hl example/rust.rs -l rust
 </tbody>
 </table>
 ```
+
+## Lexers
+| Language |     Status      |
+|----------|:---------------:|
+| CSS      | [ ] In Progress |
+| Go       | [ ] In Progress |
+| Rust     | [ ] In Progress |
