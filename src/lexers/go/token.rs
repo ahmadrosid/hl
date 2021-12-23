@@ -27,6 +27,7 @@ pub enum Token {
 	TAB(char),
 
 	// Constants
+	ARGS(Vec<char>),
 	TRUE(Vec<char>),
 	FALSE(Vec<char>),
 	STRING(Vec<char>),
@@ -39,6 +40,7 @@ pub enum Token {
 	ENTITY(Vec<char>),
 
 	// Keyword
+	PACKAGE(Vec<char>),
 	FUNC(Vec<char>),
 	FOR(Vec<char>),
 	VAR(Vec<char>),
@@ -55,8 +57,10 @@ pub enum Token {
 pub fn get_keyword_token(identifier: &Vec<char>) -> Result<Token, String> {
 	let identifiers: String = identifier.into_iter().collect();
 	match &identifiers[..] {
+		"Args" => Ok(Token::ARGS(identifier.to_vec())),
 		"true" => Ok(Token::TRUE(identifier.to_vec())),
 		"false" => Ok(Token::FALSE(identifier.to_vec())),
+		"package" => Ok(Token::PACKAGE(identifier.to_vec())),
 		"func" => Ok(Token::FUNC(identifier.to_vec())),
 		"for" => Ok(Token::FOR(identifier.to_vec())),
 		"var" => Ok(Token::VAR(identifier.to_vec())),

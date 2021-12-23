@@ -179,7 +179,7 @@ impl Lexer {\n\
     for (k, v) in get_prefix(h) {
         if k.as_str().unwrap() == "ENTITY_PREFIX" {
             module.push_str("\t\t\t\t\t\t\t\t");
-            module.push_str(&format!("if self.input[prev_pos-1] == '{}' ", v.as_str().unwrap()));
+            module.push_str(&format!("if prev_pos != 0 && self.input[prev_pos-1] == '{}' ", v.as_str().unwrap()));
             module.push_str("{\n");
             for (key, val) in get_condition(h) {
                 let key_str = key.as_str().unwrap();

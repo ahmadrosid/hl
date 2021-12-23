@@ -88,6 +88,9 @@ pub fn render_html(input: Vec<char>) -> String {
 			token::Token::ENTITY(value) => {
 				html.push_str(&format!("<span class=\"hl-en\">{}</span>", value.iter().collect::<String>()));
 			}
+			token::Token::ARGS(value) => {
+				html.push_str(&format!("<span class=\"hl-c\">{}</span>", value.iter().collect::<String>()));
+			}
 			token::Token::TRUE(value) => {
 				html.push_str(&format!("<span class=\"hl-c\">{}</span>", value.iter().collect::<String>()));
 			}
@@ -99,6 +102,9 @@ pub fn render_html(input: Vec<char>) -> String {
 			}
 			token::Token::INT(value) => {
 				html.push_str(&format!("<span class=\"hl-c\">{}</span>", value.iter().collect::<String>()));
+			}
+			token::Token::PACKAGE(value) => {
+				html.push_str(&format!("<span class=\"hl-k\">{}</span>", value.iter().collect::<String>()));
 			}
 			token::Token::FUNC(value) => {
 				html.push_str(&format!("<span class=\"hl-k\">{}</span>", value.iter().collect::<String>()));

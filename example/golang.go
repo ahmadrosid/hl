@@ -1,7 +1,11 @@
-import "fmt"
-// This is comment section!
+package main
+
+import (
+	"os"
+
+	"github.com/ahmadrosid/heline/cmd"
+)
+
 func main() {
-    var hello = "Hello world/"
-    var zero = "0";
-    fmt.Println(hello)
+	os.Exit(cmd.Run(os.Args[1:]))
 }

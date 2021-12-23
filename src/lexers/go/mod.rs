@@ -62,7 +62,7 @@ impl Lexer {
 			l.input[position..l.position].to_vec()
 		};
 
-		let read_comment = |l: &mut Lexer| -> Vec<char> {
+		let read_slash_comment = |l: &mut Lexer| -> Vec<char> {
 			let position = l.position;
 			while l.position < l.input.len() {
 				l.read_char();
@@ -141,21 +141,21 @@ impl Lexer {
 			}
 			'/' => {
 				if self.input[self.position+1] == '/' {
-					tok = token::Token::COMMENT(read_comment(self));
+					tok = token::Token::COMMENT(read_slash_comment(self));
 				} else {
-					tok = token::Token::ENDL(self.ch);
+					tok = token::Token::CH(self.ch);
 				}
 			}
 			_ => {
 				return if is_letter(self.ch) {
 					let prev_pos = self.position;
-					let identifier: Vec<char> = read_identifier(self);
+					let mut identifier: Vec<char> = read_identifier(self);
 					match token::get_keyword_token(&identifier) {
 							Ok(keyword_token) => {
 								keyword_token
 							},
 							Err(_err) => {
-								if self.input[prev_pos-1] == '.' {
+								if prev_pos != 0 && self.input[prev_pos-1] == '.' {
 									return token::Token::ENTITY(identifier)
 								}
 								if self.ch == '(' {

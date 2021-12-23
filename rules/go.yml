@@ -20,6 +20,7 @@ base:
   TAB: '\t'
 
 constant:
+  ARGS: 'Args'
   TRUE: 'true'
   FALSE: 'false'
   STRING: ''
@@ -36,6 +37,7 @@ prefix:
   ENTITY_SUFFIX: '('
 
 keyword:
+  PACKAGE: 'package'
   FUNC: 'func'
   FOR: 'for'
   VAR: 'var'
