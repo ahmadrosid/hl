@@ -47,9 +47,7 @@ hl example/rust.rs -l rust
 ```
 
 ## Lexers
-| Language   |     Status     |
-|------------|:--------------:|
-| CSS        | 🚧 In Progress |
-| Go         | 🚧 In Progress |
-| Rust       | 🚧 In Progress |
-| JavaScript | 🚧 In Progress |
+- [ ] CSS ( 🚧 In Progress )
+- [ ] Go ( 🚧 In Progress )
+- [ ] Rust ( 🚧 In Progress )
+- [ ] Javascript ( 🚧 In Progress )
