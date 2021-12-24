@@ -124,7 +124,7 @@ impl Lexer {\n\
 
     module.push_str("\t\t\t'0' => {\n");
     module.push_str("\t\t\t\tif self.position < self.input.len() {\n");
-    module.push_str("\t\t\t\t\ttok = token::Token::CH(self.ch);\n");
+    module.push_str("\t\t\t\t\ttok = token::Token::INT(self.input[self.position..self.position+1].to_vec());\n");
     module.push_str("\t\t\t\t} else {\n");
     module.push_str("\t\t\t\t\ttok = token::Token::EOF;\n");
     module.push_str("\t\t\t\t}\n");

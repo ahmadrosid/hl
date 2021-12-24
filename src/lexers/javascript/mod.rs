@@ -152,7 +152,7 @@ impl Lexer {
 			}
 			'0' => {
 				if self.position < self.input.len() {
-					tok = token::Token::CH(self.ch);
+					tok = token::Token::INT(self.input[self.position..self.position+1].to_vec());
 				} else {
 					tok = token::Token::EOF;
 				}
@@ -176,6 +176,17 @@ impl Lexer {
 							},
 							Err(_err) => {
 								if prev_pos != 0 && self.input[prev_pos-1] == '.' {
+									return token::Token::ENTITY(identifier)
+								}
+								if is_digit(self.ch) {
+									let position = self.position;
+									while self.position < self.input.len() {
+										if self.ch == ' ' || self.ch == ':' || self.ch == ':' || self.ch == '(' || self.ch == '{' || self.ch == '\n' {
+											break;
+										}
+										self.read_char();
+									}
+									identifier.append(&mut self.input[position..self.position].to_vec());
 									return token::Token::ENTITY(identifier)
 								}
 								if self.ch == '(' {

@@ -28,6 +28,12 @@ constant:
   STRING: ''
   INT: ''
 
+var:
+  VINFINITY: 'Infinity'
+  VNAN: 'NaN'
+  MATH: 'Math'
+  DATE: 'Date'
+
 skip:
   IDENT: ''
 
@@ -52,3 +58,8 @@ keyword:
   IF: 'if'
   ELSE: 'else'
   VOID: 'void'
+  RETURN: 'return'
+
+condition:
+  ACCEPT_ENTITY_SUFFIX: "is_digit(self.ch)"
+  BREAK_ENTITY_SUFFIX: "self.ch == ' ' || self.ch == ':' || self.ch == ':' || self.ch == '(' || self.ch == '{' || self.ch == '\\n'"

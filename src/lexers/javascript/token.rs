@@ -34,6 +34,12 @@ pub enum Token {
 	STRING(Vec<char>),
 	INT(Vec<char>),
 
+	// Var
+	VINFINITY(Vec<char>),
+	VNAN(Vec<char>),
+	MATH(Vec<char>),
+	DATE(Vec<char>),
+
 	// Skip token
 	IDENT(Vec<char>),
 
@@ -54,6 +60,7 @@ pub enum Token {
 	IF(Vec<char>),
 	ELSE(Vec<char>),
 	VOID(Vec<char>),
+	RETURN(Vec<char>),
 	COMMENT(Vec<char>),
 }
 
@@ -64,6 +71,10 @@ pub fn get_keyword_token(identifier: &Vec<char>) -> Result<Token, String> {
 		"false" => Ok(Token::FALSE(identifier.to_vec())),
 		"undefined" => Ok(Token::UNDEFINED(identifier.to_vec())),
 		"null" => Ok(Token::NULL(identifier.to_vec())),
+		"Infinity" => Ok(Token::VINFINITY(identifier.to_vec())),
+		"NaN" => Ok(Token::VNAN(identifier.to_vec())),
+		"Math" => Ok(Token::MATH(identifier.to_vec())),
+		"Date" => Ok(Token::DATE(identifier.to_vec())),
 		"import" => Ok(Token::IMPORT(identifier.to_vec())),
 		"as" => Ok(Token::AS(identifier.to_vec())),
 		"new" => Ok(Token::NEW(identifier.to_vec())),
@@ -77,6 +88,7 @@ pub fn get_keyword_token(identifier: &Vec<char>) -> Result<Token, String> {
 		"if" => Ok(Token::IF(identifier.to_vec())),
 		"else" => Ok(Token::ELSE(identifier.to_vec())),
 		"void" => Ok(Token::VOID(identifier.to_vec())),
+		"return" => Ok(Token::RETURN(identifier.to_vec())),
 		_ => Err(String::from("Not a keyword"))
 	}
 }

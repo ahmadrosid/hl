@@ -40,6 +40,7 @@ pub fn $name(h: &Hash) -> bool {
 
 get_by!(get_base, base);
 get_by!(get_constant, constant);
+get_by!(get_var, var);
 get_by!(get_keyword, keyword);
 get_by!(get_prefix, prefix);
 get_by!(get_skip, skip);
@@ -60,7 +61,8 @@ pub fn parse(file_path: &str) -> String {
         "prefix",
         "slash_comment",
         "condition",
-        "slash_star_comment"
+        "slash_star_comment",
+        "var"
     ];
 
     let mut token_stub = String::new();

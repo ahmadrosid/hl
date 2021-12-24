@@ -106,6 +106,18 @@ pub fn render_html(input: Vec<char>) -> String {
 			token::Token::INT(value) => {
 				html.push_str(&format!("<span class=\"hl-c\">{}</span>", value.iter().collect::<String>()));
 			}
+			token::Token::VINFINITY(value) => {
+				html.push_str(&format!("<span class=\"hl-v\">{}</span>", value.iter().collect::<String>()));
+			}
+			token::Token::VNAN(value) => {
+				html.push_str(&format!("<span class=\"hl-v\">{}</span>", value.iter().collect::<String>()));
+			}
+			token::Token::MATH(value) => {
+				html.push_str(&format!("<span class=\"hl-v\">{}</span>", value.iter().collect::<String>()));
+			}
+			token::Token::DATE(value) => {
+				html.push_str(&format!("<span class=\"hl-v\">{}</span>", value.iter().collect::<String>()));
+			}
 			token::Token::IMPORT(value) => {
 				html.push_str(&format!("<span class=\"hl-k\">{}</span>", value.iter().collect::<String>()));
 			}
@@ -143,6 +155,9 @@ pub fn render_html(input: Vec<char>) -> String {
 				html.push_str(&format!("<span class=\"hl-k\">{}</span>", value.iter().collect::<String>()));
 			}
 			token::Token::VOID(value) => {
+				html.push_str(&format!("<span class=\"hl-k\">{}</span>", value.iter().collect::<String>()));
+			}
+			token::Token::RETURN(value) => {
 				html.push_str(&format!("<span class=\"hl-k\">{}</span>", value.iter().collect::<String>()));
 			}
 			token::Token::ENDL(_) => {
