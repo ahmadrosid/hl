@@ -25,6 +25,7 @@ constant:
     FALSE: 'false'
     PRINTLN: 'println'
     SHADOW: 'shadow'
+    FORMAT: 'format'
     STRING: ''
     INT: ''
 
