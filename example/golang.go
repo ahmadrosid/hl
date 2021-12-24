@@ -2,8 +2,7 @@ package main
 
 import (
 	"os"
-
-	"github.com/ahmadrosid/heline/cmd"
+	"some/cmd"
 )
 
 /**
@@ -11,7 +10,8 @@ import (
  */
 func main() {
 	os.Exit(cmd.Run(os.Args[1:]))
-
+	var lastChar rune
+	data := make([]string, 0)
 	// emit hashes
 	var buf [pageSize]byte
 	for p < int(codeSize) {
@@ -22,24 +22,23 @@ func main() {
 			panic(err)
 		}
 	}
-
-	switch something {
-	case string(St):
-		var ssbac Store
-		return ssbac, err
+	switch s := v.(type) {
+	case string:
+		return utils.Base64EncodeIfNot(s)
 	default:
-		return ac, err
+		return ""
 	}
 }
 
-const codeDirectorySize = 13*4 + 4 + 4*8
+type syscallFunc uintptr
 
-// CodeSigCmd is Mach-O LC_CODE_SIGNATURE load command.
-type CodeSigCmd struct {
+const codeDir = 13*4 + 4 + 4*8
+
+type Sig struct {
 	Datasize uint32 // file size of data in __LINKEDIT segment
 }
 
-func FindCodeSigCmd(f *macho.File) (CodeSigCmd, bool) {
+func Find1234Code(f *macho.File) (CodeSigCmd, bool) {
 	cdir := CodeDirectory{
 		length:       uint32(sz) - (superBlobSize + blobSize),
 		flags:        0x20002, // adhoc | linkerSigned

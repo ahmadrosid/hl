@@ -45,7 +45,8 @@ fn main() {
 
     match lang {
         "go" => {
-            println!("{}", go::render::render_html(input));
+            let content = go::render::render_html(input);
+            println!("{}", content);
         }
         "rust" => {
             println!("{}", rust::render::render_html(input));

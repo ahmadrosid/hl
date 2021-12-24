@@ -31,6 +31,9 @@ constant:
   BYTE: 'byte'
   CSTRING: 'string'
   ERROR: 'error'
+  RUNE: 'rune'
+  UINTPTR: 'uintptr'
+  FLOAT: 'float'
   STRING: ''
   INT: ''
 
