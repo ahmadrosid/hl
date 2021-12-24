@@ -73,6 +73,7 @@ pub enum Token {
 	RANGE(Vec<char>),
 	BREAK(Vec<char>),
 	MAP(Vec<char>),
+	CONTINUE(Vec<char>),
 	COMMENT(Vec<char>),
 }
 
@@ -112,6 +113,7 @@ pub fn get_keyword_token(identifier: &Vec<char>) -> Result<Token, String> {
 		"range" => Ok(Token::RANGE(identifier.to_vec())),
 		"break" => Ok(Token::BREAK(identifier.to_vec())),
 		"map" => Ok(Token::MAP(identifier.to_vec())),
+		"continue" => Ok(Token::CONTINUE(identifier.to_vec())),
 		_ => Err(String::from("Not a keyword"))
 	}
 }

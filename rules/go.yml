@@ -67,3 +67,4 @@ keyword:
   RANGE: 'range'
   BREAK: 'break'
   MAP: 'map'
+  CONTINUE: 'continue'

@@ -205,6 +205,9 @@ pub fn render_html(input: Vec<char>) -> String {
 			token::Token::MAP(value) => {
 				html.push_str(&format!("<span class=\"hl-k\">{}</span>", value.iter().collect::<String>()));
 			}
+			token::Token::CONTINUE(value) => {
+				html.push_str(&format!("<span class=\"hl-k\">{}</span>", value.iter().collect::<String>()));
+			}
 			token::Token::ENDL(_) => {
 				line = line + 1;
 				html.push_str("</td></tr>\n");
