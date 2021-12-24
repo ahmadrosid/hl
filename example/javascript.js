@@ -2,6 +2,9 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+/**
+ * Slash start comment!
+ */
 var values = [true,false,null,void 0,0,0.0,-0,"",-1,-1.25,1,1.25,-2147483648,2147483648,Infinity,-Infinity,NaN];
 var expected = [
   [1,1,1,NaN,1,1,1,1,1,1,1,1.25,1,2147483648,Infinity,1,NaN],

@@ -77,6 +77,7 @@ pub fn get_keyword_token(identifier: &Vec<char>) -> Result<Token, String> {
 		"NaN" => Ok(Token::VNAN(identifier.to_vec())),
 		"Math" => Ok(Token::MATH(identifier.to_vec())),
 		"Date" => Ok(Token::DATE(identifier.to_vec())),
+		"." => Ok(Token::ENTITY(identifier.to_vec())),
 		"import" => Ok(Token::IMPORT(identifier.to_vec())),
 		"as" => Ok(Token::AS(identifier.to_vec())),
 		"new" => Ok(Token::NEW(identifier.to_vec())),
