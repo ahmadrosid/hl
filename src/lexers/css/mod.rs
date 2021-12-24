@@ -113,7 +113,7 @@ impl Lexer {
 			}
 			'0' => {
 				if self.position < self.input.len() {
-					tok = token::Token::CH(self.ch);
+					tok = token::Token::INT(self.input[self.position..self.position+1].to_vec());
 				} else {
 					tok = token::Token::EOF;
 				}
@@ -131,12 +131,22 @@ impl Lexer {
 				return if is_letter(self.ch) {
 					let prev_pos = self.position;
 					let mut identifier: Vec<char> = read_identifier(self);
+					if is_digit(self.ch) {
+						let position = self.position;
+						while self.position < self.input.len() {
+							if self.ch == ' ' || self.ch == ':' ||  self.ch == ',' || self.ch == '{' || self.ch == '\n' {
+								break;
+							}
+							self.read_char();
+						}
+						identifier.append(&mut self.input[position..self.position].to_vec());
+					}
 					match token::get_keyword_token(&identifier) {
 							Ok(keyword_token) => {
 								keyword_token
 							},
 							Err(_err) => {
-								if self.input[prev_pos-1] == '.' {
+								if prev_pos != 0 && self.input[prev_pos-1] == '.' {
 									let position = self.position;
 									while self.position < self.input.len() {
 										if self.ch == ' ' || self.ch == '{' || self.ch == ',' || self.ch == '\n' {
@@ -147,6 +157,17 @@ impl Lexer {
 									identifier.append(&mut self.input[position..self.position].to_vec());
 									return token::Token::ENTITY(identifier)
 								}
+								if self.ch == '(' {
+									let position = self.position;
+									while self.position < self.input.len() {
+										if self.ch == ' ' || self.ch == ':' || self.ch == ';' || self.ch == '}' || self.ch == '\n' {
+											break;
+										}
+										self.read_char();
+									}
+									identifier.append(&mut self.input[position..self.position].to_vec());
+									return token::Token::IDENT(identifier)
+								}
 								if self.ch == '-' || self.ch == ':' {
 									let position = self.position;
 									while self.position < self.input.len() {
@@ -156,6 +177,9 @@ impl Lexer {
 										self.read_char();
 									}
 									identifier.append(&mut self.input[position..self.position].to_vec());
+									return token::Token::ENTITY(identifier)
+								}
+								if self.ch == '(' {
 									return token::Token::ENTITY(identifier)
 								}
 								token::Token::IDENT(identifier)

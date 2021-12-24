@@ -1,15 +1,16 @@
 use yaml_rust::Yaml;
 use yaml_rust::yaml::Hash;
-use crate::generator;
 use crate::generator::{
+    get_base,
     get_condition,
     get_prefix,
     slash_comment_enable,
-    slash_star_comment_enable
+    slash_star_comment_enable,
+    string::StringBuilder
 };
 
 pub fn generate_module(h: &Hash) -> String {
-    let mut module = String::new();
+    let mut module = StringBuilder::new();
     module.push_str("pub mod token;\n\
 pub mod render;\n\n\
 pub struct Lexer {\n\
@@ -111,7 +112,7 @@ impl Lexer {\n\
         \t\tmatch self.ch {\n\
     ");
 
-    for (k, v) in generator::get_base(h) {
+    for (k, v) in get_base(h) {
         module.push_str(&format!("\t\t\t'{}' => ", v.as_str().unwrap()));
         module.push_str("{\n");
         module.push_str(&format!("\t\t\t\ttok = token::Token::{}(self.ch);\n", k.as_str().unwrap()));
@@ -156,7 +157,28 @@ impl Lexer {\n\
             \t\t\t\treturn if is_letter(self.ch) {\n\
                 \t\t\t\t\tlet prev_pos = self.position;\n\
                 \t\t\t\t\tlet mut identifier: Vec<char> = read_identifier(self);\n\
-                \t\t\t\t\tmatch token::get_keyword_token(&identifier) {\n\
+    ");
+
+    if let Some(val_prefix) = get_condition(h).get(&Yaml::String("ACCEPT_ENTITY_TAG_SUFFIX".to_string())) {
+        let val_condition = val_prefix.as_str().unwrap();
+        if let Some(val) = get_condition(h).get(&Yaml::String("BREAK_ENTITY_TAG_SUFFIX".to_string())) {
+            let val_break = val.as_str().unwrap();
+            module.push_tab(5, &format!("if {} ", val_condition));
+            module.push_strln("{");
+            module.push_tabln(6, "let position = self.position;");
+            module.push_tabln(6, "while self.position < self.input.len() {");
+            module.push_tab(7, &format!("if {} ", val_break));
+            module.push_strln("{");
+            module.push_tabln(8, "break;");
+            module.push_tabln(7, "}");
+            module.push_tabln(7, "self.read_char();");
+            module.push_tabln(6, "}");
+            module.push_tabln(6, "identifier.append(&mut self.input[position..self.position].to_vec());");
+            module.push_tabln(5, "}")
+        }
+    }
+
+    module.push_str("\t\t\t\t\tmatch token::get_keyword_token(&identifier) {\n\
                     \t\t\t\t\t\t\tOk(keyword_token) => {\n\
     ");
 
@@ -176,50 +198,71 @@ impl Lexer {\n\
                     \t\t\t\t\t\t\tErr(_err) => {\n\
     ");
 
+    if let Some(val_prefix) = get_condition(h).get(&Yaml::String("ACCEPT_ENTITY_PREFIX".to_string())) {
+        let val_condition = val_prefix.as_str().unwrap();
+        if let Some(val) = get_condition(h).get(&Yaml::String("BREAK_ENTITY_PREFIX".to_string())) {
+            let val_break = val.as_str().unwrap();
+            module.push_tab(8, &format!("if {} ", val_condition));
+            module.push_strln("{");
+            module.push_tabln(9, "let position = self.position;");
+            module.push_tabln(9, "while self.position < self.input.len() {");
+            module.push_tab(10, &format!("if {} ", val_break));
+            module.push_strln("{");
+            module.push_tabln(11, "break;");
+            module.push_tabln(10, "}");
+            module.push_tabln(10, "self.read_char();");
+            module.push_tabln(9, "}");
+            module.push_tabln(9, "identifier.append(&mut self.input[position..self.position].to_vec());");
+            module.push_tabln(9, "return token::Token::ENTITY(identifier)");
+            module.push_tabln(8, "}")
+        }
+    }
+
+    if let Some(val_prefix) = get_condition(h).get(&Yaml::String("ACCEPT_IDENT_SUFFIX".to_string())) {
+        let val_condition = val_prefix.as_str().unwrap();
+        if let Some(val) = get_condition(h).get(&Yaml::String("BREAK_IDENT_SUFFIX".to_string())) {
+            let val_break = val.as_str().unwrap();
+            module.push_tab(8, &format!("if {} ", val_condition));
+            module.push_strln("{");
+            module.push_tabln(9, "let position = self.position;");
+            module.push_tabln(9, "while self.position < self.input.len() {");
+            module.push_tab(10, &format!("if {} ", val_break));
+            module.push_strln("{");
+            module.push_tabln(11, "break;");
+            module.push_tabln(10, "}");
+            module.push_tabln(10, "self.read_char();");
+            module.push_tabln(9, "}");
+            module.push_tabln(9, "identifier.append(&mut self.input[position..self.position].to_vec());");
+            module.push_tabln(9, "return token::Token::IDENT(identifier)");
+            module.push_tabln(8, "}")
+        }
+    }
+
+    if let Some(val_prefix) = get_condition(h).get(&Yaml::String("ACCEPT_ENTITY_SUFFIX".to_string())) {
+        let val_condition = val_prefix.as_str().unwrap();
+        if let Some(val) = get_condition(h).get(&Yaml::String("BREAK_ENTITY_SUFFIX".to_string())) {
+            let val_break = val.as_str().unwrap();
+            module.push_tab(8, &format!("if {} ", val_condition));
+            module.push_strln("{");
+            module.push_tabln(9, "let position = self.position;");
+            module.push_tabln(9, "while self.position < self.input.len() {");
+            module.push_tab(10, &format!("if {} ", val_break));
+            module.push_strln("{");
+            module.push_tabln(11, "break;");
+            module.push_tabln(10, "}");
+            module.push_tabln(10, "self.read_char();");
+            module.push_tabln(9, "}");
+            module.push_tabln(9, "identifier.append(&mut self.input[position..self.position].to_vec());");
+            module.push_tabln(9, "return token::Token::ENTITY(identifier)");
+            module.push_tabln(8, "}")
+        }
+    }
+
     for (k, v) in get_prefix(h) {
         if k.as_str().unwrap() == "ENTITY_PREFIX" {
             module.push_str("\t\t\t\t\t\t\t\t");
             module.push_str(&format!("if prev_pos != 0 && self.input[prev_pos-1] == '{}' ", v.as_str().unwrap()));
             module.push_str("{\n");
-            for (key, val) in get_condition(h) {
-                let key_str = key.as_str().unwrap();
-                let val_str= val.as_str().unwrap();
-                if key_str == "BREAK_ENTITY_PREFIX" {
-                    module.push_str("\t\t\t\t\t\t\t\t\tlet position = self.position;\n");
-                    module.push_str("\t\t\t\t\t\t\t\t\twhile self.position < self.input.len() {\n");
-                    module.push_str("\t\t\t\t\t\t\t\t\t\tif ");
-                    module.push_str(val_str);
-                    module.push_str(" {\n");
-                    module.push_str("\t\t\t\t\t\t\t\t\t\t\tbreak;\n");
-                    module.push_str("\t\t\t\t\t\t\t\t\t\t}\n");
-                    module.push_str("\t\t\t\t\t\t\t\t\t\tself.read_char();\n");
-                    module.push_str("\t\t\t\t\t\t\t\t\t}\n");
-                    module.push_str("\t\t\t\t\t\t\t\t\tidentifier.append(&mut self.input[position..self.position].to_vec());\n");
-                }
-                if key_str == "ACCEPT_ENTITY_SUFFIX" {
-                    module.push_str("\t\t\t\t\t\t\t\t\treturn token::Token::ENTITY(identifier)\n");
-                    module.push_str("\t\t\t\t\t\t\t\t}\n");
-                    module.push_str("\t\t\t\t\t\t\t\t");
-                    module.push_str(&format!("if {} ", val_str));
-                    module.push_str("{\n");
-                    module.push_str("\t\t\t\t\t\t\t\t\tlet position = self.position;\n");
-                    module.push_str("\t\t\t\t\t\t\t\t\twhile self.position < self.input.len() {\n");
-                    module.push_str("\t\t\t\t\t\t\t\t\t\tif ");
-                    module.push_str(
-                        get_condition(h)
-                            .get(&Yaml::String("BREAK_ENTITY_SUFFIX".to_string()))
-                            .unwrap()
-                            .as_str()
-                            .unwrap()
-                    );
-                    module.push_str(" {\n");
-                    module.push_str("\t\t\t\t\t\t\t\t\t\t\tbreak;\n");
-                    module.push_str("\t\t\t\t\t\t\t\t\t\t}\n");
-                    module.push_str("\t\t\t\t\t\t\t\t\t\tself.read_char();\n");
-                    module.push_str("\t\t\t\t\t\t\t\t\t}\n");
-                    module.push_str("\t\t\t\t\t\t\t\t\tidentifier.append(&mut self.input[position..self.position].to_vec());\n");
-                }
-            }
             module.push_str("\t\t\t\t\t\t\t\t\treturn token::Token::ENTITY(identifier)\n");
             module.push_str("\t\t\t\t\t\t\t\t}\n");
         }
@@ -251,5 +294,5 @@ impl Lexer {\n\
     module.push_str("\t\ttok\n");
     module.push_str("\t}\n");
     module.push_str("}\n");
-    module
+    module.to_string()
 }

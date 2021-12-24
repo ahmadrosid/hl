@@ -175,9 +175,6 @@ impl Lexer {
 								keyword_token
 							},
 							Err(_err) => {
-								if prev_pos != 0 && self.input[prev_pos-1] == '.' {
-									return token::Token::ENTITY(identifier)
-								}
 								if is_digit(self.ch) {
 									let position = self.position;
 									while self.position < self.input.len() {
@@ -187,6 +184,9 @@ impl Lexer {
 										self.read_char();
 									}
 									identifier.append(&mut self.input[position..self.position].to_vec());
+									return token::Token::ENTITY(identifier)
+								}
+								if prev_pos != 0 && self.input[prev_pos-1] == '.' {
 									return token::Token::ENTITY(identifier)
 								}
 								if self.ch == '(' {

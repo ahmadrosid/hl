@@ -8,6 +8,7 @@ use std::fs;
 mod module;
 mod token;
 mod render;
+mod string;
 
 macro_rules! get_by (
     ($name:ident, $key:ident) => (
@@ -45,6 +46,7 @@ get_by!(get_keyword, keyword);
 get_by!(get_prefix, prefix);
 get_by!(get_skip, skip);
 get_by!(get_entity, entity);
+get_by!(get_entity_tag, entity_tag);
 get_by!(get_condition, condition);
 get_bool!(slash_comment_enable, slash_comment);
 get_bool!(slash_star_comment_enable, slash_star_comment);
@@ -58,6 +60,7 @@ pub fn parse(file_path: &str) -> String {
         "keyword",
         "skip",
         "entity",
+        "entity_tag",
         "prefix",
         "slash_comment",
         "condition",

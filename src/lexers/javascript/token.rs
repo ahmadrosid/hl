@@ -46,6 +46,8 @@ pub enum Token {
 	// Entity
 	ENTITY(Vec<char>),
 
+	// Entity tag
+
 	// Keyword
 	IMPORT(Vec<char>),
 	AS(Vec<char>),

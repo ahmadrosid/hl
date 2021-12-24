@@ -9,6 +9,11 @@ base:
   SEMICOLON: ';'
 
 constant:
+  ROOT: 'root'
+  RGB: 'rgb'
+  RGBA: 'rgba'
+  CLAC: 'calc'
+  MEDIA: 'media'
   STRING: ''
   INT: ''
 
@@ -16,14 +21,117 @@ skip:
   IDENT: ''
 
 entity:
+  AFTER: 'after'
+  BEFORE: 'before'
+  HOVER: 'hover'
+  NOT: 'not'
+  FOCUS: 'focus'
+  ACTIVE: 'active'
+  SELECTION: 'selection'
+  PX: 'px'
+  REM: 'rem'
   ENTITY: ''
 
+entity_tag:
+  HTML: html
+  BODY: body
+  DIV: div
+  SPAN: span
+  APPLET: applet
+  OBJECT: object
+  IFRAME: iframe
+  H1: h1
+  H2: h2
+  H3: h3
+  H4: h4
+  H5: h5
+  H6: h6
+  P: p
+  BLOCKQUOTE: blockquote
+  BUTTON: button
+  PRE: pre
+  A: a
+  ABBR: abbr
+  ACRONYM: acronym
+  ADDRESS: address
+  BIG: big
+  CITE: cite
+  CODE: code
+  DEL: del
+  DFN: dfn
+  EM: em
+  IMG: img
+  INS: ins
+  KBD: kbd
+  Q: q
+  S: s
+  SAMP: samp
+  SELECT: select
+  SMALL: small
+  STRIKE: strike
+  STRONG: strong
+  SUB: sub
+  SUP: sup
+  TT: tt
+  VAR: var
+  B: b
+  U: u
+  I: i
+  CENTER: center
+  DL: dl
+  DT: dt
+  DD: dd
+  OL: ol
+  UL: ul
+  LI: li
+  FIELDSET: fieldset
+  FORM: form
+  LABEL: label
+  LEGEND: legend
+  TABLE: table
+  CAPTION: caption
+  TBODY: tbody
+  TFOOT: tfoot
+  THEAD: thead
+  TR: tr
+  TH: th
+  TD: td
+  ARTICLE: article
+  CANVAS: canvas
+  EMBED: embed
+  OUTPUT: output
+  RUBY: ruby
+  SUMMARY: summary
+  TIME: time
+  MARK: mark
+  AUDIO: audio
+  VIDEOARTICLE: videoarticle
+  ASIDE: aside
+  DETAILS: details
+  FIGCAPTION: figcaption
+  FIGURE: figure
+  FOOTER: footer
+  HEADER: header
+  HGROUP: hgroup
+  MENU: menu
+  NAV: nav
+  SECTION: section
+  VIDEO: video
+  TEXTAREA: textarea
+  INPUT: input
+
 prefix:
-  ENTITY_PREFIX: '.'
+  ENTITY_SUFFIX: '('
 
 keyword:
+  IMPORTANT: important
 
 condition:
+  ACCEPT_ENTITY_PREFIX: "prev_pos != 0 && self.input[prev_pos-1] == '.'"
+  ACCEPT_ENTITY_TAG_SUFFIX: "is_digit(self.ch)"
+  ACCEPT_IDENT_SUFFIX: "self.ch == '('"
+  ACCEPT_ENTITY_SUFFIX: "self.ch == '-' || self.ch == ':'"
   BREAK_ENTITY_PREFIX: "self.ch == ' ' || self.ch == '{' || self.ch == ',' || self.ch == '\\n'"
   BREAK_ENTITY_SUFFIX: "self.ch == ' ' || self.ch == ':' || self.ch == '}' || self.ch == '\\n'"
-  ACCEPT_ENTITY_SUFFIX: "self.ch == '-' || self.ch == ':'"
+  BREAK_ENTITY_TAG_SUFFIX: "self.ch == ' ' || self.ch == ':' ||  self.ch == ',' || self.ch == '{' || self.ch == '\\n'"
+  BREAK_IDENT_SUFFIX: "self.ch == ' ' || self.ch == ':' || self.ch == ';' || self.ch == '}' || self.ch == '\\n'"

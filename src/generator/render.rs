@@ -62,6 +62,15 @@ pub fn generate_render_html(h: &Hash, name: String) -> String {
         html.push_str("\t\t\t}\n");
     }
 
+    for (k, _v) in generator::get_entity_tag(h) {
+        html.push_str("\t\t\t");
+        html.push_str(&format!("token::Token::{}(value)", k.as_str().unwrap()));
+        html.push_str(" => {\n");
+        html.push_str("\t\t\t\thtml.push_str(&format!(\"<span class=\\\"hl-ent\\\">{}</span>\", \
+        value.iter().collect::<String>()));\n");
+        html.push_str("\t\t\t}\n");
+    }
+
     for (k, _v) in generator::get_constant(h) {
         html.push_str("\t\t\t");
         html.push_str(&format!("token::Token::{}(value)", k.as_str().unwrap()));

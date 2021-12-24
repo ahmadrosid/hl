@@ -46,6 +46,13 @@ pub fn generate_token(h: &Hash) -> String {
         token.push_str("(Vec<char>),\n");
     }
 
+    token.push_str("\n\t// Entity tag\n");
+    for (k, _v) in generator::get_entity_tag(h) {
+        token.push_str("\t");
+        token.push_str(k.as_str().unwrap());
+        token.push_str("(Vec<char>),\n");
+    }
+
     token.push_str("\n\t// Keyword\n");
     for (k, _v) in generator::get_keyword(h) {
         token.push_str("\t");
@@ -74,6 +81,17 @@ pub fn generate_token(h: &Hash) -> String {
             token.push_str(&format!("\t\t\"{}\" => ", v.as_str().unwrap()));
             token.push_str(&format!("Ok(Token::{}(identifier.to_vec())),\n", k.as_str().unwrap()));
         }
+    }
+
+    for (k, v) in generator::get_entity(h) {
+        if v.as_str().unwrap() != "" {
+            token.push_str(&format!("\t\t\"{}\" => ", v.as_str().unwrap()));
+            token.push_str(&format!("Ok(Token::{}(identifier.to_vec())),\n", k.as_str().unwrap()));
+        }
+    }
+    for (k, v) in generator::get_entity_tag(h) {
+        token.push_str(&format!("\t\t\"{}\" => ", v.as_str().unwrap()));
+        token.push_str(&format!("Ok(Token::{}(identifier.to_vec())),\n", k.as_str().unwrap()));
     }
 
     for (k, v) in generator::get_keyword(h) {
