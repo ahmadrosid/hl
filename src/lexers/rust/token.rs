@@ -30,6 +30,7 @@ pub enum Token {
 	TRUE(Vec<char>),
 	FALSE(Vec<char>),
 	PRINTLN(Vec<char>),
+	SHADOW(Vec<char>),
 	STRING(Vec<char>),
 	INT(Vec<char>),
 
@@ -72,6 +73,7 @@ pub fn get_keyword_token(identifier: &Vec<char>) -> Result<Token, String> {
 		"true" => Ok(Token::TRUE(identifier.to_vec())),
 		"false" => Ok(Token::FALSE(identifier.to_vec())),
 		"println" => Ok(Token::PRINTLN(identifier.to_vec())),
+		"shadow" => Ok(Token::SHADOW(identifier.to_vec())),
 		"." => Ok(Token::ENTITY(identifier.to_vec())),
 		"fn" => Ok(Token::FN(identifier.to_vec())),
 		"for" => Ok(Token::FOR(identifier.to_vec())),

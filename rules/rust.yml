@@ -24,6 +24,7 @@ constant:
     TRUE: 'true'
     FALSE: 'false'
     PRINTLN: 'println'
+    SHADOW: 'shadow'
     STRING: ''
     INT: ''
 
