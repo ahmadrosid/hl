@@ -51,7 +51,7 @@ hl example/rust.rs -l rust
 See the result in browser [here](https://play.tailwindcss.com/k0TqI8RdmD).
 
 ## Lexers
-- [ ] CSS ( 🚧 In Progress )
+- [x] CSS ( ✅ Done )
 - [ ] Go ( 🚧 In Progress )
 - [ ] Rust ( 🚧 In Progress )
 - [ ] Javascript ( 🚧 In Progress )
