@@ -48,6 +48,8 @@ hl example/rust.rs -l rust
 </table>
 ```
 
+See the result in browser [here](https://play.tailwindcss.com/k0TqI8RdmD).
+
 ## Lexers
 - [ ] CSS ( 🚧 In Progress )
 - [ ] Go ( 🚧 In Progress )
