@@ -11,6 +11,7 @@ use crate::generator::{
 
 pub fn generate_module(h: &Hash) -> String {
     let mut module = StringBuilder::new();
+    module.push_strln("// ---- DON'T EDIT THIS IS AUTO GENERATED CODE ----");
     module.push_str("pub mod token;\n\
 pub mod render;\n\n\
 pub struct Lexer {\n\

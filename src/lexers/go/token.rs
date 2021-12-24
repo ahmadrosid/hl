@@ -1,3 +1,4 @@
+// ---- DON'T EDIT THIS IS AUTO GENERATED CODE ----
 #[derive(PartialEq)]
 #[derive(Debug)]
 pub enum Token {
@@ -5,8 +6,6 @@ pub enum Token {
 	EOF,
 	CH(char),
 	ENDL(char),
-
-	// Base
 	PLUS(char),
 	MINUS(char),
 	LPAREN(char),
@@ -25,8 +24,6 @@ pub enum Token {
 	BANG(char),
 	ASTERISK(char),
 	TAB(char),
-
-	// Constants
 	ARGS(Vec<char>),
 	TRUE(Vec<char>),
 	FALSE(Vec<char>),
@@ -42,18 +39,8 @@ pub enum Token {
 	FLOAT(Vec<char>),
 	STRING(Vec<char>),
 	INT(Vec<char>),
-
-	// Var
-
-	// Skip token
 	IDENT(Vec<char>),
-
-	// Entity
 	ENTITY(Vec<char>),
-
-	// Entity tag
-
-	// Keyword
 	PACKAGE(Vec<char>),
 	FUNC(Vec<char>),
 	FOR(Vec<char>),

@@ -1,8 +1,10 @@
 use yaml_rust::yaml::Hash;
 use crate::generator;
+use crate::generator::string::StringBuilder;
 
 pub fn generate_token(h: &Hash) -> String {
-    let mut token = String::new();
+    let mut token = StringBuilder::new();
+    token.push_strln("// ---- DON'T EDIT THIS IS AUTO GENERATED CODE ----");
     token.push_str("#[derive(PartialEq)]\n");
     token.push_str("#[derive(Debug)]\n");
     token.push_str("pub enum Token {\n");
@@ -11,49 +13,42 @@ pub fn generate_token(h: &Hash) -> String {
     token.push_str("\tCH(char),\n");
     token.push_str("\tENDL(char),\n");
 
-    token.push_str("\n\t// Base\n");
     for (k, _v) in generator::get_base(h) {
         token.push_str("\t");
         token.push_str(k.as_str().unwrap());
         token.push_str("(char),\n");
     }
 
-    token.push_str("\n\t// Constants\n");
     for (k, _v) in generator::get_constant(h) {
         token.push_str("\t");
         token.push_str(k.as_str().unwrap());
         token.push_str("(Vec<char>),\n");
     }
 
-    token.push_str("\n\t// Var\n");
     for (k, _v) in generator::get_var(h) {
         token.push_str("\t");
         token.push_str(k.as_str().unwrap());
         token.push_str("(Vec<char>),\n");
     }
 
-    token.push_str("\n\t// Skip token\n");
     for (k, _v) in generator::get_skip(h) {
         token.push_str("\t");
         token.push_str(k.as_str().unwrap());
         token.push_str("(Vec<char>),\n");
     }
 
-    token.push_str("\n\t// Entity\n");
     for (k, _v) in generator::get_entity(h) {
         token.push_str("\t");
         token.push_str(k.as_str().unwrap());
         token.push_str("(Vec<char>),\n");
     }
 
-    token.push_str("\n\t// Entity tag\n");
     for (k, _v) in generator::get_entity_tag(h) {
         token.push_str("\t");
         token.push_str(k.as_str().unwrap());
         token.push_str("(Vec<char>),\n");
     }
 
-    token.push_str("\n\t// Keyword\n");
     for (k, _v) in generator::get_keyword(h) {
         token.push_str("\t");
         token.push_str(k.as_str().unwrap());
@@ -103,5 +98,5 @@ pub fn generate_token(h: &Hash) -> String {
     token.push_str("\t}\n");
     token.push_str("}\n");
 
-    token
+    token.to_string()
 }

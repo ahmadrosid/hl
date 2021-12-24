@@ -1,3 +1,4 @@
+// ---- DON'T EDIT THIS IS AUTO GENERATED CODE ----
 #[derive(PartialEq)]
 #[derive(Debug)]
 pub enum Token {
@@ -5,15 +6,11 @@ pub enum Token {
 	EOF,
 	CH(char),
 	ENDL(char),
-
-	// Base
 	CLASS(char),
 	LBRACE(char),
 	RBRACE(char),
 	COLON(char),
 	SEMICOLON(char),
-
-	// Constants
 	ROOT(Vec<char>),
 	RGB(Vec<char>),
 	RGBA(Vec<char>),
@@ -21,13 +18,7 @@ pub enum Token {
 	MEDIA(Vec<char>),
 	STRING(Vec<char>),
 	INT(Vec<char>),
-
-	// Var
-
-	// Skip token
 	IDENT(Vec<char>),
-
-	// Entity
 	AFTER(Vec<char>),
 	BEFORE(Vec<char>),
 	HOVER(Vec<char>),
@@ -38,8 +29,6 @@ pub enum Token {
 	PX(Vec<char>),
 	REM(Vec<char>),
 	ENTITY(Vec<char>),
-
-	// Entity tag
 	HTML(Vec<char>),
 	BODY(Vec<char>),
 	DIV(Vec<char>),
@@ -126,8 +115,6 @@ pub enum Token {
 	VIDEO(Vec<char>),
 	TEXTAREA(Vec<char>),
 	INPUT(Vec<char>),
-
-	// Keyword
 	IMPORTANT(Vec<char>),
 	COMMENT(Vec<char>),
 }

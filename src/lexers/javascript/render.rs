@@ -1,3 +1,4 @@
+// ---- DON'T EDIT THIS IS AUTO GENERATED CODE ----
 use crate::lexers::javascript::Lexer;
 use crate::lexers::javascript::token;
 
