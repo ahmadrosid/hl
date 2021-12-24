@@ -80,7 +80,22 @@ pub fn render_html(input: Vec<char>) -> String {
 				html.push(value);
 			}
 			token::Token::COMMENT(value) => {
-				html.push_str(&format!("<span class=\"hl-cmt\">{}</span>", value.iter().collect::<String>()));
+				let lines = value.iter().collect::<String>();
+				let split = lines.split("\n");
+				let split_len = split.clone().collect::<Vec<&str>>().len();
+				let mut index = 0;
+				for val in split {
+					html.push_str(&format!("<span class=\"hl-cmt\">{}</span>", val));
+					index = index + 1;
+					if index != split_len {
+						line = line + 1;
+						html.push_str("</td></tr>\n");
+						html.push_str(&format!(
+							"<tr><td class=\"hl-num\" data-line=\"{}\"></td><td>",
+							line
+						));
+					}
+				}
 			}
 			token::Token::IDENT(value) => {
 				html.push_str(&value.iter().collect::<String>());

@@ -1,4 +1,4 @@
-// The comment section
+// The comment section!
 fn main() {
     let matches = App::new("hl")
         .version("0.1.0");
@@ -9,6 +9,9 @@ fn main() {
     }
 }
 
+/**
+* This is double star comment!
+*/
 fn process(a: &str, b: char) {
     println!(a, b);
 }
