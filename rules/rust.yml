@@ -23,6 +23,7 @@ base:
 constant:
     TRUE: 'true'
     FALSE: 'false'
+    PRINT: 'print'
     PRINTLN: 'println'
     SHADOW: 'shadow'
     FORMAT: 'format'
