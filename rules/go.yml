@@ -1,4 +1,5 @@
 slash_comment: true
+slash_star_comment: true
 base:
   PLUS: '+'
   MINUS: '-'
@@ -23,6 +24,9 @@ constant:
   ARGS: 'Args'
   TRUE: 'true'
   FALSE: 'false'
+  NIL: 'nil'
+  BOOL: 'bool'
+  CSTRING: 'string'
   STRING: ''
   INT: ''
 
@@ -48,3 +52,11 @@ keyword:
   RETURN: 'return'
   DEFAULT: 'default'
   IMPORT: 'import'
+  TYPE: 'type'
+  INTERFACE: 'interface'
+  CHAN: 'chan'
+  STRUCT: 'struct'
+  CONST: 'const'
+  RANGE: 'range'
+  BREAK: 'break'
+  MAP: 'map'
