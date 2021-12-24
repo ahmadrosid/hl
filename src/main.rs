@@ -51,9 +51,7 @@ fn main() {
             println!("{}", rust::render::render_html(input));
         },
         "css" => {
-            let content = css::render::render_html(input);
-            write_file(&content);
-            println!("{}", content);
+            println!("{}", rust::render::render_html(input));
         }
         "js" => {
             println!("{}", javascript::render::render_html(input));
@@ -64,8 +62,8 @@ fn main() {
     }
 }
 
-fn write_file(content: &String) {
+fn write_file(content: &String, file_name: &str) {
     let cwd = std::env::current_dir().unwrap();
-    let mut file = std::fs::File::create(format!("{}/table.html", cwd.to_str().unwrap())).unwrap();
+    let mut file = std::fs::File::create(format!("{}/{}", cwd.to_str().unwrap(), table.html)).unwrap();
     write!(&mut file, "{}", content).unwrap();
 }
