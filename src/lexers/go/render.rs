@@ -118,7 +118,19 @@ pub fn render_html(input: Vec<char>) -> String {
 			token::Token::BOOL(value) => {
 				html.push_str(&format!("<span class=\"hl-c\">{}</span>", value.iter().collect::<String>()));
 			}
+			token::Token::CINT(value) => {
+				html.push_str(&format!("<span class=\"hl-c\">{}</span>", value.iter().collect::<String>()));
+			}
+			token::Token::UINT(value) => {
+				html.push_str(&format!("<span class=\"hl-c\">{}</span>", value.iter().collect::<String>()));
+			}
+			token::Token::BYTE(value) => {
+				html.push_str(&format!("<span class=\"hl-c\">{}</span>", value.iter().collect::<String>()));
+			}
 			token::Token::CSTRING(value) => {
+				html.push_str(&format!("<span class=\"hl-c\">{}</span>", value.iter().collect::<String>()));
+			}
+			token::Token::ERROR(value) => {
 				html.push_str(&format!("<span class=\"hl-c\">{}</span>", value.iter().collect::<String>()));
 			}
 			token::Token::STRING(value) => {

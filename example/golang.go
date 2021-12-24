@@ -14,15 +14,21 @@ func main() {
 
 	// emit hashes
 	var buf [pageSize]byte
-	h := sha256.New()
-	p := 0
 	for p < int(codeSize) {
 		if err == io.EOF {
 			break
 		}
-		if err != nil && err != io.ErrUnexpectedEOF {
+		if err != nil {
 			panic(err)
 		}
+	}
+
+	switch something {
+	case string(St):
+		var ssbac Store
+		return ssbac, err
+	default:
+		return ac, err
 	}
 }
 
@@ -34,6 +40,10 @@ type CodeSigCmd struct {
 }
 
 func FindCodeSigCmd(f *macho.File) (CodeSigCmd, bool) {
+	cdir := CodeDirectory{
+		length:       uint32(sz) - (superBlobSize + blobSize),
+		flags:        0x20002, // adhoc | linkerSigned
+	}
 	for _, l := range f.Loads {
 		if cmd == LC_CODE_SIGNATURE {
 			return CodeSigCmd{
@@ -46,4 +56,8 @@ func FindCodeSigCmd(f *macho.File) (CodeSigCmd, bool) {
 
 func (Some) SomeDoc() map[string]string {
 	return map_Affinity
+}
+
+func (ado Ada) Ask() ([]byte, error) {
+	return &ado, nil
 }

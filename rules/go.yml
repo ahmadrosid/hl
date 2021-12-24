@@ -26,7 +26,11 @@ constant:
   FALSE: 'false'
   NIL: 'nil'
   BOOL: 'bool'
+  CINT: 'int'
+  UINT: 'uint'
+  BYTE: 'byte'
   CSTRING: 'string'
+  ERROR: 'error'
   STRING: ''
   INT: ''
 
