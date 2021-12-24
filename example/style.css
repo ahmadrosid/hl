@@ -35,6 +35,7 @@ footer, header, hgroup, menu, nav, section {
 	display: block;
 }
 
+// Set line height
 body {
 	line-height: 1;
 }

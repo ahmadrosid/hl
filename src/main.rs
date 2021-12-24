@@ -3,6 +3,7 @@ mod generator;
 mod lexers;
 use crate::lexers::{rust, go, css, javascript};
 use std::fs::read;
+use std::io::Write;
 
 fn main() {
     let matches = App::new("hl")
@@ -50,7 +51,9 @@ fn main() {
             println!("{}", rust::render::render_html(input));
         },
         "css" => {
-            println!("{}", css::render::render_html(input));
+            let content = css::render::render_html(input);
+            write_file(&content);
+            println!("{}", content);
         }
         "js" => {
             println!("{}", javascript::render::render_html(input));
@@ -59,4 +62,10 @@ fn main() {
             println!("Language {} not supported", lang);
         }
     }
+}
+
+fn write_file(content: &String) {
+    let cwd = std::env::current_dir().unwrap();
+    let mut file = std::fs::File::create(format!("{}/table.html", cwd.to_str().unwrap())).unwrap();
+    write!(&mut file, "{}", content).unwrap();
 }
