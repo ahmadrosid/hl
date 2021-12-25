@@ -14,8 +14,6 @@ constant:
   RGBA: 'rgba'
   CLAC: 'calc'
   MEDIA: 'media'
-  STRING: ''
-  INT: ''
 
 skip:
   IDENT: ''

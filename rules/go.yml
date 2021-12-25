@@ -34,8 +34,6 @@ constant:
   RUNE: 'rune'
   UINTPTR: 'uintptr'
   FLOAT: 'float'
-  STRING: ''
-  INT: ''
 
 skip:
   IDENT: ''

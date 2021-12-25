@@ -80,6 +80,19 @@ pub fn render_html(input: Vec<char>) -> String {
 			token::Token::CH(value) => {
 				html.push(value);
 			}
+			token::Token::STRING(value) => {
+				let mut s = String::new();
+				for ch in value {
+					if ch == '<' {
+						s.push_str("&lt;");
+					} else if ch == '<' {
+						s.push_str("&gt;");
+					} else {
+						s.push(ch);
+					}
+				}
+				html.push_str(&format!("<span class=\"hl-s\">{}</span>", s));
+			}
 			token::Token::COMMENT(value) => {
 				let lines = value.iter().collect::<String>();
 				let split = lines.split("\n");
@@ -141,12 +154,6 @@ pub fn render_html(input: Vec<char>) -> String {
 				html.push_str(&format!("<span class=\"hl-c\">{}</span>", value.iter().collect::<String>()));
 			}
 			token::Token::FLOAT(value) => {
-				html.push_str(&format!("<span class=\"hl-c\">{}</span>", value.iter().collect::<String>()));
-			}
-			token::Token::STRING(value) => {
-				html.push_str(&format!("<span class=\"hl-c\">{}</span>", value.iter().collect::<String>()));
-			}
-			token::Token::INT(value) => {
 				html.push_str(&format!("<span class=\"hl-c\">{}</span>", value.iter().collect::<String>()));
 			}
 			token::Token::PACKAGE(value) => {
