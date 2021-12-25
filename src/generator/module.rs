@@ -124,34 +124,34 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
     module.push_tabln(4, "tok = token::Token::ENDL(self.ch);");
     module.push_tabln(3, "}");
 
-    module.push_str("\t\t\t'0' => {\n");
-    module.push_str("\t\t\t\tif self.position < self.input.len() {\n");
-    module.push_str("\t\t\t\t\ttok = token::Token::INT(self.input[self.position..self.position+1].to_vec());\n");
-    module.push_str("\t\t\t\t} else {\n");
-    module.push_str("\t\t\t\t\ttok = token::Token::EOF;\n");
-    module.push_str("\t\t\t\t}\n");
-    module.push_str("\t\t\t}\n");
+    module.push_tabln(3, "'0' => {");
+    module.push_tabln(4, "if self.position < self.input.len() {");
+    module.push_tabln(5, "tok = token::Token::INT(self.input[self.position..self.position+1].to_vec());");
+    module.push_tabln(4, "} else {");
+    module.push_tabln(5, "tok = token::Token::EOF;");
+    module.push_tabln(4, "}");
+    module.push_tabln(3, "}");
 
     if slash_comment_enable(h) {
-        module.push_str("\t\t\t'/' => {\n");
-        module.push_str("\t\t\t\tif self.input[self.position+1] == '/' {\n");
-        module.push_str("\t\t\t\t\ttok = token::Token::COMMENT(read_slash_comment(self));\n");
+        module.push_tabln(3, "'/' => {");
+        module.push_tabln(4, "if self.input[self.position+1] == '/' {");
+        module.push_tabln(5, "tok = token::Token::COMMENT(read_slash_comment(self));");
         if slash_star_comment_enable(h) {
-            module.push_str("\t\t\t\t} else if self.input[self.position+1] == '*' {\n");
-            module.push_str("\t\t\t\t\ttok = token::Token::COMMENT(read_slash_star_comment(self));\n");
+            module.push_tabln(4, "} else if self.input[self.position+1] == '*' {");
+            module.push_tabln(5, "tok = token::Token::COMMENT(read_slash_star_comment(self));");
         }
-        module.push_str("\t\t\t\t} else {\n");
-        module.push_str("\t\t\t\t\ttok = token::Token::CH(self.ch);\n");
-        module.push_str("\t\t\t\t}\n");
-        module.push_str("\t\t\t}\n");
+        module.push_tabln(4, "} else {");
+        module.push_tabln(5, "tok = token::Token::CH(self.ch);");
+        module.push_tabln(4, "}");
+        module.push_tabln(3, "}");
     } else if slash_star_comment_enable(h) {
-        module.push_str("\t\t\t'/' => {\n");
-        module.push_str("\t\t\t\tif self.input[self.position+1] == '*' {\n");
-        module.push_str("\t\t\t\t\ttok = token::Token::COMMENT(read_slash_star_comment(self));\n");
-        module.push_str("\t\t\t\t}\n");
-        module.push_str("\t\t\t\tself.read_char();\n");
-        module.push_str("\t\t\t\treturn tok;\n");
-        module.push_str("\t\t\t}\n");
+        module.push_tabln(3, "'/' => {");
+        module.push_tabln(4, "if self.input[self.position+1] == '*' {");
+        module.push_tabln(5, "tok = token::Token::COMMENT(read_slash_star_comment(self));");
+        module.push_tabln(4, "}");
+        module.push_tabln(4, "self.read_char();");
+        module.push_tabln(4, "return tok;");
+        module.push_tabln(3, "}");
     }
 
     module.push_tabln(3, "_ => {");
@@ -272,19 +272,19 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
         }
     }
 
-    module.push_str("\t\t\t\t\t\t\t\ttoken::Token::IDENT(identifier)\n\
-                    \t\t\t\t\t\t\t}\n\
-                \t\t\t\t\t\t}\n\
-            \t\t\t\t\t} else if is_digit(self.ch) {\n\
-                \t\t\t\t\t\tlet identifier: Vec<char> = read_number(self);\n\
-                \t\t\t\t\t\ttoken::Token::INT(identifier)\n\
-            \t\t\t\t\t} else if self.ch == '\"' {\n\
-                \t\t\t\t\t\tlet str_value: Vec<char> = read_string(self);\n\
-                \t\t\t\t\t\ttoken::Token::STRING(str_value)\n\
-            \t\t\t\t\t} else {\n\
-                \t\t\t\t\t\ttoken::Token::ILLEGAL\n\
-            \t\t\t\t\t}\n\
-    \t\t\t\t}\n");
+    module.push_tabln(8, "token::Token::IDENT(identifier)");
+    module.push_tabln(7, "}");
+    module.push_tabln(6, "}");
+    module.push_tabln(5, "} else if is_digit(self.ch) {");
+    module.push_tabln(6, "let identifier: Vec<char> = read_number(self);");
+    module.push_tabln(6, "token::Token::INT(identifier)");
+    module.push_tabln(5, "} else if self.ch == '\"' {");
+    module.push_tabln(6, "let str_value: Vec<char> = read_string(self);");
+    module.push_tabln(6, "token::Token::STRING(str_value)");
+    module.push_tabln(5, "} else {");
+    module.push_tabln(6, "token::Token::ILLEGAL");
+    module.push_tabln(5, "}");
+    module.push_tabln(4, "}");
 
     module.push_tabln(3, "}");
     module.push_tabln(2, "self.read_char();");
