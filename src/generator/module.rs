@@ -92,28 +92,27 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
     }
 
     if slash_star_comment_enable(h) {
-        module.push_str("\t\tlet read_slash_star_comment = |l: &mut Lexer| -> Vec<char> {\n\
-            \t\t\tlet position = l.position;\n\
-            \t\t\twhile l.position < l.input.len() {\n\
-                \t\t\t\tif l.position == l.input.len() {\n\
-                \t\t\t\t\tbreak;\n\
-                \t\t\t\t}\n\
-                \t\t\t\tif l.input[l.position+1] == '*' {\n\
-                \t\t\t\t\tif l.input[l.position+2] == '/' {\n\
-                \t\t\t\t\t\tl.read_char();\n\
-                \t\t\t\t\t\tl.read_char();\n\
-                \t\t\t\t\t\tbreak;\n\
-                \t\t\t\t\t}\n\
-                \t\t\t\t}\n\
-                \t\t\t\tl.read_char();\n\
-            \t\t\t}\n\
-            \t\t\tl.input[position..l.position+1].to_vec()\n\
-        \t\t};\n\n")
+        module.push_tabln(2, "let read_slash_star_comment = |l: &mut Lexer| -> Vec<char> {");
+        module.push_tabln(3, "let position = l.position;");
+        module.push_tabln(3, "while l.position < l.input.len() {");
+        module.push_tabln(4, "if l.position == l.input.len() {");
+        module.push_tabln(5, "break;");
+        module.push_tabln(4, "}");
+        module.push_tabln(4, "if l.input[l.position+1] == '*' {");
+        module.push_tabln(5, "if l.input[l.position+2] == '/' {");
+        module.push_tabln(6, "l.read_char();");
+        module.push_tabln(6, "l.read_char();");
+        module.push_tabln(6, "break;");
+        module.push_tabln(5, "}");
+        module.push_tabln(4, "}");
+        module.push_tabln(4, "l.read_char();");
+        module.push_tabln(3, "}");
+        module.push_tabln(3, "l.input[position..l.position+1].to_vec()");
+        module.push_tabln(2, "};\n")
     }
 
-    module.push_str("\t\tlet tok: token::Token;\n\
-        \t\tmatch self.ch {\n\
-    ");
+    module.push_tabln(2, "let tok: token::Token;");
+    module.push_tabln(2, "match self.ch {");
 
     for (k, v) in get_base(h) {
         module.push_str(&format!("\t\t\t'{}' => ", v.as_str().unwrap()));
