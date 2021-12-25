@@ -115,15 +115,14 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
     module.push_tabln(2, "match self.ch {");
 
     for (k, v) in get_base(h) {
-        module.push_str(&format!("\t\t\t'{}' => ", v.as_str().unwrap()));
-        module.push_str("{\n");
-        module.push_str(&format!("\t\t\t\ttok = token::Token::{}(self.ch);\n", k.as_str().unwrap()));
-        module.push_str("\t\t\t}\n");
+        module.push_tabln(3, &format!("'{}' => {{", v.as_str().unwrap()));
+        module.push_tabln(4, &format!("tok = token::Token::{}(self.ch);", k.as_str().unwrap()));
+        module.push_tabln(3, "}");
     }
 
-    module.push_str("\t\t\t'\\n' => {\n");
-    module.push_str("\t\t\t\ttok = token::Token::ENDL(self.ch);\n");
-    module.push_str("\t\t\t}\n");
+    module.push_tabln(3, "'\\n' => {");
+    module.push_tabln(4, "tok = token::Token::ENDL(self.ch);");
+    module.push_tabln(3, "}");
 
     module.push_str("\t\t\t'0' => {\n");
     module.push_str("\t\t\t\tif self.position < self.input.len() {\n");
