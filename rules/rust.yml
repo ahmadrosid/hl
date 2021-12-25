@@ -42,6 +42,7 @@ prefix:
     ENTITY_TOKEN_SUFFIX: "!"
 
 keyword:
+    USE: 'use'
     FN: 'fn'
     FOR: 'for'
     LOOP: 'loop'
