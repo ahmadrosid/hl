@@ -1,15 +1,8 @@
-use yaml_rust::yaml::Hash;
 use crate::generator::{
-    string::StringBuilder,
-    get_base,
-    get_constant,
-    get_entity,
-    get_entity_tag,
-    get_keyword,
-    get_var,
-    get_skip,
-    slash_comment_enable
+    get_base, get_constant, get_entity, get_entity_tag, get_keyword, get_skip, get_var,
+    slash_comment_enable, string::StringBuilder,
 };
+use yaml_rust::yaml::Hash;
 
 pub fn generate_render_html(h: &Hash, name: String) -> String {
     let mut html = StringBuilder::new();
@@ -22,11 +15,17 @@ pub fn generate_render_html(h: &Hash, name: String) -> String {
     html.push_tabln(1, "l.read_char();");
     html.push_tabln(1, "let mut html = String::new();");
     html.push_tabln(1, "let mut line = 1;");
-    html.push_tabln(1, "html.push_str(\"<table class=\\\"highlight-table\\\">\\n\");");
+    html.push_tabln(
+        1,
+        "html.push_str(\"<table class=\\\"highlight-table\\\">\\n\");",
+    );
     html.push_tabln(1, "html.push_str(\"<tbody>\\n\");");
     html.push_tabln(1, "html.push_str(\"<tr>\");");
     html.push_tabln(1, "html.push_str(&format!(");
-    html.push_tabln(2, "\"<td class=\\\"hl-num\\\" data-line=\\\"{}\\\"></td><td>\",");
+    html.push_tabln(
+        2,
+        "\"<td class=\\\"hl-num\\\" data-line=\\\"{}\\\"></td><td>\",",
+    );
     html.push_tabln(2, "line\n\t));\n");
 
     html.push_tabln(1, "loop {");
@@ -54,16 +53,25 @@ pub fn generate_render_html(h: &Hash, name: String) -> String {
         html.push_tabln(3, "token::Token::COMMENT(value) => {");
         html.push_tabln(4, "let lines = value.iter().collect::<String>();");
         html.push_tabln(4, "let split = lines.split(\"\\n\");");
-        html.push_tabln(4, "let split_len = split.clone().collect::<Vec<&str>>().len();");
+        html.push_tabln(
+            4,
+            "let split_len = split.clone().collect::<Vec<&str>>().len();",
+        );
         html.push_tabln(4, "let mut index = 0;");
         html.push_tabln(4, "for val in split {");
-        html.push_tabln(5, "html.push_str(&format!(\"<span class=\\\"hl-cmt\\\">{}</span>\", val));");
+        html.push_tabln(
+            5,
+            "html.push_str(&format!(\"<span class=\\\"hl-cmt\\\">{}</span>\", val));",
+        );
         html.push_tabln(5, "index = index + 1;");
         html.push_tabln(5, "if index != split_len {");
         html.push_tabln(6, "line = line + 1;");
         html.push_tabln(6, "html.push_str(\"</td></tr>\\n\");");
         html.push_tabln(6, "html.push_str(&format!(");
-        html.push_tabln(7, "\"<tr><td class=\\\"hl-num\\\" data-line=\\\"{}\\\"></td><td>\",");
+        html.push_tabln(
+            7,
+            "\"<tr><td class=\\\"hl-num\\\" data-line=\\\"{}\\\"></td><td>\",",
+        );
         html.push_tabln(7, "line");
         html.push_tabln(6, "));");
         html.push_tabln(5, "}");
@@ -72,43 +80,76 @@ pub fn generate_render_html(h: &Hash, name: String) -> String {
     }
 
     for (k, _v) in get_skip(h) {
-        html.push_tabln(3, &format!("token::Token::{}(value) => {{", k.as_str().unwrap()));
+        html.push_tabln(
+            3,
+            &format!("token::Token::{}(value) => {{", k.as_str().unwrap()),
+        );
         html.push_tabln(4, "html.push_str(&value.iter().collect::<String>());");
         html.push_tabln(3, "}");
     }
 
     for (k, _v) in get_entity(h) {
-        html.push_tabln(3,&format!("token::Token::{}(value) => {{", k.as_str().unwrap()));
-        html.push_tabln(4, "html.push_str(&format!(\"<span class=\\\"hl-en\\\">{}</span>\", \
-        value.iter().collect::<String>()));");
+        html.push_tabln(
+            3,
+            &format!("token::Token::{}(value) => {{", k.as_str().unwrap()),
+        );
+        html.push_tabln(
+            4,
+            "html.push_str(&format!(\"<span class=\\\"hl-en\\\">{}</span>\", \
+        value.iter().collect::<String>()));",
+        );
         html.push_tabln(3, "}");
     }
 
     for (k, _v) in get_entity_tag(h) {
-        html.push_tabln(3,&format!("token::Token::{}(value) => {{", k.as_str().unwrap()));
-        html.push_tabln(4, "html.push_str(&format!(\"<span class=\\\"hl-ent\\\">{}</span>\", \
-        value.iter().collect::<String>()));");
+        html.push_tabln(
+            3,
+            &format!("token::Token::{}(value) => {{", k.as_str().unwrap()),
+        );
+        html.push_tabln(
+            4,
+            "html.push_str(&format!(\"<span class=\\\"hl-ent\\\">{}</span>\", \
+        value.iter().collect::<String>()));",
+        );
         html.push_tabln(3, "}");
     }
 
     for (k, _v) in get_constant(h) {
-        html.push_tabln(3,&format!("token::Token::{}(value) => {{", k.as_str().unwrap()));
-        html.push_tabln(4, "html.push_str(&format!(\"<span class=\\\"hl-c\\\">{}</span>\", \
-        value.iter().collect::<String>()));");
+        html.push_tabln(
+            3,
+            &format!("token::Token::{}(value) => {{", k.as_str().unwrap()),
+        );
+        html.push_tabln(
+            4,
+            "html.push_str(&format!(\"<span class=\\\"hl-c\\\">{}</span>\", \
+        value.iter().collect::<String>()));",
+        );
         html.push_tabln(3, "}");
     }
 
     for (k, _v) in get_var(h) {
-        html.push_tabln(3,&format!("token::Token::{}(value) => {{", k.as_str().unwrap()));
-        html.push_tabln(4, "html.push_str(&format!(\"<span class=\\\"hl-v\\\">{}</span>\", \
-        value.iter().collect::<String>()));");
+        html.push_tabln(
+            3,
+            &format!("token::Token::{}(value) => {{", k.as_str().unwrap()),
+        );
+        html.push_tabln(
+            4,
+            "html.push_str(&format!(\"<span class=\\\"hl-v\\\">{}</span>\", \
+        value.iter().collect::<String>()));",
+        );
         html.push_tabln(3, "}");
     }
 
     for (k, _v) in get_keyword(h) {
-        html.push_tabln(3,&format!("token::Token::{}(value) => {{", k.as_str().unwrap()));
-        html.push_tabln(4, "html.push_str(&format!(\"<span class=\\\"hl-k\\\">{}</span>\", \
-        value.iter().collect::<String>()));");
+        html.push_tabln(
+            3,
+            &format!("token::Token::{}(value) => {{", k.as_str().unwrap()),
+        );
+        html.push_tabln(
+            4,
+            "html.push_str(&format!(\"<span class=\\\"hl-k\\\">{}</span>\", \
+        value.iter().collect::<String>()));",
+        );
         html.push_tabln(3, "}");
     }
 
@@ -116,7 +157,10 @@ pub fn generate_render_html(h: &Hash, name: String) -> String {
     html.push_tabln(4, "line = line + 1;");
     html.push_tabln(4, "html.push_str(\"</td></tr>\\n\");");
     html.push_tabln(4, "html.push_str(&format!(");
-    html.push_tabln(5, "\"<tr><td class=\\\"hl-num\\\" data-line=\\\"{}\\\"></td><td>\",");
+    html.push_tabln(
+        5,
+        "\"<tr><td class=\\\"hl-num\\\" data-line=\\\"{}\\\"></td><td>\",",
+    );
     html.push_tabln(5, "line");
     html.push_tabln(4, "));");
     html.push_tabln(3, "}");
