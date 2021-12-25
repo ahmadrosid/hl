@@ -1,13 +1,6 @@
 slash_comment: true
 slash_star_comment: true
 
-base:
-  CLASS: '.'
-  LBRACE: '{'
-  RBRACE: '}'
-  COLON: ':'
-  SEMICOLON: ';'
-
 constant:
   ROOT: 'root'
   RGB: 'rgb'

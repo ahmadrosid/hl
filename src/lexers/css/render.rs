@@ -23,21 +23,6 @@ pub fn render_html(input: Vec<char>) -> String {
 		}
 
 		match token {
-			token::Token::CLASS(value) => {
-				html.push(value);
-			}
-			token::Token::LBRACE(value) => {
-				html.push(value);
-			}
-			token::Token::RBRACE(value) => {
-				html.push(value);
-			}
-			token::Token::COLON(value) => {
-				html.push(value);
-			}
-			token::Token::SEMICOLON(value) => {
-				html.push(value);
-			}
 			token::Token::CH(value) => {
 				html.push(value);
 			}
@@ -53,6 +38,9 @@ pub fn render_html(input: Vec<char>) -> String {
 					}
 				}
 				html.push_str(&format!("<span class=\"hl-s\">{}</span>", s));
+			}
+			token::Token::INT(value) => {
+				html.push_str(&format!("<span class=\"hl-en\">{}</span>", value.iter().collect::<String>()));
 			}
 			token::Token::COMMENT(value) => {
 				let lines = value.iter().collect::<String>();
@@ -103,9 +91,6 @@ pub fn render_html(input: Vec<char>) -> String {
 				html.push_str(&format!("<span class=\"hl-en\">{}</span>", value.iter().collect::<String>()));
 			}
 			token::Token::ENTITY(value) => {
-				html.push_str(&format!("<span class=\"hl-en\">{}</span>", value.iter().collect::<String>()));
-			}
-			token::Token::INT(value) => {
 				html.push_str(&format!("<span class=\"hl-en\">{}</span>", value.iter().collect::<String>()));
 			}
 			token::Token::HTML(value) => {

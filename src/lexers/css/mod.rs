@@ -95,21 +95,6 @@ impl Lexer {
 
 		let tok: token::Token;
 		match self.ch {
-			'.' => {
-				tok = token::Token::CLASS(self.ch);
-			}
-			'{' => {
-				tok = token::Token::LBRACE(self.ch);
-			}
-			'}' => {
-				tok = token::Token::RBRACE(self.ch);
-			}
-			':' => {
-				tok = token::Token::COLON(self.ch);
-			}
-			';' => {
-				tok = token::Token::SEMICOLON(self.ch);
-			}
 			'\n' => {
 				tok = token::Token::ENDL(self.ch);
 			}

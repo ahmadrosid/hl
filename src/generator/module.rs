@@ -1,5 +1,5 @@
 use crate::generator::{
-    get_base, get_condition, get_prefix, slash_comment_enable, slash_star_comment_enable,
+    get_condition, get_prefix, slash_comment_enable, slash_star_comment_enable,
     string::StringBuilder,
 };
 use yaml_rust::yaml::Hash;
@@ -115,16 +115,6 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
 
     module.push_tabln(2, "let tok: token::Token;");
     module.push_tabln(2, "match self.ch {");
-
-    for (k, v) in get_base(h) {
-        module.push_tabln(3, &format!("'{}' => {{", v.as_str().unwrap()));
-        module.push_tabln(
-            4,
-            &format!("tok = token::Token::{}(self.ch);", k.as_str().unwrap()),
-        );
-        module.push_tabln(3, "}");
-    }
-
     module.push_tabln(3, "'\\n' => {");
     module.push_tabln(4, "tok = token::Token::ENDL(self.ch);");
     module.push_tabln(3, "}");

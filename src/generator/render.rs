@@ -1,34 +1,8 @@
 use crate::generator::{
-    get_base, get_constant, get_entity, get_entity_tag, get_keyword, get_skip, get_var,
+    get_constant, get_entity, get_entity_tag, get_keyword, get_skip, get_var,
     slash_comment_enable, string::StringBuilder,
 };
 use yaml_rust::yaml::Hash;
-
-fn render_string(html: &mut StringBuilder) {
-    html.push_tabln(3, "token::Token::STRING(value) => {");
-    html.push_tabln(4, "let mut s = String::new();");
-    html.push_tabln(4, "for ch in value {");
-    html.push_tabln(5, "if ch == '<' {");
-    html.push_tabln(6, "s.push_str(\"&lt;\");");
-    html.push_tabln(5, "} else if ch == '<' {");
-    html.push_tabln(6, "s.push_str(\"&gt;\");");
-    html.push_tabln(5, "} else {");
-    html.push_tabln(6, "s.push(ch);");
-    html.push_tabln(5, "}");
-    html.push_tabln(4, "}");
-    html.push_tabln(4, "html.push_str(&format!(\"<span class=\\\"hl-s\\\">{}</span>\", s));");
-    html.push_tabln(3, "}");
-}
-
-fn render_integer(html: &mut StringBuilder) {
-    html.push_tabln(3,"token::Token::INT(value) => {",);
-    html.push_tabln(
-        4,
-        "html.push_str(&format!(\"<span class=\\\"hl-en\\\">{}</span>\", \
-        value.iter().collect::<String>()));",
-    );
-    html.push_tabln(3, "}");
-}
 
 pub fn generate_render_html(h: &Hash, name: String) -> String {
     let mut html = StringBuilder::new();
@@ -62,20 +36,12 @@ pub fn generate_render_html(h: &Hash, name: String) -> String {
     html.push_tabln(2, "}\n");
 
     html.push_tabln(2, "match token {");
-    for (k, _v) in get_base(h) {
-        let key = k.as_str().unwrap();
-        if key != "ENDL" {
-            html.push_tabln(3, &format!("token::Token::{}(value) => {{", key));
-            html.push_tabln(4, "html.push(value);");
-            html.push_tabln(3, "}");
-        }
-    }
-
     html.push_tabln(3, "token::Token::CH(value) => {");
     html.push_tabln(4, "html.push(value);");
     html.push_tabln(3, "}");
 
-    render_string(&mut html);
+    write_token_string(&mut html);
+    write_token_integer(&mut html);
 
     if slash_comment_enable(h) {
         html.push_tabln(3, "token::Token::COMMENT(value) => {");
@@ -128,8 +94,6 @@ pub fn generate_render_html(h: &Hash, name: String) -> String {
         );
         html.push_tabln(3, "}");
     }
-
-    render_integer(&mut html);
 
     for (k, _v) in get_entity_tag(h) {
         html.push_tabln(
@@ -206,4 +170,30 @@ pub fn generate_render_html(h: &Hash, name: String) -> String {
     html.push_tabln(1, "html");
     html.push_strln("}");
     html.to_string()
+}
+
+fn write_token_string(html: &mut StringBuilder) {
+    html.push_tabln(3, "token::Token::STRING(value) => {");
+    html.push_tabln(4, "let mut s = String::new();");
+    html.push_tabln(4, "for ch in value {");
+    html.push_tabln(5, "if ch == '<' {");
+    html.push_tabln(6, "s.push_str(\"&lt;\");");
+    html.push_tabln(5, "} else if ch == '<' {");
+    html.push_tabln(6, "s.push_str(\"&gt;\");");
+    html.push_tabln(5, "} else {");
+    html.push_tabln(6, "s.push(ch);");
+    html.push_tabln(5, "}");
+    html.push_tabln(4, "}");
+    html.push_tabln(4, "html.push_str(&format!(\"<span class=\\\"hl-s\\\">{}</span>\", s));");
+    html.push_tabln(3, "}");
+}
+
+fn write_token_integer(html: &mut StringBuilder) {
+    html.push_tabln(3,"token::Token::INT(value) => {",);
+    html.push_tabln(
+        4,
+        "html.push_str(&format!(\"<span class=\\\"hl-en\\\">{}</span>\", \
+        value.iter().collect::<String>()));",
+    );
+    html.push_tabln(3, "}");
 }

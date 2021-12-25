@@ -23,60 +23,6 @@ pub fn render_html(input: Vec<char>) -> String {
 		}
 
 		match token {
-			token::Token::PLUS(value) => {
-				html.push(value);
-			}
-			token::Token::MINUS(value) => {
-				html.push(value);
-			}
-			token::Token::LPAREN(value) => {
-				html.push(value);
-			}
-			token::Token::RPAREN(value) => {
-				html.push(value);
-			}
-			token::Token::LBRACE(value) => {
-				html.push(value);
-			}
-			token::Token::RBRACE(value) => {
-				html.push(value);
-			}
-			token::Token::SPACE(value) => {
-				html.push(value);
-			}
-			token::Token::ASSIGN(value) => {
-				html.push(value);
-			}
-			token::Token::COLON(value) => {
-				html.push(value);
-			}
-			token::Token::SEMICOLON(value) => {
-				html.push(value);
-			}
-			token::Token::MEMBERACCESS(value) => {
-				html.push(value);
-			}
-			token::Token::COMMA(value) => {
-				html.push(value);
-			}
-			token::Token::GT(value) => {
-				html.push(value);
-			}
-			token::Token::LT(value) => {
-				html.push(value);
-			}
-			token::Token::AND(value) => {
-				html.push(value);
-			}
-			token::Token::BANG(value) => {
-				html.push(value);
-			}
-			token::Token::ASTERISK(value) => {
-				html.push(value);
-			}
-			token::Token::TAB(value) => {
-				html.push(value);
-			}
 			token::Token::CH(value) => {
 				html.push(value);
 			}
@@ -92,6 +38,9 @@ pub fn render_html(input: Vec<char>) -> String {
 					}
 				}
 				html.push_str(&format!("<span class=\"hl-s\">{}</span>", s));
+			}
+			token::Token::INT(value) => {
+				html.push_str(&format!("<span class=\"hl-en\">{}</span>", value.iter().collect::<String>()));
 			}
 			token::Token::COMMENT(value) => {
 				let lines = value.iter().collect::<String>();
@@ -115,9 +64,6 @@ pub fn render_html(input: Vec<char>) -> String {
 				html.push_str(&value.iter().collect::<String>());
 			}
 			token::Token::ENTITY(value) => {
-				html.push_str(&format!("<span class=\"hl-en\">{}</span>", value.iter().collect::<String>()));
-			}
-			token::Token::INT(value) => {
 				html.push_str(&format!("<span class=\"hl-en\">{}</span>", value.iter().collect::<String>()));
 			}
 			token::Token::ARGS(value) => {

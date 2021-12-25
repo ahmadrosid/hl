@@ -95,60 +95,6 @@ impl Lexer {
 
 		let tok: token::Token;
 		match self.ch {
-			'+' => {
-				tok = token::Token::PLUS(self.ch);
-			}
-			'-' => {
-				tok = token::Token::MINUS(self.ch);
-			}
-			'(' => {
-				tok = token::Token::LPAREN(self.ch);
-			}
-			')' => {
-				tok = token::Token::RPAREN(self.ch);
-			}
-			'{' => {
-				tok = token::Token::LBRACE(self.ch);
-			}
-			'}' => {
-				tok = token::Token::RBRACE(self.ch);
-			}
-			' ' => {
-				tok = token::Token::SPACE(self.ch);
-			}
-			'=' => {
-				tok = token::Token::ASSIGN(self.ch);
-			}
-			':' => {
-				tok = token::Token::COLON(self.ch);
-			}
-			';' => {
-				tok = token::Token::SEMICOLON(self.ch);
-			}
-			'.' => {
-				tok = token::Token::MEMBERACCESS(self.ch);
-			}
-			',' => {
-				tok = token::Token::COMMA(self.ch);
-			}
-			'>' => {
-				tok = token::Token::GT(self.ch);
-			}
-			'<' => {
-				tok = token::Token::LT(self.ch);
-			}
-			'&' => {
-				tok = token::Token::AND(self.ch);
-			}
-			'!' => {
-				tok = token::Token::BANG(self.ch);
-			}
-			'*' => {
-				tok = token::Token::ASTERISK(self.ch);
-			}
-			'\t' => {
-				tok = token::Token::TAB(self.ch);
-			}
 			'\n' => {
 				tok = token::Token::ENDL(self.ch);
 			}
