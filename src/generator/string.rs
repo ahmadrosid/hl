@@ -1,11 +1,11 @@
 pub struct StringBuilder {
-    source: String
+    source: String,
 }
 
 impl StringBuilder {
     pub fn new() -> Self {
         Self {
-            source: String::new()
+            source: String::new(),
         }
     }
 
@@ -34,7 +34,7 @@ impl StringBuilder {
     }
 
     pub fn push_tabln(&mut self, tab: usize, s: &str) {
-        self.push_tab(tab, s,);
+        self.push_tab(tab, s);
         self.endl();
     }
 
