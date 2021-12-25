@@ -1,14 +1,14 @@
 extern crate yaml_rust;
 
-use yaml_rust::{YamlLoader, Yaml, yaml::Hash};
+use std::fs;
 use std::io::Write;
 use std::path::Path;
-use std::fs;
+use yaml_rust::{yaml::Hash, Yaml, YamlLoader};
 
 mod module;
-mod token;
 mod render;
 mod string;
+mod token;
 
 macro_rules! get_by (
     ($name:ident, $key:ident) => (
@@ -77,7 +77,7 @@ pub fn parse(file_path: &str) -> String {
         "slash_comment",
         "condition",
         "slash_star_comment",
-        "var"
+        "var",
     ];
 
     let mut token_stub = String::new();
@@ -141,6 +141,6 @@ fn write_file(content: &String, path: &String, file_name: &str) {
 }
 
 fn get_file_name(file_path: &str) -> String {
-    let ancestors = Path::new(& file_path).file_name().unwrap();
+    let ancestors = Path::new(&file_path).file_name().unwrap();
     ancestors.to_string_lossy().replace(&".yml", "")
 }
