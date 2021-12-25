@@ -4,7 +4,7 @@ use crate::generator::string::StringBuilder;
 
 pub fn generate_token(h: &Hash) -> String {
     let mut token = StringBuilder::new();
-    token.push_strln("// ---- DON'T EDIT THIS IS AUTO GENERATED CODE ----");
+    token.push_strln("// ---- DON'T EDIT THIS IS AUTO GENERATED CODE ---- //");
     token.push_str("#[derive(PartialEq)]\n");
     token.push_str("#[derive(Debug)]\n");
     token.push_str("pub enum Token {\n");
