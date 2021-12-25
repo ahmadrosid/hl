@@ -12,69 +12,69 @@ use crate::generator::{
 pub fn generate_module(h: &Hash) -> String {
     let mut module = StringBuilder::new();
     module.push_strln("// ---- DON'T EDIT THIS IS AUTO GENERATED CODE ----");
-    module.push_str("pub mod token;\n\
-pub mod render;\n\n\
-pub struct Lexer {\n\
-    \tinput: Vec<char>,\n\
-    \tpub position: usize,\n\
-    \tpub read_position: usize,\n\
-    \tpub ch: char\n\
-}\n\
-\n\
-fn is_letter(ch: char) -> bool {\n\
-    \t'a' <= ch && ch <= 'z' || 'A' <= ch && ch <= 'Z' || ch == '_'\n\
-}\n\
-\n\
-fn is_digit(ch: char) -> bool {\n\
-    \t'0' <= ch && ch <= '9'\n\
-}\n\
-\n\
-impl Lexer {\n\
-    \tpub fn new(input: Vec<char>) -> Self {\n\
-        \t\tSelf {\n\
-        \t\t\tinput,\n\
-        \t\t\tposition: 0,\n\
-        \t\t\tread_position: 0,\n\
-        \t\t\tch: '0'\n\
-        \t\t}\n\
-    \t}\n\
-    \tpub fn read_char(&mut self) {\n\
-        \t\tif self.read_position >= self.input.len() {\n\
-            \t\t\tself.ch = '0';\n\
-        \t\t} else {\n\
-            \t\t\tself.ch = self.input[self.read_position];\n\
-        \t\t}\n\
-        \t\tself.position = self.read_position;\n\
-        \t\tself.read_position = self.read_position + 1;\n\
-    \t}\n\
-    \n\
-    \tpub fn next_token(&mut self) -> token::Token {\n\
-        \t\tlet read_identifier = |l: &mut Lexer| -> Vec<char> {\n\
-            \t\t\tlet position = l.position;\n\
-            \t\t\twhile l.position < l.input.len() && is_letter(l.ch) {\n\
-                \t\t\t\tl.read_char();\n\
-            \t\t\t}\n\
-            \t\t\tl.input[position..l.position].to_vec()\n\
-        \t\t};\n\
-    \n\
-        \t\tlet read_string = |l: &mut Lexer| -> Vec<char> {\n\
-            \t\t\tlet position = l.position;\n\
-            \t\t\tl.read_char();\n\
-            \t\t\twhile l.position < l.input.len() && l.ch != '\"' {\n\
-                \t\t\t\tl.read_char()\n\
-            \t\t\t}\n\
-            \t\t\tl.read_char();\n\
-            \t\t\tl.input[position..l.position].to_vec()\n\
-        \t\t};\n\
-    \n\
-        \t\tlet read_number = |l: &mut Lexer| -> Vec<char> {\n\
-            \t\t\tlet position = l.position;\n\
-            \t\t\twhile l.position < l.input.len() && is_digit(l.ch) {\n\
-                \t\t\t\tl.read_char();\n\
-            \t\t\t}\n\
-            \t\t\tl.input[position..l.position].to_vec()\n\
-        \t\t};\n\n\
-    ");
+    module.push_strln("pub mod token;");
+    module.push_strln("pub mod render;\n");
+
+    module.push_strln("pub struct Lexer {");
+    module.push_tabln(1, "input: Vec<char>,");
+    module.push_tabln(1, "pub position: usize,");
+    module.push_tabln(1, "pub read_position: usize,");
+    module.push_tabln(1, "pub ch: char");
+    module.push_strln("}\n");
+
+    module.push_strln("fn is_letter(ch: char) -> bool {");
+    module.push_tabln(1,"'a' <= ch && ch <= 'z' || 'A' <= ch && ch <= 'Z' || ch == '_'");
+    module.push_strln("}\n");
+
+    module.push_strln("fn is_digit(ch: char) -> bool {");
+    module.push_tabln(1, "'0' <= ch && ch <= '9'");
+    module.push_strln("}\n");
+
+    module.push_strln("impl Lexer {");
+    module.push_tabln(1, "pub fn new(input: Vec<char>) -> Self {");
+    module.push_tabln(2, "Self {");
+    module.push_tabln(3, "input,");
+    module.push_tabln(3, "position: 0,");
+    module.push_tabln(3, "read_position: 0,");
+    module.push_tabln(3, "ch: '0'");
+    module.push_tabln(2, "}");
+    module.push_tabln(1, "}");
+    module.push_tabln(1, "pub fn read_char(&mut self) {");
+    module.push_tabln(2, "if self.read_position >= self.input.len() {");
+    module.push_tabln(3, "self.ch = '0';");
+    module.push_tabln(2, "} else {");
+    module.push_tabln(3, "self.ch = self.input[self.read_position];");
+    module.push_tabln(2, "}");
+    module.push_tabln(2, "self.position = self.read_position;");
+    module.push_tabln(2, "self.read_position = self.read_position + 1;");
+    module.push_tabln(1, "}\n");
+
+    module.push_tabln(1, "pub fn next_token(&mut self) -> token::Token {");
+    module.push_tabln(2, "let read_identifier = |l: &mut Lexer| -> Vec<char> {");
+    module.push_tabln(3, "let position = l.position;");
+    module.push_tabln(3, "while l.position < l.input.len() && is_letter(l.ch) {");
+    module.push_tabln(4, "l.read_char();");
+    module.push_tabln(3, "}");
+    module.push_tabln(3, "l.input[position..l.position].to_vec()");
+    module.push_tabln(2, "};\n");
+
+    module.push_tabln(2, "let read_string = |l: &mut Lexer| -> Vec<char> {");
+    module.push_tabln(3, "let position = l.position;");
+    module.push_tabln(3, "l.read_char();");
+    module.push_tabln(3, "while l.position < l.input.len() && l.ch != '\"' {");
+    module.push_tabln(4, "l.read_char();");
+    module.push_tabln(3, "}");
+    module.push_tabln(3, "l.read_char();");
+    module.push_tabln(3, "l.input[position..l.position].to_vec()");
+    module.push_tabln(2, "};\n");
+
+    module.push_tabln(2, "let read_number = |l: &mut Lexer| -> Vec<char> {");
+    module.push_tabln(3, "let position = l.position;");
+    module.push_tabln(3, "while l.position < l.input.len() && is_digit(l.ch) {");
+    module.push_tabln(4, "l.read_char();");
+    module.push_tabln(3, "}");
+    module.push_tabln(3, "l.input[position..l.position].to_vec()");
+    module.push_tabln(2, "};\n");
 
     if slash_comment_enable(h) {
         module.push_str("\t\tlet read_slash_comment = |l: &mut Lexer| -> Vec<char> {\n\
