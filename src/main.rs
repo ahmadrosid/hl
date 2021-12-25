@@ -46,16 +46,16 @@ fn main() {
     match lang {
         "go" => {
             let content = go::render::render_html(input);
-            println!("{}", content);
+            print!("{}", content);
         }
         "rust" => {
-            println!("{}", rust::render::render_html(input));
+            print!("{}", rust::render::render_html(input));
         }
         "css" => {
-            println!("{}", css::render::render_html(input));
+            print!("{}", css::render::render_html(input));
         }
         "js" => {
-            println!("{}", javascript::render::render_html(input));
+            print!("{}", javascript::render::render_html(input));
         }
         _ => {
             println!("Language {} not supported", lang);

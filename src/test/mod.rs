@@ -13,9 +13,9 @@ fn read_file(path: &str) -> String {
 }
 
 #[test]
-fn valid_parse() {
+fn test_rust() {
     let input = read_input("src/test/testdata/input/rust.rs");
-    let output = read_file("src/test/testdata/output/rust.html");
-    let result = rust::render::render_html(input);
-    assert_eq!(output, result);
+    let expected = read_file("src/test/testdata/output/rust.html");
+    let actual = rust::render::render_html(input);
+    assert_eq!(expected, actual);
 }
