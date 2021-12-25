@@ -141,13 +141,6 @@ fn write_file(content: &String, path: &String, file_name: &str) {
     write!(&mut file, "{}", content).unwrap();
 }
 
-// fn slash_comment_enable(h: &Hash) -> bool {
-//     return match h.get(&Yaml::String("slash_comment".to_string())) {
-//         None => false,
-//         Some(val) => val.as_bool().unwrap()
-//     }
-// }
-
 fn get_file_name(file_path: &str) -> String {
     let ancestors = Path::new(& file_path).file_name().unwrap();
     ancestors.to_string_lossy().replace(&".yml", "")
