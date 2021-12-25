@@ -1,7 +1,7 @@
 use clap::{arg, App, AppSettings};
 mod generator;
 mod lexers;
-use crate::lexers::{rust, go, css, javascript};
+use crate::lexers::{css, go, javascript, rust};
 use std::fs::read;
 use std::io::Write;
 
@@ -50,7 +50,7 @@ fn main() {
         }
         "rust" => {
             println!("{}", rust::render::render_html(input));
-        },
+        }
         "css" => {
             println!("{}", css::render::render_html(input));
         }
@@ -66,6 +66,7 @@ fn main() {
 #[allow(dead_code)]
 fn write_file(content: &String, file_name: &str) {
     let cwd = std::env::current_dir().unwrap();
-    let mut file = std::fs::File::create(format!("{}/{}", cwd.to_str().unwrap(), file_name)).unwrap();
+    let mut file =
+        std::fs::File::create(format!("{}/{}", cwd.to_str().unwrap(), file_name)).unwrap();
     write!(&mut file, "{}", content).unwrap();
 }
