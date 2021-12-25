@@ -39,7 +39,6 @@ pub fn $name(h: &Hash) -> bool {
     );
 );
 
-
 get_by!(get_base, base);
 get_by!(get_constant, constant);
 get_by!(get_var, var);
