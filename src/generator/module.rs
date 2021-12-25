@@ -38,7 +38,8 @@ pub fn generate_module(h: &Hash) -> String {
     module.push_tabln(3, "read_position: 0,");
     module.push_tabln(3, "ch: '0'");
     module.push_tabln(2, "}");
-    module.push_tabln(1, "}");
+    module.push_tabln(1, "}\n");
+
     module.push_tabln(1, "pub fn read_char(&mut self) {");
     module.push_tabln(2, "if self.read_position >= self.input.len() {");
     module.push_tabln(3, "self.ch = '0';");
