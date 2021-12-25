@@ -63,6 +63,7 @@ fn main() {
     }
 }
 
+#[allow(dead_code)]
 fn write_file(content: &String, file_name: &str) {
     let cwd = std::env::current_dir().unwrap();
     let mut file = std::fs::File::create(format!("{}/{}", cwd.to_str().unwrap(), file_name)).unwrap();

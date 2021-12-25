@@ -22,7 +22,7 @@ impl StringBuilder {
     }
 
     pub fn push_tab(&mut self, tab: usize, s: &str) {
-        for i in 0..tab {
+        for _ in 0..tab {
             self.push('\t');
         }
         self.push_str(s);

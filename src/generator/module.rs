@@ -156,11 +156,11 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
         module.push_str("\t\t\t}\n");
     }
 
-    module.push_str("\t\t\t_ => {\n\
-            \t\t\t\treturn if is_letter(self.ch) {\n\
-                \t\t\t\t\tlet prev_pos = self.position;\n\
-                \t\t\t\t\tlet mut identifier: Vec<char> = read_identifier(self);\n\
-    ");
+    module.push_tabln(3, "_ => {");
+    module.push_tabln(4, "return if is_letter(self.ch) {");
+    module.push_tabln(5, "let prev_pos = self.position;");
+    module.push_tabln(5, "#[allow(unused_mut)]");
+    module.push_tabln(5, "let mut identifier: Vec<char> = read_identifier(self);");
 
     if let Some(val_prefix) = get_condition(h).get(&Yaml::String("ACCEPT_ENTITY_TAG_SUFFIX".to_string())) {
         let val_condition = val_prefix.as_str().unwrap();

@@ -171,6 +171,7 @@ impl Lexer {
 			_ => {
 				return if is_letter(self.ch) {
 					let prev_pos = self.position;
+					#[allow(unused_mut)]
 					let mut identifier: Vec<char> = read_identifier(self);
 					match token::get_keyword_token(&identifier) {
 							Ok(keyword_token) => {

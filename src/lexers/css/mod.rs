@@ -132,6 +132,7 @@ impl Lexer {
 			_ => {
 				return if is_letter(self.ch) {
 					let prev_pos = self.position;
+					#[allow(unused_mut)]
 					let mut identifier: Vec<char> = read_identifier(self);
 					if is_digit(self.ch) {
 						let position = self.position;
