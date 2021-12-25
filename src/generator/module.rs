@@ -1,13 +1,9 @@
-use yaml_rust::Yaml;
-use yaml_rust::yaml::Hash;
 use crate::generator::{
-    get_base,
-    get_condition,
-    get_prefix,
-    slash_comment_enable,
-    slash_star_comment_enable,
-    string::StringBuilder
+    get_base, get_condition, get_prefix, slash_comment_enable, slash_star_comment_enable,
+    string::StringBuilder,
 };
+use yaml_rust::yaml::Hash;
+use yaml_rust::Yaml;
 
 fn write_struct_lexer(module: &mut StringBuilder) {
     module.push_strln("pub struct Lexer {");
@@ -20,7 +16,10 @@ fn write_struct_lexer(module: &mut StringBuilder) {
 
 fn write_helper_is_letter(module: &mut StringBuilder) {
     module.push_strln("fn is_letter(ch: char) -> bool {");
-    module.push_tabln(1,"'a' <= ch && ch <= 'z' || 'A' <= ch && ch <= 'Z' || ch == '_'");
+    module.push_tabln(
+        1,
+        "'a' <= ch && ch <= 'z' || 'A' <= ch && ch <= 'Z' || ch == '_'",
+    );
     module.push_strln("}\n");
 }
 
@@ -92,7 +91,10 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
     }
 
     if slash_star_comment_enable(h) {
-        module.push_tabln(2, "let read_slash_star_comment = |l: &mut Lexer| -> Vec<char> {");
+        module.push_tabln(
+            2,
+            "let read_slash_star_comment = |l: &mut Lexer| -> Vec<char> {",
+        );
         module.push_tabln(3, "let position = l.position;");
         module.push_tabln(3, "while l.position < l.input.len() {");
         module.push_tabln(4, "if l.position == l.input.len() {");
@@ -116,7 +118,10 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
 
     for (k, v) in get_base(h) {
         module.push_tabln(3, &format!("'{}' => {{", v.as_str().unwrap()));
-        module.push_tabln(4, &format!("tok = token::Token::{}(self.ch);", k.as_str().unwrap()));
+        module.push_tabln(
+            4,
+            &format!("tok = token::Token::{}(self.ch);", k.as_str().unwrap()),
+        );
         module.push_tabln(3, "}");
     }
 
@@ -126,7 +131,10 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
 
     module.push_tabln(3, "'0' => {");
     module.push_tabln(4, "if self.position < self.input.len() {");
-    module.push_tabln(5, "tok = token::Token::INT(self.input[self.position..self.position+1].to_vec());");
+    module.push_tabln(
+        5,
+        "tok = token::Token::INT(self.input[self.position..self.position+1].to_vec());",
+    );
     module.push_tabln(4, "} else {");
     module.push_tabln(5, "tok = token::Token::EOF;");
     module.push_tabln(4, "}");
@@ -138,7 +146,10 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
         module.push_tabln(5, "tok = token::Token::COMMENT(read_slash_comment(self));");
         if slash_star_comment_enable(h) {
             module.push_tabln(4, "} else if self.input[self.position+1] == '*' {");
-            module.push_tabln(5, "tok = token::Token::COMMENT(read_slash_star_comment(self));");
+            module.push_tabln(
+                5,
+                "tok = token::Token::COMMENT(read_slash_star_comment(self));",
+            );
         }
         module.push_tabln(4, "} else {");
         module.push_tabln(5, "tok = token::Token::CH(self.ch);");
@@ -147,7 +158,10 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
     } else if slash_star_comment_enable(h) {
         module.push_tabln(3, "'/' => {");
         module.push_tabln(4, "if self.input[self.position+1] == '*' {");
-        module.push_tabln(5, "tok = token::Token::COMMENT(read_slash_star_comment(self));");
+        module.push_tabln(
+            5,
+            "tok = token::Token::COMMENT(read_slash_star_comment(self));",
+        );
         module.push_tabln(4, "}");
         module.push_tabln(4, "self.read_char();");
         module.push_tabln(4, "return tok;");
@@ -160,9 +174,13 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
     module.push_tabln(5, "#[allow(unused_mut)]");
     module.push_tabln(5, "let mut identifier: Vec<char> = read_identifier(self);");
 
-    if let Some(val_prefix) = get_condition(h).get(&Yaml::String("ACCEPT_ENTITY_TAG_SUFFIX".to_string())) {
+    if let Some(val_prefix) =
+        get_condition(h).get(&Yaml::String("ACCEPT_ENTITY_TAG_SUFFIX".to_string()))
+    {
         let val_condition = val_prefix.as_str().unwrap();
-        if let Some(val) = get_condition(h).get(&Yaml::String("BREAK_ENTITY_TAG_SUFFIX".to_string())) {
+        if let Some(val) =
+            get_condition(h).get(&Yaml::String("BREAK_ENTITY_TAG_SUFFIX".to_string()))
+        {
             let val_break = val.as_str().unwrap();
             module.push_tab(5, &format!("if {} ", val_condition));
             module.push_strln("{");
@@ -174,7 +192,10 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
             module.push_tabln(7, "}");
             module.push_tabln(7, "self.read_char();");
             module.push_tabln(6, "}");
-            module.push_tabln(6, "identifier.append(&mut self.input[position..self.position].to_vec());");
+            module.push_tabln(
+                6,
+                "identifier.append(&mut self.input[position..self.position].to_vec());",
+            );
             module.push_tabln(5, "}")
         }
     }
@@ -185,7 +206,10 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
     for (k, v) in get_prefix(h) {
         if k.as_str().unwrap() == "ENTITY_TOKEN_SUFFIX" {
             module.push_tabln(8, &format!("if self.ch == '{}' {{", v.as_str().unwrap()));
-            module.push_tabln(9, "return token::Token::ENTITY(self.input[prev_pos..self.position].to_vec());");
+            module.push_tabln(
+                9,
+                "return token::Token::ENTITY(self.input[prev_pos..self.position].to_vec());",
+            );
             module.push_tabln(8, "}");
             break;
         }
@@ -195,7 +219,9 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
     module.push_tabln(7, "},");
     module.push_tabln(7, "Err(_err) => {");
 
-    if let Some(val_prefix) = get_condition(h).get(&Yaml::String("ACCEPT_ENTITY_PREFIX".to_string())) {
+    if let Some(val_prefix) =
+        get_condition(h).get(&Yaml::String("ACCEPT_ENTITY_PREFIX".to_string()))
+    {
         let val_condition = val_prefix.as_str().unwrap();
         if let Some(val) = get_condition(h).get(&Yaml::String("BREAK_ENTITY_PREFIX".to_string())) {
             let val_break = val.as_str().unwrap();
@@ -209,13 +235,17 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
             module.push_tabln(10, "}");
             module.push_tabln(10, "self.read_char();");
             module.push_tabln(9, "}");
-            module.push_tabln(9, "identifier.append(&mut self.input[position..self.position].to_vec());");
+            module.push_tabln(
+                9,
+                "identifier.append(&mut self.input[position..self.position].to_vec());",
+            );
             module.push_tabln(9, "return token::Token::ENTITY(identifier)");
             module.push_tabln(8, "}")
         }
     }
 
-    if let Some(val_prefix) = get_condition(h).get(&Yaml::String("ACCEPT_IDENT_SUFFIX".to_string())) {
+    if let Some(val_prefix) = get_condition(h).get(&Yaml::String("ACCEPT_IDENT_SUFFIX".to_string()))
+    {
         let val_condition = val_prefix.as_str().unwrap();
         if let Some(val) = get_condition(h).get(&Yaml::String("BREAK_IDENT_SUFFIX".to_string())) {
             let val_break = val.as_str().unwrap();
@@ -229,13 +259,18 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
             module.push_tabln(10, "}");
             module.push_tabln(10, "self.read_char();");
             module.push_tabln(9, "}");
-            module.push_tabln(9, "identifier.append(&mut self.input[position..self.position].to_vec());");
+            module.push_tabln(
+                9,
+                "identifier.append(&mut self.input[position..self.position].to_vec());",
+            );
             module.push_tabln(9, "return token::Token::IDENT(identifier)");
             module.push_tabln(8, "}")
         }
     }
 
-    if let Some(val_prefix) = get_condition(h).get(&Yaml::String("ACCEPT_ENTITY_SUFFIX".to_string())) {
+    if let Some(val_prefix) =
+        get_condition(h).get(&Yaml::String("ACCEPT_ENTITY_SUFFIX".to_string()))
+    {
         let val_condition = val_prefix.as_str().unwrap();
         if let Some(val) = get_condition(h).get(&Yaml::String("BREAK_ENTITY_SUFFIX".to_string())) {
             let val_break = val.as_str().unwrap();
@@ -249,7 +284,10 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
             module.push_tabln(10, "}");
             module.push_tabln(10, "self.read_char();");
             module.push_tabln(9, "}");
-            module.push_tabln(9, "identifier.append(&mut self.input[position..self.position].to_vec());");
+            module.push_tabln(
+                9,
+                "identifier.append(&mut self.input[position..self.position].to_vec());",
+            );
             module.push_tabln(9, "return token::Token::ENTITY(identifier)");
             module.push_tabln(8, "}")
         }
@@ -257,12 +295,18 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
 
     for (k, v) in get_prefix(h) {
         if k.as_str().unwrap() == "ENTITY_PREFIX" {
-            module.push_tabln(8,&format!("if prev_pos != 0 && self.input[prev_pos-1] == '{}' {{", v.as_str().unwrap()));
+            module.push_tabln(
+                8,
+                &format!(
+                    "if prev_pos != 0 && self.input[prev_pos-1] == '{}' {{",
+                    v.as_str().unwrap()
+                ),
+            );
             module.push_tabln(9, "return token::Token::ENTITY(identifier)");
             module.push_tabln(8, "}");
         }
         if k.as_str().unwrap() == "ENTITY_SUFFIX" {
-            module.push_tabln(8,&format!("if self.ch == '{}' {{", v.as_str().unwrap()));
+            module.push_tabln(8, &format!("if self.ch == '{}' {{", v.as_str().unwrap()));
             module.push_tabln(9, "return token::Token::ENTITY(identifier)");
             module.push_tabln(8, "}");
         }
