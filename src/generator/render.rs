@@ -114,19 +114,16 @@ pub fn generate_render_html(h: &Hash, name: String) -> String {
 
     html.push_tabln(3, "token::Token::ENDL(_) => {");
     html.push_tabln(4, "line = line + 1;");
-    html.push_str("\
-        \t\t\t\t\
-        html.push_str(\"</td></tr>\\n\");\n\t\t\t\t\
-        html.push_str(&format!(\n\t\t\t\t\t\
-            \"<tr><td class=\\\"hl-num\\\" data-line=\\\"{}\\\"></td><td>\",\n\t\t\t\t\t\
-            line\n\t\t\t\t\
-        ));\n\t\t\t\
-    }\n\t\t\t\
-    _ => {\n\t\t\t\t\
-    html.push(l.ch);\n\t\t\t\t\
-    l.read_char();\n\t\t\t\
-    }\n");
-
+    html.push_tabln(4, "html.push_str(\"</td></tr>\\n\");");
+    html.push_tabln(4, "html.push_str(&format!(");
+    html.push_tabln(5, "\"<tr><td class=\\\"hl-num\\\" data-line=\\\"{}\\\"></td><td>\",");
+    html.push_tabln(5, "line");
+    html.push_tabln(4, "));");
+    html.push_tabln(3, "}");
+    html.push_tabln(3, "_ => {");
+    html.push_tabln(4, "html.push(l.ch);");
+    html.push_tabln(4, "l.read_char();");
+    html.push_tabln(3, "}");
     html.push_tabln(2, "}");
     html.push_tabln(1, "}\n");
 
