@@ -9,26 +9,36 @@ use crate::generator::{
     string::StringBuilder
 };
 
-pub fn generate_module(h: &Hash) -> String {
-    let mut module = StringBuilder::new();
-    module.push_strln("// ---- DON'T EDIT THIS IS AUTO GENERATED CODE ----");
-    module.push_strln("pub mod token;");
-    module.push_strln("pub mod render;\n");
-
+fn write_struct_lexer(module: &mut StringBuilder) {
     module.push_strln("pub struct Lexer {");
     module.push_tabln(1, "input: Vec<char>,");
     module.push_tabln(1, "pub position: usize,");
     module.push_tabln(1, "pub read_position: usize,");
     module.push_tabln(1, "pub ch: char");
     module.push_strln("}\n");
+}
 
+fn write_helper_is_letter(module: &mut StringBuilder) {
     module.push_strln("fn is_letter(ch: char) -> bool {");
     module.push_tabln(1,"'a' <= ch && ch <= 'z' || 'A' <= ch && ch <= 'Z' || ch == '_'");
     module.push_strln("}\n");
+}
 
+fn write_helper_is_digit(module: &mut StringBuilder) {
     module.push_strln("fn is_digit(ch: char) -> bool {");
     module.push_tabln(1, "'0' <= ch && ch <= '9'");
     module.push_strln("}\n");
+}
+
+pub fn generate_module(h: &Hash) -> String {
+    let mut module = StringBuilder::new();
+    module.push_strln("// ---- DON'T EDIT THIS IS AUTO GENERATED CODE ----");
+    module.push_strln("pub mod token;");
+    module.push_strln("pub mod render;\n");
+
+    write_struct_lexer(&mut module);
+    write_helper_is_letter(&mut module);
+    write_helper_is_digit(&mut module);
 
     module.push_strln("impl Lexer {");
     module.push_tabln(1, "pub fn new(input: Vec<char>) -> Self {");
