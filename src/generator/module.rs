@@ -30,16 +30,7 @@ fn write_helper_is_digit(module: &mut StringBuilder) {
     module.push_strln("}\n");
 }
 
-pub fn generate_module(h: &Hash) -> String {
-    let mut module = StringBuilder::new();
-    module.push_strln("// ---- DON'T EDIT THIS IS AUTO GENERATED CODE ----");
-    module.push_strln("pub mod token;");
-    module.push_strln("pub mod render;\n");
-
-    write_struct_lexer(&mut module);
-    write_helper_is_letter(&mut module);
-    write_helper_is_digit(&mut module);
-
+fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
     module.push_strln("impl Lexer {");
     module.push_tabln(1, "pub fn new(input: Vec<char>) -> Self {");
     module.push_tabln(2, "Self {");
@@ -302,5 +293,18 @@ pub fn generate_module(h: &Hash) -> String {
     module.push_tabln(2, "tok");
     module.push_tabln(1, "}");
     module.push_strln("}");
+}
+
+pub fn generate_module(h: &Hash) -> String {
+    let mut module = StringBuilder::new();
+    module.push_strln("// ---- DON'T EDIT THIS IS AUTO GENERATED CODE ----");
+    module.push_strln("pub mod token;");
+    module.push_strln("pub mod render;\n");
+
+    write_struct_lexer(&mut module);
+    write_helper_is_letter(&mut module);
+    write_helper_is_digit(&mut module);
+    write_impl_lexer(&mut module, h);
+
     module.to_string()
 }
