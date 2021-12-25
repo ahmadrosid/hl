@@ -4,7 +4,7 @@ use crate::generator::{
 };
 use yaml_rust::yaml::Hash;
 
-fn write_string(html: &mut StringBuilder) {
+fn render_string(html: &mut StringBuilder) {
     html.push_tabln(3, "token::Token::STRING(value) => {");
     html.push_tabln(4, "let mut s = String::new();");
     html.push_tabln(4, "for ch in value {");
@@ -17,6 +17,16 @@ fn write_string(html: &mut StringBuilder) {
     html.push_tabln(5, "}");
     html.push_tabln(4, "}");
     html.push_tabln(4, "html.push_str(&format!(\"<span class=\\\"hl-s\\\">{}</span>\", s));");
+    html.push_tabln(3, "}");
+}
+
+fn render_integer(html: &mut StringBuilder) {
+    html.push_tabln(3,"token::Token::INT(value) => {",);
+    html.push_tabln(
+        4,
+        "html.push_str(&format!(\"<span class=\\\"hl-en\\\">{}</span>\", \
+        value.iter().collect::<String>()));",
+    );
     html.push_tabln(3, "}");
 }
 
@@ -65,7 +75,7 @@ pub fn generate_render_html(h: &Hash, name: String) -> String {
     html.push_tabln(4, "html.push(value);");
     html.push_tabln(3, "}");
 
-    write_string(&mut html);
+    render_string(&mut html);
 
     if slash_comment_enable(h) {
         html.push_tabln(3, "token::Token::COMMENT(value) => {");
@@ -118,6 +128,8 @@ pub fn generate_render_html(h: &Hash, name: String) -> String {
         );
         html.push_tabln(3, "}");
     }
+
+    render_integer(&mut html);
 
     for (k, _v) in get_entity_tag(h) {
         html.push_tabln(
