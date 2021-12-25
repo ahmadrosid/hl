@@ -78,16 +78,16 @@ pub fn generate_module(h: &Hash) -> String {
     module.push_tabln(2, "};\n");
 
     if slash_comment_enable(h) {
-        module.push_str("\t\tlet read_slash_comment = |l: &mut Lexer| -> Vec<char> {\n\
-            \t\t\tlet position = l.position;\n\
-            \t\t\twhile l.position < l.input.len() {\n\
-                \t\t\t\tl.read_char();\n\
-                \t\t\t\tif l.input[l.position+1] == '\\n' {\n\
-                \t\t\t\t\tbreak;\n\
-                \t\t\t\t}\n\
-            \t\t\t}\n\
-            \t\t\tl.input[position..l.position+1].to_vec()\n\
-        \t\t};\n\n")
+        module.push_tabln(2, "let read_slash_comment = |l: &mut Lexer| -> Vec<char> {");
+        module.push_tabln(3, "let position = l.position;");
+        module.push_tabln(3, "while l.position < l.input.len() {");
+        module.push_tabln(4, "l.read_char();");
+        module.push_tabln(4, "if l.input[l.position+1] == '\\n' {");
+        module.push_tabln(5, "break;");
+        module.push_tabln(4, "}");
+        module.push_tabln(3, "}");
+        module.push_tabln(3, "l.input[position..l.position+1].to_vec()");
+        module.push_tabln(2, "};\n");
     }
 
     if slash_star_comment_enable(h) {
