@@ -27,8 +27,6 @@ constant:
     PRINTLN: 'println'
     SHADOW: 'shadow'
     FORMAT: 'format'
-    STRING: ''
-    INT: ''
 
 skip:
     IDENT: ''

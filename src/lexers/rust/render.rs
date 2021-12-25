@@ -122,12 +122,6 @@ pub fn render_html(input: Vec<char>) -> String {
 			token::Token::FORMAT(value) => {
 				html.push_str(&format!("<span class=\"hl-c\">{}</span>", value.iter().collect::<String>()));
 			}
-			token::Token::STRING(value) => {
-				html.push_str(&format!("<span class=\"hl-c\">{}</span>", value.iter().collect::<String>()));
-			}
-			token::Token::INT(value) => {
-				html.push_str(&format!("<span class=\"hl-c\">{}</span>", value.iter().collect::<String>()));
-			}
 			token::Token::USE(value) => {
 				html.push_str(&format!("<span class=\"hl-k\">{}</span>", value.iter().collect::<String>()));
 			}

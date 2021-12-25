@@ -14,6 +14,8 @@ pub fn generate_token(h: &Hash) -> String {
     token.push_tabln(1, "EOF,");
     token.push_tabln(1, "CH(char),");
     token.push_tabln(1, "ENDL(char),");
+    token.push_tabln(1, "INT(Vec<char>),");
+    token.push_tabln(1, "STRING(Vec<char>),");
 
     for (k, _v) in get_base(h) {
         token.push_tabln(1, &format!("{}(char),", k.as_str().unwrap()));
@@ -56,13 +58,11 @@ pub fn generate_token(h: &Hash) -> String {
     token.push_tabln(1, "match &identifiers[..] {");
 
     for (k, v) in get_constant(h) {
-        if v.as_str().unwrap() != "" {
-            token.push_tab(2, &format!("\"{}\" => ", v.as_str().unwrap()));
-            token.push_strln(&format!(
-                "Ok(Token::{}(identifier.to_vec())),",
-                k.as_str().unwrap()
-            ));
-        }
+        token.push_tab(2, &format!("\"{}\" => ", v.as_str().unwrap()));
+        token.push_strln(&format!(
+            "Ok(Token::{}(identifier.to_vec())),",
+            k.as_str().unwrap()
+        ));
     }
 
     for (k, v) in get_var(h) {
