@@ -4,7 +4,7 @@ use crate::generator::string::StringBuilder;
 
 pub fn generate_render_html(h: &Hash, name: String) -> String {
     let mut html = StringBuilder::new();
-    html.push_strln("// ---- DON'T EDIT THIS IS AUTO GENERATED CODE ----");
+    html.push_strln("// ---- DON'T EDIT THIS IS AUTO GENERATED CODE ---- //");
     html.push_str(&format!("use crate::lexers::{}::Lexer;\n", name));
     html.push_str(&format!("use crate::lexers::{}::token;\n\n", name));
     html.push_str("pub fn render_html(input: Vec<char>) -> String {\n");
