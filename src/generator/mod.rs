@@ -39,6 +39,7 @@ pub fn $name(h: &Hash) -> bool {
     );
 );
 
+
 get_by!(get_base, base);
 get_by!(get_constant, constant);
 get_by!(get_var, var);
@@ -50,6 +51,18 @@ get_by!(get_entity_tag, entity_tag);
 get_by!(get_condition, condition);
 get_bool!(slash_comment_enable, slash_comment);
 get_bool!(slash_star_comment_enable, slash_star_comment);
+
+fn green(s: &str) -> String {
+    return format!("\x1b[0;32m{}\x1b[m", s);
+}
+
+fn bold_green(s: &str) -> String {
+    return format!("\x1b[1;32m{}\x1b[m", s);
+}
+
+fn cyan(s: &str) -> String {
+    return format!("\x1b[0;96m{}\x1b[m", s);
+}
 
 pub fn parse(file_path: &str) -> String {
     let content = read_file(file_path);
@@ -95,11 +108,12 @@ pub fn parse(file_path: &str) -> String {
     write_file(&render_stub, &out_file_path, &"render.rs");
 
     let mut message = String::new();
-    message.push_str("Success generate lexer for ");
-    message.push_str(&format!("\"{}\" language!\n", get_file_name(file_path)));
-    message.push_str(&format!("{}/token.rs\n", out_file_path));
-    message.push_str(&format!("{}/mod.rs\n", out_file_path));
-    message.push_str(&format!("{}/render.rs\n", out_file_path));
+    message.push_str(&green("Success generate lexer for \""));
+    message.push_str(&bold_green(&get_file_name(file_path)));
+    message.push_str(&green("\" language!\n"));
+    message.push_str(&cyan(&format!("- {}/token.rs\n", out_file_path)));
+    message.push_str(&cyan(&format!("- {}/mod.rs\n", out_file_path)));
+    message.push_str(&cyan(&format!("- {}/render.rs\n", out_file_path)));
     message
 }
 
