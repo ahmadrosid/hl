@@ -179,25 +179,21 @@ pub fn generate_module(h: &Hash) -> String {
         }
     }
 
-    module.push_str("\t\t\t\t\tmatch token::get_keyword_token(&identifier) {\n\
-                    \t\t\t\t\t\t\tOk(keyword_token) => {\n\
-    ");
+    module.push_tabln(5, "match token::get_keyword_token(&identifier) {");
+    module.push_tabln(7, "Ok(keyword_token) => {");
 
     for (k, v) in get_prefix(h) {
         if k.as_str().unwrap() == "ENTITY_TOKEN_SUFFIX" {
-            module.push_str("\t\t\t\t\t\t\t\t");
-            module.push_str(&format!("if self.ch == '{}' ", v.as_str().unwrap()));
-            module.push_str("{\n\t\t\t\t\t\t\t\t\t");
-            module.push_str("return token::Token::ENTITY(self.input[prev_pos..self.position].to_vec());\n");
-            module.push_str("\t\t\t\t\t\t\t\t}\n");
+            module.push_tabln(8, &format!("if self.ch == '{}' {{", v.as_str().unwrap()));
+            module.push_tabln(9, "return token::Token::ENTITY(self.input[prev_pos..self.position].to_vec());");
+            module.push_tabln(8, "}");
             break;
         }
     }
 
-    module.push_str("\t\t\t\t\t\t\t\tkeyword_token\n\
-                    \t\t\t\t\t\t\t},\n\
-                    \t\t\t\t\t\t\tErr(_err) => {\n\
-    ");
+    module.push_tabln(8, "keyword_token");
+    module.push_tabln(7, "},");
+    module.push_tabln(7, "Err(_err) => {");
 
     if let Some(val_prefix) = get_condition(h).get(&Yaml::String("ACCEPT_ENTITY_PREFIX".to_string())) {
         let val_condition = val_prefix.as_str().unwrap();
@@ -290,10 +286,10 @@ pub fn generate_module(h: &Hash) -> String {
             \t\t\t\t\t}\n\
     \t\t\t\t}\n");
 
-    module.push_str("\t\t\t}\n");
-    module.push_str("\t\tself.read_char();\n");
-    module.push_str("\t\ttok\n");
-    module.push_str("\t}\n");
-    module.push_str("}\n");
+    module.push_tabln(3, "}");
+    module.push_tabln(2, "self.read_char();");
+    module.push_tabln(2, "tok");
+    module.push_tabln(1, "}");
+    module.push_strln("}");
     module.to_string()
 }
