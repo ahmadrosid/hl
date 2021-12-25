@@ -257,18 +257,14 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
 
     for (k, v) in get_prefix(h) {
         if k.as_str().unwrap() == "ENTITY_PREFIX" {
-            module.push_str("\t\t\t\t\t\t\t\t");
-            module.push_str(&format!("if prev_pos != 0 && self.input[prev_pos-1] == '{}' ", v.as_str().unwrap()));
-            module.push_str("{\n");
-            module.push_str("\t\t\t\t\t\t\t\t\treturn token::Token::ENTITY(identifier)\n");
-            module.push_str("\t\t\t\t\t\t\t\t}\n");
+            module.push_tabln(8,&format!("if prev_pos != 0 && self.input[prev_pos-1] == '{}' {{", v.as_str().unwrap()));
+            module.push_tabln(9, "return token::Token::ENTITY(identifier)");
+            module.push_tabln(8, "}");
         }
         if k.as_str().unwrap() == "ENTITY_SUFFIX" {
-            module.push_str("\t\t\t\t\t\t\t\t");
-            module.push_str(&format!("if self.ch == '{}' ", v.as_str().unwrap()));
-            module.push_str("{\n");
-            module.push_str("\t\t\t\t\t\t\t\t\treturn token::Token::ENTITY(identifier)\n");
-            module.push_str("\t\t\t\t\t\t\t\t}\n");
+            module.push_tabln(8,&format!("if self.ch == '{}' {{", v.as_str().unwrap()));
+            module.push_tabln(9, "return token::Token::ENTITY(identifier)");
+            module.push_tabln(8, "}");
         }
     }
 
