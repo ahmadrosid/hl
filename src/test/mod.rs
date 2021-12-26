@@ -13,24 +13,24 @@ fn read_file(path: &str) -> String {
 
 #[test]
 fn test_css() {
-    let input = read_input("src/test/testdata/input/css.css");
-    let expected = read_file("src/test/testdata/output/css.html");
+    let input = read_input("src/test/testdata/input/css.stub");
+    let expected = read_file("src/test/testdata/output/css.stub");
     let actual = css::render::render_html(input);
     assert_eq!(expected, actual);
 }
 
 #[test]
 fn test_golang() {
-    let input = read_input("src/test/testdata/input/golang.go");
-    let expected = read_file("src/test/testdata/output/golang.html");
+    let input = read_input("src/test/testdata/input/golang.stub");
+    let expected = read_file("src/test/testdata/output/golang.stub");
     let actual = go::render::render_html(input);
     assert_eq!(expected, actual);
 }
 
 #[test]
 fn test_rust() {
-    let input = read_input("src/test/testdata/input/rust.rs");
-    let expected = read_file("src/test/testdata/output/rust.html");
+    let input = read_input("src/test/testdata/input/rust.stub");
+    let expected = read_file("src/test/testdata/output/rust.stub");
     let actual = rust::render::render_html(input);
     assert_eq!(expected, actual);
 }
