@@ -1,4 +1,4 @@
-use crate::lexers::{css, go, rust};
+use crate::lexers::{css, go, javascript, rust};
 use std::fs;
 
 fn read_input(path: &str) -> Vec<char> {
@@ -13,24 +13,32 @@ fn read_file(path: &str) -> String {
 
 #[test]
 fn test_css() {
-    let input = read_input("src/test/testdata/input/css.stub");
-    let expected = read_file("src/test/testdata/output/css.stub");
+    let input = read_input("src/test/testdata/input/css.css.stub");
+    let expected = read_file("src/test/testdata/output/css.html.stub");
     let actual = css::render::render_html(input);
     assert_eq!(expected, actual);
 }
 
 #[test]
 fn test_golang() {
-    let input = read_input("src/test/testdata/input/golang.stub");
-    let expected = read_file("src/test/testdata/output/golang.stub");
+    let input = read_input("src/test/testdata/input/golang.go.stub");
+    let expected = read_file("src/test/testdata/output/golang.html.stub");
     let actual = go::render::render_html(input);
     assert_eq!(expected, actual);
 }
 
 #[test]
+fn test_javascript() {
+    let input = read_input("src/test/testdata/input/javascript.js.stub");
+    let expected = read_file("src/test/testdata/output/javascript.html.stub");
+    let actual = javascript::render::render_html(input);
+    assert_eq!(expected, actual);
+}
+
+#[test]
 fn test_rust() {
-    let input = read_input("src/test/testdata/input/rust.stub");
-    let expected = read_file("src/test/testdata/output/rust.stub");
+    let input = read_input("src/test/testdata/input/rust.rs.stub");
+    let expected = read_file("src/test/testdata/output/rust.html.stub");
     let actual = rust::render::render_html(input);
     assert_eq!(expected, actual);
 }
