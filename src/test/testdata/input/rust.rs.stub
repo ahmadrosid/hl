@@ -10,16 +10,6 @@ fn main() {
         .version("0.1.0")
         .author("Ahmad Rosid <alahmadrosid@gmail.com>")
         .about("Syntax highlighting.")
-        .arg(arg!([FILE_PATH] "File path to parse."))
-        .arg(arg!(lang: -l [LANG] "Language."))
-        .subcommand(
-            App::new("generate")
-                .short_flag('g')
-                .long_flag("generate")
-                .about("Generate lexer, this is for development only.")
-                .arg(arg!([LEXER_PATH] "Lexer path"))
-                .setting(AppSettings::ArgRequiredElseHelp),
-        )
         .setting(AppSettings::ArgRequiredElseHelp)
         .get_matches();
 
@@ -44,19 +34,6 @@ fn main() {
     }
 
     match lang {
-        "go" => {
-            let content = go::render::render_html(input);
-            println!("{}", content);
-        }
-        "rust" => {
-            println!("{}", rust::render::render_html(input));
-        }
-        "css" => {
-            println!("{}", css::render::render_html(input));
-        }
-        "js" => {
-            println!("{}", javascript::render::render_html(input));
-        }
         _ => {
             println!("Language {} not supported", lang);
         }
@@ -65,6 +42,7 @@ fn main() {
 
 impl Stream for RecursiveModuleLoad {
   type Item = Result<(ModuleRequest, ModuleSource), Error>;
+  let scope = &mut unsafe { v8::CallbackScope::new(context) };
 
   fn poll_next(
     self: Pin<&mut Self>,

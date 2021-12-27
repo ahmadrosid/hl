@@ -36,6 +36,7 @@ keyword:
     KVEC: 'vec'
     CRATE: 'crate'
     REF: 'ref'
+    UNSAFE: 'unsafe'
     KSELF: 'Self'
     ASYNC: 'async'
     AWAIT: 'await'
