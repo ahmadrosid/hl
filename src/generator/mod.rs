@@ -5,6 +5,8 @@ use std::io::Write;
 use std::path::Path;
 use yaml_rust::{yaml::Hash, Yaml, YamlLoader};
 
+#[path="../color.rs"]
+mod color;
 mod module;
 mod render;
 mod string;
@@ -51,18 +53,6 @@ get_by!(get_condition, condition);
 get_bool!(slash_comment_enable, slash_comment);
 get_bool!(slash_star_comment_enable, slash_star_comment);
 
-fn green(s: &str) -> String {
-    return format!("\x1b[0;32m{}\x1b[m", s);
-}
-
-fn bold_green(s: &str) -> String {
-    return format!("\x1b[1;32m{}\x1b[m", s);
-}
-
-fn cyan(s: &str) -> String {
-    return format!("\x1b[0;96m{}\x1b[m", s);
-}
-
 pub fn parse(file_path: &str) -> String {
     let content = read_file(file_path);
     let docs = YamlLoader::load_from_str(&content).unwrap();
@@ -108,12 +98,12 @@ pub fn parse(file_path: &str) -> String {
     write_file(&render_stub, &out_file_path, &"render.rs");
 
     let mut message = String::new();
-    message.push_str(&green("Success generate lexer for \""));
-    message.push_str(&bold_green(&get_file_name(file_path)));
-    message.push_str(&green("\" language!\n"));
-    message.push_str(&cyan(&format!("- {}/token.rs\n", out_file_path)));
-    message.push_str(&cyan(&format!("- {}/mod.rs\n", out_file_path)));
-    message.push_str(&cyan(&format!("- {}/render.rs\n", out_file_path)));
+    message.push_str(&color::green("Success generate lexer for \""));
+    message.push_str(&color::bold_green(&get_file_name(file_path)));
+    message.push_str(&color::green("\" language!\n"));
+    message.push_str(&color::cyan(&format!("- {}/token.rs\n", out_file_path)));
+    message.push_str(&color::cyan(&format!("- {}/mod.rs\n", out_file_path)));
+    message.push_str(&color::cyan(&format!("- {}/render.rs\n", out_file_path)));
     message
 }
 
