@@ -16,9 +16,6 @@ constant:
   UINTPTR: 'uintptr'
   FLOAT: 'float'
 
-entity:
-  ENTITY: '.'
-
 entity_prefix:
   ENTITY_DOT: '.'
 

@@ -7,9 +7,6 @@ constant:
     NONE: 'None'
     CSELF: 'self'
 
-entity:
-    ENTITY: '.'
-
 entity_prefix:
     ENTITY_DOT: '.'
 

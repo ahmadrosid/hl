@@ -42,6 +42,12 @@ pub fn render_html(input: Vec<char>) -> String {
 			token::Token::INT(value) => {
 				html.push_str(&format!("<span class=\"hl-c\">{}</span>", value.iter().collect::<String>()));
 			}
+			token::Token::IDENT(value) => {
+				html.push_str(&value.iter().collect::<String>());
+			}
+			token::Token::ENTITY(value) => {
+				html.push_str(&format!("<span class=\"hl-en\">{}</span>", value.iter().collect::<String>()));
+			}
 			token::Token::COMMENT(value) => {
 				let lines = value.iter().collect::<String>();
 				let split = lines.split("\n");
@@ -59,9 +65,6 @@ pub fn render_html(input: Vec<char>) -> String {
 						));
 					}
 				}
-			}
-			token::Token::IDENT(value) => {
-				html.push_str(&value.iter().collect::<String>());
 			}
 			token::Token::AFTER(value) => {
 				html.push_str(&format!("<span class=\"hl-en\">{}</span>", value.iter().collect::<String>()));
@@ -88,9 +91,6 @@ pub fn render_html(input: Vec<char>) -> String {
 				html.push_str(&format!("<span class=\"hl-en\">{}</span>", value.iter().collect::<String>()));
 			}
 			token::Token::REM(value) => {
-				html.push_str(&format!("<span class=\"hl-en\">{}</span>", value.iter().collect::<String>()));
-			}
-			token::Token::ENTITY(value) => {
 				html.push_str(&format!("<span class=\"hl-en\">{}</span>", value.iter().collect::<String>()));
 			}
 			token::Token::HTML(value) => {

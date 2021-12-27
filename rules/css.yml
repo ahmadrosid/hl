@@ -18,7 +18,6 @@ entity:
   SELECTION: 'selection'
   PX: 'px'
   REM: 'rem'
-  ENTITY: ''
 
 entity_tag:
   HTML: html

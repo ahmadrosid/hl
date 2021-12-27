@@ -13,9 +13,6 @@ var:
   MATH: 'Math'
   DATE: 'Date'
 
-entity:
-  ENTITY: '.'
-
 entity_prefix:
   ENTITY_DOT: '.'
 
