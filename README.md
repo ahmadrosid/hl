@@ -55,3 +55,4 @@ See the result in browser [here](https://play.tailwindcss.com/xFlm0rN1wH).
 - [ ] Go ( 🚧 In Progress )
 - [ ] Rust ( 🚧 In Progress )
 - [ ] Javascript ( 🚧 In Progress )
+- [ ] Typescript ( 🚧 In Progress )
