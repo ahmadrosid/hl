@@ -1,0 +1,33 @@
+slash_comment: true
+slash_star_comment: true
+constant:
+  THIS: 'this'
+  TRUE: 'true'
+  FALSE: 'false'
+  SUPER: 'super'
+
+entity_suffix:
+  ENTITY_LBRACE: '('
+
+keyword:
+  CLASS: 'class'
+  FINAL: 'final'
+  PACKAGE: 'package'
+  IMPORT: 'import'
+  PUBLIC: 'public'
+  PRIVATE: 'private'
+  PROTECTED: 'protected'
+  EXTENDS: 'extends'
+  STATIC: 'static'
+  VOID: 'void'
+  RETURN: 'return'
+  OVERRIDE: 'Override'
+  NEW: 'new'
+  IF: 'if'
+  ELSE: 'else'
+  INSTANCEOF: 'instanceof'
+  BOOLEAN: 'boolean'
+  NONNULL: 'NonNull'
+
+condition:
+  ACCEPT_STRING_DOUBLE_QUOTE: true

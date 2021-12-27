@@ -13,9 +13,6 @@ var:
   MATH: 'Math'
   DATE: 'Date'
 
-skip:
-  IDENT: ''
-
 entity:
   ENTITY: '.'
 

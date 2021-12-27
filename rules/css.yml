@@ -8,9 +8,6 @@ constant:
   CLAC: 'calc'
   MEDIA: 'media'
 
-skip:
-  IDENT: ''
-
 entity:
   AFTER: 'after'
   BEFORE: 'before'

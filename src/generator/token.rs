@@ -15,6 +15,8 @@ pub fn generate_token(h: &Hash) -> String {
     token.push_tabln(1, "CH(char),");
     token.push_tabln(1, "ENDL(char),");
     token.push_tabln(1, "INT(Vec<char>),");
+    token.push_tabln(1, "IDENT(Vec<char>),");
+    token.push_tabln(1, "ENTITY(Vec<char>),");
     token.push_tabln(1, "STRING(Vec<char>),");
 
     for (k, _v) in get_constant(h) {

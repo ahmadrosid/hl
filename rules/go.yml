@@ -16,9 +16,6 @@ constant:
   UINTPTR: 'uintptr'
   FLOAT: 'float'
 
-skip:
-  IDENT: ''
-
 entity:
   ENTITY: '.'
 

@@ -42,6 +42,8 @@ pub fn generate_render_html(h: &Hash, name: String) -> String {
 
     write_token_string(&mut html);
     write_token_integer(&mut html);
+    write_token_identifier(&mut html);
+    write_token_entity(&mut html);
 
     if slash_comment_enable(h) {
         html.push_tabln(3, "token::Token::COMMENT(value) => {");
@@ -170,6 +172,22 @@ pub fn generate_render_html(h: &Hash, name: String) -> String {
     html.push_tabln(1, "html");
     html.push_strln("}");
     html.to_string()
+}
+
+fn write_token_identifier(html: &mut StringBuilder) {
+    html.push_tabln(3,"token::Token::IDENT(value) => {");
+    html.push_tabln(4, "html.push_str(&value.iter().collect::<String>());");
+    html.push_tabln(3, "}");
+}
+
+fn write_token_entity(html: &mut StringBuilder) {
+    html.push_tabln(3,"token::Token::ENTITY(value) => {");
+    html.push_tabln(
+        4,
+        "html.push_str(&format!(\"<span class=\\\"hl-en\\\">{}</span>\", \
+        value.iter().collect::<String>()));",
+    );
+    html.push_tabln(3, "}");
 }
 
 fn write_token_string(html: &mut StringBuilder) {
