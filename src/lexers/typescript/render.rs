@@ -1,6 +1,6 @@
 // ---- DON'T EDIT THIS IS AUTO GENERATED CODE ---- //
-use crate::lexers::javascript::Lexer;
-use crate::lexers::javascript::token;
+use crate::lexers::typescript::Lexer;
+use crate::lexers::typescript::token;
 
 pub fn render_html(input: Vec<char>) -> String {
 	let mut l = Lexer::new(input);
@@ -90,7 +90,13 @@ pub fn render_html(input: Vec<char>) -> String {
 			token::Token::DATE(value) => {
 				html.push_str(&format!("<span class=\"hl-v\">{}</span>", value.iter().collect::<String>()));
 			}
+			token::Token::DEFAULT(value) => {
+				html.push_str(&format!("<span class=\"hl-k\">{}</span>", value.iter().collect::<String>()));
+			}
 			token::Token::IMPORT(value) => {
+				html.push_str(&format!("<span class=\"hl-k\">{}</span>", value.iter().collect::<String>()));
+			}
+			token::Token::EXPORT(value) => {
 				html.push_str(&format!("<span class=\"hl-k\">{}</span>", value.iter().collect::<String>()));
 			}
 			token::Token::AS(value) => {
@@ -130,6 +136,18 @@ pub fn render_html(input: Vec<char>) -> String {
 				html.push_str(&format!("<span class=\"hl-k\">{}</span>", value.iter().collect::<String>()));
 			}
 			token::Token::RETURN(value) => {
+				html.push_str(&format!("<span class=\"hl-k\">{}</span>", value.iter().collect::<String>()));
+			}
+			token::Token::PRIVATE(value) => {
+				html.push_str(&format!("<span class=\"hl-k\">{}</span>", value.iter().collect::<String>()));
+			}
+			token::Token::ASYNC(value) => {
+				html.push_str(&format!("<span class=\"hl-k\">{}</span>", value.iter().collect::<String>()));
+			}
+			token::Token::EXTENDS(value) => {
+				html.push_str(&format!("<span class=\"hl-k\">{}</span>", value.iter().collect::<String>()));
+			}
+			token::Token::FROM(value) => {
 				html.push_str(&format!("<span class=\"hl-k\">{}</span>", value.iter().collect::<String>()));
 			}
 			token::Token::ENDL(_) => {

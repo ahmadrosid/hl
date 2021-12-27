@@ -192,7 +192,7 @@ fn write_token_integer(html: &mut StringBuilder) {
     html.push_tabln(3,"token::Token::INT(value) => {",);
     html.push_tabln(
         4,
-        "html.push_str(&format!(\"<span class=\\\"hl-en\\\">{}</span>\", \
+        "html.push_str(&format!(\"<span class=\\\"hl-c\\\">{}</span>\", \
         value.iter().collect::<String>()));",
     );
     html.push_tabln(3, "}");

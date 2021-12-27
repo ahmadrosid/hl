@@ -1,7 +1,4 @@
-use crate::generator::{
-    get_condition, get_prefix, slash_comment_enable, slash_star_comment_enable,
-    string::StringBuilder,
-};
+use crate::generator::{get_condition, get_entity_prefix, get_entity_suffix, slash_comment_enable, slash_star_comment_enable, string::StringBuilder};
 use yaml_rust::yaml::Hash;
 use yaml_rust::Yaml;
 
@@ -59,10 +56,10 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
     module.push_tabln(3, "l.input[position..l.position].to_vec()");
     module.push_tabln(2, "};\n");
 
-    module.push_tabln(2, "let read_string = |l: &mut Lexer| -> Vec<char> {");
+    module.push_tabln(2, "let read_string = |l: &mut Lexer, ch: char| -> Vec<char> {");
     module.push_tabln(3, "let position = l.position;");
     module.push_tabln(3, "l.read_char();");
-    module.push_tabln(3, "while l.position < l.input.len() && l.ch != '\"' {");
+    module.push_tabln(3, "while l.position < l.input.len() && l.ch != ch {");
     module.push_tabln(4, "l.read_char();");
     module.push_tabln(3, "}");
     module.push_tabln(3, "l.read_char();");
@@ -193,16 +190,13 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
     module.push_tabln(5, "match token::get_keyword_token(&identifier) {");
     module.push_tabln(7, "Ok(keyword_token) => {");
 
-    for (k, v) in get_prefix(h) {
-        if k.as_str().unwrap() == "ENTITY_TOKEN_SUFFIX" {
-            module.push_tabln(8, &format!("if self.ch == '{}' {{", v.as_str().unwrap()));
-            module.push_tabln(
-                9,
-                "return token::Token::ENTITY(self.input[prev_pos..self.position].to_vec());",
-            );
-            module.push_tabln(8, "}");
-            break;
-        }
+    for (_k, v) in get_entity_prefix(h) {
+        module.push_tabln(8, &format!("if self.ch == '{}' {{", v.as_str().unwrap()));
+        module.push_tabln(
+            9,
+            "return token::Token::ENTITY(self.input[prev_pos..self.position].to_vec());",
+        );
+        module.push_tabln(8, "}");
     }
 
     module.push_tabln(8, "keyword_token");
@@ -283,23 +277,22 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
         }
     }
 
-    for (k, v) in get_prefix(h) {
-        if k.as_str().unwrap() == "ENTITY_PREFIX" {
-            module.push_tabln(
-                8,
-                &format!(
-                    "if prev_pos != 0 && self.input[prev_pos-1] == '{}' {{",
-                    v.as_str().unwrap()
-                ),
-            );
-            module.push_tabln(9, "return token::Token::ENTITY(identifier)");
-            module.push_tabln(8, "}");
-        }
-        if k.as_str().unwrap() == "ENTITY_SUFFIX" {
-            module.push_tabln(8, &format!("if self.ch == '{}' {{", v.as_str().unwrap()));
-            module.push_tabln(9, "return token::Token::ENTITY(identifier)");
-            module.push_tabln(8, "}");
-        }
+    for (_k, v) in get_entity_prefix(h) {
+        module.push_tabln(
+            8,
+            &format!(
+                "if prev_pos != 0 && self.input[prev_pos-1] == '{}' {{",
+                v.as_str().unwrap()
+            ),
+        );
+        module.push_tabln(9, "return token::Token::ENTITY(identifier)");
+        module.push_tabln(8, "}");
+    }
+
+    for (_k, v) in get_entity_suffix(h) {
+        module.push_tabln(8, &format!("if self.ch == '{}' {{", v.as_str().unwrap()));
+        module.push_tabln(9, "return token::Token::ENTITY(identifier)");
+        module.push_tabln(8, "}");
     }
 
     module.push_tabln(8, "token::Token::IDENT(identifier)");
@@ -308,9 +301,19 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
     module.push_tabln(5, "} else if is_digit(self.ch) {");
     module.push_tabln(6, "let identifier: Vec<char> = read_number(self);");
     module.push_tabln(6, "token::Token::INT(identifier)");
-    module.push_tabln(5, "} else if self.ch == '\"' {");
-    module.push_tabln(6, "let str_value: Vec<char> = read_string(self);");
-    module.push_tabln(6, "token::Token::STRING(str_value)");
+
+    if let Some(_) = get_condition(h).get(&Yaml::String("ACCEPT_STRING_ONE_QUOTE".to_string())) {
+        module.push_tabln(5, "} else if self.ch == '\\'' {");
+        module.push_tabln(6, "let str_value: Vec<char> = read_string(self, '\\'');");
+        module.push_tabln(6, "token::Token::STRING(str_value)");
+    }
+
+    if let Some(_) = get_condition(h).get(&Yaml::String("ACCEPT_STRING_DOUBLE_QUOTE".to_string())) {
+        module.push_tabln(5, "} else if self.ch == '\"' {");
+        module.push_tabln(6, "let str_value: Vec<char> = read_string(self, '\"');");
+        module.push_tabln(6, "token::Token::STRING(str_value)");
+    }
+
     module.push_tabln(5, "} else {");
     module.push_tabln(6, "token::Token::ILLEGAL");
     module.push_tabln(5, "}");

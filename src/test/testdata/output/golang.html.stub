@@ -3,73 +3,74 @@
 <tr><td class="hl-num" data-line="1"></td><td><span class="hl-k">package</span> main</td></tr>
 <tr><td class="hl-num" data-line="2"></td><td></td></tr>
 <tr><td class="hl-num" data-line="3"></td><td><span class="hl-k">import</span> (</td></tr>
-<tr><td class="hl-num" data-line="4"></td><td>	<span class="hl-s">"os"</span></td></tr>
-<tr><td class="hl-num" data-line="5"></td><td>	<span class="hl-s">"some/cmd"</span></td></tr>
+<tr><td class="hl-num" data-line="4"></td><td>        <span class="hl-s">"os"</span></td></tr>
+<tr><td class="hl-num" data-line="5"></td><td>        <span class="hl-s">"some/cmd"</span></td></tr>
 <tr><td class="hl-num" data-line="6"></td><td>)</td></tr>
 <tr><td class="hl-num" data-line="7"></td><td></td></tr>
 <tr><td class="hl-num" data-line="8"></td><td><span class="hl-cmt">/**</span></td></tr>
 <tr><td class="hl-num" data-line="9"></td><td><span class="hl-cmt"> * Some slash start comment!</span></td></tr>
 <tr><td class="hl-num" data-line="10"></td><td><span class="hl-cmt"> */</span></td></tr>
 <tr><td class="hl-num" data-line="11"></td><td><span class="hl-k">func</span> <span class="hl-en">main</span>() {</td></tr>
-<tr><td class="hl-num" data-line="12"></td><td>	os.<span class="hl-en">Exit</span>(cmd.<span class="hl-en">Run</span>(os.<span class="hl-c">Args</span>[<span class="hl-en">1</span>:]))</td></tr>
-<tr><td class="hl-num" data-line="13"></td><td>	<span class="hl-k">var</span> lastChar <span class="hl-c">rune</span></td></tr>
-<tr><td class="hl-num" data-line="14"></td><td>	data := <span class="hl-en">make</span>([]<span class="hl-c">string</span>, <span class="hl-en">0</span>)</td></tr>
-<tr><td class="hl-num" data-line="15"></td><td>	<span class="hl-cmt">// emit hashes</span></td></tr>
-<tr><td class="hl-num" data-line="16"></td><td>	<span class="hl-k">var</span> buf [pageSize]<span class="hl-c">byte</span></td></tr>
-<tr><td class="hl-num" data-line="17"></td><td>	<span class="hl-k">for</span> p < <span class="hl-c">int</span>(codeSize) {</td></tr>
-<tr><td class="hl-num" data-line="18"></td><td>		<span class="hl-k">if</span> err == io.<span class="hl-en">EOF</span> {</td></tr>
-<tr><td class="hl-num" data-line="19"></td><td>			<span class="hl-k">break</span></td></tr>
-<tr><td class="hl-num" data-line="20"></td><td>		}</td></tr>
-<tr><td class="hl-num" data-line="21"></td><td>		<span class="hl-k">if</span> err != <span class="hl-c">nil</span> {</td></tr>
-<tr><td class="hl-num" data-line="22"></td><td>			<span class="hl-en">panic</span>(err)</td></tr>
-<tr><td class="hl-num" data-line="23"></td><td>		}</td></tr>
-<tr><td class="hl-num" data-line="24"></td><td>	}</td></tr>
-<tr><td class="hl-num" data-line="25"></td><td>	<span class="hl-k">switch</span> s := v.(<span class="hl-k">type</span>) {</td></tr>
-<tr><td class="hl-num" data-line="26"></td><td>	<span class="hl-k">case</span> <span class="hl-c">string</span>:</td></tr>
-<tr><td class="hl-num" data-line="27"></td><td>		<span class="hl-k">return</span> utils.<span class="hl-en">Base</span><span class="hl-en">64</span><span class="hl-en">EncodeIfNot</span>(s)</td></tr>
-<tr><td class="hl-num" data-line="28"></td><td>	<span class="hl-k">default</span>:</td></tr>
-<tr><td class="hl-num" data-line="29"></td><td>		<span class="hl-k">return</span> <span class="hl-s">""</span></td></tr>
-<tr><td class="hl-num" data-line="30"></td><td>	}</td></tr>
-<tr><td class="hl-num" data-line="31"></td><td>	sum := <span class="hl-en">0</span></td></tr>
-<tr><td class="hl-num" data-line="32"></td><td>    <span class="hl-k">for</span> i := <span class="hl-en">1</span>; i < <span class="hl-en">5</span>; i++ {</td></tr>
-<tr><td class="hl-num" data-line="33"></td><td>        <span class="hl-k">if</span> i%<span class="hl-en">2</span> != <span class="hl-en">0</span> { <span class="hl-cmt">// skip odd numbers</span></td></tr>
-<tr><td class="hl-num" data-line="34"></td><td>            <span class="hl-k">continue</span></td></tr>
-<tr><td class="hl-num" data-line="35"></td><td>        }</td></tr>
-<tr><td class="hl-num" data-line="36"></td><td>        sum += i</td></tr>
-<tr><td class="hl-num" data-line="37"></td><td>    }</td></tr>
-<tr><td class="hl-num" data-line="38"></td><td>    fmt.<span class="hl-en">Println</span>(sum) <span class="hl-cmt">// 6 (2+4)</span></td></tr>
-<tr><td class="hl-num" data-line="39"></td><td>}</td></tr>
-<tr><td class="hl-num" data-line="40"></td><td></td></tr>
-<tr><td class="hl-num" data-line="41"></td><td><span class="hl-k">type</span> syscallFunc <span class="hl-c">uintptr</span></td></tr>
-<tr><td class="hl-num" data-line="42"></td><td></td></tr>
-<tr><td class="hl-num" data-line="43"></td><td><span class="hl-k">const</span> codeDir = <span class="hl-en">13</span>*<span class="hl-en">4</span> + <span class="hl-en">4</span> + <span class="hl-en">4</span>*<span class="hl-en">8</span></td></tr>
-<tr><td class="hl-num" data-line="44"></td><td></td></tr>
-<tr><td class="hl-num" data-line="45"></td><td><span class="hl-k">type</span> Sig <span class="hl-k">struct</span> {</td></tr>
-<tr><td class="hl-num" data-line="46"></td><td>	Datasize <span class="hl-c">uint</span><span class="hl-en">32</span> <span class="hl-cmt">// file size of data in __LINKEDIT segment</span></td></tr>
-<tr><td class="hl-num" data-line="47"></td><td>}</td></tr>
-<tr><td class="hl-num" data-line="48"></td><td></td></tr>
-<tr><td class="hl-num" data-line="49"></td><td><span class="hl-k">func</span> Find<span class="hl-en">1234</span><span class="hl-en">Code</span>(f *macho.<span class="hl-en">File</span>) (CodeSigCmd, <span class="hl-c">bool</span>) {</td></tr>
-<tr><td class="hl-num" data-line="50"></td><td>	cdir := CodeDirectory{</td></tr>
-<tr><td class="hl-num" data-line="51"></td><td>		length:       <span class="hl-c">uint</span><span class="hl-en">32</span>(sz) - (superBlobSize + blobSize),</td></tr>
-<tr><td class="hl-num" data-line="52"></td><td>		flags:        <span class="hl-en">0</span>x<span class="hl-en">20002</span>, <span class="hl-cmt">// adhoc | linkerSigned</span></td></tr>
-<tr><td class="hl-num" data-line="53"></td><td>	}</td></tr>
-<tr><td class="hl-num" data-line="54"></td><td>	<span class="hl-k">for</span> _, l := <span class="hl-k">range</span> f.<span class="hl-en">Loads</span> {</td></tr>
-<tr><td class="hl-num" data-line="55"></td><td>		<span class="hl-k">if</span> cmd == LC_CODE_SIGNATURE {</td></tr>
-<tr><td class="hl-num" data-line="56"></td><td>			<span class="hl-k">return</span> CodeSigCmd{</td></tr>
-<tr><td class="hl-num" data-line="57"></td><td>				get<span class="hl-en">32</span>(data[<span class="hl-en">12</span>:]),</td></tr>
-<tr><td class="hl-num" data-line="58"></td><td>			}, <span class="hl-c">true</span></td></tr>
-<tr><td class="hl-num" data-line="59"></td><td>		}</td></tr>
-<tr><td class="hl-num" data-line="60"></td><td>	}</td></tr>
-<tr><td class="hl-num" data-line="61"></td><td>	<span class="hl-k">return</span> CodeSigCmd{}, <span class="hl-c">false</span></td></tr>
-<tr><td class="hl-num" data-line="62"></td><td>}</td></tr>
-<tr><td class="hl-num" data-line="63"></td><td></td></tr>
-<tr><td class="hl-num" data-line="64"></td><td><span class="hl-k">func</span> (Some) <span class="hl-en">SomeDoc</span>() <span class="hl-k">map</span>[<span class="hl-c">string</span>]<span class="hl-c">string</span> {</td></tr>
-<tr><td class="hl-num" data-line="65"></td><td>	<span class="hl-k">return</span> map_Affinity</td></tr>
-<tr><td class="hl-num" data-line="66"></td><td>}</td></tr>
-<tr><td class="hl-num" data-line="67"></td><td></td></tr>
-<tr><td class="hl-num" data-line="68"></td><td><span class="hl-k">func</span> (ado Ada) <span class="hl-en">Ask</span>() ([]<span class="hl-c">byte</span>, <span class="hl-c">error</span>) {</td></tr>
-<tr><td class="hl-num" data-line="69"></td><td>	<span class="hl-k">return</span> &ado, <span class="hl-c">nil</span></td></tr>
-<tr><td class="hl-num" data-line="70"></td><td>}</td></tr>
-<tr><td class="hl-num" data-line="71"></td><td></td></tr>
+<tr><td class="hl-num" data-line="12"></td><td>        <span class="hl-k">var</span> name = <span class="hl-s">"Ahmad Rosid"</span></td></tr>
+<tr><td class="hl-num" data-line="13"></td><td>        os.<span class="hl-en">Exit</span>(cmd.<span class="hl-en">Run</span>(os.<span class="hl-c">Args</span>[<span class="hl-c">1</span>:]))</td></tr>
+<tr><td class="hl-num" data-line="14"></td><td>        <span class="hl-k">var</span> lastChar <span class="hl-c">rune</span></td></tr>
+<tr><td class="hl-num" data-line="15"></td><td>        data := <span class="hl-en">make</span>([]<span class="hl-c">string</span>, <span class="hl-c">0</span>)</td></tr>
+<tr><td class="hl-num" data-line="16"></td><td>        <span class="hl-cmt">// emit hashes</span></td></tr>
+<tr><td class="hl-num" data-line="17"></td><td>        <span class="hl-k">var</span> buf [pageSize]<span class="hl-c">byte</span></td></tr>
+<tr><td class="hl-num" data-line="18"></td><td>        <span class="hl-k">for</span> p < <span class="hl-c">int</span>(codeSize) {</td></tr>
+<tr><td class="hl-num" data-line="19"></td><td>                <span class="hl-k">if</span> err == io.<span class="hl-en">EOF</span> {</td></tr>
+<tr><td class="hl-num" data-line="20"></td><td>                        <span class="hl-k">break</span></td></tr>
+<tr><td class="hl-num" data-line="21"></td><td>                }</td></tr>
+<tr><td class="hl-num" data-line="22"></td><td>                <span class="hl-k">if</span> err != <span class="hl-c">nil</span> {</td></tr>
+<tr><td class="hl-num" data-line="23"></td><td>                        <span class="hl-en">panic</span>(err)</td></tr>
+<tr><td class="hl-num" data-line="24"></td><td>                }</td></tr>
+<tr><td class="hl-num" data-line="25"></td><td>        }</td></tr>
+<tr><td class="hl-num" data-line="26"></td><td>        <span class="hl-k">switch</span> s := v.(<span class="hl-k">type</span>) {</td></tr>
+<tr><td class="hl-num" data-line="27"></td><td>        <span class="hl-k">case</span> <span class="hl-c">string</span>:</td></tr>
+<tr><td class="hl-num" data-line="28"></td><td>                <span class="hl-k">return</span> utils.<span class="hl-en">Base</span><span class="hl-c">64</span><span class="hl-en">EncodeIfNot</span>(s)</td></tr>
+<tr><td class="hl-num" data-line="29"></td><td>        <span class="hl-k">default</span>:</td></tr>
+<tr><td class="hl-num" data-line="30"></td><td>                <span class="hl-k">return</span> <span class="hl-s">""</span></td></tr>
+<tr><td class="hl-num" data-line="31"></td><td>        }</td></tr>
+<tr><td class="hl-num" data-line="32"></td><td>        sum := <span class="hl-c">0</span></td></tr>
+<tr><td class="hl-num" data-line="33"></td><td>        <span class="hl-k">for</span> i := <span class="hl-c">1</span>; i < <span class="hl-c">5</span>; i++ {</td></tr>
+<tr><td class="hl-num" data-line="34"></td><td>                <span class="hl-k">if</span> i%<span class="hl-c">2</span> != <span class="hl-c">0</span> { <span class="hl-cmt">// skip odd numbers</span></td></tr>
+<tr><td class="hl-num" data-line="35"></td><td>                        <span class="hl-k">continue</span></td></tr>
+<tr><td class="hl-num" data-line="36"></td><td>                }</td></tr>
+<tr><td class="hl-num" data-line="37"></td><td>                sum += i</td></tr>
+<tr><td class="hl-num" data-line="38"></td><td>        }</td></tr>
+<tr><td class="hl-num" data-line="39"></td><td>        fmt.<span class="hl-en">Println</span>(sum) <span class="hl-cmt">// 6 (2+4)</span></td></tr>
+<tr><td class="hl-num" data-line="40"></td><td>}</td></tr>
+<tr><td class="hl-num" data-line="41"></td><td></td></tr>
+<tr><td class="hl-num" data-line="42"></td><td><span class="hl-k">type</span> syscallFunc <span class="hl-c">uintptr</span></td></tr>
+<tr><td class="hl-num" data-line="43"></td><td></td></tr>
+<tr><td class="hl-num" data-line="44"></td><td><span class="hl-k">const</span> codeDir = <span class="hl-c">13</span>*<span class="hl-c">4</span> + <span class="hl-c">4</span> + <span class="hl-c">4</span>*<span class="hl-c">8</span></td></tr>
+<tr><td class="hl-num" data-line="45"></td><td></td></tr>
+<tr><td class="hl-num" data-line="46"></td><td><span class="hl-k">type</span> Sig <span class="hl-k">struct</span> {</td></tr>
+<tr><td class="hl-num" data-line="47"></td><td>        Datasize <span class="hl-c">uint</span><span class="hl-c">32</span> <span class="hl-cmt">// file size of data in __LINKEDIT segment</span></td></tr>
+<tr><td class="hl-num" data-line="48"></td><td>}</td></tr>
+<tr><td class="hl-num" data-line="49"></td><td></td></tr>
+<tr><td class="hl-num" data-line="50"></td><td><span class="hl-k">func</span> Find<span class="hl-c">1234</span><span class="hl-en">Code</span>(f *macho.<span class="hl-en">File</span>) (CodeSigCmd, <span class="hl-c">bool</span>) {</td></tr>
+<tr><td class="hl-num" data-line="51"></td><td>        cdir := CodeDirectory{</td></tr>
+<tr><td class="hl-num" data-line="52"></td><td>                <span class="hl-en">length</span>: <span class="hl-c">uint</span><span class="hl-c">32</span>(sz) - (superBlobSize + blobSize),</td></tr>
+<tr><td class="hl-num" data-line="53"></td><td>                <span class="hl-en">flags</span>:  <span class="hl-c">0</span>x<span class="hl-c">20002</span>, <span class="hl-cmt">// adhoc | linkerSigned</span></td></tr>
+<tr><td class="hl-num" data-line="54"></td><td>        }</td></tr>
+<tr><td class="hl-num" data-line="55"></td><td>        <span class="hl-k">for</span> _, l := <span class="hl-k">range</span> f.<span class="hl-en">Loads</span> {</td></tr>
+<tr><td class="hl-num" data-line="56"></td><td>                <span class="hl-k">if</span> cmd == LC_CODE_SIGNATURE {</td></tr>
+<tr><td class="hl-num" data-line="57"></td><td>                        <span class="hl-k">return</span> CodeSigCmd{</td></tr>
+<tr><td class="hl-num" data-line="58"></td><td>                                get<span class="hl-c">32</span>(data[<span class="hl-c">12</span>:]),</td></tr>
+<tr><td class="hl-num" data-line="59"></td><td>                        }, <span class="hl-c">true</span></td></tr>
+<tr><td class="hl-num" data-line="60"></td><td>                }</td></tr>
+<tr><td class="hl-num" data-line="61"></td><td>        }</td></tr>
+<tr><td class="hl-num" data-line="62"></td><td>        <span class="hl-k">return</span> CodeSigCmd{}, <span class="hl-c">false</span></td></tr>
+<tr><td class="hl-num" data-line="63"></td><td>}</td></tr>
+<tr><td class="hl-num" data-line="64"></td><td></td></tr>
+<tr><td class="hl-num" data-line="65"></td><td><span class="hl-k">func</span> (Some) <span class="hl-en">SomeDoc</span>() <span class="hl-k">map</span>[<span class="hl-c">string</span>]<span class="hl-c">string</span> {</td></tr>
+<tr><td class="hl-num" data-line="66"></td><td>        <span class="hl-k">return</span> map_Affinity</td></tr>
+<tr><td class="hl-num" data-line="67"></td><td>}</td></tr>
+<tr><td class="hl-num" data-line="68"></td><td></td></tr>
+<tr><td class="hl-num" data-line="69"></td><td><span class="hl-k">func</span> (ado Ada) <span class="hl-en">Ask</span>() ([]<span class="hl-c">byte</span>, <span class="hl-c">error</span>) {</td></tr>
+<tr><td class="hl-num" data-line="70"></td><td>        <span class="hl-k">return</span> &ado, <span class="hl-c">nil</span></td></tr>
+<tr><td class="hl-num" data-line="71"></td><td>}</td></tr>
+<tr><td class="hl-num" data-line="72"></td><td></td></tr>
 </tbody>
 </table>

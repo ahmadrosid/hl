@@ -46,10 +46,10 @@ impl Lexer {
 			l.input[position..l.position].to_vec()
 		};
 
-		let read_string = |l: &mut Lexer| -> Vec<char> {
+		let read_string = |l: &mut Lexer, ch: char| -> Vec<char> {
 			let position = l.position;
 			l.read_char();
-			while l.position < l.input.len() && l.ch != '"' {
+			while l.position < l.input.len() && l.ch != ch {
 				l.read_char();
 			}
 			l.read_char();
@@ -177,7 +177,7 @@ impl Lexer {
 						let identifier: Vec<char> = read_number(self);
 						token::Token::INT(identifier)
 					} else if self.ch == '"' {
-						let str_value: Vec<char> = read_string(self);
+						let str_value: Vec<char> = read_string(self, '"');
 						token::Token::STRING(str_value)
 					} else {
 						token::Token::ILLEGAL

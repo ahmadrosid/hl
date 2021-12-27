@@ -15,10 +15,12 @@ skip:
 entity:
     ENTITY: '.'
 
-prefix:
-    ENTITY_PREFIX: '.'
-    ENTITY_SUFFIX: '('
-    ENTITY_TOKEN_SUFFIX: "!"
+entity_prefix:
+    ENTITY_DOT: '.'
+
+entity_suffix:
+    ENTITY_LBRACE: '('
+    ENTITY_BANG: '!'
 
 keyword:
     USE: 'use'
@@ -41,3 +43,6 @@ keyword:
     VEC: 'Vec'
     KVEC: 'vec'
     CRATE: 'crate'
+
+condition:
+    ACCEPT_STRING_DOUBLE_QUOTE: true

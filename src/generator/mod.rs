@@ -42,9 +42,10 @@ pub fn $name(h: &Hash) -> bool {
 get_by!(get_constant, constant);
 get_by!(get_var, var);
 get_by!(get_keyword, keyword);
-get_by!(get_prefix, prefix);
-get_by!(get_skip, skip);
 get_by!(get_entity, entity);
+get_by!(get_entity_prefix, entity_prefix);
+get_by!(get_entity_suffix, entity_suffix);
+get_by!(get_skip, skip);
 get_by!(get_entity_tag, entity_tag);
 get_by!(get_condition, condition);
 get_bool!(slash_comment_enable, slash_comment);
@@ -76,6 +77,8 @@ pub fn parse(file_path: &str) -> String {
         "condition",
         "slash_star_comment",
         "var",
+        "entity_prefix",
+        "entity_suffix"
     ];
 
     let mut token_stub = String::new();

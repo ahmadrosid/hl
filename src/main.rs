@@ -1,7 +1,7 @@
 use clap::{arg, App, AppSettings};
 mod generator;
 mod lexers;
-use crate::lexers::{css, go, javascript, rust};
+use crate::lexers::{css, go, javascript, typescript, rust};
 use std::fs::read;
 use std::io::Write;
 
@@ -56,6 +56,9 @@ fn main() {
         }
         "js" => {
             print!("{}", javascript::render::render_html(input));
+        }
+        "ts" => {
+            print!("{}", typescript::render::render_html(input));
         }
         _ => {
             println!("Language {} not supported", lang);

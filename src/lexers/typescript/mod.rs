@@ -153,6 +153,9 @@ impl Lexer {
 					} else if is_digit(self.ch) {
 						let identifier: Vec<char> = read_number(self);
 						token::Token::INT(identifier)
+					} else if self.ch == '\'' {
+						let str_value: Vec<char> = read_string(self, '\'');
+						token::Token::STRING(str_value)
 					} else if self.ch == '"' {
 						let str_value: Vec<char> = read_string(self, '"');
 						token::Token::STRING(str_value)

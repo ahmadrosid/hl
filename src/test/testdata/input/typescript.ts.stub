@@ -1,0 +1,53 @@
+import { NgModule } from '@angular/core'
+import { BrowserModule } from '@angular/platform-browser'
+import { FormsModule } from '@angular/forms'
+
+/** @hidden */
+@NgModule({
+    imports: [
+        BrowserModule,
+        FormsModule,
+    ],
+    providers: [
+        { provide: SettingsTabProvider, useClass: AppearanceSettingsTabProvider, multi: true },
+        { provide: SettingsTabProvider, useClass: ColorSchemeSettingsTabProvider, multi: true },
+    ]
+})
+export default class TerminalModule { } // eslint-disable-line @typescript-eslint/no-extraneous-class
+
+@Injectable()
+export class TerminalCLIHandler extends CLIHandler {
+    firstMatchOnly = true
+    priority = 0
+
+    constructor (
+        private app: AppService,
+        private hostWindow: HostWindowService,
+    ) {
+        super()
+    }
+
+    async handle (event: CLIEvent): Promise<boolean> {
+        const op = event.argv._[0]
+
+        if (op === 'paste') {
+            let text = event.argv.text
+            if (event.argv.escape) {
+                text = shellQuote.quote([text])
+            }
+            this.handlePaste(text)
+            return true
+        }
+
+        return false
+    }
+
+    private handlePaste (text: string) {
+        if (this.app.activeTab instanceof BaseTerminalTabComponent && this.app.activeTab.session) {
+            this.app.activeTab.sendInput(text)
+            this.hostWindow.bringToFront()
+        }
+    }
+}
+export * from './session'
+export { LoginScriptsSettingsComponent, StreamProcessingSettingsComponent }

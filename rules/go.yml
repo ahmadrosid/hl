@@ -22,9 +22,12 @@ skip:
 entity:
   ENTITY: '.'
 
-prefix:
-  ENTITY_PREFIX: '.'
-  ENTITY_SUFFIX: '('
+entity_prefix:
+  ENTITY_DOT: '.'
+
+entity_suffix:
+  ENTITY_LBRACE: '('
+  ENTITY_COLON: ':'
 
 keyword:
   PACKAGE: 'package'
@@ -47,3 +50,6 @@ keyword:
   BREAK: 'break'
   MAP: 'map'
   CONTINUE: 'continue'
+
+condition:
+  ACCEPT_STRING_DOUBLE_QUOTE: true

@@ -40,7 +40,7 @@ pub fn render_html(input: Vec<char>) -> String {
 				html.push_str(&format!("<span class=\"hl-s\">{}</span>", s));
 			}
 			token::Token::INT(value) => {
-				html.push_str(&format!("<span class=\"hl-en\">{}</span>", value.iter().collect::<String>()));
+				html.push_str(&format!("<span class=\"hl-c\">{}</span>", value.iter().collect::<String>()));
 			}
 			token::Token::COMMENT(value) => {
 				let lines = value.iter().collect::<String>();

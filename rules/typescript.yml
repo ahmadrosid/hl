@@ -27,7 +27,9 @@ entity_suffix:
   ENTITY_COLON: ':'
 
 keyword:
+  DEFAULT: 'default'
   IMPORT: 'import'
+  EXPORT: 'export'
   AS: 'as'
   NEW: 'new'
   THIS: 'this'
@@ -41,8 +43,13 @@ keyword:
   ELSE: 'else'
   VOID: 'void'
   RETURN: 'return'
+  PRIVATE: 'private'
+  ASYNC: 'async'
+  EXTENDS: 'extends'
+  FROM: 'from'
 
 condition:
+  ACCEPT_STRING_ONE_QUOTE: true
   ACCEPT_STRING_DOUBLE_QUOTE: true
   ACCEPT_ENTITY_SUFFIX: "is_digit(self.ch)"
   BREAK_ENTITY_SUFFIX: "self.ch == ' ' || self.ch == ':' || self.ch == ':' || self.ch == '(' || self.ch == '{' || self.ch == '\\n'"

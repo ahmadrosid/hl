@@ -1,4 +1,4 @@
-use crate::lexers::{css, go, javascript, rust};
+use crate::lexers::{css, go, javascript, rust, typescript};
 use std::fs;
 
 fn read_input(path: &str) -> Vec<char> {
@@ -40,5 +40,13 @@ fn test_rust() {
     let input = read_input("src/test/testdata/input/rust.rs.stub");
     let expected = read_file("src/test/testdata/output/rust.html.stub");
     let actual = rust::render::render_html(input);
+    assert_eq!(expected, actual);
+}
+
+#[test]
+fn test_typescript() {
+    let input = read_input("src/test/testdata/input/typescript.ts.stub");
+    let expected = read_file("src/test/testdata/output/typescript.html.stub");
+    let actual = typescript::render::render_html(input);
     assert_eq!(expected, actual);
 }
