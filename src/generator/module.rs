@@ -189,16 +189,6 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
 
     module.push_tabln(5, "match token::get_keyword_token(&identifier) {");
     module.push_tabln(7, "Ok(keyword_token) => {");
-
-    for (_k, v) in get_entity_prefix(h) {
-        module.push_tabln(8, &format!("if self.ch == '{}' {{", v.as_str().unwrap()));
-        module.push_tabln(
-            9,
-            "return token::Token::ENTITY(self.input[prev_pos..self.position].to_vec());",
-        );
-        module.push_tabln(8, "}");
-    }
-
     module.push_tabln(8, "keyword_token");
     module.push_tabln(7, "},");
     module.push_tabln(7, "Err(_err) => {");

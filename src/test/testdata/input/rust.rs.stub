@@ -63,10 +63,45 @@ fn main() {
     }
 }
 
-#[allow(dead_code)]
-fn write_file(content: &String, file_name: &str) {
-    let cwd = std::env::current_dir().unwrap();
-    let mut file =
-        std::fs::File::create(format!("{}/{}", cwd.to_str().unwrap(), file_name)).unwrap();
-    write!(&mut file, "{}", content).unwrap();
+impl Stream for RecursiveModuleLoad {
+  type Item = Result<(ModuleRequest, ModuleSource), Error>;
+
+  fn poll_next(
+    self: Pin<&mut Self>,
+    cx: &mut Context,
+  ) -> Poll<Option<Self::Item>> {
+    let inner = self.get_mut();
+    match inner.state {
+      LoadState::Init => {
+        let module_specifier = match inner.resolve_root() {
+          Ok(url) => url,
+          Err(error) => return Poll::Ready(Some(Err(error))),
+        };
+        let load_fut = if let Some(_module_id) = inner.root_module_id {
+          let module_source = ModuleSource {
+            code: Default::default(),
+            module_type,
+          };
+        } else {
+          let maybe_referrer = match inner.init {
+            LoadInit::DynamicImport(_, ref referrer, _) => {
+              resolve_url(referrer).ok()
+            }
+            _ => None,
+          };
+          match inner.pending.try_poll_next_unpin(cx)? {
+            Poll::Ready(None) => unreachable!(),
+            Poll::Ready(Some(info)) => Poll::Ready(Some(Ok(info))),
+          }
+          async move {
+            let result = loader
+              .load(&module_specifier, maybe_referrer, is_dynamic_import)
+              .await;
+            result.map(|s| (module_request, s))
+          }
+          .boxed_local()
+        };
+      }
+    }
+  }
 }

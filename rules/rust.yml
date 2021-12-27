@@ -4,10 +4,8 @@ slash_star_comment: true
 constant:
     TRUE: 'true'
     FALSE: 'false'
-    PRINT: 'print'
-    PRINTLN: 'println'
-    SHADOW: 'shadow'
-    FORMAT: 'format'
+    NONE: 'None'
+    CSELF: 'self'
 
 skip:
     IDENT: ''
@@ -43,6 +41,13 @@ keyword:
     VEC: 'Vec'
     KVEC: 'vec'
     CRATE: 'crate'
+    REF: 'ref'
+    KSELF: 'Self'
+    ASYNC: 'async'
+    AWAIT: 'await'
+    TYPE: 'type'
+    RESULT: 'Result'
+    OPTION: 'Option'
 
 condition:
     ACCEPT_STRING_DOUBLE_QUOTE: true

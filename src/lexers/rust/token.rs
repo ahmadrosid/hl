@@ -10,10 +10,8 @@ pub enum Token {
 	STRING(Vec<char>),
 	TRUE(Vec<char>),
 	FALSE(Vec<char>),
-	PRINT(Vec<char>),
-	PRINTLN(Vec<char>),
-	SHADOW(Vec<char>),
-	FORMAT(Vec<char>),
+	NONE(Vec<char>),
+	CSELF(Vec<char>),
 	IDENT(Vec<char>),
 	ENTITY(Vec<char>),
 	USE(Vec<char>),
@@ -36,6 +34,13 @@ pub enum Token {
 	VEC(Vec<char>),
 	KVEC(Vec<char>),
 	CRATE(Vec<char>),
+	REF(Vec<char>),
+	KSELF(Vec<char>),
+	ASYNC(Vec<char>),
+	AWAIT(Vec<char>),
+	TYPE(Vec<char>),
+	RESULT(Vec<char>),
+	OPTION(Vec<char>),
 	COMMENT(Vec<char>),
 }
 
@@ -44,10 +49,8 @@ pub fn get_keyword_token(identifier: &Vec<char>) -> Result<Token, String> {
 	match &identifiers[..] {
 		"true" => Ok(Token::TRUE(identifier.to_vec())),
 		"false" => Ok(Token::FALSE(identifier.to_vec())),
-		"print" => Ok(Token::PRINT(identifier.to_vec())),
-		"println" => Ok(Token::PRINTLN(identifier.to_vec())),
-		"shadow" => Ok(Token::SHADOW(identifier.to_vec())),
-		"format" => Ok(Token::FORMAT(identifier.to_vec())),
+		"None" => Ok(Token::NONE(identifier.to_vec())),
+		"self" => Ok(Token::CSELF(identifier.to_vec())),
 		"." => Ok(Token::ENTITY(identifier.to_vec())),
 		"use" => Ok(Token::USE(identifier.to_vec())),
 		"fn" => Ok(Token::FN(identifier.to_vec())),
@@ -69,6 +72,13 @@ pub fn get_keyword_token(identifier: &Vec<char>) -> Result<Token, String> {
 		"Vec" => Ok(Token::VEC(identifier.to_vec())),
 		"vec" => Ok(Token::KVEC(identifier.to_vec())),
 		"crate" => Ok(Token::CRATE(identifier.to_vec())),
+		"ref" => Ok(Token::REF(identifier.to_vec())),
+		"Self" => Ok(Token::KSELF(identifier.to_vec())),
+		"async" => Ok(Token::ASYNC(identifier.to_vec())),
+		"await" => Ok(Token::AWAIT(identifier.to_vec())),
+		"type" => Ok(Token::TYPE(identifier.to_vec())),
+		"Result" => Ok(Token::RESULT(identifier.to_vec())),
+		"Option" => Ok(Token::OPTION(identifier.to_vec())),
 		_ => Err(String::from("Not a keyword"))
 	}
 }
