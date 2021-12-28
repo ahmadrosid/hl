@@ -43,6 +43,7 @@ keyword:
     TYPE: 'type'
     RESULT: 'Result'
     OPTION: 'Option'
+    DYN: 'dyn'
 
 condition:
     ACCEPT_STRING_DOUBLE_QUOTE: true
