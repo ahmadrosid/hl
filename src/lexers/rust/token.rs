@@ -10,6 +10,7 @@ pub enum Token {
 	IDENT(Vec<char>),
 	ENTITY(Vec<char>),
 	STRING(Vec<char>),
+	KEYWORD(Vec<char>),
 	TRUE(Vec<char>),
 	FALSE(Vec<char>),
 	NONE(Vec<char>),
@@ -42,6 +43,7 @@ pub enum Token {
 	TYPE(Vec<char>),
 	RESULT(Vec<char>),
 	OPTION(Vec<char>),
+	DYN(Vec<char>),
 	COMMENT(Vec<char>),
 }
 
@@ -80,6 +82,7 @@ pub fn get_keyword_token(identifier: &Vec<char>) -> Result<Token, String> {
 		"type" => Ok(Token::TYPE(identifier.to_vec())),
 		"Result" => Ok(Token::RESULT(identifier.to_vec())),
 		"Option" => Ok(Token::OPTION(identifier.to_vec())),
+		"dyn" => Ok(Token::DYN(identifier.to_vec())),
 		_ => Err(String::from("Not a keyword"))
 	}
 }

@@ -48,6 +48,9 @@ pub fn render_html(input: Vec<char>) -> String {
 			token::Token::ENTITY(value) => {
 				html.push_str(&format!("<span class=\"hl-en\">{}</span>", value.iter().collect::<String>()));
 			}
+			token::Token::KEYWORD(value) => {
+				html.push_str(&format!("<span class=\"hl-k\">{}</span>", value.iter().collect::<String>()));
+			}
 			token::Token::COMMENT(value) => {
 				let lines = value.iter().collect::<String>();
 				let split = lines.split("\n");
