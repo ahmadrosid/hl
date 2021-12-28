@@ -6,6 +6,9 @@ constant:
   FALSE: 'false'
   UNDEFINED: 'undefined'
   NULL: 'null'
+  NUMBER: 'number'
+  KSTRING: 'string'
+  BOOLEAN: 'boolean'
 
 var:
   VINFINITY: 'Infinity'
@@ -38,9 +41,16 @@ keyword:
   VOID: 'void'
   RETURN: 'return'
   PRIVATE: 'private'
+  PUBLIC: 'public'
+  STATIC: 'static'
   ASYNC: 'async'
   EXTENDS: 'extends'
+  READONLY: 'readonly'
   FROM: 'from'
+  INSTANCEOF: 'instanceof'
+  TYPEOF: 'typeof'
+  THROW: 'throw'
+  INTERFACE: 'interface'
 
 condition:
   ACCEPT_STRING_ONE_QUOTE: true

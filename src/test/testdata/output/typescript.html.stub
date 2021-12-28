@@ -1,58 +1,84 @@
 <table class="highlight-table">
 <tbody>
-<tr><td class="hl-num" data-line="1"></td><td><span class="hl-k">import</span> { NgModule } <span class="hl-k">from</span> <span class="hl-s">'@angular/core'</span></td></tr>
+<tr><td class="hl-num" data-line="1"></td><td><span class="hl-k">import</span> { Module } <span class="hl-k">from</span> <span class="hl-s">'@angular/core'</span></td></tr>
 <tr><td class="hl-num" data-line="2"></td><td><span class="hl-k">import</span> { BrowserModule } <span class="hl-k">from</span> <span class="hl-s">'@angular/platform-browser'</span></td></tr>
 <tr><td class="hl-num" data-line="3"></td><td><span class="hl-k">import</span> { FormsModule } <span class="hl-k">from</span> <span class="hl-s">'@angular/forms'</span></td></tr>
 <tr><td class="hl-num" data-line="4"></td><td></td></tr>
-<tr><td class="hl-num" data-line="5"></td><td><span class="hl-cmt">/** @hidden */</span></td></tr>
-<tr><td class="hl-num" data-line="6"></td><td>@<span class="hl-en">NgModule</span>({</td></tr>
-<tr><td class="hl-num" data-line="7"></td><td>    <span class="hl-en">imports</span>: [</td></tr>
-<tr><td class="hl-num" data-line="8"></td><td>        BrowserModule,</td></tr>
-<tr><td class="hl-num" data-line="9"></td><td>        FormsModule,</td></tr>
-<tr><td class="hl-num" data-line="10"></td><td>    ],</td></tr>
-<tr><td class="hl-num" data-line="11"></td><td>    <span class="hl-en">providers</span>: [</td></tr>
-<tr><td class="hl-num" data-line="12"></td><td>        { <span class="hl-en">provide</span>: SettingsTabProvider, <span class="hl-en">useClass</span>: AppearanceSettingsTabProvider, <span class="hl-en">multi</span>: <span class="hl-c">true</span> },</td></tr>
-<tr><td class="hl-num" data-line="13"></td><td>        { <span class="hl-en">provide</span>: SettingsTabProvider, <span class="hl-en">useClass</span>: ColorSchemeSettingsTabProvider, <span class="hl-en">multi</span>: <span class="hl-c">true</span> },</td></tr>
-<tr><td class="hl-num" data-line="14"></td><td>    ]</td></tr>
-<tr><td class="hl-num" data-line="15"></td><td>})</td></tr>
-<tr><td class="hl-num" data-line="16"></td><td><span class="hl-k">export</span> <span class="hl-k">default</span> <span class="hl-k">class</span> TerminalModule { } <span class="hl-cmt">// eslint-disable-line @typescript-eslint/no-extraneous-class</span></td></tr>
-<tr><td class="hl-num" data-line="17"></td><td></td></tr>
-<tr><td class="hl-num" data-line="18"></td><td>@<span class="hl-en">Injectable</span>()</td></tr>
-<tr><td class="hl-num" data-line="19"></td><td><span class="hl-k">export</span> <span class="hl-k">class</span> TerminalCLIHandler <span class="hl-k">extends</span> CLIHandler {</td></tr>
-<tr><td class="hl-num" data-line="20"></td><td>    firstMatchOnly = <span class="hl-c">true</span></td></tr>
-<tr><td class="hl-num" data-line="21"></td><td>    priority = <span class="hl-c">0</span></td></tr>
-<tr><td class="hl-num" data-line="22"></td><td></td></tr>
-<tr><td class="hl-num" data-line="23"></td><td>    constructor (</td></tr>
-<tr><td class="hl-num" data-line="24"></td><td>        <span class="hl-k">private</span> <span class="hl-en">app</span>: AppService,</td></tr>
-<tr><td class="hl-num" data-line="25"></td><td>        <span class="hl-k">private</span> <span class="hl-en">hostWindow</span>: HostWindowService,</td></tr>
-<tr><td class="hl-num" data-line="26"></td><td>    ) {</td></tr>
-<tr><td class="hl-num" data-line="27"></td><td>        <span class="hl-en">super</span>()</td></tr>
-<tr><td class="hl-num" data-line="28"></td><td>    }</td></tr>
-<tr><td class="hl-num" data-line="29"></td><td></td></tr>
-<tr><td class="hl-num" data-line="30"></td><td>    <span class="hl-k">async</span> handle (<span class="hl-en">event</span>: CLIEvent): Promise<boolean> {</td></tr>
-<tr><td class="hl-num" data-line="31"></td><td>        <span class="hl-k">const</span> op = event.<span class="hl-en">argv</span>.<span class="hl-en">_</span>[<span class="hl-c">0</span>]</td></tr>
-<tr><td class="hl-num" data-line="32"></td><td></td></tr>
-<tr><td class="hl-num" data-line="33"></td><td>        <span class="hl-k">if</span> (op === <span class="hl-s">'paste'</span>) {</td></tr>
-<tr><td class="hl-num" data-line="34"></td><td>            <span class="hl-k">let</span> text = event.<span class="hl-en">argv</span>.<span class="hl-en">text</span></td></tr>
-<tr><td class="hl-num" data-line="35"></td><td>            <span class="hl-k">if</span> (event.<span class="hl-en">argv</span>.<span class="hl-en">escape</span>) {</td></tr>
-<tr><td class="hl-num" data-line="36"></td><td>                text = shellQuote.<span class="hl-en">quote</span>([text])</td></tr>
-<tr><td class="hl-num" data-line="37"></td><td>            }</td></tr>
-<tr><td class="hl-num" data-line="38"></td><td>            <span class="hl-k">this</span>.<span class="hl-en">handlePaste</span>(text)</td></tr>
+<tr><td class="hl-num" data-line="5"></td><td><span class="hl-k">export</span> interface IContextKeyExpression {</td></tr>
+<tr><td class="hl-num" data-line="6"></td><td>	<span class="hl-en">cmp</span>(<span class="hl-en">other</span>: ContextKeyExpression): <span class="hl-c">number</span>;</td></tr>
+<tr><td class="hl-num" data-line="7"></td><td>	<span class="hl-en">equals</span>(<span class="hl-en">other</span>: ContextKeyExpression): <span class="hl-c">boolean</span>;</td></tr>
+<tr><td class="hl-num" data-line="8"></td><td>	<span class="hl-en">substituteConstants</span>(): ContextKeyExpression | <span class="hl-c">undefined</span>;</td></tr>
+<tr><td class="hl-num" data-line="9"></td><td>	<span class="hl-en">serialize</span>(): <span class="hl-c">string</span>;</td></tr>
+<tr><td class="hl-num" data-line="10"></td><td>	<span class="hl-en">keys</span>(): <span class="hl-c">string</span>[];</td></tr>
+<tr><td class="hl-num" data-line="11"></td><td>	<span class="hl-en">map</span>(<span class="hl-en">mapFnc</span>: IContextKeyExprMapper): ContextKeyExpression;</td></tr>
+<tr><td class="hl-num" data-line="12"></td><td>	<span class="hl-en">negate</span>(): ContextKeyExpression;</td></tr>
+<tr><td class="hl-num" data-line="13"></td><td>}</td></tr>
+<tr><td class="hl-num" data-line="14"></td><td></td></tr>
+<tr><td class="hl-num" data-line="15"></td><td><span class="hl-cmt">/** @hidden */</span></td></tr>
+<tr><td class="hl-num" data-line="16"></td><td>@<span class="hl-en">Module</span>({</td></tr>
+<tr><td class="hl-num" data-line="17"></td><td>    <span class="hl-en">providers</span>: [</td></tr>
+<tr><td class="hl-num" data-line="18"></td><td>        { <span class="hl-en">provide</span>: SettingsTabProvider, <span class="hl-en">useClass</span>: AppearanceSettingsTabProvider, <span class="hl-en">multi</span>: <span class="hl-c">true</span> },</td></tr>
+<tr><td class="hl-num" data-line="19"></td><td>        { <span class="hl-en">provide</span>: SettingsTabProvider, <span class="hl-en">useClass</span>: ColorSchemeSettingsTabProvider, <span class="hl-en">multi</span>: <span class="hl-c">true</span> },</td></tr>
+<tr><td class="hl-num" data-line="20"></td><td>    ]</td></tr>
+<tr><td class="hl-num" data-line="21"></td><td>})</td></tr>
+<tr><td class="hl-num" data-line="22"></td><td><span class="hl-k">export</span> <span class="hl-k">default</span> <span class="hl-k">class</span> TerminalModule { } <span class="hl-cmt">// eslint-disable-line @typescript-eslint/no-extraneous-class</span></td></tr>
+<tr><td class="hl-num" data-line="23"></td><td></td></tr>
+<tr><td class="hl-num" data-line="24"></td><td>@<span class="hl-en">Injectable</span>()</td></tr>
+<tr><td class="hl-num" data-line="25"></td><td><span class="hl-k">export</span> <span class="hl-k">class</span> TerminalCLIHandler <span class="hl-k">extends</span> CLIHandler {</td></tr>
+<tr><td class="hl-num" data-line="26"></td><td>    firstMatchOnly = <span class="hl-c">true</span></td></tr>
+<tr><td class="hl-num" data-line="27"></td><td>    priority = <span class="hl-c">0</span></td></tr>
+<tr><td class="hl-num" data-line="28"></td><td></td></tr>
+<tr><td class="hl-num" data-line="29"></td><td>    constructor (</td></tr>
+<tr><td class="hl-num" data-line="30"></td><td>        <span class="hl-k">private</span> <span class="hl-en">app</span>: AppService,</td></tr>
+<tr><td class="hl-num" data-line="31"></td><td>        <span class="hl-k">private</span> <span class="hl-en">hostWindow</span>: HostWindowService,</td></tr>
+<tr><td class="hl-num" data-line="32"></td><td>    ) {</td></tr>
+<tr><td class="hl-num" data-line="33"></td><td>        <span class="hl-en">super</span>()</td></tr>
+<tr><td class="hl-num" data-line="34"></td><td>    }</td></tr>
+<tr><td class="hl-num" data-line="35"></td><td></td></tr>
+<tr><td class="hl-num" data-line="36"></td><td>    <span class="hl-k">async</span> handle (<span class="hl-en">event</span>: CLIEvent): Promise<<span class="hl-c">boolean</span>> {</td></tr>
+<tr><td class="hl-num" data-line="37"></td><td>        <span class="hl-k">const</span> op = event.<span class="hl-en">argv</span>.<span class="hl-en">_</span>[<span class="hl-c">0</span>]</td></tr>
+<tr><td class="hl-num" data-line="38"></td><td>        <span class="hl-k">if</span> (op === <span class="hl-s">'paste'</span>) {</td></tr>
 <tr><td class="hl-num" data-line="39"></td><td>            <span class="hl-k">return</span> <span class="hl-c">true</span></td></tr>
 <tr><td class="hl-num" data-line="40"></td><td>        }</td></tr>
 <tr><td class="hl-num" data-line="41"></td><td></td></tr>
 <tr><td class="hl-num" data-line="42"></td><td>        <span class="hl-k">return</span> <span class="hl-c">false</span></td></tr>
 <tr><td class="hl-num" data-line="43"></td><td>    }</td></tr>
 <tr><td class="hl-num" data-line="44"></td><td></td></tr>
-<tr><td class="hl-num" data-line="45"></td><td>    <span class="hl-k">private</span> handlePaste (<span class="hl-en">text</span>: string) {</td></tr>
-<tr><td class="hl-num" data-line="46"></td><td>        <span class="hl-k">if</span> (<span class="hl-k">this</span>.<span class="hl-en">app</span>.<span class="hl-en">activeTab</span> instanceof BaseTerminalTabComponent && <span class="hl-k">this</span>.<span class="hl-en">app</span>.<span class="hl-en">activeTab</span>.<span class="hl-en">session</span>) {</td></tr>
+<tr><td class="hl-num" data-line="45"></td><td>    <span class="hl-k">private</span> handlePaste (<span class="hl-en">text</span>: <span class="hl-c">string</span>) {</td></tr>
+<tr><td class="hl-num" data-line="46"></td><td>        <span class="hl-k">if</span> (<span class="hl-k">this</span>.<span class="hl-en">app</span>.<span class="hl-en">activeTab</span> <span class="hl-k">instanceof</span> BaseTerminalTabComponent && <span class="hl-k">this</span>.<span class="hl-en">app</span>.<span class="hl-en">activeTab</span>.<span class="hl-en">session</span>) {</td></tr>
 <tr><td class="hl-num" data-line="47"></td><td>            <span class="hl-k">this</span>.<span class="hl-en">app</span>.<span class="hl-en">activeTab</span>.<span class="hl-en">sendInput</span>(text)</td></tr>
 <tr><td class="hl-num" data-line="48"></td><td>            <span class="hl-k">this</span>.<span class="hl-en">hostWindow</span>.<span class="hl-en">bringToFront</span>()</td></tr>
 <tr><td class="hl-num" data-line="49"></td><td>        }</td></tr>
 <tr><td class="hl-num" data-line="50"></td><td>    }</td></tr>
 <tr><td class="hl-num" data-line="51"></td><td>}</td></tr>
-<tr><td class="hl-num" data-line="52"></td><td><span class="hl-k">export</span> * <span class="hl-k">from</span> <span class="hl-s">'./session'</span></td></tr>
-<tr><td class="hl-num" data-line="53"></td><td><span class="hl-k">export</span> { LoginScriptsSettingsComponent, StreamProcessingSettingsComponent }</td></tr>
+<tr><td class="hl-num" data-line="52"></td><td></td></tr>
+<tr><td class="hl-num" data-line="53"></td><td><span class="hl-k">export</span> * <span class="hl-k">from</span> <span class="hl-s">'./session'</span></td></tr>
 <tr><td class="hl-num" data-line="54"></td><td></td></tr>
+<tr><td class="hl-num" data-line="55"></td><td><span class="hl-cmt">/** A foreign function as defined by its parameter and result types */</span></td></tr>
+<tr><td class="hl-num" data-line="56"></td><td><span class="hl-k">export</span> interface ForeignFunction<</td></tr>
+<tr><td class="hl-num" data-line="57"></td><td>    Parameter <span class="hl-k">extends</span> <span class="hl-k">readonly</span> NativeType[],</td></tr>
+<tr><td class="hl-num" data-line="58"></td><td>    NonBlocking <span class="hl-k">extends</span> <span class="hl-c">boolean</span>,</td></tr>
+<tr><td class="hl-num" data-line="59"></td><td>> {</td></tr>
+<tr><td class="hl-num" data-line="60"></td><td>    <span class="hl-en">parameters</span>: Parameter;</td></tr>
+<tr><td class="hl-num" data-line="61"></td><td>    <span class="hl-cmt">/** When true, function calls will run on a dedicated blocking thread and will return a Promise resolving to the `result`. */</span></td></tr>
+<tr><td class="hl-num" data-line="62"></td><td>    nonblocking?: NonBlocking;</td></tr>
+<tr><td class="hl-num" data-line="63"></td><td>}</td></tr>
+<tr><td class="hl-num" data-line="64"></td><td></td></tr>
+<tr><td class="hl-num" data-line="65"></td><td><span class="hl-k">public</span> <span class="hl-k">static</span> <span class="hl-en">getAll</span>() : <span class="hl-k">readonly</span> Codicon[] {</td></tr>
+<tr><td class="hl-num" data-line="66"></td><td>    <span class="hl-k">return</span> Codicon.<span class="hl-en">_allCodicons</span>;</td></tr>
+<tr><td class="hl-num" data-line="67"></td><td>}</td></tr>
+<tr><td class="hl-num" data-line="68"></td><td></td></tr>
+<tr><td class="hl-num" data-line="69"></td><td><span class="hl-k">public</span> <span class="hl-k">static</span> <span class="hl-en">create</span>(<span class="hl-en">key</span>: <span class="hl-c">string</span>, <span class="hl-en">negated</span>: ContextKeyExpression | <span class="hl-c">null</span> = <span class="hl-c">null</span>): ContextKeyExpression {</td></tr>
+<tr><td class="hl-num" data-line="70"></td><td>    <span class="hl-k">const</span> constantValue = CONSTANT_VALUES.<span class="hl-en">get</span>(key);</td></tr>
+<tr><td class="hl-num" data-line="71"></td><td>    <span class="hl-k">if</span> (<span class="hl-k">typeof</span> constantValue === <span class="hl-s">'boolean'</span>) {</td></tr>
+<tr><td class="hl-num" data-line="72"></td><td>        <span class="hl-k">return</span> (constantValue ? ContextKeyFalseExpr.<span class="hl-en">INSTANCE</span> : ContextKeyTrueExpr.<span class="hl-en">INSTANCE</span>);</td></tr>
+<tr><td class="hl-num" data-line="73"></td><td>    }</td></tr>
+<tr><td class="hl-num" data-line="74"></td><td>    <span class="hl-k">return</span> <span class="hl-k">new</span> <span class="hl-en">ContextKeyNotExpr</span>(key, negated);</td></tr>
+<tr><td class="hl-num" data-line="75"></td><td>}</td></tr>
+<tr><td class="hl-num" data-line="76"></td><td></td></tr>
+<tr><td class="hl-num" data-line="77"></td><td><span class="hl-k">public</span> <span class="hl-en">serialize</span>(): <span class="hl-c">string</span> {</td></tr>
+<tr><td class="hl-num" data-line="78"></td><td>    <span class="hl-k">throw</span> <span class="hl-k">new</span> <span class="hl-en">Error</span>(<span class="hl-s">'Method not implemented.'</span>);</td></tr>
+<tr><td class="hl-num" data-line="79"></td><td>}</td></tr>
+<tr><td class="hl-num" data-line="80"></td><td></td></tr>
 </tbody>
 </table>
