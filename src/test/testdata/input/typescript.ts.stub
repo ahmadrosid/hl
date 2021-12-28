@@ -52,6 +52,8 @@ export class TerminalCLIHandler extends CLIHandler {
 
 export * from './session'
 
+public readonly type = ContextKeyExprType.NotEquals;
+
 /** A foreign function as defined by its parameter and result types */
 export interface ForeignFunction<
     Parameter extends readonly NativeType[],

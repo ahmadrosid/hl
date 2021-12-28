@@ -9,6 +9,7 @@ constant:
   NUMBER: 'number'
   KSTRING: 'string'
   BOOLEAN: 'boolean'
+  TYPE: 'type'
 
 var:
   VINFINITY: 'Infinity'

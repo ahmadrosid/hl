@@ -17,6 +17,7 @@ pub enum Token {
 	NUMBER(Vec<char>),
 	KSTRING(Vec<char>),
 	BOOLEAN(Vec<char>),
+	TYPE(Vec<char>),
 	VINFINITY(Vec<char>),
 	VNAN(Vec<char>),
 	MATH(Vec<char>),
@@ -47,6 +48,7 @@ pub enum Token {
 	INSTANCEOF(Vec<char>),
 	TYPEOF(Vec<char>),
 	THROW(Vec<char>),
+	INTERFACE(Vec<char>),
 	COMMENT(Vec<char>),
 }
 
@@ -60,6 +62,7 @@ pub fn get_keyword_token(identifier: &Vec<char>) -> Result<Token, String> {
 		"number" => Ok(Token::NUMBER(identifier.to_vec())),
 		"string" => Ok(Token::KSTRING(identifier.to_vec())),
 		"boolean" => Ok(Token::BOOLEAN(identifier.to_vec())),
+		"type" => Ok(Token::TYPE(identifier.to_vec())),
 		"Infinity" => Ok(Token::VINFINITY(identifier.to_vec())),
 		"NaN" => Ok(Token::VNAN(identifier.to_vec())),
 		"Math" => Ok(Token::MATH(identifier.to_vec())),
@@ -90,6 +93,7 @@ pub fn get_keyword_token(identifier: &Vec<char>) -> Result<Token, String> {
 		"instanceof" => Ok(Token::INSTANCEOF(identifier.to_vec())),
 		"typeof" => Ok(Token::TYPEOF(identifier.to_vec())),
 		"throw" => Ok(Token::THROW(identifier.to_vec())),
+		"interface" => Ok(Token::INTERFACE(identifier.to_vec())),
 		_ => Err(String::from("Not a keyword"))
 	}
 }

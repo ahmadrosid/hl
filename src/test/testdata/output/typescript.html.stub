@@ -4,7 +4,7 @@
 <tr><td class="hl-num" data-line="2"></td><td><span class="hl-k">import</span> { BrowserModule } <span class="hl-k">from</span> <span class="hl-s">'@angular/platform-browser'</span></td></tr>
 <tr><td class="hl-num" data-line="3"></td><td><span class="hl-k">import</span> { FormsModule } <span class="hl-k">from</span> <span class="hl-s">'@angular/forms'</span></td></tr>
 <tr><td class="hl-num" data-line="4"></td><td></td></tr>
-<tr><td class="hl-num" data-line="5"></td><td><span class="hl-k">export</span> interface IContextKeyExpression {</td></tr>
+<tr><td class="hl-num" data-line="5"></td><td><span class="hl-k">export</span> <span class="hl-k">interface</span> IContextKeyExpression {</td></tr>
 <tr><td class="hl-num" data-line="6"></td><td>	<span class="hl-en">cmp</span>(<span class="hl-en">other</span>: ContextKeyExpression): <span class="hl-c">number</span>;</td></tr>
 <tr><td class="hl-num" data-line="7"></td><td>	<span class="hl-en">equals</span>(<span class="hl-en">other</span>: ContextKeyExpression): <span class="hl-c">boolean</span>;</td></tr>
 <tr><td class="hl-num" data-line="8"></td><td>	<span class="hl-en">substituteConstants</span>(): ContextKeyExpression | <span class="hl-c">undefined</span>;</td></tr>
@@ -54,31 +54,33 @@
 <tr><td class="hl-num" data-line="52"></td><td></td></tr>
 <tr><td class="hl-num" data-line="53"></td><td><span class="hl-k">export</span> * <span class="hl-k">from</span> <span class="hl-s">'./session'</span></td></tr>
 <tr><td class="hl-num" data-line="54"></td><td></td></tr>
-<tr><td class="hl-num" data-line="55"></td><td><span class="hl-cmt">/** A foreign function as defined by its parameter and result types */</span></td></tr>
-<tr><td class="hl-num" data-line="56"></td><td><span class="hl-k">export</span> interface ForeignFunction<</td></tr>
-<tr><td class="hl-num" data-line="57"></td><td>    Parameter <span class="hl-k">extends</span> <span class="hl-k">readonly</span> NativeType[],</td></tr>
-<tr><td class="hl-num" data-line="58"></td><td>    NonBlocking <span class="hl-k">extends</span> <span class="hl-c">boolean</span>,</td></tr>
-<tr><td class="hl-num" data-line="59"></td><td>> {</td></tr>
-<tr><td class="hl-num" data-line="60"></td><td>    <span class="hl-en">parameters</span>: Parameter;</td></tr>
-<tr><td class="hl-num" data-line="61"></td><td>    <span class="hl-cmt">/** When true, function calls will run on a dedicated blocking thread and will return a Promise resolving to the `result`. */</span></td></tr>
-<tr><td class="hl-num" data-line="62"></td><td>    nonblocking?: NonBlocking;</td></tr>
-<tr><td class="hl-num" data-line="63"></td><td>}</td></tr>
-<tr><td class="hl-num" data-line="64"></td><td></td></tr>
-<tr><td class="hl-num" data-line="65"></td><td><span class="hl-k">public</span> <span class="hl-k">static</span> <span class="hl-en">getAll</span>() : <span class="hl-k">readonly</span> Codicon[] {</td></tr>
-<tr><td class="hl-num" data-line="66"></td><td>    <span class="hl-k">return</span> Codicon.<span class="hl-en">_allCodicons</span>;</td></tr>
-<tr><td class="hl-num" data-line="67"></td><td>}</td></tr>
-<tr><td class="hl-num" data-line="68"></td><td></td></tr>
-<tr><td class="hl-num" data-line="69"></td><td><span class="hl-k">public</span> <span class="hl-k">static</span> <span class="hl-en">create</span>(<span class="hl-en">key</span>: <span class="hl-c">string</span>, <span class="hl-en">negated</span>: ContextKeyExpression | <span class="hl-c">null</span> = <span class="hl-c">null</span>): ContextKeyExpression {</td></tr>
-<tr><td class="hl-num" data-line="70"></td><td>    <span class="hl-k">const</span> constantValue = CONSTANT_VALUES.<span class="hl-en">get</span>(key);</td></tr>
-<tr><td class="hl-num" data-line="71"></td><td>    <span class="hl-k">if</span> (<span class="hl-k">typeof</span> constantValue === <span class="hl-s">'boolean'</span>) {</td></tr>
-<tr><td class="hl-num" data-line="72"></td><td>        <span class="hl-k">return</span> (constantValue ? ContextKeyFalseExpr.<span class="hl-en">INSTANCE</span> : ContextKeyTrueExpr.<span class="hl-en">INSTANCE</span>);</td></tr>
-<tr><td class="hl-num" data-line="73"></td><td>    }</td></tr>
-<tr><td class="hl-num" data-line="74"></td><td>    <span class="hl-k">return</span> <span class="hl-k">new</span> <span class="hl-en">ContextKeyNotExpr</span>(key, negated);</td></tr>
-<tr><td class="hl-num" data-line="75"></td><td>}</td></tr>
-<tr><td class="hl-num" data-line="76"></td><td></td></tr>
-<tr><td class="hl-num" data-line="77"></td><td><span class="hl-k">public</span> <span class="hl-en">serialize</span>(): <span class="hl-c">string</span> {</td></tr>
-<tr><td class="hl-num" data-line="78"></td><td>    <span class="hl-k">throw</span> <span class="hl-k">new</span> <span class="hl-en">Error</span>(<span class="hl-s">'Method not implemented.'</span>);</td></tr>
-<tr><td class="hl-num" data-line="79"></td><td>}</td></tr>
-<tr><td class="hl-num" data-line="80"></td><td></td></tr>
+<tr><td class="hl-num" data-line="55"></td><td><span class="hl-k">public</span> <span class="hl-k">readonly</span> <span class="hl-c">type</span> = ContextKeyExprType.<span class="hl-en">NotEquals</span>;</td></tr>
+<tr><td class="hl-num" data-line="56"></td><td></td></tr>
+<tr><td class="hl-num" data-line="57"></td><td><span class="hl-cmt">/** A foreign function as defined by its parameter and result types */</span></td></tr>
+<tr><td class="hl-num" data-line="58"></td><td><span class="hl-k">export</span> <span class="hl-k">interface</span> ForeignFunction<</td></tr>
+<tr><td class="hl-num" data-line="59"></td><td>    Parameter <span class="hl-k">extends</span> <span class="hl-k">readonly</span> NativeType[],</td></tr>
+<tr><td class="hl-num" data-line="60"></td><td>    NonBlocking <span class="hl-k">extends</span> <span class="hl-c">boolean</span>,</td></tr>
+<tr><td class="hl-num" data-line="61"></td><td>> {</td></tr>
+<tr><td class="hl-num" data-line="62"></td><td>    <span class="hl-en">parameters</span>: Parameter;</td></tr>
+<tr><td class="hl-num" data-line="63"></td><td>    <span class="hl-cmt">/** When true, function calls will run on a dedicated blocking thread and will return a Promise resolving to the `result`. */</span></td></tr>
+<tr><td class="hl-num" data-line="64"></td><td>    nonblocking?: NonBlocking;</td></tr>
+<tr><td class="hl-num" data-line="65"></td><td>}</td></tr>
+<tr><td class="hl-num" data-line="66"></td><td></td></tr>
+<tr><td class="hl-num" data-line="67"></td><td><span class="hl-k">public</span> <span class="hl-k">static</span> <span class="hl-en">getAll</span>() : <span class="hl-k">readonly</span> Codicon[] {</td></tr>
+<tr><td class="hl-num" data-line="68"></td><td>    <span class="hl-k">return</span> Codicon.<span class="hl-en">_allCodicons</span>;</td></tr>
+<tr><td class="hl-num" data-line="69"></td><td>}</td></tr>
+<tr><td class="hl-num" data-line="70"></td><td></td></tr>
+<tr><td class="hl-num" data-line="71"></td><td><span class="hl-k">public</span> <span class="hl-k">static</span> <span class="hl-en">create</span>(<span class="hl-en">key</span>: <span class="hl-c">string</span>, <span class="hl-en">negated</span>: ContextKeyExpression | <span class="hl-c">null</span> = <span class="hl-c">null</span>): ContextKeyExpression {</td></tr>
+<tr><td class="hl-num" data-line="72"></td><td>    <span class="hl-k">const</span> constantValue = CONSTANT_VALUES.<span class="hl-en">get</span>(key);</td></tr>
+<tr><td class="hl-num" data-line="73"></td><td>    <span class="hl-k">if</span> (<span class="hl-k">typeof</span> constantValue === <span class="hl-s">'boolean'</span>) {</td></tr>
+<tr><td class="hl-num" data-line="74"></td><td>        <span class="hl-k">return</span> (constantValue ? ContextKeyFalseExpr.<span class="hl-en">INSTANCE</span> : ContextKeyTrueExpr.<span class="hl-en">INSTANCE</span>);</td></tr>
+<tr><td class="hl-num" data-line="75"></td><td>    }</td></tr>
+<tr><td class="hl-num" data-line="76"></td><td>    <span class="hl-k">return</span> <span class="hl-k">new</span> <span class="hl-en">ContextKeyNotExpr</span>(key, negated);</td></tr>
+<tr><td class="hl-num" data-line="77"></td><td>}</td></tr>
+<tr><td class="hl-num" data-line="78"></td><td></td></tr>
+<tr><td class="hl-num" data-line="79"></td><td><span class="hl-k">public</span> <span class="hl-en">serialize</span>(): <span class="hl-c">string</span> {</td></tr>
+<tr><td class="hl-num" data-line="80"></td><td>    <span class="hl-k">throw</span> <span class="hl-k">new</span> <span class="hl-en">Error</span>(<span class="hl-s">'Method not implemented.'</span>);</td></tr>
+<tr><td class="hl-num" data-line="81"></td><td>}</td></tr>
+<tr><td class="hl-num" data-line="82"></td><td></td></tr>
 </tbody>
 </table>
