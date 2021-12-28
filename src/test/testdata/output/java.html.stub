@@ -21,18 +21,18 @@
 <tr><td class="hl-num" data-line="19"></td><td>    <span class="hl-k">private</span> <span class="hl-k">static</span> <span class="hl-k">final</span> String TAG = App.<span class="hl-k">class</span>.<span class="hl-en">toString</span>();</td></tr>
 <tr><td class="hl-num" data-line="20"></td><td>    <span class="hl-k">private</span> <span class="hl-k">static</span> App app;</td></tr>
 <tr><td class="hl-num" data-line="21"></td><td></td></tr>
-<tr><td class="hl-num" data-line="22"></td><td>    @<span class="hl-k">NonNull</span></td></tr>
+<tr><td class="hl-num" data-line="22"></td><td>    <span class="hl-k">@NonNull</span></td></tr>
 <tr><td class="hl-num" data-line="23"></td><td>    <span class="hl-k">public</span> <span class="hl-k">static</span> App <span class="hl-en">getApp</span>() {</td></tr>
 <tr><td class="hl-num" data-line="24"></td><td>        <span class="hl-k">return</span> app;</td></tr>
 <tr><td class="hl-num" data-line="25"></td><td>    }</td></tr>
 <tr><td class="hl-num" data-line="26"></td><td></td></tr>
-<tr><td class="hl-num" data-line="27"></td><td>    @<span class="hl-k">Override</span></td></tr>
+<tr><td class="hl-num" data-line="27"></td><td>    <span class="hl-k">@Override</span></td></tr>
 <tr><td class="hl-num" data-line="28"></td><td>    <span class="hl-k">protected</span> <span class="hl-k">void</span> <span class="hl-en">attachBaseContext</span>(<span class="hl-k">final</span> Context base) {</td></tr>
 <tr><td class="hl-num" data-line="29"></td><td>        <span class="hl-c">super</span>.<span class="hl-en">attachBaseContext</span>(base);</td></tr>
 <tr><td class="hl-num" data-line="30"></td><td>        <span class="hl-en">initACRA</span>();</td></tr>
 <tr><td class="hl-num" data-line="31"></td><td>    }</td></tr>
 <tr><td class="hl-num" data-line="32"></td><td></td></tr>
-<tr><td class="hl-num" data-line="33"></td><td>    @<span class="hl-k">Override</span></td></tr>
+<tr><td class="hl-num" data-line="33"></td><td>    <span class="hl-k">@Override</span></td></tr>
 <tr><td class="hl-num" data-line="34"></td><td>    <span class="hl-k">public</span> <span class="hl-k">void</span> <span class="hl-en">onCreate</span>() {</td></tr>
 <tr><td class="hl-num" data-line="35"></td><td>        <span class="hl-c">super</span>.<span class="hl-en">onCreate</span>();</td></tr>
 <tr><td class="hl-num" data-line="36"></td><td></td></tr>
@@ -68,7 +68,7 @@
 <tr><td class="hl-num" data-line="66"></td><td>        <span class="hl-en">configureRxJavaErrorHandler</span>();</td></tr>
 <tr><td class="hl-num" data-line="67"></td><td>    }</td></tr>
 <tr><td class="hl-num" data-line="68"></td><td></td></tr>
-<tr><td class="hl-num" data-line="69"></td><td>    @<span class="hl-k">Override</span></td></tr>
+<tr><td class="hl-num" data-line="69"></td><td>    <span class="hl-k">@Override</span></td></tr>
 <tr><td class="hl-num" data-line="70"></td><td>    <span class="hl-k">public</span> <span class="hl-k">void</span> <span class="hl-en">onTerminate</span>() {</td></tr>
 <tr><td class="hl-num" data-line="71"></td><td>        <span class="hl-c">super</span>.<span class="hl-en">onTerminate</span>();</td></tr>
 <tr><td class="hl-num" data-line="72"></td><td>        PicassoHelper.<span class="hl-en">terminate</span>();</td></tr>
@@ -91,8 +91,8 @@
 <tr><td class="hl-num" data-line="89"></td><td>    <span class="hl-k">private</span> <span class="hl-k">void</span> <span class="hl-en">configureRxJavaErrorHandler</span>() {</td></tr>
 <tr><td class="hl-num" data-line="90"></td><td>        <span class="hl-cmt">// https://github.com/ReactiveX/RxJava/wiki/What's-different-in-2.0#error-handling</span></td></tr>
 <tr><td class="hl-num" data-line="91"></td><td>        RxJavaPlugins.<span class="hl-en">setErrorHandler</span>(<span class="hl-k">new</span> Consumer<Throwable>() {</td></tr>
-<tr><td class="hl-num" data-line="92"></td><td>            @<span class="hl-k">Override</span></td></tr>
-<tr><td class="hl-num" data-line="93"></td><td>            <span class="hl-k">public</span> <span class="hl-k">void</span> <span class="hl-en">accept</span>(@<span class="hl-k">NonNull</span> <span class="hl-k">final</span> Throwable throwable) {</td></tr>
+<tr><td class="hl-num" data-line="92"></td><td>            <span class="hl-k">@Override</span></td></tr>
+<tr><td class="hl-num" data-line="93"></td><td>            <span class="hl-k">public</span> <span class="hl-k">void</span> <span class="hl-en">accept</span>(<span class="hl-k">@NonNull</span> <span class="hl-k">final</span> Throwable throwable) {</td></tr>
 <tr><td class="hl-num" data-line="94"></td><td>                Log.<span class="hl-en">e</span>(TAG, <span class="hl-s">"RxJavaPlugins.ErrorHandler called with -> : "</span></td></tr>
 <tr><td class="hl-num" data-line="95"></td><td>                        + <span class="hl-s">"throwable = ["</span> + throwable.<span class="hl-en">getClass</span>().<span class="hl-en">getName</span>() + <span class="hl-s">"]"</span>);</td></tr>
 <tr><td class="hl-num" data-line="96"></td><td></td></tr>
@@ -131,7 +131,7 @@
 <tr><td class="hl-num" data-line="129"></td><td>                }</td></tr>
 <tr><td class="hl-num" data-line="130"></td><td>            }</td></tr>
 <tr><td class="hl-num" data-line="131"></td><td></td></tr>
-<tr><td class="hl-num" data-line="132"></td><td>            <span class="hl-k">private</span> <span class="hl-k">boolean</span> <span class="hl-en">isThrowableIgnored</span>(@<span class="hl-k">NonNull</span> <span class="hl-k">final</span> Throwable throwable) {</td></tr>
+<tr><td class="hl-num" data-line="132"></td><td>            <span class="hl-k">private</span> <span class="hl-k">boolean</span> <span class="hl-en">isThrowableIgnored</span>(<span class="hl-k">@NonNull</span> <span class="hl-k">final</span> Throwable throwable) {</td></tr>
 <tr><td class="hl-num" data-line="133"></td><td>                <span class="hl-cmt">// Don't crash the application over a simple network problem</span></td></tr>
 <tr><td class="hl-num" data-line="134"></td><td>                <span class="hl-k">return</span> ExceptionUtils.<span class="hl-en">hasAssignableCause</span>(throwable,</td></tr>
 <tr><td class="hl-num" data-line="135"></td><td>                        <span class="hl-cmt">// network api cancellation</span></td></tr>
@@ -140,7 +140,7 @@
 <tr><td class="hl-num" data-line="138"></td><td>                        InterruptedException.<span class="hl-k">class</span>, InterruptedIOException.<span class="hl-k">class</span>);</td></tr>
 <tr><td class="hl-num" data-line="139"></td><td>            }</td></tr>
 <tr><td class="hl-num" data-line="140"></td><td></td></tr>
-<tr><td class="hl-num" data-line="141"></td><td>            <span class="hl-k">private</span> <span class="hl-k">boolean</span> <span class="hl-en">isThrowableCritical</span>(@<span class="hl-k">NonNull</span> <span class="hl-k">final</span> Throwable throwable) {</td></tr>
+<tr><td class="hl-num" data-line="141"></td><td>            <span class="hl-k">private</span> <span class="hl-k">boolean</span> <span class="hl-en">isThrowableCritical</span>(<span class="hl-k">@NonNull</span> <span class="hl-k">final</span> Throwable throwable) {</td></tr>
 <tr><td class="hl-num" data-line="142"></td><td>                <span class="hl-cmt">// Though these exceptions cannot be ignored</span></td></tr>
 <tr><td class="hl-num" data-line="143"></td><td>                <span class="hl-k">return</span> ExceptionUtils.<span class="hl-en">hasAssignableCause</span>(throwable,</td></tr>
 <tr><td class="hl-num" data-line="144"></td><td>                        NullPointerException.<span class="hl-k">class</span>, IllegalArgumentException.<span class="hl-k">class</span>, <span class="hl-cmt">// bug in app</span></td></tr>
@@ -148,7 +148,7 @@
 <tr><td class="hl-num" data-line="146"></td><td>                        IllegalStateException.<span class="hl-k">class</span>); <span class="hl-cmt">// bug in operator</span></td></tr>
 <tr><td class="hl-num" data-line="147"></td><td>            }</td></tr>
 <tr><td class="hl-num" data-line="148"></td><td></td></tr>
-<tr><td class="hl-num" data-line="149"></td><td>            <span class="hl-k">private</span> <span class="hl-k">void</span> <span class="hl-en">reportException</span>(@<span class="hl-k">NonNull</span> <span class="hl-k">final</span> Throwable throwable) {</td></tr>
+<tr><td class="hl-num" data-line="149"></td><td>            <span class="hl-k">private</span> <span class="hl-k">void</span> <span class="hl-en">reportException</span>(<span class="hl-k">@NonNull</span> <span class="hl-k">final</span> Throwable throwable) {</td></tr>
 <tr><td class="hl-num" data-line="150"></td><td>                <span class="hl-cmt">// Throw uncaught exception that will trigger the report system</span></td></tr>
 <tr><td class="hl-num" data-line="151"></td><td>                Thread.<span class="hl-en">currentThread</span>().<span class="hl-en">getUncaughtExceptionHandler</span>()</td></tr>
 <tr><td class="hl-num" data-line="152"></td><td>                        .<span class="hl-en">uncaughtException</span>(Thread.<span class="hl-en">currentThread</span>(), throwable);</td></tr>

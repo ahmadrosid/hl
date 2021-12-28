@@ -44,6 +44,7 @@ pub fn generate_render_html(h: &Hash, name: String) -> String {
     write_token_integer(&mut html);
     write_token_identifier(&mut html);
     write_token_entity(&mut html);
+    write_token_keyword(&mut html);
 
     if slash_comment_enable(h) {
         html.push_tabln(3, "token::Token::COMMENT(value) => {");
@@ -185,6 +186,16 @@ fn write_token_entity(html: &mut StringBuilder) {
     html.push_tabln(
         4,
         "html.push_str(&format!(\"<span class=\\\"hl-en\\\">{}</span>\", \
+        value.iter().collect::<String>()));",
+    );
+    html.push_tabln(3, "}");
+}
+
+fn write_token_keyword(html: &mut StringBuilder) {
+    html.push_tabln(3,"token::Token::KEYWORD(value) => {");
+    html.push_tabln(
+        4,
+        "html.push_str(&format!(\"<span class=\\\"hl-k\\\">{}</span>\", \
         value.iter().collect::<String>()));",
     );
     html.push_tabln(3, "}");

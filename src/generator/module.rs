@@ -2,6 +2,9 @@ use crate::generator::{get_condition, get_entity_prefix, get_entity_suffix, slas
 use yaml_rust::yaml::Hash;
 use yaml_rust::Yaml;
 
+const ACCEPT_PREFIX_KEYWORD: &str = "ACCEPT_PREFIX_KEYWORD";
+const PREFIX_KEYWORD_CHAR: &str = "PREFIX_KEYWORD_CHAR";
+
 fn write_struct_lexer(module: &mut StringBuilder) {
     module.push_strln("pub struct Lexer {");
     module.push_tabln(1, "input: Vec<char>,");
@@ -126,6 +129,20 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
     module.push_tabln(5, "tok = token::Token::EOF;");
     module.push_tabln(4, "}");
     module.push_tabln(3, "}");
+
+    if let Some(_) = get_condition(h).get(&Yaml::String(ACCEPT_PREFIX_KEYWORD.to_string())) {
+        if let Some(v) = get_condition(h).get(&Yaml::String(PREFIX_KEYWORD_CHAR.to_string())) {
+            module.push_tabln(3, &format!("'{}' => {{", v.as_str().unwrap()));
+            module.push_tabln(4, "if is_letter(self.input[self.position+1]) {");
+            module.push_tabln(5, "self.read_char();");
+            module.push_tabln(5, "let mut identifier = vec!['@'];");
+            module.push_tabln(5, "identifier.append(&mut read_identifier(self));");
+            module.push_tabln(5, "return token::Token::KEYWORD(identifier);");
+            module.push_tabln(4, "}");
+            module.push_tabln(4, "tok = token::Token::CH(self.ch);");
+            module.push_tabln(3, "}");
+        }
+    }
 
     if slash_comment_enable(h) {
         module.push_tabln(3, "'/' => {");
@@ -278,6 +295,20 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
         module.push_tabln(9, "return token::Token::ENTITY(identifier)");
         module.push_tabln(8, "}");
     }
+
+    // if let Some(_) = get_condition(h).get(&Yaml::String("ACCEPT_PREFIX_KEYWORD".to_string())) {
+    //     if let Some(v) = get_condition(h).get(&Yaml::String("PREFIX_KEYWORD_CHAR".to_string())) {
+    //         module.push_tabln(
+    //             8,
+    //             &format!(
+    //                 "if prev_pos != 0 && self.input[prev_pos-1] == '{}' {{",
+    //                 v.as_str().unwrap()
+    //             ),
+    //         );
+    //         module.push_tabln(9, "return token::Token::KEYWORD(identifier)");
+    //         module.push_tabln(8, "}");
+    //     }
+    // }
 
     for (_k, v) in get_entity_suffix(h) {
         module.push_tabln(8, &format!("if self.ch == '{}' {{", v.as_str().unwrap()));

@@ -10,6 +10,7 @@ pub enum Token {
 	IDENT(Vec<char>),
 	ENTITY(Vec<char>),
 	STRING(Vec<char>),
+	KEYWORD(Vec<char>),
 	THIS(Vec<char>),
 	TRUE(Vec<char>),
 	FALSE(Vec<char>),
@@ -25,13 +26,11 @@ pub enum Token {
 	STATIC(Vec<char>),
 	VOID(Vec<char>),
 	RETURN(Vec<char>),
-	OVERRIDE(Vec<char>),
 	NEW(Vec<char>),
 	IF(Vec<char>),
 	ELSE(Vec<char>),
 	INSTANCEOF(Vec<char>),
 	BOOLEAN(Vec<char>),
-	NONNULL(Vec<char>),
 	COMMENT(Vec<char>),
 }
 
@@ -53,13 +52,11 @@ pub fn get_keyword_token(identifier: &Vec<char>) -> Result<Token, String> {
 		"static" => Ok(Token::STATIC(identifier.to_vec())),
 		"void" => Ok(Token::VOID(identifier.to_vec())),
 		"return" => Ok(Token::RETURN(identifier.to_vec())),
-		"Override" => Ok(Token::OVERRIDE(identifier.to_vec())),
 		"new" => Ok(Token::NEW(identifier.to_vec())),
 		"if" => Ok(Token::IF(identifier.to_vec())),
 		"else" => Ok(Token::ELSE(identifier.to_vec())),
 		"instanceof" => Ok(Token::INSTANCEOF(identifier.to_vec())),
 		"boolean" => Ok(Token::BOOLEAN(identifier.to_vec())),
-		"NonNull" => Ok(Token::NONNULL(identifier.to_vec())),
 		_ => Err(String::from("Not a keyword"))
 	}
 }

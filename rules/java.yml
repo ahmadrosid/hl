@@ -21,13 +21,13 @@ keyword:
   STATIC: 'static'
   VOID: 'void'
   RETURN: 'return'
-  OVERRIDE: 'Override'
   NEW: 'new'
   IF: 'if'
   ELSE: 'else'
   INSTANCEOF: 'instanceof'
   BOOLEAN: 'boolean'
-  NONNULL: 'NonNull'
 
 condition:
   ACCEPT_STRING_DOUBLE_QUOTE: true
+  ACCEPT_PREFIX_KEYWORD: true
+  PREFIX_KEYWORD_CHAR: '@'
