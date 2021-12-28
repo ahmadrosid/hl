@@ -7,8 +7,8 @@ array=(
   "rules/go.yml"
   "rules/java.yml"
   "rules/javascript.yml"
-  "rules/typescript.yml"
   "rules/rust.yml"
+  "rules/typescript.yml"
 )
 
 for i in "${array[@]}"
