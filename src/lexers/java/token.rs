@@ -15,6 +15,7 @@ pub enum Token {
 	TRUE(Vec<char>),
 	FALSE(Vec<char>),
 	SUPER(Vec<char>),
+	NULL(Vec<char>),
 	CLASS(Vec<char>),
 	FINAL(Vec<char>),
 	PACKAGE(Vec<char>),
@@ -31,6 +32,13 @@ pub enum Token {
 	ELSE(Vec<char>),
 	INSTANCEOF(Vec<char>),
 	BOOLEAN(Vec<char>),
+	ASSERT(Vec<char>),
+	CONTINUE(Vec<char>),
+	LIST(Vec<char>),
+	ARRAYLIST(Vec<char>),
+	MAP(Vec<char>),
+	HASHMAP(Vec<char>),
+	LINKEDHASHSET(Vec<char>),
 	COMMENT(Vec<char>),
 }
 
@@ -41,6 +49,7 @@ pub fn get_keyword_token(identifier: &Vec<char>) -> Result<Token, String> {
 		"true" => Ok(Token::TRUE(identifier.to_vec())),
 		"false" => Ok(Token::FALSE(identifier.to_vec())),
 		"super" => Ok(Token::SUPER(identifier.to_vec())),
+		"null" => Ok(Token::NULL(identifier.to_vec())),
 		"class" => Ok(Token::CLASS(identifier.to_vec())),
 		"final" => Ok(Token::FINAL(identifier.to_vec())),
 		"package" => Ok(Token::PACKAGE(identifier.to_vec())),
@@ -57,6 +66,13 @@ pub fn get_keyword_token(identifier: &Vec<char>) -> Result<Token, String> {
 		"else" => Ok(Token::ELSE(identifier.to_vec())),
 		"instanceof" => Ok(Token::INSTANCEOF(identifier.to_vec())),
 		"boolean" => Ok(Token::BOOLEAN(identifier.to_vec())),
+		"assert" => Ok(Token::ASSERT(identifier.to_vec())),
+		"continue" => Ok(Token::CONTINUE(identifier.to_vec())),
+		"List" => Ok(Token::LIST(identifier.to_vec())),
+		"ArrayList" => Ok(Token::ARRAYLIST(identifier.to_vec())),
+		"Map" => Ok(Token::MAP(identifier.to_vec())),
+		"HashMap" => Ok(Token::HASHMAP(identifier.to_vec())),
+		"LinkedHashSet" => Ok(Token::LINKEDHASHSET(identifier.to_vec())),
 		_ => Err(String::from("Not a keyword"))
 	}
 }

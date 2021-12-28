@@ -5,6 +5,7 @@ constant:
   TRUE: 'true'
   FALSE: 'false'
   SUPER: 'super'
+  NULL: 'null'
 
 entity_suffix:
   ENTITY_LBRACE: '('
@@ -26,6 +27,13 @@ keyword:
   ELSE: 'else'
   INSTANCEOF: 'instanceof'
   BOOLEAN: 'boolean'
+  ASSERT: 'assert'
+  CONTINUE: 'continue'
+  LIST: 'List'
+  ARRAYLIST: 'ArrayList'
+  MAP: 'Map'
+  HASHMAP: 'HashMap'
+  LINKEDHASHSET: 'LinkedHashSet'
 
 condition:
   ACCEPT_STRING_ONE_QUOTE: true
