@@ -94,12 +94,15 @@ public class App extends MultiDexApplication {
         PicassoHelper.terminate();
     }
 
-    protected Downloader getDownloader() {
-        final DownloaderImpl downloader = DownloaderImpl.init(null);
-        setCookiesToDownloader(downloader);
-        return downloader;
+    @Override
+    @ReactProp(name = ViewProps.TRANSFORM)
+    public void setTransform(@NonNull T view, @Nullable ReadableArray matrix) {
+        if (matrix == null) {
+            resetTransformProperty(view);
+        } else {
+            setTransformProperty(view, matrix);
+        }
     }
-   }
 
     private void configureRxJavaErrorHandler() {
         // https://github.com/ReactiveX/RxJava/wiki/What's-different-in-2.0#error-handling
