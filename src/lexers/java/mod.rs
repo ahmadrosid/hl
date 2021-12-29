@@ -23,13 +23,13 @@ impl Lexer {
 			input,
 			position: 0,
 			read_position: 0,
-			ch: '0'
+			ch: '\0'
 		}
 	}
 
 	pub fn read_char(&mut self) {
 		if self.read_position >= self.input.len() {
-			self.ch = '0';
+			self.ch = '\0';
 		} else {
 			self.ch = self.input[self.read_position];
 		}
@@ -98,12 +98,8 @@ impl Lexer {
 			'\n' => {
 				tok = token::Token::ENDL(self.ch);
 			}
-			'0' => {
-				if self.position < self.input.len() {
-					tok = token::Token::INT(self.input[self.position..self.position+1].to_vec());
-				} else {
-					tok = token::Token::EOF;
-				}
+			'\0' => {
+				tok = token::Token::EOF;
 			}
 			'@' => {
 				if is_letter(self.input[self.position+1]) {

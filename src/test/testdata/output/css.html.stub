@@ -368,7 +368,7 @@
 <tr><td class="hl-num" data-line="366"></td><td>.<span class="hl-en">chromeframe</span> {</td></tr>
 <tr><td class="hl-num" data-line="367"></td><td>    <span class="hl-en">margin</span>: <span class="hl-c">0</span>.<span class="hl-c">2</span><span class="hl-ent">em</span> <span class="hl-c">0</span>;</td></tr>
 <tr><td class="hl-num" data-line="368"></td><td>    <span class="hl-en">background</span>: #ccc;</td></tr>
-<tr><td class="hl-num" data-line="369"></td><td>    <span class="hl-en">color</span>: #<span class="hl-c">0</span><span class="hl-c">0</span><span class="hl-c">0</span>;</td></tr>
+<tr><td class="hl-num" data-line="369"></td><td>    <span class="hl-en">color</span>: #<span class="hl-c">000</span>;</td></tr>
 <tr><td class="hl-num" data-line="370"></td><td>    <span class="hl-en">padding</span>: <span class="hl-c">0</span>.<span class="hl-c">2</span><span class="hl-ent">em</span> <span class="hl-c">0</span>;</td></tr>
 <tr><td class="hl-num" data-line="371"></td><td>}</td></tr>
 <tr><td class="hl-num" data-line="372"></td><td></td></tr>

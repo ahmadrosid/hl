@@ -47,13 +47,13 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
     module.push_tabln(3, "input,");
     module.push_tabln(3, "position: 0,");
     module.push_tabln(3, "read_position: 0,");
-    module.push_tabln(3, "ch: '0'");
+    module.push_tabln(3, "ch: '\\0'");
     module.push_tabln(2, "}");
     module.push_tabln(1, "}\n");
 
     module.push_tabln(1, "pub fn read_char(&mut self) {");
     module.push_tabln(2, "if self.read_position >= self.input.len() {");
-    module.push_tabln(3, "self.ch = '0';");
+    module.push_tabln(3, "self.ch = '\\0';");
     module.push_tabln(2, "} else {");
     module.push_tabln(3, "self.ch = self.input[self.read_position];");
     module.push_tabln(2, "}");
@@ -133,15 +133,8 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
     module.push_tabln(4, "tok = token::Token::ENDL(self.ch);");
     module.push_tabln(3, "}");
 
-    module.push_tabln(3, "'0' => {");
-    module.push_tabln(4, "if self.position < self.input.len() {");
-    module.push_tabln(
-        5,
-        "tok = token::Token::INT(self.input[self.position..self.position+1].to_vec());",
-    );
-    module.push_tabln(4, "} else {");
-    module.push_tabln(5, "tok = token::Token::EOF;");
-    module.push_tabln(4, "}");
+    module.push_tabln(3, "'\\0' => {");
+    module.push_tabln(4, "tok = token::Token::EOF;");
     module.push_tabln(3, "}");
 
     if let Some(_) = get_condition(h).get(&Yaml::String(ACCEPT_PREFIX_KEYWORD.to_string())) {

@@ -22,7 +22,7 @@
 <tr><td class="hl-num" data-line="20"></td><td>            <span class="hl-k">let</span> lexer_path = sub_matches.<span class="hl-en">value_of</span>(<span class="hl-s">"LEXER_PATH"</span>).<span class="hl-en">expect</span>(<span class="hl-s">"required"</span>);</td></tr>
 <tr><td class="hl-num" data-line="21"></td><td>            <span class="hl-k">let</span> s = generator::<span class="hl-en">parse</span>(lexer_path);</td></tr>
 <tr><td class="hl-num" data-line="22"></td><td>            <span class="hl-en">println</span>!(<span class="hl-s">"{}"</span>, s);</td></tr>
-<tr><td class="hl-num" data-line="23"></td><td>            std::process::<span class="hl-en">exit</span>(<span class="hl-c">0</span>x<span class="hl-c">0</span><span class="hl-c">0</span><span class="hl-c">1</span>);</td></tr>
+<tr><td class="hl-num" data-line="23"></td><td>            std::process::<span class="hl-en">exit</span>(<span class="hl-c">0</span>x<span class="hl-c">001</span>);</td></tr>
 <tr><td class="hl-num" data-line="24"></td><td>        }</td></tr>
 <tr><td class="hl-num" data-line="25"></td><td>        _ => {</td></tr>
 <tr><td class="hl-num" data-line="26"></td><td>            <span class="hl-k">if</span> <span class="hl-k">let</span> <span class="hl-en">Some</span>(file) = matches.<span class="hl-en">value_of</span>(<span class="hl-s">"FILE_PATH"</span>) {</td></tr>

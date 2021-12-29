@@ -11,7 +11,6 @@ fn read_file(path: &str) -> String {
     return source;
 }
 
-
 #[test]
 fn test_css() {
     let input = read_input("src/test/testdata/input/css.css.stub");
