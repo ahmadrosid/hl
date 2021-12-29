@@ -1,5 +1,5 @@
 use crate::generator::{
-    get_constant, get_entity, get_entity_tag, get_keyword, get_skip, get_var,
+    get_constant, get_entity, get_entity_tag, get_skip, get_var,
     slash_comment_enable, string::StringBuilder,
 };
 use yaml_rust::yaml::Hash;
@@ -136,19 +136,6 @@ pub fn generate_render_html(h: &Hash, name: String) -> String {
         );
         html.push_tabln(3, "}");
     }
-
-    // for (k, _v) in get_keyword(h) {
-    //     html.push_tabln(
-    //         3,
-    //         &format!("token::Token::{}(value) => {{", k.as_str().unwrap()),
-    //     );
-    //     html.push_tabln(
-    //         4,
-    //         "html.push_str(&format!(\"<span class=\\\"hl-k\\\">{}</span>\", \
-    //     value.iter().collect::<String>()));",
-    //     );
-    //     html.push_tabln(3, "}");
-    // }
 
     html.push_tabln(3, "token::Token::ENDL(_) => {");
     html.push_tabln(4, "line = line + 1;");
