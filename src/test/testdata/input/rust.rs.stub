@@ -5,6 +5,14 @@ use crate::lexers::{css, go, javascript, rust};
 use std::fs::read;
 use std::io::Write;
 
+pub type sa_family_t = u8;
+pub type in_addr_t = u32;
+pub type in_port_t = u16;
+pub const FIONBIO: c_long = 0x8008667eu32 as c_long;
+
+pub struct msghdr {
+    pub msg_name: *mut c_void,
+}
 fn main() {
     let matches = App::new("hl")
         .version("0.1.0")
