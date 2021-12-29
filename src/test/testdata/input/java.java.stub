@@ -5,6 +5,9 @@ import java.net.SocketException;
 import java.util.Arrays;
 
 private static final char EXTENSION_SEPARATOR = '.';
+private static final int PERSPECTIVE_ARRAY_INVERTED_CAMERA_DISTANCE_INDEX = 2;
+private static final float CAMERA_DISTANCE_NORMALIZATION_MULTIPLIER = (float) Math.sqrt(5);
+private static double[] sTransformDecompositionArray = new double[16];
 
 public static boolean isIntersectionEmpty(@NotNull KotlinType typeA, @NotNull KotlinType typeB) {
     assert !types.isEmpty() : "Attempting to intersect empty collection of types, this case should be dealt with on the call site.";

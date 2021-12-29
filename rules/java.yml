@@ -12,7 +12,11 @@ entity_suffix:
 
 keyword:
   CLASS: 'class'
+  DOUBLE: 'double'
+  FLOAT: 'float'
   FINAL: 'final'
+  INT: 'int'
+  CHAR: 'char'
   PACKAGE: 'package'
   IMPORT: 'import'
   PUBLIC: 'public'
