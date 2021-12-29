@@ -59,6 +59,7 @@ pub fn parse(file_path: &str) -> String {
     let required_key = vec![
         "constant",
         "keyword",
+        "single_keyword",
         "skip",
         "entity",
         "entity_tag",

@@ -26,7 +26,7 @@
 <tr><td class="hl-num" data-line="24"></td><td>        }</td></tr>
 <tr><td class="hl-num" data-line="25"></td><td>        _ => {</td></tr>
 <tr><td class="hl-num" data-line="26"></td><td>            <span class="hl-k">if</span> <span class="hl-k">let</span> <span class="hl-en">Some</span>(file) = matches.<span class="hl-en">value_of</span>(<span class="hl-s">"FILE_PATH"</span>) {</td></tr>
-<tr><td class="hl-num" data-line="27"></td><td>                <span class="hl-k">let</span> source = <span class="hl-en">read</span>(file).<span class="hl-en">expect</span>(&<span class="hl-en">format</span>!(<span class="hl-s">"Filed reading file {}"</span>, file));</td></tr>
+<tr><td class="hl-num" data-line="27"></td><td>                <span class="hl-k">let</span> source = <span class="hl-en">read</span>(file).<span class="hl-en">expect</span>(<span class="hl-k">&</span><span class="hl-en">format</span>!(<span class="hl-s">"Filed reading file {}"</span>, file));</td></tr>
 <tr><td class="hl-num" data-line="28"></td><td>                input = source.<span class="hl-en">iter</span>().<span class="hl-en">map</span>(|c| *c as <span class="hl-k">char</span>).<span class="hl-en">collect</span>::<<span class="hl-k">Vec</span><_>>();</td></tr>
 <tr><td class="hl-num" data-line="29"></td><td>            }</td></tr>
 <tr><td class="hl-num" data-line="30"></td><td>            <span class="hl-k">if</span> <span class="hl-k">let</span> <span class="hl-en">Some</span>(language) = matches.<span class="hl-en">value_of</span>(<span class="hl-s">"lang"</span>) {</td></tr>
@@ -44,11 +44,11 @@
 <tr><td class="hl-num" data-line="42"></td><td></td></tr>
 <tr><td class="hl-num" data-line="43"></td><td><span class="hl-k">impl</span> Stream <span class="hl-k">for</span> RecursiveModuleLoad {</td></tr>
 <tr><td class="hl-num" data-line="44"></td><td>  <span class="hl-k">type</span> Item = <span class="hl-k">Result</span><(ModuleRequest, ModuleSource), Error>;</td></tr>
-<tr><td class="hl-num" data-line="45"></td><td>  <span class="hl-k">let</span> scope = &<span class="hl-k">mut</span> <span class="hl-k">unsafe</span> { v<span class="hl-c">8</span>::CallbackScope::<span class="hl-en">new</span>(context) };</td></tr>
+<tr><td class="hl-num" data-line="45"></td><td>  <span class="hl-k">let</span> scope = <span class="hl-k">&</span><span class="hl-k">mut</span> <span class="hl-k">unsafe</span> { v<span class="hl-c">8</span>::CallbackScope::<span class="hl-en">new</span>(context) };</td></tr>
 <tr><td class="hl-num" data-line="46"></td><td></td></tr>
 <tr><td class="hl-num" data-line="47"></td><td>  <span class="hl-k">fn</span> <span class="hl-en">poll_next</span>(</td></tr>
-<tr><td class="hl-num" data-line="48"></td><td>    <span class="hl-c">self</span>: Pin<&<span class="hl-k">mut</span> <span class="hl-k">Self</span>>,</td></tr>
-<tr><td class="hl-num" data-line="49"></td><td>    cx: &<span class="hl-k">mut</span> Context,</td></tr>
+<tr><td class="hl-num" data-line="48"></td><td>    <span class="hl-c">self</span>: Pin<<span class="hl-k">&</span><span class="hl-k">mut</span> <span class="hl-k">Self</span>>,</td></tr>
+<tr><td class="hl-num" data-line="49"></td><td>    cx: <span class="hl-k">&</span><span class="hl-k">mut</span> Context,</td></tr>
 <tr><td class="hl-num" data-line="50"></td><td>  ) -> Poll<<span class="hl-k">Option</span><<span class="hl-k">Self</span>::Item>> {</td></tr>
 <tr><td class="hl-num" data-line="51"></td><td>    <span class="hl-k">let</span> inner = <span class="hl-c">self</span>.<span class="hl-en">get_mut</span>();</td></tr>
 <tr><td class="hl-num" data-line="52"></td><td>    <span class="hl-k">match</span> inner.<span class="hl-en">state</span> {</td></tr>
@@ -75,7 +75,7 @@
 <tr><td class="hl-num" data-line="73"></td><td>          }</td></tr>
 <tr><td class="hl-num" data-line="74"></td><td>          <span class="hl-k">async</span> move {</td></tr>
 <tr><td class="hl-num" data-line="75"></td><td>            <span class="hl-k">let</span> result = loader</td></tr>
-<tr><td class="hl-num" data-line="76"></td><td>              .<span class="hl-en">load</span>(&module_specifier, maybe_referrer, is_dynamic_import)</td></tr>
+<tr><td class="hl-num" data-line="76"></td><td>              .<span class="hl-en">load</span>(<span class="hl-k">&</span>module_specifier, maybe_referrer, is_dynamic_import)</td></tr>
 <tr><td class="hl-num" data-line="77"></td><td>              .<span class="hl-k">await</span>;</td></tr>
 <tr><td class="hl-num" data-line="78"></td><td>            result.<span class="hl-en">map</span>(|s| (module_request, s))</td></tr>
 <tr><td class="hl-num" data-line="79"></td><td>          }</td></tr>

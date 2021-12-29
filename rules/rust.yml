@@ -45,5 +45,8 @@ keyword:
     OPTION: 'Option'
     DYN: 'dyn'
 
+single_keyword:
+    - "&"
+
 condition:
     ACCEPT_STRING_DOUBLE_QUOTE: true
