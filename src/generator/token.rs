@@ -40,10 +40,6 @@ pub fn generate_token(h: &Hash) -> String {
         token.push_tabln(1, &format!("{}(Vec<char>),", k.as_str().unwrap()));
     }
 
-    for (k, _v) in get_keyword(h) {
-        token.push_tabln(1, &format!("{}(Vec<char>),", k.as_str().unwrap()));
-    }
-
     if slash_comment_enable(h) {
         token.push_tabln(1, "COMMENT(Vec<char>),");
     }
@@ -91,12 +87,9 @@ pub fn generate_token(h: &Hash) -> String {
         ));
     }
 
-    for (k, v) in get_keyword(h) {
+    for (_k, v) in get_keyword(h) {
         token.push_tab(2, &format!("\"{}\" => ", v.as_str().unwrap()));
-        token.push_strln(&format!(
-            "Ok(Token::{}(identifier.to_vec())),",
-            k.as_str().unwrap()
-        ));
+        token.push_strln("Ok(Token::KEYWORD(identifier.to_vec())),");
     }
 
     token.push_tabln(2, "_ => Err(String::from(\"Not a keyword\"))");

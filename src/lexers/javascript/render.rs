@@ -93,48 +93,6 @@ pub fn render_html(input: Vec<char>) -> String {
 			token::Token::DATE(value) => {
 				html.push_str(&format!("<span class=\"hl-v\">{}</span>", value.iter().collect::<String>()));
 			}
-			token::Token::IMPORT(value) => {
-				html.push_str(&format!("<span class=\"hl-k\">{}</span>", value.iter().collect::<String>()));
-			}
-			token::Token::AS(value) => {
-				html.push_str(&format!("<span class=\"hl-k\">{}</span>", value.iter().collect::<String>()));
-			}
-			token::Token::NEW(value) => {
-				html.push_str(&format!("<span class=\"hl-k\">{}</span>", value.iter().collect::<String>()));
-			}
-			token::Token::THIS(value) => {
-				html.push_str(&format!("<span class=\"hl-k\">{}</span>", value.iter().collect::<String>()));
-			}
-			token::Token::CLASS(value) => {
-				html.push_str(&format!("<span class=\"hl-k\">{}</span>", value.iter().collect::<String>()));
-			}
-			token::Token::VAR(value) => {
-				html.push_str(&format!("<span class=\"hl-k\">{}</span>", value.iter().collect::<String>()));
-			}
-			token::Token::CONST(value) => {
-				html.push_str(&format!("<span class=\"hl-k\">{}</span>", value.iter().collect::<String>()));
-			}
-			token::Token::LET(value) => {
-				html.push_str(&format!("<span class=\"hl-k\">{}</span>", value.iter().collect::<String>()));
-			}
-			token::Token::FUNCTION(value) => {
-				html.push_str(&format!("<span class=\"hl-k\">{}</span>", value.iter().collect::<String>()));
-			}
-			token::Token::FOR(value) => {
-				html.push_str(&format!("<span class=\"hl-k\">{}</span>", value.iter().collect::<String>()));
-			}
-			token::Token::IF(value) => {
-				html.push_str(&format!("<span class=\"hl-k\">{}</span>", value.iter().collect::<String>()));
-			}
-			token::Token::ELSE(value) => {
-				html.push_str(&format!("<span class=\"hl-k\">{}</span>", value.iter().collect::<String>()));
-			}
-			token::Token::VOID(value) => {
-				html.push_str(&format!("<span class=\"hl-k\">{}</span>", value.iter().collect::<String>()));
-			}
-			token::Token::RETURN(value) => {
-				html.push_str(&format!("<span class=\"hl-k\">{}</span>", value.iter().collect::<String>()));
-			}
 			token::Token::ENDL(_) => {
 				line = line + 1;
 				html.push_str("</td></tr>\n");

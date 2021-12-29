@@ -111,7 +111,6 @@ pub enum Token {
 	VIDEO(Vec<char>),
 	TEXTAREA(Vec<char>),
 	INPUT(Vec<char>),
-	IMPORTANT(Vec<char>),
 	COMMENT(Vec<char>),
 }
 
@@ -218,7 +217,7 @@ pub fn get_keyword_token(identifier: &Vec<char>) -> Result<Token, String> {
 		"video" => Ok(Token::VIDEO(identifier.to_vec())),
 		"textarea" => Ok(Token::TEXTAREA(identifier.to_vec())),
 		"input" => Ok(Token::INPUT(identifier.to_vec())),
-		"important" => Ok(Token::IMPORTANT(identifier.to_vec())),
+		"important" => Ok(Token::KEYWORD(identifier.to_vec())),
 		_ => Err(String::from("Not a keyword"))
 	}
 }

@@ -108,66 +108,6 @@ pub fn render_html(input: Vec<char>) -> String {
 			token::Token::FLOAT(value) => {
 				html.push_str(&format!("<span class=\"hl-c\">{}</span>", value.iter().collect::<String>()));
 			}
-			token::Token::PACKAGE(value) => {
-				html.push_str(&format!("<span class=\"hl-k\">{}</span>", value.iter().collect::<String>()));
-			}
-			token::Token::FUNC(value) => {
-				html.push_str(&format!("<span class=\"hl-k\">{}</span>", value.iter().collect::<String>()));
-			}
-			token::Token::FOR(value) => {
-				html.push_str(&format!("<span class=\"hl-k\">{}</span>", value.iter().collect::<String>()));
-			}
-			token::Token::VAR(value) => {
-				html.push_str(&format!("<span class=\"hl-k\">{}</span>", value.iter().collect::<String>()));
-			}
-			token::Token::IF(value) => {
-				html.push_str(&format!("<span class=\"hl-k\">{}</span>", value.iter().collect::<String>()));
-			}
-			token::Token::ELSE(value) => {
-				html.push_str(&format!("<span class=\"hl-k\">{}</span>", value.iter().collect::<String>()));
-			}
-			token::Token::MATCH(value) => {
-				html.push_str(&format!("<span class=\"hl-k\">{}</span>", value.iter().collect::<String>()));
-			}
-			token::Token::CASE(value) => {
-				html.push_str(&format!("<span class=\"hl-k\">{}</span>", value.iter().collect::<String>()));
-			}
-			token::Token::RETURN(value) => {
-				html.push_str(&format!("<span class=\"hl-k\">{}</span>", value.iter().collect::<String>()));
-			}
-			token::Token::DEFAULT(value) => {
-				html.push_str(&format!("<span class=\"hl-k\">{}</span>", value.iter().collect::<String>()));
-			}
-			token::Token::IMPORT(value) => {
-				html.push_str(&format!("<span class=\"hl-k\">{}</span>", value.iter().collect::<String>()));
-			}
-			token::Token::TYPE(value) => {
-				html.push_str(&format!("<span class=\"hl-k\">{}</span>", value.iter().collect::<String>()));
-			}
-			token::Token::INTERFACE(value) => {
-				html.push_str(&format!("<span class=\"hl-k\">{}</span>", value.iter().collect::<String>()));
-			}
-			token::Token::CHAN(value) => {
-				html.push_str(&format!("<span class=\"hl-k\">{}</span>", value.iter().collect::<String>()));
-			}
-			token::Token::STRUCT(value) => {
-				html.push_str(&format!("<span class=\"hl-k\">{}</span>", value.iter().collect::<String>()));
-			}
-			token::Token::CONST(value) => {
-				html.push_str(&format!("<span class=\"hl-k\">{}</span>", value.iter().collect::<String>()));
-			}
-			token::Token::RANGE(value) => {
-				html.push_str(&format!("<span class=\"hl-k\">{}</span>", value.iter().collect::<String>()));
-			}
-			token::Token::BREAK(value) => {
-				html.push_str(&format!("<span class=\"hl-k\">{}</span>", value.iter().collect::<String>()));
-			}
-			token::Token::MAP(value) => {
-				html.push_str(&format!("<span class=\"hl-k\">{}</span>", value.iter().collect::<String>()));
-			}
-			token::Token::CONTINUE(value) => {
-				html.push_str(&format!("<span class=\"hl-k\">{}</span>", value.iter().collect::<String>()));
-			}
 			token::Token::ENDL(_) => {
 				line = line + 1;
 				html.push_str("</td></tr>\n");
