@@ -43,9 +43,11 @@ keyword:
   MAP: 'Map'
   HASHMAP: 'HashMap'
   LINKEDHASHSET: 'LinkedHashSet'
+  SYNCHRONIZED: 'synchronized'
   TRY: "try"
   CATCH: "catch"
   WHILE: "while"
+  THROWS: "throws"
 
 condition:
   ACCEPT_STRING_ONE_QUOTE: true

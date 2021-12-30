@@ -59,10 +59,22 @@ public abstract class App extends MultiDexApplication {
     private static final String TAG = App.class.toString();
     private static App app;
     final static float MAX_VELOCITY = 14f;
+    private transient MetricRegistry metrics;
 
     @NonNull
     public static App getApp() {
         return app;
+    }
+
+    private void readObject(ObjectInputStream in) throws IOException) {
+        in.defaultReadObject();
+        handleOperTimecostHistogramMap = new HashMap<>();
+    }
+
+    public String toString() {
+        synchronized (mutex) {
+            return delegate.toString();
+        }
     }
 
     @Override

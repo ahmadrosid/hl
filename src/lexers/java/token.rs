@@ -59,9 +59,11 @@ pub fn get_keyword_token(identifier: &Vec<char>) -> Result<Token, String> {
         "Map" => Ok(Token::KEYWORD(identifier.to_vec())),
         "HashMap" => Ok(Token::KEYWORD(identifier.to_vec())),
         "LinkedHashSet" => Ok(Token::KEYWORD(identifier.to_vec())),
+        "synchronized" => Ok(Token::KEYWORD(identifier.to_vec())),
         "try" => Ok(Token::KEYWORD(identifier.to_vec())),
         "catch" => Ok(Token::KEYWORD(identifier.to_vec())),
         "while" => Ok(Token::KEYWORD(identifier.to_vec())),
+        "throws" => Ok(Token::KEYWORD(identifier.to_vec())),
         _ => Err(String::from("Not a keyword"))
     }
 }
