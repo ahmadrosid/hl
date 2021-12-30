@@ -15,6 +15,8 @@ const ACCEPT_IDENT_SUFFIX: &str = "ACCEPT_IDENT_SUFFIX";
 const BREAK_IDENT_SUFFIX: &str = "BREAK_IDENT_SUFFIX";
 const ACCEPT_STRING_ONE_QUOTE: &str = "ACCEPT_STRING_ONE_QUOTE";
 const ACCEPT_STRING_DOUBLE_QUOTE: &str = "ACCEPT_STRING_DOUBLE_QUOTE";
+const ACCEPT_PREFIX_DIGIT: &str = "ACCEPT_PREFIX_DIGIT";
+const PREFIX_DIGIT_CHAR: &str = "PREFIX_DIGIT_CHAR";
 
 fn write_struct_lexer(module: &mut StringBuilder) {
     module.push_strln("pub struct Lexer {");
@@ -331,7 +333,17 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
     module.push_tabln(7, "}");
     module.push_tabln(6, "}");
     module.push_tabln(5, "} else if is_digit(self.ch) {");
-    module.push_tabln(6, "let identifier: Vec<char> = read_number(self);");
+    if let Some(_) = get_condition(h).get(&Yaml::String(ACCEPT_PREFIX_DIGIT.to_string())) {
+        if let Some(ch) = get_condition(h).get(&Yaml::String(PREFIX_DIGIT_CHAR.to_string())) {
+            module.push_tabln(6, "let mut identifier: Vec<char> = read_number(self);");
+            module.push_tabln(6, &format!("if self.ch == '{}' {{", ch.as_str().unwrap()));
+            module.push_tabln(7, "identifier.append(&mut vec![self.ch]);");
+            module.push_tabln(7, "self.read_char();");
+            module.push_tabln(6, "}");
+        }
+    } else {
+        module.push_tabln(6, "let identifier: Vec<char> = read_number(self);");
+    }
     module.push_tabln(6, "token::Token::INT(identifier)");
 
     if let Some(_) = get_condition(h).get(&Yaml::String(ACCEPT_STRING_ONE_QUOTE.to_string())) {

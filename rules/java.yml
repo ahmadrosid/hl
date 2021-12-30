@@ -63,11 +63,14 @@ keyword:
   DO: "do"
   TRANSIENT: "transient"
   STRICTFP: "strictfp"
+  VAR: "var"
 
 condition:
   ACCEPT_STRING_ONE_QUOTE: true
   ACCEPT_STRING_DOUBLE_QUOTE: true
   ACCEPT_PREFIX_KEYWORD: true
   PREFIX_KEYWORD_CHAR: '@'
+  ACCEPT_PREFIX_DIGIT: true
+  PREFIX_DIGIT_CHAR: 'f'
   ACCEPT_ENTITY_TAG_SUFFIX: "is_digit(self.ch)"
   BREAK_ENTITY_TAG_SUFFIX: "!is_digit(self.ch) && !is_letter(self.ch)"

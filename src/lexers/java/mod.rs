@@ -147,7 +147,11 @@ impl Lexer {
                             }
                         }
                     } else if is_digit(self.ch) {
-                        let identifier: Vec<char> = read_number(self);
+                        let mut identifier: Vec<char> = read_number(self);
+                        if self.ch == 'f' {
+                            identifier.append(&mut vec![self.ch]);
+                            self.read_char();
+                        }
                         token::Token::INT(identifier)
                     } else if self.ch == '\'' {
                         let str_value: Vec<char> = read_string(self, '\'');
