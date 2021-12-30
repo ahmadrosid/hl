@@ -23,7 +23,7 @@
 <tr><td class="hl-num" data-line="21"></td><td>    KotlinType nothingOrNullableNothing = <span class="hl-c">null</span>;</td></tr>
 <tr><td class="hl-num" data-line="22"></td><td>    <span class="hl-k">boolean</span> allNullable = <span class="hl-c">true</span>;</td></tr>
 <tr><td class="hl-num" data-line="23"></td><td>    <span class="hl-k">List</span><KotlinType> nullabilityStripped = <span class="hl-k">new</span> <span class="hl-k">ArrayList</span><>(types.<span class="hl-en">size</span>());</td></tr>
-<tr><td class="hl-num" data-line="24"></td><td>    for (KotlinType type : types) {</td></tr>
+<tr><td class="hl-num" data-line="24"></td><td>    <span class="hl-k">for</span> (KotlinType type : types) {</td></tr>
 <tr><td class="hl-num" data-line="25"></td><td>        <span class="hl-k">if</span> (KotlinTypeKt.<span class="hl-en">isError</span>(type)) <span class="hl-k">continue</span>;</td></tr>
 <tr><td class="hl-num" data-line="26"></td><td></td></tr>
 <tr><td class="hl-num" data-line="27"></td><td>        allNullable &= type.<span class="hl-en">isMarkedNullable</span>();</td></tr>
@@ -130,7 +130,7 @@
 <tr><td class="hl-num" data-line="128"></td><td>                    errors = Collections.<span class="hl-en">singletonList</span>(actualThrowable);</td></tr>
 <tr><td class="hl-num" data-line="129"></td><td>                }</td></tr>
 <tr><td class="hl-num" data-line="130"></td><td></td></tr>
-<tr><td class="hl-num" data-line="131"></td><td>                for (<span class="hl-k">final</span> Throwable error : errors) {</td></tr>
+<tr><td class="hl-num" data-line="131"></td><td>                <span class="hl-k">for</span> (<span class="hl-k">final</span> Throwable error : errors) {</td></tr>
 <tr><td class="hl-num" data-line="132"></td><td>                    <span class="hl-k">if</span> (<span class="hl-en">isThrowableIgnored</span>(error)) {</td></tr>
 <tr><td class="hl-num" data-line="133"></td><td>                        <span class="hl-k">return</span>;</td></tr>
 <tr><td class="hl-num" data-line="134"></td><td>                    }</td></tr>

@@ -17,6 +17,7 @@ keyword:
   FINAL: 'final'
   INT: 'int'
   CHAR: 'char'
+  FOR: 'for'
   PACKAGE: 'package'
   IMPORT: 'import'
   PUBLIC: 'public'

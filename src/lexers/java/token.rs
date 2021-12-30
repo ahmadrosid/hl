@@ -33,6 +33,7 @@ pub fn get_keyword_token(identifier: &Vec<char>) -> Result<Token, String> {
         "final" => Ok(Token::KEYWORD(identifier.to_vec())),
         "int" => Ok(Token::KEYWORD(identifier.to_vec())),
         "char" => Ok(Token::KEYWORD(identifier.to_vec())),
+        "for" => Ok(Token::KEYWORD(identifier.to_vec())),
         "package" => Ok(Token::KEYWORD(identifier.to_vec())),
         "import" => Ok(Token::KEYWORD(identifier.to_vec())),
         "public" => Ok(Token::KEYWORD(identifier.to_vec())),
