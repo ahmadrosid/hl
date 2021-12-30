@@ -56,6 +56,6 @@ See the result in browser [here](https://play.tailwindcss.com/xFlm0rN1wH).
 - [ ] CPP ( 🚧 In Progress )
 - [ ] Go ( 🚧 In Progress )
 - [ ] Rust ( 🚧 In Progress )
-- [ ] Java ( 🚧 In Progress )
+- [x] Java ( ✅ Done )
 - [ ] Javascript ( 🚧 In Progress )
 - [ ] Typescript ( 🚧 In Progress )
