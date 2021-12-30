@@ -22,7 +22,7 @@ SUBCOMMANDS:
 
 ### 💡 Example Command
 ```bash
-hl example/rust.rs -l rust
+hl src/main.rs -l rust
 ```
 
 ### 💡 Example Result
