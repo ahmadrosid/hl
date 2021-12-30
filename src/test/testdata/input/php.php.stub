@@ -17,6 +17,8 @@ class Model1 extends Model {
     public $timestamps = false;
     protected $guarded = [];
     private $accept = true;
+    private string $tagName;
+    private array $attributes = [];
 
     protected static function boot()
     {

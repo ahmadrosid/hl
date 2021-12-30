@@ -5,7 +5,8 @@ constant:
   TRUE: 'true'
   FALSE: 'false'
   NULL: 'null'
-  CSTRING: 'String'
+  CSTRING: 'string'
+  ARRAY: 'array'
 
 entity_prefix:
   ENTITY_DOT: '>'

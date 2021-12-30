@@ -56,7 +56,7 @@ pub fn generate_render_html(h: &Hash, name: String) -> String {
     }
 
     if let Some(_) = get_condition(h).get(&Yaml::String(ACCEPT_PREFIX_VAR.to_string())) {
-        write_token_var(&mut html);
+        write_token_var_identifier(&mut html);
     }
 
     if slash_comment_enable(h) {
@@ -214,11 +214,11 @@ fn write_token_keyword(html: &mut StringBuilder) {
     html.push_tabln(3, "}");
 }
 
-fn write_token_var(html: &mut StringBuilder) {
+fn write_token_var_identifier(html: &mut StringBuilder) {
     html.push_tabln(3,"token::Token::VAR(value) => {");
     html.push_tabln(
         4,
-        "html.push_str(&format!(\"<span class=\\\"hl-v\\\">{}</span>\", \
+        "html.push_str(&format!(\"<span class=\\\"hl-vid\\\">{}</span>\", \
         value.iter().collect::<String>()));",
     );
     html.push_tabln(3, "}");

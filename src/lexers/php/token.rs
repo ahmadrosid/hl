@@ -17,6 +17,7 @@ pub enum Token {
     FALSE(Vec<char>),
     NULL(Vec<char>),
     CSTRING(Vec<char>),
+    ARRAY(Vec<char>),
     COMMENT(Vec<char>),
 }
 
@@ -26,7 +27,8 @@ pub fn get_keyword_token(identifier: &Vec<char>) -> Result<Token, String> {
         "true" => Ok(Token::TRUE(identifier.to_vec())),
         "false" => Ok(Token::FALSE(identifier.to_vec())),
         "null" => Ok(Token::NULL(identifier.to_vec())),
-        "String" => Ok(Token::CSTRING(identifier.to_vec())),
+        "string" => Ok(Token::CSTRING(identifier.to_vec())),
+        "array" => Ok(Token::ARRAY(identifier.to_vec())),
         "abstract" => Ok(Token::KEYWORD(identifier.to_vec())),
         "as" => Ok(Token::KEYWORD(identifier.to_vec())),
         "break" => Ok(Token::KEYWORD(identifier.to_vec())),
