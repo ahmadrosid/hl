@@ -11,6 +11,7 @@ entity_suffix:
   ENTITY_LBRACE: '('
 
 keyword:
+  BYTE: 'byte'
   CLASS: 'class'
   DOUBLE: 'double'
   FLOAT: 'float'
@@ -41,6 +42,7 @@ keyword:
   LINKEDHASHSET: 'LinkedHashSet'
   TRY: "try"
   CATCH: "catch"
+  WHILE: "while"
 
 condition:
   ACCEPT_STRING_ONE_QUOTE: true

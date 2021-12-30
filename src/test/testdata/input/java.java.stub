@@ -88,6 +88,21 @@ public class App extends MultiDexApplication {
         ServiceHelper.initServices(this);
     }
 
+    public UTF8String substring(final int start, final int until) {
+        int j = i;
+        while (i < numBytes && c < until) {
+            i += numBytesForFirstByte(getByte(i));
+            c += 1;
+        }
+        if (i > j) {
+            byte[] bytes = new byte[i - j];
+            copyMemory(base, offset + j, bytes, BYTE_ARRAY_OFFSET, i - j);
+            return fromBytes(bytes);
+        } else {
+            return EMPTY_UTF8;
+        }
+    }
+
     @Override
     public void onTerminate() {
         super.onTerminate();

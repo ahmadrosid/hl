@@ -27,6 +27,7 @@ pub fn get_keyword_token(identifier: &Vec<char>) -> Result<Token, String> {
         "false" => Ok(Token::FALSE(identifier.to_vec())),
         "super" => Ok(Token::SUPER(identifier.to_vec())),
         "null" => Ok(Token::NULL(identifier.to_vec())),
+        "byte" => Ok(Token::KEYWORD(identifier.to_vec())),
         "class" => Ok(Token::KEYWORD(identifier.to_vec())),
         "double" => Ok(Token::KEYWORD(identifier.to_vec())),
         "float" => Ok(Token::KEYWORD(identifier.to_vec())),
@@ -57,6 +58,7 @@ pub fn get_keyword_token(identifier: &Vec<char>) -> Result<Token, String> {
         "LinkedHashSet" => Ok(Token::KEYWORD(identifier.to_vec())),
         "try" => Ok(Token::KEYWORD(identifier.to_vec())),
         "catch" => Ok(Token::KEYWORD(identifier.to_vec())),
+        "while" => Ok(Token::KEYWORD(identifier.to_vec())),
         _ => Err(String::from("Not a keyword"))
     }
 }
