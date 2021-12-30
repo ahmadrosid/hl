@@ -30,7 +30,7 @@
 <tr><td class="hl-num" data-line="28"></td><td>        nullabilityStripped.<span class="hl-en">add</span>(TypeUtils.<span class="hl-en">makeNotNullable</span>(type));</td></tr>
 <tr><td class="hl-num" data-line="29"></td><td>    }</td></tr>
 <tr><td class="hl-num" data-line="30"></td><td>    <span class="hl-k">Map</span><TypeParameterDescriptor, Variance> parameters = <span class="hl-k">new</span> <span class="hl-k">HashMap</span><>();</td></tr>
-<tr><td class="hl-num" data-line="31"></td><td>    Function<span class="hl-c">1</span><TypeParameterUsage, Unit> processor = parameterUsage -> {</td></tr>
+<tr><td class="hl-num" data-line="31"></td><td>    Function1<TypeParameterUsage, Unit> processor = parameterUsage -> {</td></tr>
 <tr><td class="hl-num" data-line="32"></td><td>        Variance howTheTypeIsUsedBefore = parameters.<span class="hl-en">get</span>(parameterUsage.typeParameterDescriptor);</td></tr>
 <tr><td class="hl-num" data-line="33"></td><td>        <span class="hl-k">if</span> (howTheTypeIsUsedBefore == <span class="hl-c">null</span>) {</td></tr>
 <tr><td class="hl-num" data-line="34"></td><td>            howTheTypeIsUsedBefore = Variance.INVARIANT;</td></tr>
