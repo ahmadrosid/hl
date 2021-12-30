@@ -38,6 +38,7 @@ class Model1 extends Model {
                 );
             }
         }
+        $this->booted = true;
     }
 
     protected function initializeTraits()
