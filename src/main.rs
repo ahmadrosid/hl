@@ -1,7 +1,7 @@
 use clap::{arg, App, AppSettings};
 mod generator;
 mod lexers;
-use crate::lexers::{c, cpp, css, go, java, javascript, rust, typescript};
+use crate::lexers::{c, cpp, css, go, java, javascript, php, rust, typescript};
 use std::fs::read;
 use std::io::Write;
 
@@ -66,6 +66,9 @@ fn main() {
         }
         "js" => {
             print!("{}", javascript::render::render_html(input));
+        }
+        "php" => {
+            print!("{}", php::render::render_html(input));
         }
         "ts" => {
             print!("{}", typescript::render::render_html(input));

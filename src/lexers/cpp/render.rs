@@ -31,7 +31,7 @@ pub fn render_html(input: Vec<char>) -> String {
                 for ch in value {
                     if ch == '<' {
                         s.push_str("&lt;");
-                    } else if ch == '<' {
+                    } else if ch == '>' {
                         s.push_str("&gt;");
                     } else {
                         s.push(ch);

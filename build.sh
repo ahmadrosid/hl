@@ -8,6 +8,7 @@ array=(
   "rules/go.yml"
   "rules/java.yml"
   "rules/javascript.yml"
+  "rules/php.yml"
   "rules/rust.yml"
   "rules/typescript.yml"
 )

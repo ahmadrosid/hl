@@ -4,7 +4,7 @@
 <tr><td class="hl-num" data-line="2"></td><td><span class="hl-cmt">==============================================================================*/</span></td></tr>
 <tr><td class="hl-num" data-line="3"></td><td>#<span class="hl-k">include</span> <span class="hl-s">"common.h"</span></td></tr>
 <tr><td class="hl-num" data-line="4"></td><td>#<span class="hl-k">include</span> <span class="hl-s">"archive/value_archive.h"</span></td></tr>
-<tr><td class="hl-num" data-line="5"></td><td>#<span class="hl-k">include</span> <span class="hl-s">&lt;</span>stdlib.h<span class="hl-s">></span></td></tr>
+<tr><td class="hl-num" data-line="5"></td><td>#<span class="hl-k">include</span> <span class="hl-s">&lt;</span>stdlib.h<span class="hl-s">&gt;</span></td></tr>
 <tr><td class="hl-num" data-line="6"></td><td><span class="hl-k">const</span> <span class="hl-k">int</span> base = <span class="hl-c">1234567890</span>;</td></tr>
 <tr><td class="hl-num" data-line="7"></td><td></td></tr>
 <tr><td class="hl-num" data-line="8"></td><td><span class="hl-cmt">// Below are the ops with no builtin_data structure.</span></td></tr>
@@ -20,7 +20,7 @@
 <tr><td class="hl-num" data-line="18"></td><td>  <span class="hl-k">try</span> {</td></tr>
 <tr><td class="hl-num" data-line="19"></td><td>    <span class="hl-en">from_value</span>(cfg[<span class="hl-s">"input"</span>], inputs_);</td></tr>
 <tr><td class="hl-num" data-line="20"></td><td>    <span class="hl-en">from_value</span>(cfg[<span class="hl-s">"output"</span>], outputs_);</td></tr>
-<tr><td class="hl-num" data-line="21"></td><td>    name_ = cfg.value<span class="hl-s">&lt;</span>std::string<span class="hl-s">></span>(<span class="hl-s">"name"</span>, <span class="hl-s">""</span>);</td></tr>
+<tr><td class="hl-num" data-line="21"></td><td>    name_ = cfg.value<span class="hl-s">&lt;</span>std::string<span class="hl-s">&gt;</span>(<span class="hl-s">"name"</span>, <span class="hl-s">""</span>);</td></tr>
 <tr><td class="hl-num" data-line="22"></td><td>  } <span class="hl-k">catch</span> (...) {</td></tr>
 <tr><td class="hl-num" data-line="23"></td><td>    <span class="hl-en">ERROR</span>(<span class="hl-s">"error parsing config: {}"</span>, cfg);</td></tr>
 <tr><td class="hl-num" data-line="24"></td><td>    <span class="hl-k">throw</span>;</td></tr>
@@ -31,11 +31,11 @@
 <tr><td class="hl-num" data-line="29"></td><td></td></tr>
 <tr><td class="hl-num" data-line="30"></td><td>TaskGraph::~<span class="hl-en">TaskGraph</span>() {</td></tr>
 <tr><td class="hl-num" data-line="31"></td><td>  <span class="hl-k">for</span> (<span class="hl-k">int</span> i = <span class="hl-c">0</span>; i <span class="hl-s">&lt;</span> time_.<span class="hl-en">size</span>(); ++i) {</td></tr>
-<tr><td class="hl-num" data-line="32"></td><td>    <span class="hl-en">INFO</span>(<span class="hl-s">"node {} ({}): {} ms"</span>, i, handle_[i]-<span class="hl-s">></span><span class="hl-en">name</span>(), <span class="hl-k">static_cast</span><span class="hl-s">&lt;</span><span class="hl-k">float</span><span class="hl-s">></span>(time_[i]) / count_);</td></tr>
+<tr><td class="hl-num" data-line="32"></td><td>    <span class="hl-en">INFO</span>(<span class="hl-s">"node {} ({}): {} ms"</span>, i, handle_[i]-<span class="hl-s">&gt;</span><span class="hl-en">name</span>(), <span class="hl-k">static_cast</span><span class="hl-s">&lt;</span><span class="hl-k">float</span><span class="hl-s">&gt;</span>(time_[i]) / count_);</td></tr>
 <tr><td class="hl-num" data-line="33"></td><td>  }</td></tr>
 <tr><td class="hl-num" data-line="34"></td><td>}</td></tr>
 <tr><td class="hl-num" data-line="35"></td><td></td></tr>
-<tr><td class="hl-num" data-line="36"></td><td>Result<span class="hl-s">&lt;</span>Value<span class="hl-s">></span> TaskGraph::<span class="hl-en">Run</span>(Value inputs) {</td></tr>
+<tr><td class="hl-num" data-line="36"></td><td>Result<span class="hl-s">&lt;</span>Value<span class="hl-s">&gt;</span> TaskGraph::<span class="hl-en">Run</span>(Value inputs) {</td></tr>
 <tr><td class="hl-num" data-line="37"></td><td>  Context <span class="hl-en">ctx</span>(<span class="hl-c">this</span>);</td></tr>
 <tr><td class="hl-num" data-line="38"></td><td>  ctx.<span class="hl-en">push</span>(std::<span class="hl-en">move</span>(inputs));</td></tr>
 <tr><td class="hl-num" data-line="39"></td><td>  time_.<span class="hl-en">resize</span>(function_.<span class="hl-en">size</span>());</td></tr>
@@ -43,15 +43,15 @@
 <tr><td class="hl-num" data-line="41"></td><td>    <span class="hl-k">auto</span> t0 = std::chrono::high_resolution_clock::<span class="hl-en">now</span>();</td></tr>
 <tr><td class="hl-num" data-line="42"></td><td>    <span class="hl-en">OUTCOME_TRY</span>(function_[i](ctx));</td></tr>
 <tr><td class="hl-num" data-line="43"></td><td>    <span class="hl-k">auto</span> t1 = std::chrono::high_resolution_clock::<span class="hl-en">now</span>();</td></tr>
-<tr><td class="hl-num" data-line="44"></td><td>    <span class="hl-k">auto</span> dt = std::chrono::duration<span class="hl-s">&lt;</span><span class="hl-k">double</span>, std::milli<span class="hl-s">></span>(t1 - t0).<span class="hl-en">count</span>();</td></tr>
+<tr><td class="hl-num" data-line="44"></td><td>    <span class="hl-k">auto</span> dt = std::chrono::duration<span class="hl-s">&lt;</span><span class="hl-k">double</span>, std::milli<span class="hl-s">&gt;</span>(t1 - t0).<span class="hl-en">count</span>();</td></tr>
 <tr><td class="hl-num" data-line="45"></td><td>  }</td></tr>
 <tr><td class="hl-num" data-line="46"></td><td>  <span class="hl-k">return</span> ctx.<span class="hl-en">pop</span>();</td></tr>
 <tr><td class="hl-num" data-line="47"></td><td>}</td></tr>
 <tr><td class="hl-num" data-line="48"></td><td></td></tr>
-<tr><td class="hl-num" data-line="49"></td><td>std::vector<span class="hl-s">&lt;</span>Result<span class="hl-s">&lt;</span>Value<span class="hl-s">></span><span class="hl-s">></span> TaskGraph::<span class="hl-en">Execute</span>(Span<span class="hl-s">&lt;</span>std::function<span class="hl-s">&lt;</span>Result<span class="hl-s">&lt;</span>Value<span class="hl-s">></span>()<span class="hl-s">></span><span class="hl-s">></span> tasks) {</td></tr>
+<tr><td class="hl-num" data-line="49"></td><td>std::vector<span class="hl-s">&lt;</span>Result<span class="hl-s">&lt;</span>Value<span class="hl-s">&gt;</span><span class="hl-s">&gt;</span> TaskGraph::<span class="hl-en">Execute</span>(Span<span class="hl-s">&lt;</span>std::function<span class="hl-s">&lt;</span>Result<span class="hl-s">&lt;</span>Value<span class="hl-s">&gt;</span>()<span class="hl-s">&gt;</span><span class="hl-s">&gt;</span> tasks) {</td></tr>
 <tr><td class="hl-num" data-line="50"></td><td>#<span class="hl-k">if</span> MMDEPLOY_USE_TASKFLOW</td></tr>
 <tr><td class="hl-num" data-line="51"></td><td>  <span class="hl-k">for</span> (<span class="hl-k">auto</span>& future : futures) {</td></tr>
-<tr><td class="hl-num" data-line="52"></td><td>    Result<span class="hl-s">&lt;</span>Value<span class="hl-s">></span> ret = <span class="hl-en">Status</span>(eUnknown);</td></tr>
+<tr><td class="hl-num" data-line="52"></td><td>    Result<span class="hl-s">&lt;</span>Value<span class="hl-s">&gt;</span> ret = <span class="hl-en">Status</span>(eUnknown);</td></tr>
 <tr><td class="hl-num" data-line="53"></td><td>    <span class="hl-k">try</span> {</td></tr>
 <tr><td class="hl-num" data-line="54"></td><td>      ret = *future.<span class="hl-en">get</span>();</td></tr>
 <tr><td class="hl-num" data-line="55"></td><td>    } <span class="hl-k">catch</span> (...) {</td></tr>
@@ -61,9 +61,9 @@
 <tr><td class="hl-num" data-line="59"></td><td>  }</td></tr>
 <tr><td class="hl-num" data-line="60"></td><td>  <span class="hl-k">return</span> rets;</td></tr>
 <tr><td class="hl-num" data-line="61"></td><td>#<span class="hl-k">else</span></td></tr>
-<tr><td class="hl-num" data-line="62"></td><td>  std::vector<span class="hl-s">&lt;</span>Result<span class="hl-s">&lt;</span>Value<span class="hl-s">></span><span class="hl-s">></span> rets;</td></tr>
+<tr><td class="hl-num" data-line="62"></td><td>  std::vector<span class="hl-s">&lt;</span>Result<span class="hl-s">&lt;</span>Value<span class="hl-s">&gt;</span><span class="hl-s">&gt;</span> rets;</td></tr>
 <tr><td class="hl-num" data-line="63"></td><td>  <span class="hl-k">for</span> (<span class="hl-k">auto</span>& task : tasks) {</td></tr>
-<tr><td class="hl-num" data-line="64"></td><td>    Result<span class="hl-s">&lt;</span>Value<span class="hl-s">></span> ret = <span class="hl-en">Status</span>(eUnknown);</td></tr>
+<tr><td class="hl-num" data-line="64"></td><td>    Result<span class="hl-s">&lt;</span>Value<span class="hl-s">&gt;</span> ret = <span class="hl-en">Status</span>(eUnknown);</td></tr>
 <tr><td class="hl-num" data-line="65"></td><td>    <span class="hl-k">try</span> {</td></tr>
 <tr><td class="hl-num" data-line="66"></td><td>      ret = <span class="hl-en">task</span>();</td></tr>
 <tr><td class="hl-num" data-line="67"></td><td>    } <span class="hl-k">catch</span> (<span class="hl-k">const</span> Exception& e) {</td></tr>
@@ -80,14 +80,14 @@
 <tr><td class="hl-num" data-line="78"></td><td>}</td></tr>
 <tr><td class="hl-num" data-line="79"></td><td></td></tr>
 <tr><td class="hl-num" data-line="80"></td><td><span class="hl-k">using</span> string_ref = SYSTEM_ERROR2_NAMESPACE::status_code_domain::string_ref;</td></tr>
-<tr><td class="hl-num" data-line="81"></td><td><span class="hl-k">template</span><span class="hl-s">&lt;</span><span class="hl-s">></span> <span class="hl-k">inline</span> <span class="hl-k">void</span> release<span class="hl-s">&lt;</span>GstCaps<span class="hl-s">></span>(GstCaps** pPtr) { <span class="hl-k">if</span> (pPtr) { <span class="hl-en">gst_caps_unref</span>(*pPtr); *pPtr = <span class="hl-c">NULL</span>; } }</td></tr>
+<tr><td class="hl-num" data-line="81"></td><td><span class="hl-k">template</span><span class="hl-s">&lt;</span><span class="hl-s">&gt;</span> <span class="hl-k">inline</span> <span class="hl-k">void</span> release<span class="hl-s">&lt;</span>GstCaps<span class="hl-s">&gt;</span>(GstCaps** pPtr) { <span class="hl-k">if</span> (pPtr) { <span class="hl-en">gst_caps_unref</span>(*pPtr); *pPtr = <span class="hl-c">NULL</span>; } }</td></tr>
 <tr><td class="hl-num" data-line="82"></td><td></td></tr>
-<tr><td class="hl-num" data-line="83"></td><td><span class="hl-k">template</span> <span class="hl-s">&lt;</span><span class="hl-k">class</span> ModelType<span class="hl-s">></span></td></tr>
+<tr><td class="hl-num" data-line="83"></td><td><span class="hl-k">template</span> <span class="hl-s">&lt;</span><span class="hl-k">class</span> ModelType<span class="hl-s">&gt;</span></td></tr>
 <tr><td class="hl-num" data-line="84"></td><td><span class="hl-k">int</span> <span class="hl-en">mmdeploy_text_detector_create_impl</span>(ModelType&& m, <span class="hl-k">const</span> <span class="hl-k">char</span>* device_name, <span class="hl-k">int</span> device_id,</td></tr>
 <tr><td class="hl-num" data-line="85"></td><td>                                       mm_handle_t* handle) {</td></tr>
 <tr><td class="hl-num" data-line="86"></td><td>  <span class="hl-k">try</span> {</td></tr>
 <tr><td class="hl-num" data-line="87"></td><td>    <span class="hl-k">auto</span> value = <span class="hl-en">config_template</span>();</td></tr>
-<tr><td class="hl-num" data-line="88"></td><td>    <span class="hl-k">auto</span> text_detector = std::make_unique<span class="hl-s">&lt;</span>Handle<span class="hl-s">></span>(device_name, device_id, std::<span class="hl-en">move</span>(value));</td></tr>
+<tr><td class="hl-num" data-line="88"></td><td>    <span class="hl-k">auto</span> text_detector = std::make_unique<span class="hl-s">&lt;</span>Handle<span class="hl-s">&gt;</span>(device_name, device_id, std::<span class="hl-en">move</span>(value));</td></tr>
 <tr><td class="hl-num" data-line="89"></td><td>    *handle = text_detector.<span class="hl-en">release</span>();</td></tr>
 <tr><td class="hl-num" data-line="90"></td><td>    <span class="hl-k">return</span> MM_SUCCESS;</td></tr>
 <tr><td class="hl-num" data-line="91"></td><td>  } <span class="hl-k">catch</span> (<span class="hl-k">const</span> std::exception& e) {</td></tr>
@@ -100,7 +100,7 @@
 <tr><td class="hl-num" data-line="98"></td><td></td></tr>
 <tr><td class="hl-num" data-line="99"></td><td>MM_SDK_API <span class="hl-k">void</span> <span class="hl-en">mmdeploy_classifier_destroy</span>(mm_handle_t handle) {</td></tr>
 <tr><td class="hl-num" data-line="100"></td><td>  <span class="hl-k">if</span> (handle != <span class="hl-c">nullptr</span>) {</td></tr>
-<tr><td class="hl-num" data-line="101"></td><td>    <span class="hl-k">auto</span> classifier = <span class="hl-k">static_cast</span><span class="hl-s">&lt;</span>Handle*<span class="hl-s">></span>(handle);</td></tr>
+<tr><td class="hl-num" data-line="101"></td><td>    <span class="hl-k">auto</span> classifier = <span class="hl-k">static_cast</span><span class="hl-s">&lt;</span>Handle*<span class="hl-s">&gt;</span>(handle);</td></tr>
 <tr><td class="hl-num" data-line="102"></td><td>    <span class="hl-k">delete</span> classifier;</td></tr>
 <tr><td class="hl-num" data-line="103"></td><td>  }</td></tr>
 <tr><td class="hl-num" data-line="104"></td><td>}</td></tr>
@@ -112,12 +112,12 @@
 <tr><td class="hl-num" data-line="110"></td><td>    <span class="hl-k">return</span> <span class="hl-c">false</span>;</td></tr>
 <tr><td class="hl-num" data-line="111"></td><td>}</td></tr>
 <tr><td class="hl-num" data-line="112"></td><td></td></tr>
-<tr><td class="hl-num" data-line="113"></td><td><span class="hl-k">class</span> PipelineCreator : <span class="hl-k">public</span> Creator<span class="hl-s">&lt;</span>Node<span class="hl-s">></span> {</td></tr>
+<tr><td class="hl-num" data-line="113"></td><td><span class="hl-k">class</span> PipelineCreator : <span class="hl-k">public</span> Creator<span class="hl-s">&lt;</span>Node<span class="hl-s">&gt;</span> {</td></tr>
 <tr><td class="hl-num" data-line="114"></td><td> <span class="hl-k">public</span>:</td></tr>
 <tr><td class="hl-num" data-line="115"></td><td>  <span class="hl-k">const</span> <span class="hl-k">char</span>* <span class="hl-en">GetName</span>() <span class="hl-k">const</span> <span class="hl-k">override</span> { <span class="hl-k">return</span> <span class="hl-s">"Pipeline"</span>; }</td></tr>
 <tr><td class="hl-num" data-line="116"></td><td>  <span class="hl-k">int</span> <span class="hl-en">GetVersion</span>() <span class="hl-k">const</span> <span class="hl-k">override</span> { <span class="hl-k">return</span> <span class="hl-c">0</span>; }</td></tr>
-<tr><td class="hl-num" data-line="117"></td><td>  std::unique_ptr<span class="hl-s">&lt;</span>Node<span class="hl-s">></span> <span class="hl-en">Create</span>(<span class="hl-k">const</span> Value& value) <span class="hl-k">override</span> {</td></tr>
-<tr><td class="hl-num" data-line="118"></td><td>    <span class="hl-k">return</span> std::make_unique<span class="hl-s">&lt;</span>Pipeline<span class="hl-s">></span>(value);</td></tr>
+<tr><td class="hl-num" data-line="117"></td><td>  std::unique_ptr<span class="hl-s">&lt;</span>Node<span class="hl-s">&gt;</span> <span class="hl-en">Create</span>(<span class="hl-k">const</span> Value& value) <span class="hl-k">override</span> {</td></tr>
+<tr><td class="hl-num" data-line="118"></td><td>    <span class="hl-k">return</span> std::make_unique<span class="hl-s">&lt;</span>Pipeline<span class="hl-s">&gt;</span>(value);</td></tr>
 <tr><td class="hl-num" data-line="119"></td><td>  }</td></tr>
 <tr><td class="hl-num" data-line="120"></td><td>};</td></tr>
 <tr><td class="hl-num" data-line="121"></td><td></td></tr>

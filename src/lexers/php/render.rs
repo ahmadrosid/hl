@@ -1,6 +1,6 @@
 // ---- DON'T EDIT! THIS IS AUTO GENERATED CODE ---- //
-use crate::lexers::typescript::Lexer;
-use crate::lexers::typescript::token;
+use crate::lexers::php::Lexer;
+use crate::lexers::php::token;
 
 pub fn render_html(input: Vec<char>) -> String {
     let mut l = Lexer::new(input);
@@ -51,6 +51,19 @@ pub fn render_html(input: Vec<char>) -> String {
             token::Token::KEYWORD(value) => {
                 html.push_str(&format!("<span class=\"hl-k\">{}</span>", value.iter().collect::<String>()));
             }
+            token::Token::ENTITYTAG(value) => {
+                let mut s = String::new();
+                for ch in value {
+                    if ch == '<' {
+                        s.push_str("&lt;");
+                    } else if ch == '>' {
+                        s.push_str("&gt;");
+                    } else {
+                        s.push(ch);
+                    }
+                }
+                html.push_str(&format!("<span class=\"hl-ent\">{}</span>", s));
+            }
             token::Token::COMMENT(value) => {
                 let mut lines = String::new();
                 for ch in value {
@@ -78,41 +91,20 @@ pub fn render_html(input: Vec<char>) -> String {
                     }
                 }
             }
+            token::Token::THIS(value) => {
+                html.push_str(&format!("<span class=\"hl-c\">{}</span>", value.iter().collect::<String>()));
+            }
             token::Token::TRUE(value) => {
                 html.push_str(&format!("<span class=\"hl-c\">{}</span>", value.iter().collect::<String>()));
             }
             token::Token::FALSE(value) => {
                 html.push_str(&format!("<span class=\"hl-c\">{}</span>", value.iter().collect::<String>()));
             }
-            token::Token::UNDEFINED(value) => {
-                html.push_str(&format!("<span class=\"hl-c\">{}</span>", value.iter().collect::<String>()));
-            }
             token::Token::NULL(value) => {
                 html.push_str(&format!("<span class=\"hl-c\">{}</span>", value.iter().collect::<String>()));
             }
-            token::Token::NUMBER(value) => {
+            token::Token::CSTRING(value) => {
                 html.push_str(&format!("<span class=\"hl-c\">{}</span>", value.iter().collect::<String>()));
-            }
-            token::Token::KSTRING(value) => {
-                html.push_str(&format!("<span class=\"hl-c\">{}</span>", value.iter().collect::<String>()));
-            }
-            token::Token::BOOLEAN(value) => {
-                html.push_str(&format!("<span class=\"hl-c\">{}</span>", value.iter().collect::<String>()));
-            }
-            token::Token::TYPE(value) => {
-                html.push_str(&format!("<span class=\"hl-c\">{}</span>", value.iter().collect::<String>()));
-            }
-            token::Token::VINFINITY(value) => {
-                html.push_str(&format!("<span class=\"hl-v\">{}</span>", value.iter().collect::<String>()));
-            }
-            token::Token::VNAN(value) => {
-                html.push_str(&format!("<span class=\"hl-v\">{}</span>", value.iter().collect::<String>()));
-            }
-            token::Token::MATH(value) => {
-                html.push_str(&format!("<span class=\"hl-v\">{}</span>", value.iter().collect::<String>()));
-            }
-            token::Token::DATE(value) => {
-                html.push_str(&format!("<span class=\"hl-v\">{}</span>", value.iter().collect::<String>()));
             }
             token::Token::ENDL(_) => {
                 line = line + 1;

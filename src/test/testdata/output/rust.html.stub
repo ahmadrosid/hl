@@ -18,7 +18,7 @@
 <tr><td class="hl-num" data-line="16"></td><td><span class="hl-k">fn</span> <span class="hl-en">main</span>() {</td></tr>
 <tr><td class="hl-num" data-line="17"></td><td>    <span class="hl-k">let</span> matches = App::<span class="hl-en">new</span>(<span class="hl-s">"hl"</span>)</td></tr>
 <tr><td class="hl-num" data-line="18"></td><td>        .<span class="hl-en">version</span>(<span class="hl-s">"0.1.0"</span>)</td></tr>
-<tr><td class="hl-num" data-line="19"></td><td>        .<span class="hl-en">author</span>(<span class="hl-s">"Ahmad Rosid &lt;alahmadrosid@gmail.com>"</span>)</td></tr>
+<tr><td class="hl-num" data-line="19"></td><td>        .<span class="hl-en">author</span>(<span class="hl-s">"Ahmad Rosid &lt;alahmadrosid@gmail.com&gt;"</span>)</td></tr>
 <tr><td class="hl-num" data-line="20"></td><td>        .<span class="hl-en">about</span>(<span class="hl-s">"Syntax highlighting."</span>)</td></tr>
 <tr><td class="hl-num" data-line="21"></td><td>        .<span class="hl-en">setting</span>(AppSettings::ArgRequiredElseHelp)</td></tr>
 <tr><td class="hl-num" data-line="22"></td><td>        .<span class="hl-en">get_matches</span>();</td></tr>

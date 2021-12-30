@@ -1,0 +1,37 @@
+<table class="highlight-table">
+<tbody>
+<tr><td class="hl-num" data-line="1"></td><td><span class="hl-ent">&lt;?php</span></td></tr>
+<tr><td class="hl-num" data-line="2"></td><td><span class="hl-cmt">/**</span></td></tr>
+<tr><td class="hl-num" data-line="3"></td><td><span class="hl-cmt"> * @copyright Copyright (c) 2016, Developer Team.</span></td></tr>
+<tr><td class="hl-num" data-line="4"></td><td><span class="hl-cmt"> *</span></td></tr>
+<tr><td class="hl-num" data-line="5"></td><td><span class="hl-cmt"> * @license AGPL-3.0</span></td></tr>
+<tr><td class="hl-num" data-line="6"></td><td><span class="hl-cmt"> * You should have received a copy of the GNU Affero General Public License, version 3,</span></td></tr>
+<tr><td class="hl-num" data-line="7"></td><td><span class="hl-cmt"> * along with this program. If not, see &lt;http://www.gnu.org/licenses/&gt;</span></td></tr>
+<tr><td class="hl-num" data-line="8"></td><td><span class="hl-cmt"> *</span></td></tr>
+<tr><td class="hl-num" data-line="9"></td><td><span class="hl-cmt"> */</span></td></tr>
+<tr><td class="hl-num" data-line="10"></td><td><span class="hl-k">require_once</span> __DIR__ . <span class="hl-s">'/lib/versioncheck.php'</span>;</td></tr>
+<tr><td class="hl-num" data-line="11"></td><td></td></tr>
+<tr><td class="hl-num" data-line="12"></td><td><span class="hl-k">try</span> {</td></tr>
+<tr><td class="hl-num" data-line="13"></td><td>	<span class="hl-k">require_once</span> __DIR__ . <span class="hl-s">'/lib/base.php'</span>;</td></tr>
+<tr><td class="hl-num" data-line="14"></td><td></td></tr>
+<tr><td class="hl-num" data-line="15"></td><td>	OC::<span class="hl-en">handleRequest</span>();</td></tr>
+<tr><td class="hl-num" data-line="16"></td><td>} <span class="hl-k">catch</span> (Exception $ex) {</td></tr>
+<tr><td class="hl-num" data-line="17"></td><td>	\OC::$server-><span class="hl-en">getLogger</span>()-><span class="hl-en">logException</span>($ex, [<span class="hl-s">'app'</span> => <span class="hl-s">'index'</span>]);</td></tr>
+<tr><td class="hl-num" data-line="18"></td><td></td></tr>
+<tr><td class="hl-num" data-line="19"></td><td>	<span class="hl-cmt">//show the user a detailed error page</span></td></tr>
+<tr><td class="hl-num" data-line="20"></td><td>	OC_Template::<span class="hl-en">printExceptionErrorPage</span>($ex, <span class="hl-c">500</span>);</td></tr>
+<tr><td class="hl-num" data-line="21"></td><td>} <span class="hl-k">catch</span> (Error $ex) {</td></tr>
+<tr><td class="hl-num" data-line="22"></td><td>	<span class="hl-k">try</span> {</td></tr>
+<tr><td class="hl-num" data-line="23"></td><td>		\OC::$server-><span class="hl-en">getLogger</span>()-><span class="hl-en">logException</span>($ex, [<span class="hl-s">'app'</span> => <span class="hl-s">'index'</span>]);</td></tr>
+<tr><td class="hl-num" data-line="24"></td><td>	} <span class="hl-k">catch</span> (Error $e) {</td></tr>
+<tr><td class="hl-num" data-line="25"></td><td>		<span class="hl-en">http_response_code</span>(<span class="hl-c">500</span>);</td></tr>
+<tr><td class="hl-num" data-line="26"></td><td>		<span class="hl-en">header</span>(<span class="hl-s">'Content-Type: text/plain; charset=utf-8'</span>);</td></tr>
+<tr><td class="hl-num" data-line="27"></td><td>		<span class="hl-en">print</span>(<span class="hl-s">"Internal Server Error\n\n"</span>);</td></tr>
+<tr><td class="hl-num" data-line="28"></td><td></td></tr>
+<tr><td class="hl-num" data-line="29"></td><td>		throw $ex;</td></tr>
+<tr><td class="hl-num" data-line="30"></td><td>	}</td></tr>
+<tr><td class="hl-num" data-line="31"></td><td>	OC_Template::<span class="hl-en">printExceptionErrorPage</span>($ex, <span class="hl-c">500</span>);</td></tr>
+<tr><td class="hl-num" data-line="32"></td><td>}</td></tr>
+<tr><td class="hl-num" data-line="33"></td><td></td></tr>
+</tbody>
+</table>

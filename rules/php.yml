@@ -1,0 +1,27 @@
+slash_comment: true
+slash_star_comment: true
+
+constant:
+  THIS: 'this'
+  TRUE: 'true'
+  FALSE: 'false'
+  NULL: 'null'
+  CSTRING: 'String'
+
+entity_suffix:
+  ENTITY_LBRACE: '('
+
+keyword:
+  require_once: "require_once"
+  try: "try"
+  catch: "catch"
+
+condition:
+  ACCEPT_STRING_ONE_QUOTE: true
+  ACCEPT_STRING_DOUBLE_QUOTE: true
+  ACCEPT_PREFIX_DIGIT: true
+  PREFIX_DIGIT_CHAR: 'f'
+  ACCEPT_ENTITY_TAG_SUFFIX: "is_digit(self.ch)"
+  BREAK_ENTITY_TAG_SUFFIX: "!is_digit(self.ch) && !is_letter(self.ch)"
+  ACCEPT_ENTITY_TAG_PREFIX: "<"
+  ENTITY_TAG_PREFIX_CHAR: "?"

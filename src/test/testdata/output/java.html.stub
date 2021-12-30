@@ -206,7 +206,7 @@
 <tr><td class="hl-num" data-line="204"></td><td>        RxJavaPlugins.<span class="hl-en">setErrorHandler</span>(<span class="hl-k">new</span> Consumer<span class="hl-k"><</span>Throwable<span class="hl-k">></span>() {</td></tr>
 <tr><td class="hl-num" data-line="205"></td><td>            <span class="hl-k">@Override</span></td></tr>
 <tr><td class="hl-num" data-line="206"></td><td>            <span class="hl-k">public</span> <span class="hl-k">void</span> <span class="hl-en">accept</span>(<span class="hl-k">@NonNull</span> <span class="hl-k">final</span> Throwable throwable) {</td></tr>
-<tr><td class="hl-num" data-line="207"></td><td>                Log.<span class="hl-en">e</span>(TAG, <span class="hl-s">"RxJavaPlugins.ErrorHandler called with -> : "</span></td></tr>
+<tr><td class="hl-num" data-line="207"></td><td>                Log.<span class="hl-en">e</span>(TAG, <span class="hl-s">"RxJavaPlugins.ErrorHandler called with -&gt; : "</span></td></tr>
 <tr><td class="hl-num" data-line="208"></td><td>                        + <span class="hl-s">"throwable = ["</span> + throwable.<span class="hl-en">getClass</span>().<span class="hl-en">getName</span>() + <span class="hl-s">"]"</span>);</td></tr>
 <tr><td class="hl-num" data-line="209"></td><td></td></tr>
 <tr><td class="hl-num" data-line="210"></td><td>                <span class="hl-k">final</span> Throwable actualThrowable;</td></tr>

@@ -1,0 +1,32 @@
+<?php
+/**
+ * @copyright Copyright (c) 2016, Developer Team.
+ *
+ * @license AGPL-3.0
+ * You should have received a copy of the GNU Affero General Public License, version 3,
+ * along with this program. If not, see <http://www.gnu.org/licenses/>
+ *
+ */
+require_once __DIR__ . '/lib/versioncheck.php';
+
+try {
+	require_once __DIR__ . '/lib/base.php';
+
+	OC::handleRequest();
+} catch (Exception $ex) {
+	\OC::$server->getLogger()->logException($ex, ['app' => 'index']);
+
+	//show the user a detailed error page
+	OC_Template::printExceptionErrorPage($ex, 500);
+} catch (Error $ex) {
+	try {
+		\OC::$server->getLogger()->logException($ex, ['app' => 'index']);
+	} catch (Error $e) {
+		http_response_code(500);
+		header('Content-Type: text/plain; charset=utf-8');
+		print("Internal Server Error\n\n");
+
+		throw $ex;
+	}
+	OC_Template::printExceptionErrorPage($ex, 500);
+}

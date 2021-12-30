@@ -17,6 +17,8 @@ const ACCEPT_STRING_ONE_QUOTE: &str = "ACCEPT_STRING_ONE_QUOTE";
 const ACCEPT_STRING_DOUBLE_QUOTE: &str = "ACCEPT_STRING_DOUBLE_QUOTE";
 const ACCEPT_PREFIX_DIGIT: &str = "ACCEPT_PREFIX_DIGIT";
 const PREFIX_DIGIT_CHAR: &str = "PREFIX_DIGIT_CHAR";
+const ACCEPT_ENTITY_TAG_PREFIX: &str = "ACCEPT_ENTITY_TAG_PREFIX";
+const ENTITY_TAG_PREFIX_CHAR: &str = "ENTITY_TAG_PREFIX_CHAR";
 
 fn write_struct_lexer(module: &mut StringBuilder) {
     module.push_strln("pub struct Lexer {");
@@ -138,6 +140,22 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
     module.push_tabln(3, "'\\0' => {");
     module.push_tabln(4, "tok = token::Token::EOF;");
     module.push_tabln(3, "}");
+
+    if let Some(prefix) = get_condition(h).get(&Yaml::String(ACCEPT_ENTITY_TAG_PREFIX.to_string())) {
+        if let Some(ch) = get_condition(h).get(&Yaml::String(ENTITY_TAG_PREFIX_CHAR.to_string())) {
+            module.push_tabln(3, &format!("'{}' => {{", prefix.as_str().unwrap()));
+            module.push_tabln(4, &format!("if self.input[self.position+1] == '{}' {{", ch.as_str().unwrap()));
+            module.push_tabln(5, &format!("let mut entity = vec!['{}','{}'];", prefix.as_str().unwrap(), ch.as_str().unwrap()));
+            module.push_tabln(5, "self.read_char();");
+            module.push_tabln(5, "self.read_char();");
+            module.push_tabln(5, "entity.append(&mut read_identifier(self));");
+            module.push_tabln(5, "return token::Token::ENTITYTAG(entity);");
+            module.push_tabln(4, "} else {");
+            module.push_tabln(5, "tok = token::Token::CH(self.ch);");
+            module.push_tabln(4, "}");
+            module.push_tabln(3, "}");
+        }
+    }
 
     if let Some(val) = h.get(&Yaml::String("single_keyword".to_string())) {
         if let Some(list) = val.as_vec() {

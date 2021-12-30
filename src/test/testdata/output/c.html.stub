@@ -4,7 +4,7 @@
 <tr><td class="hl-num" data-line="2"></td><td><span class="hl-cmt"> * You should have received a copy of the GNU Lesser General Public</span></td></tr>
 <tr><td class="hl-num" data-line="3"></td><td><span class="hl-cmt"> * If not, see &lt;http://www.gnu.org/licenses/&gt;.</span></td></tr>
 <tr><td class="hl-num" data-line="4"></td><td><span class="hl-cmt"> */</span></td></tr>
-<tr><td class="hl-num" data-line="5"></td><td>#<span class="hl-k">include</span> <span class="hl-s">&lt;</span>stddef.h<span class="hl-s">></span></td></tr>
+<tr><td class="hl-num" data-line="5"></td><td>#<span class="hl-k">include</span> <span class="hl-s">&lt;</span>stddef.h<span class="hl-s">&gt;</span></td></tr>
 <tr><td class="hl-num" data-line="6"></td><td>#<span class="hl-k">include</span> <span class="hl-s">"misc/bstr.h"</span></td></tr>
 <tr><td class="hl-num" data-line="7"></td><td>#<span class="hl-k">include</span> <span class="hl-s">"misc/node.h"</span></td></tr>
 <tr><td class="hl-num" data-line="8"></td><td></td></tr>
@@ -46,9 +46,9 @@
 <tr><td class="hl-num" data-line="44"></td><td>{</td></tr>
 <tr><td class="hl-num" data-line="45"></td><td>    <span class="hl-k">asm</span> <span class="hl-k">volatile</span>(<span class="hl-s">"vpxor %ymm3,%ymm3,%ymm3"</span>);	<span class="hl-cmt">/* Zero temp */</span></td></tr>
 <tr><td class="hl-num" data-line="46"></td><td>    <span class="hl-k">struct</span> mp_cmd *cmd = ptr;</td></tr>
-<tr><td class="hl-num" data-line="47"></td><td>    <span class="hl-k">for</span> (<span class="hl-k">int</span> n = <span class="hl-c">0</span>; n <span class="hl-s">&lt;</span> cmd-<span class="hl-s">></span>nargs; n++) {</td></tr>
-<tr><td class="hl-num" data-line="48"></td><td>        <span class="hl-k">if</span> (cmd-<span class="hl-s">></span>args[n].type)</td></tr>
-<tr><td class="hl-num" data-line="49"></td><td>            <span class="hl-en">m_option_free</span>(cmd-<span class="hl-s">></span>args[n].type, &cmd-<span class="hl-s">></span>args[n].v);</td></tr>
+<tr><td class="hl-num" data-line="47"></td><td>    <span class="hl-k">for</span> (<span class="hl-k">int</span> n = <span class="hl-c">0</span>; n <span class="hl-s">&lt;</span> cmd-<span class="hl-s">&gt;</span>nargs; n++) {</td></tr>
+<tr><td class="hl-num" data-line="48"></td><td>        <span class="hl-k">if</span> (cmd-<span class="hl-s">&gt;</span>args[n].type)</td></tr>
+<tr><td class="hl-num" data-line="49"></td><td>            <span class="hl-en">m_option_free</span>(cmd-<span class="hl-s">&gt;</span>args[n].type, &cmd-<span class="hl-s">&gt;</span>args[n].v);</td></tr>
 <tr><td class="hl-num" data-line="50"></td><td>    }</td></tr>
 <tr><td class="hl-num" data-line="51"></td><td>}</td></tr>
 <tr><td class="hl-num" data-line="52"></td><td></td></tr>
@@ -67,8 +67,8 @@
 <tr><td class="hl-num" data-line="65"></td><td>{</td></tr>
 <tr><td class="hl-num" data-line="66"></td><td>    <span class="hl-k">for</span> (<span class="hl-k">int</span> n = <span class="hl-c">0</span>; mp_cmds[n].name; n++) {</td></tr>
 <tr><td class="hl-num" data-line="67"></td><td>        <span class="hl-k">if</span> (<span class="hl-en">strcmp</span>(nname, mp_cmds[n].name) == <span class="hl-c">0</span>) {</td></tr>
-<tr><td class="hl-num" data-line="68"></td><td>            cmd-<span class="hl-s">></span>def = &mp_cmds[n];</td></tr>
-<tr><td class="hl-num" data-line="69"></td><td>            cmd-<span class="hl-s">></span>name = (<span class="hl-k">char</span> *)cmd-<span class="hl-s">></span>def-<span class="hl-s">></span>name;</td></tr>
+<tr><td class="hl-num" data-line="68"></td><td>            cmd-<span class="hl-s">&gt;</span>def = &mp_cmds[n];</td></tr>
+<tr><td class="hl-num" data-line="69"></td><td>            cmd-<span class="hl-s">&gt;</span>name = (<span class="hl-k">char</span> *)cmd-<span class="hl-s">&gt;</span>def-<span class="hl-s">&gt;</span>name;</td></tr>
 <tr><td class="hl-num" data-line="70"></td><td>            <span class="hl-k">return</span> <span class="hl-c">true</span>;</td></tr>
 <tr><td class="hl-num" data-line="71"></td><td>        }</td></tr>
 <tr><td class="hl-num" data-line="72"></td><td>    }</td></tr>
@@ -88,49 +88,49 @@
 <tr><td class="hl-num" data-line="86"></td><td>    }</td></tr>
 <tr><td class="hl-num" data-line="87"></td><td>    <span class="hl-k">if</span> (<span class="hl-en">is_vararg</span>(cmd, i)) {</td></tr>
 <tr><td class="hl-num" data-line="88"></td><td>        <span class="hl-cmt">// The last arg in a vararg command sets all vararg types.</span></td></tr>
-<tr><td class="hl-num" data-line="89"></td><td>        <span class="hl-k">for</span> (<span class="hl-k">int</span> n = <span class="hl-en">MPMIN</span>(i, MP_CMD_DEF_MAX_ARGS - <span class="hl-c">1</span>); n <span class="hl-s">></span>= <span class="hl-c">0</span>; n--) {</td></tr>
-<tr><td class="hl-num" data-line="90"></td><td>            <span class="hl-k">if</span> (cmd-<span class="hl-s">></span>args[n].type) {</td></tr>
+<tr><td class="hl-num" data-line="89"></td><td>        <span class="hl-k">for</span> (<span class="hl-k">int</span> n = <span class="hl-en">MPMIN</span>(i, MP_CMD_DEF_MAX_ARGS - <span class="hl-c">1</span>); n <span class="hl-s">&gt;</span>= <span class="hl-c">0</span>; n--) {</td></tr>
+<tr><td class="hl-num" data-line="90"></td><td>            <span class="hl-k">if</span> (cmd-<span class="hl-s">&gt;</span>args[n].type) {</td></tr>
 <tr><td class="hl-num" data-line="91"></td><td>                <span class="hl-k">break</span>;</td></tr>
 <tr><td class="hl-num" data-line="92"></td><td>            }</td></tr>
 <tr><td class="hl-num" data-line="93"></td><td>        }</td></tr>
 <tr><td class="hl-num" data-line="94"></td><td>    } <span class="hl-k">else</span> <span class="hl-k">if</span> (i <span class="hl-s">&lt;</span> MP_CMD_DEF_MAX_ARGS) {</td></tr>
-<tr><td class="hl-num" data-line="95"></td><td>        opt = &cmd-<span class="hl-s">></span>args[i];</td></tr>
+<tr><td class="hl-num" data-line="95"></td><td>        opt = &cmd-<span class="hl-s">&gt;</span>args[i];</td></tr>
 <tr><td class="hl-num" data-line="96"></td><td>    }</td></tr>
-<tr><td class="hl-num" data-line="97"></td><td>    <span class="hl-k">return</span> opt && opt-<span class="hl-s">></span>type ? opt : <span class="hl-c">NULL</span>;</td></tr>
+<tr><td class="hl-num" data-line="97"></td><td>    <span class="hl-k">return</span> opt && opt-<span class="hl-s">&gt;</span>type ? opt : <span class="hl-c">NULL</span>;</td></tr>
 <tr><td class="hl-num" data-line="98"></td><td>}</td></tr>
 <tr><td class="hl-num" data-line="99"></td><td></td></tr>
 <tr><td class="hl-num" data-line="100"></td><td><span class="hl-cmt">// Return the name of the argument, possibly as stack allocated string (which is</span></td></tr>
 <tr><td class="hl-num" data-line="101"></td><td><span class="hl-cmt">// why this is a macro, and out of laziness). Otherwise as get_arg_type().</span></td></tr>
 <tr><td class="hl-num" data-line="102"></td><td>#<span class="hl-k">define</span> <span class="hl-en">get_arg_name</span>(cmd, i)                                    \</td></tr>
-<tr><td class="hl-num" data-line="103"></td><td>    ((i) <span class="hl-s">&lt;</span> MP_CMD_DEF_MAX_ARGS && (cmd)-<span class="hl-s">></span>args[(i)].name &&      \</td></tr>
-<tr><td class="hl-num" data-line="104"></td><td>     (cmd)-<span class="hl-s">></span>args[(i)].name[<span class="hl-c">0</span>]                                   \</td></tr>
-<tr><td class="hl-num" data-line="105"></td><td>     ? (cmd)-<span class="hl-s">></span>args[(i)].name : <span class="hl-en">mp_tprintf</span>(<span class="hl-c">10</span>, <span class="hl-s">"%d"</span>, (i) + <span class="hl-c">1</span>))</td></tr>
+<tr><td class="hl-num" data-line="103"></td><td>    ((i) <span class="hl-s">&lt;</span> MP_CMD_DEF_MAX_ARGS && (cmd)-<span class="hl-s">&gt;</span>args[(i)].name &&      \</td></tr>
+<tr><td class="hl-num" data-line="104"></td><td>     (cmd)-<span class="hl-s">&gt;</span>args[(i)].name[<span class="hl-c">0</span>]                                   \</td></tr>
+<tr><td class="hl-num" data-line="105"></td><td>     ? (cmd)-<span class="hl-s">&gt;</span>args[(i)].name : <span class="hl-en">mp_tprintf</span>(<span class="hl-c">10</span>, <span class="hl-s">"%d"</span>, (i) + <span class="hl-c">1</span>))</td></tr>
 <tr><td class="hl-num" data-line="106"></td><td></td></tr>
 <tr><td class="hl-num" data-line="107"></td><td><span class="hl-cmt">// Verify that there are no missing args, fill in missing optional args.</span></td></tr>
 <tr><td class="hl-num" data-line="108"></td><td><span class="hl-k">static</span> bool <span class="hl-en">finish_cmd</span>(<span class="hl-k">struct</span> mp_log *log, <span class="hl-k">struct</span> mp_cmd *cmd)</td></tr>
 <tr><td class="hl-num" data-line="109"></td><td>{</td></tr>
 <tr><td class="hl-num" data-line="110"></td><td>    <span class="hl-k">for</span> (<span class="hl-k">int</span> i = <span class="hl-c">0</span>; i <span class="hl-s">&lt;</span> MP_CMD_DEF_MAX_ARGS; i++) {</td></tr>
 <tr><td class="hl-num" data-line="111"></td><td>        <span class="hl-cmt">// (type==NULL is used for yet unset arguments)</span></td></tr>
-<tr><td class="hl-num" data-line="112"></td><td>        <span class="hl-k">if</span> (i <span class="hl-s">&lt;</span> cmd-<span class="hl-s">></span>nargs && cmd-<span class="hl-s">></span>args[i].type)</td></tr>
+<tr><td class="hl-num" data-line="112"></td><td>        <span class="hl-k">if</span> (i <span class="hl-s">&lt;</span> cmd-<span class="hl-s">&gt;</span>nargs && cmd-<span class="hl-s">&gt;</span>args[i].type)</td></tr>
 <tr><td class="hl-num" data-line="113"></td><td>            <span class="hl-k">continue</span>;</td></tr>
-<tr><td class="hl-num" data-line="114"></td><td>        <span class="hl-k">const</span> <span class="hl-k">struct</span> m_option *opt = <span class="hl-en">get_arg_type</span>(cmd-<span class="hl-s">></span>def, i);</td></tr>
-<tr><td class="hl-num" data-line="115"></td><td>        <span class="hl-k">if</span> (i <span class="hl-s">></span>= cmd-<span class="hl-s">></span>nargs && (!opt || <span class="hl-en">is_vararg</span>(cmd-<span class="hl-s">></span>def, i)))</td></tr>
+<tr><td class="hl-num" data-line="114"></td><td>        <span class="hl-k">const</span> <span class="hl-k">struct</span> m_option *opt = <span class="hl-en">get_arg_type</span>(cmd-<span class="hl-s">&gt;</span>def, i);</td></tr>
+<tr><td class="hl-num" data-line="115"></td><td>        <span class="hl-k">if</span> (i <span class="hl-s">&gt;</span>= cmd-<span class="hl-s">&gt;</span>nargs && (!opt || <span class="hl-en">is_vararg</span>(cmd-<span class="hl-s">&gt;</span>def, i)))</td></tr>
 <tr><td class="hl-num" data-line="116"></td><td>            <span class="hl-k">break</span>;</td></tr>
 <tr><td class="hl-num" data-line="117"></td><td>    }</td></tr>
 <tr><td class="hl-num" data-line="118"></td><td></td></tr>
-<tr><td class="hl-num" data-line="119"></td><td>    <span class="hl-k">if</span> (!(cmd-<span class="hl-s">></span>flags & (MP_ASYNC_CMD | MP_SYNC_CMD)))</td></tr>
-<tr><td class="hl-num" data-line="120"></td><td>        cmd-<span class="hl-s">></span>flags |= cmd-<span class="hl-s">></span>def-<span class="hl-s">></span>default_async ? MP_ASYNC_CMD : MP_SYNC_CMD;</td></tr>
+<tr><td class="hl-num" data-line="119"></td><td>    <span class="hl-k">if</span> (!(cmd-<span class="hl-s">&gt;</span>flags & (MP_ASYNC_CMD | MP_SYNC_CMD)))</td></tr>
+<tr><td class="hl-num" data-line="120"></td><td>        cmd-<span class="hl-s">&gt;</span>flags |= cmd-<span class="hl-s">&gt;</span>def-<span class="hl-s">&gt;</span>default_async ? MP_ASYNC_CMD : MP_SYNC_CMD;</td></tr>
 <tr><td class="hl-num" data-line="121"></td><td></td></tr>
 <tr><td class="hl-num" data-line="122"></td><td>    <span class="hl-k">return</span> <span class="hl-c">true</span>;</td></tr>
 <tr><td class="hl-num" data-line="123"></td><td>}</td></tr>
 <tr><td class="hl-num" data-line="124"></td><td></td></tr>
 <tr><td class="hl-num" data-line="125"></td><td><span class="hl-k">static</span> bool <span class="hl-en">cmd_node_array</span>(<span class="hl-k">struct</span> mp_log *log, <span class="hl-k">struct</span> mp_cmd *cmd, mpv_node *node)</td></tr>
 <tr><td class="hl-num" data-line="126"></td><td>{</td></tr>
-<tr><td class="hl-num" data-line="127"></td><td>    <span class="hl-en">assert</span>(node-<span class="hl-s">></span>format == MPV_FORMAT_NODE_ARRAY);</td></tr>
-<tr><td class="hl-num" data-line="128"></td><td>    <span class="hl-k">while</span> (cur <span class="hl-s">&lt;</span> args-<span class="hl-s">></span>num) {</td></tr>
-<tr><td class="hl-num" data-line="129"></td><td>        <span class="hl-k">if</span> (args-<span class="hl-s">></span>values[cur].format != MPV_FORMAT_STRING)</td></tr>
+<tr><td class="hl-num" data-line="127"></td><td>    <span class="hl-en">assert</span>(node-<span class="hl-s">&gt;</span>format == MPV_FORMAT_NODE_ARRAY);</td></tr>
+<tr><td class="hl-num" data-line="128"></td><td>    <span class="hl-k">while</span> (cur <span class="hl-s">&lt;</span> args-<span class="hl-s">&gt;</span>num) {</td></tr>
+<tr><td class="hl-num" data-line="129"></td><td>        <span class="hl-k">if</span> (args-<span class="hl-s">&gt;</span>values[cur].format != MPV_FORMAT_STRING)</td></tr>
 <tr><td class="hl-num" data-line="130"></td><td>            <span class="hl-k">break</span>;</td></tr>
-<tr><td class="hl-num" data-line="131"></td><td>        <span class="hl-k">if</span> (!<span class="hl-en">apply_flag</span>(cmd, <span class="hl-en">bstr0</span>(args-<span class="hl-s">></span>values[cur].u.string)))</td></tr>
+<tr><td class="hl-num" data-line="131"></td><td>        <span class="hl-k">if</span> (!<span class="hl-en">apply_flag</span>(cmd, <span class="hl-en">bstr0</span>(args-<span class="hl-s">&gt;</span>values[cur].u.string)))</td></tr>
 <tr><td class="hl-num" data-line="132"></td><td>            <span class="hl-k">break</span>;</td></tr>
 <tr><td class="hl-num" data-line="133"></td><td>        cur++;</td></tr>
 <tr><td class="hl-num" data-line="134"></td><td>    }</td></tr>
@@ -166,10 +166,10 @@
 <tr><td class="hl-num" data-line="164"></td><td>            <span class="hl-k">goto</span> error;</td></tr>
 <tr><td class="hl-num" data-line="165"></td><td>    }</td></tr>
 <tr><td class="hl-num" data-line="166"></td><td></td></tr>
-<tr><td class="hl-num" data-line="167"></td><td>    <span class="hl-k">if</span> (!<span class="hl-en">find_cmd</span>(ctx-<span class="hl-s">></span>log, cmd, cur_token))</td></tr>
+<tr><td class="hl-num" data-line="167"></td><td>    <span class="hl-k">if</span> (!<span class="hl-en">find_cmd</span>(ctx-<span class="hl-s">&gt;</span>log, cmd, cur_token))</td></tr>
 <tr><td class="hl-num" data-line="168"></td><td>        <span class="hl-k">goto</span> error;</td></tr>
 <tr><td class="hl-num" data-line="169"></td><td></td></tr>
-<tr><td class="hl-num" data-line="170"></td><td>    <span class="hl-k">if</span> (!<span class="hl-en">finish_cmd</span>(ctx-<span class="hl-s">></span>log, cmd))</td></tr>
+<tr><td class="hl-num" data-line="170"></td><td>    <span class="hl-k">if</span> (!<span class="hl-en">finish_cmd</span>(ctx-<span class="hl-s">&gt;</span>log, cmd))</td></tr>
 <tr><td class="hl-num" data-line="171"></td><td>        <span class="hl-k">goto</span> error;</td></tr>
 <tr><td class="hl-num" data-line="172"></td><td></td></tr>
 <tr><td class="hl-num" data-line="173"></td><td>    <span class="hl-k">return</span> cmd;</td></tr>
@@ -177,7 +177,7 @@
 <tr><td class="hl-num" data-line="175"></td><td>error:</td></tr>
 <tr><td class="hl-num" data-line="176"></td><td>    <span class="hl-en">MP_ERR</span>(ctx, <span class="hl-s">"Command was defined at %s.\n"</span>, loc);</td></tr>
 <tr><td class="hl-num" data-line="177"></td><td>    <span class="hl-en">talloc_free</span>(cmd);</td></tr>
-<tr><td class="hl-num" data-line="178"></td><td>    *str = ctx-<span class="hl-s">></span>str;</td></tr>
+<tr><td class="hl-num" data-line="178"></td><td>    *str = ctx-<span class="hl-s">&gt;</span>str;</td></tr>
 <tr><td class="hl-num" data-line="179"></td><td>    <span class="hl-k">return</span> <span class="hl-c">NULL</span>;</td></tr>
 <tr><td class="hl-num" data-line="180"></td><td>}</td></tr>
 <tr><td class="hl-num" data-line="181"></td><td></td></tr>
@@ -204,7 +204,7 @@
 <tr><td class="hl-num" data-line="202"></td><td>{</td></tr>
 <tr><td class="hl-num" data-line="203"></td><td>    <span class="hl-k">for</span> (<span class="hl-k">int</span> i = <span class="hl-c">0</span>; mp_cmds[i].name; i++) {</td></tr>
 <tr><td class="hl-num" data-line="204"></td><td>        <span class="hl-k">const</span> <span class="hl-k">struct</span> mp_cmd_def *def = &mp_cmds[i];</td></tr>
-<tr><td class="hl-num" data-line="205"></td><td>        <span class="hl-en">mp_info</span>(out, <span class="hl-s">"%-20.20s"</span>, def-<span class="hl-s">></span>name);</td></tr>
+<tr><td class="hl-num" data-line="205"></td><td>        <span class="hl-en">mp_info</span>(out, <span class="hl-s">"%-20.20s"</span>, def-<span class="hl-s">&gt;</span>name);</td></tr>
 <tr><td class="hl-num" data-line="206"></td><td>    }</td></tr>
 <tr><td class="hl-num" data-line="207"></td><td>}</td></tr>
 <tr><td class="hl-num" data-line="208"></td><td></td></tr>

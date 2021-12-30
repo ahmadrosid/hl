@@ -1,8 +1,8 @@
-use crate::generator::{
-    get_constant, get_entity, get_entity_tag, get_keyword, get_skip, get_var,
-    slash_comment_enable, string::StringBuilder,
-};
+use yaml_rust::Yaml;
+use crate::generator::{get_condition, get_constant, get_entity, get_entity_tag, get_keyword, get_skip, get_var, slash_comment_enable, string::StringBuilder};
 use yaml_rust::yaml::Hash;
+
+const ACCEPT_ENTITY_TAG_PREFIX: &str = "ACCEPT_ENTITY_TAG_PREFIX";
 
 pub fn generate_token(h: &Hash) -> String {
     let mut token = StringBuilder::new();
@@ -19,6 +19,10 @@ pub fn generate_token(h: &Hash) -> String {
     token.push_tabln(1, "ENTITY(Vec<char>),");
     token.push_tabln(1, "STRING(Vec<char>),");
     token.push_tabln(1, "KEYWORD(Vec<char>),");
+
+    if let Some(_) = get_condition(h).get(&Yaml::String(ACCEPT_ENTITY_TAG_PREFIX.to_string())) {
+        token.push_tabln(1, "ENTITYTAG(Vec<char>),");
+    }
 
     for (k, _v) in get_constant(h) {
         token.push_tabln(1, &format!("{}(Vec<char>),", k.as_str().unwrap()));

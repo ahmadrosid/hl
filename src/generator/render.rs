@@ -1,8 +1,11 @@
 use crate::generator::{
     get_constant, get_entity, get_entity_tag, get_skip, get_var,
-    slash_comment_enable, string::StringBuilder,
+    slash_comment_enable, get_condition, string::StringBuilder,
 };
 use yaml_rust::yaml::Hash;
+use yaml_rust::yaml::Yaml;
+
+const ACCEPT_ENTITY_TAG_PREFIX: &str = "ACCEPT_ENTITY_TAG_PREFIX";
 
 pub fn generate_render_html(h: &Hash, name: String) -> String {
     let mut html = StringBuilder::new();
@@ -46,6 +49,10 @@ pub fn generate_render_html(h: &Hash, name: String) -> String {
     write_token_identifier(&mut html);
     write_token_entity(&mut html);
     write_token_keyword(&mut html);
+
+    if let Some(_) = get_condition(h).get(&Yaml::String(ACCEPT_ENTITY_TAG_PREFIX.to_string())) {
+        write_token_entity_tag(&mut html);
+    }
 
     if slash_comment_enable(h) {
         write_token_comment(&mut html);
@@ -208,13 +215,29 @@ fn write_token_string(html: &mut StringBuilder) {
     html.push_tabln(4, "for ch in value {");
     html.push_tabln(5, "if ch == '<' {");
     html.push_tabln(6, "s.push_str(\"&lt;\");");
-    html.push_tabln(5, "} else if ch == '<' {");
+    html.push_tabln(5, "} else if ch == '>' {");
     html.push_tabln(6, "s.push_str(\"&gt;\");");
     html.push_tabln(5, "} else {");
     html.push_tabln(6, "s.push(ch);");
     html.push_tabln(5, "}");
     html.push_tabln(4, "}");
     html.push_tabln(4, "html.push_str(&format!(\"<span class=\\\"hl-s\\\">{}</span>\", s));");
+    html.push_tabln(3, "}");
+}
+
+fn write_token_entity_tag(html: &mut StringBuilder) {
+    html.push_tabln(3, "token::Token::ENTITYTAG(value) => {");
+    html.push_tabln(4, "let mut s = String::new();");
+    html.push_tabln(4, "for ch in value {");
+    html.push_tabln(5, "if ch == '<' {");
+    html.push_tabln(6, "s.push_str(\"&lt;\");");
+    html.push_tabln(5, "} else if ch == '>' {");
+    html.push_tabln(6, "s.push_str(\"&gt;\");");
+    html.push_tabln(5, "} else {");
+    html.push_tabln(6, "s.push(ch);");
+    html.push_tabln(5, "}");
+    html.push_tabln(4, "}");
+    html.push_tabln(4, "html.push_str(&format!(\"<span class=\\\"hl-ent\\\">{}</span>\", s));");
     html.push_tabln(3, "}");
 }
 
