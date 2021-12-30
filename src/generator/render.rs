@@ -6,6 +6,7 @@ use yaml_rust::yaml::Hash;
 use yaml_rust::yaml::Yaml;
 
 const ACCEPT_ENTITY_TAG_PREFIX: &str = "ACCEPT_ENTITY_TAG_PREFIX";
+const ACCEPT_PREFIX_VAR: &str = "ACCEPT_PREFIX_VAR";
 
 pub fn generate_render_html(h: &Hash, name: String) -> String {
     let mut html = StringBuilder::new();
@@ -52,6 +53,10 @@ pub fn generate_render_html(h: &Hash, name: String) -> String {
 
     if let Some(_) = get_condition(h).get(&Yaml::String(ACCEPT_ENTITY_TAG_PREFIX.to_string())) {
         write_token_entity_tag(&mut html);
+    }
+
+    if let Some(_) = get_condition(h).get(&Yaml::String(ACCEPT_PREFIX_VAR.to_string())) {
+        write_token_var(&mut html);
     }
 
     if slash_comment_enable(h) {
@@ -204,6 +209,16 @@ fn write_token_keyword(html: &mut StringBuilder) {
     html.push_tabln(
         4,
         "html.push_str(&format!(\"<span class=\\\"hl-k\\\">{}</span>\", \
+        value.iter().collect::<String>()));",
+    );
+    html.push_tabln(3, "}");
+}
+
+fn write_token_var(html: &mut StringBuilder) {
+    html.push_tabln(3,"token::Token::VAR(value) => {");
+    html.push_tabln(
+        4,
+        "html.push_str(&format!(\"<span class=\\\"hl-v\\\">{}</span>\", \
         value.iter().collect::<String>()));",
     );
     html.push_tabln(3, "}");

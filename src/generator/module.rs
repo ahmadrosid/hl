@@ -17,6 +17,7 @@ const ACCEPT_STRING_DOUBLE_QUOTE: &str = "ACCEPT_STRING_DOUBLE_QUOTE";
 const ACCEPT_SUFFIX_DIGIT: &str = "ACCEPT_SUFFIX_DIGIT";
 const ACCEPT_ENTITY_TAG_PREFIX: &str = "ACCEPT_ENTITY_TAG_PREFIX";
 const ENTITY_TAG_PREFIX_CHAR: &str = "ENTITY_TAG_PREFIX_CHAR";
+const ACCEPT_PREFIX_VAR: &str = "ACCEPT_PREFIX_VAR";
 
 fn write_struct_lexer(module: &mut StringBuilder) {
     module.push_strln("pub struct Lexer {");
@@ -179,9 +180,21 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
         module.push_tabln(3, &format!("'{}' => {{", v.as_str().unwrap()));
         module.push_tabln(4, "if is_letter(self.input[self.position+1]) {");
         module.push_tabln(5, "self.read_char();");
-        module.push_tabln(5, "let mut identifier = vec!['@'];");
+        module.push_tabln(5, &format!("let mut identifier = vec!['{}'];", v.as_str().unwrap()));
         module.push_tabln(5, "identifier.append(&mut read_identifier(self));");
         module.push_tabln(5, "return token::Token::KEYWORD(identifier);");
+        module.push_tabln(4, "}");
+        module.push_tabln(4, "tok = token::Token::CH(self.ch);");
+        module.push_tabln(3, "}");
+    }
+
+    if let Some(v) = get_condition(h).get(&Yaml::String(ACCEPT_PREFIX_VAR.to_string())) {
+        module.push_tabln(3, &format!("'{}' => {{", v.as_str().unwrap()));
+        module.push_tabln(4, "if is_letter(self.input[self.position+1]) {");
+        module.push_tabln(5, "self.read_char();");
+        module.push_tabln(5, &format!("let mut identifier = vec!['{}'];", v.as_str().unwrap()));
+        module.push_tabln(5, "identifier.append(&mut read_identifier(self));");
+        module.push_tabln(5, "return token::Token::VAR(identifier);");
         module.push_tabln(4, "}");
         module.push_tabln(4, "tok = token::Token::CH(self.ch);");
         module.push_tabln(3, "}");

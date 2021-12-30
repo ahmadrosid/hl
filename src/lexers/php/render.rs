@@ -64,6 +64,9 @@ pub fn render_html(input: Vec<char>) -> String {
                 }
                 html.push_str(&format!("<span class=\"hl-ent\">{}</span>", s));
             }
+            token::Token::VAR(value) => {
+                html.push_str(&format!("<span class=\"hl-v\">{}</span>", value.iter().collect::<String>()));
+            }
             token::Token::COMMENT(value) => {
                 let mut lines = String::new();
                 for ch in value {
@@ -90,9 +93,6 @@ pub fn render_html(input: Vec<char>) -> String {
                         ));
                     }
                 }
-            }
-            token::Token::THIS(value) => {
-                html.push_str(&format!("<span class=\"hl-c\">{}</span>", value.iter().collect::<String>()));
             }
             token::Token::TRUE(value) => {
                 html.push_str(&format!("<span class=\"hl-c\">{}</span>", value.iter().collect::<String>()));

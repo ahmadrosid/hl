@@ -112,6 +112,15 @@ impl Lexer {
                     tok = token::Token::CH(self.ch);
                 }
             }
+            '$' => {
+                if is_letter(self.input[self.position+1]) {
+                    self.read_char();
+                    let mut identifier = vec!['$'];
+                    identifier.append(&mut read_identifier(self));
+                    return token::Token::VAR(identifier);
+                }
+                tok = token::Token::CH(self.ch);
+            }
             '/' => {
                 if self.input[self.position+1] == '/' {
                     tok = token::Token::COMMENT(read_slash_comment(self));

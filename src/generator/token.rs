@@ -3,6 +3,7 @@ use crate::generator::{get_condition, get_constant, get_entity, get_entity_tag, 
 use yaml_rust::yaml::Hash;
 
 const ACCEPT_ENTITY_TAG_PREFIX: &str = "ACCEPT_ENTITY_TAG_PREFIX";
+const ACCEPT_PREFIX_VAR: &str = "ACCEPT_PREFIX_VAR";
 
 pub fn generate_token(h: &Hash) -> String {
     let mut token = StringBuilder::new();
@@ -22,6 +23,10 @@ pub fn generate_token(h: &Hash) -> String {
 
     if let Some(_) = get_condition(h).get(&Yaml::String(ACCEPT_ENTITY_TAG_PREFIX.to_string())) {
         token.push_tabln(1, "ENTITYTAG(Vec<char>),");
+    }
+
+    if let Some(_) = get_condition(h).get(&Yaml::String(ACCEPT_PREFIX_VAR.to_string())) {
+        token.push_tabln(1, "VAR(Vec<char>),");
     }
 
     for (k, _v) in get_constant(h) {

@@ -15,10 +15,10 @@
 <tr><td class="hl-num" data-line="13"></td><td><span class="hl-k">require_once</span> __DIR__ . <span class="hl-s">'/lib/versioncheck.php'</span>;</td></tr>
 <tr><td class="hl-num" data-line="14"></td><td></td></tr>
 <tr><td class="hl-num" data-line="15"></td><td><span class="hl-k">class</span> Model1 <span class="hl-k">extends</span> Model {</td></tr>
-<tr><td class="hl-num" data-line="16"></td><td>    <span class="hl-k">public</span> $table = <span class="hl-s">'one'</span>;</td></tr>
-<tr><td class="hl-num" data-line="17"></td><td>    <span class="hl-k">public</span> $timestamps = <span class="hl-c">false</span>;</td></tr>
-<tr><td class="hl-num" data-line="18"></td><td>    <span class="hl-k">protected</span> $guarded = [];</td></tr>
-<tr><td class="hl-num" data-line="19"></td><td>    <span class="hl-k">private</span> $accept = <span class="hl-c">true</span>;</td></tr>
+<tr><td class="hl-num" data-line="16"></td><td>    <span class="hl-k">public</span> <span class="hl-v">$table</span> = <span class="hl-s">'one'</span>;</td></tr>
+<tr><td class="hl-num" data-line="17"></td><td>    <span class="hl-k">public</span> <span class="hl-v">$timestamps</span> = <span class="hl-c">false</span>;</td></tr>
+<tr><td class="hl-num" data-line="18"></td><td>    <span class="hl-k">protected</span> <span class="hl-v">$guarded</span> = [];</td></tr>
+<tr><td class="hl-num" data-line="19"></td><td>    <span class="hl-k">private</span> <span class="hl-v">$accept</span> = <span class="hl-c">true</span>;</td></tr>
 <tr><td class="hl-num" data-line="20"></td><td></td></tr>
 <tr><td class="hl-num" data-line="21"></td><td>    <span class="hl-k">protected</span> <span class="hl-k">static</span> <span class="hl-k">function</span> <span class="hl-en">boot</span>()</td></tr>
 <tr><td class="hl-num" data-line="22"></td><td>    {</td></tr>
@@ -27,50 +27,50 @@
 <tr><td class="hl-num" data-line="25"></td><td></td></tr>
 <tr><td class="hl-num" data-line="26"></td><td>    <span class="hl-k">protected</span> <span class="hl-k">static</span> <span class="hl-k">function</span> <span class="hl-en">bootTraits</span>()</td></tr>
 <tr><td class="hl-num" data-line="27"></td><td>    {</td></tr>
-<tr><td class="hl-num" data-line="28"></td><td>        $<span class="hl-k">class</span> = <span class="hl-k">static</span>::<span class="hl-k">class</span>;</td></tr>
+<tr><td class="hl-num" data-line="28"></td><td>        <span class="hl-v">$class</span> = <span class="hl-k">static</span>::<span class="hl-k">class</span>;</td></tr>
 <tr><td class="hl-num" data-line="29"></td><td></td></tr>
-<tr><td class="hl-num" data-line="30"></td><td>        <span class="hl-k">foreach</span> (<span class="hl-en">class_uses_recursive</span>($<span class="hl-k">class</span>) <span class="hl-k">as</span> $<span class="hl-k">trait</span>) {</td></tr>
-<tr><td class="hl-num" data-line="31"></td><td>            $method = <span class="hl-s">'boot'</span>.<span class="hl-en">class_basename</span>($<span class="hl-k">trait</span>);</td></tr>
+<tr><td class="hl-num" data-line="30"></td><td>        <span class="hl-k">foreach</span> (<span class="hl-en">class_uses_recursive</span>(<span class="hl-v">$class</span>) <span class="hl-k">as</span> <span class="hl-v">$trait</span>) {</td></tr>
+<tr><td class="hl-num" data-line="31"></td><td>            <span class="hl-v">$method</span> = <span class="hl-s">'boot'</span>.<span class="hl-en">class_basename</span>(<span class="hl-v">$trait</span>);</td></tr>
 <tr><td class="hl-num" data-line="32"></td><td></td></tr>
-<tr><td class="hl-num" data-line="33"></td><td>            <span class="hl-k">if</span> (<span class="hl-en">method_exists</span>($<span class="hl-k">class</span>, $method = <span class="hl-s">'initialize'</span>.<span class="hl-en">class_basename</span>($<span class="hl-k">trait</span>))) {</td></tr>
-<tr><td class="hl-num" data-line="34"></td><td>                <span class="hl-k">static</span>::$traitInitializers[$<span class="hl-k">class</span>][] = $method;</td></tr>
+<tr><td class="hl-num" data-line="33"></td><td>            <span class="hl-k">if</span> (<span class="hl-en">method_exists</span>(<span class="hl-v">$class</span>, <span class="hl-v">$method</span> = <span class="hl-s">'initialize'</span>.<span class="hl-en">class_basename</span>(<span class="hl-v">$trait</span>))) {</td></tr>
+<tr><td class="hl-num" data-line="34"></td><td>                <span class="hl-k">static</span>::<span class="hl-v">$traitInitializers</span>[<span class="hl-v">$class</span>][] = <span class="hl-v">$method</span>;</td></tr>
 <tr><td class="hl-num" data-line="35"></td><td></td></tr>
-<tr><td class="hl-num" data-line="36"></td><td>                <span class="hl-k">static</span>::$traitInitializers[$<span class="hl-k">class</span>] = <span class="hl-en">array_unique</span>(</td></tr>
-<tr><td class="hl-num" data-line="37"></td><td>                    <span class="hl-k">static</span>::$traitInitializers[$<span class="hl-k">class</span>]</td></tr>
+<tr><td class="hl-num" data-line="36"></td><td>                <span class="hl-k">static</span>::<span class="hl-v">$traitInitializers</span>[<span class="hl-v">$class</span>] = <span class="hl-en">array_unique</span>(</td></tr>
+<tr><td class="hl-num" data-line="37"></td><td>                    <span class="hl-k">static</span>::<span class="hl-v">$traitInitializers</span>[<span class="hl-v">$class</span>]</td></tr>
 <tr><td class="hl-num" data-line="38"></td><td>                );</td></tr>
 <tr><td class="hl-num" data-line="39"></td><td>            }</td></tr>
 <tr><td class="hl-num" data-line="40"></td><td>        }</td></tr>
-<tr><td class="hl-num" data-line="41"></td><td>        $<span class="hl-c">this</span>-><span class="hl-en">booted</span> = <span class="hl-c">true</span>;</td></tr>
-<tr><td class="hl-num" data-line="42"></td><td>        <span class="hl-k">if</span> ($token === <span class="hl-c">false</span>) {</td></tr>
+<tr><td class="hl-num" data-line="41"></td><td>        <span class="hl-v">$this</span>-><span class="hl-en">booted</span> = <span class="hl-c">true</span>;</td></tr>
+<tr><td class="hl-num" data-line="42"></td><td>        <span class="hl-k">if</span> (<span class="hl-v">$token</span> === <span class="hl-c">false</span>) {</td></tr>
 <tr><td class="hl-num" data-line="43"></td><td>            <span class="hl-k">goto</span> SCANNER_END;</td></tr>
 <tr><td class="hl-num" data-line="44"></td><td>        }</td></tr>
 <tr><td class="hl-num" data-line="45"></td><td>    }</td></tr>
 <tr><td class="hl-num" data-line="46"></td><td></td></tr>
 <tr><td class="hl-num" data-line="47"></td><td>    <span class="hl-k">protected</span> <span class="hl-k">function</span> <span class="hl-en">initializeTraits</span>()</td></tr>
 <tr><td class="hl-num" data-line="48"></td><td>    {</td></tr>
-<tr><td class="hl-num" data-line="49"></td><td>        <span class="hl-k">foreach</span> (<span class="hl-k">static</span>::$traitInitializers[<span class="hl-k">static</span>::<span class="hl-k">class</span>] <span class="hl-k">as</span> $method) {</td></tr>
-<tr><td class="hl-num" data-line="50"></td><td>            $<span class="hl-c">this</span>->{$method}();</td></tr>
+<tr><td class="hl-num" data-line="49"></td><td>        <span class="hl-k">foreach</span> (<span class="hl-k">static</span>::<span class="hl-v">$traitInitializers</span>[<span class="hl-k">static</span>::<span class="hl-k">class</span>] <span class="hl-k">as</span> <span class="hl-v">$method</span>) {</td></tr>
+<tr><td class="hl-num" data-line="50"></td><td>            <span class="hl-v">$this</span>->{<span class="hl-v">$method</span>}();</td></tr>
 <tr><td class="hl-num" data-line="51"></td><td>        }</td></tr>
 <tr><td class="hl-num" data-line="52"></td><td>    }</td></tr>
 <tr><td class="hl-num" data-line="53"></td><td></td></tr>
 <tr><td class="hl-num" data-line="54"></td><td>    <span class="hl-k">private</span> <span class="hl-k">function</span> <span class="hl-en">twos</span>() {</td></tr>
-<tr><td class="hl-num" data-line="55"></td><td>        <span class="hl-k">return</span> $<span class="hl-c">this</span>-><span class="hl-en">hasMany</span>(Model2::<span class="hl-k">class</span>, <span class="hl-s">'one_id'</span>);</td></tr>
+<tr><td class="hl-num" data-line="55"></td><td>        <span class="hl-k">return</span> <span class="hl-v">$this</span>-><span class="hl-en">hasMany</span>(Model2::<span class="hl-k">class</span>, <span class="hl-s">'one_id'</span>);</td></tr>
 <tr><td class="hl-num" data-line="56"></td><td>    }</td></tr>
 <tr><td class="hl-num" data-line="57"></td><td></td></tr>
 <tr><td class="hl-num" data-line="58"></td><td>    <span class="hl-k">public</span> <span class="hl-k">function</span> <span class="hl-en">fours</span>() {</td></tr>
-<tr><td class="hl-num" data-line="59"></td><td>        <span class="hl-k">return</span> $<span class="hl-c">this</span>-><span class="hl-en">hasMany</span>(Model4::<span class="hl-k">class</span>, <span class="hl-s">'one_id'</span>);</td></tr>
+<tr><td class="hl-num" data-line="59"></td><td>        <span class="hl-k">return</span> <span class="hl-v">$this</span>-><span class="hl-en">hasMany</span>(Model4::<span class="hl-k">class</span>, <span class="hl-s">'one_id'</span>);</td></tr>
 <tr><td class="hl-num" data-line="60"></td><td>    }</td></tr>
 <tr><td class="hl-num" data-line="61"></td><td></td></tr>
-<tr><td class="hl-num" data-line="62"></td><td>    <span class="hl-k">public</span> <span class="hl-k">static</span> <span class="hl-k">function</span> <span class="hl-en">range</span>($from, $to)</td></tr>
+<tr><td class="hl-num" data-line="62"></td><td>    <span class="hl-k">public</span> <span class="hl-k">static</span> <span class="hl-k">function</span> <span class="hl-en">range</span>(<span class="hl-v">$from</span>, <span class="hl-v">$to</span>)</td></tr>
 <tr><td class="hl-num" data-line="63"></td><td>    {</td></tr>
-<tr><td class="hl-num" data-line="64"></td><td>        <span class="hl-k">return</span> <span class="hl-k">new</span> <span class="hl-k">static</span>(<span class="hl-k">function</span> () <span class="hl-k">use</span> ($from, $to) {</td></tr>
-<tr><td class="hl-num" data-line="65"></td><td>            <span class="hl-k">if</span> ($from <= $to) {</td></tr>
-<tr><td class="hl-num" data-line="66"></td><td>                <span class="hl-k">for</span> (; $from <= $to; $from++) {</td></tr>
-<tr><td class="hl-num" data-line="67"></td><td>                    <span class="hl-k">yield</span> $from;</td></tr>
+<tr><td class="hl-num" data-line="64"></td><td>        <span class="hl-k">return</span> <span class="hl-k">new</span> <span class="hl-k">static</span>(<span class="hl-k">function</span> () <span class="hl-k">use</span> (<span class="hl-v">$from</span>, <span class="hl-v">$to</span>) {</td></tr>
+<tr><td class="hl-num" data-line="65"></td><td>            <span class="hl-k">if</span> (<span class="hl-v">$from</span> <= <span class="hl-v">$to</span>) {</td></tr>
+<tr><td class="hl-num" data-line="66"></td><td>                <span class="hl-k">for</span> (; <span class="hl-v">$from</span> <= <span class="hl-v">$to</span>; <span class="hl-v">$from</span>++) {</td></tr>
+<tr><td class="hl-num" data-line="67"></td><td>                    <span class="hl-k">yield</span> <span class="hl-v">$from</span>;</td></tr>
 <tr><td class="hl-num" data-line="68"></td><td>                }</td></tr>
 <tr><td class="hl-num" data-line="69"></td><td>            } <span class="hl-k">else</span> {</td></tr>
-<tr><td class="hl-num" data-line="70"></td><td>                <span class="hl-k">for</span> (; $from >= $to; $from--) {</td></tr>
-<tr><td class="hl-num" data-line="71"></td><td>                    <span class="hl-k">yield</span> $from;</td></tr>
+<tr><td class="hl-num" data-line="70"></td><td>                <span class="hl-k">for</span> (; <span class="hl-v">$from</span> >= <span class="hl-v">$to</span>; <span class="hl-v">$from</span>--) {</td></tr>
+<tr><td class="hl-num" data-line="71"></td><td>                    <span class="hl-k">yield</span> <span class="hl-v">$from</span>;</td></tr>
 <tr><td class="hl-num" data-line="72"></td><td>                }</td></tr>
 <tr><td class="hl-num" data-line="73"></td><td>            }</td></tr>
 <tr><td class="hl-num" data-line="74"></td><td>        });</td></tr>
@@ -79,37 +79,37 @@
 <tr><td class="hl-num" data-line="77"></td><td>}</td></tr>
 <tr><td class="hl-num" data-line="78"></td><td></td></tr>
 <tr><td class="hl-num" data-line="79"></td><td><span class="hl-k">interface</span> Enumerable <span class="hl-k">extends</span> Countable {</td></tr>
-<tr><td class="hl-num" data-line="80"></td><td>    <span class="hl-k">public</span> <span class="hl-k">static</span> <span class="hl-k">function</span> <span class="hl-en">times</span>($number, <span class="hl-k">callable</span> $callback = <span class="hl-c">null</span>);</td></tr>
+<tr><td class="hl-num" data-line="80"></td><td>    <span class="hl-k">public</span> <span class="hl-k">static</span> <span class="hl-k">function</span> <span class="hl-en">times</span>(<span class="hl-v">$number</span>, <span class="hl-k">callable</span> <span class="hl-v">$callback</span> = <span class="hl-c">null</span>);</td></tr>
 <tr><td class="hl-num" data-line="81"></td><td>}</td></tr>
 <tr><td class="hl-num" data-line="82"></td><td></td></tr>
 <tr><td class="hl-num" data-line="83"></td><td><span class="hl-k">try</span> {</td></tr>
 <tr><td class="hl-num" data-line="84"></td><td>	<span class="hl-k">require_once</span> __DIR__ . <span class="hl-s">'/lib/base.php'</span>;</td></tr>
 <tr><td class="hl-num" data-line="85"></td><td></td></tr>
-<tr><td class="hl-num" data-line="86"></td><td>	<span class="hl-k">switch</span> ($app) {</td></tr>
+<tr><td class="hl-num" data-line="86"></td><td>	<span class="hl-k">switch</span> (<span class="hl-v">$app</span>) {</td></tr>
 <tr><td class="hl-num" data-line="87"></td><td>		<span class="hl-k">case</span> <span class="hl-s">'core'</span>:</td></tr>
-<tr><td class="hl-num" data-line="88"></td><td>			$file = OC::$SERVERROOT .<span class="hl-s">'/'</span>. $file;</td></tr>
+<tr><td class="hl-num" data-line="88"></td><td>			<span class="hl-v">$file</span> = OC::<span class="hl-v">$SERVERROOT</span> .<span class="hl-s">'/'</span>. <span class="hl-v">$file</span>;</td></tr>
 <tr><td class="hl-num" data-line="89"></td><td>			<span class="hl-k">break</span>;</td></tr>
 <tr><td class="hl-num" data-line="90"></td><td>		<span class="hl-k">default</span>:</td></tr>
-<tr><td class="hl-num" data-line="91"></td><td>			$file = OC_App::<span class="hl-en">getAppPath</span>($app) .<span class="hl-s">'/'</span>. $parts[<span class="hl-c">1</span>];</td></tr>
+<tr><td class="hl-num" data-line="91"></td><td>			<span class="hl-v">$file</span> = OC_App::<span class="hl-en">getAppPath</span>(<span class="hl-v">$app</span>) .<span class="hl-s">'/'</span>. <span class="hl-v">$parts</span>[<span class="hl-c">1</span>];</td></tr>
 <tr><td class="hl-num" data-line="92"></td><td>			<span class="hl-k">break</span>;</td></tr>
 <tr><td class="hl-num" data-line="93"></td><td>	}</td></tr>
 <tr><td class="hl-num" data-line="94"></td><td>	OC::<span class="hl-en">handleRequest</span>();</td></tr>
-<tr><td class="hl-num" data-line="95"></td><td>} <span class="hl-k">catch</span> (Exception $ex) {</td></tr>
-<tr><td class="hl-num" data-line="96"></td><td>	\OC::$server-><span class="hl-en">getLogger</span>()-><span class="hl-en">logException</span>($ex, [<span class="hl-s">'app'</span> => <span class="hl-s">'index'</span>]);</td></tr>
+<tr><td class="hl-num" data-line="95"></td><td>} <span class="hl-k">catch</span> (Exception <span class="hl-v">$ex</span>) {</td></tr>
+<tr><td class="hl-num" data-line="96"></td><td>	\OC::<span class="hl-v">$server</span>-><span class="hl-en">getLogger</span>()-><span class="hl-en">logException</span>(<span class="hl-v">$ex</span>, [<span class="hl-s">'app'</span> => <span class="hl-s">'index'</span>]);</td></tr>
 <tr><td class="hl-num" data-line="97"></td><td></td></tr>
 <tr><td class="hl-num" data-line="98"></td><td>	<span class="hl-cmt">//show the user a detailed error page</span></td></tr>
-<tr><td class="hl-num" data-line="99"></td><td>	OC_Template::<span class="hl-en">printExceptionErrorPage</span>($ex, <span class="hl-c">500</span>);</td></tr>
-<tr><td class="hl-num" data-line="100"></td><td>} <span class="hl-k">catch</span> (Error $ex) {</td></tr>
+<tr><td class="hl-num" data-line="99"></td><td>	OC_Template::<span class="hl-en">printExceptionErrorPage</span>(<span class="hl-v">$ex</span>, <span class="hl-c">500</span>);</td></tr>
+<tr><td class="hl-num" data-line="100"></td><td>} <span class="hl-k">catch</span> (Error <span class="hl-v">$ex</span>) {</td></tr>
 <tr><td class="hl-num" data-line="101"></td><td>	<span class="hl-k">try</span> {</td></tr>
-<tr><td class="hl-num" data-line="102"></td><td>		\OC::$server-><span class="hl-en">getLogger</span>()-><span class="hl-en">logException</span>($ex, [<span class="hl-s">'app'</span> => <span class="hl-s">'index'</span>]);</td></tr>
-<tr><td class="hl-num" data-line="103"></td><td>	} <span class="hl-k">catch</span> (Error $e) {</td></tr>
+<tr><td class="hl-num" data-line="102"></td><td>		\OC::<span class="hl-v">$server</span>-><span class="hl-en">getLogger</span>()-><span class="hl-en">logException</span>(<span class="hl-v">$ex</span>, [<span class="hl-s">'app'</span> => <span class="hl-s">'index'</span>]);</td></tr>
+<tr><td class="hl-num" data-line="103"></td><td>	} <span class="hl-k">catch</span> (Error <span class="hl-v">$e</span>) {</td></tr>
 <tr><td class="hl-num" data-line="104"></td><td>		<span class="hl-en">http_response_code</span>(<span class="hl-c">500</span>);</td></tr>
 <tr><td class="hl-num" data-line="105"></td><td>		<span class="hl-en">header</span>(<span class="hl-s">'Content-Type: text/plain; charset=utf-8'</span>);</td></tr>
 <tr><td class="hl-num" data-line="106"></td><td>		<span class="hl-k">print</span>(<span class="hl-s">"Internal Server Error\n\n"</span>);</td></tr>
 <tr><td class="hl-num" data-line="107"></td><td></td></tr>
-<tr><td class="hl-num" data-line="108"></td><td>		<span class="hl-k">throw</span> $ex;</td></tr>
+<tr><td class="hl-num" data-line="108"></td><td>		<span class="hl-k">throw</span> <span class="hl-v">$ex</span>;</td></tr>
 <tr><td class="hl-num" data-line="109"></td><td>	}</td></tr>
-<tr><td class="hl-num" data-line="110"></td><td>	OC_Template::<span class="hl-en">printExceptionErrorPage</span>($ex, <span class="hl-c">500</span>);</td></tr>
+<tr><td class="hl-num" data-line="110"></td><td>	OC_Template::<span class="hl-en">printExceptionErrorPage</span>(<span class="hl-v">$ex</span>, <span class="hl-c">500</span>);</td></tr>
 <tr><td class="hl-num" data-line="111"></td><td>}</td></tr>
 <tr><td class="hl-num" data-line="112"></td><td></td></tr>
 </tbody>
