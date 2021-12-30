@@ -38,6 +38,8 @@ keyword:
   MAP: 'Map'
   HASHMAP: 'HashMap'
   LINKEDHASHSET: 'LinkedHashSet'
+  TRY: "try"
+  CATCH: "catch"
 
 condition:
   ACCEPT_STRING_ONE_QUOTE: true

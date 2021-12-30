@@ -162,12 +162,12 @@
 <tr><td class="hl-num" data-line="160"></td><td>            <span class="hl-k">return</span>;</td></tr>
 <tr><td class="hl-num" data-line="161"></td><td>        }</td></tr>
 <tr><td class="hl-num" data-line="162"></td><td></td></tr>
-<tr><td class="hl-num" data-line="163"></td><td>        try {</td></tr>
+<tr><td class="hl-num" data-line="163"></td><td>        <span class="hl-k">try</span> {</td></tr>
 <tr><td class="hl-num" data-line="164"></td><td>            <span class="hl-k">final</span> CoreConfiguration acraConfig = <span class="hl-k">new</span> <span class="hl-en">CoreConfigurationBuilder</span>(<span class="hl-c">this</span>)</td></tr>
 <tr><td class="hl-num" data-line="165"></td><td>                    .<span class="hl-en">setBuildConfigClass</span>(BuildConfig.<span class="hl-k">class</span>)</td></tr>
 <tr><td class="hl-num" data-line="166"></td><td>                    .<span class="hl-en">build</span>();</td></tr>
 <tr><td class="hl-num" data-line="167"></td><td>            ACRA.<span class="hl-en">init</span>(<span class="hl-c">this</span>, acraConfig);</td></tr>
-<tr><td class="hl-num" data-line="168"></td><td>        } catch (<span class="hl-k">final</span> ACRAConfigurationException exception) {</td></tr>
+<tr><td class="hl-num" data-line="168"></td><td>        } <span class="hl-k">catch</span> (<span class="hl-k">final</span> ACRAConfigurationException exception) {</td></tr>
 <tr><td class="hl-num" data-line="169"></td><td>            exception.<span class="hl-en">printStackTrace</span>();</td></tr>
 <tr><td class="hl-num" data-line="170"></td><td>            ErrorUtil.<span class="hl-en">openActivity</span>(<span class="hl-c">this</span>, <span class="hl-k">new</span> <span class="hl-en">ErrorInfo</span>(exception,</td></tr>
 <tr><td class="hl-num" data-line="171"></td><td>                    UserAction.SOMETHING_ELSE, <span class="hl-s">"Could not initialize ACRA crash report"</span>));</td></tr>
