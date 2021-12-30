@@ -1,0 +1,47 @@
+slash_comment: true
+slash_star_comment: true
+
+constant:
+  TRUE: 'true'
+  FALSE: 'false'
+  THIS: 'this'
+  NULLPTR: "nullptr"
+  NULL: "NULL"
+  SizeT: "size_t"
+
+entity_suffix:
+  ENTITY_LBRACE: '('
+
+keyword:
+  auto: "auto"
+  const: "const"
+  class: "class"
+  char: "char"
+  catch: "catch"
+  delete: "delete"
+  double: "double"
+  else: "else"
+  float: "float"
+  for: "for"
+  if: "if"
+  inline: "inline"
+  long: "long"
+  namespace: "namespace"
+  return: "return"
+  override: "override"
+  using: "using"
+  int: "int"
+  include: "include"
+  endif: "endif"
+  public: "public"
+  private: "private"
+  void: "void"
+  static_cast: "static_cast"
+  template: "template"
+  try: "try"
+  throw: "throw"
+  while: "while"
+
+condition:
+  ACCEPT_STRING_ONE_QUOTE: true
+  ACCEPT_STRING_DOUBLE_QUOTE: true

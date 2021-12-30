@@ -1,0 +1,123 @@
+<table class="highlight-table">
+<tbody>
+<tr><td class="hl-num" data-line="1"></td><td><span class="hl-cmt">/*          Copyright 2021 The Authors. All Rights Reserved.</span></td></tr>
+<tr><td class="hl-num" data-line="2"></td><td><span class="hl-cmt">==============================================================================*/</span></td></tr>
+<tr><td class="hl-num" data-line="3"></td><td>#<span class="hl-k">include</span> <span class="hl-s">"common.h"</span></td></tr>
+<tr><td class="hl-num" data-line="4"></td><td>#<span class="hl-k">include</span> <span class="hl-s">"archive/value_archive.h"</span></td></tr>
+<tr><td class="hl-num" data-line="5"></td><td></td></tr>
+<tr><td class="hl-num" data-line="6"></td><td><span class="hl-cmt">// Below are the ops with no builtin_data structure.</span></td></tr>
+<tr><td class="hl-num" data-line="7"></td><td><span class="hl-cmt">// ok for now, since there is no call implementation either.</span></td></tr>
+<tr><td class="hl-num" data-line="8"></td><td>cufftResult CUFFTAPI cufftMakePlanMany<span class="hl-c">64</span>(</td></tr>
+<tr><td class="hl-num" data-line="9"></td><td>    cufftHandle plan, <span class="hl-k">int</span> rank, <span class="hl-k">long</span> <span class="hl-k">long</span> <span class="hl-k">int</span> *n, <span class="hl-k">long</span> <span class="hl-k">long</span> <span class="hl-k">int</span> *inembed,</td></tr>
+<tr><td class="hl-num" data-line="10"></td><td>    <span class="hl-k">long</span> <span class="hl-k">long</span> <span class="hl-k">int</span> batch, <span class="hl-c">size_t</span> *workSize) {</td></tr>
+<tr><td class="hl-num" data-line="11"></td><td>  <span class="hl-k">if</span> (!func_ptr) <span class="hl-k">return</span> <span class="hl-en">GetSymbolNotFoundError</span>();</td></tr>
+<tr><td class="hl-num" data-line="12"></td><td>  <span class="hl-k">return</span> <span class="hl-en">func_ptr</span>(plan, rank, n, odist, type, batch, workSize);</td></tr>
+<tr><td class="hl-num" data-line="13"></td><td>}</td></tr>
+<tr><td class="hl-num" data-line="14"></td><td></td></tr>
+<tr><td class="hl-num" data-line="15"></td><td>mmdeploy::graph::BaseNode::<span class="hl-en">BaseNode</span>(<span class="hl-k">const</span> mmdeploy::Value& cfg) {</td></tr>
+<tr><td class="hl-num" data-line="16"></td><td>  <span class="hl-k">try</span> {</td></tr>
+<tr><td class="hl-num" data-line="17"></td><td>    <span class="hl-en">from_value</span>(cfg[<span class="hl-s">"input"</span>], inputs_);</td></tr>
+<tr><td class="hl-num" data-line="18"></td><td>    <span class="hl-en">from_value</span>(cfg[<span class="hl-s">"output"</span>], outputs_);</td></tr>
+<tr><td class="hl-num" data-line="19"></td><td>    name_ = cfg.value<std::string>(<span class="hl-s">"name"</span>, <span class="hl-s">""</span>);</td></tr>
+<tr><td class="hl-num" data-line="20"></td><td>  } <span class="hl-k">catch</span> (...) {</td></tr>
+<tr><td class="hl-num" data-line="21"></td><td>    <span class="hl-en">ERROR</span>(<span class="hl-s">"error parsing config: {}"</span>, cfg);</td></tr>
+<tr><td class="hl-num" data-line="22"></td><td>    <span class="hl-k">throw</span>;</td></tr>
+<tr><td class="hl-num" data-line="23"></td><td>  }</td></tr>
+<tr><td class="hl-num" data-line="24"></td><td>}</td></tr>
+<tr><td class="hl-num" data-line="25"></td><td></td></tr>
+<tr><td class="hl-num" data-line="26"></td><td><span class="hl-k">namespace</span> mmdeploy::graph {</td></tr>
+<tr><td class="hl-num" data-line="27"></td><td></td></tr>
+<tr><td class="hl-num" data-line="28"></td><td>TaskGraph::~<span class="hl-en">TaskGraph</span>() {</td></tr>
+<tr><td class="hl-num" data-line="29"></td><td>  <span class="hl-k">for</span> (<span class="hl-k">int</span> i = <span class="hl-c">0</span>; i < time_.<span class="hl-en">size</span>(); ++i) {</td></tr>
+<tr><td class="hl-num" data-line="30"></td><td>    <span class="hl-en">INFO</span>(<span class="hl-s">"node {} ({}): {} ms"</span>, i, handle_[i]-><span class="hl-en">name</span>(), <span class="hl-k">static_cast</span><<span class="hl-k">float</span>>(time_[i]) / count_);</td></tr>
+<tr><td class="hl-num" data-line="31"></td><td>  }</td></tr>
+<tr><td class="hl-num" data-line="32"></td><td>}</td></tr>
+<tr><td class="hl-num" data-line="33"></td><td></td></tr>
+<tr><td class="hl-num" data-line="34"></td><td>Result<Value> TaskGraph::<span class="hl-en">Run</span>(Value inputs) {</td></tr>
+<tr><td class="hl-num" data-line="35"></td><td>  Context <span class="hl-en">ctx</span>(<span class="hl-c">this</span>);</td></tr>
+<tr><td class="hl-num" data-line="36"></td><td>  ctx.<span class="hl-en">push</span>(std::<span class="hl-en">move</span>(inputs));</td></tr>
+<tr><td class="hl-num" data-line="37"></td><td>  time_.<span class="hl-en">resize</span>(function_.<span class="hl-en">size</span>());</td></tr>
+<tr><td class="hl-num" data-line="38"></td><td>  <span class="hl-k">for</span> (<span class="hl-k">int</span> i = <span class="hl-c">0</span>; i < function_.<span class="hl-en">size</span>(); ++i) {</td></tr>
+<tr><td class="hl-num" data-line="39"></td><td>    <span class="hl-k">auto</span> t<span class="hl-c">0</span> = std::chrono::high_resolution_clock::<span class="hl-en">now</span>();</td></tr>
+<tr><td class="hl-num" data-line="40"></td><td>    <span class="hl-en">OUTCOME_TRY</span>(function_[i](ctx));</td></tr>
+<tr><td class="hl-num" data-line="41"></td><td>    <span class="hl-k">auto</span> t<span class="hl-c">1</span> = std::chrono::high_resolution_clock::<span class="hl-en">now</span>();</td></tr>
+<tr><td class="hl-num" data-line="42"></td><td>    <span class="hl-k">auto</span> dt = std::chrono::duration<<span class="hl-k">double</span>, std::milli>(t<span class="hl-c">1</span> - t<span class="hl-c">0</span>).<span class="hl-en">count</span>();</td></tr>
+<tr><td class="hl-num" data-line="43"></td><td>  }</td></tr>
+<tr><td class="hl-num" data-line="44"></td><td>  <span class="hl-k">return</span> ctx.<span class="hl-en">pop</span>();</td></tr>
+<tr><td class="hl-num" data-line="45"></td><td>}</td></tr>
+<tr><td class="hl-num" data-line="46"></td><td></td></tr>
+<tr><td class="hl-num" data-line="47"></td><td>std::vector<Result<Value>> TaskGraph::<span class="hl-en">Execute</span>(Span<std::function<Result<Value>()>> tasks) {</td></tr>
+<tr><td class="hl-num" data-line="48"></td><td>#<span class="hl-k">if</span> MMDEPLOY_USE_TASKFLOW</td></tr>
+<tr><td class="hl-num" data-line="49"></td><td>  <span class="hl-k">for</span> (<span class="hl-k">auto</span>& future : futures) {</td></tr>
+<tr><td class="hl-num" data-line="50"></td><td>    Result<Value> ret = <span class="hl-en">Status</span>(eUnknown);</td></tr>
+<tr><td class="hl-num" data-line="51"></td><td>    <span class="hl-k">try</span> {</td></tr>
+<tr><td class="hl-num" data-line="52"></td><td>      ret = *future.<span class="hl-en">get</span>();</td></tr>
+<tr><td class="hl-num" data-line="53"></td><td>    } <span class="hl-k">catch</span> (...) {</td></tr>
+<tr><td class="hl-num" data-line="54"></td><td>      ret = <span class="hl-en">Status</span>(eFail);</td></tr>
+<tr><td class="hl-num" data-line="55"></td><td>    }</td></tr>
+<tr><td class="hl-num" data-line="56"></td><td>    rets.<span class="hl-en">push_back</span>(std::<span class="hl-en">move</span>(ret));</td></tr>
+<tr><td class="hl-num" data-line="57"></td><td>  }</td></tr>
+<tr><td class="hl-num" data-line="58"></td><td>  <span class="hl-k">return</span> rets;</td></tr>
+<tr><td class="hl-num" data-line="59"></td><td>#<span class="hl-k">else</span></td></tr>
+<tr><td class="hl-num" data-line="60"></td><td>  std::vector<Result<Value>> rets;</td></tr>
+<tr><td class="hl-num" data-line="61"></td><td>  <span class="hl-k">for</span> (<span class="hl-k">auto</span>& task : tasks) {</td></tr>
+<tr><td class="hl-num" data-line="62"></td><td>    Result<Value> ret = <span class="hl-en">Status</span>(eUnknown);</td></tr>
+<tr><td class="hl-num" data-line="63"></td><td>    <span class="hl-k">try</span> {</td></tr>
+<tr><td class="hl-num" data-line="64"></td><td>      ret = <span class="hl-en">task</span>();</td></tr>
+<tr><td class="hl-num" data-line="65"></td><td>    } <span class="hl-k">catch</span> (<span class="hl-k">const</span> Exception& e) {</td></tr>
+<tr><td class="hl-num" data-line="66"></td><td>      ret = <span class="hl-en">failure</span>(e.<span class="hl-en">code</span>());</td></tr>
+<tr><td class="hl-num" data-line="67"></td><td>    } <span class="hl-k">catch</span> (...) {</td></tr>
+<tr><td class="hl-num" data-line="68"></td><td>      ret = <span class="hl-en">Status</span>(eFail);</td></tr>
+<tr><td class="hl-num" data-line="69"></td><td>    }</td></tr>
+<tr><td class="hl-num" data-line="70"></td><td>    rets.<span class="hl-en">push_back</span>(std::<span class="hl-en">move</span>(ret));</td></tr>
+<tr><td class="hl-num" data-line="71"></td><td>  }</td></tr>
+<tr><td class="hl-num" data-line="72"></td><td>  <span class="hl-k">return</span> rets;</td></tr>
+<tr><td class="hl-num" data-line="73"></td><td>#<span class="hl-k">endif</span></td></tr>
+<tr><td class="hl-num" data-line="74"></td><td>}</td></tr>
+<tr><td class="hl-num" data-line="75"></td><td></td></tr>
+<tr><td class="hl-num" data-line="76"></td><td>}</td></tr>
+<tr><td class="hl-num" data-line="77"></td><td></td></tr>
+<tr><td class="hl-num" data-line="78"></td><td><span class="hl-k">using</span> string_ref = SYSTEM_ERROR<span class="hl-c">2</span>_NAMESPACE::status_code_domain::string_ref;</td></tr>
+<tr><td class="hl-num" data-line="79"></td><td><span class="hl-k">template</span><> <span class="hl-k">inline</span> <span class="hl-k">void</span> release<GstCaps>(GstCaps** pPtr) { <span class="hl-k">if</span> (pPtr) { <span class="hl-en">gst_caps_unref</span>(*pPtr); *pPtr = <span class="hl-c">NULL</span>; } }</td></tr>
+<tr><td class="hl-num" data-line="80"></td><td></td></tr>
+<tr><td class="hl-num" data-line="81"></td><td><span class="hl-k">template</span> <<span class="hl-k">class</span> ModelType></td></tr>
+<tr><td class="hl-num" data-line="82"></td><td><span class="hl-k">int</span> <span class="hl-en">mmdeploy_text_detector_create_impl</span>(ModelType&& m, <span class="hl-k">const</span> <span class="hl-k">char</span>* device_name, <span class="hl-k">int</span> device_id,</td></tr>
+<tr><td class="hl-num" data-line="83"></td><td>                                       mm_handle_t* handle) {</td></tr>
+<tr><td class="hl-num" data-line="84"></td><td>  <span class="hl-k">try</span> {</td></tr>
+<tr><td class="hl-num" data-line="85"></td><td>    <span class="hl-k">auto</span> value = <span class="hl-en">config_template</span>();</td></tr>
+<tr><td class="hl-num" data-line="86"></td><td>    <span class="hl-k">auto</span> text_detector = std::make_unique<Handle>(device_name, device_id, std::<span class="hl-en">move</span>(value));</td></tr>
+<tr><td class="hl-num" data-line="87"></td><td>    *handle = text_detector.<span class="hl-en">release</span>();</td></tr>
+<tr><td class="hl-num" data-line="88"></td><td>    <span class="hl-k">return</span> MM_SUCCESS;</td></tr>
+<tr><td class="hl-num" data-line="89"></td><td>  } <span class="hl-k">catch</span> (<span class="hl-k">const</span> std::exception& e) {</td></tr>
+<tr><td class="hl-num" data-line="90"></td><td>    <span class="hl-en">ERROR</span>(<span class="hl-s">"exception caught: {}"</span>, e.<span class="hl-en">what</span>());</td></tr>
+<tr><td class="hl-num" data-line="91"></td><td>  } <span class="hl-k">catch</span> (...) {</td></tr>
+<tr><td class="hl-num" data-line="92"></td><td>    <span class="hl-en">ERROR</span>(<span class="hl-s">"unknown exception caught"</span>);</td></tr>
+<tr><td class="hl-num" data-line="93"></td><td>  }</td></tr>
+<tr><td class="hl-num" data-line="94"></td><td>  <span class="hl-k">return</span> MM_E_FAIL;</td></tr>
+<tr><td class="hl-num" data-line="95"></td><td>}</td></tr>
+<tr><td class="hl-num" data-line="96"></td><td></td></tr>
+<tr><td class="hl-num" data-line="97"></td><td>MM_SDK_API <span class="hl-k">void</span> <span class="hl-en">mmdeploy_classifier_destroy</span>(mm_handle_t handle) {</td></tr>
+<tr><td class="hl-num" data-line="98"></td><td>  <span class="hl-k">if</span> (handle != <span class="hl-c">nullptr</span>) {</td></tr>
+<tr><td class="hl-num" data-line="99"></td><td>    <span class="hl-k">auto</span> classifier = <span class="hl-k">static_cast</span><Handle*>(handle);</td></tr>
+<tr><td class="hl-num" data-line="100"></td><td>    <span class="hl-k">delete</span> classifier;</td></tr>
+<tr><td class="hl-num" data-line="101"></td><td>  }</td></tr>
+<tr><td class="hl-num" data-line="102"></td><td>}</td></tr>
+<tr><td class="hl-num" data-line="103"></td><td></td></tr>
+<tr><td class="hl-num" data-line="104"></td><td>bool Region::<span class="hl-en">fastDisjoint</span>(<span class="hl-k">const</span> Box& other) <span class="hl-k">const</span> {</td></tr>
+<tr><td class="hl-num" data-line="105"></td><td>    <span class="hl-k">if</span> (!_bounds.<span class="hl-en">intersects</span>(other))</td></tr>
+<tr><td class="hl-num" data-line="106"></td><td>        <span class="hl-k">return</span> <span class="hl-c">true</span>;</td></tr>
+<tr><td class="hl-num" data-line="107"></td><td>    <span class="hl-cmt">// Not sure</span></td></tr>
+<tr><td class="hl-num" data-line="108"></td><td>    <span class="hl-k">return</span> <span class="hl-c">false</span>;</td></tr>
+<tr><td class="hl-num" data-line="109"></td><td>}</td></tr>
+<tr><td class="hl-num" data-line="110"></td><td></td></tr>
+<tr><td class="hl-num" data-line="111"></td><td><span class="hl-k">class</span> PipelineCreator : <span class="hl-k">public</span> Creator<Node> {</td></tr>
+<tr><td class="hl-num" data-line="112"></td><td> <span class="hl-k">public</span>:</td></tr>
+<tr><td class="hl-num" data-line="113"></td><td>  <span class="hl-k">const</span> <span class="hl-k">char</span>* <span class="hl-en">GetName</span>() <span class="hl-k">const</span> <span class="hl-k">override</span> { <span class="hl-k">return</span> <span class="hl-s">"Pipeline"</span>; }</td></tr>
+<tr><td class="hl-num" data-line="114"></td><td>  <span class="hl-k">int</span> <span class="hl-en">GetVersion</span>() <span class="hl-k">const</span> <span class="hl-k">override</span> { <span class="hl-k">return</span> <span class="hl-c">0</span>; }</td></tr>
+<tr><td class="hl-num" data-line="115"></td><td>  std::unique_ptr<Node> <span class="hl-en">Create</span>(<span class="hl-k">const</span> Value& value) <span class="hl-k">override</span> {</td></tr>
+<tr><td class="hl-num" data-line="116"></td><td>    <span class="hl-k">return</span> std::make_unique<Pipeline>(value);</td></tr>
+<tr><td class="hl-num" data-line="117"></td><td>  }</td></tr>
+<tr><td class="hl-num" data-line="118"></td><td>};</td></tr>
+<tr><td class="hl-num" data-line="119"></td><td></td></tr>
+</tbody>
+</table>

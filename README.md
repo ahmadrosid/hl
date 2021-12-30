@@ -52,6 +52,7 @@ See the result in browser [here](https://play.tailwindcss.com/xFlm0rN1wH).
 
 ## Lexers
 - [x] CSS ( ✅ Done )
+- [ ] CPP ( 🚧 In Progress )
 - [ ] Go ( 🚧 In Progress )
 - [ ] Rust ( 🚧 In Progress )
 - [ ] Java ( 🚧 In Progress )

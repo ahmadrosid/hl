@@ -3,6 +3,7 @@ cargo build -q
 
 array=(
   "rules/css.yml"
+  "rules/cpp.yml"
   "rules/go.yml"
   "rules/java.yml"
   "rules/javascript.yml"

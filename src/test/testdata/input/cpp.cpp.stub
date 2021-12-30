@@ -1,0 +1,118 @@
+/*          Copyright 2021 The Authors. All Rights Reserved.
+==============================================================================*/
+#include "common.h"
+#include "archive/value_archive.h"
+
+// Below are the ops with no builtin_data structure.
+// ok for now, since there is no call implementation either.
+cufftResult CUFFTAPI cufftMakePlanMany64(
+    cufftHandle plan, int rank, long long int *n, long long int *inembed,
+    long long int batch, size_t *workSize) {
+  if (!func_ptr) return GetSymbolNotFoundError();
+  return func_ptr(plan, rank, n, odist, type, batch, workSize);
+}
+
+mmdeploy::graph::BaseNode::BaseNode(const mmdeploy::Value& cfg) {
+  try {
+    from_value(cfg["input"], inputs_);
+    from_value(cfg["output"], outputs_);
+    name_ = cfg.value<std::string>("name", "");
+  } catch (...) {
+    ERROR("error parsing config: {}", cfg);
+    throw;
+  }
+}
+
+namespace mmdeploy::graph {
+
+TaskGraph::~TaskGraph() {
+  for (int i = 0; i < time_.size(); ++i) {
+    INFO("node {} ({}): {} ms", i, handle_[i]->name(), static_cast<float>(time_[i]) / count_);
+  }
+}
+
+Result<Value> TaskGraph::Run(Value inputs) {
+  Context ctx(this);
+  ctx.push(std::move(inputs));
+  time_.resize(function_.size());
+  for (int i = 0; i < function_.size(); ++i) {
+    auto t0 = std::chrono::high_resolution_clock::now();
+    OUTCOME_TRY(function_[i](ctx));
+    auto t1 = std::chrono::high_resolution_clock::now();
+    auto dt = std::chrono::duration<double, std::milli>(t1 - t0).count();
+  }
+  return ctx.pop();
+}
+
+std::vector<Result<Value>> TaskGraph::Execute(Span<std::function<Result<Value>()>> tasks) {
+#if MMDEPLOY_USE_TASKFLOW
+  for (auto& future : futures) {
+    Result<Value> ret = Status(eUnknown);
+    try {
+      ret = *future.get();
+    } catch (...) {
+      ret = Status(eFail);
+    }
+    rets.push_back(std::move(ret));
+  }
+  return rets;
+#else
+  std::vector<Result<Value>> rets;
+  for (auto& task : tasks) {
+    Result<Value> ret = Status(eUnknown);
+    try {
+      ret = task();
+    } catch (const Exception& e) {
+      ret = failure(e.code());
+    } catch (...) {
+      ret = Status(eFail);
+    }
+    rets.push_back(std::move(ret));
+  }
+  return rets;
+#endif
+}
+
+}
+
+using string_ref = SYSTEM_ERROR2_NAMESPACE::status_code_domain::string_ref;
+template<> inline void release<GstCaps>(GstCaps** pPtr) { if (pPtr) { gst_caps_unref(*pPtr); *pPtr = NULL; } }
+
+template <class ModelType>
+int mmdeploy_text_detector_create_impl(ModelType&& m, const char* device_name, int device_id,
+                                       mm_handle_t* handle) {
+  try {
+    auto value = config_template();
+    auto text_detector = std::make_unique<Handle>(device_name, device_id, std::move(value));
+    *handle = text_detector.release();
+    return MM_SUCCESS;
+  } catch (const std::exception& e) {
+    ERROR("exception caught: {}", e.what());
+  } catch (...) {
+    ERROR("unknown exception caught");
+  }
+  return MM_E_FAIL;
+}
+
+MM_SDK_API void mmdeploy_classifier_destroy(mm_handle_t handle) {
+  if (handle != nullptr) {
+    auto classifier = static_cast<Handle*>(handle);
+    delete classifier;
+  }
+}
+
+bool Region::fastDisjoint(const Box& other) const {
+    if (!_bounds.intersects(other))
+        return true;
+    // Not sure
+    return false;
+}
+
+class PipelineCreator : public Creator<Node> {
+ public:
+  const char* GetName() const override { return "Pipeline"; }
+  int GetVersion() const override { return 0; }
+  std::unique_ptr<Node> Create(const Value& value) override {
+    return std::make_unique<Pipeline>(value);
+  }
+};

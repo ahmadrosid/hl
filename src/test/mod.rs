@@ -1,4 +1,4 @@
-use crate::lexers::{css, go, java, javascript, rust, typescript};
+use crate::lexers::{css, cpp, go, java, javascript, rust, typescript};
 use std::fs;
 
 fn read_input(path: &str) -> Vec<char> {
@@ -16,6 +16,14 @@ fn test_css() {
     let input = read_input("src/test/testdata/input/css.css.stub");
     let expected = read_file("src/test/testdata/output/css.html.stub");
     let actual = css::render::render_html(input);
+    assert_eq!(expected, actual);
+}
+
+#[test]
+fn test_cpp() {
+    let input = read_input("src/test/testdata/input/cpp.cpp.stub");
+    let expected = read_file("src/test/testdata/output/cpp.html.stub");
+    let actual = cpp::render::render_html(input);
     assert_eq!(expected, actual);
 }
 
