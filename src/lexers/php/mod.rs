@@ -142,6 +142,9 @@ impl Lexer {
                                 keyword_token
                             },
                             Err(_err) => {
+                                if prev_pos != 0 && self.input[prev_pos-1] == '>' {
+                                    return token::Token::ENTITY(identifier)
+                                }
                                 if self.ch == '(' {
                                     return token::Token::ENTITY(identifier)
                                 }

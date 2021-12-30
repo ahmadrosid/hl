@@ -1,17 +1,76 @@
 <?php
+
+namespace App;
+
+use Countable;
+
 /**
- * @copyright Copyright (c) 2016, Developer Team.
+ * @Copyright (c) 2021, Developer Team.
  *
- * @license AGPL-3.0
  * You should have received a copy of the GNU Affero General Public License, version 3,
  * along with this program. If not, see <http://www.gnu.org/licenses/>
- *
  */
 require_once __DIR__ . '/lib/versioncheck.php';
+
+class Model1 extends Model {
+    public $table = 'one';
+    public $timestamps = false;
+    protected $guarded = [];
+    private $accept = true;
+
+    protected static function boot()
+    {
+        static::bootTraits();
+    }
+
+    protected static function bootTraits()
+    {
+        $class = static::class;
+
+        foreach (class_uses_recursive($class) as $trait) {
+            $method = 'boot'.class_basename($trait);
+
+            if (method_exists($class, $method = 'initialize'.class_basename($trait))) {
+                static::$traitInitializers[$class][] = $method;
+
+                static::$traitInitializers[$class] = array_unique(
+                    static::$traitInitializers[$class]
+                );
+            }
+        }
+    }
+
+    protected function initializeTraits()
+    {
+        foreach (static::$traitInitializers[static::class] as $method) {
+            $this->{$method}();
+        }
+    }
+
+    private function twos() {
+        return $this->hasMany(Model2::class, 'one_id');
+    }
+
+    public function fours() {
+        return $this->hasMany(Model4::class, 'one_id');
+    }
+}
+
+interface Enumerable extends Countable {
+    public static function times($number, callable $callback = null);
+}
 
 try {
 	require_once __DIR__ . '/lib/base.php';
 
+	switch ($app) {
+		case 'core':
+			$file = OC::$SERVERROOT .'/'. $file;
+			break;
+		default:
+			$file = OC_App::getAppPath($app) .'/'. $parts[1];
+			break;
+	}
 	OC::handleRequest();
 } catch (Exception $ex) {
 	\OC::$server->getLogger()->logException($ex, ['app' => 'index']);
