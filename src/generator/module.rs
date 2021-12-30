@@ -360,7 +360,7 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
 
 pub fn generate_module(h: &Hash) -> String {
     let mut module = StringBuilder::new();
-    module.push_strln("// ---- DON'T EDIT THIS IS AUTO GENERATED CODE ---- //");
+    module.push_strln("// ---- DON'T EDIT! THIS IS AUTO GENERATED CODE ---- //");
     module.push_strln("pub mod token;");
     module.push_strln("pub mod render;\n");
 

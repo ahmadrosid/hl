@@ -6,7 +6,7 @@ use yaml_rust::yaml::Hash;
 
 pub fn generate_token(h: &Hash) -> String {
     let mut token = StringBuilder::new();
-    token.push_strln("// ---- DON'T EDIT THIS IS AUTO GENERATED CODE ---- //");
+    token.push_strln("// ---- DON'T EDIT! THIS IS AUTO GENERATED CODE ---- //");
     token.push_strln("#[derive(PartialEq)]");
     token.push_strln("#[derive(Debug)]");
     token.push_strln("pub enum Token {");

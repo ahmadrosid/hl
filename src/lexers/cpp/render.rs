@@ -1,4 +1,4 @@
-// ---- DON'T EDIT THIS IS AUTO GENERATED CODE ---- //
+// ---- DON'T EDIT! THIS IS AUTO GENERATED CODE ---- //
 use crate::lexers::cpp::Lexer;
 use crate::lexers::cpp::token;
 

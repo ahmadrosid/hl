@@ -6,7 +6,7 @@ use yaml_rust::yaml::Hash;
 
 pub fn generate_render_html(h: &Hash, name: String) -> String {
     let mut html = StringBuilder::new();
-    html.push_strln("// ---- DON'T EDIT THIS IS AUTO GENERATED CODE ---- //");
+    html.push_strln("// ---- DON'T EDIT! THIS IS AUTO GENERATED CODE ---- //");
     html.push_strln(&format!("use crate::lexers::{}::Lexer;", name));
     html.push_strln(&format!("use crate::lexers::{}::token;\n", name));
 
