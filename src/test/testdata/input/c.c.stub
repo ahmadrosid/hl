@@ -9,10 +9,8 @@
 static int jz4730_mmc_1bit_pins[] = { 0x27, 0x26, 0x22, };
 vector signed short v_dcOffset;
 
-#define ALTIVEC_TRANSPOSE_8x8_SHORT() \
-    do {
-        tempC1 = vec_mergeh (src_b, src_f);                       \
-    } while (0)
+#define SLOW_DOWN_IO	do { } while (0)
+register long _arg1 asm("rdi") = (long)(arg1);
 
 #ifdef _H2INC
   #ifndef USHORT
@@ -29,10 +27,16 @@ typedef struct _COMPUTE_MEMORY
     ULONG  ulClock;
     ATOM_S_MPLL_FB_DIVIDER   ulFbDiv;         //Output:UPPER_WORD=FB_DIV_INTEGER,  LOWER_WORD=FB_DIV_FRAC shl (16-FB_FRACTION_BITS)
   };
-}COMPUTE_MEMORY;
+} COMPUTE_MEMORY;
+
+static inline unsigned long virt_to_phys(volatile void *address)
+{
+	return (unsigned long)address - IDENT_ADDR;
+}
 
 static void destroy_cmd(void *ptr)
 {
+    asm volatile("vpxor %ymm3,%ymm3,%ymm3");	/* Zero temp */
     struct mp_cmd *cmd = ptr;
     for (int n = 0; n < cmd->nargs; n++) {
         if (cmd->args[n].type)
@@ -66,11 +70,18 @@ static bool find_cmd(struct mp_log *log, struct mp_cmd *cmd, bstr name)
 
 static const struct m_option *get_arg_type(const struct mp_cmd_def *cmd, int i)
 {
+    switch (id) {
+    case V4L2_CID_MPEG_AUDIO_SAMPLING_FREQ:
+        return mpeg_audio_sampling_freq;
+    case V4L2_CID_MPEG_AUDIO_ENCODING:
+        return mpeg_audio_encoding;
+    default:
+        return NULL;
+    }
     if (is_vararg(cmd, i)) {
         // The last arg in a vararg command sets all vararg types.
         for (int n = MPMIN(i, MP_CMD_DEF_MAX_ARGS - 1); n >= 0; n--) {
             if (cmd->args[n].type) {
-                opt = &cmd->args[n];
                 break;
             }
         }
