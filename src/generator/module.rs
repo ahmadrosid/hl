@@ -18,6 +18,7 @@ const ACCEPT_SUFFIX_DIGIT: &str = "ACCEPT_SUFFIX_DIGIT";
 const ACCEPT_ENTITY_TAG_PREFIX: &str = "ACCEPT_ENTITY_TAG_PREFIX";
 const ENTITY_TAG_PREFIX_CHAR: &str = "ENTITY_TAG_PREFIX_CHAR";
 const ACCEPT_PREFIX_VAR: &str = "ACCEPT_PREFIX_VAR";
+const ENTITY_CLOSE_TAG_SUFFIX_CHAR: &str = "ENTITY_CLOSE_TAG_SUFFIX_CHAR";
 
 fn write_struct_lexer(module: &mut StringBuilder) {
     module.push_strln("pub struct Lexer {");
@@ -148,6 +149,21 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
             module.push_tabln(5, "self.read_char();");
             module.push_tabln(5, "self.read_char();");
             module.push_tabln(5, "entity.append(&mut read_identifier(self));");
+            module.push_tabln(5, "return token::Token::ENTITYTAG(entity);");
+            module.push_tabln(4, "} else {");
+            module.push_tabln(5, "tok = token::Token::CH(self.ch);");
+            module.push_tabln(4, "}");
+            module.push_tabln(3, "}");
+        }
+    }
+
+    if let Some(prefix) = get_condition(h).get(&Yaml::String(ENTITY_TAG_PREFIX_CHAR.to_string())) {
+        if let Some(ch) = get_condition(h).get(&Yaml::String(ENTITY_CLOSE_TAG_SUFFIX_CHAR.to_string())) {
+            module.push_tabln(3, &format!("'{}' => {{", prefix.as_str().unwrap()));
+            module.push_tabln(4, &format!("if self.input[self.position+1] == '{}' {{", ch.as_str().unwrap()));
+            module.push_tabln(5, &format!("let entity = vec!['{}','{}'];", prefix.as_str().unwrap(), ch.as_str().unwrap()));
+            module.push_tabln(5, "self.read_char();");
+            module.push_tabln(5, "self.read_char();");
             module.push_tabln(5, "return token::Token::ENTITYTAG(entity);");
             module.push_tabln(4, "} else {");
             module.push_tabln(5, "tok = token::Token::CH(self.ch);");

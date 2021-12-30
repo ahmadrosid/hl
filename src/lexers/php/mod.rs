@@ -112,6 +112,16 @@ impl Lexer {
                     tok = token::Token::CH(self.ch);
                 }
             }
+            '?' => {
+                if self.input[self.position+1] == '>' {
+                    let entity = vec!['?','>'];
+                    self.read_char();
+                    self.read_char();
+                    return token::Token::ENTITYTAG(entity);
+                } else {
+                    tok = token::Token::CH(self.ch);
+                }
+            }
             '$' => {
                 if is_letter(self.input[self.position+1]) {
                     self.read_char();

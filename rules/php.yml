@@ -80,4 +80,5 @@ condition:
   BREAK_ENTITY_TAG_SUFFIX: "!is_digit(self.ch) && !is_letter(self.ch)"
   ACCEPT_ENTITY_TAG_PREFIX: "<"
   ENTITY_TAG_PREFIX_CHAR: "?"
+  ENTITY_CLOSE_TAG_SUFFIX_CHAR: ">"
   ACCEPT_PREFIX_VAR: "$"
