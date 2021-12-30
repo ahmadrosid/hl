@@ -26,7 +26,8 @@ pub fn generate_render_html(h: &Hash, name: String) -> String {
         2,
         "\"<td class=\\\"hl-num\\\" data-line=\\\"{}\\\"></td><td>\",",
     );
-    html.push_tabln(2, "line\n\t));\n");
+    html.push_tabln(2, "line");
+    html.push_tabln(1, "));\n");
 
     html.push_tabln(1, "loop {");
     html.push_tabln(2, "let token = l.next_token();");
