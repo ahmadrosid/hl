@@ -18,6 +18,11 @@
     content: attr(data-line);
 }
 
+/* Markup Heading */
+.hl-mh {
+    color: #0550ae
+}
+
 /* String */
 .hl-s {
     color: #0a3069
