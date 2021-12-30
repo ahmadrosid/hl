@@ -57,6 +57,8 @@ keyword:
   VOLATILE: "volatile"
   WHILE: "while"
   THROWS: "throws"
+  FINALLY: "finally"
+  LONG: "long"
 
 condition:
   ACCEPT_STRING_ONE_QUOTE: true
