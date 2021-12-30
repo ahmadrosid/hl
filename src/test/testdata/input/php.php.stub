@@ -109,3 +109,5 @@ try {
 	}
 	OC_Template::printExceptionErrorPage($ex, 500);
 }
+
+?>
