@@ -58,6 +58,7 @@ pub fn parse(file_path: &str) -> String {
     let docs = YamlLoader::load_from_str(&content).unwrap();
     let required_key = vec![
         "constant",
+        "single_constant",
         "keyword",
         "single_keyword",
         "skip",

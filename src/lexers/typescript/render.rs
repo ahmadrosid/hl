@@ -52,7 +52,16 @@ pub fn render_html(input: Vec<char>) -> String {
 				html.push_str(&format!("<span class=\"hl-k\">{}</span>", value.iter().collect::<String>()));
 			}
 			token::Token::COMMENT(value) => {
-				let lines = value.iter().collect::<String>();
+				let mut lines = String::new();
+				for ch in value {
+					if ch == '<' {
+						lines.push_str("&lt;");
+					} else if ch == '>' {
+						lines.push_str("&gt;");
+					} else {
+						lines.push(ch);
+					}
+				}
 				let split = lines.split("\n");
 				let split_len = split.clone().collect::<Vec<&str>>().len();
 				let mut index = 0;

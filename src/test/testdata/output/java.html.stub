@@ -44,11 +44,11 @@
 <tr><td class="hl-num" data-line="42"></td><td>}</td></tr>
 <tr><td class="hl-num" data-line="43"></td><td></td></tr>
 <tr><td class="hl-num" data-line="44"></td><td><span class="hl-cmt">/*</span></td></tr>
-<tr><td class="hl-num" data-line="45"></td><td><span class="hl-cmt"> * Copyright (C) Hans-Christoph Steiner 2016 <hans@eds.org></span></td></tr>
+<tr><td class="hl-num" data-line="45"></td><td><span class="hl-cmt"> * Copyright (C) Hans-Christoph Steiner 2016 &lt;hans@eds.org&gt;</span></td></tr>
 <tr><td class="hl-num" data-line="46"></td><td><span class="hl-cmt"> * App.java is part of NewPipe.</span></td></tr>
 <tr><td class="hl-num" data-line="47"></td><td><span class="hl-cmt"> *</span></td></tr>
 <tr><td class="hl-num" data-line="48"></td><td><span class="hl-cmt"> * You should have received a copy of the GNU General Public License</span></td></tr>
-<tr><td class="hl-num" data-line="49"></td><td><span class="hl-cmt"> * along with NewPipe.  If not, see <http://www.gnu.org/licenses/>.</span></td></tr>
+<tr><td class="hl-num" data-line="49"></td><td><span class="hl-cmt"> * along with NewPipe.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span></td></tr>
 <tr><td class="hl-num" data-line="50"></td><td><span class="hl-cmt"> */</span></td></tr>
 <tr><td class="hl-num" data-line="51"></td><td><span class="hl-k">public</span> <span class="hl-k">class</span> App <span class="hl-k">extends</span> MultiDexApplication {</td></tr>
 <tr><td class="hl-num" data-line="52"></td><td>    <span class="hl-k">public</span> <span class="hl-k">static</span> <span class="hl-k">final</span> String PACKAGE_NAME = BuildConfig.APPLICATION_ID;</td></tr>

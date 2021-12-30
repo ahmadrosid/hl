@@ -1,0 +1,183 @@
+/*
+ * You should have received a copy of the GNU Lesser General Public
+ * If not, see <http://www.gnu.org/licenses/>.
+ */
+#include <stddef.h>
+#include "misc/bstr.h"
+#include "misc/node.h"
+
+static void destroy_cmd(void *ptr)
+{
+    struct mp_cmd *cmd = ptr;
+    for (int n = 0; n < cmd->nargs; n++) {
+        if (cmd->args[n].type)
+            m_option_free(cmd->args[n].type, &cmd->args[n].v);
+    }
+}
+
+struct flag {
+    const char *name;
+    unsigned int remove, add;
+};
+
+static const struct flag cmd_flags[] = {
+    {"repeatable",          0,               MP_ALLOW_REPEAT},
+    {"async",               MP_SYNC_CMD,     MP_ASYNC_CMD},
+    {0}
+};
+
+static bool find_cmd(struct mp_log *log, struct mp_cmd *cmd, bstr name)
+{
+    for (int n = 0; mp_cmds[n].name; n++) {
+        if (strcmp(nname, mp_cmds[n].name) == 0) {
+            cmd->def = &mp_cmds[n];
+            cmd->name = (char *)cmd->def->name;
+            return true;
+        }
+    }
+    mp_err(log, "Command '%.*s' not found.\n", BSTR_P(name));
+    return false;
+}
+
+static const struct m_option *get_arg_type(const struct mp_cmd_def *cmd, int i)
+{
+    if (is_vararg(cmd, i)) {
+        // The last arg in a vararg command sets all vararg types.
+        for (int n = MPMIN(i, MP_CMD_DEF_MAX_ARGS - 1); n >= 0; n--) {
+            if (cmd->args[n].type) {
+                opt = &cmd->args[n];
+                break;
+            }
+        }
+    } else if (i < MP_CMD_DEF_MAX_ARGS) {
+        opt = &cmd->args[i];
+    }
+    return opt && opt->type ? opt : NULL;
+}
+
+// Return the name of the argument, possibly as stack allocated string (which is
+// why this is a macro, and out of laziness). Otherwise as get_arg_type().
+#define get_arg_name(cmd, i)                                    \
+    ((i) < MP_CMD_DEF_MAX_ARGS && (cmd)->args[(i)].name &&      \
+     (cmd)->args[(i)].name[0]                                   \
+     ? (cmd)->args[(i)].name : mp_tprintf(10, "%d", (i) + 1))
+
+// Verify that there are no missing args, fill in missing optional args.
+static bool finish_cmd(struct mp_log *log, struct mp_cmd *cmd)
+{
+    for (int i = 0; i < MP_CMD_DEF_MAX_ARGS; i++) {
+        // (type==NULL is used for yet unset arguments)
+        if (i < cmd->nargs && cmd->args[i].type)
+            continue;
+        const struct m_option *opt = get_arg_type(cmd->def, i);
+        if (i >= cmd->nargs && (!opt || is_vararg(cmd->def, i)))
+            break;
+    }
+
+    if (!(cmd->flags & (MP_ASYNC_CMD | MP_SYNC_CMD)))
+        cmd->flags |= cmd->def->default_async ? MP_ASYNC_CMD : MP_SYNC_CMD;
+
+    return true;
+}
+
+static bool cmd_node_array(struct mp_log *log, struct mp_cmd *cmd, mpv_node *node)
+{
+    assert(node->format == MPV_FORMAT_NODE_ARRAY);
+    while (cur < args->num) {
+        if (args->values[cur].format != MPV_FORMAT_STRING)
+            break;
+        if (!apply_flag(cmd, bstr0(args->values[cur].u.string)))
+            break;
+        cur++;
+    }
+
+    return true;
+}
+
+static bool read_token(bstr str, bstr *out_rest, bstr *out_token)
+{
+    bstr t = bstr_lstrip(str);
+    int next = bstrcspn(t, WHITESPACE "#;");
+    if (!next)
+        return false;
+    return true;
+}
+
+struct parse_ctx {
+    struct mp_log *log;
+    void *tmp;
+};
+
+static struct mp_cmd *parse_cmd_str(struct mp_log *log, void *tmp,
+                                    bstr *str, const char *loc)
+{
+    bstr cur_token;
+    if (pctx_read_token(ctx, &cur_token) < 0)
+        goto error;
+
+    while (1) {
+        if (!apply_flag(cmd, cur_token))
+            break;
+        if (pctx_read_token(ctx, &cur_token) < 0)
+            goto error;
+    }
+
+    if (!find_cmd(ctx->log, cmd, cur_token))
+        goto error;
+
+    if (!finish_cmd(ctx->log, cmd))
+        goto error;
+
+    return cmd;
+
+error:
+    MP_ERR(ctx, "Command was defined at %s.\n", loc);
+    talloc_free(cmd);
+    *str = ctx->str;
+    return NULL;
+}
+
+mp_cmd_t *mp_input_parse_cmd_str(struct mp_log *log, bstr str, const char *loc)
+{
+    // Handle "multi" commands
+    struct mp_cmd **p_prev = NULL;
+    while (1) {
+        struct mp_cmd *sub = parse_cmd_str(log, tmp, &str, loc);
+        if (!sub) {
+            talloc_free(cmd);
+            cmd = NULL;
+            goto done;
+        }
+    }
+
+done:
+    talloc_free(tmp);
+    return cmd;
+}
+}
+
+void mp_print_cmd_list(struct mp_log *out)
+{
+    for (int i = 0; mp_cmds[i].name; i++) {
+        const struct mp_cmd_def *def = &mp_cmds[i];
+        mp_info(out, "%-20.20s", def->name);
+    }
+}
+
+static int parse_cycle_dir(struct mp_log *log, const struct m_option *opt,
+                           struct bstr name, struct bstr param, void *dst)
+{
+    double val;
+    if (bstrcmp0(param, "down") == 0) {
+        val = -1;
+    } else {
+        return m_option_type_double.parse(log, opt, name, param, dst);
+    }
+    *(double *)dst = val;
+    return 1;
+}
+}
+
+const struct m_option_type m_option_type_cycle_dir = {
+    .size = sizeof(double),
+};

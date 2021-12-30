@@ -1,0 +1,45 @@
+slash_comment: true
+slash_star_comment: true
+
+constant:
+  TRUE: 'true'
+  FALSE: 'false'
+  NULL: "NULL"
+  SizeT: "size_t"
+
+single_constant:
+  - "<"
+  - ">"
+
+entity_suffix:
+  ENTITY_LBRACE: '('
+
+keyword:
+  const: "const"
+  char: "char"
+  catch: "catch"
+  continue: "continue"
+  delete: "delete"
+  double: "double"
+  else: "else"
+  float: "float"
+  goto: "goto"
+  for: "for"
+  if: "if"
+  long: "long"
+  return: "return"
+  int: "int"
+  include: "include"
+  unsigned: "unsigned"
+  break: "break"
+  void: "void"
+  static: "static"
+  struct: "struct"
+  sizeof: "sizeof"
+  try: "try"
+  throw: "throw"
+  while: "while"
+
+condition:
+  ACCEPT_STRING_ONE_QUOTE: true
+  ACCEPT_STRING_DOUBLE_QUOTE: true

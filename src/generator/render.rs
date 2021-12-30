@@ -47,33 +47,7 @@ pub fn generate_render_html(h: &Hash, name: String) -> String {
     write_token_keyword(&mut html);
 
     if slash_comment_enable(h) {
-        html.push_tabln(3, "token::Token::COMMENT(value) => {");
-        html.push_tabln(4, "let lines = value.iter().collect::<String>();");
-        html.push_tabln(4, "let split = lines.split(\"\\n\");");
-        html.push_tabln(
-            4,
-            "let split_len = split.clone().collect::<Vec<&str>>().len();",
-        );
-        html.push_tabln(4, "let mut index = 0;");
-        html.push_tabln(4, "for val in split {");
-        html.push_tabln(
-            5,
-            "html.push_str(&format!(\"<span class=\\\"hl-cmt\\\">{}</span>\", val));",
-        );
-        html.push_tabln(5, "index = index + 1;");
-        html.push_tabln(5, "if index != split_len {");
-        html.push_tabln(6, "line = line + 1;");
-        html.push_tabln(6, "html.push_str(\"</td></tr>\\n\");");
-        html.push_tabln(6, "html.push_str(&format!(");
-        html.push_tabln(
-            7,
-            "\"<tr><td class=\\\"hl-num\\\" data-line=\\\"{}\\\"></td><td>\",",
-        );
-        html.push_tabln(7, "line");
-        html.push_tabln(6, "));");
-        html.push_tabln(5, "}");
-        html.push_tabln(4, "}");
-        html.push_tabln(3, "}");
+        write_token_comment(&mut html);
     }
 
     for (k, _v) in get_skip(h) {
@@ -160,6 +134,45 @@ pub fn generate_render_html(h: &Hash, name: String) -> String {
     html.push_tabln(1, "html");
     html.push_strln("}");
     html.to_string()
+}
+
+fn write_token_comment(html: &mut StringBuilder) {
+    html.push_tabln(3, "token::Token::COMMENT(value) => {");
+    html.push_tabln(4, "let mut lines = String::new();");
+    html.push_tabln(4, "for ch in value {");
+    html.push_tabln(5, "if ch == '<' {");
+    html.push_tabln(6, "lines.push_str(\"&lt;\");");
+    html.push_tabln(5, "} else if ch == '>' {");
+    html.push_tabln(6, "lines.push_str(\"&gt;\");");
+    html.push_tabln(5, "} else {");
+    html.push_tabln(6, "lines.push(ch);");
+    html.push_tabln(5, "}");
+    html.push_tabln(4, "}");
+    html.push_tabln(4, "let split = lines.split(\"\\n\");");
+    html.push_tabln(
+        4,
+        "let split_len = split.clone().collect::<Vec<&str>>().len();",
+    );
+    html.push_tabln(4, "let mut index = 0;");
+    html.push_tabln(4, "for val in split {");
+    html.push_tabln(
+        5,
+        "html.push_str(&format!(\"<span class=\\\"hl-cmt\\\">{}</span>\", val));",
+    );
+    html.push_tabln(5, "index = index + 1;");
+    html.push_tabln(5, "if index != split_len {");
+    html.push_tabln(6, "line = line + 1;");
+    html.push_tabln(6, "html.push_str(\"</td></tr>\\n\");");
+    html.push_tabln(6, "html.push_str(&format!(");
+    html.push_tabln(
+        7,
+        "\"<tr><td class=\\\"hl-num\\\" data-line=\\\"{}\\\"></td><td>\",",
+    );
+    html.push_tabln(7, "line");
+    html.push_tabln(6, "));");
+    html.push_tabln(5, "}");
+    html.push_tabln(4, "}");
+    html.push_tabln(3, "}");
 }
 
 fn write_token_identifier(html: &mut StringBuilder) {

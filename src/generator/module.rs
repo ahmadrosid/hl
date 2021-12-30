@@ -147,6 +147,16 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
         }
     }
 
+    if let Some(val) = h.get(&Yaml::String("single_constant".to_string())) {
+        if let Some(list) = val.as_vec() {
+            for v in list {
+                module.push_tabln(3, &format!("'{}' => {{", v.as_str().unwrap()));
+                module.push_tabln(4, "tok = token::Token::STRING(vec![self.ch]);");
+                module.push_tabln(3, "}");
+            }
+        }
+    }
+
     if let Some(_) = get_condition(h).get(&Yaml::String(ACCEPT_PREFIX_KEYWORD.to_string())) {
         if let Some(v) = get_condition(h).get(&Yaml::String(PREFIX_KEYWORD_CHAR.to_string())) {
             module.push_tabln(3, &format!("'{}' => {{", v.as_str().unwrap()));

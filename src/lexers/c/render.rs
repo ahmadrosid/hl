@@ -1,6 +1,6 @@
 // ---- DON'T EDIT THIS IS AUTO GENERATED CODE ---- //
-use crate::lexers::go::Lexer;
-use crate::lexers::go::token;
+use crate::lexers::c::Lexer;
+use crate::lexers::c::token;
 
 pub fn render_html(input: Vec<char>) -> String {
 	let mut l = Lexer::new(input);
@@ -78,43 +78,16 @@ pub fn render_html(input: Vec<char>) -> String {
 					}
 				}
 			}
-			token::Token::ARGS(value) => {
-				html.push_str(&format!("<span class=\"hl-c\">{}</span>", value.iter().collect::<String>()));
-			}
 			token::Token::TRUE(value) => {
 				html.push_str(&format!("<span class=\"hl-c\">{}</span>", value.iter().collect::<String>()));
 			}
 			token::Token::FALSE(value) => {
 				html.push_str(&format!("<span class=\"hl-c\">{}</span>", value.iter().collect::<String>()));
 			}
-			token::Token::NIL(value) => {
+			token::Token::NULL(value) => {
 				html.push_str(&format!("<span class=\"hl-c\">{}</span>", value.iter().collect::<String>()));
 			}
-			token::Token::BOOL(value) => {
-				html.push_str(&format!("<span class=\"hl-c\">{}</span>", value.iter().collect::<String>()));
-			}
-			token::Token::CINT(value) => {
-				html.push_str(&format!("<span class=\"hl-c\">{}</span>", value.iter().collect::<String>()));
-			}
-			token::Token::UINT(value) => {
-				html.push_str(&format!("<span class=\"hl-c\">{}</span>", value.iter().collect::<String>()));
-			}
-			token::Token::BYTE(value) => {
-				html.push_str(&format!("<span class=\"hl-c\">{}</span>", value.iter().collect::<String>()));
-			}
-			token::Token::CSTRING(value) => {
-				html.push_str(&format!("<span class=\"hl-c\">{}</span>", value.iter().collect::<String>()));
-			}
-			token::Token::ERROR(value) => {
-				html.push_str(&format!("<span class=\"hl-c\">{}</span>", value.iter().collect::<String>()));
-			}
-			token::Token::RUNE(value) => {
-				html.push_str(&format!("<span class=\"hl-c\">{}</span>", value.iter().collect::<String>()));
-			}
-			token::Token::UINTPTR(value) => {
-				html.push_str(&format!("<span class=\"hl-c\">{}</span>", value.iter().collect::<String>()));
-			}
-			token::Token::FLOAT(value) => {
+			token::Token::SizeT(value) => {
 				html.push_str(&format!("<span class=\"hl-c\">{}</span>", value.iter().collect::<String>()));
 			}
 			token::Token::ENDL(_) => {

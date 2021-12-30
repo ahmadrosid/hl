@@ -2,6 +2,7 @@
 cargo build -q
 
 array=(
+  "rules/c.yml"
   "rules/css.yml"
   "rules/cpp.yml"
   "rules/go.yml"
