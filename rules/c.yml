@@ -34,6 +34,7 @@ keyword:
   for: "for"
   if: "if"
   ifdef: "ifdef"
+  ifndef: "ifndef"
   endif: "endif"
   long: "long"
   return: "return"
