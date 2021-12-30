@@ -22,6 +22,8 @@ keyword:
   INT: 'int'
   INTERFACE: 'interface'
   CHAR: 'char'
+  CASE: 'case'
+  DEFAULT: 'default'
   SHORT: 'short'
   FOR: 'for'
   PACKAGE: 'package'
@@ -47,10 +49,12 @@ keyword:
   NATIVE: "native"
   HASHMAP: 'HashMap'
   LINKEDHASHSET: 'LinkedHashSet'
+  SWITCH: 'switch'
   SYNCHRONIZED: 'synchronized'
   TRY: "try"
   THROW: "throw"
   CATCH: "catch"
+  VOLATILE: "volatile"
   WHILE: "while"
   THROWS: "throws"
 

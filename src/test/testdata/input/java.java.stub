@@ -72,6 +72,7 @@ public abstract class App extends MultiDexApplication {
     final static float MAX_VELOCITY = 14f;
     private transient MetricRegistry metrics;
     static native long jni_YGConfigNewJNI();
+    private volatile Settings settings;
 
     @NonNull
     public static App getApp() {
@@ -87,6 +88,17 @@ public abstract class App extends MultiDexApplication {
     private void readObject(ObjectInputStream in) throws IOException) {
         in.defaultReadObject();
         handleOperTimecostHistogramMap = new HashMap<>();
+        switch (unit) {
+          case POINT:
+          case UNDEFINED:
+            setStyleMinWidth(mTempYogaValue.value);
+            break;
+          case PERCENT:
+            setStyleMinWidthPercent(mTempYogaValue.value);
+            break;
+          default:
+            throw new IOException();
+        }
     }
 
     public String toString() {
