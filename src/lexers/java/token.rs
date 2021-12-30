@@ -31,6 +31,7 @@ pub fn get_keyword_token(identifier: &Vec<char>) -> Result<Token, String> {
         "String" => Ok(Token::CSTRING(identifier.to_vec())),
         "abstract" => Ok(Token::KEYWORD(identifier.to_vec())),
         "byte" => Ok(Token::KEYWORD(identifier.to_vec())),
+        "break" => Ok(Token::KEYWORD(identifier.to_vec())),
         "class" => Ok(Token::KEYWORD(identifier.to_vec())),
         "double" => Ok(Token::KEYWORD(identifier.to_vec())),
         "float" => Ok(Token::KEYWORD(identifier.to_vec())),
@@ -75,6 +76,7 @@ pub fn get_keyword_token(identifier: &Vec<char>) -> Result<Token, String> {
         "throws" => Ok(Token::KEYWORD(identifier.to_vec())),
         "finally" => Ok(Token::KEYWORD(identifier.to_vec())),
         "long" => Ok(Token::KEYWORD(identifier.to_vec())),
+        "do" => Ok(Token::KEYWORD(identifier.to_vec())),
         _ => Err(String::from("Not a keyword"))
     }
 }

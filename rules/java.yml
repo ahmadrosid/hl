@@ -15,6 +15,7 @@ entity_suffix:
 keyword:
   ABSTRACT: 'abstract'
   BYTE: 'byte'
+  BREAK: 'break'
   CLASS: 'class'
   DOUBLE: 'double'
   FLOAT: 'float'
@@ -59,6 +60,7 @@ keyword:
   THROWS: "throws"
   FINALLY: "finally"
   LONG: "long"
+  DO: "do"
 
 condition:
   ACCEPT_STRING_ONE_QUOTE: true

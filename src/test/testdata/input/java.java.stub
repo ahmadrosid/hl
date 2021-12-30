@@ -16,6 +16,14 @@ public static boolean isIntersectionEmpty(@NotNull KotlinType typeA, @NotNull Ko
         return types.iterator().next();
     }
 
+    String line = null;
+    do {
+        line = reader.readLine();
+        if (null != line) {
+          inputBuffer.append(line.trim());
+        }
+    } while (line != null);
+
     // Intersection of T1..Tn is an intersection of their non-null versions,
     //   made nullable is they all were nullable
     KotlinType nothingOrNullableNothing = null;
