@@ -74,6 +74,8 @@ single_keyword:
   - "!"
   - "="
   - "*"
+  - "%"
+  - "?"
 
 condition:
   ACCEPT_STRING_ONE_QUOTE: true

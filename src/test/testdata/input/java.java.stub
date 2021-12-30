@@ -113,6 +113,24 @@ public abstract class App extends MultiDexApplication {
             throw new IOException();
         }
     }
+    public static boolean is(int number) {
+        for (var i = 3; i * i <= number; i += 2) {
+          if (number % i == 0) {
+            return false;
+          }
+        }
+        return true;
+    }
+
+    public static Long fromBinary(String binary) {
+        binary.chars().filter(c -> c != '0' && c != '1').findFirst().ifPresent(in -> {
+          throw new NumberFormatException(
+                  "Binary string contains values other than '0' and '1'");
+        });
+        return IntStream.range(0, binary.length())
+                .filter(in -> binary.charAt(binary.length() - 1 - in) == '1')
+                .mapToLong(in -> ((long) 0b1) << in).sum();
+    }
 
     public String toString() {
         synchronized (mutex) {

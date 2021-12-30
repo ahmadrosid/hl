@@ -125,6 +125,12 @@ impl Lexer {
             '*' => {
                 tok = token::Token::KEYWORD(vec![self.ch]);
             }
+            '%' => {
+                tok = token::Token::KEYWORD(vec![self.ch]);
+            }
+            '?' => {
+                tok = token::Token::KEYWORD(vec![self.ch]);
+            }
             '@' => {
                 if is_letter(self.input[self.position+1]) {
                     self.read_char();
