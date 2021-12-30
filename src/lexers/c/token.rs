@@ -37,6 +37,8 @@ pub fn get_keyword_token(identifier: &Vec<char>) -> Result<Token, String> {
 		"delete" => Ok(Token::KEYWORD(identifier.to_vec())),
 		"double" => Ok(Token::KEYWORD(identifier.to_vec())),
 		"else" => Ok(Token::KEYWORD(identifier.to_vec())),
+		"extern" => Ok(Token::KEYWORD(identifier.to_vec())),
+		"enum" => Ok(Token::KEYWORD(identifier.to_vec())),
 		"float" => Ok(Token::KEYWORD(identifier.to_vec())),
 		"goto" => Ok(Token::KEYWORD(identifier.to_vec())),
 		"for" => Ok(Token::KEYWORD(identifier.to_vec())),

@@ -11,6 +11,11 @@ vector signed short v_dcOffset;
 
 #define SLOW_DOWN_IO	do { } while (0)
 register long _arg1 asm("rdi") = (long)(arg1);
+extern struct smb_hdr *cifs_buf_get(void);
+
+typedef enum RequestType {
+TYPE_NORMAL                       = 0x00000000,
+} RequestType;
 
 #ifdef _H2INC
   #ifndef USHORT

@@ -27,6 +27,8 @@ keyword:
   delete: "delete"
   double: "double"
   else: "else"
+  extern: "extern"
+  enum: "enum"
   float: "float"
   goto: "goto"
   for: "for"
