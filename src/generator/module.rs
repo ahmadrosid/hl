@@ -6,7 +6,6 @@ use yaml_rust::yaml::Hash;
 use yaml_rust::Yaml;
 
 const ACCEPT_PREFIX_KEYWORD: &str = "ACCEPT_PREFIX_KEYWORD";
-const PREFIX_KEYWORD_CHAR: &str = "PREFIX_KEYWORD_CHAR";
 const ACCEPT_ENTITY_TAG_SUFFIX: &str = "ACCEPT_ENTITY_TAG_SUFFIX";
 const BREAK_ENTITY_TAG_SUFFIX: &str = "BREAK_ENTITY_TAG_SUFFIX";
 const ACCEPT_ENTITY_PREFIX: &str = "ACCEPT_ENTITY_PREFIX";
@@ -177,18 +176,16 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
         }
     }
 
-    if let Some(_) = get_condition(h).get(&Yaml::String(ACCEPT_PREFIX_KEYWORD.to_string())) {
-        if let Some(v) = get_condition(h).get(&Yaml::String(PREFIX_KEYWORD_CHAR.to_string())) {
-            module.push_tabln(3, &format!("'{}' => {{", v.as_str().unwrap()));
-            module.push_tabln(4, "if is_letter(self.input[self.position+1]) {");
-            module.push_tabln(5, "self.read_char();");
-            module.push_tabln(5, "let mut identifier = vec!['@'];");
-            module.push_tabln(5, "identifier.append(&mut read_identifier(self));");
-            module.push_tabln(5, "return token::Token::KEYWORD(identifier);");
-            module.push_tabln(4, "}");
-            module.push_tabln(4, "tok = token::Token::CH(self.ch);");
-            module.push_tabln(3, "}");
-        }
+    if let Some(v) = get_condition(h).get(&Yaml::String(ACCEPT_PREFIX_KEYWORD.to_string())) {
+        module.push_tabln(3, &format!("'{}' => {{", v.as_str().unwrap()));
+        module.push_tabln(4, "if is_letter(self.input[self.position+1]) {");
+        module.push_tabln(5, "self.read_char();");
+        module.push_tabln(5, "let mut identifier = vec!['@'];");
+        module.push_tabln(5, "identifier.append(&mut read_identifier(self));");
+        module.push_tabln(5, "return token::Token::KEYWORD(identifier);");
+        module.push_tabln(4, "}");
+        module.push_tabln(4, "tok = token::Token::CH(self.ch);");
+        module.push_tabln(3, "}");
     }
 
     if slash_comment_enable(h) {
