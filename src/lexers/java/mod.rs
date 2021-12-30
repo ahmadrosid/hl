@@ -101,6 +101,30 @@ impl Lexer {
             '\0' => {
                 tok = token::Token::EOF;
             }
+            '&' => {
+                tok = token::Token::KEYWORD(vec![self.ch]);
+            }
+            '-' => {
+                tok = token::Token::KEYWORD(vec![self.ch]);
+            }
+            '>' => {
+                tok = token::Token::KEYWORD(vec![self.ch]);
+            }
+            '<' => {
+                tok = token::Token::KEYWORD(vec![self.ch]);
+            }
+            '|' => {
+                tok = token::Token::KEYWORD(vec![self.ch]);
+            }
+            '!' => {
+                tok = token::Token::KEYWORD(vec![self.ch]);
+            }
+            '=' => {
+                tok = token::Token::KEYWORD(vec![self.ch]);
+            }
+            '*' => {
+                tok = token::Token::KEYWORD(vec![self.ch]);
+            }
             '@' => {
                 if is_letter(self.input[self.position+1]) {
                     self.read_char();
