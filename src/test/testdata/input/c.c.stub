@@ -6,6 +6,31 @@
 #include "misc/bstr.h"
 #include "misc/node.h"
 
+static int jz4730_mmc_1bit_pins[] = { 0x27, 0x26, 0x22, };
+vector signed short v_dcOffset;
+
+#define ALTIVEC_TRANSPOSE_8x8_SHORT() \
+    do {
+        tempC1 = vec_mergeh (src_b, src_f);                       \
+    } while (0)
+
+#ifdef _H2INC
+  #ifndef USHORT
+    typedef unsigned short USHORT;
+  #endif
+#endif
+#define ATOM_DAC_A            0
+
+// use for ComputeMemoryClockParamTable
+typedef struct _COMPUTE_MEMORY
+{
+  union
+  {
+    ULONG  ulClock;
+    ATOM_S_MPLL_FB_DIVIDER   ulFbDiv;         //Output:UPPER_WORD=FB_DIV_INTEGER,  LOWER_WORD=FB_DIV_FRAC shl (16-FB_FRACTION_BITS)
+  };
+}COMPUTE_MEMORY;
+
 static void destroy_cmd(void *ptr)
 {
     struct mp_cmd *cmd = ptr;
