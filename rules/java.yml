@@ -11,13 +11,16 @@ entity_suffix:
   ENTITY_LBRACE: '('
 
 keyword:
+  ABSTRACT: 'abstract'
   BYTE: 'byte'
   CLASS: 'class'
   DOUBLE: 'double'
   FLOAT: 'float'
   FINAL: 'final'
   INT: 'int'
+  INTERFACE: 'interface'
   CHAR: 'char'
+  SHORT: 'short'
   FOR: 'for'
   PACKAGE: 'package'
   IMPORT: 'import'

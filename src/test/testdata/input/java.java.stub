@@ -41,6 +41,12 @@ public static boolean isIntersectionEmpty(@NotNull KotlinType typeA, @NotNull Ko
     return intersectTypes(new LinkedHashSet<>(Arrays.asList(typeA, typeB))) == null;
 }
 
+public interface MeshPartBuilder {
+    public MeshPart getMeshPart ();
+    public short vertex (final float... values);
+    public boolean isVertexTransformationEnabled ();
+}
+
 /*
  * Copyright (C) Hans-Christoph Steiner 2016 <hans@eds.org>
  * App.java is part of NewPipe.
@@ -48,10 +54,11 @@ public static boolean isIntersectionEmpty(@NotNull KotlinType typeA, @NotNull Ko
  * You should have received a copy of the GNU General Public License
  * along with NewPipe.  If not, see <http://www.gnu.org/licenses/>.
  */
-public class App extends MultiDexApplication {
+public abstract class App extends MultiDexApplication {
     public static final String PACKAGE_NAME = BuildConfig.APPLICATION_ID;
     private static final String TAG = App.class.toString();
     private static App app;
+    final static float MAX_VELOCITY = 14f;
 
     @NonNull
     public static App getApp() {
