@@ -9,6 +9,10 @@ constant:
   NULL: "NULL"
   SizeT: "size_t"
 
+single_constant:
+  - "<"
+  - ">"
+
 entity_suffix:
   ENTITY_LBRACE: '('
 

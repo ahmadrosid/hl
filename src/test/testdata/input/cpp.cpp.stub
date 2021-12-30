@@ -2,6 +2,7 @@
 ==============================================================================*/
 #include "common.h"
 #include "archive/value_archive.h"
+#include <stdlib.h>
 
 // Below are the ops with no builtin_data structure.
 // ok for now, since there is no call implementation either.

@@ -101,6 +101,12 @@ impl Lexer {
 			'\0' => {
 				tok = token::Token::EOF;
 			}
+			'<' => {
+				tok = token::Token::STRING(vec![self.ch]);
+			}
+			'>' => {
+				tok = token::Token::STRING(vec![self.ch]);
+			}
 			'/' => {
 				if self.input[self.position+1] == '/' {
 					tok = token::Token::COMMENT(read_slash_comment(self));
