@@ -47,6 +47,17 @@ public interface MeshPartBuilder {
     public boolean isVertexTransformationEnabled ();
 }
 
+/** The syntax of the .proto file. */
+public enum Syntax {
+    UNKNOWN("unknown"),
+    PROTO2("proto2"),
+    PROTO3("proto3");
+    Syntax(String name) {
+        this.name = name;
+    }
+    private final String name;
+}
+
 /*
  * Copyright (C) Hans-Christoph Steiner 2016 <hans@eds.org>
  * App.java is part of NewPipe.
@@ -60,10 +71,17 @@ public abstract class App extends MultiDexApplication {
     private static App app;
     final static float MAX_VELOCITY = 14f;
     private transient MetricRegistry metrics;
+    static native long jni_YGConfigNewJNI();
 
     @NonNull
     public static App getApp() {
         return app;
+    }
+
+    public static void checkArgument(boolean expression) {
+        if (!expression) {
+            throw new IllegalArgumentException();
+        }
     }
 
     private void readObject(ObjectInputStream in) throws IOException) {

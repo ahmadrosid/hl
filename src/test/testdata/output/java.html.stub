@@ -49,185 +49,203 @@
 <tr><td class="hl-num" data-line="47"></td><td>    <span class="hl-k">public</span> <span class="hl-k">boolean</span> isVertexTransformationEnabled ();</td></tr>
 <tr><td class="hl-num" data-line="48"></td><td>}</td></tr>
 <tr><td class="hl-num" data-line="49"></td><td></td></tr>
-<tr><td class="hl-num" data-line="50"></td><td><span class="hl-cmt">/*</span></td></tr>
-<tr><td class="hl-num" data-line="51"></td><td><span class="hl-cmt"> * Copyright (C) Hans-Christoph Steiner 2016 &lt;hans@eds.org&gt;</span></td></tr>
-<tr><td class="hl-num" data-line="52"></td><td><span class="hl-cmt"> * App.java is part of NewPipe.</span></td></tr>
-<tr><td class="hl-num" data-line="53"></td><td><span class="hl-cmt"> *</span></td></tr>
-<tr><td class="hl-num" data-line="54"></td><td><span class="hl-cmt"> * You should have received a copy of the GNU General Public License</span></td></tr>
-<tr><td class="hl-num" data-line="55"></td><td><span class="hl-cmt"> * along with NewPipe.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span></td></tr>
-<tr><td class="hl-num" data-line="56"></td><td><span class="hl-cmt"> */</span></td></tr>
-<tr><td class="hl-num" data-line="57"></td><td><span class="hl-k">public</span> <span class="hl-k">abstract</span> <span class="hl-k">class</span> App <span class="hl-k">extends</span> MultiDexApplication {</td></tr>
-<tr><td class="hl-num" data-line="58"></td><td>    <span class="hl-k">public</span> <span class="hl-k">static</span> <span class="hl-k">final</span> String PACKAGE_NAME = BuildConfig.APPLICATION_ID;</td></tr>
-<tr><td class="hl-num" data-line="59"></td><td>    <span class="hl-k">private</span> <span class="hl-k">static</span> <span class="hl-k">final</span> String TAG = App.<span class="hl-k">class</span>.<span class="hl-en">toString</span>();</td></tr>
-<tr><td class="hl-num" data-line="60"></td><td>    <span class="hl-k">private</span> <span class="hl-k">static</span> App app;</td></tr>
-<tr><td class="hl-num" data-line="61"></td><td>    <span class="hl-k">final</span> <span class="hl-k">static</span> <span class="hl-k">float</span> MAX_VELOCITY = <span class="hl-c">14</span>f;</td></tr>
-<tr><td class="hl-num" data-line="62"></td><td>    <span class="hl-k">private</span> transient MetricRegistry metrics;</td></tr>
-<tr><td class="hl-num" data-line="63"></td><td></td></tr>
-<tr><td class="hl-num" data-line="64"></td><td>    <span class="hl-k">@NonNull</span></td></tr>
-<tr><td class="hl-num" data-line="65"></td><td>    <span class="hl-k">public</span> <span class="hl-k">static</span> App <span class="hl-en">getApp</span>() {</td></tr>
-<tr><td class="hl-num" data-line="66"></td><td>        <span class="hl-k">return</span> app;</td></tr>
-<tr><td class="hl-num" data-line="67"></td><td>    }</td></tr>
-<tr><td class="hl-num" data-line="68"></td><td></td></tr>
-<tr><td class="hl-num" data-line="69"></td><td>    <span class="hl-k">private</span> <span class="hl-k">void</span> <span class="hl-en">readObject</span>(ObjectInputStream in) <span class="hl-k">throws</span> IOException) {</td></tr>
-<tr><td class="hl-num" data-line="70"></td><td>        in.<span class="hl-en">defaultReadObject</span>();</td></tr>
-<tr><td class="hl-num" data-line="71"></td><td>        handleOperTimecostHistogramMap = <span class="hl-k">new</span> <span class="hl-k">HashMap</span><>();</td></tr>
-<tr><td class="hl-num" data-line="72"></td><td>    }</td></tr>
-<tr><td class="hl-num" data-line="73"></td><td></td></tr>
-<tr><td class="hl-num" data-line="74"></td><td>    <span class="hl-k">public</span> String <span class="hl-en">toString</span>() {</td></tr>
-<tr><td class="hl-num" data-line="75"></td><td>        <span class="hl-k">synchronized</span> (mutex) {</td></tr>
-<tr><td class="hl-num" data-line="76"></td><td>            <span class="hl-k">return</span> delegate.<span class="hl-en">toString</span>();</td></tr>
-<tr><td class="hl-num" data-line="77"></td><td>        }</td></tr>
-<tr><td class="hl-num" data-line="78"></td><td>    }</td></tr>
-<tr><td class="hl-num" data-line="79"></td><td></td></tr>
-<tr><td class="hl-num" data-line="80"></td><td>    <span class="hl-k">@Override</span></td></tr>
-<tr><td class="hl-num" data-line="81"></td><td>    <span class="hl-k">protected</span> <span class="hl-k">void</span> <span class="hl-en">attachBaseContext</span>(<span class="hl-k">final</span> Context base) {</td></tr>
-<tr><td class="hl-num" data-line="82"></td><td>        <span class="hl-c">super</span>.<span class="hl-en">attachBaseContext</span>(base);</td></tr>
-<tr><td class="hl-num" data-line="83"></td><td>        <span class="hl-en">initACRA</span>();</td></tr>
-<tr><td class="hl-num" data-line="84"></td><td>    }</td></tr>
-<tr><td class="hl-num" data-line="85"></td><td></td></tr>
-<tr><td class="hl-num" data-line="86"></td><td>    <span class="hl-k">@Override</span></td></tr>
-<tr><td class="hl-num" data-line="87"></td><td>    <span class="hl-k">public</span> <span class="hl-k">void</span> <span class="hl-en">onCreate</span>() {</td></tr>
-<tr><td class="hl-num" data-line="88"></td><td>        <span class="hl-c">super</span>.<span class="hl-en">onCreate</span>();</td></tr>
-<tr><td class="hl-num" data-line="89"></td><td></td></tr>
-<tr><td class="hl-num" data-line="90"></td><td>        app = <span class="hl-c">this</span>;</td></tr>
+<tr><td class="hl-num" data-line="50"></td><td><span class="hl-cmt">/** The syntax of the .proto file. */</span></td></tr>
+<tr><td class="hl-num" data-line="51"></td><td><span class="hl-k">public</span> <span class="hl-k">enum</span> Syntax {</td></tr>
+<tr><td class="hl-num" data-line="52"></td><td>    <span class="hl-en">UNKNOWN</span>(<span class="hl-s">"unknown"</span>),</td></tr>
+<tr><td class="hl-num" data-line="53"></td><td>    <span class="hl-en">PROTO2</span>(<span class="hl-s">"proto2"</span>),</td></tr>
+<tr><td class="hl-num" data-line="54"></td><td>    <span class="hl-en">PROTO3</span>(<span class="hl-s">"proto3"</span>);</td></tr>
+<tr><td class="hl-num" data-line="55"></td><td>    <span class="hl-en">Syntax</span>(<span class="hl-c">String</span> name) {</td></tr>
+<tr><td class="hl-num" data-line="56"></td><td>        <span class="hl-c">this</span>.name = name;</td></tr>
+<tr><td class="hl-num" data-line="57"></td><td>    }</td></tr>
+<tr><td class="hl-num" data-line="58"></td><td>    <span class="hl-k">private</span> <span class="hl-k">final</span> <span class="hl-c">String</span> name;</td></tr>
+<tr><td class="hl-num" data-line="59"></td><td>}</td></tr>
+<tr><td class="hl-num" data-line="60"></td><td></td></tr>
+<tr><td class="hl-num" data-line="61"></td><td><span class="hl-cmt">/*</span></td></tr>
+<tr><td class="hl-num" data-line="62"></td><td><span class="hl-cmt"> * Copyright (C) Hans-Christoph Steiner 2016 &lt;hans@eds.org&gt;</span></td></tr>
+<tr><td class="hl-num" data-line="63"></td><td><span class="hl-cmt"> * App.java is part of NewPipe.</span></td></tr>
+<tr><td class="hl-num" data-line="64"></td><td><span class="hl-cmt"> *</span></td></tr>
+<tr><td class="hl-num" data-line="65"></td><td><span class="hl-cmt"> * You should have received a copy of the GNU General Public License</span></td></tr>
+<tr><td class="hl-num" data-line="66"></td><td><span class="hl-cmt"> * along with NewPipe.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span></td></tr>
+<tr><td class="hl-num" data-line="67"></td><td><span class="hl-cmt"> */</span></td></tr>
+<tr><td class="hl-num" data-line="68"></td><td><span class="hl-k">public</span> <span class="hl-k">abstract</span> <span class="hl-k">class</span> App <span class="hl-k">extends</span> MultiDexApplication {</td></tr>
+<tr><td class="hl-num" data-line="69"></td><td>    <span class="hl-k">public</span> <span class="hl-k">static</span> <span class="hl-k">final</span> <span class="hl-c">String</span> PACKAGE_NAME = BuildConfig.APPLICATION_ID;</td></tr>
+<tr><td class="hl-num" data-line="70"></td><td>    <span class="hl-k">private</span> <span class="hl-k">static</span> <span class="hl-k">final</span> <span class="hl-c">String</span> TAG = App.<span class="hl-k">class</span>.<span class="hl-en">toString</span>();</td></tr>
+<tr><td class="hl-num" data-line="71"></td><td>    <span class="hl-k">private</span> <span class="hl-k">static</span> App app;</td></tr>
+<tr><td class="hl-num" data-line="72"></td><td>    <span class="hl-k">final</span> <span class="hl-k">static</span> <span class="hl-k">float</span> MAX_VELOCITY = <span class="hl-c">14</span>f;</td></tr>
+<tr><td class="hl-num" data-line="73"></td><td>    <span class="hl-k">private</span> transient MetricRegistry metrics;</td></tr>
+<tr><td class="hl-num" data-line="74"></td><td>    <span class="hl-k">static</span> <span class="hl-k">native</span> long <span class="hl-en">jni_YGConfigNewJNI</span>();</td></tr>
+<tr><td class="hl-num" data-line="75"></td><td></td></tr>
+<tr><td class="hl-num" data-line="76"></td><td>    <span class="hl-k">@NonNull</span></td></tr>
+<tr><td class="hl-num" data-line="77"></td><td>    <span class="hl-k">public</span> <span class="hl-k">static</span> App <span class="hl-en">getApp</span>() {</td></tr>
+<tr><td class="hl-num" data-line="78"></td><td>        <span class="hl-k">return</span> app;</td></tr>
+<tr><td class="hl-num" data-line="79"></td><td>    }</td></tr>
+<tr><td class="hl-num" data-line="80"></td><td></td></tr>
+<tr><td class="hl-num" data-line="81"></td><td>    <span class="hl-k">public</span> <span class="hl-k">static</span> <span class="hl-k">void</span> <span class="hl-en">checkArgument</span>(<span class="hl-k">boolean</span> expression) {</td></tr>
+<tr><td class="hl-num" data-line="82"></td><td>        <span class="hl-k">if</span> (!expression) {</td></tr>
+<tr><td class="hl-num" data-line="83"></td><td>            <span class="hl-k">throw</span> <span class="hl-k">new</span> <span class="hl-en">IllegalArgumentException</span>();</td></tr>
+<tr><td class="hl-num" data-line="84"></td><td>        }</td></tr>
+<tr><td class="hl-num" data-line="85"></td><td>    }</td></tr>
+<tr><td class="hl-num" data-line="86"></td><td></td></tr>
+<tr><td class="hl-num" data-line="87"></td><td>    <span class="hl-k">private</span> <span class="hl-k">void</span> <span class="hl-en">readObject</span>(ObjectInputStream in) <span class="hl-k">throws</span> IOException) {</td></tr>
+<tr><td class="hl-num" data-line="88"></td><td>        in.<span class="hl-en">defaultReadObject</span>();</td></tr>
+<tr><td class="hl-num" data-line="89"></td><td>        handleOperTimecostHistogramMap = <span class="hl-k">new</span> <span class="hl-k">HashMap</span><>();</td></tr>
+<tr><td class="hl-num" data-line="90"></td><td>    }</td></tr>
 <tr><td class="hl-num" data-line="91"></td><td></td></tr>
-<tr><td class="hl-num" data-line="92"></td><td>        <span class="hl-k">if</span> (ProcessPhoenix.<span class="hl-en">isPhoenixProcess</span>(<span class="hl-c">this</span>)) {</td></tr>
-<tr><td class="hl-num" data-line="93"></td><td>            Log.<span class="hl-en">i</span>(TAG, <span class="hl-s">"This is a phoenix process! "</span></td></tr>
-<tr><td class="hl-num" data-line="94"></td><td>                    + <span class="hl-s">"Aborting initialization of App[onCreate]"</span>);</td></tr>
-<tr><td class="hl-num" data-line="95"></td><td>            <span class="hl-k">return</span>;</td></tr>
-<tr><td class="hl-num" data-line="96"></td><td>        }</td></tr>
+<tr><td class="hl-num" data-line="92"></td><td>    <span class="hl-k">public</span> <span class="hl-c">String</span> <span class="hl-en">toString</span>() {</td></tr>
+<tr><td class="hl-num" data-line="93"></td><td>        <span class="hl-k">synchronized</span> (mutex) {</td></tr>
+<tr><td class="hl-num" data-line="94"></td><td>            <span class="hl-k">return</span> delegate.<span class="hl-en">toString</span>();</td></tr>
+<tr><td class="hl-num" data-line="95"></td><td>        }</td></tr>
+<tr><td class="hl-num" data-line="96"></td><td>    }</td></tr>
 <tr><td class="hl-num" data-line="97"></td><td></td></tr>
-<tr><td class="hl-num" data-line="98"></td><td>        <span class="hl-cmt">// Initialize settings first because others inits can use its values</span></td></tr>
-<tr><td class="hl-num" data-line="99"></td><td>        NewPipeSettings.<span class="hl-en">initSettings</span>(<span class="hl-c">this</span>);</td></tr>
-<tr><td class="hl-num" data-line="100"></td><td></td></tr>
-<tr><td class="hl-num" data-line="101"></td><td>        NewPipe.<span class="hl-en">init</span>(<span class="hl-en">getDownloader</span>(),</td></tr>
-<tr><td class="hl-num" data-line="102"></td><td>            Localization.<span class="hl-en">getPreferredLocalization</span>(<span class="hl-c">this</span>),</td></tr>
-<tr><td class="hl-num" data-line="103"></td><td>            Localization.<span class="hl-en">getPreferredContentCountry</span>(<span class="hl-c">this</span>));</td></tr>
-<tr><td class="hl-num" data-line="104"></td><td>        Localization.<span class="hl-en">initPrettyTime</span>(Localization.<span class="hl-en">resolvePrettyTime</span>(<span class="hl-en">getApplicationContext</span>()));</td></tr>
-<tr><td class="hl-num" data-line="105"></td><td></td></tr>
-<tr><td class="hl-num" data-line="106"></td><td>        StateSaver.<span class="hl-en">init</span>(<span class="hl-c">this</span>);</td></tr>
-<tr><td class="hl-num" data-line="107"></td><td>        ServiceHelper.<span class="hl-en">initServices</span>(<span class="hl-c">this</span>);</td></tr>
-<tr><td class="hl-num" data-line="108"></td><td>    }</td></tr>
+<tr><td class="hl-num" data-line="98"></td><td>    <span class="hl-k">@Override</span></td></tr>
+<tr><td class="hl-num" data-line="99"></td><td>    <span class="hl-k">protected</span> <span class="hl-k">void</span> <span class="hl-en">attachBaseContext</span>(<span class="hl-k">final</span> Context base) {</td></tr>
+<tr><td class="hl-num" data-line="100"></td><td>        <span class="hl-c">super</span>.<span class="hl-en">attachBaseContext</span>(base);</td></tr>
+<tr><td class="hl-num" data-line="101"></td><td>        <span class="hl-en">initACRA</span>();</td></tr>
+<tr><td class="hl-num" data-line="102"></td><td>    }</td></tr>
+<tr><td class="hl-num" data-line="103"></td><td></td></tr>
+<tr><td class="hl-num" data-line="104"></td><td>    <span class="hl-k">@Override</span></td></tr>
+<tr><td class="hl-num" data-line="105"></td><td>    <span class="hl-k">public</span> <span class="hl-k">void</span> <span class="hl-en">onCreate</span>() {</td></tr>
+<tr><td class="hl-num" data-line="106"></td><td>        <span class="hl-c">super</span>.<span class="hl-en">onCreate</span>();</td></tr>
+<tr><td class="hl-num" data-line="107"></td><td></td></tr>
+<tr><td class="hl-num" data-line="108"></td><td>        app = <span class="hl-c">this</span>;</td></tr>
 <tr><td class="hl-num" data-line="109"></td><td></td></tr>
-<tr><td class="hl-num" data-line="110"></td><td>    <span class="hl-k">public</span> UTF8String <span class="hl-en">substring</span>(<span class="hl-k">final</span> <span class="hl-k">int</span> start, <span class="hl-k">final</span> <span class="hl-k">int</span> until) {</td></tr>
-<tr><td class="hl-num" data-line="111"></td><td>        <span class="hl-k">int</span> j = i;</td></tr>
-<tr><td class="hl-num" data-line="112"></td><td>        <span class="hl-k">while</span> (i < numBytes && c < until) {</td></tr>
-<tr><td class="hl-num" data-line="113"></td><td>            i += <span class="hl-en">numBytesForFirstByte</span>(<span class="hl-en">getByte</span>(i));</td></tr>
-<tr><td class="hl-num" data-line="114"></td><td>            c += <span class="hl-c">1</span>;</td></tr>
-<tr><td class="hl-num" data-line="115"></td><td>        }</td></tr>
-<tr><td class="hl-num" data-line="116"></td><td>        <span class="hl-k">if</span> (i > j) {</td></tr>
-<tr><td class="hl-num" data-line="117"></td><td>            <span class="hl-k">byte</span>[] bytes = <span class="hl-k">new</span> <span class="hl-k">byte</span>[i - j];</td></tr>
-<tr><td class="hl-num" data-line="118"></td><td>            <span class="hl-en">copyMemory</span>(base, offset + j, bytes, BYTE_ARRAY_OFFSET, i - j);</td></tr>
-<tr><td class="hl-num" data-line="119"></td><td>            <span class="hl-k">return</span> <span class="hl-en">fromBytes</span>(bytes);</td></tr>
-<tr><td class="hl-num" data-line="120"></td><td>        } <span class="hl-k">else</span> {</td></tr>
-<tr><td class="hl-num" data-line="121"></td><td>            <span class="hl-k">return</span> EMPTY_UTF8;</td></tr>
-<tr><td class="hl-num" data-line="122"></td><td>        }</td></tr>
-<tr><td class="hl-num" data-line="123"></td><td>    }</td></tr>
-<tr><td class="hl-num" data-line="124"></td><td></td></tr>
-<tr><td class="hl-num" data-line="125"></td><td>    <span class="hl-k">@Override</span></td></tr>
-<tr><td class="hl-num" data-line="126"></td><td>    <span class="hl-k">public</span> <span class="hl-k">void</span> <span class="hl-en">onTerminate</span>() {</td></tr>
-<tr><td class="hl-num" data-line="127"></td><td>        <span class="hl-c">super</span>.<span class="hl-en">onTerminate</span>();</td></tr>
-<tr><td class="hl-num" data-line="128"></td><td>        PicassoHelper.<span class="hl-en">terminate</span>();</td></tr>
-<tr><td class="hl-num" data-line="129"></td><td>    }</td></tr>
-<tr><td class="hl-num" data-line="130"></td><td></td></tr>
-<tr><td class="hl-num" data-line="131"></td><td>    <span class="hl-k">@Override</span></td></tr>
-<tr><td class="hl-num" data-line="132"></td><td>    <span class="hl-k">@ReactProp</span>(name = ViewProps.TRANSFORM)</td></tr>
-<tr><td class="hl-num" data-line="133"></td><td>    <span class="hl-k">public</span> <span class="hl-k">void</span> <span class="hl-en">setTransform</span>(<span class="hl-k">@NonNull</span> T view, <span class="hl-k">@Nullable</span> ReadableArray matrix) {</td></tr>
-<tr><td class="hl-num" data-line="134"></td><td>        <span class="hl-k">if</span> (matrix == <span class="hl-c">null</span>) {</td></tr>
-<tr><td class="hl-num" data-line="135"></td><td>            <span class="hl-en">resetTransformProperty</span>(view);</td></tr>
-<tr><td class="hl-num" data-line="136"></td><td>        } <span class="hl-k">else</span> {</td></tr>
-<tr><td class="hl-num" data-line="137"></td><td>            <span class="hl-en">setTransformProperty</span>(view, matrix);</td></tr>
-<tr><td class="hl-num" data-line="138"></td><td>        }</td></tr>
-<tr><td class="hl-num" data-line="139"></td><td>    }</td></tr>
-<tr><td class="hl-num" data-line="140"></td><td></td></tr>
-<tr><td class="hl-num" data-line="141"></td><td>    <span class="hl-k">private</span> <span class="hl-k">void</span> <span class="hl-en">configureRxJavaErrorHandler</span>() {</td></tr>
-<tr><td class="hl-num" data-line="142"></td><td>        <span class="hl-cmt">// https://github.com/ReactiveX/RxJava/wiki/What's-different-in-2.0#error-handling</span></td></tr>
-<tr><td class="hl-num" data-line="143"></td><td>        RxJavaPlugins.<span class="hl-en">setErrorHandler</span>(<span class="hl-k">new</span> Consumer<Throwable>() {</td></tr>
-<tr><td class="hl-num" data-line="144"></td><td>            <span class="hl-k">@Override</span></td></tr>
-<tr><td class="hl-num" data-line="145"></td><td>            <span class="hl-k">public</span> <span class="hl-k">void</span> <span class="hl-en">accept</span>(<span class="hl-k">@NonNull</span> <span class="hl-k">final</span> Throwable throwable) {</td></tr>
-<tr><td class="hl-num" data-line="146"></td><td>                Log.<span class="hl-en">e</span>(TAG, <span class="hl-s">"RxJavaPlugins.ErrorHandler called with -> : "</span></td></tr>
-<tr><td class="hl-num" data-line="147"></td><td>                        + <span class="hl-s">"throwable = ["</span> + throwable.<span class="hl-en">getClass</span>().<span class="hl-en">getName</span>() + <span class="hl-s">"]"</span>);</td></tr>
+<tr><td class="hl-num" data-line="110"></td><td>        <span class="hl-k">if</span> (ProcessPhoenix.<span class="hl-en">isPhoenixProcess</span>(<span class="hl-c">this</span>)) {</td></tr>
+<tr><td class="hl-num" data-line="111"></td><td>            Log.<span class="hl-en">i</span>(TAG, <span class="hl-s">"This is a phoenix process! "</span></td></tr>
+<tr><td class="hl-num" data-line="112"></td><td>                    + <span class="hl-s">"Aborting initialization of App[onCreate]"</span>);</td></tr>
+<tr><td class="hl-num" data-line="113"></td><td>            <span class="hl-k">return</span>;</td></tr>
+<tr><td class="hl-num" data-line="114"></td><td>        }</td></tr>
+<tr><td class="hl-num" data-line="115"></td><td></td></tr>
+<tr><td class="hl-num" data-line="116"></td><td>        <span class="hl-cmt">// Initialize settings first because others inits can use its values</span></td></tr>
+<tr><td class="hl-num" data-line="117"></td><td>        NewPipeSettings.<span class="hl-en">initSettings</span>(<span class="hl-c">this</span>);</td></tr>
+<tr><td class="hl-num" data-line="118"></td><td></td></tr>
+<tr><td class="hl-num" data-line="119"></td><td>        NewPipe.<span class="hl-en">init</span>(<span class="hl-en">getDownloader</span>(),</td></tr>
+<tr><td class="hl-num" data-line="120"></td><td>            Localization.<span class="hl-en">getPreferredLocalization</span>(<span class="hl-c">this</span>),</td></tr>
+<tr><td class="hl-num" data-line="121"></td><td>            Localization.<span class="hl-en">getPreferredContentCountry</span>(<span class="hl-c">this</span>));</td></tr>
+<tr><td class="hl-num" data-line="122"></td><td>        Localization.<span class="hl-en">initPrettyTime</span>(Localization.<span class="hl-en">resolvePrettyTime</span>(<span class="hl-en">getApplicationContext</span>()));</td></tr>
+<tr><td class="hl-num" data-line="123"></td><td></td></tr>
+<tr><td class="hl-num" data-line="124"></td><td>        StateSaver.<span class="hl-en">init</span>(<span class="hl-c">this</span>);</td></tr>
+<tr><td class="hl-num" data-line="125"></td><td>        ServiceHelper.<span class="hl-en">initServices</span>(<span class="hl-c">this</span>);</td></tr>
+<tr><td class="hl-num" data-line="126"></td><td>    }</td></tr>
+<tr><td class="hl-num" data-line="127"></td><td></td></tr>
+<tr><td class="hl-num" data-line="128"></td><td>    <span class="hl-k">public</span> UTF8String <span class="hl-en">substring</span>(<span class="hl-k">final</span> <span class="hl-k">int</span> start, <span class="hl-k">final</span> <span class="hl-k">int</span> until) {</td></tr>
+<tr><td class="hl-num" data-line="129"></td><td>        <span class="hl-k">int</span> j = i;</td></tr>
+<tr><td class="hl-num" data-line="130"></td><td>        <span class="hl-k">while</span> (i < numBytes && c < until) {</td></tr>
+<tr><td class="hl-num" data-line="131"></td><td>            i += <span class="hl-en">numBytesForFirstByte</span>(<span class="hl-en">getByte</span>(i));</td></tr>
+<tr><td class="hl-num" data-line="132"></td><td>            c += <span class="hl-c">1</span>;</td></tr>
+<tr><td class="hl-num" data-line="133"></td><td>        }</td></tr>
+<tr><td class="hl-num" data-line="134"></td><td>        <span class="hl-k">if</span> (i > j) {</td></tr>
+<tr><td class="hl-num" data-line="135"></td><td>            <span class="hl-k">byte</span>[] bytes = <span class="hl-k">new</span> <span class="hl-k">byte</span>[i - j];</td></tr>
+<tr><td class="hl-num" data-line="136"></td><td>            <span class="hl-en">copyMemory</span>(base, offset + j, bytes, BYTE_ARRAY_OFFSET, i - j);</td></tr>
+<tr><td class="hl-num" data-line="137"></td><td>            <span class="hl-k">return</span> <span class="hl-en">fromBytes</span>(bytes);</td></tr>
+<tr><td class="hl-num" data-line="138"></td><td>        } <span class="hl-k">else</span> {</td></tr>
+<tr><td class="hl-num" data-line="139"></td><td>            <span class="hl-k">return</span> EMPTY_UTF8;</td></tr>
+<tr><td class="hl-num" data-line="140"></td><td>        }</td></tr>
+<tr><td class="hl-num" data-line="141"></td><td>    }</td></tr>
+<tr><td class="hl-num" data-line="142"></td><td></td></tr>
+<tr><td class="hl-num" data-line="143"></td><td>    <span class="hl-k">@Override</span></td></tr>
+<tr><td class="hl-num" data-line="144"></td><td>    <span class="hl-k">public</span> <span class="hl-k">void</span> <span class="hl-en">onTerminate</span>() {</td></tr>
+<tr><td class="hl-num" data-line="145"></td><td>        <span class="hl-c">super</span>.<span class="hl-en">onTerminate</span>();</td></tr>
+<tr><td class="hl-num" data-line="146"></td><td>        PicassoHelper.<span class="hl-en">terminate</span>();</td></tr>
+<tr><td class="hl-num" data-line="147"></td><td>    }</td></tr>
 <tr><td class="hl-num" data-line="148"></td><td></td></tr>
-<tr><td class="hl-num" data-line="149"></td><td>                <span class="hl-k">final</span> Throwable actualThrowable;</td></tr>
-<tr><td class="hl-num" data-line="150"></td><td>                <span class="hl-k">if</span> (throwable <span class="hl-k">instanceof</span> UndeliverableException) {</td></tr>
-<tr><td class="hl-num" data-line="151"></td><td>                    <span class="hl-cmt">// As UndeliverableException is a wrapper,</span></td></tr>
-<tr><td class="hl-num" data-line="152"></td><td>                    <span class="hl-cmt">// get the cause of it to get the "real" exception</span></td></tr>
-<tr><td class="hl-num" data-line="153"></td><td>                    actualThrowable = throwable.<span class="hl-en">getCause</span>();</td></tr>
-<tr><td class="hl-num" data-line="154"></td><td>                } <span class="hl-k">else</span> {</td></tr>
-<tr><td class="hl-num" data-line="155"></td><td>                    actualThrowable = throwable;</td></tr>
-<tr><td class="hl-num" data-line="156"></td><td>                }</td></tr>
-<tr><td class="hl-num" data-line="157"></td><td></td></tr>
-<tr><td class="hl-num" data-line="158"></td><td>                <span class="hl-k">final</span> <span class="hl-k">List</span><Throwable> errors;</td></tr>
-<tr><td class="hl-num" data-line="159"></td><td>                <span class="hl-k">if</span> (actualThrowable <span class="hl-k">instanceof</span> CompositeException) {</td></tr>
-<tr><td class="hl-num" data-line="160"></td><td>                    errors = ((CompositeException) actualThrowable).<span class="hl-en">getExceptions</span>();</td></tr>
-<tr><td class="hl-num" data-line="161"></td><td>                } <span class="hl-k">else</span> {</td></tr>
-<tr><td class="hl-num" data-line="162"></td><td>                    errors = Collections.<span class="hl-en">singletonList</span>(actualThrowable);</td></tr>
-<tr><td class="hl-num" data-line="163"></td><td>                }</td></tr>
-<tr><td class="hl-num" data-line="164"></td><td></td></tr>
-<tr><td class="hl-num" data-line="165"></td><td>                <span class="hl-k">for</span> (<span class="hl-k">final</span> Throwable error : errors) {</td></tr>
-<tr><td class="hl-num" data-line="166"></td><td>                    <span class="hl-k">if</span> (<span class="hl-en">isThrowableIgnored</span>(error)) {</td></tr>
-<tr><td class="hl-num" data-line="167"></td><td>                        <span class="hl-k">return</span>;</td></tr>
-<tr><td class="hl-num" data-line="168"></td><td>                    }</td></tr>
-<tr><td class="hl-num" data-line="169"></td><td>                    <span class="hl-k">if</span> (<span class="hl-en">isThrowableCritical</span>(error)) {</td></tr>
-<tr><td class="hl-num" data-line="170"></td><td>                        <span class="hl-en">reportException</span>(error);</td></tr>
-<tr><td class="hl-num" data-line="171"></td><td>                        <span class="hl-k">return</span>;</td></tr>
-<tr><td class="hl-num" data-line="172"></td><td>                    }</td></tr>
-<tr><td class="hl-num" data-line="173"></td><td>                }</td></tr>
-<tr><td class="hl-num" data-line="174"></td><td>            }</td></tr>
+<tr><td class="hl-num" data-line="149"></td><td>    <span class="hl-k">@Override</span></td></tr>
+<tr><td class="hl-num" data-line="150"></td><td>    <span class="hl-k">@ReactProp</span>(name = ViewProps.TRANSFORM)</td></tr>
+<tr><td class="hl-num" data-line="151"></td><td>    <span class="hl-k">public</span> <span class="hl-k">void</span> <span class="hl-en">setTransform</span>(<span class="hl-k">@NonNull</span> T view, <span class="hl-k">@Nullable</span> ReadableArray matrix) {</td></tr>
+<tr><td class="hl-num" data-line="152"></td><td>        <span class="hl-k">if</span> (matrix == <span class="hl-c">null</span>) {</td></tr>
+<tr><td class="hl-num" data-line="153"></td><td>            <span class="hl-en">resetTransformProperty</span>(view);</td></tr>
+<tr><td class="hl-num" data-line="154"></td><td>        } <span class="hl-k">else</span> {</td></tr>
+<tr><td class="hl-num" data-line="155"></td><td>            <span class="hl-en">setTransformProperty</span>(view, matrix);</td></tr>
+<tr><td class="hl-num" data-line="156"></td><td>        }</td></tr>
+<tr><td class="hl-num" data-line="157"></td><td>    }</td></tr>
+<tr><td class="hl-num" data-line="158"></td><td></td></tr>
+<tr><td class="hl-num" data-line="159"></td><td>    <span class="hl-k">private</span> <span class="hl-k">void</span> <span class="hl-en">configureRxJavaErrorHandler</span>() {</td></tr>
+<tr><td class="hl-num" data-line="160"></td><td>        <span class="hl-cmt">// https://github.com/ReactiveX/RxJava/wiki/What's-different-in-2.0#error-handling</span></td></tr>
+<tr><td class="hl-num" data-line="161"></td><td>        RxJavaPlugins.<span class="hl-en">setErrorHandler</span>(<span class="hl-k">new</span> Consumer<Throwable>() {</td></tr>
+<tr><td class="hl-num" data-line="162"></td><td>            <span class="hl-k">@Override</span></td></tr>
+<tr><td class="hl-num" data-line="163"></td><td>            <span class="hl-k">public</span> <span class="hl-k">void</span> <span class="hl-en">accept</span>(<span class="hl-k">@NonNull</span> <span class="hl-k">final</span> Throwable throwable) {</td></tr>
+<tr><td class="hl-num" data-line="164"></td><td>                Log.<span class="hl-en">e</span>(TAG, <span class="hl-s">"RxJavaPlugins.ErrorHandler called with -> : "</span></td></tr>
+<tr><td class="hl-num" data-line="165"></td><td>                        + <span class="hl-s">"throwable = ["</span> + throwable.<span class="hl-en">getClass</span>().<span class="hl-en">getName</span>() + <span class="hl-s">"]"</span>);</td></tr>
+<tr><td class="hl-num" data-line="166"></td><td></td></tr>
+<tr><td class="hl-num" data-line="167"></td><td>                <span class="hl-k">final</span> Throwable actualThrowable;</td></tr>
+<tr><td class="hl-num" data-line="168"></td><td>                <span class="hl-k">if</span> (throwable <span class="hl-k">instanceof</span> UndeliverableException) {</td></tr>
+<tr><td class="hl-num" data-line="169"></td><td>                    <span class="hl-cmt">// As UndeliverableException is a wrapper,</span></td></tr>
+<tr><td class="hl-num" data-line="170"></td><td>                    <span class="hl-cmt">// get the cause of it to get the "real" exception</span></td></tr>
+<tr><td class="hl-num" data-line="171"></td><td>                    actualThrowable = throwable.<span class="hl-en">getCause</span>();</td></tr>
+<tr><td class="hl-num" data-line="172"></td><td>                } <span class="hl-k">else</span> {</td></tr>
+<tr><td class="hl-num" data-line="173"></td><td>                    actualThrowable = throwable;</td></tr>
+<tr><td class="hl-num" data-line="174"></td><td>                }</td></tr>
 <tr><td class="hl-num" data-line="175"></td><td></td></tr>
-<tr><td class="hl-num" data-line="176"></td><td>            <span class="hl-k">private</span> <span class="hl-k">boolean</span> <span class="hl-en">isThrowableIgnored</span>(<span class="hl-k">@NonNull</span> <span class="hl-k">final</span> Throwable throwable) {</td></tr>
-<tr><td class="hl-num" data-line="177"></td><td>                <span class="hl-cmt">// Don't crash the application over a simple network problem</span></td></tr>
-<tr><td class="hl-num" data-line="178"></td><td>                <span class="hl-k">return</span> ExceptionUtils.<span class="hl-en">hasAssignableCause</span>(throwable,</td></tr>
-<tr><td class="hl-num" data-line="179"></td><td>                        <span class="hl-cmt">// network api cancellation</span></td></tr>
-<tr><td class="hl-num" data-line="180"></td><td>                        IOException.<span class="hl-k">class</span>, SocketException.<span class="hl-k">class</span>,</td></tr>
-<tr><td class="hl-num" data-line="181"></td><td>                        <span class="hl-cmt">// blocking code disposed</span></td></tr>
-<tr><td class="hl-num" data-line="182"></td><td>                        InterruptedException.<span class="hl-k">class</span>, InterruptedIOException.<span class="hl-k">class</span>);</td></tr>
-<tr><td class="hl-num" data-line="183"></td><td>            }</td></tr>
-<tr><td class="hl-num" data-line="184"></td><td></td></tr>
-<tr><td class="hl-num" data-line="185"></td><td>        });</td></tr>
-<tr><td class="hl-num" data-line="186"></td><td>    }</td></tr>
-<tr><td class="hl-num" data-line="187"></td><td></td></tr>
-<tr><td class="hl-num" data-line="188"></td><td>    <span class="hl-cmt">/**</span></td></tr>
-<tr><td class="hl-num" data-line="189"></td><td><span class="hl-cmt">     * Called in {@link #attachBaseContext(Context)} after calling the {@code super} method.</span></td></tr>
-<tr><td class="hl-num" data-line="190"></td><td><span class="hl-cmt">     * Should be overridden if MultiDex is enabled, since it has to be initialized before ACRA.</span></td></tr>
-<tr><td class="hl-num" data-line="191"></td><td><span class="hl-cmt">     */</span></td></tr>
-<tr><td class="hl-num" data-line="192"></td><td>    <span class="hl-k">protected</span> <span class="hl-k">void</span> <span class="hl-en">initACRA</span>() {</td></tr>
-<tr><td class="hl-num" data-line="193"></td><td>        <span class="hl-k">if</span> (ACRA.<span class="hl-en">isACRASenderServiceProcess</span>()) {</td></tr>
-<tr><td class="hl-num" data-line="194"></td><td>            <span class="hl-k">return</span>;</td></tr>
-<tr><td class="hl-num" data-line="195"></td><td>        }</td></tr>
-<tr><td class="hl-num" data-line="196"></td><td></td></tr>
-<tr><td class="hl-num" data-line="197"></td><td>        <span class="hl-k">try</span> {</td></tr>
-<tr><td class="hl-num" data-line="198"></td><td>            <span class="hl-k">final</span> CoreConfiguration acraConfig = <span class="hl-k">new</span> <span class="hl-en">CoreConfigurationBuilder</span>(<span class="hl-c">this</span>)</td></tr>
-<tr><td class="hl-num" data-line="199"></td><td>                    .<span class="hl-en">setBuildConfigClass</span>(BuildConfig.<span class="hl-k">class</span>)</td></tr>
-<tr><td class="hl-num" data-line="200"></td><td>                    .<span class="hl-en">build</span>();</td></tr>
-<tr><td class="hl-num" data-line="201"></td><td>            ACRA.<span class="hl-en">init</span>(<span class="hl-c">this</span>, acraConfig);</td></tr>
-<tr><td class="hl-num" data-line="202"></td><td>        } <span class="hl-k">catch</span> (<span class="hl-k">final</span> ACRAConfigurationException exception) {</td></tr>
-<tr><td class="hl-num" data-line="203"></td><td>            exception.<span class="hl-en">printStackTrace</span>();</td></tr>
-<tr><td class="hl-num" data-line="204"></td><td>            ErrorUtil.<span class="hl-en">openActivity</span>(<span class="hl-c">this</span>, <span class="hl-k">new</span> <span class="hl-en">ErrorInfo</span>(exception,</td></tr>
-<tr><td class="hl-num" data-line="205"></td><td>                    UserAction.SOMETHING_ELSE, <span class="hl-s">"Could not initialize ACRA crash report"</span>));</td></tr>
-<tr><td class="hl-num" data-line="206"></td><td>        }</td></tr>
-<tr><td class="hl-num" data-line="207"></td><td>    }</td></tr>
-<tr><td class="hl-num" data-line="208"></td><td></td></tr>
-<tr><td class="hl-num" data-line="209"></td><td>    <span class="hl-k">private</span> <span class="hl-k">void</span> <span class="hl-en">initNotificationChannels</span>() {</td></tr>
-<tr><td class="hl-num" data-line="210"></td><td>        <span class="hl-cmt">// Keep the importance below DEFAULT to avoid making noise on every notification update for</span></td></tr>
-<tr><td class="hl-num" data-line="211"></td><td>        <span class="hl-cmt">// the main and update channels</span></td></tr>
-<tr><td class="hl-num" data-line="212"></td><td>        <span class="hl-k">final</span> NotificationChannelCompat mainChannel = <span class="hl-k">new</span> NotificationChannelCompat</td></tr>
-<tr><td class="hl-num" data-line="213"></td><td>                .<span class="hl-en">Builder</span>(<span class="hl-en">getString</span>(R.string.notification_channel_id),</td></tr>
-<tr><td class="hl-num" data-line="214"></td><td>                        NotificationManagerCompat.IMPORTANCE_LOW)</td></tr>
-<tr><td class="hl-num" data-line="215"></td><td>                .<span class="hl-en">setName</span>(<span class="hl-en">getString</span>(R.string.notification_channel_name))</td></tr>
-<tr><td class="hl-num" data-line="216"></td><td>                .<span class="hl-en">setDescription</span>(<span class="hl-en">getString</span>(R.string.notification_channel_description))</td></tr>
-<tr><td class="hl-num" data-line="217"></td><td>                .<span class="hl-en">build</span>();</td></tr>
-<tr><td class="hl-num" data-line="218"></td><td></td></tr>
-<tr><td class="hl-num" data-line="219"></td><td>        <span class="hl-k">final</span> NotificationManagerCompat notificationManager = NotificationManagerCompat.<span class="hl-en">from</span>(<span class="hl-c">this</span>);</td></tr>
-<tr><td class="hl-num" data-line="220"></td><td>        notificationManager.<span class="hl-en">createNotificationChannelsCompat</span>(Arrays.<span class="hl-en">asList</span>(mainChannel,</td></tr>
-<tr><td class="hl-num" data-line="221"></td><td>                appUpdateChannel, hashChannel, errorReportChannel));</td></tr>
-<tr><td class="hl-num" data-line="222"></td><td>    }</td></tr>
-<tr><td class="hl-num" data-line="223"></td><td></td></tr>
-<tr><td class="hl-num" data-line="224"></td><td>    <span class="hl-k">protected</span> <span class="hl-k">boolean</span> <span class="hl-en">isDisposedRxExceptionsReported</span>() {</td></tr>
-<tr><td class="hl-num" data-line="225"></td><td>        <span class="hl-k">return</span> <span class="hl-c">false</span>;</td></tr>
-<tr><td class="hl-num" data-line="226"></td><td>    }</td></tr>
-<tr><td class="hl-num" data-line="227"></td><td></td></tr>
-<tr><td class="hl-num" data-line="228"></td><td>}</td></tr>
-<tr><td class="hl-num" data-line="229"></td><td></td></tr>
+<tr><td class="hl-num" data-line="176"></td><td>                <span class="hl-k">final</span> <span class="hl-k">List</span><Throwable> errors;</td></tr>
+<tr><td class="hl-num" data-line="177"></td><td>                <span class="hl-k">if</span> (actualThrowable <span class="hl-k">instanceof</span> CompositeException) {</td></tr>
+<tr><td class="hl-num" data-line="178"></td><td>                    errors = ((CompositeException) actualThrowable).<span class="hl-en">getExceptions</span>();</td></tr>
+<tr><td class="hl-num" data-line="179"></td><td>                } <span class="hl-k">else</span> {</td></tr>
+<tr><td class="hl-num" data-line="180"></td><td>                    errors = Collections.<span class="hl-en">singletonList</span>(actualThrowable);</td></tr>
+<tr><td class="hl-num" data-line="181"></td><td>                }</td></tr>
+<tr><td class="hl-num" data-line="182"></td><td></td></tr>
+<tr><td class="hl-num" data-line="183"></td><td>                <span class="hl-k">for</span> (<span class="hl-k">final</span> Throwable error : errors) {</td></tr>
+<tr><td class="hl-num" data-line="184"></td><td>                    <span class="hl-k">if</span> (<span class="hl-en">isThrowableIgnored</span>(error)) {</td></tr>
+<tr><td class="hl-num" data-line="185"></td><td>                        <span class="hl-k">return</span>;</td></tr>
+<tr><td class="hl-num" data-line="186"></td><td>                    }</td></tr>
+<tr><td class="hl-num" data-line="187"></td><td>                    <span class="hl-k">if</span> (<span class="hl-en">isThrowableCritical</span>(error)) {</td></tr>
+<tr><td class="hl-num" data-line="188"></td><td>                        <span class="hl-en">reportException</span>(error);</td></tr>
+<tr><td class="hl-num" data-line="189"></td><td>                        <span class="hl-k">return</span>;</td></tr>
+<tr><td class="hl-num" data-line="190"></td><td>                    }</td></tr>
+<tr><td class="hl-num" data-line="191"></td><td>                }</td></tr>
+<tr><td class="hl-num" data-line="192"></td><td>            }</td></tr>
+<tr><td class="hl-num" data-line="193"></td><td></td></tr>
+<tr><td class="hl-num" data-line="194"></td><td>            <span class="hl-k">private</span> <span class="hl-k">boolean</span> <span class="hl-en">isThrowableIgnored</span>(<span class="hl-k">@NonNull</span> <span class="hl-k">final</span> Throwable throwable) {</td></tr>
+<tr><td class="hl-num" data-line="195"></td><td>                <span class="hl-cmt">// Don't crash the application over a simple network problem</span></td></tr>
+<tr><td class="hl-num" data-line="196"></td><td>                <span class="hl-k">return</span> ExceptionUtils.<span class="hl-en">hasAssignableCause</span>(throwable,</td></tr>
+<tr><td class="hl-num" data-line="197"></td><td>                        <span class="hl-cmt">// network api cancellation</span></td></tr>
+<tr><td class="hl-num" data-line="198"></td><td>                        IOException.<span class="hl-k">class</span>, SocketException.<span class="hl-k">class</span>,</td></tr>
+<tr><td class="hl-num" data-line="199"></td><td>                        <span class="hl-cmt">// blocking code disposed</span></td></tr>
+<tr><td class="hl-num" data-line="200"></td><td>                        InterruptedException.<span class="hl-k">class</span>, InterruptedIOException.<span class="hl-k">class</span>);</td></tr>
+<tr><td class="hl-num" data-line="201"></td><td>            }</td></tr>
+<tr><td class="hl-num" data-line="202"></td><td></td></tr>
+<tr><td class="hl-num" data-line="203"></td><td>        });</td></tr>
+<tr><td class="hl-num" data-line="204"></td><td>    }</td></tr>
+<tr><td class="hl-num" data-line="205"></td><td></td></tr>
+<tr><td class="hl-num" data-line="206"></td><td>    <span class="hl-cmt">/**</span></td></tr>
+<tr><td class="hl-num" data-line="207"></td><td><span class="hl-cmt">     * Called in {@link #attachBaseContext(Context)} after calling the {@code super} method.</span></td></tr>
+<tr><td class="hl-num" data-line="208"></td><td><span class="hl-cmt">     * Should be overridden if MultiDex is enabled, since it has to be initialized before ACRA.</span></td></tr>
+<tr><td class="hl-num" data-line="209"></td><td><span class="hl-cmt">     */</span></td></tr>
+<tr><td class="hl-num" data-line="210"></td><td>    <span class="hl-k">protected</span> <span class="hl-k">void</span> <span class="hl-en">initACRA</span>() {</td></tr>
+<tr><td class="hl-num" data-line="211"></td><td>        <span class="hl-k">if</span> (ACRA.<span class="hl-en">isACRASenderServiceProcess</span>()) {</td></tr>
+<tr><td class="hl-num" data-line="212"></td><td>            <span class="hl-k">return</span>;</td></tr>
+<tr><td class="hl-num" data-line="213"></td><td>        }</td></tr>
+<tr><td class="hl-num" data-line="214"></td><td></td></tr>
+<tr><td class="hl-num" data-line="215"></td><td>        <span class="hl-k">try</span> {</td></tr>
+<tr><td class="hl-num" data-line="216"></td><td>            <span class="hl-k">final</span> CoreConfiguration acraConfig = <span class="hl-k">new</span> <span class="hl-en">CoreConfigurationBuilder</span>(<span class="hl-c">this</span>)</td></tr>
+<tr><td class="hl-num" data-line="217"></td><td>                    .<span class="hl-en">setBuildConfigClass</span>(BuildConfig.<span class="hl-k">class</span>)</td></tr>
+<tr><td class="hl-num" data-line="218"></td><td>                    .<span class="hl-en">build</span>();</td></tr>
+<tr><td class="hl-num" data-line="219"></td><td>            ACRA.<span class="hl-en">init</span>(<span class="hl-c">this</span>, acraConfig);</td></tr>
+<tr><td class="hl-num" data-line="220"></td><td>        } <span class="hl-k">catch</span> (<span class="hl-k">final</span> ACRAConfigurationException exception) {</td></tr>
+<tr><td class="hl-num" data-line="221"></td><td>            exception.<span class="hl-en">printStackTrace</span>();</td></tr>
+<tr><td class="hl-num" data-line="222"></td><td>            ErrorUtil.<span class="hl-en">openActivity</span>(<span class="hl-c">this</span>, <span class="hl-k">new</span> <span class="hl-en">ErrorInfo</span>(exception,</td></tr>
+<tr><td class="hl-num" data-line="223"></td><td>                    UserAction.SOMETHING_ELSE, <span class="hl-s">"Could not initialize ACRA crash report"</span>));</td></tr>
+<tr><td class="hl-num" data-line="224"></td><td>        }</td></tr>
+<tr><td class="hl-num" data-line="225"></td><td>    }</td></tr>
+<tr><td class="hl-num" data-line="226"></td><td></td></tr>
+<tr><td class="hl-num" data-line="227"></td><td>    <span class="hl-k">private</span> <span class="hl-k">void</span> <span class="hl-en">initNotificationChannels</span>() {</td></tr>
+<tr><td class="hl-num" data-line="228"></td><td>        <span class="hl-cmt">// Keep the importance below DEFAULT to avoid making noise on every notification update for</span></td></tr>
+<tr><td class="hl-num" data-line="229"></td><td>        <span class="hl-cmt">// the main and update channels</span></td></tr>
+<tr><td class="hl-num" data-line="230"></td><td>        <span class="hl-k">final</span> NotificationChannelCompat mainChannel = <span class="hl-k">new</span> NotificationChannelCompat</td></tr>
+<tr><td class="hl-num" data-line="231"></td><td>                .<span class="hl-en">Builder</span>(<span class="hl-en">getString</span>(R.string.notification_channel_id),</td></tr>
+<tr><td class="hl-num" data-line="232"></td><td>                        NotificationManagerCompat.IMPORTANCE_LOW)</td></tr>
+<tr><td class="hl-num" data-line="233"></td><td>                .<span class="hl-en">setName</span>(<span class="hl-en">getString</span>(R.string.notification_channel_name))</td></tr>
+<tr><td class="hl-num" data-line="234"></td><td>                .<span class="hl-en">setDescription</span>(<span class="hl-en">getString</span>(R.string.notification_channel_description))</td></tr>
+<tr><td class="hl-num" data-line="235"></td><td>                .<span class="hl-en">build</span>();</td></tr>
+<tr><td class="hl-num" data-line="236"></td><td></td></tr>
+<tr><td class="hl-num" data-line="237"></td><td>        <span class="hl-k">final</span> NotificationManagerCompat notificationManager = NotificationManagerCompat.<span class="hl-en">from</span>(<span class="hl-c">this</span>);</td></tr>
+<tr><td class="hl-num" data-line="238"></td><td>        notificationManager.<span class="hl-en">createNotificationChannelsCompat</span>(Arrays.<span class="hl-en">asList</span>(mainChannel,</td></tr>
+<tr><td class="hl-num" data-line="239"></td><td>                appUpdateChannel, hashChannel, errorReportChannel));</td></tr>
+<tr><td class="hl-num" data-line="240"></td><td>    }</td></tr>
+<tr><td class="hl-num" data-line="241"></td><td></td></tr>
+<tr><td class="hl-num" data-line="242"></td><td>    <span class="hl-k">protected</span> <span class="hl-k">boolean</span> <span class="hl-en">isDisposedRxExceptionsReported</span>() {</td></tr>
+<tr><td class="hl-num" data-line="243"></td><td>        <span class="hl-k">return</span> <span class="hl-c">false</span>;</td></tr>
+<tr><td class="hl-num" data-line="244"></td><td>    }</td></tr>
+<tr><td class="hl-num" data-line="245"></td><td></td></tr>
+<tr><td class="hl-num" data-line="246"></td><td>}</td></tr>
+<tr><td class="hl-num" data-line="247"></td><td></td></tr>
 </tbody>
 </table>
