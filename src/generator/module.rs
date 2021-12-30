@@ -14,7 +14,7 @@ const ACCEPT_IDENT_SUFFIX: &str = "ACCEPT_IDENT_SUFFIX";
 const BREAK_IDENT_SUFFIX: &str = "BREAK_IDENT_SUFFIX";
 const ACCEPT_STRING_ONE_QUOTE: &str = "ACCEPT_STRING_ONE_QUOTE";
 const ACCEPT_STRING_DOUBLE_QUOTE: &str = "ACCEPT_STRING_DOUBLE_QUOTE";
-const ACCEPT_PREFIX_DIGIT: &str = "ACCEPT_PREFIX_DIGIT";
+const ACCEPT_SUFFIX_DIGIT: &str = "ACCEPT_SUFFIX_DIGIT";
 const ACCEPT_ENTITY_TAG_PREFIX: &str = "ACCEPT_ENTITY_TAG_PREFIX";
 const ENTITY_TAG_PREFIX_CHAR: &str = "ENTITY_TAG_PREFIX_CHAR";
 
@@ -347,7 +347,7 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
     module.push_tabln(7, "}");
     module.push_tabln(6, "}");
     module.push_tabln(5, "} else if is_digit(self.ch) {");
-    if let Some(ch) = get_condition(h).get(&Yaml::String(ACCEPT_PREFIX_DIGIT.to_string())) {
+    if let Some(ch) = get_condition(h).get(&Yaml::String(ACCEPT_SUFFIX_DIGIT.to_string())) {
         module.push_tabln(6, "let mut identifier: Vec<char> = read_number(self);");
         module.push_tabln(6, &format!("if self.ch == '{}' {{", ch.as_str().unwrap()));
         module.push_tabln(7, "identifier.append(&mut vec![self.ch]);");
