@@ -8,18 +8,18 @@
 <tr><td class="hl-num" data-line="6"></td><td>#<span class="hl-k">include</span> <span class="hl-s">"misc/bstr.h"</span></td></tr>
 <tr><td class="hl-num" data-line="7"></td><td>#<span class="hl-k">include</span> <span class="hl-s">"misc/node.h"</span></td></tr>
 <tr><td class="hl-num" data-line="8"></td><td></td></tr>
-<tr><td class="hl-num" data-line="9"></td><td><span class="hl-k">static</span> <span class="hl-k">int</span> jz<span class="hl-c">4730</span>_mmc_<span class="hl-c">1</span>bit_pins[] = { <span class="hl-c">0</span>x<span class="hl-c">27</span>, <span class="hl-c">0</span>x<span class="hl-c">26</span>, <span class="hl-c">0</span>x<span class="hl-c">22</span>, };</td></tr>
+<tr><td class="hl-num" data-line="9"></td><td><span class="hl-k">static</span> <span class="hl-k">int</span> jz4730_mmc_1bit_pins[] = { <span class="hl-c">0</span>x27, <span class="hl-c">0</span>x26, <span class="hl-c">0</span>x22, };</td></tr>
 <tr><td class="hl-num" data-line="10"></td><td>vector <span class="hl-k">signed</span> <span class="hl-k">short</span> v_dcOffset;</td></tr>
 <tr><td class="hl-num" data-line="11"></td><td></td></tr>
 <tr><td class="hl-num" data-line="12"></td><td>#<span class="hl-k">define</span> SLOW_DOWN_IO	<span class="hl-k">do</span> { } <span class="hl-k">while</span> (<span class="hl-c">0</span>)</td></tr>
-<tr><td class="hl-num" data-line="13"></td><td><span class="hl-k">register</span> <span class="hl-k">long</span> _arg<span class="hl-c">1</span> <span class="hl-k">asm</span>(<span class="hl-s">"rdi"</span>) = (<span class="hl-k">long</span>)(arg<span class="hl-c">1</span>);</td></tr>
+<tr><td class="hl-num" data-line="13"></td><td><span class="hl-k">register</span> <span class="hl-k">long</span> _arg1 <span class="hl-k">asm</span>(<span class="hl-s">"rdi"</span>) = (<span class="hl-k">long</span>)(arg1);</td></tr>
 <tr><td class="hl-num" data-line="14"></td><td><span class="hl-k">extern</span> <span class="hl-k">struct</span> smb_hdr *<span class="hl-en">cifs_buf_get</span>(<span class="hl-k">void</span>);</td></tr>
 <tr><td class="hl-num" data-line="15"></td><td></td></tr>
 <tr><td class="hl-num" data-line="16"></td><td><span class="hl-k">typedef</span> <span class="hl-k">enum</span> RequestType {</td></tr>
-<tr><td class="hl-num" data-line="17"></td><td>TYPE_NORMAL                       = <span class="hl-c">0</span>x<span class="hl-c">00000000</span>,</td></tr>
+<tr><td class="hl-num" data-line="17"></td><td>TYPE_NORMAL                       = <span class="hl-c">0</span>x00000000,</td></tr>
 <tr><td class="hl-num" data-line="18"></td><td>} RequestType;</td></tr>
 <tr><td class="hl-num" data-line="19"></td><td></td></tr>
-<tr><td class="hl-num" data-line="20"></td><td>#<span class="hl-k">ifdef</span> _H<span class="hl-c">2</span>INC</td></tr>
+<tr><td class="hl-num" data-line="20"></td><td>#<span class="hl-k">ifdef</span> _H2INC</td></tr>
 <tr><td class="hl-num" data-line="21"></td><td>  #<span class="hl-k">ifndef</span> USHORT</td></tr>
 <tr><td class="hl-num" data-line="22"></td><td>    <span class="hl-k">typedef</span> <span class="hl-k">unsigned</span> <span class="hl-k">short</span> USHORT;</td></tr>
 <tr><td class="hl-num" data-line="23"></td><td>  #<span class="hl-k">endif</span></td></tr>
@@ -78,9 +78,9 @@
 <tr><td class="hl-num" data-line="76"></td><td><span class="hl-k">static</span> <span class="hl-k">const</span> <span class="hl-k">struct</span> m_option *<span class="hl-en">get_arg_type</span>(<span class="hl-k">const</span> <span class="hl-k">struct</span> mp_cmd_def *cmd, <span class="hl-k">int</span> i)</td></tr>
 <tr><td class="hl-num" data-line="77"></td><td>{</td></tr>
 <tr><td class="hl-num" data-line="78"></td><td>    <span class="hl-k">switch</span> (id) {</td></tr>
-<tr><td class="hl-num" data-line="79"></td><td>    <span class="hl-k">case</span> V<span class="hl-c">4</span>L<span class="hl-c">2</span>_CID_MPEG_AUDIO_SAMPLING_FREQ:</td></tr>
+<tr><td class="hl-num" data-line="79"></td><td>    <span class="hl-k">case</span> V4L2_CID_MPEG_AUDIO_SAMPLING_FREQ:</td></tr>
 <tr><td class="hl-num" data-line="80"></td><td>        <span class="hl-k">return</span> mpeg_audio_sampling_freq;</td></tr>
-<tr><td class="hl-num" data-line="81"></td><td>    <span class="hl-k">case</span> V<span class="hl-c">4</span>L<span class="hl-c">2</span>_CID_MPEG_AUDIO_ENCODING:</td></tr>
+<tr><td class="hl-num" data-line="81"></td><td>    <span class="hl-k">case</span> V4L2_CID_MPEG_AUDIO_ENCODING:</td></tr>
 <tr><td class="hl-num" data-line="82"></td><td>        <span class="hl-k">return</span> mpeg_audio_encoding;</td></tr>
 <tr><td class="hl-num" data-line="83"></td><td>    <span class="hl-k">default</span>:</td></tr>
 <tr><td class="hl-num" data-line="84"></td><td>        <span class="hl-k">return</span> <span class="hl-c">NULL</span>;</td></tr>
@@ -129,7 +129,7 @@
 <tr><td class="hl-num" data-line="127"></td><td>    <span class="hl-k">while</span> (cur <span class="hl-s">&lt;</span> args-<span class="hl-s">></span>num) {</td></tr>
 <tr><td class="hl-num" data-line="128"></td><td>        <span class="hl-k">if</span> (args-<span class="hl-s">></span>values[cur].format != MPV_FORMAT_STRING)</td></tr>
 <tr><td class="hl-num" data-line="129"></td><td>            <span class="hl-k">break</span>;</td></tr>
-<tr><td class="hl-num" data-line="130"></td><td>        <span class="hl-k">if</span> (!<span class="hl-en">apply_flag</span>(cmd, bstr<span class="hl-c">0</span>(args-<span class="hl-s">></span>values[cur].u.string)))</td></tr>
+<tr><td class="hl-num" data-line="130"></td><td>        <span class="hl-k">if</span> (!<span class="hl-en">apply_flag</span>(cmd, <span class="hl-en">bstr0</span>(args-<span class="hl-s">></span>values[cur].u.string)))</td></tr>
 <tr><td class="hl-num" data-line="131"></td><td>            <span class="hl-k">break</span>;</td></tr>
 <tr><td class="hl-num" data-line="132"></td><td>        cur++;</td></tr>
 <tr><td class="hl-num" data-line="133"></td><td>    }</td></tr>
@@ -211,7 +211,7 @@
 <tr><td class="hl-num" data-line="209"></td><td>                           <span class="hl-k">struct</span> bstr name, <span class="hl-k">struct</span> bstr param, <span class="hl-k">void</span> *dst)</td></tr>
 <tr><td class="hl-num" data-line="210"></td><td>{</td></tr>
 <tr><td class="hl-num" data-line="211"></td><td>    <span class="hl-k">double</span> val;</td></tr>
-<tr><td class="hl-num" data-line="212"></td><td>    <span class="hl-k">if</span> (bstrcmp<span class="hl-c">0</span>(param, <span class="hl-s">"down"</span>) == <span class="hl-c">0</span>) {</td></tr>
+<tr><td class="hl-num" data-line="212"></td><td>    <span class="hl-k">if</span> (<span class="hl-en">bstrcmp0</span>(param, <span class="hl-s">"down"</span>) == <span class="hl-c">0</span>) {</td></tr>
 <tr><td class="hl-num" data-line="213"></td><td>        val = -<span class="hl-c">1</span>;</td></tr>
 <tr><td class="hl-num" data-line="214"></td><td>    } <span class="hl-k">else</span> {</td></tr>
 <tr><td class="hl-num" data-line="215"></td><td>        <span class="hl-k">return</span> m_option_type_double.<span class="hl-en">parse</span>(log, opt, name, param, dst);</td></tr>
