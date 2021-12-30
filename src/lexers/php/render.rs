@@ -67,6 +67,9 @@ pub fn render_html(input: Vec<char>) -> String {
             token::Token::VAR(value) => {
                 html.push_str(&format!("<span class=\"hl-vid\">{}</span>", value.iter().collect::<String>()));
             }
+            token::Token::CONSTANT(value) => {
+                html.push_str(&format!("<span class=\"hl-c\">{}</span>", value.iter().collect::<String>()));
+            }
             token::Token::COMMENT(value) => {
                 let mut lines = String::new();
                 for ch in value {

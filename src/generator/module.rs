@@ -19,6 +19,7 @@ const ACCEPT_ENTITY_TAG_PREFIX: &str = "ACCEPT_ENTITY_TAG_PREFIX";
 const ENTITY_TAG_PREFIX_CHAR: &str = "ENTITY_TAG_PREFIX_CHAR";
 const ACCEPT_PREFIX_VAR: &str = "ACCEPT_PREFIX_VAR";
 const ENTITY_CLOSE_TAG_SUFFIX_CHAR: &str = "ENTITY_CLOSE_TAG_SUFFIX_CHAR";
+const VAR_CONSTANT_PREFIX: &str = "VAR_CONSTANT_PREFIX";
 
 fn write_struct_lexer(module: &mut StringBuilder) {
     module.push_strln("pub struct Lexer {");
@@ -207,10 +208,22 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
     if let Some(v) = get_condition(h).get(&Yaml::String(ACCEPT_PREFIX_VAR.to_string())) {
         module.push_tabln(3, &format!("'{}' => {{", v.as_str().unwrap()));
         module.push_tabln(4, "if is_letter(self.input[self.position+1]) {");
-        module.push_tabln(5, "self.read_char();");
-        module.push_tabln(5, &format!("let mut identifier = vec!['{}'];", v.as_str().unwrap()));
-        module.push_tabln(5, "identifier.append(&mut read_identifier(self));");
-        module.push_tabln(5, "return token::Token::VAR(identifier);");
+        if let Some(pref) = get_condition(h).get(&Yaml::String(VAR_CONSTANT_PREFIX.to_string())) {
+            module.push_tabln(5, "let position = self.position;");
+            module.push_tabln(5, "self.read_char();");
+            module.push_tabln(5, &format!("let mut identifier = vec!['{}'];", v.as_str().unwrap()));
+            module.push_tabln(5, "identifier.append(&mut read_identifier(self));");
+            module.push_tabln(5, &format!("if self.input[position-1] == '{}' {{", pref.as_str().unwrap()));
+            module.push_tabln(6, "return token::Token::CONSTANT(identifier);");
+            module.push_tabln(5, "} else {");
+            module.push_tabln(6, "return token::Token::VAR(identifier);");
+            module.push_tabln(5, "}");
+        } else {
+            module.push_tabln(5, "self.read_char();");
+            module.push_tabln(5, &format!("let mut identifier = vec!['{}'];", v.as_str().unwrap()));
+            module.push_tabln(5, "identifier.append(&mut read_identifier(self));");
+            module.push_tabln(5, "return token::Token::VAR(identifier);");
+        }
         module.push_tabln(4, "}");
         module.push_tabln(4, "tok = token::Token::CH(self.ch);");
         module.push_tabln(3, "}");

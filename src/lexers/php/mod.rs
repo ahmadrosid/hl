@@ -124,10 +124,15 @@ impl Lexer {
             }
             '$' => {
                 if is_letter(self.input[self.position+1]) {
+                    let position = self.position;
                     self.read_char();
                     let mut identifier = vec!['$'];
                     identifier.append(&mut read_identifier(self));
-                    return token::Token::VAR(identifier);
+                    if self.input[position-1] == '[' {
+                        return token::Token::CONSTANT(identifier);
+                    } else {
+                        return token::Token::VAR(identifier);
+                    }
                 }
                 tok = token::Token::CH(self.ch);
             }

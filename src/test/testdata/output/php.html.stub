@@ -35,10 +35,10 @@
 <tr><td class="hl-num" data-line="33"></td><td>            <span class="hl-vid">$method</span> = <span class="hl-s">'boot'</span>.<span class="hl-en">class_basename</span>(<span class="hl-vid">$trait</span>);</td></tr>
 <tr><td class="hl-num" data-line="34"></td><td></td></tr>
 <tr><td class="hl-num" data-line="35"></td><td>            <span class="hl-k">if</span> (<span class="hl-en">method_exists</span>(<span class="hl-vid">$class</span>, <span class="hl-vid">$method</span> = <span class="hl-s">'initialize'</span>.<span class="hl-en">class_basename</span>(<span class="hl-vid">$trait</span>))) {</td></tr>
-<tr><td class="hl-num" data-line="36"></td><td>                <span class="hl-k">static</span>::<span class="hl-vid">$traitInitializers</span>[<span class="hl-vid">$class</span>][] = <span class="hl-vid">$method</span>;</td></tr>
+<tr><td class="hl-num" data-line="36"></td><td>                <span class="hl-k">static</span>::<span class="hl-vid">$traitInitializers</span>[<span class="hl-c">$class</span>][] = <span class="hl-vid">$method</span>;</td></tr>
 <tr><td class="hl-num" data-line="37"></td><td></td></tr>
-<tr><td class="hl-num" data-line="38"></td><td>                <span class="hl-k">static</span>::<span class="hl-vid">$traitInitializers</span>[<span class="hl-vid">$class</span>] = <span class="hl-en">array_unique</span>(</td></tr>
-<tr><td class="hl-num" data-line="39"></td><td>                    <span class="hl-k">static</span>::<span class="hl-vid">$traitInitializers</span>[<span class="hl-vid">$class</span>]</td></tr>
+<tr><td class="hl-num" data-line="38"></td><td>                <span class="hl-k">static</span>::<span class="hl-vid">$traitInitializers</span>[<span class="hl-c">$class</span>] = <span class="hl-en">array_unique</span>(</td></tr>
+<tr><td class="hl-num" data-line="39"></td><td>                    <span class="hl-k">static</span>::<span class="hl-vid">$traitInitializers</span>[<span class="hl-c">$class</span>]</td></tr>
 <tr><td class="hl-num" data-line="40"></td><td>                );</td></tr>
 <tr><td class="hl-num" data-line="41"></td><td>            }</td></tr>
 <tr><td class="hl-num" data-line="42"></td><td>        }</td></tr>

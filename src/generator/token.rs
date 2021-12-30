@@ -4,6 +4,7 @@ use yaml_rust::yaml::Hash;
 
 const ACCEPT_ENTITY_TAG_PREFIX: &str = "ACCEPT_ENTITY_TAG_PREFIX";
 const ACCEPT_PREFIX_VAR: &str = "ACCEPT_PREFIX_VAR";
+const VAR_CONSTANT_PREFIX: &str = "VAR_CONSTANT_PREFIX";
 
 pub fn generate_token(h: &Hash) -> String {
     let mut token = StringBuilder::new();
@@ -23,6 +24,10 @@ pub fn generate_token(h: &Hash) -> String {
 
     if let Some(_) = get_condition(h).get(&Yaml::String(ACCEPT_ENTITY_TAG_PREFIX.to_string())) {
         token.push_tabln(1, "ENTITYTAG(Vec<char>),");
+    }
+
+    if let Some(_) = get_condition(h).get(&Yaml::String(VAR_CONSTANT_PREFIX.to_string())) {
+        token.push_tabln(1, "CONSTANT(Vec<char>),");
     }
 
     if let Some(_) = get_condition(h).get(&Yaml::String(ACCEPT_PREFIX_VAR.to_string())) {
