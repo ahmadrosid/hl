@@ -61,6 +61,8 @@ keyword:
   FINALLY: "finally"
   LONG: "long"
   DO: "do"
+  TRANSIENT: "transient"
+  STRICTFP: "strictfp"
 
 condition:
   ACCEPT_STRING_ONE_QUOTE: true
