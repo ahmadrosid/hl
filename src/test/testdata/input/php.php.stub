@@ -39,6 +39,9 @@ class Model1 extends Model {
             }
         }
         $this->booted = true;
+        if ($token === false) {
+            goto SCANNER_END;
+        }
     }
 
     protected function initializeTraits()
