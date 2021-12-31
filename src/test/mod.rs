@@ -1,4 +1,4 @@
-use crate::lexers::{css, cpp, go, java, javascript, rust, typescript, c, php};
+use crate::lexers::{c, cpp, css, go, java, javascript, php, rust, typescript};
 use std::fs;
 
 fn read_input(path: &str) -> Vec<char> {

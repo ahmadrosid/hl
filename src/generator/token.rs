@@ -1,6 +1,9 @@
-use yaml_rust::Yaml;
-use crate::generator::{get_condition, get_constant, get_entity, get_entity_tag, get_keyword, get_skip, get_var, slash_comment_enable, string::StringBuilder};
+use crate::generator::{
+    get_condition, get_constant, get_entity, get_entity_tag, get_keyword, get_skip, get_var,
+    slash_comment_enable, string::StringBuilder,
+};
 use yaml_rust::yaml::Hash;
+use yaml_rust::Yaml;
 
 const ACCEPT_ENTITY_TAG_PREFIX: &str = "ACCEPT_ENTITY_TAG_PREFIX";
 const ACCEPT_PREFIX_VAR: &str = "ACCEPT_PREFIX_VAR";

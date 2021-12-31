@@ -142,11 +142,25 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
     module.push_tabln(4, "tok = token::Token::EOF;");
     module.push_tabln(3, "}");
 
-    if let Some(prefix) = get_condition(h).get(&Yaml::String(ACCEPT_ENTITY_TAG_PREFIX.to_string())) {
+    if let Some(prefix) = get_condition(h).get(&Yaml::String(ACCEPT_ENTITY_TAG_PREFIX.to_string()))
+    {
         if let Some(ch) = get_condition(h).get(&Yaml::String(ENTITY_TAG_PREFIX_CHAR.to_string())) {
             module.push_tabln(3, &format!("'{}' => {{", prefix.as_str().unwrap()));
-            module.push_tabln(4, &format!("if self.input[self.position+1] == '{}' {{", ch.as_str().unwrap()));
-            module.push_tabln(5, &format!("let mut entity = vec!['{}','{}'];", prefix.as_str().unwrap(), ch.as_str().unwrap()));
+            module.push_tabln(
+                4,
+                &format!(
+                    "if self.input[self.position+1] == '{}' {{",
+                    ch.as_str().unwrap()
+                ),
+            );
+            module.push_tabln(
+                5,
+                &format!(
+                    "let mut entity = vec!['{}','{}'];",
+                    prefix.as_str().unwrap(),
+                    ch.as_str().unwrap()
+                ),
+            );
             module.push_tabln(5, "self.read_char();");
             module.push_tabln(5, "self.read_char();");
             module.push_tabln(5, "entity.append(&mut read_identifier(self));");
@@ -159,10 +173,25 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
     }
 
     if let Some(prefix) = get_condition(h).get(&Yaml::String(ENTITY_TAG_PREFIX_CHAR.to_string())) {
-        if let Some(ch) = get_condition(h).get(&Yaml::String(ENTITY_CLOSE_TAG_SUFFIX_CHAR.to_string())) {
+        if let Some(ch) =
+            get_condition(h).get(&Yaml::String(ENTITY_CLOSE_TAG_SUFFIX_CHAR.to_string()))
+        {
             module.push_tabln(3, &format!("'{}' => {{", prefix.as_str().unwrap()));
-            module.push_tabln(4, &format!("if self.input[self.position+1] == '{}' {{", ch.as_str().unwrap()));
-            module.push_tabln(5, &format!("let entity = vec!['{}','{}'];", prefix.as_str().unwrap(), ch.as_str().unwrap()));
+            module.push_tabln(
+                4,
+                &format!(
+                    "if self.input[self.position+1] == '{}' {{",
+                    ch.as_str().unwrap()
+                ),
+            );
+            module.push_tabln(
+                5,
+                &format!(
+                    "let entity = vec!['{}','{}'];",
+                    prefix.as_str().unwrap(),
+                    ch.as_str().unwrap()
+                ),
+            );
             module.push_tabln(5, "self.read_char();");
             module.push_tabln(5, "self.read_char();");
             module.push_tabln(5, "return token::Token::ENTITYTAG(entity);");
@@ -197,7 +226,10 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
         module.push_tabln(3, &format!("'{}' => {{", v.as_str().unwrap()));
         module.push_tabln(4, "if is_letter(self.input[self.position+1]) {");
         module.push_tabln(5, "self.read_char();");
-        module.push_tabln(5, &format!("let mut identifier = vec!['{}'];", v.as_str().unwrap()));
+        module.push_tabln(
+            5,
+            &format!("let mut identifier = vec!['{}'];", v.as_str().unwrap()),
+        );
         module.push_tabln(5, "identifier.append(&mut read_identifier(self));");
         module.push_tabln(5, "return token::Token::KEYWORD(identifier);");
         module.push_tabln(4, "}");
@@ -211,16 +243,28 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
         if let Some(pref) = get_condition(h).get(&Yaml::String(VAR_CONSTANT_PREFIX.to_string())) {
             module.push_tabln(5, "let position = self.position;");
             module.push_tabln(5, "self.read_char();");
-            module.push_tabln(5, &format!("let mut identifier = vec!['{}'];", v.as_str().unwrap()));
+            module.push_tabln(
+                5,
+                &format!("let mut identifier = vec!['{}'];", v.as_str().unwrap()),
+            );
             module.push_tabln(5, "identifier.append(&mut read_identifier(self));");
-            module.push_tabln(5, &format!("if self.input[position-1] == '{}' {{", pref.as_str().unwrap()));
+            module.push_tabln(
+                5,
+                &format!(
+                    "if self.input[position-1] == '{}' {{",
+                    pref.as_str().unwrap()
+                ),
+            );
             module.push_tabln(6, "return token::Token::CONSTANT(identifier);");
             module.push_tabln(5, "} else {");
             module.push_tabln(6, "return token::Token::VAR(identifier);");
             module.push_tabln(5, "}");
         } else {
             module.push_tabln(5, "self.read_char();");
-            module.push_tabln(5, &format!("let mut identifier = vec!['{}'];", v.as_str().unwrap()));
+            module.push_tabln(
+                5,
+                &format!("let mut identifier = vec!['{}'];", v.as_str().unwrap()),
+            );
             module.push_tabln(5, "identifier.append(&mut read_identifier(self));");
             module.push_tabln(5, "return token::Token::VAR(identifier);");
         }

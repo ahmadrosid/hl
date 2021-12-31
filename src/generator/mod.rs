@@ -5,7 +5,7 @@ use std::io::Write;
 use std::path::Path;
 use yaml_rust::{yaml::Hash, Yaml, YamlLoader};
 
-#[path="../color.rs"]
+#[path = "../color.rs"]
 mod color;
 mod module;
 mod render;
@@ -70,7 +70,7 @@ pub fn parse(file_path: &str) -> String {
         "slash_star_comment",
         "var",
         "entity_prefix",
-        "entity_suffix"
+        "entity_suffix",
     ];
 
     let mut token_stub = String::new();

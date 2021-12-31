@@ -1,6 +1,6 @@
 use crate::generator::{
-    get_constant, get_entity, get_entity_tag, get_skip, get_var,
-    slash_comment_enable, get_condition, string::StringBuilder,
+    get_condition, get_constant, get_entity, get_entity_tag, get_skip, get_var,
+    slash_comment_enable, string::StringBuilder,
 };
 use yaml_rust::yaml::Hash;
 use yaml_rust::yaml::Yaml;
@@ -49,7 +49,10 @@ pub fn generate_render_html(h: &Hash, name: String) -> String {
     if let Some(prefix) = get_condition(h).get(&Yaml::String(ENCODE_LT.to_string())) {
         if let Some(encode) = get_condition(h).get(&Yaml::String(ENCODE_LT_STRING.to_string())) {
             html.push_tabln(4, &format!("if value == '{}' {{", prefix.as_str().unwrap()));
-            html.push_tabln(5, &format!("html.push_str(\"{}\");", encode.as_str().unwrap()));
+            html.push_tabln(
+                5,
+                &format!("html.push_str(\"{}\");", encode.as_str().unwrap()),
+            );
             html.push_tabln(4, "} else {");
             html.push_tabln(4, "html.push(value);");
             html.push_tabln(4, "}");
@@ -209,13 +212,13 @@ fn write_token_comment(html: &mut StringBuilder) {
 }
 
 fn write_token_identifier(html: &mut StringBuilder) {
-    html.push_tabln(3,"token::Token::IDENT(value) => {");
+    html.push_tabln(3, "token::Token::IDENT(value) => {");
     html.push_tabln(4, "html.push_str(&value.iter().collect::<String>());");
     html.push_tabln(3, "}");
 }
 
 fn write_token_entity(html: &mut StringBuilder) {
-    html.push_tabln(3,"token::Token::ENTITY(value) => {");
+    html.push_tabln(3, "token::Token::ENTITY(value) => {");
     html.push_tabln(
         4,
         "html.push_str(&format!(\"<span class=\\\"hl-en\\\">{}</span>\", \
@@ -225,7 +228,7 @@ fn write_token_entity(html: &mut StringBuilder) {
 }
 
 fn write_token_keyword(html: &mut StringBuilder) {
-    html.push_tabln(3,"token::Token::KEYWORD(value) => {");
+    html.push_tabln(3, "token::Token::KEYWORD(value) => {");
     html.push_tabln(
         4,
         "html.push_str(&format!(\"<span class=\\\"hl-k\\\">{}</span>\", \
@@ -235,7 +238,7 @@ fn write_token_keyword(html: &mut StringBuilder) {
 }
 
 fn write_token_var_identifier(html: &mut StringBuilder) {
-    html.push_tabln(3,"token::Token::VAR(value) => {");
+    html.push_tabln(3, "token::Token::VAR(value) => {");
     html.push_tabln(
         4,
         "html.push_str(&format!(\"<span class=\\\"hl-vid\\\">{}</span>\", \
@@ -245,7 +248,7 @@ fn write_token_var_identifier(html: &mut StringBuilder) {
 }
 
 fn write_token_constant(html: &mut StringBuilder) {
-    html.push_tabln(3,"token::Token::CONSTANT(value) => {");
+    html.push_tabln(3, "token::Token::CONSTANT(value) => {");
     html.push_tabln(
         4,
         "html.push_str(&format!(\"<span class=\\\"hl-c\\\">{}</span>\", \
@@ -266,7 +269,10 @@ fn write_token_string(html: &mut StringBuilder) {
     html.push_tabln(6, "s.push(ch);");
     html.push_tabln(5, "}");
     html.push_tabln(4, "}");
-    html.push_tabln(4, "html.push_str(&format!(\"<span class=\\\"hl-s\\\">{}</span>\", s));");
+    html.push_tabln(
+        4,
+        "html.push_str(&format!(\"<span class=\\\"hl-s\\\">{}</span>\", s));",
+    );
     html.push_tabln(3, "}");
 }
 
@@ -282,12 +288,15 @@ fn write_token_entity_tag(html: &mut StringBuilder) {
     html.push_tabln(6, "s.push(ch);");
     html.push_tabln(5, "}");
     html.push_tabln(4, "}");
-    html.push_tabln(4, "html.push_str(&format!(\"<span class=\\\"hl-ent\\\">{}</span>\", s));");
+    html.push_tabln(
+        4,
+        "html.push_str(&format!(\"<span class=\\\"hl-ent\\\">{}</span>\", s));",
+    );
     html.push_tabln(3, "}");
 }
 
 fn write_token_integer(html: &mut StringBuilder) {
-    html.push_tabln(3,"token::Token::INT(value) => {",);
+    html.push_tabln(3, "token::Token::INT(value) => {");
     html.push_tabln(
         4,
         "html.push_str(&format!(\"<span class=\\\"hl-c\\\">{}</span>\", \
