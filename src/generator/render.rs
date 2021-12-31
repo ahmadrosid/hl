@@ -5,7 +5,6 @@ use crate::generator::{
 use yaml_rust::yaml::Hash;
 use yaml_rust::yaml::Yaml;
 
-const ACCEPT_ENTITY_TAG_PREFIX: &str = "ACCEPT_ENTITY_TAG_PREFIX";
 const ACCEPT_PREFIX_VAR: &str = "ACCEPT_PREFIX_VAR";
 const ENCODE_LT: &str = "ENCODE_LT";
 const ENCODE_LT_STRING: &str = "ENCODE_LT_STRING";
@@ -70,7 +69,7 @@ pub fn generate_render_html(h: &Hash, name: String) -> String {
     write_token_keyword(&mut html);
     write_token_constant(&mut html);
 
-    if let Some(_) = get_condition(h).get(&Yaml::String(ACCEPT_ENTITY_TAG_PREFIX.to_string())) {
+    if get_entity_tag(h).len() > 1 {
         write_token_entity_tag(&mut html);
     }
 
@@ -90,19 +89,6 @@ pub fn generate_render_html(h: &Hash, name: String) -> String {
         html.push_tabln(
             4,
             "html.push_str(&format!(\"<span class=\\\"hl-en\\\">{}</span>\", \
-        value.iter().collect::<String>()));",
-        );
-        html.push_tabln(3, "}");
-    }
-
-    for (k, _v) in get_entity_tag(h) {
-        html.push_tabln(
-            3,
-            &format!("token::Token::{}(value) => {{", k.as_str().unwrap()),
-        );
-        html.push_tabln(
-            4,
-            "html.push_str(&format!(\"<span class=\\\"hl-ent\\\">{}</span>\", \
         value.iter().collect::<String>()));",
         );
         html.push_tabln(3, "}");

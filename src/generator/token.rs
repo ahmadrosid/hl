@@ -5,7 +5,6 @@ use crate::generator::{
 use yaml_rust::yaml::Hash;
 use yaml_rust::Yaml;
 
-const ACCEPT_ENTITY_TAG_PREFIX: &str = "ACCEPT_ENTITY_TAG_PREFIX";
 const ACCEPT_PREFIX_VAR: &str = "ACCEPT_PREFIX_VAR";
 
 pub fn generate_token(h: &Hash) -> String {
@@ -25,7 +24,7 @@ pub fn generate_token(h: &Hash) -> String {
     token.push_tabln(1, "KEYWORD(Vec<char>),");
     token.push_tabln(1, "CONSTANT(Vec<char>),");
 
-    if let Some(_) = get_condition(h).get(&Yaml::String(ACCEPT_ENTITY_TAG_PREFIX.to_string())) {
+    if get_entity_tag(h).len() > 1 {
         token.push_tabln(1, "ENTITYTAG(Vec<char>),");
     }
 
@@ -38,10 +37,6 @@ pub fn generate_token(h: &Hash) -> String {
     }
 
     for (k, _v) in get_entity(h) {
-        token.push_tabln(1, &format!("{}(Vec<char>),", k.as_str().unwrap()));
-    }
-
-    for (k, _v) in get_entity_tag(h) {
         token.push_tabln(1, &format!("{}(Vec<char>),", k.as_str().unwrap()));
     }
 
@@ -81,12 +76,10 @@ pub fn generate_token(h: &Hash) -> String {
             ));
         }
     }
-    for (k, v) in get_entity_tag(h) {
+
+    for (_, v) in get_entity_tag(h) {
         token.push_tab(2, &format!("\"{}\" => ", v.as_str().unwrap()));
-        token.push_strln(&format!(
-            "Ok(Token::{}(identifier.to_vec())),",
-            k.as_str().unwrap()
-        ));
+        token.push_strln("Ok(Token::ENTITYTAG(identifier.to_vec())),");
     }
 
     for (_k, v) in get_keyword(h) {
