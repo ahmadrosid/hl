@@ -340,16 +340,21 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
 
     module.push_tabln(5, "match token::get_keyword_token(&identifier) {");
     module.push_tabln(7, "Ok(keyword_token) => {");
-    if let Some(_) = get_condition(h).get(&Yaml::String(ACCEPT_CONSTANT_SUFFIX_KEYWORD.to_string())) {
-        if let Some(suffix) = get_condition(h).get(&Yaml::String(CONSTANT_SUFFIX_CHAR.to_string())) {
-            if let Some(value) = get_condition(h).get(&Yaml::String(CONSTANT_SUFFIX_KEYWORD.to_string())) {
+    if let Some(_) = get_condition(h).get(&Yaml::String(ACCEPT_CONSTANT_SUFFIX_KEYWORD.to_string()))
+    {
+        if let Some(suffix) = get_condition(h).get(&Yaml::String(CONSTANT_SUFFIX_CHAR.to_string()))
+        {
+            if let Some(value) =
+                get_condition(h).get(&Yaml::String(CONSTANT_SUFFIX_KEYWORD.to_string()))
+            {
                 module.push_tabln(
-                8,
-                &format!(
-                    "if self.ch == '{}' && identifier.iter().collect::<String>() == \"{}\" {{",
-                    suffix.as_str().unwrap(),
-                    value.as_str().unwrap(),
-                ));
+                    8,
+                    &format!(
+                        "if self.ch == '{}' && identifier.iter().collect::<String>() == \"{}\" {{",
+                        suffix.as_str().unwrap(),
+                        value.as_str().unwrap(),
+                    ),
+                );
                 module.push_tabln(9, "return token::Token::CONSTANT(identifier);");
                 module.push_tabln(8, "}");
             }
@@ -431,15 +436,23 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
         }
     }
 
-    if let Some(_) = get_condition(h).get(&Yaml::String(ACCEPT_CONSTANT_SUFFIX_IDENTIFIER.to_string())) {
+    if let Some(_) =
+        get_condition(h).get(&Yaml::String(ACCEPT_CONSTANT_SUFFIX_IDENTIFIER.to_string()))
+    {
         if let Some(ch) = get_condition(h).get(&Yaml::String(ACCEPT_DASH_IDENTIFIER.to_string())) {
             module.push_tabln(8, &format!("if self.ch == '{}' {{", ch.as_str().unwrap()));
             module.push_tabln(9, "let last_position = self.position;");
             module.push_tabln(9, "self.read_char();");
-            module.push_tabln(9, "while self.position < self.input.len() && is_letter(self.ch) {");
+            module.push_tabln(
+                9,
+                "while self.position < self.input.len() && is_letter(self.ch) {",
+            );
             module.push_tabln(10, "self.read_char();");
             module.push_tabln(9, "}");
-            module.push_tabln(9, "identifier.append(&mut self.input[last_position..self.position].to_vec());");
+            module.push_tabln(
+                9,
+                "identifier.append(&mut self.input[last_position..self.position].to_vec());",
+            );
             module.push_tabln(8, "}");
         }
 
