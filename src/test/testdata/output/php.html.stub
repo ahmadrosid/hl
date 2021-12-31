@@ -66,8 +66,8 @@
 <tr><td class="hl-num" data-line="64"></td><td>    <span class="hl-k">public</span> <span class="hl-k">static</span> <span class="hl-k">function</span> <span class="hl-en">range</span>(<span class="hl-vid">$from</span>, <span class="hl-vid">$to</span>)</td></tr>
 <tr><td class="hl-num" data-line="65"></td><td>    {</td></tr>
 <tr><td class="hl-num" data-line="66"></td><td>        <span class="hl-k">return</span> <span class="hl-k">new</span> <span class="hl-k">static</span>(<span class="hl-k">function</span> () <span class="hl-k">use</span> (<span class="hl-vid">$from</span>, <span class="hl-vid">$to</span>) {</td></tr>
-<tr><td class="hl-num" data-line="67"></td><td>            <span class="hl-k">if</span> (<span class="hl-vid">$from</span> <= <span class="hl-vid">$to</span>) {</td></tr>
-<tr><td class="hl-num" data-line="68"></td><td>                <span class="hl-k">for</span> (; <span class="hl-vid">$from</span> <= <span class="hl-vid">$to</span>; <span class="hl-vid">$from</span>++) {</td></tr>
+<tr><td class="hl-num" data-line="67"></td><td>            <span class="hl-k">if</span> (<span class="hl-vid">$from</span> &lt;= <span class="hl-vid">$to</span>) {</td></tr>
+<tr><td class="hl-num" data-line="68"></td><td>                <span class="hl-k">for</span> (; <span class="hl-vid">$from</span> &lt;= <span class="hl-vid">$to</span>; <span class="hl-vid">$from</span>++) {</td></tr>
 <tr><td class="hl-num" data-line="69"></td><td>                    <span class="hl-k">yield</span> <span class="hl-vid">$from</span>;</td></tr>
 <tr><td class="hl-num" data-line="70"></td><td>                }</td></tr>
 <tr><td class="hl-num" data-line="71"></td><td>            } <span class="hl-k">else</span> {</td></tr>
@@ -85,36 +85,35 @@
 <tr><td class="hl-num" data-line="83"></td><td>}</td></tr>
 <tr><td class="hl-num" data-line="84"></td><td></td></tr>
 <tr><td class="hl-num" data-line="85"></td><td><span class="hl-k">try</span> {</td></tr>
-<tr><td class="hl-num" data-line="86"></td><td>	<span class="hl-k">require_once</span> __DIR__ . <span class="hl-s">'/lib/base.php'</span>;</td></tr>
+<tr><td class="hl-num" data-line="86"></td><td>    <span class="hl-k">require_once</span> __DIR__ . <span class="hl-s">'/lib/base.php'</span>;</td></tr>
 <tr><td class="hl-num" data-line="87"></td><td></td></tr>
-<tr><td class="hl-num" data-line="88"></td><td>	<span class="hl-k">switch</span> (<span class="hl-vid">$app</span>) {</td></tr>
-<tr><td class="hl-num" data-line="89"></td><td>		<span class="hl-k">case</span> <span class="hl-s">'core'</span>:</td></tr>
-<tr><td class="hl-num" data-line="90"></td><td>			<span class="hl-vid">$file</span> = OC::<span class="hl-vid">$SERVERROOT</span> .<span class="hl-s">'/'</span>. <span class="hl-vid">$file</span>;</td></tr>
-<tr><td class="hl-num" data-line="91"></td><td>			<span class="hl-k">break</span>;</td></tr>
-<tr><td class="hl-num" data-line="92"></td><td>		<span class="hl-k">default</span>:</td></tr>
-<tr><td class="hl-num" data-line="93"></td><td>			<span class="hl-vid">$file</span> = OC_App::<span class="hl-en">getAppPath</span>(<span class="hl-vid">$app</span>) .<span class="hl-s">'/'</span>. <span class="hl-vid">$parts</span>[<span class="hl-c">1</span>];</td></tr>
-<tr><td class="hl-num" data-line="94"></td><td>			<span class="hl-k">break</span>;</td></tr>
-<tr><td class="hl-num" data-line="95"></td><td>	}</td></tr>
-<tr><td class="hl-num" data-line="96"></td><td>	OC::<span class="hl-en">handleRequest</span>();</td></tr>
-<tr><td class="hl-num" data-line="97"></td><td>} <span class="hl-k">catch</span> (Exception <span class="hl-vid">$ex</span>) {</td></tr>
-<tr><td class="hl-num" data-line="98"></td><td>	\OC::<span class="hl-vid">$server</span>-><span class="hl-en">getLogger</span>()-><span class="hl-en">logException</span>(<span class="hl-vid">$ex</span>, [<span class="hl-s">'app'</span> => <span class="hl-s">'index'</span>]);</td></tr>
-<tr><td class="hl-num" data-line="99"></td><td></td></tr>
-<tr><td class="hl-num" data-line="100"></td><td>	<span class="hl-cmt">//show the user a detailed error page</span></td></tr>
-<tr><td class="hl-num" data-line="101"></td><td>	OC_Template::<span class="hl-en">printExceptionErrorPage</span>(<span class="hl-vid">$ex</span>, <span class="hl-c">500</span>);</td></tr>
-<tr><td class="hl-num" data-line="102"></td><td>} <span class="hl-k">catch</span> (Error <span class="hl-vid">$ex</span>) {</td></tr>
-<tr><td class="hl-num" data-line="103"></td><td>	<span class="hl-k">try</span> {</td></tr>
-<tr><td class="hl-num" data-line="104"></td><td>		\OC::<span class="hl-vid">$server</span>-><span class="hl-en">getLogger</span>()-><span class="hl-en">logException</span>(<span class="hl-vid">$ex</span>, [<span class="hl-s">'app'</span> => <span class="hl-s">'index'</span>]);</td></tr>
-<tr><td class="hl-num" data-line="105"></td><td>	} <span class="hl-k">catch</span> (Error <span class="hl-vid">$e</span>) {</td></tr>
-<tr><td class="hl-num" data-line="106"></td><td>		<span class="hl-en">http_response_code</span>(<span class="hl-c">500</span>);</td></tr>
-<tr><td class="hl-num" data-line="107"></td><td>		<span class="hl-en">header</span>(<span class="hl-s">'Content-Type: text/plain; charset=utf-8'</span>);</td></tr>
-<tr><td class="hl-num" data-line="108"></td><td>		<span class="hl-k">print</span>(<span class="hl-s">"Internal Server Error\n\n"</span>);</td></tr>
-<tr><td class="hl-num" data-line="109"></td><td></td></tr>
-<tr><td class="hl-num" data-line="110"></td><td>		<span class="hl-k">throw</span> <span class="hl-vid">$ex</span>;</td></tr>
-<tr><td class="hl-num" data-line="111"></td><td>	}</td></tr>
-<tr><td class="hl-num" data-line="112"></td><td>	OC_Template::<span class="hl-en">printExceptionErrorPage</span>(<span class="hl-vid">$ex</span>, <span class="hl-c">500</span>);</td></tr>
-<tr><td class="hl-num" data-line="113"></td><td>}</td></tr>
-<tr><td class="hl-num" data-line="114"></td><td></td></tr>
-<tr><td class="hl-num" data-line="115"></td><td><span class="hl-ent">?&gt;</span></td></tr>
-<tr><td class="hl-num" data-line="116"></td><td></td></tr>
+<tr><td class="hl-num" data-line="88"></td><td>    <span class="hl-k">switch</span> (<span class="hl-vid">$app</span>) {</td></tr>
+<tr><td class="hl-num" data-line="89"></td><td>        <span class="hl-k">case</span> <span class="hl-s">'core'</span>:</td></tr>
+<tr><td class="hl-num" data-line="90"></td><td>            <span class="hl-vid">$file</span> = OC::<span class="hl-vid">$SERVERROOT</span> .<span class="hl-s">'/'</span>. <span class="hl-vid">$file</span>;</td></tr>
+<tr><td class="hl-num" data-line="91"></td><td>            <span class="hl-k">break</span>;</td></tr>
+<tr><td class="hl-num" data-line="92"></td><td>        <span class="hl-k">default</span>:</td></tr>
+<tr><td class="hl-num" data-line="93"></td><td>            <span class="hl-vid">$file</span> = OC_App::<span class="hl-en">getAppPath</span>(<span class="hl-vid">$app</span>) .<span class="hl-s">'/'</span>. <span class="hl-vid">$parts</span>[<span class="hl-c">1</span>];</td></tr>
+<tr><td class="hl-num" data-line="94"></td><td>            <span class="hl-k">break</span>;</td></tr>
+<tr><td class="hl-num" data-line="95"></td><td>    }</td></tr>
+<tr><td class="hl-num" data-line="96"></td><td>} <span class="hl-k">catch</span> (Exception <span class="hl-vid">$ex</span>) {</td></tr>
+<tr><td class="hl-num" data-line="97"></td><td>    \OC::<span class="hl-vid">$server</span>-><span class="hl-en">getLogger</span>()-><span class="hl-en">logException</span>(<span class="hl-vid">$ex</span>, [<span class="hl-s">'app'</span> => <span class="hl-s">'index'</span>]);</td></tr>
+<tr><td class="hl-num" data-line="98"></td><td></td></tr>
+<tr><td class="hl-num" data-line="99"></td><td>    <span class="hl-cmt">//show the user a detailed error page</span></td></tr>
+<tr><td class="hl-num" data-line="100"></td><td>    OC_Template::<span class="hl-en">printExceptionErrorPage</span>(<span class="hl-vid">$ex</span>, <span class="hl-c">500</span>);</td></tr>
+<tr><td class="hl-num" data-line="101"></td><td>} <span class="hl-k">catch</span> (Error <span class="hl-vid">$ex</span>) {</td></tr>
+<tr><td class="hl-num" data-line="102"></td><td>    <span class="hl-k">try</span> {</td></tr>
+<tr><td class="hl-num" data-line="103"></td><td>        \OC::<span class="hl-vid">$server</span>-><span class="hl-en">getLogger</span>()-><span class="hl-en">logException</span>(<span class="hl-vid">$ex</span>, [<span class="hl-s">'app'</span> => <span class="hl-s">'index'</span>]);</td></tr>
+<tr><td class="hl-num" data-line="104"></td><td>    } <span class="hl-k">catch</span> (Error <span class="hl-vid">$e</span>) {</td></tr>
+<tr><td class="hl-num" data-line="105"></td><td>        <span class="hl-en">http_response_code</span>(<span class="hl-c">500</span>);</td></tr>
+<tr><td class="hl-num" data-line="106"></td><td>        <span class="hl-ent">header</span>(<span class="hl-s">'Content-Type: text/plain; charset=utf-8'</span>);</td></tr>
+<tr><td class="hl-num" data-line="107"></td><td>        <span class="hl-k">print</span>(<span class="hl-s">"Internal Server Error\n\n"</span>);</td></tr>
+<tr><td class="hl-num" data-line="108"></td><td></td></tr>
+<tr><td class="hl-num" data-line="109"></td><td>        <span class="hl-k">throw</span> <span class="hl-vid">$ex</span>;</td></tr>
+<tr><td class="hl-num" data-line="110"></td><td>    }</td></tr>
+<tr><td class="hl-num" data-line="111"></td><td>    OC_Template::<span class="hl-en">printExceptionErrorPage</span>(<span class="hl-vid">$ex</span>, <span class="hl-c">500</span>);</td></tr>
+<tr><td class="hl-num" data-line="112"></td><td>}</td></tr>
+<tr><td class="hl-num" data-line="113"></td><td></td></tr>
+<tr><td class="hl-num" data-line="114"></td><td><span class="hl-ent">?&gt;</span></td></tr>
+<tr><td class="hl-num" data-line="115"></td><td></td></tr>
 </tbody>
 </table>

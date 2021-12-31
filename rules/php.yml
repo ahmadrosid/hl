@@ -8,6 +8,95 @@ constant:
   CSTRING: 'string'
   ARRAY: 'array'
 
+entity_tag:
+  HTML: html
+  BODY: body
+  DIV: div
+  SPAN: span
+  APPLET: applet
+  OBJECT: object
+  IFRAME: iframe
+  H1: h1
+  H2: h2
+  H3: h3
+  H4: h4
+  H5: h5
+  H6: h6
+  P: p
+  BLOCKQUOTE: blockquote
+  BUTTON: button
+  PRE: pre
+  A: a
+  ABBR: abbr
+  ACRONYM: acronym
+  ADDRESS: address
+  BIG: big
+  CITE: cite
+  CODE: code
+  DEL: del
+  DFN: dfn
+  EM: em
+  IMG: img
+  INS: ins
+  KBD: kbd
+  Q: q
+  S: s
+  SAMP: samp
+  SELECT: select
+  SMALL: small
+  STRIKE: strike
+  STRONG: strong
+  SUB: sub
+  SUP: sup
+  SCRIPT: script
+  TT: tt
+  TVAR: var
+  B: b
+  U: u
+  I: i
+  CENTER: center
+  DL: dl
+  DT: dt
+  DD: dd
+  OL: ol
+  UL: ul
+  LI: li
+  FIELDSET: fieldset
+  FORM: form
+  LABEL: label
+  LEGEND: legend
+  TABLE: table
+  CAPTION: caption
+  TBODY: tbody
+  TFOOT: tfoot
+  THEAD: thead
+  TR: tr
+  TH: th
+  TD: td
+  ARTICLE: article
+  CANVAS: canvas
+  EMBED: embed
+  OUTPUT: output
+  RUBY: ruby
+  SUMMARY: summary
+  TIME: time
+  MARK: mark
+  AUDIO: audio
+  VIDEOARTICLE: videoarticle
+  ASIDE: aside
+  DETAILS: details
+  FIGCAPTION: figcaption
+  FIGURE: figure
+  FOOTER: footer
+  HEADER: header
+  HGROUP: hgroup
+  MENU: menu
+  NAV: nav
+  SECTION: section
+  VIDEO: video
+  TEXTAREA: textarea
+  INPUT: input
+
 entity_prefix:
   ENTITY_DOT: '>'
 
@@ -60,7 +149,6 @@ keyword:
   throw: "throw"
   try: "try"
   use: "use"
-  var: "var"
   class: "class"
   default: "default"
   elseif: "elseif"
@@ -84,3 +172,5 @@ condition:
   ENTITY_CLOSE_TAG_SUFFIX_CHAR: ">"
   ACCEPT_PREFIX_VAR: "$"
   VAR_CONSTANT_PREFIX: "["
+  ENCODE_LT: "<"
+  ENCODE_LT_STRING: "&lt;"

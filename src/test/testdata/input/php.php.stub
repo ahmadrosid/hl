@@ -83,33 +83,32 @@ interface Enumerable extends Countable {
 }
 
 try {
-	require_once __DIR__ . '/lib/base.php';
+    require_once __DIR__ . '/lib/base.php';
 
-	switch ($app) {
-		case 'core':
-			$file = OC::$SERVERROOT .'/'. $file;
-			break;
-		default:
-			$file = OC_App::getAppPath($app) .'/'. $parts[1];
-			break;
-	}
-	OC::handleRequest();
+    switch ($app) {
+        case 'core':
+            $file = OC::$SERVERROOT .'/'. $file;
+            break;
+        default:
+            $file = OC_App::getAppPath($app) .'/'. $parts[1];
+            break;
+    }
 } catch (Exception $ex) {
-	\OC::$server->getLogger()->logException($ex, ['app' => 'index']);
+    \OC::$server->getLogger()->logException($ex, ['app' => 'index']);
 
-	//show the user a detailed error page
-	OC_Template::printExceptionErrorPage($ex, 500);
+    //show the user a detailed error page
+    OC_Template::printExceptionErrorPage($ex, 500);
 } catch (Error $ex) {
-	try {
-		\OC::$server->getLogger()->logException($ex, ['app' => 'index']);
-	} catch (Error $e) {
-		http_response_code(500);
-		header('Content-Type: text/plain; charset=utf-8');
-		print("Internal Server Error\n\n");
+    try {
+        \OC::$server->getLogger()->logException($ex, ['app' => 'index']);
+    } catch (Error $e) {
+        http_response_code(500);
+        header('Content-Type: text/plain; charset=utf-8');
+        print("Internal Server Error\n\n");
 
-		throw $ex;
-	}
-	OC_Template::printExceptionErrorPage($ex, 500);
+        throw $ex;
+    }
+    OC_Template::printExceptionErrorPage($ex, 500);
 }
 
 ?>

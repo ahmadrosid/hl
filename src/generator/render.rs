@@ -8,6 +8,8 @@ use yaml_rust::yaml::Yaml;
 const ACCEPT_ENTITY_TAG_PREFIX: &str = "ACCEPT_ENTITY_TAG_PREFIX";
 const ACCEPT_PREFIX_VAR: &str = "ACCEPT_PREFIX_VAR";
 const VAR_CONSTANT_PREFIX: &str = "VAR_CONSTANT_PREFIX";
+const ENCODE_LT: &str = "ENCODE_LT";
+const ENCODE_LT_STRING: &str = "ENCODE_LT_STRING";
 
 pub fn generate_render_html(h: &Hash, name: String) -> String {
     let mut html = StringBuilder::new();
@@ -43,7 +45,20 @@ pub fn generate_render_html(h: &Hash, name: String) -> String {
 
     html.push_tabln(2, "match token {");
     html.push_tabln(3, "token::Token::CH(value) => {");
-    html.push_tabln(4, "html.push(value);");
+
+    if let Some(prefix) = get_condition(h).get(&Yaml::String(ENCODE_LT.to_string())) {
+        if let Some(encode) = get_condition(h).get(&Yaml::String(ENCODE_LT_STRING.to_string())) {
+            html.push_tabln(4, &format!("if value == '{}' {{", prefix.as_str().unwrap()));
+            html.push_tabln(5, &format!("html.push_str(\"{}\");", encode.as_str().unwrap()));
+            html.push_tabln(4, "} else {");
+            html.push_tabln(4, "html.push(value);");
+            html.push_tabln(4, "}");
+        } else {
+            html.push_tabln(4, "html.push(value);");
+        }
+    } else {
+        html.push_tabln(4, "html.push(value);");
+    }
     html.push_tabln(3, "}");
 
     write_token_string(&mut html);
