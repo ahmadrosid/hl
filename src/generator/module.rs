@@ -20,6 +20,11 @@ const ENTITY_TAG_PREFIX_CHAR: &str = "ENTITY_TAG_PREFIX_CHAR";
 const ACCEPT_PREFIX_VAR: &str = "ACCEPT_PREFIX_VAR";
 const ENTITY_CLOSE_TAG_SUFFIX_CHAR: &str = "ENTITY_CLOSE_TAG_SUFFIX_CHAR";
 const VAR_CONSTANT_PREFIX: &str = "VAR_CONSTANT_PREFIX";
+const CONSTANT_SUFFIX_CHAR: &str = "CONSTANT_SUFFIX_CHAR";
+const ACCEPT_CONSTANT_SUFFIX_KEYWORD: &str = "ACCEPT_CONSTANT_SUFFIX_KEYWORD";
+const ACCEPT_CONSTANT_SUFFIX_IDENTIFIER: &str = "ACCEPT_CONSTANT_SUFFIX_IDENTIFIER";
+const CONSTANT_SUFFIX_KEYWORD: &str = "CONSTANT_SUFFIX_KEYWORD";
+const ACCEPT_DASH_IDENTIFIER: &str = "ACCEPT_DASH_IDENTIFIER";
 
 fn write_struct_lexer(module: &mut StringBuilder) {
     module.push_strln("pub struct Lexer {");
@@ -335,6 +340,21 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
 
     module.push_tabln(5, "match token::get_keyword_token(&identifier) {");
     module.push_tabln(7, "Ok(keyword_token) => {");
+    if let Some(_) = get_condition(h).get(&Yaml::String(ACCEPT_CONSTANT_SUFFIX_KEYWORD.to_string())) {
+        if let Some(suffix) = get_condition(h).get(&Yaml::String(CONSTANT_SUFFIX_CHAR.to_string())) {
+            if let Some(value) = get_condition(h).get(&Yaml::String(CONSTANT_SUFFIX_KEYWORD.to_string())) {
+                module.push_tabln(
+                8,
+                &format!(
+                    "if self.ch == '{}' && identifier.iter().collect::<String>() == \"{}\" {{",
+                    suffix.as_str().unwrap(),
+                    value.as_str().unwrap(),
+                ));
+                module.push_tabln(9, "return token::Token::CONSTANT(identifier);");
+                module.push_tabln(8, "}");
+            }
+        }
+    }
     module.push_tabln(8, "keyword_token");
     module.push_tabln(7, "},");
     module.push_tabln(7, "Err(_err) => {");
@@ -408,6 +428,25 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
             );
             module.push_tabln(9, "return token::Token::ENTITY(identifier)");
             module.push_tabln(8, "}")
+        }
+    }
+
+    if let Some(_) = get_condition(h).get(&Yaml::String(ACCEPT_CONSTANT_SUFFIX_IDENTIFIER.to_string())) {
+        if let Some(ch) = get_condition(h).get(&Yaml::String(ACCEPT_DASH_IDENTIFIER.to_string())) {
+            module.push_tab(8, &format!("if self.ch == '{}' {{", ch.as_str().unwrap()));
+            module.push_tab(9, "let last_position = self.position;");
+            module.push_tab(9, "self.read_char();");
+            module.push_tab(9, "while self.position < self.input.len() && is_letter(self.ch) {");
+            module.push_tab(10, "self.read_char();");
+            module.push_tab(9, "}");
+            module.push_tab(9, "identifier.append(&mut self.input[last_position..self.position].to_vec());");
+            module.push_tab(8, "}");
+        }
+
+        if let Some(ch) = get_condition(h).get(&Yaml::String(CONSTANT_SUFFIX_CHAR.to_string())) {
+            module.push_tab(8, &format!("if self.ch == '{}' {{", ch.as_str().unwrap()));
+            module.push_tab(9, "return token::Token::CONSTANT(identifier);");
+            module.push_tab(8, "}");
         }
     }
 

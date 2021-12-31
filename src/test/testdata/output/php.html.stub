@@ -113,7 +113,31 @@
 <tr><td class="hl-num" data-line="111"></td><td>    OC_Template::<span class="hl-en">printExceptionErrorPage</span>(<span class="hl-vid">$ex</span>, <span class="hl-c">500</span>);</td></tr>
 <tr><td class="hl-num" data-line="112"></td><td>}</td></tr>
 <tr><td class="hl-num" data-line="113"></td><td></td></tr>
-<tr><td class="hl-num" data-line="114"></td><td><span class="hl-ent">?&gt;</span></td></tr>
-<tr><td class="hl-num" data-line="115"></td><td></td></tr>
+<tr><td class="hl-num" data-line="114"></td><td></td></tr>
+<tr><td class="hl-num" data-line="115"></td><td>&lt;<span class="hl-ent">div</span> <span class="hl-c">class</span>=<span class="hl-s">"about__header"</span>></td></tr>
+<tr><td class="hl-num" data-line="116"></td><td>    &lt;<span class="hl-ent">div</span> <span class="hl-c">class</span>=<span class="hl-s">"about__header-title"</span>></td></tr>
+<tr><td class="hl-num" data-line="117"></td><td>        &lt;<span class="hl-ent">h1</span>><span class="hl-ent">&lt;?php</span> <span class="hl-en">_e</span>( <span class="hl-s">'WordPress'</span> ); <span class="hl-ent">?&gt;</span><span class="hl-ent">&lt;?php</span> <span class="hl-k">echo</span> <span class="hl-vid">$display_version</span>; <span class="hl-ent">?&gt;</span>&lt;/<span class="hl-ent">h1</span>></td></tr>
+<tr><td class="hl-num" data-line="118"></td><td>    &lt;/<span class="hl-ent">div</span>></td></tr>
+<tr><td class="hl-num" data-line="119"></td><td></td></tr>
+<tr><td class="hl-num" data-line="120"></td><td>    &lt;<span class="hl-ent">div</span> <span class="hl-c">class</span>=<span class="hl-s">"about__header-text"</span>></td></tr>
+<tr><td class="hl-num" data-line="121"></td><td>        <span class="hl-ent">&lt;?php</span> <span class="hl-en">_e</span>( <span class="hl-s">'The next stop on the road to full site editing'</span> ); <span class="hl-ent">?&gt;</span></td></tr>
+<tr><td class="hl-num" data-line="122"></td><td>    &lt;/<span class="hl-ent">div</span>></td></tr>
+<tr><td class="hl-num" data-line="123"></td><td></td></tr>
+<tr><td class="hl-num" data-line="124"></td><td>    &lt;<span class="hl-ent">nav</span> <span class="hl-c">class</span>=<span class="hl-s">"about__header-navigation nav-tab-wrapper wp-clearfix"</span> <span class="hl-c">aria-label</span>=<span class="hl-s">"&lt;?php esc_attr_e( 'Secondary menu' ); ?&gt;"</span>></td></tr>
+<tr><td class="hl-num" data-line="125"></td><td>        &lt;<span class="hl-ent">a</span> <span class="hl-c">href</span>=<span class="hl-s">"about.php"</span> <span class="hl-c">class</span>=<span class="hl-s">"nav-tab nav-tab-active"</span> <span class="hl-c">aria-current</span>=<span class="hl-s">"page"</span>><span class="hl-ent">&lt;?php</span> <span class="hl-en">_e</span>( <span class="hl-s">'What&#8217;s New'</span> ); <span class="hl-ent">?&gt;</span>&lt;/<span class="hl-ent">a</span>></td></tr>
+<tr><td class="hl-num" data-line="126"></td><td>        &lt;<span class="hl-ent">a</span> <span class="hl-c">href</span>=<span class="hl-s">"credits.php"</span> <span class="hl-c">class</span>=<span class="hl-s">"nav-tab"</span>><span class="hl-ent">&lt;?php</span> <span class="hl-en">_e</span>( <span class="hl-s">'Credits'</span> ); <span class="hl-ent">?&gt;</span>&lt;/<span class="hl-ent">a</span>></td></tr>
+<tr><td class="hl-num" data-line="127"></td><td>        &lt;<span class="hl-ent">a</span> <span class="hl-c">href</span>=<span class="hl-s">"freedoms.php"</span> <span class="hl-c">class</span>=<span class="hl-s">"nav-tab"</span>><span class="hl-ent">&lt;?php</span> <span class="hl-en">_e</span>( <span class="hl-s">'Freedoms'</span> ); <span class="hl-ent">?&gt;</span>&lt;/<span class="hl-ent">a</span>></td></tr>
+<tr><td class="hl-num" data-line="128"></td><td>        &lt;<span class="hl-ent">a</span> <span class="hl-c">href</span>=<span class="hl-s">"privacy.php"</span> <span class="hl-c">class</span>=<span class="hl-s">"nav-tab"</span>><span class="hl-ent">&lt;?php</span> <span class="hl-en">_e</span>( <span class="hl-s">'Privacy'</span> ); <span class="hl-ent">?&gt;</span>&lt;/<span class="hl-ent">a</span>></td></tr>
+<tr><td class="hl-num" data-line="129"></td><td>    &lt;/<span class="hl-ent">nav</span>></td></tr>
+<tr><td class="hl-num" data-line="130"></td><td>&lt;/<span class="hl-ent">div</span>></td></tr>
+<tr><td class="hl-num" data-line="131"></td><td></td></tr>
+<tr><td class="hl-num" data-line="132"></td><td>&lt;<span class="hl-ent">hr</span> /></td></tr>
+<tr><td class="hl-num" data-line="133"></td><td></td></tr>
+<tr><td class="hl-num" data-line="134"></td><td>&lt;<span class="hl-ent">div</span> <span class="hl-c">class</span>=<span class="hl-s">"about__section"</span>></td></tr>
+<tr><td class="hl-num" data-line="135"></td><td>    &lt;<span class="hl-ent">h2</span> <span class="hl-c">class</span>=<span class="hl-s">"aligncenter"</span>></td></tr>
+<tr><td class="hl-num" data-line="136"></td><td>        <span class="hl-ent">&lt;?php</span> <span class="hl-en">_e</span>( <span class="hl-s">'Three Essential Powerhouses'</span> ); <span class="hl-ent">?&gt;</span></td></tr>
+<tr><td class="hl-num" data-line="137"></td><td>    &lt;/<span class="hl-ent">h2</span>></td></tr>
+<tr><td class="hl-num" data-line="138"></td><td>&lt;/<span class="hl-ent">div</span>></td></tr>
+<tr><td class="hl-num" data-line="139"></td><td></td></tr>
 </tbody>
 </table>

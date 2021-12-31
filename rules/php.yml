@@ -96,6 +96,7 @@ entity_tag:
   VIDEO: video
   TEXTAREA: textarea
   INPUT: input
+  HR: hr
 
 entity_prefix:
   ENTITY_DOT: '>'
@@ -174,3 +175,8 @@ condition:
   VAR_CONSTANT_PREFIX: "["
   ENCODE_LT: "<"
   ENCODE_LT_STRING: "&lt;"
+  CONSTANT_SUFFIX_CHAR: "="
+  ACCEPT_CONSTANT_SUFFIX_KEYWORD: true
+  ACCEPT_CONSTANT_SUFFIX_IDENTIFIER: true
+  CONSTANT_SUFFIX_KEYWORD: "class"
+  ACCEPT_DASH_IDENTIFIER: "-"

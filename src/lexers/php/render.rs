@@ -362,6 +362,9 @@ pub fn render_html(input: Vec<char>) -> String {
             token::Token::INPUT(value) => {
                 html.push_str(&format!("<span class=\"hl-ent\">{}</span>", value.iter().collect::<String>()));
             }
+            token::Token::HR(value) => {
+                html.push_str(&format!("<span class=\"hl-ent\">{}</span>", value.iter().collect::<String>()));
+            }
             token::Token::TRUE(value) => {
                 html.push_str(&format!("<span class=\"hl-c\">{}</span>", value.iter().collect::<String>()));
             }
