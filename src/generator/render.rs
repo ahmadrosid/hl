@@ -89,7 +89,7 @@ pub fn generate_render_html(h: &Hash, name: String) -> String {
         html.push_tabln(
             4,
             "html.push_str(&format!(\"<span class=\\\"hl-en\\\">{}</span>\", \
-        value.iter().collect::<String>()));",
+                value.iter().collect::<String>()));",
         );
         html.push_tabln(3, "}");
     }
@@ -102,7 +102,7 @@ pub fn generate_render_html(h: &Hash, name: String) -> String {
         html.push_tabln(
             4,
             "html.push_str(&format!(\"<span class=\\\"hl-v\\\">{}</span>\", \
-        value.iter().collect::<String>()));",
+                value.iter().collect::<String>()));",
         );
         html.push_tabln(3, "}");
     }
