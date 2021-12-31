@@ -169,7 +169,18 @@ impl Lexer {
                                 keyword_token
                             },
                             Err(_err) => {
-                                if self.ch == '-' {                                    let last_position = self.position;                                    self.read_char();                                    while self.position < self.input.len() && is_letter(self.ch) {                                        self.read_char();                                    }                                    identifier.append(&mut self.input[last_position..self.position].to_vec());                                }                                if self.ch == '=' {                                    return token::Token::CONSTANT(identifier);                                }                                if prev_pos != 0 && self.input[prev_pos-1] == '>' {
+                                if self.ch == '-' {
+                                    let last_position = self.position;
+                                    self.read_char();
+                                    while self.position < self.input.len() && is_letter(self.ch) {
+                                        self.read_char();
+                                    }
+                                    identifier.append(&mut self.input[last_position..self.position].to_vec());
+                                }
+                                if self.ch == '=' {
+                                    return token::Token::CONSTANT(identifier);
+                                }
+                                if prev_pos != 0 && self.input[prev_pos-1] == '>' {
                                     return token::Token::ENTITY(identifier)
                                 }
                                 if self.ch == '(' {
