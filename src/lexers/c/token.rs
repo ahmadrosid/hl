@@ -11,20 +11,17 @@ pub enum Token {
     ENTITY(Vec<char>),
     STRING(Vec<char>),
     KEYWORD(Vec<char>),
-    TRUE(Vec<char>),
-    FALSE(Vec<char>),
-    NULL(Vec<char>),
-    SizeT(Vec<char>),
+    CONSTANT(Vec<char>),
     COMMENT(Vec<char>),
 }
 
 pub fn get_keyword_token(identifier: &Vec<char>) -> Result<Token, String> {
     let identifiers: String = identifier.into_iter().collect();
     match &identifiers[..] {
-        "true" => Ok(Token::TRUE(identifier.to_vec())),
-        "false" => Ok(Token::FALSE(identifier.to_vec())),
-        "NULL" => Ok(Token::NULL(identifier.to_vec())),
-        "size_t" => Ok(Token::SizeT(identifier.to_vec())),
+        "true" => Ok(Token::CONSTANT(identifier.to_vec())),
+        "false" => Ok(Token::CONSTANT(identifier.to_vec())),
+        "NULL" => Ok(Token::CONSTANT(identifier.to_vec())),
+        "size_t" => Ok(Token::CONSTANT(identifier.to_vec())),
         "asm" => Ok(Token::KEYWORD(identifier.to_vec())),
         "const" => Ok(Token::KEYWORD(identifier.to_vec())),
         "char" => Ok(Token::KEYWORD(identifier.to_vec())),

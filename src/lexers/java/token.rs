@@ -11,24 +11,19 @@ pub enum Token {
     ENTITY(Vec<char>),
     STRING(Vec<char>),
     KEYWORD(Vec<char>),
-    THIS(Vec<char>),
-    TRUE(Vec<char>),
-    FALSE(Vec<char>),
-    SUPER(Vec<char>),
-    NULL(Vec<char>),
-    CSTRING(Vec<char>),
+    CONSTANT(Vec<char>),
     COMMENT(Vec<char>),
 }
 
 pub fn get_keyword_token(identifier: &Vec<char>) -> Result<Token, String> {
     let identifiers: String = identifier.into_iter().collect();
     match &identifiers[..] {
-        "this" => Ok(Token::THIS(identifier.to_vec())),
-        "true" => Ok(Token::TRUE(identifier.to_vec())),
-        "false" => Ok(Token::FALSE(identifier.to_vec())),
-        "super" => Ok(Token::SUPER(identifier.to_vec())),
-        "null" => Ok(Token::NULL(identifier.to_vec())),
-        "String" => Ok(Token::CSTRING(identifier.to_vec())),
+        "this" => Ok(Token::CONSTANT(identifier.to_vec())),
+        "true" => Ok(Token::CONSTANT(identifier.to_vec())),
+        "false" => Ok(Token::CONSTANT(identifier.to_vec())),
+        "super" => Ok(Token::CONSTANT(identifier.to_vec())),
+        "null" => Ok(Token::CONSTANT(identifier.to_vec())),
+        "String" => Ok(Token::CONSTANT(identifier.to_vec())),
         "abstract" => Ok(Token::KEYWORD(identifier.to_vec())),
         "byte" => Ok(Token::KEYWORD(identifier.to_vec())),
         "break" => Ok(Token::KEYWORD(identifier.to_vec())),

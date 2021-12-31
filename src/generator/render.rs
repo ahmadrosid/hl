@@ -1,5 +1,5 @@
 use crate::generator::{
-    get_condition, get_constant, get_entity, get_entity_tag, get_var,
+    get_condition, get_entity, get_entity_tag, get_var,
     slash_comment_enable, string::StringBuilder,
 };
 use yaml_rust::yaml::Hash;
@@ -7,7 +7,6 @@ use yaml_rust::yaml::Yaml;
 
 const ACCEPT_ENTITY_TAG_PREFIX: &str = "ACCEPT_ENTITY_TAG_PREFIX";
 const ACCEPT_PREFIX_VAR: &str = "ACCEPT_PREFIX_VAR";
-const VAR_CONSTANT_PREFIX: &str = "VAR_CONSTANT_PREFIX";
 const ENCODE_LT: &str = "ENCODE_LT";
 const ENCODE_LT_STRING: &str = "ENCODE_LT_STRING";
 
@@ -69,6 +68,7 @@ pub fn generate_render_html(h: &Hash, name: String) -> String {
     write_token_identifier(&mut html);
     write_token_entity(&mut html);
     write_token_keyword(&mut html);
+    write_token_constant(&mut html);
 
     if let Some(_) = get_condition(h).get(&Yaml::String(ACCEPT_ENTITY_TAG_PREFIX.to_string())) {
         write_token_entity_tag(&mut html);
@@ -76,10 +76,6 @@ pub fn generate_render_html(h: &Hash, name: String) -> String {
 
     if let Some(_) = get_condition(h).get(&Yaml::String(ACCEPT_PREFIX_VAR.to_string())) {
         write_token_var_identifier(&mut html);
-    }
-
-    if let Some(_) = get_condition(h).get(&Yaml::String(VAR_CONSTANT_PREFIX.to_string())) {
-        write_token_constant(&mut html);
     }
 
     if slash_comment_enable(h) {
@@ -107,19 +103,6 @@ pub fn generate_render_html(h: &Hash, name: String) -> String {
         html.push_tabln(
             4,
             "html.push_str(&format!(\"<span class=\\\"hl-ent\\\">{}</span>\", \
-        value.iter().collect::<String>()));",
-        );
-        html.push_tabln(3, "}");
-    }
-
-    for (k, _v) in get_constant(h) {
-        html.push_tabln(
-            3,
-            &format!("token::Token::{}(value) => {{", k.as_str().unwrap()),
-        );
-        html.push_tabln(
-            4,
-            "html.push_str(&format!(\"<span class=\\\"hl-c\\\">{}</span>\", \
         value.iter().collect::<String>()));",
         );
         html.push_tabln(3, "}");

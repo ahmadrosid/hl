@@ -51,6 +51,9 @@ pub fn render_html(input: Vec<char>) -> String {
             token::Token::KEYWORD(value) => {
                 html.push_str(&format!("<span class=\"hl-k\">{}</span>", value.iter().collect::<String>()));
             }
+            token::Token::CONSTANT(value) => {
+                html.push_str(&format!("<span class=\"hl-c\">{}</span>", value.iter().collect::<String>()));
+            }
             token::Token::COMMENT(value) => {
                 let mut lines = String::new();
                 for ch in value {
@@ -77,18 +80,6 @@ pub fn render_html(input: Vec<char>) -> String {
                         ));
                     }
                 }
-            }
-            token::Token::TRUE(value) => {
-                html.push_str(&format!("<span class=\"hl-c\">{}</span>", value.iter().collect::<String>()));
-            }
-            token::Token::FALSE(value) => {
-                html.push_str(&format!("<span class=\"hl-c\">{}</span>", value.iter().collect::<String>()));
-            }
-            token::Token::UNDEFINED(value) => {
-                html.push_str(&format!("<span class=\"hl-c\">{}</span>", value.iter().collect::<String>()));
-            }
-            token::Token::NULL(value) => {
-                html.push_str(&format!("<span class=\"hl-c\">{}</span>", value.iter().collect::<String>()));
             }
             token::Token::VINFINITY(value) => {
                 html.push_str(&format!("<span class=\"hl-v\">{}</span>", value.iter().collect::<String>()));

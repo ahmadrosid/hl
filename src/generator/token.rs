@@ -7,7 +7,6 @@ use yaml_rust::Yaml;
 
 const ACCEPT_ENTITY_TAG_PREFIX: &str = "ACCEPT_ENTITY_TAG_PREFIX";
 const ACCEPT_PREFIX_VAR: &str = "ACCEPT_PREFIX_VAR";
-const VAR_CONSTANT_PREFIX: &str = "VAR_CONSTANT_PREFIX";
 
 pub fn generate_token(h: &Hash) -> String {
     let mut token = StringBuilder::new();
@@ -24,21 +23,14 @@ pub fn generate_token(h: &Hash) -> String {
     token.push_tabln(1, "ENTITY(Vec<char>),");
     token.push_tabln(1, "STRING(Vec<char>),");
     token.push_tabln(1, "KEYWORD(Vec<char>),");
+    token.push_tabln(1, "CONSTANT(Vec<char>),");
 
     if let Some(_) = get_condition(h).get(&Yaml::String(ACCEPT_ENTITY_TAG_PREFIX.to_string())) {
         token.push_tabln(1, "ENTITYTAG(Vec<char>),");
     }
 
-    if let Some(_) = get_condition(h).get(&Yaml::String(VAR_CONSTANT_PREFIX.to_string())) {
-        token.push_tabln(1, "CONSTANT(Vec<char>),");
-    }
-
     if let Some(_) = get_condition(h).get(&Yaml::String(ACCEPT_PREFIX_VAR.to_string())) {
         token.push_tabln(1, "VAR(Vec<char>),");
-    }
-
-    for (k, _v) in get_constant(h) {
-        token.push_tabln(1, &format!("{}(Vec<char>),", k.as_str().unwrap()));
     }
 
     for (k, _v) in get_var(h) {
@@ -65,12 +57,9 @@ pub fn generate_token(h: &Hash) -> String {
     );
     token.push_tabln(1, "match &identifiers[..] {");
 
-    for (k, v) in get_constant(h) {
+    for (_, v) in get_constant(h) {
         token.push_tab(2, &format!("\"{}\" => ", v.as_str().unwrap()));
-        token.push_strln(&format!(
-            "Ok(Token::{}(identifier.to_vec())),",
-            k.as_str().unwrap()
-        ));
+        token.push_strln("Ok(Token::CONSTANT(identifier.to_vec())),");
     }
 
     for (k, v) in get_var(h) {

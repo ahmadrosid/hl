@@ -11,10 +11,7 @@ pub enum Token {
     ENTITY(Vec<char>),
     STRING(Vec<char>),
     KEYWORD(Vec<char>),
-    TRUE(Vec<char>),
-    FALSE(Vec<char>),
-    UNDEFINED(Vec<char>),
-    NULL(Vec<char>),
+    CONSTANT(Vec<char>),
     VINFINITY(Vec<char>),
     VNAN(Vec<char>),
     MATH(Vec<char>),
@@ -25,10 +22,10 @@ pub enum Token {
 pub fn get_keyword_token(identifier: &Vec<char>) -> Result<Token, String> {
     let identifiers: String = identifier.into_iter().collect();
     match &identifiers[..] {
-        "true" => Ok(Token::TRUE(identifier.to_vec())),
-        "false" => Ok(Token::FALSE(identifier.to_vec())),
-        "undefined" => Ok(Token::UNDEFINED(identifier.to_vec())),
-        "null" => Ok(Token::NULL(identifier.to_vec())),
+        "true" => Ok(Token::CONSTANT(identifier.to_vec())),
+        "false" => Ok(Token::CONSTANT(identifier.to_vec())),
+        "undefined" => Ok(Token::CONSTANT(identifier.to_vec())),
+        "null" => Ok(Token::CONSTANT(identifier.to_vec())),
         "Infinity" => Ok(Token::VINFINITY(identifier.to_vec())),
         "NaN" => Ok(Token::VNAN(identifier.to_vec())),
         "Math" => Ok(Token::MATH(identifier.to_vec())),

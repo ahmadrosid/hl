@@ -55,6 +55,9 @@ pub fn render_html(input: Vec<char>) -> String {
             token::Token::KEYWORD(value) => {
                 html.push_str(&format!("<span class=\"hl-k\">{}</span>", value.iter().collect::<String>()));
             }
+            token::Token::CONSTANT(value) => {
+                html.push_str(&format!("<span class=\"hl-c\">{}</span>", value.iter().collect::<String>()));
+            }
             token::Token::ENTITYTAG(value) => {
                 let mut s = String::new();
                 for ch in value {
@@ -70,9 +73,6 @@ pub fn render_html(input: Vec<char>) -> String {
             }
             token::Token::VAR(value) => {
                 html.push_str(&format!("<span class=\"hl-vid\">{}</span>", value.iter().collect::<String>()));
-            }
-            token::Token::CONSTANT(value) => {
-                html.push_str(&format!("<span class=\"hl-c\">{}</span>", value.iter().collect::<String>()));
             }
             token::Token::COMMENT(value) => {
                 let mut lines = String::new();
@@ -364,21 +364,6 @@ pub fn render_html(input: Vec<char>) -> String {
             }
             token::Token::HR(value) => {
                 html.push_str(&format!("<span class=\"hl-ent\">{}</span>", value.iter().collect::<String>()));
-            }
-            token::Token::TRUE(value) => {
-                html.push_str(&format!("<span class=\"hl-c\">{}</span>", value.iter().collect::<String>()));
-            }
-            token::Token::FALSE(value) => {
-                html.push_str(&format!("<span class=\"hl-c\">{}</span>", value.iter().collect::<String>()));
-            }
-            token::Token::NULL(value) => {
-                html.push_str(&format!("<span class=\"hl-c\">{}</span>", value.iter().collect::<String>()));
-            }
-            token::Token::CSTRING(value) => {
-                html.push_str(&format!("<span class=\"hl-c\">{}</span>", value.iter().collect::<String>()));
-            }
-            token::Token::ARRAY(value) => {
-                html.push_str(&format!("<span class=\"hl-c\">{}</span>", value.iter().collect::<String>()));
             }
             token::Token::ENDL(_) => {
                 line = line + 1;
