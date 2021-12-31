@@ -106,11 +106,11 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
         module.push_tabln(3, "let position = l.position;");
         module.push_tabln(3, "while l.position < l.input.len() {");
         module.push_tabln(4, "l.read_char();");
-        module.push_tabln(4, "if l.input[l.position+1] == '\\n' {");
+        module.push_tabln(4, "if l.input[l.position + 1] == '\\n' {");
         module.push_tabln(5, "break;");
         module.push_tabln(4, "}");
         module.push_tabln(3, "}");
-        module.push_tabln(3, "l.input[position..l.position+1].to_vec()");
+        module.push_tabln(3, "l.input[position..l.position + 1].to_vec()");
         module.push_tabln(2, "};\n");
     }
 
@@ -124,8 +124,8 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
         module.push_tabln(4, "if l.position == l.input.len() {");
         module.push_tabln(5, "break;");
         module.push_tabln(4, "}");
-        module.push_tabln(4, "if l.input[l.position+1] == '*' {");
-        module.push_tabln(5, "if l.input[l.position+2] == '/' {");
+        module.push_tabln(4, "if l.input[l.position + 1] == '*' {");
+        module.push_tabln(5, "if l.input[l.position + 2] == '/' {");
         module.push_tabln(6, "l.read_char();");
         module.push_tabln(6, "l.read_char();");
         module.push_tabln(6, "break;");
@@ -133,7 +133,7 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
         module.push_tabln(4, "}");
         module.push_tabln(4, "l.read_char();");
         module.push_tabln(3, "}");
-        module.push_tabln(3, "l.input[position..l.position+1].to_vec()");
+        module.push_tabln(3, "l.input[position..l.position + 1].to_vec()");
         module.push_tabln(2, "};\n")
     }
 
@@ -154,7 +154,7 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
             module.push_tabln(
                 4,
                 &format!(
-                    "if self.input[self.position+1] == '{}' {{",
+                    "if self.input[self.position + 1] == '{}' {{",
                     ch.as_str().unwrap()
                 ),
             );
@@ -185,7 +185,7 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
             module.push_tabln(
                 4,
                 &format!(
-                    "if self.input[self.position+1] == '{}' {{",
+                    "if self.input[self.position + 1] == '{}' {{",
                     ch.as_str().unwrap()
                 ),
             );
@@ -229,7 +229,7 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
 
     if let Some(v) = get_condition(h).get(&Yaml::String(ACCEPT_PREFIX_KEYWORD.to_string())) {
         module.push_tabln(3, &format!("'{}' => {{", v.as_str().unwrap()));
-        module.push_tabln(4, "if is_letter(self.input[self.position+1]) {");
+        module.push_tabln(4, "if is_letter(self.input[self.position + 1]) {");
         module.push_tabln(5, "self.read_char();");
         module.push_tabln(
             5,
@@ -244,7 +244,7 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
 
     if let Some(v) = get_condition(h).get(&Yaml::String(ACCEPT_PREFIX_VAR.to_string())) {
         module.push_tabln(3, &format!("'{}' => {{", v.as_str().unwrap()));
-        module.push_tabln(4, "if is_letter(self.input[self.position+1]) {");
+        module.push_tabln(4, "if is_letter(self.input[self.position + 1]) {");
         if let Some(pref) = get_condition(h).get(&Yaml::String(VAR_CONSTANT_PREFIX.to_string())) {
             module.push_tabln(5, "let position = self.position;");
             module.push_tabln(5, "self.read_char();");
@@ -280,10 +280,10 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
 
     if slash_comment_enable(h) {
         module.push_tabln(3, "'/' => {");
-        module.push_tabln(4, "if self.input[self.position+1] == '/' {");
+        module.push_tabln(4, "if self.input[self.position + 1] == '/' {");
         module.push_tabln(5, "tok = token::Token::COMMENT(read_slash_comment(self));");
         if slash_star_comment_enable(h) {
-            module.push_tabln(4, "} else if self.input[self.position+1] == '*' {");
+            module.push_tabln(4, "} else if self.input[self.position + 1] == '*' {");
             module.push_tabln(
                 5,
                 "tok = token::Token::COMMENT(read_slash_star_comment(self));",
@@ -295,7 +295,7 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
         module.push_tabln(3, "}");
     } else if slash_star_comment_enable(h) {
         module.push_tabln(3, "'/' => {");
-        module.push_tabln(4, "if self.input[self.position+1] == '*' {");
+        module.push_tabln(4, "if self.input[self.position + 1] == '*' {");
         module.push_tabln(
             5,
             "tok = token::Token::COMMENT(read_slash_star_comment(self));",

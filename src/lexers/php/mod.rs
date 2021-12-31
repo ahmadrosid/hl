@@ -68,11 +68,11 @@ impl Lexer {
             let position = l.position;
             while l.position < l.input.len() {
                 l.read_char();
-                if l.input[l.position+1] == '\n' {
+                if l.input[l.position + 1] == '\n' {
                     break;
                 }
             }
-            l.input[position..l.position+1].to_vec()
+            l.input[position..l.position + 1].to_vec()
         };
 
         let read_slash_star_comment = |l: &mut Lexer| -> Vec<char> {
@@ -81,8 +81,8 @@ impl Lexer {
                 if l.position == l.input.len() {
                     break;
                 }
-                if l.input[l.position+1] == '*' {
-                    if l.input[l.position+2] == '/' {
+                if l.input[l.position + 1] == '*' {
+                    if l.input[l.position + 2] == '/' {
                         l.read_char();
                         l.read_char();
                         break;
@@ -90,7 +90,7 @@ impl Lexer {
                 }
                 l.read_char();
             }
-            l.input[position..l.position+1].to_vec()
+            l.input[position..l.position + 1].to_vec()
         };
 
         let tok: token::Token;
@@ -102,7 +102,7 @@ impl Lexer {
                 tok = token::Token::EOF;
             }
             '<' => {
-                if self.input[self.position+1] == '?' {
+                if self.input[self.position + 1] == '?' {
                     let mut entity = vec!['<','?'];
                     self.read_char();
                     self.read_char();
@@ -113,7 +113,7 @@ impl Lexer {
                 }
             }
             '?' => {
-                if self.input[self.position+1] == '>' {
+                if self.input[self.position + 1] == '>' {
                     let entity = vec!['?','>'];
                     self.read_char();
                     self.read_char();
@@ -123,7 +123,7 @@ impl Lexer {
                 }
             }
             '$' => {
-                if is_letter(self.input[self.position+1]) {
+                if is_letter(self.input[self.position + 1]) {
                     let position = self.position;
                     self.read_char();
                     let mut identifier = vec!['$'];
@@ -137,9 +137,9 @@ impl Lexer {
                 tok = token::Token::CH(self.ch);
             }
             '/' => {
-                if self.input[self.position+1] == '/' {
+                if self.input[self.position + 1] == '/' {
                     tok = token::Token::COMMENT(read_slash_comment(self));
-                } else if self.input[self.position+1] == '*' {
+                } else if self.input[self.position + 1] == '*' {
                     tok = token::Token::COMMENT(read_slash_star_comment(self));
                 } else {
                     tok = token::Token::CH(self.ch);
