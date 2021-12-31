@@ -26,7 +26,7 @@ fn write_struct_lexer(module: &mut StringBuilder) {
     module.push_tabln(1, "input: Vec<char>,");
     module.push_tabln(1, "pub position: usize,");
     module.push_tabln(1, "pub read_position: usize,");
-    module.push_tabln(1, "pub ch: char");
+    module.push_tabln(1, "pub ch: char,");
     module.push_strln("}\n");
 }
 
@@ -52,7 +52,7 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
     module.push_tabln(3, "input,");
     module.push_tabln(3, "position: 0,");
     module.push_tabln(3, "read_position: 0,");
-    module.push_tabln(3, "ch: '\\0'");
+    module.push_tabln(3, "ch: '\\0',");
     module.push_tabln(2, "}");
     module.push_tabln(1, "}\n");
 

@@ -6,7 +6,7 @@ pub struct Lexer {
     input: Vec<char>,
     pub position: usize,
     pub read_position: usize,
-    pub ch: char
+    pub ch: char,
 }
 
 fn is_letter(ch: char) -> bool {
@@ -23,7 +23,7 @@ impl Lexer {
             input,
             position: 0,
             read_position: 0,
-            ch: '\0'
+            ch: '\0',
         }
     }
 
