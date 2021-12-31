@@ -47,7 +47,6 @@ get_by!(get_keyword, keyword);
 get_by!(get_entity, entity);
 get_by!(get_entity_prefix, entity_prefix);
 get_by!(get_entity_suffix, entity_suffix);
-get_by!(get_skip, skip);
 get_by!(get_entity_tag, entity_tag);
 get_by!(get_condition, condition);
 get_bool!(slash_comment_enable, slash_comment);
@@ -61,7 +60,6 @@ pub fn parse(file_path: &str) -> String {
         "single_constant",
         "keyword",
         "single_keyword",
-        "skip",
         "entity",
         "entity_tag",
         "prefix",

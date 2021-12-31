@@ -1,5 +1,5 @@
 use crate::generator::{
-    get_condition, get_constant, get_entity, get_entity_tag, get_skip, get_var,
+    get_condition, get_constant, get_entity, get_entity_tag, get_var,
     slash_comment_enable, string::StringBuilder,
 };
 use yaml_rust::yaml::Hash;
@@ -84,15 +84,6 @@ pub fn generate_render_html(h: &Hash, name: String) -> String {
 
     if slash_comment_enable(h) {
         write_token_comment(&mut html);
-    }
-
-    for (k, _v) in get_skip(h) {
-        html.push_tabln(
-            3,
-            &format!("token::Token::{}(value) => {{", k.as_str().unwrap()),
-        );
-        html.push_tabln(4, "html.push_str(&value.iter().collect::<String>());");
-        html.push_tabln(3, "}");
     }
 
     for (k, _v) in get_entity(h) {

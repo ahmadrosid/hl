@@ -1,5 +1,5 @@
 use crate::generator::{
-    get_condition, get_constant, get_entity, get_entity_tag, get_keyword, get_skip, get_var,
+    get_condition, get_constant, get_entity, get_entity_tag, get_keyword, get_var,
     slash_comment_enable, string::StringBuilder,
 };
 use yaml_rust::yaml::Hash;
@@ -42,10 +42,6 @@ pub fn generate_token(h: &Hash) -> String {
     }
 
     for (k, _v) in get_var(h) {
-        token.push_tabln(1, &format!("{}(Vec<char>),", k.as_str().unwrap()));
-    }
-
-    for (k, _v) in get_skip(h) {
         token.push_tabln(1, &format!("{}(Vec<char>),", k.as_str().unwrap()));
     }
 
