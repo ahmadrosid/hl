@@ -1,4 +1,4 @@
-use crate::lexers::{c, cpp, css, go, java, javascript, php, rust, typescript};
+use crate::lexers::{c, cpp, css, go, html, java, javascript, php, rust, typescript};
 use std::fs;
 
 fn read_input(path: &str) -> Vec<char> {
@@ -40,6 +40,14 @@ fn test_golang() {
     let input = read_input("src/test/testdata/input/golang.go.stub");
     let expected = read_file("src/test/testdata/output/golang.html.stub");
     let actual = go::render::render_html(input);
+    assert_eq!(expected, actual);
+}
+
+#[test]
+fn test_html() {
+    let input = read_input("src/test/testdata/input/html.html.stub");
+    let expected = read_file("src/test/testdata/output/html.html.stub");
+    let actual = html::render::render_html(input);
     assert_eq!(expected, actual);
 }
 

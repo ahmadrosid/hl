@@ -68,35 +68,6 @@ impl Lexer {
             l.input[position..l.position].to_vec()
         };
 
-        let read_slash_comment = |l: &mut Lexer| -> Vec<char> {
-            let position = l.position;
-            while l.position < l.input.len() {
-                l.read_char();
-                if l.input[l.position + 1] == '\n' {
-                    break;
-                }
-            }
-            l.input[position..l.position + 1].to_vec()
-        };
-
-        let read_slash_star_comment = |l: &mut Lexer| -> Vec<char> {
-            let position = l.position;
-            while l.position < l.input.len() {
-                if l.position == l.input.len() {
-                    break;
-                }
-                if l.input[l.position + 1] == '*' {
-                    if l.input[l.position + 2] == '/' {
-                        l.read_char();
-                        l.read_char();
-                        break;
-                    }
-                }
-                l.read_char();
-            }
-            l.input[position..l.position + 1].to_vec()
-        };
-
         let tok: token::Token;
         match self.ch {
             '\n' => {
@@ -105,14 +76,40 @@ impl Lexer {
             '\0' => {
                 tok = token::Token::EOF;
             }
-            '/' => {
-                if self.input[self.position + 1] == '/' {
-                    tok = token::Token::COMMENT(read_slash_comment(self));
-                } else if self.input[self.position + 1] == '*' {
-                    tok = token::Token::COMMENT(read_slash_star_comment(self));
+            '<' => {
+                if self.input[self.position + 1] == '?' {
+                    let mut entity = vec!['<','?'];
+                    self.read_char();
+                    self.read_char();
+                    entity.append(&mut read_identifier(self));
+                    return token::Token::ENTITYTAG(entity);
                 } else {
                     tok = token::Token::CH(self.ch);
                 }
+            }
+            '?' => {
+                if self.input[self.position + 1] == '>' {
+                    let entity = vec!['?','>'];
+                    self.read_char();
+                    self.read_char();
+                    return token::Token::ENTITYTAG(entity);
+                } else {
+                    tok = token::Token::CH(self.ch);
+                }
+            }
+            '$' => {
+                if is_letter(self.input[self.position + 1]) {
+                    let position = self.position;
+                    self.read_char();
+                    let mut identifier = vec!['$'];
+                    identifier.append(&mut read_identifier(self));
+                    if self.input[position-1] == '[' {
+                        return token::Token::CONSTANT(identifier);
+                    } else {
+                        return token::Token::VAR(identifier);
+                    }
+                }
+                tok = token::Token::CH(self.ch);
             }
             _ => {
                 return if is_letter(self.ch) {
@@ -123,7 +120,7 @@ impl Lexer {
                     if is_digit(self.ch) {
                         let position = self.position;
                         while self.position < self.input.len() {
-                            if self.ch == ' ' || self.ch == ':' ||  self.ch == ',' || self.ch == '{' || self.ch == '\n' {
+                            if !is_digit(self.ch) && !is_letter(self.ch) {
                                 break;
                             }
                             self.read_char();
@@ -135,37 +132,18 @@ impl Lexer {
                                 keyword_token
                             },
                             Err(_err) => {
-                                if prev_pos != 0 && self.input[prev_pos-1] == '.' {
-                                    let position = self.position;
-                                    while self.position < self.input.len() {
-                                        if self.ch == ' ' || self.ch == '{' || self.ch == ',' || self.ch == '\n' {
-                                            break;
-                                        }
+                                if self.ch == '-' {
+                                    let last_position = self.position;
+                                    self.read_char();
+                                    while self.position < self.input.len() && is_letter(self.ch) {
                                         self.read_char();
                                     }
-                                    identifier.append(&mut self.input[position..self.position].to_vec());
-                                    return token::Token::ENTITY(identifier)
+                                    identifier.append(&mut self.input[last_position..self.position].to_vec());
                                 }
-                                if self.ch == '(' {
-                                    let position = self.position;
-                                    while self.position < self.input.len() {
-                                        if self.ch == ' ' || self.ch == ':' || self.ch == ';' || self.ch == '}' || self.ch == '\n' {
-                                            break;
-                                        }
-                                        self.read_char();
-                                    }
-                                    identifier.append(&mut self.input[position..self.position].to_vec());
-                                    return token::Token::IDENT(identifier)
+                                if self.ch == '=' {
+                                    return token::Token::CONSTANT(identifier);
                                 }
-                                if self.ch == '-' || self.ch == ':' {
-                                    let position = self.position;
-                                    while self.position < self.input.len() {
-                                        if self.ch == ' ' || self.ch == ':' || self.ch == '}' || self.ch == '\n' {
-                                            break;
-                                        }
-                                        self.read_char();
-                                    }
-                                    identifier.append(&mut self.input[position..self.position].to_vec());
+                                if prev_pos != 0 && self.input[prev_pos-1] == '>' {
                                     return token::Token::ENTITY(identifier)
                                 }
                                 if self.ch == '(' {
@@ -177,6 +155,9 @@ impl Lexer {
                     } else if is_digit(self.ch) {
                         let identifier: Vec<char> = read_number(self);
                         token::Token::INT(identifier)
+                    } else if self.ch == '\'' {
+                        let str_value: Vec<char> = read_string(self, '\'');
+                        token::Token::STRING(str_value)
                     } else if self.ch == '"' {
                         let str_value: Vec<char> = read_string(self, '"');
                         token::Token::STRING(str_value)

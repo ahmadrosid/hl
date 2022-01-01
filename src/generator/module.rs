@@ -90,6 +90,10 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
     module.push_tabln(4, "l.read_char();");
     module.push_tabln(3, "}");
     module.push_tabln(3, "l.read_char();");
+    module.push_tabln(3, "if l.position > l.input.len() {");
+    module.push_tabln(4, "l.position = l.position - 1;");
+    module.push_tabln(4, "l.read_position = l.read_position - 1;");
+    module.push_tabln(3, "}");
     module.push_tabln(3, "l.input[position..l.position].to_vec()");
     module.push_tabln(2, "};\n");
 

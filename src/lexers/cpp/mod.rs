@@ -53,6 +53,10 @@ impl Lexer {
                 l.read_char();
             }
             l.read_char();
+            if l.position > l.input.len() {
+                l.position = l.position - 1;
+                l.read_position = l.read_position - 1;
+            }
             l.input[position..l.position].to_vec()
         };
 

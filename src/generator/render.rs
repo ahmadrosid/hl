@@ -118,6 +118,7 @@ pub fn generate_render_html(h: &Hash, name: String) -> String {
     html.push_tabln(5, "line");
     html.push_tabln(4, "));");
     html.push_tabln(3, "}");
+
     html.push_tabln(3, "_ => {");
     html.push_tabln(4, "html.push(l.ch);");
     html.push_tabln(4, "l.read_char();");
