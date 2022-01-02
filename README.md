@@ -21,7 +21,7 @@ SUBCOMMANDS:
 ```
 
 ### 💡 Example Command
-```shell
+```sh
 hl src/main.rs -l rust
 ```
 
