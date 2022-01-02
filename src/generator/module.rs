@@ -1,5 +1,5 @@
 use crate::generator::{
-    get_condition, get_entity_prefix, get_entity_suffix, slash_comment_enable,
+    get_condition, get_entity_prefix, get_entity_suffix, slash_comment_enable, xml_comment_enable,
     slash_star_comment_enable, string::StringBuilder,
 };
 use yaml_rust::yaml::Hash;
@@ -142,6 +142,11 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
     }
 
     module.push_tabln(2, "let tok: token::Token;");
+
+    if xml_comment_enable(h) {
+        module.push_str(&write_handle_xml_comment());
+    }
+
     module.push_tabln(2, "match self.ch {");
     module.push_tabln(3, "'\\n' => {");
     module.push_tabln(4, "tok = token::Token::ENDL(self.ch);");
@@ -522,6 +527,37 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
     module.push_tabln(2, "tok");
     module.push_tabln(1, "}");
     module.push_strln("}");
+}
+
+fn write_handle_xml_comment() -> String {
+    let mut module = StringBuilder::new();
+    module.push_tabln(2, "if self.ch == '<' {");
+    module.push_tabln(3, "let next_ch = self.input[self.position + 1];");
+    module.push_tabln(3, "if self.position + 3 < self.input.len() && next_ch == '!' && self.input[self.position+2] == '-' && self.input[self.position+3] == '-' {");
+    module.push_tabln(4, "let mut comment = vec!['&','l','t',';','!','-','-'];");
+    module.push_tabln(4, "self.read_char();");
+    module.push_tabln(4, "self.read_char();");
+    module.push_tabln(4, "self.read_char();");
+    module.push_tabln(4, "self.read_char();");
+    module.push_tabln(4, "let last_position = self.position;");
+    module.push_tabln(4, "while self.position < self.input.len() {");
+    module.push_tabln(5, "if self.ch == '-' {");
+    module.push_tabln(6, "if self.input[self.position+1] == '-' {");
+    module.push_tabln(7, "if self.input[self.position+2] == '>' {");
+    module.push_tabln(7, "self.read_char();");
+    module.push_tabln(7, "self.read_char();");
+    module.push_tabln(7, "self.read_char();");
+    module.push_tabln(7, "break;");
+    module.push_tabln(7, "}");
+    module.push_tabln(6, "}");
+    module.push_tabln(5, "}");
+    module.push_tabln(5, "self.read_char();");
+    module.push_tabln(4, "}");
+    module.push_tabln(4, "comment.append(&mut self.input[last_position..self.position].to_vec());");
+    module.push_tabln(4, "return token::Token::COMMENT(comment);");
+    module.push_tabln(3, "}");
+    module.push_tabln(2, "}");
+    module.to_string()
 }
 
 pub fn generate_module(h: &Hash) -> String {

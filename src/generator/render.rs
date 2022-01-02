@@ -1,7 +1,4 @@
-use crate::generator::{
-    get_condition, get_entity, get_entity_tag, get_var,
-    slash_comment_enable, string::StringBuilder,
-};
+use crate::generator::{get_condition, get_entity, get_entity_tag, get_var, slash_comment_enable, slash_star_comment_enable, string::StringBuilder, xml_comment_enable};
 use yaml_rust::yaml::Hash;
 use yaml_rust::yaml::Yaml;
 
@@ -77,7 +74,7 @@ pub fn generate_render_html(h: &Hash, name: String) -> String {
         write_token_var_identifier(&mut html);
     }
 
-    if slash_comment_enable(h) {
+    if slash_comment_enable(h) || slash_star_comment_enable(h) || xml_comment_enable(h) {
         write_token_comment(&mut html);
     }
 

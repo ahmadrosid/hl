@@ -51,6 +51,7 @@ get_by!(get_entity_tag, entity_tag);
 get_by!(get_condition, condition);
 get_bool!(slash_comment_enable, slash_comment);
 get_bool!(slash_star_comment_enable, slash_star_comment);
+get_bool!(xml_comment_enable, xml_comment);
 
 pub fn parse(file_path: &str) -> String {
     let content = read_file(file_path);
@@ -64,6 +65,7 @@ pub fn parse(file_path: &str) -> String {
         "entity_tag",
         "prefix",
         "slash_comment",
+        "xml_comment",
         "condition",
         "slash_star_comment",
         "var",

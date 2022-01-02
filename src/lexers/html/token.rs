@@ -14,6 +14,7 @@ pub enum Token {
     CONSTANT(Vec<char>),
     ENTITYTAG(Vec<char>),
     VAR(Vec<char>),
+    COMMENT(Vec<char>),
 }
 
 pub fn get_keyword_token(identifier: &Vec<char>) -> Result<Token, String> {

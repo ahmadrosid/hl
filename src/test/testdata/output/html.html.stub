@@ -6,36 +6,36 @@
 <tr><td class="hl-num" data-line="4"></td><td>&lt;<span class="hl-ent">head</span>></td></tr>
 <tr><td class="hl-num" data-line="5"></td><td>    &lt;<span class="hl-ent">meta</span> <span class="hl-c">charset</span>=<span class="hl-s">"utf-8"</span> /></td></tr>
 <tr><td class="hl-num" data-line="6"></td><td>    &lt;<span class="hl-ent">title</span>><span class="hl-en">Page</span> Title Here&lt;/<span class="hl-ent">title</span>></td></tr>
-<tr><td class="hl-num" data-line="7"></td><td>    &lt;!-- this comment<span class="hl-s">'s
-        indentation should
-        be unchanged
-    --&gt;
-&lt;/head&gt;
-&lt;body&gt;
-
-    &lt;div class="main"&gt;
-        &lt;span class="something"&gt;Blah&lt;/span&gt;
-        &lt;span class="something"&gt;
-            Foobar
-        &lt;/span&gt;
-    &lt;/div&gt;
-
-    &lt;script type="text/javascript" src="/some_script.js"&gt;&lt;/script&gt;
-
-    &lt;!-- Curly braces --&gt;
-    foo {
-        bar { &lt;!-- comment --&gt;
-            baz
-        }
-    }
-    text
-    { &lt;p&gt;&lt;/p&gt; }
-    text
-    {{template}}
-    text
-
-&lt;/body&gt;
-&lt;/html&gt;
-</span></td></tr>
+<tr><td class="hl-num" data-line="7"></td><td>    <span class="hl-cmt">&lt;!-- this comment's</span></td></tr>
+<tr><td class="hl-num" data-line="8"></td><td><span class="hl-cmt">        indentation should</span></td></tr>
+<tr><td class="hl-num" data-line="9"></td><td><span class="hl-cmt">        be unchanged</span></td></tr>
+<tr><td class="hl-num" data-line="10"></td><td><span class="hl-cmt">    --&gt;</span></td></tr>
+<tr><td class="hl-num" data-line="11"></td><td>&lt;/<span class="hl-ent">head</span>></td></tr>
+<tr><td class="hl-num" data-line="12"></td><td>&lt;<span class="hl-ent">body</span>></td></tr>
+<tr><td class="hl-num" data-line="13"></td><td></td></tr>
+<tr><td class="hl-num" data-line="14"></td><td>    &lt;<span class="hl-ent">div</span> <span class="hl-c">class</span>=<span class="hl-s">"main"</span>></td></tr>
+<tr><td class="hl-num" data-line="15"></td><td>        &lt;<span class="hl-ent">span</span> <span class="hl-c">class</span>=<span class="hl-s">"something"</span>><span class="hl-en">Blah</span>&lt;/<span class="hl-ent">span</span>></td></tr>
+<tr><td class="hl-num" data-line="16"></td><td>        &lt;<span class="hl-ent">span</span> <span class="hl-c">class</span>=<span class="hl-s">"something"</span>></td></tr>
+<tr><td class="hl-num" data-line="17"></td><td>            Foobar</td></tr>
+<tr><td class="hl-num" data-line="18"></td><td>        &lt;/<span class="hl-ent">span</span>></td></tr>
+<tr><td class="hl-num" data-line="19"></td><td>    &lt;/<span class="hl-ent">div</span>></td></tr>
+<tr><td class="hl-num" data-line="20"></td><td></td></tr>
+<tr><td class="hl-num" data-line="21"></td><td>    &lt;<span class="hl-ent">script</span> <span class="hl-c">type</span>=<span class="hl-s">"text/javascript"</span> <span class="hl-c">src</span>=<span class="hl-s">"/some_script.js"</span>>&lt;/<span class="hl-ent">script</span>></td></tr>
+<tr><td class="hl-num" data-line="22"></td><td></td></tr>
+<tr><td class="hl-num" data-line="23"></td><td>    <span class="hl-cmt">&lt;!-- Curly braces --&gt;</span></td></tr>
+<tr><td class="hl-num" data-line="24"></td><td>    foo {</td></tr>
+<tr><td class="hl-num" data-line="25"></td><td>        bar { <span class="hl-cmt">&lt;!-- comment --&gt;</span></td></tr>
+<tr><td class="hl-num" data-line="26"></td><td>            baz</td></tr>
+<tr><td class="hl-num" data-line="27"></td><td>        }</td></tr>
+<tr><td class="hl-num" data-line="28"></td><td>    }</td></tr>
+<tr><td class="hl-num" data-line="29"></td><td>    text</td></tr>
+<tr><td class="hl-num" data-line="30"></td><td>    { &lt;<span class="hl-ent">p</span>>&lt;/<span class="hl-ent">p</span>> }</td></tr>
+<tr><td class="hl-num" data-line="31"></td><td>    text</td></tr>
+<tr><td class="hl-num" data-line="32"></td><td>    {{template}}</td></tr>
+<tr><td class="hl-num" data-line="33"></td><td>    text</td></tr>
+<tr><td class="hl-num" data-line="34"></td><td></td></tr>
+<tr><td class="hl-num" data-line="35"></td><td>&lt;/<span class="hl-ent">body</span>></td></tr>
+<tr><td class="hl-num" data-line="36"></td><td>&lt;/<span class="hl-ent">html</span>></td></tr>
+<tr><td class="hl-num" data-line="37"></td><td></td></tr>
 </tbody>
 </table>

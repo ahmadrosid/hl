@@ -1,3 +1,5 @@
+xml_comment: true
+
 entity_tag:
   HTML: html
   HEAD: head
