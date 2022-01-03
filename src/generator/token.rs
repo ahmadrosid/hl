@@ -24,7 +24,7 @@ pub fn generate_token(h: &Hash) -> String {
         token.push_tabln(1, "KEYWORD(Vec<char>),");
     }
 
-    if get_entity_tag(h).len() > 1 {
+    if get_entity_tag(h).len() >= 1 {
         token.push_tabln(1, "ENTITYTAG(Vec<char>),");
     }
 

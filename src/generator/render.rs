@@ -69,7 +69,7 @@ pub fn generate_render_html(h: &Hash, name: String) -> String {
         write_token_keyword(&mut html);
     }
 
-    if get_entity_tag(h).len() > 1 {
+    if get_entity_tag(h).len() >= 1 {
         write_token_entity_tag(&mut html);
     }
 
