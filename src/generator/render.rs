@@ -1,4 +1,4 @@
-use crate::generator::{get_condition, get_entity, get_entity_tag, get_var, slash_comment_enable, slash_star_comment_enable, string::StringBuilder, xml_comment_enable};
+use crate::generator::{get_condition, get_entity, get_keyword, get_entity_tag, get_var, slash_comment_enable, slash_star_comment_enable, string::StringBuilder, xml_comment_enable};
 use yaml_rust::yaml::Hash;
 use yaml_rust::yaml::Yaml;
 
@@ -63,8 +63,11 @@ pub fn generate_render_html(h: &Hash, name: String) -> String {
     write_token_integer(&mut html);
     write_token_identifier(&mut html);
     write_token_entity(&mut html);
-    write_token_keyword(&mut html);
     write_token_constant(&mut html);
+
+    if get_keyword(h).len() >= 1 {
+        write_token_keyword(&mut html);
+    }
 
     if get_entity_tag(h).len() > 1 {
         write_token_entity_tag(&mut html);

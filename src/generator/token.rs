@@ -18,8 +18,11 @@ pub fn generate_token(h: &Hash) -> String {
     token.push_tabln(1, "IDENT(Vec<char>),");
     token.push_tabln(1, "ENTITY(Vec<char>),");
     token.push_tabln(1, "STRING(Vec<char>),");
-    token.push_tabln(1, "KEYWORD(Vec<char>),");
     token.push_tabln(1, "CONSTANT(Vec<char>),");
+
+    if get_keyword(h).len() >= 1 {
+        token.push_tabln(1, "KEYWORD(Vec<char>),");
+    }
 
     if get_entity_tag(h).len() > 1 {
         token.push_tabln(1, "ENTITYTAG(Vec<char>),");
