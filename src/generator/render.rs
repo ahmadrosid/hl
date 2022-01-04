@@ -40,7 +40,6 @@ pub fn generate_render_html(h: &Hash, name: String) -> String {
 
     html.push_tabln(2, "match token {");
     html.push_tabln(3, "token::Token::CH(value) => {");
-
     if let Some(prefix) = get_condition(h).get(&Yaml::String(ENCODE_LT.to_string())) {
         if let Some(encode) = get_condition(h).get(&Yaml::String(ENCODE_LT_STRING.to_string())) {
             html.push_tabln(4, &format!("if value == '{}' {{", prefix.as_str().unwrap()));
@@ -49,7 +48,7 @@ pub fn generate_render_html(h: &Hash, name: String) -> String {
                 &format!("html.push_str(\"{}\");", encode.as_str().unwrap()),
             );
             html.push_tabln(4, "} else {");
-            html.push_tabln(4, "html.push(value);");
+            html.push_tabln(5, "html.push(value);");
             html.push_tabln(4, "}");
         } else {
             html.push_tabln(4, "html.push(value);");
@@ -120,6 +119,15 @@ pub fn generate_render_html(h: &Hash, name: String) -> String {
     html.push_tabln(3, "}");
 
     html.push_tabln(3, "_ => {");
+    if let Some(prefix) = get_condition(h).get(&Yaml::String(ENCODE_LT.to_string())) {
+        if let Some(encode) = get_condition(h).get(&Yaml::String(ENCODE_LT_STRING.to_string())) {
+            html.push_tabln(4, &format!("if l.ch == '{}' {{", prefix.as_str().unwrap()));
+            html.push_tabln(5, &format!("html.push_str(\"{}\");", encode.as_str().unwrap()));
+            html.push_tabln(5, "l.read_char();");
+            html.push_tabln(5, "continue;");
+            html.push_tabln(4, "}");
+        }
+    }
     html.push_tabln(4, "html.push(l.ch);");
     html.push_tabln(4, "l.read_char();");
     html.push_tabln(3, "}");

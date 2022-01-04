@@ -1,6 +1,6 @@
 xml_comment: true
 
-entity_tag:
+xml_entity_tag:
   HTML: html
   HEAD: head
   title: title
@@ -94,24 +94,8 @@ entity_tag:
   INPUT: input
   HR: hr
 
-entity_prefix:
-  ENTITY_DOT: '>'
-
-entity_suffix:
-  ENTITY_LBRACE: '('
-
 condition:
   ACCEPT_STRING_ONE_QUOTE: true
   ACCEPT_STRING_DOUBLE_QUOTE: true
-  ACCEPT_ENTITY_TAG_SUFFIX: "is_digit(self.ch)"
-  BREAK_ENTITY_TAG_SUFFIX: "!is_digit(self.ch) && !is_letter(self.ch)"
-  ACCEPT_ENTITY_TAG_PREFIX: "<"
-  ENTITY_TAG_PREFIX_CHAR: "?"
-  ENTITY_CLOSE_TAG_SUFFIX_CHAR: ">"
-  ACCEPT_PREFIX_VAR: "$"
-  VAR_CONSTANT_PREFIX: "["
   ENCODE_LT: "<"
   ENCODE_LT_STRING: "&lt;"
-  CONSTANT_SUFFIX_CHAR: "="
-  ACCEPT_CONSTANT_SUFFIX_IDENTIFIER: true
-  ACCEPT_DASH_IDENTIFIER: "-"

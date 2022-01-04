@@ -110,6 +110,11 @@ pub fn render_html(input: Vec<char>) -> String {
                 ));
             }
             _ => {
+                if l.ch == '<' {
+                    html.push_str("&lt;");
+                    l.read_char();
+                    continue;
+                }
                 html.push(l.ch);
                 l.read_char();
             }

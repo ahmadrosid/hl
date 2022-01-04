@@ -27,7 +27,7 @@ pub fn render_html(input: Vec<char>) -> String {
                 if value == '<' {
                     html.push_str("&lt;");
                 } else {
-                html.push(value);
+                    html.push(value);
                 }
             }
             token::Token::STRING(value) => {
@@ -54,22 +54,6 @@ pub fn render_html(input: Vec<char>) -> String {
             }
             token::Token::CONSTANT(value) => {
                 html.push_str(&format!("<span class=\"hl-c\">{}</span>", value.iter().collect::<String>()));
-            }
-            token::Token::ENTITYTAG(value) => {
-                let mut s = String::new();
-                for ch in value {
-                    if ch == '<' {
-                        s.push_str("&lt;");
-                    } else if ch == '>' {
-                        s.push_str("&gt;");
-                    } else {
-                        s.push(ch);
-                    }
-                }
-                html.push_str(&format!("<span class=\"hl-ent\">{}</span>", s));
-            }
-            token::Token::VAR(value) => {
-                html.push_str(&format!("<span class=\"hl-vid\">{}</span>", value.iter().collect::<String>()));
             }
             token::Token::COMMENT(value) => {
                 let mut lines = String::new();
@@ -107,6 +91,11 @@ pub fn render_html(input: Vec<char>) -> String {
                 ));
             }
             _ => {
+                if l.ch == '<' {
+                    html.push_str("&lt;");
+                    l.read_char();
+                    continue;
+                }
                 html.push(l.ch);
                 l.read_char();
             }

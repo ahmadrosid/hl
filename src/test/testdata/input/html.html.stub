@@ -10,7 +10,7 @@
     -->
 </head>
 <body>
-
+    <div>The script should not be highlighted! An a as well!</div>
     <div class="main">
         <span class="something">Blah</span>
         <span class="something">
