@@ -27,7 +27,7 @@ pub fn render_html(input: Vec<char>) -> String {
                 if value == '<' {
                     html.push_str("&lt;");
                 } else {
-                html.push(value);
+                    html.push(value);
                 }
             }
             token::Token::STRING(value) => {
