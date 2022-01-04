@@ -1,4 +1,7 @@
-use crate::generator::{get_condition, get_entity, get_keyword, get_entity_tag, get_var, slash_comment_enable, slash_star_comment_enable, string::StringBuilder, xml_comment_enable};
+use crate::generator::{
+    get_condition, get_entity, get_entity_tag, get_keyword, get_var, slash_comment_enable,
+    slash_star_comment_enable, string::StringBuilder, xml_comment_enable,
+};
 use yaml_rust::yaml::Hash;
 use yaml_rust::yaml::Yaml;
 
@@ -122,7 +125,10 @@ pub fn generate_render_html(h: &Hash, name: String) -> String {
     if let Some(prefix) = get_condition(h).get(&Yaml::String(ENCODE_LT.to_string())) {
         if let Some(encode) = get_condition(h).get(&Yaml::String(ENCODE_LT_STRING.to_string())) {
             html.push_tabln(4, &format!("if l.ch == '{}' {{", prefix.as_str().unwrap()));
-            html.push_tabln(5, &format!("html.push_str(\"{}\");", encode.as_str().unwrap()));
+            html.push_tabln(
+                5,
+                &format!("html.push_str(\"{}\");", encode.as_str().unwrap()),
+            );
             html.push_tabln(5, "l.read_char();");
             html.push_tabln(5, "continue;");
             html.push_tabln(4, "}");
