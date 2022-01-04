@@ -1,6 +1,5 @@
 // ---- DON'T EDIT! THIS IS AUTO GENERATED CODE ---- //
-#[derive(PartialEq)]
-#[derive(Debug)]
+#[derive(PartialEq, Debug)]
 pub enum Token {
     ILLEGAL,
     EOF,
