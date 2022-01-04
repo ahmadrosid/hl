@@ -55,6 +55,7 @@ See the result in browser [here](https://play.tailwindcss.com/xFlm0rN1wH).
 - [x] CSS ( ✅ Done )
 - [ ] CPP ( 🚧 In Progress )
 - [ ] Go ( 🚧 In Progress )
+- [ ] HTML ( 🚧 In Progress )
 - [ ] Rust ( 🚧 In Progress )
 - [x] Java ( ✅ Done )
 - [ ] Javascript ( 🚧 In Progress )
