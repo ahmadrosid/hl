@@ -31,11 +31,11 @@ pub fn generate_token(h: &Hash) -> String {
         token.push_tabln(1, "VAR(Vec<char>),");
     }
 
-    for (k, _v) in get_var(h) {
+    for (k, _) in get_var(h) {
         token.push_tabln(1, &format!("{}(Vec<char>),", k.as_str().unwrap()));
     }
 
-    for (k, _v) in get_entity(h) {
+    for (k, _) in get_entity(h) {
         token.push_tabln(1, &format!("{}(Vec<char>),", k.as_str().unwrap()));
     }
 
@@ -81,7 +81,7 @@ pub fn generate_token(h: &Hash) -> String {
         token.push_strln("Ok(Token::ENTITYTAG(identifier.to_vec())),");
     }
 
-    for (_k, v) in get_keyword(h) {
+    for (_, v) in get_keyword(h) {
         token.push_tab(2, &format!("\"{}\" => ", v.as_str().unwrap()));
         token.push_strln("Ok(Token::KEYWORD(identifier.to_vec())),");
     }
