@@ -128,6 +128,6 @@ pub fn get_keyword_token(identifier: &Vec<char>) -> Result<Token, String> {
         "textarea" => Ok(Token::ENTITYTAG(identifier.to_vec())),
         "input" => Ok(Token::ENTITYTAG(identifier.to_vec())),
         "important" => Ok(Token::KEYWORD(identifier.to_vec())),
-        _ => Err(String::from("Not a keyword"))
+        _ => Err(String::from("Not a keyword")),
     }
 }

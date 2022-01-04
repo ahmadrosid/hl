@@ -169,6 +169,6 @@ pub fn get_keyword_token(identifier: &Vec<char>) -> Result<Token, String> {
         "while" => Ok(Token::KEYWORD(identifier.to_vec())),
         "xor" => Ok(Token::KEYWORD(identifier.to_vec())),
         "yield" => Ok(Token::KEYWORD(identifier.to_vec())),
-        _ => Err(String::from("Not a keyword"))
+        _ => Err(String::from("Not a keyword")),
     }
 }

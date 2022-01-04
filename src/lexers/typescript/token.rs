@@ -60,6 +60,6 @@ pub fn get_keyword_token(identifier: &Vec<char>) -> Result<Token, String> {
         "typeof" => Ok(Token::KEYWORD(identifier.to_vec())),
         "throw" => Ok(Token::KEYWORD(identifier.to_vec())),
         "interface" => Ok(Token::KEYWORD(identifier.to_vec())),
-        _ => Err(String::from("Not a keyword"))
+        _ => Err(String::from("Not a keyword")),
     }
 }

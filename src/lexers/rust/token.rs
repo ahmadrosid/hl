@@ -52,6 +52,6 @@ pub fn get_keyword_token(identifier: &Vec<char>) -> Result<Token, String> {
         "Result" => Ok(Token::KEYWORD(identifier.to_vec())),
         "Option" => Ok(Token::KEYWORD(identifier.to_vec())),
         "dyn" => Ok(Token::KEYWORD(identifier.to_vec())),
-        _ => Err(String::from("Not a keyword"))
+        _ => Err(String::from("Not a keyword")),
     }
 }

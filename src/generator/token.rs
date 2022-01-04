@@ -86,7 +86,7 @@ pub fn generate_token(h: &Hash) -> String {
         token.push_strln("Ok(Token::KEYWORD(identifier.to_vec())),");
     }
 
-    token.push_tabln(2, "_ => Err(String::from(\"Not a keyword\"))");
+    token.push_tabln(2, "_ => Err(String::from(\"Not a keyword\")),");
     token.push_tabln(1, "}");
     token.push_strln("}");
 

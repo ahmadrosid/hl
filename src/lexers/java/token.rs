@@ -74,6 +74,6 @@ pub fn get_keyword_token(identifier: &Vec<char>) -> Result<Token, String> {
         "transient" => Ok(Token::KEYWORD(identifier.to_vec())),
         "strictfp" => Ok(Token::KEYWORD(identifier.to_vec())),
         "var" => Ok(Token::KEYWORD(identifier.to_vec())),
-        _ => Err(String::from("Not a keyword"))
+        _ => Err(String::from("Not a keyword")),
     }
 }
