@@ -112,7 +112,7 @@ pub fn generate_render_html(h: &Hash, name: String) -> String {
     html.push_tabln(4, "html.push_str(&format!(");
     html.push_tabln(
         5,
-        "\"<tr><td class=\\\"hl-num\\\" data-line=\\\"{}\\\"></td><td>\",",
+        r#""<tr><td class=\"hl-num\" data-line=\"{}\"></td><td>","#,
     );
     html.push_tabln(5, "line");
     html.push_tabln(4, "));");
@@ -134,8 +134,8 @@ pub fn generate_render_html(h: &Hash, name: String) -> String {
     html.push_tabln(2, "}");
     html.push_tabln(1, "}\n");
 
-    html.push_tabln(1, "html.push_str(\"</tbody>\\n\");");
-    html.push_tabln(1, "html.push_str(\"</table>\");");
+    html.push_tabln(1, r#"html.push_str("</tbody>\n");"#);
+    html.push_tabln(1, r#"html.push_str("</table>");"#);
     html.push_tabln(1, "html");
     html.push_strln("}");
     html.to_string()
@@ -153,7 +153,7 @@ fn write_token_comment(html: &mut StringBuilder) {
     html.push_tabln(6, "lines.push(ch);");
     html.push_tabln(5, "}");
     html.push_tabln(4, "}");
-    html.push_tabln(4, "let split = lines.split(\"\\n\");");
+    html.push_tabln(4, r#"let split = lines.split("\n");"#);
     html.push_tabln(
         4,
         "let split_len = split.clone().collect::<Vec<&str>>().len();",
@@ -162,7 +162,7 @@ fn write_token_comment(html: &mut StringBuilder) {
     html.push_tabln(4, "for val in split {");
     html.push_tabln(
         5,
-        "html.push_str(&format!(\"<span class=\\\"hl-cmt\\\">{}</span>\", val));",
+        r#"html.push_str(&format!("<span class=\"hl-cmt\">{}</span>", val));"#,
     );
     html.push_tabln(5, "index = index + 1;");
     html.push_tabln(5, "if index != split_len {");
@@ -171,7 +171,7 @@ fn write_token_comment(html: &mut StringBuilder) {
     html.push_tabln(6, "html.push_str(&format!(");
     html.push_tabln(
         7,
-        "\"<tr><td class=\\\"hl-num\\\" data-line=\\\"{}\\\"></td><td>\",",
+        r#""<tr><td class=\"hl-num\" data-line=\"{}\"></td><td>","#,
     );
     html.push_tabln(7, "line");
     html.push_tabln(6, "));");
@@ -240,7 +240,7 @@ fn write_token_string(html: &mut StringBuilder) {
     html.push_tabln(4, "}");
     html.push_tabln(
         4,
-        "html.push_str(&format!(\"<span class=\\\"hl-s\\\">{}</span>\", s));",
+        r#"html.push_str(&format!("<span class=\"hl-s\">{}</span>", s));"#,
     );
     html.push_tabln(3, "}");
 }
