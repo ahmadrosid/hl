@@ -184,7 +184,7 @@ impl Lexer {
                                 if self.ch == '=' {
                                     return token::Token::CONSTANT(identifier);
                                 }
-                                if start_position != 0 && self.input[start_position-1] == '>' {
+                                if start_position != 0 && self.input[start_position - 1] == '>' {
                                     return token::Token::ENTITY(identifier)
                                 }
                                 if self.ch == '(' {

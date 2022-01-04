@@ -476,7 +476,7 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
         module.push_tabln(
             8,
             &format!(
-                "if start_position != 0 && self.input[start_position-1] == '{}' {{",
+                "if start_position != 0 && self.input[start_position - 1] == '{}' {{",
                 v.as_str().unwrap()
             ),
         );
