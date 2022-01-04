@@ -117,7 +117,7 @@ impl Lexer {
             _ => {
                 return if is_letter(self.ch) {
                     #[allow(unused_variables)]
-                    let prev_pos = self.position;
+                    let start_position = self.position;
                     #[allow(unused_mut)]
                     let mut identifier: Vec<char> = read_identifier(self);
                     match token::get_keyword_token(&identifier) {
@@ -136,7 +136,7 @@ impl Lexer {
                                     identifier.append(&mut self.input[position..self.position].to_vec());
                                     return token::Token::ENTITY(identifier)
                                 }
-                                if prev_pos != 0 && self.input[prev_pos-1] == '.' {
+                                if start_position != 0 && self.input[start_position-1] == '.' {
                                     return token::Token::ENTITY(identifier)
                                 }
                                 if self.ch == '(' {

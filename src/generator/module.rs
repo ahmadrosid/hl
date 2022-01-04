@@ -318,7 +318,7 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
     module.push_tabln(3, "_ => {");
     module.push_tabln(4, "return if is_letter(self.ch) {");
     module.push_tabln(5, "#[allow(unused_variables)]");
-    module.push_tabln(5, "let prev_pos = self.position;");
+    module.push_tabln(5, "let start_position = self.position;");
     module.push_tabln(5, "#[allow(unused_mut)]");
     module.push_tabln(5, "let mut identifier: Vec<char> = read_identifier(self);");
 
@@ -476,7 +476,7 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
         module.push_tabln(
             8,
             &format!(
-                "if prev_pos != 0 && self.input[prev_pos-1] == '{}' {{",
+                "if start_position != 0 && self.input[start_position-1] == '{}' {{",
                 v.as_str().unwrap()
             ),
         );
