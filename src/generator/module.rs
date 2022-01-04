@@ -1,6 +1,6 @@
 use crate::generator::{
-    get_condition, get_entity_prefix, get_entity_suffix, slash_comment_enable, xml_comment_enable,
-    slash_star_comment_enable, string::StringBuilder,
+    get_condition, get_entity_prefix, get_entity_suffix, slash_comment_enable,
+    slash_star_comment_enable, string::StringBuilder, xml_comment_enable,
 };
 use yaml_rust::yaml::Hash;
 use yaml_rust::Yaml;
@@ -553,7 +553,10 @@ fn write_handle_xml_comment() -> String {
     module.push_tabln(5, "}");
     module.push_tabln(5, "self.read_char();");
     module.push_tabln(4, "}");
-    module.push_tabln(4, "comment.append(&mut self.input[last_position..self.position].to_vec());");
+    module.push_tabln(
+        4,
+        "comment.append(&mut self.input[last_position..self.position].to_vec());",
+    );
     module.push_tabln(4, "return token::Token::COMMENT(comment);");
     module.push_tabln(3, "}");
     module.push_tabln(2, "}");
