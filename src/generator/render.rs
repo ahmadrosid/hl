@@ -56,14 +56,14 @@ pub fn generate_render_html(h: &Hash, name: String) -> String {
     if slash_star_comment_enable(h)
         || slash_comment_enable(h)
         || get_condition(h)
-        .get(&Yaml::String(ACCEPT_ENTITY_TAG_PREFIX.to_string()))
-        .is_some()
+            .get(&Yaml::String(ACCEPT_ENTITY_TAG_PREFIX.to_string()))
+            .is_some()
         || get_condition(h)
-        .get(&Yaml::String(ENTITY_TAG_PREFIX_CHAR.to_string()))
-        .is_some()
+            .get(&Yaml::String(ENTITY_TAG_PREFIX_CHAR.to_string()))
+            .is_some()
         || get_condition(h)
-        .get(&Yaml::String(ACCEPT_PREFIX_KEYWORD.to_string()))
-        .is_some()
+            .get(&Yaml::String(ACCEPT_PREFIX_KEYWORD.to_string()))
+            .is_some()
     {
         write_token_ch(&mut html, h);
     }
