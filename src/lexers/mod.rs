@@ -1,3 +1,4 @@
+pub mod bash;
 pub mod c;
 pub mod rust;
 pub mod go;
