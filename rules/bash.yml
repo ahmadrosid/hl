@@ -6,6 +6,7 @@ constant:
   eval: eval
   exit: exit
   false: "false"
+  hash: hash
   kill: kill
   read: read
   source: source

@@ -22,6 +22,7 @@ pub fn get_keyword_token(identifier: &Vec<char>) -> Result<Token, String> {
         "eval" => Ok(Token::CONSTANT(identifier.to_vec())),
         "exit" => Ok(Token::CONSTANT(identifier.to_vec())),
         "false" => Ok(Token::CONSTANT(identifier.to_vec())),
+        "hash" => Ok(Token::CONSTANT(identifier.to_vec())),
         "kill" => Ok(Token::CONSTANT(identifier.to_vec())),
         "read" => Ok(Token::CONSTANT(identifier.to_vec())),
         "source" => Ok(Token::CONSTANT(identifier.to_vec())),
