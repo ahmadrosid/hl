@@ -5,8 +5,8 @@
 <tr><td class="hl-num" data-line="3"></td><td>  <span class="hl-cmt"># ANSI formatting function (\033[&lt;code&gt;m)</span></td></tr>
 <tr><td class="hl-num" data-line="4"></td><td><span class="hl-cmt"></span>  <span class="hl-cmt"># 0: reset, 1: bold, 4: underline, 22: no bold, 24: no underline, 31: red, 33: yellow</span></td></tr>
 <tr><td class="hl-num" data-line="5"></td><td><span class="hl-cmt"></span>  <span class="hl-en">omz_f</span>() <span class="hl-k">{</span></td></tr>
-<tr><td class="hl-num" data-line="6"></td><td>    <span class="hl-k">[</span> $<span class="hl-cmt"># -gt 0 ] || return</span></td></tr>
-<tr><td class="hl-num" data-line="7"></td><td><span class="hl-cmt"></span>    IFS=<span class="hl-s">";"</span> printf <span class="hl-s">"\033[%sm"</span> $*</td></tr>
+<tr><td class="hl-num" data-line="6"></td><td>    <span class="hl-k">[</span> $# -gt <span class="hl-c">0</span> <span class="hl-k">]</span> || <span class="hl-k">return</span></td></tr>
+<tr><td class="hl-num" data-line="7"></td><td>    IFS=<span class="hl-s">";"</span> printf <span class="hl-s">"\033[%sm"</span> $*</td></tr>
 <tr><td class="hl-num" data-line="8"></td><td>  <span class="hl-k">}</span></td></tr>
 <tr><td class="hl-num" data-line="9"></td><td>  <span class="hl-cmt"># If stdout is not a terminal ignore all formatting</span></td></tr>
 <tr><td class="hl-num" data-line="10"></td><td><span class="hl-cmt"></span>  <span class="hl-k">[</span> -t <span class="hl-c">1</span> <span class="hl-k">]</span> || <span class="hl-en">omz_f</span>() <span class="hl-k">{</span> :; <span class="hl-k">}</span></td></tr>
@@ -14,7 +14,7 @@
 <tr><td class="hl-num" data-line="12"></td><td>  <span class="hl-en">omz_ptree</span>() <span class="hl-k">{</span></td></tr>
 <tr><td class="hl-num" data-line="13"></td><td>    <span class="hl-cmt"># Get process tree of the current process</span></td></tr>
 <tr><td class="hl-num" data-line="14"></td><td><span class="hl-cmt"></span>    pid=$$; pids=<span class="hl-s">"$pid"</span></td></tr>
-<tr><td class="hl-num" data-line="15"></td><td>    <span class="hl-k">while</span> <span class="hl-k">[</span> $<span class="hl-k">{</span>pid-<span class="hl-c">0</span><span class="hl-k">}</span> -ne <span class="hl-c">1</span> <span class="hl-k">]</span> && ppid=$(ps -e -o pid,ppid | awk <span class="hl-s">"\$1 == $pid { print \$2 }"</span>); <span class="hl-k">do</span></td></tr>
+<tr><td class="hl-num" data-line="15"></td><td>    <span class="hl-k">while</span> <span class="hl-k">[</span> ${pid-<span class="hl-c">0</span><span class="hl-k">}</span> -ne <span class="hl-c">1</span> <span class="hl-k">]</span> && ppid=$(ps -e -o pid,ppid | awk <span class="hl-s">"\$1 == $pid { print \$2 }"</span>); <span class="hl-k">do</span></td></tr>
 <tr><td class="hl-num" data-line="16"></td><td>      pids=<span class="hl-s">"$pids $pid"</span>; pid=$ppid</td></tr>
 <tr><td class="hl-num" data-line="17"></td><td>    <span class="hl-k">done</span></td></tr>
 <tr><td class="hl-num" data-line="18"></td><td></td></tr>
@@ -37,11 +37,11 @@
 <tr><td class="hl-num" data-line="35"></td><td>    printf <span class="hl-s">"$(omz_f 0)\n"</span></td></tr>
 <tr><td class="hl-num" data-line="36"></td><td>  <span class="hl-k">}</span> >&<span class="hl-c">2</span></td></tr>
 <tr><td class="hl-num" data-line="37"></td><td></td></tr>
-<tr><td class="hl-num" data-line="38"></td><td>  return <span class="hl-c">1</span></td></tr>
+<tr><td class="hl-num" data-line="38"></td><td>  <span class="hl-k">return</span> <span class="hl-c">1</span></td></tr>
 <tr><td class="hl-num" data-line="39"></td><td><span class="hl-k">}</span></td></tr>
 <tr><td class="hl-num" data-line="40"></td><td></td></tr>
 <tr><td class="hl-num" data-line="41"></td><td><span class="hl-cmt"># If ZSH is not defined, use the current script's directory.</span></td></tr>
-<tr><td class="hl-num" data-line="42"></td><td><span class="hl-cmt"></span><span class="hl-k">[</span><span class="hl-k">[</span> -z <span class="hl-s">"$ZSH"</span> <span class="hl-k">]</span><span class="hl-k">]</span> && export ZSH=<span class="hl-s">"${${(%):-%x}:a:h}"</span></td></tr>
+<tr><td class="hl-num" data-line="42"></td><td><span class="hl-cmt"></span><span class="hl-k">[</span><span class="hl-k">[</span> -z <span class="hl-s">"$ZSH"</span> <span class="hl-k">]</span><span class="hl-k">]</span> && <span class="hl-k">export</span> ZSH=<span class="hl-s">"${${(%):-%x}:a:h}"</span></td></tr>
 <tr><td class="hl-num" data-line="43"></td><td></td></tr>
 <tr><td class="hl-num" data-line="44"></td><td><span class="hl-cmt"># Set ZSH_CACHE_DIR to the path where cache files should be created</span></td></tr>
 <tr><td class="hl-num" data-line="45"></td><td><span class="hl-cmt"></span><span class="hl-cmt"># or else we will use the default cache/</span></td></tr>
@@ -56,11 +56,11 @@
 <tr><td class="hl-num" data-line="54"></td><td></td></tr>
 <tr><td class="hl-num" data-line="55"></td><td><span class="hl-cmt"># Create cache and completions dir and add to $fpath</span></td></tr>
 <tr><td class="hl-num" data-line="56"></td><td><span class="hl-cmt"></span>mkdir -p <span class="hl-s">"$ZSH_CACHE_DIR/completions"</span></td></tr>
-<tr><td class="hl-num" data-line="57"></td><td>(( $<span class="hl-k">{</span>fpath<span class="hl-k">[</span>(Ie)<span class="hl-s">"$ZSH_CACHE_DIR/completions"</span><span class="hl-k">]</span><span class="hl-k">}</span> )) || fpath=(<span class="hl-s">"$ZSH_CACHE_DIR/completions"</span> $fpath)</td></tr>
+<tr><td class="hl-num" data-line="57"></td><td>(( ${fpath<span class="hl-k">[</span>(Ie)<span class="hl-s">"$ZSH_CACHE_DIR/completions"</span><span class="hl-k">]</span><span class="hl-k">}</span> )) || fpath=(<span class="hl-s">"$ZSH_CACHE_DIR/completions"</span> $fpath)</td></tr>
 <tr><td class="hl-num" data-line="58"></td><td></td></tr>
 <tr><td class="hl-num" data-line="59"></td><td><span class="hl-cmt"># Check for updates on initial load...</span></td></tr>
 <tr><td class="hl-num" data-line="60"></td><td><span class="hl-cmt"></span><span class="hl-k">if</span> <span class="hl-k">[</span> <span class="hl-s">"$DISABLE_AUTO_UPDATE"</span> <span class="hl-k">!</span>= <span class="hl-s">"true"</span> <span class="hl-k">]</span>; <span class="hl-k">then</span></td></tr>
-<tr><td class="hl-num" data-line="61"></td><td>  source $ZSH/tools/check_for_upgrade.sh</td></tr>
+<tr><td class="hl-num" data-line="61"></td><td>  <span class="hl-c">source</span> $ZSH/tools/check_for_upgrade.sh</td></tr>
 <tr><td class="hl-num" data-line="62"></td><td><span class="hl-k">fi</span></td></tr>
 <tr><td class="hl-num" data-line="63"></td><td></td></tr>
 <tr><td class="hl-num" data-line="64"></td><td><span class="hl-cmt"># Initializes Oh My Zsh</span></td></tr>
@@ -79,8 +79,8 @@
 <tr><td class="hl-num" data-line="77"></td><td></td></tr>
 <tr><td class="hl-num" data-line="78"></td><td></td></tr>
 <tr><td class="hl-num" data-line="79"></td><td><span class="hl-en">is_plugin</span>() <span class="hl-k">{</span></td></tr>
-<tr><td class="hl-num" data-line="80"></td><td>  local base_dir=$<span class="hl-c">1</span></td></tr>
-<tr><td class="hl-num" data-line="81"></td><td>  local name=$<span class="hl-c">2</span></td></tr>
+<tr><td class="hl-num" data-line="80"></td><td>  <span class="hl-k">local</span> base_dir=$<span class="hl-c">1</span></td></tr>
+<tr><td class="hl-num" data-line="81"></td><td>  <span class="hl-k">local</span> name=$<span class="hl-c">2</span></td></tr>
 <tr><td class="hl-num" data-line="82"></td><td>  builtin test -f $base_dir/plugins/$name/$name.plugin.zsh \</td></tr>
 <tr><td class="hl-num" data-line="83"></td><td>    || builtin test -f $base_dir/plugins/$name/_$name</td></tr>
 <tr><td class="hl-num" data-line="84"></td><td><span class="hl-k">}</span></td></tr>
@@ -100,9 +100,9 @@
 <tr><td class="hl-num" data-line="98"></td><td><span class="hl-cmt"># Figure out the SHORT hostname</span></td></tr>
 <tr><td class="hl-num" data-line="99"></td><td><span class="hl-cmt"></span><span class="hl-k">if</span> <span class="hl-k">[</span><span class="hl-k">[</span> <span class="hl-s">"$OSTYPE"</span> = darwin* <span class="hl-k">]</span><span class="hl-k">]</span>; <span class="hl-k">then</span></td></tr>
 <tr><td class="hl-num" data-line="100"></td><td>  <span class="hl-cmt"># macOS's $HOST changes with dhcp, etc. Use ComputerName if possible.</span></td></tr>
-<tr><td class="hl-num" data-line="101"></td><td><span class="hl-cmt"></span>  SHORT_HOST=$(scutil --get ComputerName <span class="hl-c">2</span>>/dev/null) || SHORT_HOST=$<span class="hl-k">{</span>HOST/.*/<span class="hl-k">}</span></td></tr>
+<tr><td class="hl-num" data-line="101"></td><td><span class="hl-cmt"></span>  SHORT_HOST=$(scutil --get ComputerName <span class="hl-c">2</span>>/dev/null) || SHORT_HOST=${HOST/.*/<span class="hl-k">}</span></td></tr>
 <tr><td class="hl-num" data-line="102"></td><td><span class="hl-k">else</span></td></tr>
-<tr><td class="hl-num" data-line="103"></td><td>  SHORT_HOST=$<span class="hl-k">{</span>HOST/.*/<span class="hl-k">}</span></td></tr>
+<tr><td class="hl-num" data-line="103"></td><td>  SHORT_HOST=${HOST/.*/<span class="hl-k">}</span></td></tr>
 <tr><td class="hl-num" data-line="104"></td><td><span class="hl-k">fi</span></td></tr>
 <tr><td class="hl-num" data-line="105"></td><td></td></tr>
 <tr><td class="hl-num" data-line="106"></td><td><span class="hl-cmt"># Save the location of the current completion dump file.</span></td></tr>
@@ -122,7 +122,7 @@
 <tr><td class="hl-num" data-line="120"></td><td><span class="hl-k">fi</span></td></tr>
 <tr><td class="hl-num" data-line="121"></td><td></td></tr>
 <tr><td class="hl-num" data-line="122"></td><td><span class="hl-k">if</span> <span class="hl-k">[</span><span class="hl-k">[</span> $ZSH_DISABLE_COMPFIX <span class="hl-k">!</span>= true <span class="hl-k">]</span><span class="hl-k">]</span>; <span class="hl-k">then</span></td></tr>
-<tr><td class="hl-num" data-line="123"></td><td>  source $ZSH/lib/compfix.zsh</td></tr>
+<tr><td class="hl-num" data-line="123"></td><td>  <span class="hl-c">source</span> $ZSH/lib/compfix.zsh</td></tr>
 <tr><td class="hl-num" data-line="124"></td><td>  <span class="hl-cmt"># If completion insecurities exist, warn the user</span></td></tr>
 <tr><td class="hl-num" data-line="125"></td><td><span class="hl-cmt"></span>  handle_completion_insecurities</td></tr>
 <tr><td class="hl-num" data-line="126"></td><td>  <span class="hl-cmt"># Load only from secure directories</span></td></tr>
@@ -136,48 +136,48 @@
 <tr><td class="hl-num" data-line="134"></td><td><span class="hl-cmt"></span><span class="hl-k">if</span> (( $zcompdump_refresh )); <span class="hl-k">then</span></td></tr>
 <tr><td class="hl-num" data-line="135"></td><td>  <span class="hl-cmt"># Use `tee` in case the $ZSH_COMPDUMP filename is invalid, to silence the error</span></td></tr>
 <tr><td class="hl-num" data-line="136"></td><td><span class="hl-cmt"></span>  <span class="hl-cmt"># See https://github.com/ohmyzsh/ohmyzsh/commit/dd1a7269#commitcomment-39003489</span></td></tr>
-<tr><td class="hl-num" data-line="137"></td><td><span class="hl-cmt"></span>  tee -a <span class="hl-s">"$ZSH_COMPDUMP"</span> &>/dev/null <<EOF</td></tr>
-<tr><td class="hl-num" data-line="138"></td><td>$zcompdump_revision</td></tr>
-<tr><td class="hl-num" data-line="139"></td><td>$zcompdump_fpath</td></tr>
-<tr><td class="hl-num" data-line="140"></td><td>EOF</td></tr>
-<tr><td class="hl-num" data-line="141"></td><td><span class="hl-k">fi</span></td></tr>
-<tr><td class="hl-num" data-line="142"></td><td></td></tr>
-<tr><td class="hl-num" data-line="143"></td><td>unset zcompdump_revision zcompdump_fpath zcompdump_refresh</td></tr>
-<tr><td class="hl-num" data-line="144"></td><td></td></tr>
+<tr><td class="hl-num" data-line="137"></td><td><span class="hl-cmt"></span>  tee -a <span class="hl-s">"$ZSH_COMPDUMP"</span> &>/dev/null <<<span class="hl-k">EOF</span></td></tr>
+<tr><td class="hl-num" data-line="138"></td><td></td></tr>
+<tr><td class="hl-num" data-line="139"></td><td>$zcompdump_revision</td></tr>
+<tr><td class="hl-num" data-line="140"></td><td>$zcompdump_fpath</td></tr>
+<tr><td class="hl-num" data-line="141"></td><td><span class="hl-k">EOF</span></td></tr>
+<tr><td class="hl-num" data-line="142"></td><td><span class="hl-k">fi</span></td></tr>
+<tr><td class="hl-num" data-line="143"></td><td></td></tr>
+<tr><td class="hl-num" data-line="144"></td><td><span class="hl-c">unset</span> zcompdump_revision zcompdump_fpath zcompdump_refresh</td></tr>
 <tr><td class="hl-num" data-line="145"></td><td></td></tr>
-<tr><td class="hl-num" data-line="146"></td><td><span class="hl-cmt"># Load all of the config files in ~/oh-my-zsh that end in .zsh</span></td></tr>
-<tr><td class="hl-num" data-line="147"></td><td><span class="hl-cmt"></span><span class="hl-cmt"># TIP: Add files you don't want in git to .gitignore</span></td></tr>
-<tr><td class="hl-num" data-line="148"></td><td><span class="hl-cmt"></span><span class="hl-k">for</span> config_file ($ZSH/lib/*.zsh); <span class="hl-k">do</span></td></tr>
-<tr><td class="hl-num" data-line="149"></td><td>  custom_config_file=<span class="hl-s">"${ZSH_CUSTOM}/lib/${config_file:t}"</span></td></tr>
-<tr><td class="hl-num" data-line="150"></td><td>  <span class="hl-k">[</span> -f <span class="hl-s">"${custom_config_file}"</span> <span class="hl-k">]</span> && config_file=$<span class="hl-k">{</span>custom_config_file<span class="hl-k">}</span></td></tr>
-<tr><td class="hl-num" data-line="151"></td><td>  source $config_file</td></tr>
-<tr><td class="hl-num" data-line="152"></td><td><span class="hl-k">done</span></td></tr>
-<tr><td class="hl-num" data-line="153"></td><td></td></tr>
-<tr><td class="hl-num" data-line="154"></td><td><span class="hl-cmt"># Load all of the plugins that were defined in ~/.zshrc</span></td></tr>
-<tr><td class="hl-num" data-line="155"></td><td><span class="hl-cmt"></span><span class="hl-k">for</span> plugin ($plugins); <span class="hl-k">do</span></td></tr>
-<tr><td class="hl-num" data-line="156"></td><td>  <span class="hl-k">if</span> <span class="hl-k">[</span> -f $ZSH_CUSTOM/plugins/$plugin/$plugin.plugin.zsh <span class="hl-k">]</span>; <span class="hl-k">then</span></td></tr>
-<tr><td class="hl-num" data-line="157"></td><td>    source $ZSH_CUSTOM/plugins/$plugin/$plugin.plugin.zsh</td></tr>
-<tr><td class="hl-num" data-line="158"></td><td>  <span class="hl-k">elif</span> <span class="hl-k">[</span> -f $ZSH/plugins/$plugin/$plugin.plugin.zsh <span class="hl-k">]</span>; <span class="hl-k">then</span></td></tr>
-<tr><td class="hl-num" data-line="159"></td><td>    source $ZSH/plugins/$plugin/$plugin.plugin.zsh</td></tr>
-<tr><td class="hl-num" data-line="160"></td><td>  <span class="hl-k">fi</span></td></tr>
-<tr><td class="hl-num" data-line="161"></td><td><span class="hl-k">done</span></td></tr>
-<tr><td class="hl-num" data-line="162"></td><td></td></tr>
-<tr><td class="hl-num" data-line="163"></td><td><span class="hl-cmt"># Load all of your custom configurations from custom/</span></td></tr>
-<tr><td class="hl-num" data-line="164"></td><td><span class="hl-cmt"></span><span class="hl-k">for</span> config_file ($ZSH_CUSTOM/*.<span class="hl-en">zsh</span>(N)); <span class="hl-k">do</span></td></tr>
-<tr><td class="hl-num" data-line="165"></td><td>  source $config_file</td></tr>
-<tr><td class="hl-num" data-line="166"></td><td><span class="hl-k">done</span></td></tr>
-<tr><td class="hl-num" data-line="167"></td><td>unset config_file</td></tr>
-<tr><td class="hl-num" data-line="168"></td><td></td></tr>
-<tr><td class="hl-num" data-line="169"></td><td><span class="hl-cmt"># Load the theme</span></td></tr>
-<tr><td class="hl-num" data-line="170"></td><td><span class="hl-cmt"></span><span class="hl-k">if</span> <span class="hl-k">[</span> <span class="hl-k">!</span> <span class="hl-s">"$ZSH_THEME"</span> = <span class="hl-s">""</span>  <span class="hl-k">]</span>; <span class="hl-k">then</span></td></tr>
-<tr><td class="hl-num" data-line="171"></td><td>  <span class="hl-k">if</span> <span class="hl-k">[</span> -f <span class="hl-s">"$ZSH_CUSTOM/$ZSH_THEME.zsh-theme"</span> <span class="hl-k">]</span>; <span class="hl-k">then</span></td></tr>
-<tr><td class="hl-num" data-line="172"></td><td>    source <span class="hl-s">"$ZSH_CUSTOM/$ZSH_THEME.zsh-theme"</span></td></tr>
-<tr><td class="hl-num" data-line="173"></td><td>  <span class="hl-k">elif</span> <span class="hl-k">[</span> -f <span class="hl-s">"$ZSH_CUSTOM/themes/$ZSH_THEME.zsh-theme"</span> <span class="hl-k">]</span>; <span class="hl-k">then</span></td></tr>
-<tr><td class="hl-num" data-line="174"></td><td>    source <span class="hl-s">"$ZSH_CUSTOM/themes/$ZSH_THEME.zsh-theme"</span></td></tr>
-<tr><td class="hl-num" data-line="175"></td><td>  <span class="hl-k">else</span></td></tr>
-<tr><td class="hl-num" data-line="176"></td><td>    source <span class="hl-s">"$ZSH/themes/$ZSH_THEME.zsh-theme"</span></td></tr>
-<tr><td class="hl-num" data-line="177"></td><td>  <span class="hl-k">fi</span></td></tr>
-<tr><td class="hl-num" data-line="178"></td><td><span class="hl-k">fi</span></td></tr>
-<tr><td class="hl-num" data-line="179"></td><td></td></tr>
+<tr><td class="hl-num" data-line="146"></td><td></td></tr>
+<tr><td class="hl-num" data-line="147"></td><td><span class="hl-cmt"># Load all of the config files in ~/oh-my-zsh that end in .zsh</span></td></tr>
+<tr><td class="hl-num" data-line="148"></td><td><span class="hl-cmt"></span><span class="hl-cmt"># TIP: Add files you don't want in git to .gitignore</span></td></tr>
+<tr><td class="hl-num" data-line="149"></td><td><span class="hl-cmt"></span><span class="hl-k">for</span> config_file ($ZSH/lib/*.zsh); <span class="hl-k">do</span></td></tr>
+<tr><td class="hl-num" data-line="150"></td><td>  custom_config_file=<span class="hl-s">"${ZSH_CUSTOM}/lib/${config_file:t}"</span></td></tr>
+<tr><td class="hl-num" data-line="151"></td><td>  <span class="hl-k">[</span> -f <span class="hl-s">"${custom_config_file}"</span> <span class="hl-k">]</span> && config_file=${custom_config_file<span class="hl-k">}</span></td></tr>
+<tr><td class="hl-num" data-line="152"></td><td>  <span class="hl-c">source</span> $config_file</td></tr>
+<tr><td class="hl-num" data-line="153"></td><td><span class="hl-k">done</span></td></tr>
+<tr><td class="hl-num" data-line="154"></td><td></td></tr>
+<tr><td class="hl-num" data-line="155"></td><td><span class="hl-cmt"># Load all of the plugins that were defined in ~/.zshrc</span></td></tr>
+<tr><td class="hl-num" data-line="156"></td><td><span class="hl-cmt"></span><span class="hl-k">for</span> plugin ($plugins); <span class="hl-k">do</span></td></tr>
+<tr><td class="hl-num" data-line="157"></td><td>  <span class="hl-k">if</span> <span class="hl-k">[</span> -f $ZSH_CUSTOM/plugins/$plugin/$plugin.plugin.zsh <span class="hl-k">]</span>; <span class="hl-k">then</span></td></tr>
+<tr><td class="hl-num" data-line="158"></td><td>    <span class="hl-c">source</span> $ZSH_CUSTOM/plugins/$plugin/$plugin.plugin.zsh</td></tr>
+<tr><td class="hl-num" data-line="159"></td><td>  <span class="hl-k">elif</span> <span class="hl-k">[</span> -f $ZSH/plugins/$plugin/$plugin.plugin.zsh <span class="hl-k">]</span>; <span class="hl-k">then</span></td></tr>
+<tr><td class="hl-num" data-line="160"></td><td>    <span class="hl-c">source</span> $ZSH/plugins/$plugin/$plugin.plugin.zsh</td></tr>
+<tr><td class="hl-num" data-line="161"></td><td>  <span class="hl-k">fi</span></td></tr>
+<tr><td class="hl-num" data-line="162"></td><td><span class="hl-k">done</span></td></tr>
+<tr><td class="hl-num" data-line="163"></td><td></td></tr>
+<tr><td class="hl-num" data-line="164"></td><td><span class="hl-cmt"># Load all of your custom configurations from custom/</span></td></tr>
+<tr><td class="hl-num" data-line="165"></td><td><span class="hl-cmt"></span><span class="hl-k">for</span> config_file ($ZSH_CUSTOM/*.<span class="hl-en">zsh</span>(N)); <span class="hl-k">do</span></td></tr>
+<tr><td class="hl-num" data-line="166"></td><td>  <span class="hl-c">source</span> $config_file</td></tr>
+<tr><td class="hl-num" data-line="167"></td><td><span class="hl-k">done</span></td></tr>
+<tr><td class="hl-num" data-line="168"></td><td><span class="hl-c">unset</span> config_file</td></tr>
+<tr><td class="hl-num" data-line="169"></td><td></td></tr>
+<tr><td class="hl-num" data-line="170"></td><td><span class="hl-cmt"># Load the theme</span></td></tr>
+<tr><td class="hl-num" data-line="171"></td><td><span class="hl-cmt"></span><span class="hl-k">if</span> <span class="hl-k">[</span> <span class="hl-k">!</span> <span class="hl-s">"$ZSH_THEME"</span> = <span class="hl-s">""</span>  <span class="hl-k">]</span>; <span class="hl-k">then</span></td></tr>
+<tr><td class="hl-num" data-line="172"></td><td>  <span class="hl-k">if</span> <span class="hl-k">[</span> -f <span class="hl-s">"$ZSH_CUSTOM/$ZSH_THEME.zsh-theme"</span> <span class="hl-k">]</span>; <span class="hl-k">then</span></td></tr>
+<tr><td class="hl-num" data-line="173"></td><td>    <span class="hl-c">source</span> <span class="hl-s">"$ZSH_CUSTOM/$ZSH_THEME.zsh-theme"</span></td></tr>
+<tr><td class="hl-num" data-line="174"></td><td>  <span class="hl-k">elif</span> <span class="hl-k">[</span> -f <span class="hl-s">"$ZSH_CUSTOM/themes/$ZSH_THEME.zsh-theme"</span> <span class="hl-k">]</span>; <span class="hl-k">then</span></td></tr>
+<tr><td class="hl-num" data-line="175"></td><td>    <span class="hl-c">source</span> <span class="hl-s">"$ZSH_CUSTOM/themes/$ZSH_THEME.zsh-theme"</span></td></tr>
+<tr><td class="hl-num" data-line="176"></td><td>  <span class="hl-k">else</span></td></tr>
+<tr><td class="hl-num" data-line="177"></td><td>    <span class="hl-c">source</span> <span class="hl-s">"$ZSH/themes/$ZSH_THEME.zsh-theme"</span></td></tr>
+<tr><td class="hl-num" data-line="178"></td><td>  <span class="hl-k">fi</span></td></tr>
+<tr><td class="hl-num" data-line="179"></td><td><span class="hl-k">fi</span></td></tr>
 </tbody>
 </table>
