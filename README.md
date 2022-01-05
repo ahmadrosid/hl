@@ -1,5 +1,7 @@
 # 🌴 HL (WIP)
-Syntax highlighting written in Rust. The project is designed to generate html syntax highlighting with the given file.
+Syntax highlighting written in Rust. The project is designed to generate html syntax highlighting for the given file.
+
+This software is inspired by github syntax highlighter.
 
 ## 🚀 Usage
 ```bash
