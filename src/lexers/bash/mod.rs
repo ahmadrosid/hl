@@ -97,10 +97,7 @@ impl Lexer {
             ']' => {
                 tok = token::Token::KEYWORD(vec![self.ch]);
             }
-            '{' => {
-                tok = token::Token::KEYWORD(vec![self.ch]);
-            }
-            '}' => {
+            '|' => {
                 tok = token::Token::KEYWORD(vec![self.ch]);
             }
             '-' => {

@@ -17,8 +17,11 @@ pub enum Token {
 pub fn get_keyword_token(identifier: &Vec<char>) -> Result<Token, String> {
     let identifiers: String = identifier.into_iter().collect();
     match &identifiers[..] {
+        "echo" => Ok(Token::CONSTANT(identifier.to_vec())),
+        "exit" => Ok(Token::CONSTANT(identifier.to_vec())),
         "source" => Ok(Token::CONSTANT(identifier.to_vec())),
         "unset" => Ok(Token::CONSTANT(identifier.to_vec())),
+        "test" => Ok(Token::CONSTANT(identifier.to_vec())),
         "case" => Ok(Token::KEYWORD(identifier.to_vec())),
         "do" => Ok(Token::KEYWORD(identifier.to_vec())),
         "done" => Ok(Token::KEYWORD(identifier.to_vec())),

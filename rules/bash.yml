@@ -1,8 +1,11 @@
 hashtag_comment: true
 
 constant:
+  echo: echo
+  exit: exit
   source: source
   unset: unset
+  test: test
 
 keyword:
   case: case
@@ -30,8 +33,7 @@ single_keyword:
   - "!"
   - "["
   - "]"
-  - "{"
-  - "}"
+  - "|"
 
 entity_suffix:
   ENTITY_LBRACE: '('

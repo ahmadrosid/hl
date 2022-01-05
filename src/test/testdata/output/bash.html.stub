@@ -1,183 +1,165 @@
 <table class="highlight-table">
 <tbody>
-<tr><td class="hl-num" data-line="1"></td><td><span class="hl-cmt"># Protect against non-zsh execution of Oh My Zsh (use POSIX syntax here)</span></td></tr>
-<tr><td class="hl-num" data-line="2"></td><td><span class="hl-cmt"></span><span class="hl-k">[</span> <span class="hl-k">-n</span> <span class="hl-s">"$ZSH_VERSION"</span> <span class="hl-k">]</span> || <span class="hl-k">{</span></td></tr>
-<tr><td class="hl-num" data-line="3"></td><td>  <span class="hl-cmt"># ANSI formatting function (\033[&lt;code&gt;m)</span></td></tr>
-<tr><td class="hl-num" data-line="4"></td><td><span class="hl-cmt"></span>  <span class="hl-cmt"># 0: reset, 1: bold, 4: underline, 22: no bold, 24: no underline, 31: red, 33: yellow</span></td></tr>
-<tr><td class="hl-num" data-line="5"></td><td><span class="hl-cmt"></span>  <span class="hl-en">omz_f</span>() <span class="hl-k">{</span></td></tr>
-<tr><td class="hl-num" data-line="6"></td><td>    <span class="hl-k">[</span> $# <span class="hl-k">-gt</span> <span class="hl-c">0</span> <span class="hl-k">]</span> || <span class="hl-k">return</span></td></tr>
-<tr><td class="hl-num" data-line="7"></td><td>    IFS=<span class="hl-s">";"</span> printf <span class="hl-s">"\033[%sm"</span> $*</td></tr>
-<tr><td class="hl-num" data-line="8"></td><td>  <span class="hl-k">}</span></td></tr>
-<tr><td class="hl-num" data-line="9"></td><td>  <span class="hl-cmt"># If stdout is not a terminal ignore all formatting</span></td></tr>
-<tr><td class="hl-num" data-line="10"></td><td><span class="hl-cmt"></span>  <span class="hl-k">[</span> <span class="hl-k">-t</span> <span class="hl-c">1</span> <span class="hl-k">]</span> || <span class="hl-en">omz_f</span>() <span class="hl-k">{</span> :; <span class="hl-k">}</span></td></tr>
-<tr><td class="hl-num" data-line="11"></td><td></td></tr>
-<tr><td class="hl-num" data-line="12"></td><td>  <span class="hl-en">omz_ptree</span>() <span class="hl-k">{</span></td></tr>
-<tr><td class="hl-num" data-line="13"></td><td>    <span class="hl-cmt"># Get process tree of the current process</span></td></tr>
-<tr><td class="hl-num" data-line="14"></td><td><span class="hl-cmt"></span>    pid=$$; pids=<span class="hl-s">"$pid"</span></td></tr>
-<tr><td class="hl-num" data-line="15"></td><td>    <span class="hl-k">while</span> <span class="hl-k">[</span> ${pid-<span class="hl-c">0</span><span class="hl-k">}</span> <span class="hl-k">-ne</span> <span class="hl-c">1</span> <span class="hl-k">]</span> && ppid=$(ps <span class="hl-k">-e</span> <span class="hl-k">-o</span> pid,ppid | awk <span class="hl-s">"\$1 == $pid { print \$2 }"</span>); <span class="hl-k">do</span></td></tr>
-<tr><td class="hl-num" data-line="16"></td><td>      pids=<span class="hl-s">"$pids $pid"</span>; pid=$ppid</td></tr>
-<tr><td class="hl-num" data-line="17"></td><td>    <span class="hl-k">done</span></td></tr>
-<tr><td class="hl-num" data-line="18"></td><td></td></tr>
-<tr><td class="hl-num" data-line="19"></td><td>    <span class="hl-cmt"># Show process tree</span></td></tr>
-<tr><td class="hl-num" data-line="20"></td><td><span class="hl-cmt"></span>    <span class="hl-k">case</span> <span class="hl-s">"$(uname)"</span> <span class="hl-k">in</span></td></tr>
-<tr><td class="hl-num" data-line="21"></td><td>    Linux) ps <span class="hl-k">-o</span> ppid,pid,command <span class="hl-k">-f</span> <span class="hl-k">-p</span> $pids <span class="hl-c">2</span>>/dev/null ;;</td></tr>
-<tr><td class="hl-num" data-line="22"></td><td>    Darwin|*) ps <span class="hl-k">-o</span> ppid,pid,command <span class="hl-k">-p</span> $pids <span class="hl-c">2</span>>/dev/null ;;</td></tr>
-<tr><td class="hl-num" data-line="23"></td><td>    <span class="hl-k">esac</span></td></tr>
-<tr><td class="hl-num" data-line="24"></td><td></td></tr>
-<tr><td class="hl-num" data-line="25"></td><td>    <span class="hl-cmt"># If ps command failed, try Busybox ps</span></td></tr>
-<tr><td class="hl-num" data-line="26"></td><td><span class="hl-cmt"></span>    <span class="hl-k">[</span> $? <span class="hl-k">-eq</span> <span class="hl-c">0</span> <span class="hl-k">]</span> || ps <span class="hl-k">-o</span> ppid,pid,comm | awk <span class="hl-s">"NR == 1 || index(\"</span>$pids\<span class="hl-s">", \$2) != 0"</span></td></tr>
-<tr><td class="hl-num" data-line="27"></td><td>  <span class="hl-k">}</span></td></tr>
-<tr><td class="hl-num" data-line="28"></td><td></td></tr>
-<tr><td class="hl-num" data-line="29"></td><td>  <span class="hl-k">{</span></td></tr>
-<tr><td class="hl-num" data-line="30"></td><td>    shell=$(ps <span class="hl-k">-o</span> pid,comm | awk <span class="hl-s">"\$1 == $$ { print \$2 }"</span>)</td></tr>
-<tr><td class="hl-num" data-line="31"></td><td>    printf <span class="hl-s">"$(omz_f 1 31)Error:$(omz_f 22) Oh My Zsh can't be loaded from: $(omz_f 1)${shell}$(omz_f 22). "</span></td></tr>
-<tr><td class="hl-num" data-line="32"></td><td>    printf <span class="hl-s">"You need to run $(omz_f 1)zsh$(omz_f 22) instead.$(omz_f 0)\n"</span></td></tr>
-<tr><td class="hl-num" data-line="33"></td><td>    printf <span class="hl-s">"$(omz_f 33)Here's the process tree:$(omz_f 22)\n\n"</span></td></tr>
-<tr><td class="hl-num" data-line="34"></td><td>    omz_ptree</td></tr>
-<tr><td class="hl-num" data-line="35"></td><td>    printf <span class="hl-s">"$(omz_f 0)\n"</span></td></tr>
-<tr><td class="hl-num" data-line="36"></td><td>  <span class="hl-k">}</span> >&<span class="hl-c">2</span></td></tr>
-<tr><td class="hl-num" data-line="37"></td><td></td></tr>
-<tr><td class="hl-num" data-line="38"></td><td>  <span class="hl-k">return</span> <span class="hl-c">1</span></td></tr>
-<tr><td class="hl-num" data-line="39"></td><td><span class="hl-k">}</span></td></tr>
-<tr><td class="hl-num" data-line="40"></td><td></td></tr>
-<tr><td class="hl-num" data-line="41"></td><td><span class="hl-cmt"># If ZSH is not defined, use the current script's directory.</span></td></tr>
-<tr><td class="hl-num" data-line="42"></td><td><span class="hl-cmt"></span><span class="hl-k">[</span><span class="hl-k">[</span> <span class="hl-k">-z</span> <span class="hl-s">"$ZSH"</span> <span class="hl-k">]</span><span class="hl-k">]</span> && <span class="hl-k">export</span> ZSH=<span class="hl-s">"${${(%):-%x}:a:h}"</span></td></tr>
-<tr><td class="hl-num" data-line="43"></td><td></td></tr>
-<tr><td class="hl-num" data-line="44"></td><td><span class="hl-cmt"># Set ZSH_CACHE_DIR to the path where cache files should be created</span></td></tr>
-<tr><td class="hl-num" data-line="45"></td><td><span class="hl-cmt"></span><span class="hl-cmt"># or else we will use the default cache/</span></td></tr>
-<tr><td class="hl-num" data-line="46"></td><td><span class="hl-cmt"></span><span class="hl-k">if</span> <span class="hl-k">[</span><span class="hl-k">[</span> <span class="hl-k">-z</span> <span class="hl-s">"$ZSH_CACHE_DIR"</span> <span class="hl-k">]</span><span class="hl-k">]</span>; <span class="hl-k">then</span></td></tr>
-<tr><td class="hl-num" data-line="47"></td><td>  ZSH_CACHE_DIR=<span class="hl-s">"$ZSH/cache"</span></td></tr>
-<tr><td class="hl-num" data-line="48"></td><td><span class="hl-k">fi</span></td></tr>
-<tr><td class="hl-num" data-line="49"></td><td></td></tr>
-<tr><td class="hl-num" data-line="50"></td><td><span class="hl-cmt"># Make sure $ZSH_CACHE_DIR is writable, otherwise use a directory in $HOME</span></td></tr>
-<tr><td class="hl-num" data-line="51"></td><td><span class="hl-cmt"></span><span class="hl-k">if</span> <span class="hl-k">[</span><span class="hl-k">[</span> <span class="hl-k">!</span> <span class="hl-k">-w</span> <span class="hl-s">"$ZSH_CACHE_DIR"</span> <span class="hl-k">]</span><span class="hl-k">]</span>; <span class="hl-k">then</span></td></tr>
-<tr><td class="hl-num" data-line="52"></td><td>  ZSH_CACHE_DIR=<span class="hl-s">"${XDG_CACHE_HOME:-$HOME/.cache}/oh-my-zsh"</span></td></tr>
-<tr><td class="hl-num" data-line="53"></td><td><span class="hl-k">fi</span></td></tr>
-<tr><td class="hl-num" data-line="54"></td><td></td></tr>
-<tr><td class="hl-num" data-line="55"></td><td><span class="hl-cmt"># Create cache and completions dir and add to $fpath</span></td></tr>
-<tr><td class="hl-num" data-line="56"></td><td><span class="hl-cmt"></span>mkdir <span class="hl-k">-p</span> <span class="hl-s">"$ZSH_CACHE_DIR/completions"</span></td></tr>
-<tr><td class="hl-num" data-line="57"></td><td>(( ${fpath<span class="hl-k">[</span>(Ie)<span class="hl-s">"$ZSH_CACHE_DIR/completions"</span><span class="hl-k">]</span><span class="hl-k">}</span> )) || fpath=(<span class="hl-s">"$ZSH_CACHE_DIR/completions"</span> $fpath)</td></tr>
-<tr><td class="hl-num" data-line="58"></td><td></td></tr>
-<tr><td class="hl-num" data-line="59"></td><td><span class="hl-cmt"># Check for updates on initial load...</span></td></tr>
-<tr><td class="hl-num" data-line="60"></td><td><span class="hl-cmt"></span><span class="hl-k">if</span> <span class="hl-k">[</span> <span class="hl-s">"$DISABLE_AUTO_UPDATE"</span> <span class="hl-k">!</span>= <span class="hl-s">"true"</span> <span class="hl-k">]</span>; <span class="hl-k">then</span></td></tr>
-<tr><td class="hl-num" data-line="61"></td><td>  <span class="hl-c">source</span> $ZSH/tools/check_for_upgrade.sh</td></tr>
-<tr><td class="hl-num" data-line="62"></td><td><span class="hl-k">fi</span></td></tr>
-<tr><td class="hl-num" data-line="63"></td><td></td></tr>
-<tr><td class="hl-num" data-line="64"></td><td><span class="hl-cmt"># Initializes Oh My Zsh</span></td></tr>
-<tr><td class="hl-num" data-line="65"></td><td><span class="hl-cmt"></span></td></tr>
-<tr><td class="hl-num" data-line="66"></td><td><span class="hl-cmt"># add a function path</span></td></tr>
-<tr><td class="hl-num" data-line="67"></td><td><span class="hl-cmt"></span>fpath=($ZSH/functions $ZSH/completions $fpath)</td></tr>
-<tr><td class="hl-num" data-line="68"></td><td></td></tr>
-<tr><td class="hl-num" data-line="69"></td><td><span class="hl-cmt"># Load all stock functions (from $fpath files) called below.</span></td></tr>
-<tr><td class="hl-num" data-line="70"></td><td><span class="hl-cmt"></span>autoload <span class="hl-k">-U</span> compaudit compinit</td></tr>
-<tr><td class="hl-num" data-line="71"></td><td></td></tr>
-<tr><td class="hl-num" data-line="72"></td><td><span class="hl-cmt"># Set ZSH_CUSTOM to the path where your custom config files</span></td></tr>
-<tr><td class="hl-num" data-line="73"></td><td><span class="hl-cmt"></span><span class="hl-cmt"># and plugins exists, or else we will use the default custom/</span></td></tr>
-<tr><td class="hl-num" data-line="74"></td><td><span class="hl-cmt"></span><span class="hl-k">if</span> <span class="hl-k">[</span><span class="hl-k">[</span> <span class="hl-k">-z</span> <span class="hl-s">"$ZSH_CUSTOM"</span> <span class="hl-k">]</span><span class="hl-k">]</span>; <span class="hl-k">then</span></td></tr>
-<tr><td class="hl-num" data-line="75"></td><td>    ZSH_CUSTOM=<span class="hl-s">"$ZSH/custom"</span></td></tr>
-<tr><td class="hl-num" data-line="76"></td><td><span class="hl-k">fi</span></td></tr>
-<tr><td class="hl-num" data-line="77"></td><td></td></tr>
-<tr><td class="hl-num" data-line="78"></td><td></td></tr>
-<tr><td class="hl-num" data-line="79"></td><td><span class="hl-en">is_plugin</span>() <span class="hl-k">{</span></td></tr>
-<tr><td class="hl-num" data-line="80"></td><td>  <span class="hl-k">local</span> base_dir=$<span class="hl-c">1</span></td></tr>
-<tr><td class="hl-num" data-line="81"></td><td>  <span class="hl-k">local</span> name=$<span class="hl-c">2</span></td></tr>
-<tr><td class="hl-num" data-line="82"></td><td>  builtin test <span class="hl-k">-f</span> $base_dir/plugins/$name/$name.plugin.zsh \</td></tr>
-<tr><td class="hl-num" data-line="83"></td><td>    || builtin test <span class="hl-k">-f</span> $base_dir/plugins/$name/_$name</td></tr>
-<tr><td class="hl-num" data-line="84"></td><td><span class="hl-k">}</span></td></tr>
-<tr><td class="hl-num" data-line="85"></td><td></td></tr>
-<tr><td class="hl-num" data-line="86"></td><td><span class="hl-cmt"># Add all defined plugins to fpath. This must be done</span></td></tr>
-<tr><td class="hl-num" data-line="87"></td><td><span class="hl-cmt"></span><span class="hl-cmt"># before running compinit.</span></td></tr>
-<tr><td class="hl-num" data-line="88"></td><td><span class="hl-cmt"></span><span class="hl-k">for</span> plugin ($plugins); <span class="hl-k">do</span></td></tr>
-<tr><td class="hl-num" data-line="89"></td><td>  <span class="hl-k">if</span> is_plugin $ZSH_CUSTOM $plugin; <span class="hl-k">then</span></td></tr>
-<tr><td class="hl-num" data-line="90"></td><td>    fpath=($ZSH_CUSTOM/plugins/$plugin $fpath)</td></tr>
-<tr><td class="hl-num" data-line="91"></td><td>  <span class="hl-k">elif</span> is_plugin $ZSH $plugin; <span class="hl-k">then</span></td></tr>
-<tr><td class="hl-num" data-line="92"></td><td>    fpath=($ZSH/plugins/$plugin $fpath)</td></tr>
-<tr><td class="hl-num" data-line="93"></td><td>  <span class="hl-k">else</span></td></tr>
-<tr><td class="hl-num" data-line="94"></td><td>    echo <span class="hl-s">"[oh-my-zsh] plugin '$plugin' not found"</span></td></tr>
-<tr><td class="hl-num" data-line="95"></td><td>  <span class="hl-k">fi</span></td></tr>
-<tr><td class="hl-num" data-line="96"></td><td><span class="hl-k">done</span></td></tr>
-<tr><td class="hl-num" data-line="97"></td><td></td></tr>
-<tr><td class="hl-num" data-line="98"></td><td><span class="hl-cmt"># Figure out the SHORT hostname</span></td></tr>
-<tr><td class="hl-num" data-line="99"></td><td><span class="hl-cmt"></span><span class="hl-k">if</span> <span class="hl-k">[</span><span class="hl-k">[</span> <span class="hl-s">"$OSTYPE"</span> = darwin* <span class="hl-k">]</span><span class="hl-k">]</span>; <span class="hl-k">then</span></td></tr>
-<tr><td class="hl-num" data-line="100"></td><td>  <span class="hl-cmt"># macOS's $HOST changes with dhcp, etc. Use ComputerName if possible.</span></td></tr>
-<tr><td class="hl-num" data-line="101"></td><td><span class="hl-cmt"></span>  SHORT_HOST=$(scutil <span class="hl-k">-</span><span class="hl-k">-get</span> ComputerName <span class="hl-c">2</span>>/dev/null) || SHORT_HOST=${HOST/.*/<span class="hl-k">}</span></td></tr>
-<tr><td class="hl-num" data-line="102"></td><td><span class="hl-k">else</span></td></tr>
-<tr><td class="hl-num" data-line="103"></td><td>  SHORT_HOST=${HOST/.*/<span class="hl-k">}</span></td></tr>
-<tr><td class="hl-num" data-line="104"></td><td><span class="hl-k">fi</span></td></tr>
-<tr><td class="hl-num" data-line="105"></td><td></td></tr>
-<tr><td class="hl-num" data-line="106"></td><td><span class="hl-cmt"># Save the location of the current completion dump file.</span></td></tr>
-<tr><td class="hl-num" data-line="107"></td><td><span class="hl-cmt"></span><span class="hl-k">if</span> <span class="hl-k">[</span> <span class="hl-k">-z</span> <span class="hl-s">"$ZSH_COMPDUMP"</span> <span class="hl-k">]</span>; <span class="hl-k">then</span></td></tr>
-<tr><td class="hl-num" data-line="108"></td><td>  ZSH_COMPDUMP=<span class="hl-s">"${ZDOTDIR:-${HOME}}/.zcompdump-${SHORT_HOST}-${ZSH_VERSION}"</span></td></tr>
-<tr><td class="hl-num" data-line="109"></td><td><span class="hl-k">fi</span></td></tr>
-<tr><td class="hl-num" data-line="110"></td><td></td></tr>
-<tr><td class="hl-num" data-line="111"></td><td><span class="hl-cmt"># Construct zcompdump OMZ metadata</span></td></tr>
-<tr><td class="hl-num" data-line="112"></td><td><span class="hl-cmt"></span>zcompdump_revision=<span class="hl-s">"#omz revision: $(builtin cd -q "</span>$ZSH<span class="hl-s">"; git rev-parse HEAD 2&gt;/dev/null)"</span></td></tr>
-<tr><td class="hl-num" data-line="113"></td><td>zcompdump_fpath=<span class="hl-s">"#omz fpath: $fpath"</span></td></tr>
+<tr><td class="hl-num" data-line="1"></td><td>__require_tool_version_compare ()</td></tr>
+<tr><td class="hl-num" data-line="2"></td><td>{</td></tr>
+<tr><td class="hl-num" data-line="3"></td><td>  (</td></tr>
+<tr><td class="hl-num" data-line="4"></td><td>    <span class="hl-cmt"># Locally ignore failures, otherwise we'll exit whenever $1 and $2</span></td></tr>
+<tr><td class="hl-num" data-line="5"></td><td><span class="hl-cmt"></span>    <span class="hl-cmt"># are not equal!</span></td></tr>
+<tr><td class="hl-num" data-line="6"></td><td><span class="hl-cmt"></span>    set +e</td></tr>
+<tr><td class="hl-num" data-line="7"></td><td></td></tr>
+<tr><td class="hl-num" data-line="8"></td><td>awk_strverscmp=<span class="hl-s">'</span></td></tr>
+<tr><td class="hl-num" data-line="9"></td><td><span class="hl-s">  # Use only awk features that work with 7th edition Unix awk (1978).</span></td></tr>
+<tr><td class="hl-num" data-line="10"></td><td><span class="hl-s">  # My, what an old awk you have, Mr. Solaris!</span></td></tr>
+<tr><td class="hl-num" data-line="11"></td><td><span class="hl-s">  END {</span></td></tr>
+<tr><td class="hl-num" data-line="12"></td><td><span class="hl-s">    while (length(v1) || length(v2)) {</span></td></tr>
+<tr><td class="hl-num" data-line="13"></td><td><span class="hl-s">      # Set d1 to be the next thing to compare from v1, and likewise for d2.</span></td></tr>
+<tr><td class="hl-num" data-line="14"></td><td><span class="hl-s">      # Normally this is a single character, but if v1 and v2 contain digits,</span></td></tr>
+<tr><td class="hl-num" data-line="15"></td><td><span class="hl-s">      # compare them as integers and fractions as strverscmp does.</span></td></tr>
+<tr><td class="hl-num" data-line="16"></td><td><span class="hl-s">      if (v1 ~ /^[0-9]/ && v2 ~ /^[0-9]/) {</span></td></tr>
+<tr><td class="hl-num" data-line="17"></td><td><span class="hl-s">	# Split v1 and v2 into their leading digit string components d1 and d2,</span></td></tr>
+<tr><td class="hl-num" data-line="18"></td><td><span class="hl-s">	# and advance v1 and v2 past the leading digit strings.</span></td></tr>
+<tr><td class="hl-num" data-line="19"></td><td><span class="hl-s">	for (len1 = 1; substr(v1, len1 + 1) ~ /^[0-9]/; len1++) continue</span></td></tr>
+<tr><td class="hl-num" data-line="20"></td><td><span class="hl-s">	for (len2 = 1; substr(v2, len2 + 1) ~ /^[0-9]/; len2++) continue</span></td></tr>
+<tr><td class="hl-num" data-line="21"></td><td><span class="hl-s">	d1 = substr(v1, 1, len1); v1 = substr(v1, len1 + 1)</span></td></tr>
+<tr><td class="hl-num" data-line="22"></td><td><span class="hl-s">	d2 = substr(v2, 1, len2); v2 = substr(v2, len2 + 1)</span></td></tr>
+<tr><td class="hl-num" data-line="23"></td><td><span class="hl-s">	if (d1 ~ /^0/) {</span></td></tr>
+<tr><td class="hl-num" data-line="24"></td><td><span class="hl-s">	  if (d2 ~ /^0/) {</span></td></tr>
+<tr><td class="hl-num" data-line="25"></td><td><span class="hl-s">	    # Compare two fractions.</span></td></tr>
+<tr><td class="hl-num" data-line="26"></td><td><span class="hl-s">	    while (d1 ~ /^0/ && d2 ~ /^0/) {</span></td></tr>
+<tr><td class="hl-num" data-line="27"></td><td><span class="hl-s">	      d1 = substr(d1, 2); len1--</span></td></tr>
+<tr><td class="hl-num" data-line="28"></td><td><span class="hl-s">	      d2 = substr(d2, 2); len2--</span></td></tr>
+<tr><td class="hl-num" data-line="29"></td><td><span class="hl-s">	    }</span></td></tr>
+<tr><td class="hl-num" data-line="30"></td><td><span class="hl-s">	    if (len1 != len2 && ! (len1 && len2 && substr(d1, 1, 1) == substr(d2, 1, 1))) {</span></td></tr>
+<tr><td class="hl-num" data-line="31"></td><td><span class="hl-s">	      # The two components differ in length, and the common prefix</span></td></tr>
+<tr><td class="hl-num" data-line="32"></td><td><span class="hl-s">	      # contains only leading zeros.  Consider the longer to be less.</span></td></tr>
+<tr><td class="hl-num" data-line="33"></td><td><span class="hl-s">	      d1 = -len1</span></td></tr>
+<tr><td class="hl-num" data-line="34"></td><td><span class="hl-s">	      d2 = -len2</span></td></tr>
+<tr><td class="hl-num" data-line="35"></td><td><span class="hl-s">	    } else {</span></td></tr>
+<tr><td class="hl-num" data-line="36"></td><td><span class="hl-s">	      # Otherwise, compare as strings.</span></td></tr>
+<tr><td class="hl-num" data-line="37"></td><td><span class="hl-s">	      d1 = "x" d1</span></td></tr>
+<tr><td class="hl-num" data-line="38"></td><td><span class="hl-s">	      d2 = "x" d2</span></td></tr>
+<tr><td class="hl-num" data-line="39"></td><td><span class="hl-s">	    }</span></td></tr>
+<tr><td class="hl-num" data-line="40"></td><td><span class="hl-s">	  } else {</span></td></tr>
+<tr><td class="hl-num" data-line="41"></td><td><span class="hl-s">	    # A fraction is less than an integer.</span></td></tr>
+<tr><td class="hl-num" data-line="42"></td><td><span class="hl-s">	    exit 1</span></td></tr>
+<tr><td class="hl-num" data-line="43"></td><td><span class="hl-s">	  }</span></td></tr>
+<tr><td class="hl-num" data-line="44"></td><td><span class="hl-s">	} else {</span></td></tr>
+<tr><td class="hl-num" data-line="45"></td><td><span class="hl-s">	  if (d2 ~ /^0/) {</span></td></tr>
+<tr><td class="hl-num" data-line="46"></td><td><span class="hl-s">	    # An integer is greater than a fraction.</span></td></tr>
+<tr><td class="hl-num" data-line="47"></td><td><span class="hl-s">	    exit 2</span></td></tr>
+<tr><td class="hl-num" data-line="48"></td><td><span class="hl-s">	  } else {</span></td></tr>
+<tr><td class="hl-num" data-line="49"></td><td><span class="hl-s">	    # Compare two integers.</span></td></tr>
+<tr><td class="hl-num" data-line="50"></td><td><span class="hl-s">	    d1 += 0</span></td></tr>
+<tr><td class="hl-num" data-line="51"></td><td><span class="hl-s">	    d2 += 0</span></td></tr>
+<tr><td class="hl-num" data-line="52"></td><td><span class="hl-s">	  }</span></td></tr>
+<tr><td class="hl-num" data-line="53"></td><td><span class="hl-s">	}</span></td></tr>
+<tr><td class="hl-num" data-line="54"></td><td><span class="hl-s">      } else {</span></td></tr>
+<tr><td class="hl-num" data-line="55"></td><td><span class="hl-s">	# The normal case, without worrying about digits.</span></td></tr>
+<tr><td class="hl-num" data-line="56"></td><td><span class="hl-s">	if (v1 == "") d1 = v1; else { d1 = substr(v1, 1, 1); v1 = substr(v1,2) }</span></td></tr>
+<tr><td class="hl-num" data-line="57"></td><td><span class="hl-s">	if (v2 == "") d2 = v2; else { d2 = substr(v2, 1, 1); v2 = substr(v2,2) }</span></td></tr>
+<tr><td class="hl-num" data-line="58"></td><td><span class="hl-s">      }</span></td></tr>
+<tr><td class="hl-num" data-line="59"></td><td><span class="hl-s">      if (d1 &lt; d2) exit 1</span></td></tr>
+<tr><td class="hl-num" data-line="60"></td><td><span class="hl-s">      if (d1 &gt; d2) exit 2</span></td></tr>
+<tr><td class="hl-num" data-line="61"></td><td><span class="hl-s">    }</span></td></tr>
+<tr><td class="hl-num" data-line="62"></td><td><span class="hl-s">  }</span></td></tr>
+<tr><td class="hl-num" data-line="63"></td><td><span class="hl-s">'</span></td></tr>
+<tr><td class="hl-num" data-line="64"></td><td>    awk <span class="hl-s">"$awk_strverscmp"</span> v<span class="hl-c">1</span>=<span class="hl-s">"$1"</span> v<span class="hl-c">2</span>=<span class="hl-s">"$2"</span> /dev/null</td></tr>
+<tr><td class="hl-num" data-line="65"></td><td>    <span class="hl-k">case</span> $? <span class="hl-k">in</span></td></tr>
+<tr><td class="hl-num" data-line="66"></td><td>      <span class="hl-c">1</span>)  <span class="hl-c">echo</span> <span class="hl-s">'&lt;'</span>;;</td></tr>
+<tr><td class="hl-num" data-line="67"></td><td>      <span class="hl-c">0</span>)  <span class="hl-c">echo</span> <span class="hl-s">'='</span>;;</td></tr>
+<tr><td class="hl-num" data-line="68"></td><td>      <span class="hl-c">2</span>)  <span class="hl-c">echo</span> <span class="hl-s">'&gt;'</span>;;</td></tr>
+<tr><td class="hl-num" data-line="69"></td><td>    <span class="hl-k">esac</span></td></tr>
+<tr><td class="hl-num" data-line="70"></td><td>  )</td></tr>
+<tr><td class="hl-num" data-line="71"></td><td>}</td></tr>
+<tr><td class="hl-num" data-line="72"></td><td></td></tr>
+<tr><td class="hl-num" data-line="73"></td><td></td></tr>
+<tr><td class="hl-num" data-line="74"></td><td>__require_tool_fatal ()</td></tr>
+<tr><td class="hl-num" data-line="75"></td><td>{</td></tr>
+<tr><td class="hl-num" data-line="76"></td><td>    <span class="hl-c">echo</span> $@ >/dev/stderr</td></tr>
+<tr><td class="hl-num" data-line="77"></td><td>    <span class="hl-k">return</span> <span class="hl-c">1</span></td></tr>
+<tr><td class="hl-num" data-line="78"></td><td>}</td></tr>
+<tr><td class="hl-num" data-line="79"></td><td></td></tr>
+<tr><td class="hl-num" data-line="80"></td><td><span class="hl-cmt"># Usage: require_tool program version</span></td></tr>
+<tr><td class="hl-num" data-line="81"></td><td><span class="hl-cmt"></span><span class="hl-cmt"># Returns: 0 if $1 version if greater equals than $2, 1 otherwise.</span></td></tr>
+<tr><td class="hl-num" data-line="82"></td><td><span class="hl-cmt"></span><span class="hl-cmt"># In case of error, message is written on error output.</span></td></tr>
+<tr><td class="hl-num" data-line="83"></td><td><span class="hl-cmt"></span><span class="hl-cmt">#</span></td></tr>
+<tr><td class="hl-num" data-line="84"></td><td><span class="hl-cmt"></span><span class="hl-cmt"># Example: require_tool gcc 4.6</span></td></tr>
+<tr><td class="hl-num" data-line="85"></td><td><span class="hl-cmt"></span><span class="hl-cmt"># Use GCC environment variable if defined instead of lookup for the tool</span></td></tr>
+<tr><td class="hl-num" data-line="86"></td><td><span class="hl-cmt"></span><span class="hl-cmt"># in the environment.</span></td></tr>
+<tr><td class="hl-num" data-line="87"></td><td><span class="hl-cmt"></span>require_tool ()</td></tr>
+<tr><td class="hl-num" data-line="88"></td><td>{</td></tr>
+<tr><td class="hl-num" data-line="89"></td><td>  envvar_name=$(<span class="hl-c">echo</span> $<span class="hl-c">1</span> <span class="hl-k">|</span> tr <span class="hl-s">'[:lower:]'</span> <span class="hl-s">'[:upper:]'</span>)</td></tr>
+<tr><td class="hl-num" data-line="90"></td><td>  tool=$(printenv $envvar_name <span class="hl-k">|</span><span class="hl-k">|</span> <span class="hl-c">echo</span> $<span class="hl-c">1</span>)</td></tr>
+<tr><td class="hl-num" data-line="91"></td><td>  <span class="hl-k">local</span> version=$($tool <span class="hl-k">-</span><span class="hl-k">-version</span> <span class="hl-c">2</span>>/dev/null<span class="hl-k">|</span> \</td></tr>
+<tr><td class="hl-num" data-line="92"></td><td>    sed <span class="hl-k">-n</span> <span class="hl-s">'s/.*[^0-9.]\([0-9]*\.[0-9.]*\).*/\1/p;q'</span>)</td></tr>
+<tr><td class="hl-num" data-line="93"></td><td>  <span class="hl-k">if</span> <span class="hl-c">test</span> x<span class="hl-s">"$version"</span> = x ; <span class="hl-k">then</span></td></tr>
+<tr><td class="hl-num" data-line="94"></td><td>      <span class="hl-c">echo</span> <span class="hl-s">"$tool is required"</span> >/dev/stderr</td></tr>
+<tr><td class="hl-num" data-line="95"></td><td>      <span class="hl-k">return</span> <span class="hl-c">1</span></td></tr>
+<tr><td class="hl-num" data-line="96"></td><td>  <span class="hl-k">fi</span></td></tr>
+<tr><td class="hl-num" data-line="97"></td><td>  <span class="hl-k">case</span> $(__require_tool_version_compare <span class="hl-s">"$2"</span> <span class="hl-s">"$version"</span>) <span class="hl-k">in</span></td></tr>
+<tr><td class="hl-num" data-line="98"></td><td>    <span class="hl-s">'&gt;'</span>)</td></tr>
+<tr><td class="hl-num" data-line="99"></td><td>	  <span class="hl-c">echo</span> <span class="hl-s">"$1 $2 or better is required: this is $tool $version"</span> >/dev/stderr</td></tr>
+<tr><td class="hl-num" data-line="100"></td><td>	  <span class="hl-k">return</span> <span class="hl-c">1</span></td></tr>
+<tr><td class="hl-num" data-line="101"></td><td>	  ;;</td></tr>
+<tr><td class="hl-num" data-line="102"></td><td>  <span class="hl-k">esac</span></td></tr>
+<tr><td class="hl-num" data-line="103"></td><td>}</td></tr>
+<tr><td class="hl-num" data-line="104"></td><td></td></tr>
+<tr><td class="hl-num" data-line="105"></td><td><span class="hl-en">usage</span>() {</td></tr>
+<tr><td class="hl-num" data-line="106"></td><td>    cat <<<span class="hl-k">EOF</span></td></tr>
+<tr><td class="hl-num" data-line="107"></td><td>NAME</td></tr>
+<tr><td class="hl-num" data-line="108"></td><td>    require_tool.sh - Ensure version of a tool is greater than the one expected</td></tr>
+<tr><td class="hl-num" data-line="109"></td><td></td></tr>
+<tr><td class="hl-num" data-line="110"></td><td>SYNOPSYS</td></tr>
+<tr><td class="hl-num" data-line="111"></td><td>    require_tool.sh <span class="hl-k">[</span> <span class="hl-k">-h</span> <span class="hl-k">]</span></td></tr>
+<tr><td class="hl-num" data-line="112"></td><td>                    <span class="hl-k">[</span> <span class="hl-k">-</span><span class="hl-k">-help</span> <span class="hl-k">]</span></td></tr>
+<tr><td class="hl-num" data-line="113"></td><td>                    <span class="hl-k">[</span> TOOL MIN_VERSION <span class="hl-k">]</span></td></tr>
 <tr><td class="hl-num" data-line="114"></td><td></td></tr>
-<tr><td class="hl-num" data-line="115"></td><td><span class="hl-cmt"># Delete the zcompdump file if OMZ zcompdump metadata changed</span></td></tr>
-<tr><td class="hl-num" data-line="116"></td><td><span class="hl-cmt"></span><span class="hl-k">if</span> <span class="hl-k">!</span> command grep <span class="hl-k">-q</span> <span class="hl-k">-Fx</span> <span class="hl-s">"$zcompdump_revision"</span> <span class="hl-s">"$ZSH_COMPDUMP"</span> <span class="hl-c">2</span>>/dev/null \</td></tr>
-<tr><td class="hl-num" data-line="117"></td><td>   || <span class="hl-k">!</span> command grep <span class="hl-k">-q</span> <span class="hl-k">-Fx</span> <span class="hl-s">"$zcompdump_fpath"</span> <span class="hl-s">"$ZSH_COMPDUMP"</span> <span class="hl-c">2</span>>/dev/null; <span class="hl-k">then</span></td></tr>
-<tr><td class="hl-num" data-line="118"></td><td>  command rm <span class="hl-k">-f</span> <span class="hl-s">"$ZSH_COMPDUMP"</span></td></tr>
-<tr><td class="hl-num" data-line="119"></td><td>  zcompdump_refresh=<span class="hl-c">1</span></td></tr>
-<tr><td class="hl-num" data-line="120"></td><td><span class="hl-k">fi</span></td></tr>
+<tr><td class="hl-num" data-line="115"></td><td>DESCRIPTION</td></tr>
+<tr><td class="hl-num" data-line="116"></td><td>    TOOL is the name or path of the program to check. If the name is specified, its</td></tr>
+<tr><td class="hl-num" data-line="117"></td><td>    path is deduced from PATH environment variable. If environment variable TOOL</td></tr>
+<tr><td class="hl-num" data-line="118"></td><td>    (<span class="hl-k">in</span> upper<span class="hl-k">-case</span> characters) is defined, considers its value as path to the tool.</td></tr>
+<tr><td class="hl-num" data-line="119"></td><td></td></tr>
+<tr><td class="hl-num" data-line="120"></td><td>    MIN_VERSION is a string representing the minimum required version.</td></tr>
 <tr><td class="hl-num" data-line="121"></td><td></td></tr>
-<tr><td class="hl-num" data-line="122"></td><td><span class="hl-k">if</span> <span class="hl-k">[</span><span class="hl-k">[</span> $ZSH_DISABLE_COMPFIX <span class="hl-k">!</span>= true <span class="hl-k">]</span><span class="hl-k">]</span>; <span class="hl-k">then</span></td></tr>
-<tr><td class="hl-num" data-line="123"></td><td>  <span class="hl-c">source</span> $ZSH/lib/compfix.zsh</td></tr>
-<tr><td class="hl-num" data-line="124"></td><td>  <span class="hl-cmt"># If completion insecurities exist, warn the user</span></td></tr>
-<tr><td class="hl-num" data-line="125"></td><td><span class="hl-cmt"></span>  handle_completion_insecurities</td></tr>
-<tr><td class="hl-num" data-line="126"></td><td>  <span class="hl-cmt"># Load only from secure directories</span></td></tr>
-<tr><td class="hl-num" data-line="127"></td><td><span class="hl-cmt"></span>  compinit <span class="hl-k">-i</span> <span class="hl-k">-C</span> <span class="hl-k">-d</span> <span class="hl-s">"${ZSH_COMPDUMP}"</span></td></tr>
-<tr><td class="hl-num" data-line="128"></td><td><span class="hl-k">else</span></td></tr>
-<tr><td class="hl-num" data-line="129"></td><td>  <span class="hl-cmt"># If the user wants it, load from all found directories</span></td></tr>
-<tr><td class="hl-num" data-line="130"></td><td><span class="hl-cmt"></span>  compinit <span class="hl-k">-u</span> <span class="hl-k">-C</span> <span class="hl-k">-d</span> <span class="hl-s">"${ZSH_COMPDUMP}"</span></td></tr>
-<tr><td class="hl-num" data-line="131"></td><td><span class="hl-k">fi</span></td></tr>
-<tr><td class="hl-num" data-line="132"></td><td></td></tr>
-<tr><td class="hl-num" data-line="133"></td><td><span class="hl-cmt"># Append zcompdump metadata if missing</span></td></tr>
-<tr><td class="hl-num" data-line="134"></td><td><span class="hl-cmt"></span><span class="hl-k">if</span> (( $zcompdump_refresh )); <span class="hl-k">then</span></td></tr>
-<tr><td class="hl-num" data-line="135"></td><td>  <span class="hl-cmt"># Use `tee` in case the $ZSH_COMPDUMP filename is invalid, to silence the error</span></td></tr>
-<tr><td class="hl-num" data-line="136"></td><td><span class="hl-cmt"></span>  <span class="hl-cmt"># See https://github.com/ohmyzsh/ohmyzsh/commit/dd1a7269#commitcomment-39003489</span></td></tr>
-<tr><td class="hl-num" data-line="137"></td><td><span class="hl-cmt"></span>  tee <span class="hl-k">-a</span> <span class="hl-s">"$ZSH_COMPDUMP"</span> &>/dev/null <<<span class="hl-k">EOF</span></td></tr>
-<tr><td class="hl-num" data-line="138"></td><td></td></tr>
-<tr><td class="hl-num" data-line="139"></td><td>$zcompdump_revision</td></tr>
-<tr><td class="hl-num" data-line="140"></td><td>$zcompdump_fpath</td></tr>
-<tr><td class="hl-num" data-line="141"></td><td><span class="hl-k">EOF</span></td></tr>
-<tr><td class="hl-num" data-line="142"></td><td><span class="hl-k">fi</span></td></tr>
-<tr><td class="hl-num" data-line="143"></td><td></td></tr>
-<tr><td class="hl-num" data-line="144"></td><td><span class="hl-c">unset</span> zcompdump_revision zcompdump_fpath zcompdump_refresh</td></tr>
-<tr><td class="hl-num" data-line="145"></td><td></td></tr>
-<tr><td class="hl-num" data-line="146"></td><td></td></tr>
-<tr><td class="hl-num" data-line="147"></td><td><span class="hl-cmt"># Load all of the config files in ~/oh-my-zsh that end in .zsh</span></td></tr>
-<tr><td class="hl-num" data-line="148"></td><td><span class="hl-cmt"></span><span class="hl-cmt"># TIP: Add files you don't want in git to .gitignore</span></td></tr>
-<tr><td class="hl-num" data-line="149"></td><td><span class="hl-cmt"></span><span class="hl-k">for</span> config_file ($ZSH/lib/*.zsh); <span class="hl-k">do</span></td></tr>
-<tr><td class="hl-num" data-line="150"></td><td>  custom_config_file=<span class="hl-s">"${ZSH_CUSTOM}/lib/${config_file:t}"</span></td></tr>
-<tr><td class="hl-num" data-line="151"></td><td>  <span class="hl-k">[</span> <span class="hl-k">-f</span> <span class="hl-s">"${custom_config_file}"</span> <span class="hl-k">]</span> && config_file=${custom_config_file<span class="hl-k">}</span></td></tr>
-<tr><td class="hl-num" data-line="152"></td><td>  <span class="hl-c">source</span> $config_file</td></tr>
-<tr><td class="hl-num" data-line="153"></td><td><span class="hl-k">done</span></td></tr>
-<tr><td class="hl-num" data-line="154"></td><td></td></tr>
-<tr><td class="hl-num" data-line="155"></td><td><span class="hl-cmt"># Load all of the plugins that were defined in ~/.zshrc</span></td></tr>
-<tr><td class="hl-num" data-line="156"></td><td><span class="hl-cmt"></span><span class="hl-k">for</span> plugin ($plugins); <span class="hl-k">do</span></td></tr>
-<tr><td class="hl-num" data-line="157"></td><td>  <span class="hl-k">if</span> <span class="hl-k">[</span> <span class="hl-k">-f</span> $ZSH_CUSTOM/plugins/$plugin/$plugin.plugin.zsh <span class="hl-k">]</span>; <span class="hl-k">then</span></td></tr>
-<tr><td class="hl-num" data-line="158"></td><td>    <span class="hl-c">source</span> $ZSH_CUSTOM/plugins/$plugin/$plugin.plugin.zsh</td></tr>
-<tr><td class="hl-num" data-line="159"></td><td>  <span class="hl-k">elif</span> <span class="hl-k">[</span> <span class="hl-k">-f</span> $ZSH/plugins/$plugin/$plugin.plugin.zsh <span class="hl-k">]</span>; <span class="hl-k">then</span></td></tr>
-<tr><td class="hl-num" data-line="160"></td><td>    <span class="hl-c">source</span> $ZSH/plugins/$plugin/$plugin.plugin.zsh</td></tr>
-<tr><td class="hl-num" data-line="161"></td><td>  <span class="hl-k">fi</span></td></tr>
-<tr><td class="hl-num" data-line="162"></td><td><span class="hl-k">done</span></td></tr>
-<tr><td class="hl-num" data-line="163"></td><td></td></tr>
-<tr><td class="hl-num" data-line="164"></td><td><span class="hl-cmt"># Load all of your custom configurations from custom/</span></td></tr>
-<tr><td class="hl-num" data-line="165"></td><td><span class="hl-cmt"></span><span class="hl-k">for</span> config_file ($ZSH_CUSTOM/*.<span class="hl-en">zsh</span>(N)); <span class="hl-k">do</span></td></tr>
-<tr><td class="hl-num" data-line="166"></td><td>  <span class="hl-c">source</span> $config_file</td></tr>
-<tr><td class="hl-num" data-line="167"></td><td><span class="hl-k">done</span></td></tr>
-<tr><td class="hl-num" data-line="168"></td><td><span class="hl-c">unset</span> config_file</td></tr>
-<tr><td class="hl-num" data-line="169"></td><td></td></tr>
-<tr><td class="hl-num" data-line="170"></td><td><span class="hl-cmt"># Load the theme</span></td></tr>
-<tr><td class="hl-num" data-line="171"></td><td><span class="hl-cmt"></span><span class="hl-k">if</span> <span class="hl-k">[</span> <span class="hl-k">!</span> <span class="hl-s">"$ZSH_THEME"</span> = <span class="hl-s">""</span>  <span class="hl-k">]</span>; <span class="hl-k">then</span></td></tr>
-<tr><td class="hl-num" data-line="172"></td><td>  <span class="hl-k">if</span> <span class="hl-k">[</span> <span class="hl-k">-f</span> <span class="hl-s">"$ZSH_CUSTOM/$ZSH_THEME.zsh-theme"</span> <span class="hl-k">]</span>; <span class="hl-k">then</span></td></tr>
-<tr><td class="hl-num" data-line="173"></td><td>    <span class="hl-c">source</span> <span class="hl-s">"$ZSH_CUSTOM/$ZSH_THEME.zsh-theme"</span></td></tr>
-<tr><td class="hl-num" data-line="174"></td><td>  <span class="hl-k">elif</span> <span class="hl-k">[</span> <span class="hl-k">-f</span> <span class="hl-s">"$ZSH_CUSTOM/themes/$ZSH_THEME.zsh-theme"</span> <span class="hl-k">]</span>; <span class="hl-k">then</span></td></tr>
-<tr><td class="hl-num" data-line="175"></td><td>    <span class="hl-c">source</span> <span class="hl-s">"$ZSH_CUSTOM/themes/$ZSH_THEME.zsh-theme"</span></td></tr>
-<tr><td class="hl-num" data-line="176"></td><td>  <span class="hl-k">else</span></td></tr>
-<tr><td class="hl-num" data-line="177"></td><td>    <span class="hl-c">source</span> <span class="hl-s">"$ZSH/themes/$ZSH_THEME.zsh-theme"</span></td></tr>
-<tr><td class="hl-num" data-line="178"></td><td>  <span class="hl-k">fi</span></td></tr>
-<tr><td class="hl-num" data-line="179"></td><td><span class="hl-k">fi</span></td></tr>
+<tr><td class="hl-num" data-line="122"></td><td>BEHAVIOR</td></tr>
+<tr><td class="hl-num" data-line="123"></td><td>    * locate path to the program.</td></tr>
+<tr><td class="hl-num" data-line="124"></td><td>    * execute $ TOOL_PATH <span class="hl-k">-</span><span class="hl-k">-version</span></td></tr>
+<tr><td class="hl-num" data-line="125"></td><td>    * extract version from standard output.</td></tr>
+<tr><td class="hl-num" data-line="126"></td><td>    * compare this version to the expected one.</td></tr>
+<tr><td class="hl-num" data-line="127"></td><td></td></tr>
+<tr><td class="hl-num" data-line="128"></td><td>OPTIONS</td></tr>
+<tr><td class="hl-num" data-line="129"></td><td>    <span class="hl-k">-h</span> <span class="hl-k">-</span><span class="hl-k">-help</span></td></tr>
+<tr><td class="hl-num" data-line="130"></td><td>        Display this message and <span class="hl-c">exit</span> <span class="hl-c">0</span></td></tr>
+<tr><td class="hl-num" data-line="131"></td><td></td></tr>
+<tr><td class="hl-num" data-line="132"></td><td>ERRORS</td></tr>
+<tr><td class="hl-num" data-line="133"></td><td>    <span class="hl-k">if</span> program is not found or its version is prior to expected version,</td></tr>
+<tr><td class="hl-num" data-line="134"></td><td>    a message is written to error output.</td></tr>
+<tr><td class="hl-num" data-line="135"></td><td></td></tr>
+<tr><td class="hl-num" data-line="136"></td><td>EXIT VALUE</td></tr>
+<tr><td class="hl-num" data-line="137"></td><td>    returns <span class="hl-c">0</span> <span class="hl-k">if</span> program version <span class="hl-k">if</span> greater equals than expected version,</td></tr>
+<tr><td class="hl-num" data-line="138"></td><td>    returns <span class="hl-c">1</span> otherwise.</td></tr>
+<tr><td class="hl-num" data-line="139"></td><td></td></tr>
+<tr><td class="hl-num" data-line="140"></td><td>EXAMPLE</td></tr>
+<tr><td class="hl-num" data-line="141"></td><td>    $ require_tool.sh emacs <span class="hl-c">23</span></td></tr>
+<tr><td class="hl-num" data-line="142"></td><td>    $ CC=g++ require_tool.sh cc <span class="hl-c">4</span>.<span class="hl-c">6</span></td></tr>
+<tr><td class="hl-num" data-line="143"></td><td>    $ require_tool.sh zsh <span class="hl-c">4</span>.<span class="hl-c">5</span></td></tr>
+<tr><td class="hl-num" data-line="144"></td><td></td></tr>
+<tr><td class="hl-num" data-line="145"></td><td><span class="hl-k">EOF</span></td></tr>
+<tr><td class="hl-num" data-line="146"></td><td>}</td></tr>
+<tr><td class="hl-num" data-line="147"></td><td></td></tr>
+<tr><td class="hl-num" data-line="148"></td><td><span class="hl-k">for</span> arg <span class="hl-k">in</span> $@; <span class="hl-k">do</span></td></tr>
+<tr><td class="hl-num" data-line="149"></td><td>    <span class="hl-k">case</span> $arg <span class="hl-k">in</span></td></tr>
+<tr><td class="hl-num" data-line="150"></td><td>        <span class="hl-k">-h</span><span class="hl-k">|</span><span class="hl-k">-</span><span class="hl-k">-help</span>)</td></tr>
+<tr><td class="hl-num" data-line="151"></td><td>            usage</td></tr>
+<tr><td class="hl-num" data-line="152"></td><td>            <span class="hl-c">exit</span> <span class="hl-c">0</span></td></tr>
+<tr><td class="hl-num" data-line="153"></td><td>            ;;</td></tr>
+<tr><td class="hl-num" data-line="154"></td><td>    <span class="hl-k">esac</span></td></tr>
+<tr><td class="hl-num" data-line="155"></td><td><span class="hl-k">done</span></td></tr>
+<tr><td class="hl-num" data-line="156"></td><td><span class="hl-k">if</span> <span class="hl-k">[</span> $# <span class="hl-k">-gt</span> <span class="hl-c">2</span> <span class="hl-k">]</span> ; <span class="hl-k">then</span></td></tr>
+<tr><td class="hl-num" data-line="157"></td><td>    <span class="hl-c">echo</span> <span class="hl-s">"ERROR: expecting 2 parameters. Please see option --help"</span></td></tr>
+<tr><td class="hl-num" data-line="158"></td><td>    <span class="hl-c">exit</span> <span class="hl-c">1</span></td></tr>
+<tr><td class="hl-num" data-line="159"></td><td><span class="hl-k">fi</span></td></tr>
+<tr><td class="hl-num" data-line="160"></td><td></td></tr>
+<tr><td class="hl-num" data-line="161"></td><td>require_tool $@</td></tr>
 </tbody>
 </table>
