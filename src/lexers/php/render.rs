@@ -23,6 +23,12 @@ pub fn render_html(input: Vec<char>) -> String {
         }
 
         match token {
+            token::Token::INT(value) => {
+                html.push_str(&format!("<span class=\"hl-c\">{}</span>", value.iter().collect::<String>()));
+            }
+            token::Token::IDENT(value) => {
+                html.push_str(&value.iter().collect::<String>());
+            }
             token::Token::STRING(value) => {
                 let mut s = String::new();
                 for ch in value {
@@ -35,12 +41,6 @@ pub fn render_html(input: Vec<char>) -> String {
                     }
                 }
                 html.push_str(&format!("<span class=\"hl-s\">{}</span>", s));
-            }
-            token::Token::INT(value) => {
-                html.push_str(&format!("<span class=\"hl-c\">{}</span>", value.iter().collect::<String>()));
-            }
-            token::Token::IDENT(value) => {
-                html.push_str(&value.iter().collect::<String>());
             }
             token::Token::CH(value) => {
                 if value == '<' {

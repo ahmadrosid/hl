@@ -1,7 +1,7 @@
 use clap::{arg, App, AppSettings};
 mod generator;
 mod lexers;
-use crate::lexers::{bash, c, cpp, css, go, html, java, javascript, php, rust, typescript};
+use crate::lexers::{bash, c, cpp, css, go, html, java, javascript, php, rust, typescript, yaml};
 use std::fs::read;
 
 fn main() {
@@ -79,6 +79,9 @@ fn main() {
         }
         "ts" => {
             print!("{}", typescript::render::render_html(input));
+        }
+        "yaml" | "yml" => {
+            print!("{}", yaml::render::render_html(input));
         }
         _ => {
             println!("Language {} not supported", lang);

@@ -10,6 +10,9 @@ const ACCEPT_PREFIX_VAR: &str = "ACCEPT_PREFIX_VAR";
 const ACCEPT_ENTITY_TAG_PREFIX: &str = "ACCEPT_ENTITY_TAG_PREFIX";
 const ENTITY_TAG_PREFIX_CHAR: &str = "ENTITY_TAG_PREFIX_CHAR";
 const ACCEPT_PREFIX_KEYWORD: &str = "ACCEPT_PREFIX_KEYWORD";
+const ACCEPT_STRING_ONE_QUOTE: &str = "ACCEPT_STRING_ONE_QUOTE";
+const ACCEPT_STRING_DOUBLE_QUOTE: &str = "ACCEPT_STRING_DOUBLE_QUOTE";
+const ACCEPT_STRING_EOF: &str = "ACCEPT_STRING_EOF";
 
 pub fn generate_token(h: &Hash) -> String {
     let mut token = StringBuilder::new();
@@ -45,7 +48,18 @@ pub fn generate_token(h: &Hash) -> String {
         token.push_tabln(1, "ENTITY(Vec<char>),");
     }
 
-    token.push_tabln(1, "STRING(Vec<char>),");
+    if get_condition(h)
+        .get(&Yaml::String(ACCEPT_STRING_ONE_QUOTE.to_string()))
+        .is_some()
+        || get_condition(h)
+            .get(&Yaml::String(ACCEPT_STRING_DOUBLE_QUOTE.to_string()))
+            .is_some()
+        || get_condition(h)
+            .get(&Yaml::String(ACCEPT_STRING_EOF.to_string()))
+            .is_some()
+    {
+        token.push_tabln(1, "STRING(Vec<char>),");
+    }
 
     if get_constant(h).len() >= 1 {
         token.push_tabln(1, "CONSTANT(Vec<char>),");

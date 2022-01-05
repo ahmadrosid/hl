@@ -9,3 +9,4 @@ pub mod java;
 pub mod javascript;
 pub mod php;
 pub mod typescript;
+pub mod yaml;

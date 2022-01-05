@@ -10,10 +10,12 @@ const ACCEPT_PREFIX_VAR: &str = "ACCEPT_PREFIX_VAR";
 const ENCODE_LT: &str = "ENCODE_LT";
 const ENCODE_LT_STRING: &str = "ENCODE_LT_STRING";
 const RENDER_MULTI_LINE_STRING: &str = "RENDER_MULTI_LINE_STRING";
-const ACCEPT_STRING_EOF: &str = "ACCEPT_STRING_EOF";
 const ACCEPT_ENTITY_TAG_PREFIX: &str = "ACCEPT_ENTITY_TAG_PREFIX";
 const ENTITY_TAG_PREFIX_CHAR: &str = "ENTITY_TAG_PREFIX_CHAR";
 const ACCEPT_PREFIX_KEYWORD: &str = "ACCEPT_PREFIX_KEYWORD";
+const ACCEPT_STRING_ONE_QUOTE: &str = "ACCEPT_STRING_ONE_QUOTE";
+const ACCEPT_STRING_DOUBLE_QUOTE: &str = "ACCEPT_STRING_DOUBLE_QUOTE";
+const ACCEPT_STRING_EOF: &str = "ACCEPT_STRING_EOF";
 
 pub fn generate_render_html(h: &Hash, name: String) -> String {
     let mut html = StringBuilder::new();
@@ -49,10 +51,20 @@ pub fn generate_render_html(h: &Hash, name: String) -> String {
 
     html.push_tabln(2, "match token {");
 
-    write_token_string(&mut html, h);
     write_token_integer(&mut html);
     write_token_identifier(&mut html);
 
+    if get_condition(h)
+        .get(&Yaml::String(ACCEPT_STRING_ONE_QUOTE.to_string()))
+        .is_some()
+        || get_condition(h)
+        .get(&Yaml::String(ACCEPT_STRING_DOUBLE_QUOTE.to_string()))
+        .is_some()
+        || get_condition(h)
+        .get(&Yaml::String(ACCEPT_STRING_EOF.to_string()))
+        .is_some() {
+        write_token_string(&mut html, h);
+    }
     if slash_star_comment_enable(h)
         || slash_comment_enable(h)
         || get_condition(h)
