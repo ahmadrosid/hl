@@ -80,6 +80,12 @@ pub fn parse(file_path: &str) -> String {
     let mut module_stub = String::new();
     let mut render_stub = String::new();
 
+    if docs.len() == 0 {
+        let mut message = String::new();
+        message.push_str(&color::red(&format!("Failed processing {} file is empty!", file_path)));
+        return message;
+    }
+
     match *&docs[0] {
         Yaml::Hash(ref h) => {
             for (k, _v) in h {

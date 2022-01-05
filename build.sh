@@ -14,6 +14,7 @@ array=(
   "rules/php.yml"
   "rules/rust.yml"
   "rules/typescript.yml"
+  "rules/yaml.yml"
 )
 
 for i in "${array[@]}"
