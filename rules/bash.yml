@@ -1,6 +1,8 @@
 hashtag_comment: true
 
 constant:
+  builtin: builtin
+  command: command
   compgen: compgen
   echo: echo
   eval: eval
