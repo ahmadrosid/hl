@@ -66,6 +66,7 @@ pub fn generate_render_html(h: &Hash, name: String) -> String {
     if get_constant(h).len() >= 1 {
         write_token_constant(&mut html);
     }
+
     if get_keyword(h).len() >= 1 {
         write_token_keyword(&mut html);
     }
