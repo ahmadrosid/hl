@@ -105,46 +105,46 @@
 <tr><td class="hl-num" data-line="103"></td><td>}</td></tr>
 <tr><td class="hl-num" data-line="104"></td><td></td></tr>
 <tr><td class="hl-num" data-line="105"></td><td><span class="hl-en">usage</span>() {</td></tr>
-<tr><td class="hl-num" data-line="106"></td><td>    cat <<<span class="hl-k">EOF</span></td></tr>
-<tr><td class="hl-num" data-line="107"></td><td>NAME</td></tr>
-<tr><td class="hl-num" data-line="108"></td><td>    require_tool.sh - Ensure version of a tool is greater than the one expected</td></tr>
-<tr><td class="hl-num" data-line="109"></td><td></td></tr>
-<tr><td class="hl-num" data-line="110"></td><td>SYNOPSYS</td></tr>
-<tr><td class="hl-num" data-line="111"></td><td>    require_tool.sh <span class="hl-k">[</span> <span class="hl-k">-h</span> <span class="hl-k">]</span></td></tr>
-<tr><td class="hl-num" data-line="112"></td><td>                    <span class="hl-k">[</span> <span class="hl-k">-</span><span class="hl-k">-help</span> <span class="hl-k">]</span></td></tr>
-<tr><td class="hl-num" data-line="113"></td><td>                    <span class="hl-k">[</span> TOOL MIN_VERSION <span class="hl-k">]</span></td></tr>
-<tr><td class="hl-num" data-line="114"></td><td></td></tr>
-<tr><td class="hl-num" data-line="115"></td><td>DESCRIPTION</td></tr>
-<tr><td class="hl-num" data-line="116"></td><td>    TOOL is the name or path of the program to check. If the name is specified, its</td></tr>
-<tr><td class="hl-num" data-line="117"></td><td>    path is deduced from PATH environment variable. If environment variable TOOL</td></tr>
-<tr><td class="hl-num" data-line="118"></td><td>    (<span class="hl-k">in</span> upper<span class="hl-k">-case</span> characters) is defined, considers its value as path to the tool.</td></tr>
-<tr><td class="hl-num" data-line="119"></td><td></td></tr>
-<tr><td class="hl-num" data-line="120"></td><td>    MIN_VERSION is a string representing the minimum required version.</td></tr>
-<tr><td class="hl-num" data-line="121"></td><td></td></tr>
-<tr><td class="hl-num" data-line="122"></td><td>BEHAVIOR</td></tr>
-<tr><td class="hl-num" data-line="123"></td><td>    * locate path to the program.</td></tr>
-<tr><td class="hl-num" data-line="124"></td><td>    * execute $ TOOL_PATH <span class="hl-k">-</span><span class="hl-k">-version</span></td></tr>
-<tr><td class="hl-num" data-line="125"></td><td>    * extract version from standard output.</td></tr>
-<tr><td class="hl-num" data-line="126"></td><td>    * compare this version to the expected one.</td></tr>
-<tr><td class="hl-num" data-line="127"></td><td></td></tr>
-<tr><td class="hl-num" data-line="128"></td><td>OPTIONS</td></tr>
-<tr><td class="hl-num" data-line="129"></td><td>    <span class="hl-k">-h</span> <span class="hl-k">-</span><span class="hl-k">-help</span></td></tr>
-<tr><td class="hl-num" data-line="130"></td><td>        Display this message and <span class="hl-c">exit</span> <span class="hl-c">0</span></td></tr>
-<tr><td class="hl-num" data-line="131"></td><td></td></tr>
-<tr><td class="hl-num" data-line="132"></td><td>ERRORS</td></tr>
-<tr><td class="hl-num" data-line="133"></td><td>    <span class="hl-k">if</span> program is not found or its version is prior to expected version,</td></tr>
-<tr><td class="hl-num" data-line="134"></td><td>    a message is written to error output.</td></tr>
-<tr><td class="hl-num" data-line="135"></td><td></td></tr>
-<tr><td class="hl-num" data-line="136"></td><td>EXIT VALUE</td></tr>
-<tr><td class="hl-num" data-line="137"></td><td>    returns <span class="hl-c">0</span> <span class="hl-k">if</span> program version <span class="hl-k">if</span> greater equals than expected version,</td></tr>
-<tr><td class="hl-num" data-line="138"></td><td>    returns <span class="hl-c">1</span> otherwise.</td></tr>
-<tr><td class="hl-num" data-line="139"></td><td></td></tr>
-<tr><td class="hl-num" data-line="140"></td><td>EXAMPLE</td></tr>
-<tr><td class="hl-num" data-line="141"></td><td>    $ require_tool.sh emacs <span class="hl-c">23</span></td></tr>
-<tr><td class="hl-num" data-line="142"></td><td>    $ CC=g++ require_tool.sh cc <span class="hl-c">4</span>.<span class="hl-c">6</span></td></tr>
-<tr><td class="hl-num" data-line="143"></td><td>    $ require_tool.sh zsh <span class="hl-c">4</span>.<span class="hl-c">5</span></td></tr>
-<tr><td class="hl-num" data-line="144"></td><td></td></tr>
-<tr><td class="hl-num" data-line="145"></td><td><span class="hl-k">EOF</span></td></tr>
+<tr><td class="hl-num" data-line="106"></td><td>    cat <span class="hl-s"><span class="hl-k">&lt;&lt;</span><span class="hl-k">EOF</span></span></td></tr>
+<tr><td class="hl-num" data-line="107"></td><td><span class="hl-s">NAME</span></td></tr>
+<tr><td class="hl-num" data-line="108"></td><td><span class="hl-s">    require_tool.sh - Ensure version of a tool is greater than the one expected</span></td></tr>
+<tr><td class="hl-num" data-line="109"></td><td><span class="hl-s"></span></td></tr>
+<tr><td class="hl-num" data-line="110"></td><td><span class="hl-s">SYNOPSYS</span></td></tr>
+<tr><td class="hl-num" data-line="111"></td><td><span class="hl-s">    require_tool.sh [ -h ]</span></td></tr>
+<tr><td class="hl-num" data-line="112"></td><td><span class="hl-s">                    [ --help ]</span></td></tr>
+<tr><td class="hl-num" data-line="113"></td><td><span class="hl-s">                    [ TOOL MIN_VERSION ]</span></td></tr>
+<tr><td class="hl-num" data-line="114"></td><td><span class="hl-s"></span></td></tr>
+<tr><td class="hl-num" data-line="115"></td><td><span class="hl-s">DESCRIPTION</span></td></tr>
+<tr><td class="hl-num" data-line="116"></td><td><span class="hl-s">    TOOL is the name or path of the program to check. If the name is specified, its</span></td></tr>
+<tr><td class="hl-num" data-line="117"></td><td><span class="hl-s">    path is deduced from PATH environment variable. If environment variable TOOL</span></td></tr>
+<tr><td class="hl-num" data-line="118"></td><td><span class="hl-s">    (in upper-case characters) is defined, considers its value as path to the tool.</span></td></tr>
+<tr><td class="hl-num" data-line="119"></td><td><span class="hl-s"></span></td></tr>
+<tr><td class="hl-num" data-line="120"></td><td><span class="hl-s">    MIN_VERSION is a string representing the minimum required version.</span></td></tr>
+<tr><td class="hl-num" data-line="121"></td><td><span class="hl-s"></span></td></tr>
+<tr><td class="hl-num" data-line="122"></td><td><span class="hl-s">BEHAVIOR</span></td></tr>
+<tr><td class="hl-num" data-line="123"></td><td><span class="hl-s">    * locate path to the program.</span></td></tr>
+<tr><td class="hl-num" data-line="124"></td><td><span class="hl-s">    * execute $ TOOL_PATH --version</span></td></tr>
+<tr><td class="hl-num" data-line="125"></td><td><span class="hl-s">    * extract version from standard output.</span></td></tr>
+<tr><td class="hl-num" data-line="126"></td><td><span class="hl-s">    * compare this version to the expected one.</span></td></tr>
+<tr><td class="hl-num" data-line="127"></td><td><span class="hl-s"></span></td></tr>
+<tr><td class="hl-num" data-line="128"></td><td><span class="hl-s">OPTIONS</span></td></tr>
+<tr><td class="hl-num" data-line="129"></td><td><span class="hl-s">    -h --help</span></td></tr>
+<tr><td class="hl-num" data-line="130"></td><td><span class="hl-s">        Display this message and exit 0</span></td></tr>
+<tr><td class="hl-num" data-line="131"></td><td><span class="hl-s"></span></td></tr>
+<tr><td class="hl-num" data-line="132"></td><td><span class="hl-s">ERRORS</span></td></tr>
+<tr><td class="hl-num" data-line="133"></td><td><span class="hl-s">    if program is not found or its version is prior to expected version,</span></td></tr>
+<tr><td class="hl-num" data-line="134"></td><td><span class="hl-s">    a message is written to error output.</span></td></tr>
+<tr><td class="hl-num" data-line="135"></td><td><span class="hl-s"></span></td></tr>
+<tr><td class="hl-num" data-line="136"></td><td><span class="hl-s">EXIT VALUE</span></td></tr>
+<tr><td class="hl-num" data-line="137"></td><td><span class="hl-s">    returns 0 if program version if greater equals than expected version,</span></td></tr>
+<tr><td class="hl-num" data-line="138"></td><td><span class="hl-s">    returns 1 otherwise.</span></td></tr>
+<tr><td class="hl-num" data-line="139"></td><td><span class="hl-s"></span></td></tr>
+<tr><td class="hl-num" data-line="140"></td><td><span class="hl-s">EXAMPLE</span></td></tr>
+<tr><td class="hl-num" data-line="141"></td><td><span class="hl-s">    $ require_tool.sh emacs 23</span></td></tr>
+<tr><td class="hl-num" data-line="142"></td><td><span class="hl-s">    $ CC=g++ require_tool.sh cc 4.6</span></td></tr>
+<tr><td class="hl-num" data-line="143"></td><td><span class="hl-s">    $ require_tool.sh zsh 4.5</span></td></tr>
+<tr><td class="hl-num" data-line="144"></td><td><span class="hl-s"></span></td></tr>
+<tr><td class="hl-num" data-line="145"></td><td><span class="hl-s"><span class="hl-k">EOF</span></span></td></tr>
 <tr><td class="hl-num" data-line="146"></td><td>}</td></tr>
 <tr><td class="hl-num" data-line="147"></td><td></td></tr>
 <tr><td class="hl-num" data-line="148"></td><td><span class="hl-k">for</span> arg <span class="hl-k">in</span> $@; <span class="hl-k">do</span></td></tr>

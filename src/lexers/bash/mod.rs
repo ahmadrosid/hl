@@ -85,7 +85,7 @@ impl Lexer {
             let next_ch = self.input[self.position + 1];
             if self.position + 5 < self.input.len() 
 && next_ch == '<' && self.input[self.position + 2] == 'E' && self.input[self.position + 3] == 'O' && self.input[self.position + 4] == 'F' {
-                let mut comment = String::from("&lt;&lt;EOF").chars().collect::<Vec<_>>();
+                let mut comment = String::from("<<EOF").chars().collect::<Vec<_>>();
                 self.read_char();
                 self.read_char();
                 self.read_char();

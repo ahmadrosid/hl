@@ -2,7 +2,10 @@ hashtag_comment: true
 
 constant:
   echo: echo
+  eval: eval
   exit: exit
+  kill: kill
+  read: read
   source: source
   unset: unset
   test: test

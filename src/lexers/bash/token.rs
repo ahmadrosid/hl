@@ -18,7 +18,10 @@ pub fn get_keyword_token(identifier: &Vec<char>) -> Result<Token, String> {
     let identifiers: String = identifier.into_iter().collect();
     match &identifiers[..] {
         "echo" => Ok(Token::CONSTANT(identifier.to_vec())),
+        "eval" => Ok(Token::CONSTANT(identifier.to_vec())),
         "exit" => Ok(Token::CONSTANT(identifier.to_vec())),
+        "kill" => Ok(Token::CONSTANT(identifier.to_vec())),
+        "read" => Ok(Token::CONSTANT(identifier.to_vec())),
         "source" => Ok(Token::CONSTANT(identifier.to_vec())),
         "unset" => Ok(Token::CONSTANT(identifier.to_vec())),
         "test" => Ok(Token::CONSTANT(identifier.to_vec())),
