@@ -51,6 +51,7 @@ hl src/main.rs -l rust
 See the result in browser [here](https://play.tailwindcss.com/xFlm0rN1wH).
 
 ## Lexers
+- [ ] Bash ( 🚧 In Progress )
 - [x] C ( ✅ Done )
 - [x] CSS ( ✅ Done )
 - [ ] CPP ( 🚧 In Progress )
