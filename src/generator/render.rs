@@ -9,6 +9,7 @@ use yaml_rust::yaml::Yaml;
 const ACCEPT_PREFIX_VAR: &str = "ACCEPT_PREFIX_VAR";
 const ENCODE_LT: &str = "ENCODE_LT";
 const ENCODE_LT_STRING: &str = "ENCODE_LT_STRING";
+const RENDER_MULTI_LINE_STRING: &str = "RENDER_MULTI_LINE_STRING";
 
 pub fn generate_render_html(h: &Hash, name: String) -> String {
     let mut html = StringBuilder::new();
@@ -62,7 +63,7 @@ pub fn generate_render_html(h: &Hash, name: String) -> String {
     }
     html.push_tabln(3, "}");
 
-    write_token_string(&mut html);
+    write_token_string(&mut html, h);
     write_token_integer(&mut html);
     write_token_identifier(&mut html);
 
@@ -234,7 +235,7 @@ fn write_token_constant(html: &mut StringBuilder) {
     html.push_tabln(3, "}");
 }
 
-fn write_token_string(html: &mut StringBuilder) {
+fn write_token_string(html: &mut StringBuilder, h: &Hash) {
     html.push_tabln(3, "token::Token::STRING(value) => {");
     html.push_tabln(4, "let mut s = String::new();");
     html.push_tabln(4, "for ch in value {");
@@ -246,10 +247,39 @@ fn write_token_string(html: &mut StringBuilder) {
     html.push_tabln(6, "s.push(ch);");
     html.push_tabln(5, "}");
     html.push_tabln(4, "}");
-    html.push_tabln(
-        4,
-        r#"html.push_str(&format!("<span class=\"hl-s\">{}</span>", s));"#,
-    );
+
+    if let Some(_) = get_condition(h).get(&Yaml::String(RENDER_MULTI_LINE_STRING.to_string())) {
+        html.push_tabln(4, r#"let split = s.split("\n");"#);
+        html.push_tabln(
+            4,
+            "let split_len = split.clone().collect::<Vec<&str>>().len();",
+        );
+        html.push_tabln(4, "let mut index = 0;");
+        html.push_tabln(4, "for val in split {");
+        html.push_tabln(
+            5,
+            r#"html.push_str(&format!("<span class=\"hl-s\">{}</span>", val));"#,
+        );
+        html.push_tabln(5, "index = index + 1;");
+        html.push_tabln(5, "if index != split_len {");
+        html.push_tabln(6, "line = line + 1;");
+        html.push_tabln(6, "html.push_str(\"</td></tr>\\n\");");
+        html.push_tabln(6, "html.push_str(&format!(");
+        html.push_tabln(
+            7,
+            r#""<tr><td class=\"hl-num\" data-line=\"{}\"></td><td>","#,
+        );
+        html.push_tabln(7, "line");
+        html.push_tabln(6, "));");
+        html.push_tabln(5, "}");
+        html.push_tabln(4, "}");
+    } else {
+        html.push_tabln(
+            4,
+            r#"html.push_str(&format!("<span class=\"hl-s\">{}</span>", s));"#,
+        );
+    }
+
     html.push_tabln(3, "}");
 }
 
