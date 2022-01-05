@@ -64,3 +64,4 @@ See the result in browser [here](https://play.tailwindcss.com/xFlm0rN1wH).
 - [ ] Javascript ( 🚧 In Progress )
 - [x] PHP ( ✅ Done )
 - [ ] Typescript ( 🚧 In Progress )
+- [ ] Yaml ( 🚧 In Progress )
