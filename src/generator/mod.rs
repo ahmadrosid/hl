@@ -12,7 +12,7 @@ mod render;
 mod string;
 mod token;
 
-macro_rules! get_by (
+macro_rules! get_hash (
     ($name:ident, $key:ident) => (
 pub fn $name(h: &Hash) -> Hash {
     let constant = h.get(&Yaml::String(stringify!($key).to_string()));
@@ -41,18 +41,19 @@ pub fn $name(h: &Hash) -> bool {
     );
 );
 
-get_by!(get_constant, constant);
-get_by!(get_var, var);
-get_by!(get_keyword, keyword);
-get_by!(get_entity, entity);
-get_by!(get_entity_prefix, entity_prefix);
-get_by!(get_entity_suffix, entity_suffix);
-get_by!(get_entity_tag, entity_tag);
-get_by!(get_xml_entity_tag, xml_entity_tag);
-get_by!(get_condition, condition);
+get_hash!(get_constant, constant);
+get_hash!(get_var, var);
+get_hash!(get_keyword, keyword);
+get_hash!(get_entity, entity);
+get_hash!(get_entity_prefix, entity_prefix);
+get_hash!(get_entity_suffix, entity_suffix);
+get_hash!(get_entity_tag, entity_tag);
+get_hash!(get_xml_entity_tag, xml_entity_tag);
+get_hash!(get_condition, condition);
 get_bool!(slash_comment_enable, slash_comment);
 get_bool!(slash_star_comment_enable, slash_star_comment);
 get_bool!(xml_comment_enable, xml_comment);
+get_bool!(hashtag_comment_enable, hashtag_comment);
 
 pub fn parse(file_path: &str) -> String {
     let content = read_file(file_path);
@@ -66,10 +67,11 @@ pub fn parse(file_path: &str) -> String {
         "entity_tag",
         "xml_entity_tag",
         "prefix",
+        "hashtag_comment",
         "slash_comment",
+        "slash_star_comment",
         "xml_comment",
         "condition",
-        "slash_star_comment",
         "var",
         "entity_prefix",
         "entity_suffix",

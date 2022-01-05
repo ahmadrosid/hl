@@ -1,6 +1,6 @@
 use crate::generator::{
-    get_condition, get_entity_prefix, get_entity_suffix, slash_comment_enable,
-    slash_star_comment_enable, string::StringBuilder, xml_comment_enable,
+    get_condition, get_entity_prefix, get_entity_suffix, hashtag_comment_enable,
+    slash_comment_enable, slash_star_comment_enable, string::StringBuilder, xml_comment_enable,
 };
 use yaml_rust::yaml::Hash;
 use yaml_rust::Yaml;
@@ -25,6 +25,7 @@ const ACCEPT_CONSTANT_SUFFIX_KEYWORD: &str = "ACCEPT_CONSTANT_SUFFIX_KEYWORD";
 const ACCEPT_CONSTANT_SUFFIX_IDENTIFIER: &str = "ACCEPT_CONSTANT_SUFFIX_IDENTIFIER";
 const CONSTANT_SUFFIX_KEYWORD: &str = "CONSTANT_SUFFIX_KEYWORD";
 const ACCEPT_DASH_IDENTIFIER: &str = "ACCEPT_DASH_IDENTIFIER";
+const SKIP_NON_CHAR_LETTER_PREFIX: &str = "SKIP_NON_CHAR_LETTER_PREFIX";
 
 fn write_struct_lexer(module: &mut StringBuilder) {
     module.push_strln("pub struct Lexer {");
@@ -145,6 +146,14 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
 
     if xml_comment_enable(h) {
         module.push_str(&write_handle_xml_comment());
+    }
+
+    if hashtag_comment_enable(h) {
+        module.push_str(&write_handle_hashtag_comment());
+    }
+
+    if let Some(ch) = get_condition(h).get(&Yaml::String(SKIP_NON_CHAR_LETTER_PREFIX.to_string())) {
+        module.push_str(&write_handle_skip_non_char_letter(ch));
     }
 
     module.push_tabln(2, "match self.ch {");
@@ -529,6 +538,26 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
     module.push_strln("}");
 }
 
+fn write_handle_skip_non_char_letter(ch: &Yaml) -> String {
+    let mut module = StringBuilder::new();
+    module.push_tabln(2, &format!("if self.ch == '{}' {{", ch.as_str().unwrap()));
+    module.push_tabln(2, "let start_position = self.position;");
+    module.push_tabln(2, "while self.position < self.input.len() ");
+    module.push_str("&& !is_letter(self.ch) ");
+    module.push_str("&& !is_digit(self.ch) ");
+    module.push_str("&& self.ch != '\\n' ");
+    module.push_str("&& self.ch != ' ' {");
+    module.push_tabln(2, "self.read_char();");
+    module.push_tabln(2, "}");
+    module.push_tabln(
+        2,
+        "let identifier = self.input[start_position..self.position].to_vec();",
+    );
+    module.push_tabln(2, "return token::Token::IDENT(identifier)");
+    module.push_tabln(2, "}");
+    module.to_string()
+}
+
 fn write_handle_xml_comment() -> String {
     let mut module = StringBuilder::new();
     module.push_tabln(2, "if self.ch == '<' {");
@@ -559,6 +588,15 @@ fn write_handle_xml_comment() -> String {
     );
     module.push_tabln(4, "return token::Token::COMMENT(comment);");
     module.push_tabln(3, "}");
+    module.push_tabln(2, "}");
+    module.to_string()
+}
+
+fn write_handle_hashtag_comment() -> String {
+    let mut module = StringBuilder::new();
+    module.push_tabln(2, "if self.ch == '#' {");
+    module.push_tabln(3, "let comment: Vec<char> = read_string(self, '\\n');");
+    module.push_tabln(3, "return token::Token::COMMENT(comment);");
     module.push_tabln(2, "}");
     module.to_string()
 }

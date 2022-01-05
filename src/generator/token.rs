@@ -1,6 +1,7 @@
 use crate::generator::{
     get_condition, get_constant, get_entity, get_entity_tag, get_keyword, get_var,
-    slash_comment_enable, slash_star_comment_enable, string::StringBuilder, xml_comment_enable,
+    hashtag_comment_enable, slash_comment_enable, slash_star_comment_enable, string::StringBuilder,
+    xml_comment_enable,
 };
 use yaml_rust::yaml::Hash;
 use yaml_rust::Yaml;
@@ -20,7 +21,10 @@ pub fn generate_token(h: &Hash) -> String {
     token.push_tabln(1, "IDENT(Vec<char>),");
     token.push_tabln(1, "ENTITY(Vec<char>),");
     token.push_tabln(1, "STRING(Vec<char>),");
-    token.push_tabln(1, "CONSTANT(Vec<char>),");
+
+    if get_constant(h).len() >= 1 {
+        token.push_tabln(1, "CONSTANT(Vec<char>),");
+    }
 
     if get_keyword(h).len() >= 1 {
         token.push_tabln(1, "KEYWORD(Vec<char>),");
@@ -42,7 +46,11 @@ pub fn generate_token(h: &Hash) -> String {
         token.push_tabln(1, &format!("{}(Vec<char>),", k.as_str().unwrap()));
     }
 
-    if slash_comment_enable(h) || slash_star_comment_enable(h) || xml_comment_enable(h) {
+    if slash_comment_enable(h)
+        || slash_star_comment_enable(h)
+        || xml_comment_enable(h)
+        || hashtag_comment_enable(h)
+    {
         token.push_tabln(1, "COMMENT(Vec<char>),");
     }
 

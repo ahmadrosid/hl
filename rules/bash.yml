@@ -1,0 +1,42 @@
+hashtag_comment: true
+
+constant:
+  source: source
+  unset: unset
+
+keyword:
+  case: case
+  do: do
+  done: done
+  elif: elif
+  else: else
+  esac: esac
+  export: export
+  fi: fi
+  for: for
+  function: function
+  if: if
+  in: in
+  local: local
+  return: return
+  select: select
+  then: then
+  time: time
+  until: until
+  while: while
+  EOF: EOF
+
+single_keyword:
+  - "!"
+  - "["
+  - "]"
+  - "{"
+  - "}"
+
+entity_suffix:
+  ENTITY_LBRACE: '('
+
+condition:
+  ACCEPT_STRING_ONE_QUOTE: true
+  ACCEPT_STRING_DOUBLE_QUOTE: true
+  SKIP_NON_CHAR_LETTER_PREFIX: "$"

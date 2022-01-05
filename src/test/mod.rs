@@ -1,4 +1,4 @@
-use crate::lexers::{c, cpp, css, go, html, java, javascript, php, rust, typescript};
+use crate::lexers::{bash, c, cpp, css, go, html, java, javascript, php, rust, typescript};
 use std::fs;
 
 fn read_input(path: &str) -> Vec<char> {
@@ -9,6 +9,14 @@ fn read_input(path: &str) -> Vec<char> {
 fn read_file(path: &str) -> String {
     let source = fs::read_to_string(path).expect(&format!("Filed reading file {}", path));
     return source;
+}
+
+#[test]
+fn test_bash() {
+    let input = read_input("src/test/testdata/input/bash.sh.stub");
+    let expected = read_file("src/test/testdata/output/bash.html.stub");
+    let actual = bash::render::render_html(input);
+    assert_eq!(expected, actual);
 }
 
 #[test]
