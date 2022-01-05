@@ -48,7 +48,6 @@ get_hash!(get_entity, entity);
 get_hash!(get_entity_prefix, entity_prefix);
 get_hash!(get_entity_suffix, entity_suffix);
 get_hash!(get_entity_tag, entity_tag);
-get_hash!(get_xml_entity_tag, xml_entity_tag);
 get_hash!(get_condition, condition);
 get_bool!(slash_comment_enable, slash_comment);
 get_bool!(slash_star_comment_enable, slash_star_comment);
