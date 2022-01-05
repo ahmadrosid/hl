@@ -1,7 +1,7 @@
 use crate::generator::{
-    get_condition, get_constant, get_entity, get_entity_tag, get_keyword, get_var,
-    hashtag_comment_enable, slash_comment_enable, slash_star_comment_enable, string::StringBuilder,
-    xml_comment_enable,
+    get_condition, get_constant, get_entity, get_entity_prefix, get_entity_suffix, get_entity_tag,
+    get_keyword, get_var, hashtag_comment_enable, slash_comment_enable, slash_star_comment_enable,
+    string::StringBuilder, xml_comment_enable,
 };
 use yaml_rust::yaml::Hash;
 use yaml_rust::yaml::Yaml;
@@ -65,7 +65,14 @@ pub fn generate_render_html(h: &Hash, name: String) -> String {
     write_token_string(&mut html);
     write_token_integer(&mut html);
     write_token_identifier(&mut html);
-    write_token_entity(&mut html);
+
+    if get_entity(h).len() >= 1
+        || get_entity_tag(h).len() >= 1
+        || get_entity_prefix(h).len() >= 1
+        || get_entity_suffix(h).len() >= 1
+    {
+        write_token_entity(&mut html);
+    }
 
     if get_constant(h).len() >= 1 {
         write_token_constant(&mut html);

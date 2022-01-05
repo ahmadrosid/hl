@@ -49,9 +49,6 @@ pub fn render_html(input: Vec<char>) -> String {
             token::Token::IDENT(value) => {
                 html.push_str(&value.iter().collect::<String>());
             }
-            token::Token::ENTITY(value) => {
-                html.push_str(&format!("<span class=\"hl-en\">{}</span>", value.iter().collect::<String>()));
-            }
             token::Token::COMMENT(value) => {
                 let mut lines = String::new();
                 for ch in value {

@@ -1,8 +1,4 @@
-use crate::generator::{
-    get_condition, get_constant, get_entity, get_entity_tag, get_keyword, get_var,
-    hashtag_comment_enable, slash_comment_enable, slash_star_comment_enable, string::StringBuilder,
-    xml_comment_enable,
-};
+use crate::generator::{get_condition, get_constant, get_entity, get_entity_prefix, get_entity_suffix, get_entity_tag, get_keyword, get_var, hashtag_comment_enable, slash_comment_enable, slash_star_comment_enable, string::StringBuilder, xml_comment_enable};
 use yaml_rust::yaml::Hash;
 use yaml_rust::Yaml;
 
@@ -19,7 +15,15 @@ pub fn generate_token(h: &Hash) -> String {
     token.push_tabln(1, "ENDL(char),");
     token.push_tabln(1, "INT(Vec<char>),");
     token.push_tabln(1, "IDENT(Vec<char>),");
-    token.push_tabln(1, "ENTITY(Vec<char>),");
+
+    if get_entity(h).len() >= 1
+        || get_entity_tag(h).len() >= 1
+        || get_entity_prefix(h).len() >= 1
+        || get_entity_suffix(h).len() >= 1
+    {
+        token.push_tabln(1, "ENTITY(Vec<char>),");
+    }
+
     token.push_tabln(1, "STRING(Vec<char>),");
 
     if get_constant(h).len() >= 1 {

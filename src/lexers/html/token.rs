@@ -7,7 +7,6 @@ pub enum Token {
     ENDL(char),
     INT(Vec<char>),
     IDENT(Vec<char>),
-    ENTITY(Vec<char>),
     STRING(Vec<char>),
     COMMENT(Vec<char>),
 }
