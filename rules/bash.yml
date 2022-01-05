@@ -1,14 +1,17 @@
 hashtag_comment: true
 
 constant:
+  compgen: compgen
   echo: echo
   eval: eval
   exit: exit
+  false: "false"
   kill: kill
   read: read
   source: source
   unset: unset
   test: test
+  true: "true"
 
 keyword:
   case: case
