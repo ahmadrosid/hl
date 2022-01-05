@@ -3,7 +3,6 @@ mod generator;
 mod lexers;
 use crate::lexers::{bash, c, cpp, css, go, html, java, javascript, php, rust, typescript};
 use std::fs::read;
-use std::io::Write;
 
 fn main() {
     let matches = App::new("hl")
@@ -30,7 +29,7 @@ fn main() {
             let lexer_path = sub_matches.value_of("LEXER_PATH").expect("required");
             let s = generator::parse(lexer_path);
             println!("{}", s);
-            std::process::exit(0x001);
+            std::process::exit(0x000);
         }
         _ => {
             if let Some(file) = matches.value_of("FILE_PATH") {
@@ -85,12 +84,4 @@ fn main() {
             println!("Language {} not supported", lang);
         }
     }
-}
-
-#[allow(dead_code)]
-fn write_file(content: &String, file_name: &str) {
-    let cwd = std::env::current_dir().unwrap();
-    let mut file =
-        std::fs::File::create(format!("{}/{}", cwd.to_str().unwrap(), file_name)).unwrap();
-    write!(&mut file, "{}", content).unwrap();
 }
