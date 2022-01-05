@@ -23,13 +23,6 @@ pub fn render_html(input: Vec<char>) -> String {
         }
 
         match token {
-            token::Token::CH(value) => {
-                if value == '<' {
-                    html.push_str("&lt;");
-                } else {
-                    html.push(value);
-                }
-            }
             token::Token::STRING(value) => {
                 let mut s = String::new();
                 for ch in value {

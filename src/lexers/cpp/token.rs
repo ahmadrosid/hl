@@ -3,10 +3,10 @@
 pub enum Token {
     ILLEGAL,
     EOF,
-    CH(char),
     ENDL(char),
     INT(Vec<char>),
     IDENT(Vec<char>),
+    CH(char),
     ENTITY(Vec<char>),
     STRING(Vec<char>),
     CONSTANT(Vec<char>),
