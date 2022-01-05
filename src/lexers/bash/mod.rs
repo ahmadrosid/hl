@@ -103,6 +103,20 @@ impl Lexer {
             '}' => {
                 tok = token::Token::KEYWORD(vec![self.ch]);
             }
+            '-' => {
+                let next_ch = self.input[self.position + 1];
+                if is_letter(next_ch) || next_ch == '-' {
+                    let mut identifier = vec![self.ch];
+                    self.read_char();
+                    if self.input[self.position + 1] == '-' {
+                        self.read_char();
+                        identifier.append(&mut vec![self.ch]);
+                    }
+                    identifier.append(&mut read_identifier(self));
+                    return token::Token::KEYWORD(identifier);
+                }
+                tok = token::Token::CH(self.ch);
+            }
             _ => {
                 return if is_letter(self.ch) {
                     #[allow(unused_variables)]

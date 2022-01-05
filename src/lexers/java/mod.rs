@@ -137,8 +137,8 @@ impl Lexer {
             }
             '@' => {
                 if is_letter(self.input[self.position + 1]) {
+                    let mut identifier = vec![self.ch];
                     self.read_char();
-                    let mut identifier = vec!['@'];
                     identifier.append(&mut read_identifier(self));
                     return token::Token::KEYWORD(identifier);
                 }
