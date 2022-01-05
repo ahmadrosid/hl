@@ -15,8 +15,8 @@ pub enum Token {
 }
 
 pub fn get_keyword_token(identifier: &Vec<char>) -> Result<Token, String> {
-    let identifiers: String = identifier.into_iter().collect();
-    match &identifiers[..] {
+    let id: String = identifier.into_iter().collect();
+    match &id[..] {
         "true" => Ok(Token::CONSTANT(identifier.to_vec())),
         "false" => Ok(Token::CONSTANT(identifier.to_vec())),
         "None" => Ok(Token::CONSTANT(identifier.to_vec())),

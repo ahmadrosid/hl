@@ -11,8 +11,8 @@ pub enum Token {
 }
 
 pub fn get_keyword_token(identifier: &Vec<char>) -> Result<Token, String> {
-    let identifiers: String = identifier.into_iter().collect();
-    match &identifiers[..] {
+    let id: String = identifier.into_iter().collect();
+    match &id[..] {
         _ => Err(String::from("Not a keyword")),
     }
 }

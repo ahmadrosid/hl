@@ -22,4 +22,5 @@ do
 	./target/debug/hl generate $i;
 done
 
+cargo test
 git status

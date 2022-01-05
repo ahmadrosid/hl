@@ -65,6 +65,7 @@ pub fn generate_render_html(h: &Hash, name: String) -> String {
         .is_some() {
         write_token_string(&mut html, h);
     }
+
     if slash_star_comment_enable(h)
         || slash_comment_enable(h)
         || get_condition(h)

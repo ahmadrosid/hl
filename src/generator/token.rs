@@ -91,11 +91,8 @@ pub fn generate_token(h: &Hash) -> String {
 
     token.push_strln("}\n");
     token.push_strln("pub fn get_keyword_token(identifier: &Vec<char>) -> Result<Token, String> {");
-    token.push_tabln(
-        1,
-        "let identifiers: String = identifier.into_iter().collect();",
-    );
-    token.push_tabln(1, "match &identifiers[..] {");
+    token.push_tabln(1, "let id: String = identifier.into_iter().collect();");
+    token.push_tabln(1, "match &id[..] {");
 
     for (_, v) in get_constant(h) {
         token.push_tab(2, &format!("\"{}\" => ", v.as_str().unwrap()));
