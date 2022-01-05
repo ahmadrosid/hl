@@ -10,6 +10,7 @@ const ACCEPT_PREFIX_VAR: &str = "ACCEPT_PREFIX_VAR";
 const ENCODE_LT: &str = "ENCODE_LT";
 const ENCODE_LT_STRING: &str = "ENCODE_LT_STRING";
 const RENDER_MULTI_LINE_STRING: &str = "RENDER_MULTI_LINE_STRING";
+const ACCEPT_STRING_EOF: &str = "ACCEPT_STRING_EOF";
 
 pub fn generate_render_html(h: &Hash, name: String) -> String {
     let mut html = StringBuilder::new();
@@ -247,7 +248,10 @@ fn write_token_string(html: &mut StringBuilder, h: &Hash) {
     html.push_tabln(6, "s.push(ch);");
     html.push_tabln(5, "}");
     html.push_tabln(4, "}");
-
+    if let Some(_) = get_condition(h).get(&Yaml::String(ACCEPT_STRING_EOF.to_string())) {
+        html.push_tabln(4, r#"s = s.replace("&lt;&lt;","<span class=\"hl-k\">&lt;&lt;</span>");"#);
+        html.push_tabln(4, r#"s = s.replace("EOF","<span class=\"hl-k\">EOF</span>");"#);
+    }
     if let Some(_) = get_condition(h).get(&Yaml::String(RENDER_MULTI_LINE_STRING.to_string())) {
         html.push_tabln(4, r#"let split = s.split("\n");"#);
         html.push_tabln(

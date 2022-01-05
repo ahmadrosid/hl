@@ -37,6 +37,8 @@ pub fn render_html(input: Vec<char>) -> String {
                         s.push(ch);
                     }
                 }
+                s = s.replace("&lt;&lt;","<span class=\"hl-k\">&lt;&lt;</span>");
+                s = s.replace("EOF","<span class=\"hl-k\">EOF</span>");
                 let split = s.split("\n");
                 let split_len = split.clone().collect::<Vec<&str>>().len();
                 let mut index = 0;

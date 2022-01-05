@@ -81,6 +81,34 @@ impl Lexer {
         let identifier = self.input[start_position..self.position].to_vec();
         return token::Token::IDENT(identifier)
         }
+        if self.ch == '<' {
+            let next_ch = self.input[self.position + 1];
+            if self.position + 5 < self.input.len() 
+&& next_ch == '<' && self.input[self.position + 2] == 'E' && self.input[self.position + 3] == 'O' && self.input[self.position + 4] == 'F' {
+                let mut comment = String::from("&lt;&lt;EOF").chars().collect::<Vec<_>>();
+                self.read_char();
+                self.read_char();
+                self.read_char();
+                self.read_char();
+                self.read_char();
+                let last_position = self.position;
+                while self.position < self.input.len() {
+                    if self.ch == 'E' {
+                        if self.input[self.position+1] == 'O' {
+                            if self.input[self.position+2] == 'F' {
+                            self.read_char();
+                            self.read_char();
+                            self.read_char();
+                            break;
+                            }
+                        }
+                    }
+                    self.read_char();
+                }
+                comment.append(&mut self.input[last_position..self.position].to_vec());
+                return token::Token::STRING(comment);
+            }
+        }
         match self.ch {
             '\n' => {
                 tok = token::Token::ENDL(self.ch);

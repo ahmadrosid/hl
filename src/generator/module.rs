@@ -27,6 +27,7 @@ const ACCEPT_CONSTANT_SUFFIX_IDENTIFIER: &str = "ACCEPT_CONSTANT_SUFFIX_IDENTIFI
 const CONSTANT_SUFFIX_KEYWORD: &str = "CONSTANT_SUFFIX_KEYWORD";
 const ACCEPT_DASH_IDENTIFIER: &str = "ACCEPT_DASH_IDENTIFIER";
 const SKIP_NON_CHAR_LETTER_PREFIX: &str = "SKIP_NON_CHAR_LETTER_PREFIX";
+const ACCEPT_STRING_EOF: &str = "ACCEPT_STRING_EOF";
 
 fn write_struct_lexer(module: &mut StringBuilder) {
     module.push_strln("pub struct Lexer {");
@@ -155,6 +156,10 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
 
     if let Some(ch) = get_condition(h).get(&Yaml::String(SKIP_NON_CHAR_LETTER_PREFIX.to_string())) {
         module.push_str(&write_handle_skip_non_char_letter(ch));
+    }
+
+    if let Some(_) = get_condition(h).get(&Yaml::String(ACCEPT_STRING_EOF.to_string())) {
+        module.push_str(&write_handle_eof_string());
     }
 
     module.push_tabln(2, "match self.ch {");
@@ -606,6 +611,46 @@ fn write_handle_xml_comment() -> String {
         "comment.append(&mut self.input[last_position..self.position].to_vec());",
     );
     module.push_tabln(4, "return token::Token::COMMENT(comment);");
+    module.push_tabln(3, "}");
+    module.push_tabln(2, "}");
+    module.to_string()
+}
+
+fn write_handle_eof_string() -> String {
+    let mut module = StringBuilder::new();
+    module.push_tabln(2, "if self.ch == '<' {");
+    module.push_tabln(3, "let next_ch = self.input[self.position + 1];");
+    module.push_tabln(3, "if self.position + 5 < self.input.len() ");
+    module.push_str("&& next_ch == '<' ");
+    module.push_str("&& self.input[self.position + 2] == 'E' ");
+    module.push_str("&& self.input[self.position + 3] == 'O' ");
+    module.push_str("&& self.input[self.position + 4] == 'F' ");
+    module.push_strln("{");
+    module.push_tabln(4, r#"let mut comment = String::from("<<EOF").chars().collect::<Vec<_>>();"#);
+    module.push_tabln(4, "self.read_char();");
+    module.push_tabln(4, "self.read_char();");
+    module.push_tabln(4, "self.read_char();");
+    module.push_tabln(4, "self.read_char();");
+    module.push_tabln(4, "self.read_char();");
+    module.push_tabln(4, "let last_position = self.position;");
+    module.push_tabln(4, "while self.position < self.input.len() {");
+    module.push_tabln(5, "if self.ch == 'E' {");
+    module.push_tabln(6, "if self.input[self.position+1] == 'O' {");
+    module.push_tabln(7, "if self.input[self.position+2] == 'F' {");
+    module.push_tabln(7, "self.read_char();");
+    module.push_tabln(7, "self.read_char();");
+    module.push_tabln(7, "self.read_char();");
+    module.push_tabln(7, "break;");
+    module.push_tabln(7, "}");
+    module.push_tabln(6, "}");
+    module.push_tabln(5, "}");
+    module.push_tabln(5, "self.read_char();");
+    module.push_tabln(4, "}");
+    module.push_tabln(
+        4,
+        "comment.append(&mut self.input[last_position..self.position].to_vec());",
+    );
+    module.push_tabln(4, "return token::Token::STRING(comment);");
     module.push_tabln(3, "}");
     module.push_tabln(2, "}");
     module.to_string()
