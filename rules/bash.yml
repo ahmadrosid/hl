@@ -12,6 +12,7 @@ constant:
 
 keyword:
   case: case
+  continue: continue
   do: do
   done: done
   elif: elif

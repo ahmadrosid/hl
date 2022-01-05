@@ -26,6 +26,7 @@ pub fn get_keyword_token(identifier: &Vec<char>) -> Result<Token, String> {
         "unset" => Ok(Token::CONSTANT(identifier.to_vec())),
         "test" => Ok(Token::CONSTANT(identifier.to_vec())),
         "case" => Ok(Token::KEYWORD(identifier.to_vec())),
+        "continue" => Ok(Token::KEYWORD(identifier.to_vec())),
         "do" => Ok(Token::KEYWORD(identifier.to_vec())),
         "done" => Ok(Token::KEYWORD(identifier.to_vec())),
         "elif" => Ok(Token::KEYWORD(identifier.to_vec())),
