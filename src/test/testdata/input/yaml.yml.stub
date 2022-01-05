@@ -1,0 +1,27 @@
+# This is comment
+slash_comment: true
+
+keyword:
+  ABSTRACT: 'abstract'
+  BYTE: 'byte'
+  BREAK: 'break'
+  CLASS: 'class'
+  DOUBLE: 'double'
+  FLOAT: 'float'
+
+single_keyword:
+  - "&"
+  - "-"
+  - ">"
+  - "<"
+  - "|"
+  - "!"
+  - "="
+
+condition:
+  ACCEPT_STRING_ONE_QUOTE: true
+  ACCEPT_STRING_DOUBLE_QUOTE: true
+  ACCEPT_PREFIX_KEYWORD: '@'
+  ACCEPT_SUFFIX_DIGIT: 'f'
+  ACCEPT_ENTITY_TAG_SUFFIX: "is_digit(self.ch)"
+  BREAK_ENTITY_TAG_SUFFIX: "!is_digit(self.ch) && !is_letter(self.ch)"

@@ -16,6 +16,7 @@ const ACCEPT_PREFIX_KEYWORD: &str = "ACCEPT_PREFIX_KEYWORD";
 const ACCEPT_STRING_ONE_QUOTE: &str = "ACCEPT_STRING_ONE_QUOTE";
 const ACCEPT_STRING_DOUBLE_QUOTE: &str = "ACCEPT_STRING_DOUBLE_QUOTE";
 const ACCEPT_STRING_EOF: &str = "ACCEPT_STRING_EOF";
+const MARK_ENTITY_TAG_SUFFIX: &str = "MARK_ENTITY_TAG_SUFFIX";
 
 pub fn generate_render_html(h: &Hash, name: String) -> String {
     let mut html = StringBuilder::new();
@@ -58,11 +59,12 @@ pub fn generate_render_html(h: &Hash, name: String) -> String {
         .get(&Yaml::String(ACCEPT_STRING_ONE_QUOTE.to_string()))
         .is_some()
         || get_condition(h)
-        .get(&Yaml::String(ACCEPT_STRING_DOUBLE_QUOTE.to_string()))
-        .is_some()
+            .get(&Yaml::String(ACCEPT_STRING_DOUBLE_QUOTE.to_string()))
+            .is_some()
         || get_condition(h)
-        .get(&Yaml::String(ACCEPT_STRING_EOF.to_string()))
-        .is_some() {
+            .get(&Yaml::String(ACCEPT_STRING_EOF.to_string()))
+            .is_some()
+    {
         write_token_string(&mut html, h);
     }
 
@@ -97,11 +99,18 @@ pub fn generate_render_html(h: &Hash, name: String) -> String {
         write_token_keyword(&mut html);
     }
 
-    if get_entity_tag(h).len() >= 1 {
+    if get_entity_tag(h).len() >= 1
+        || get_condition(h)
+            .get(&Yaml::String(MARK_ENTITY_TAG_SUFFIX.to_string()))
+            .is_some()
+    {
         write_token_entity_tag(&mut html);
     }
 
-    if let Some(_) = get_condition(h).get(&Yaml::String(ACCEPT_PREFIX_VAR.to_string())) {
+    if get_condition(h)
+        .get(&Yaml::String(ACCEPT_PREFIX_VAR.to_string()))
+        .is_some()
+    {
         write_token_var_identifier(&mut html);
     }
 

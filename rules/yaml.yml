@@ -1,2 +1,11 @@
 # This is some comment
 hashtag_comment: true
+
+constant:
+  TRUE: 'true'
+  FALSE: 'false'
+
+condition:
+  ACCEPT_STRING_ONE_QUOTE: true
+  ACCEPT_STRING_DOUBLE_QUOTE: true
+  MARK_ENTITY_TAG_SUFFIX: ":"

@@ -13,6 +13,7 @@ const ACCEPT_PREFIX_KEYWORD: &str = "ACCEPT_PREFIX_KEYWORD";
 const ACCEPT_STRING_ONE_QUOTE: &str = "ACCEPT_STRING_ONE_QUOTE";
 const ACCEPT_STRING_DOUBLE_QUOTE: &str = "ACCEPT_STRING_DOUBLE_QUOTE";
 const ACCEPT_STRING_EOF: &str = "ACCEPT_STRING_EOF";
+const MARK_ENTITY_TAG_SUFFIX: &str = "MARK_ENTITY_TAG_SUFFIX";
 
 pub fn generate_token(h: &Hash) -> String {
     let mut token = StringBuilder::new();
@@ -69,7 +70,11 @@ pub fn generate_token(h: &Hash) -> String {
         token.push_tabln(1, "KEYWORD(Vec<char>),");
     }
 
-    if get_entity_tag(h).len() >= 1 {
+    if get_entity_tag(h).len() >= 1
+        || get_condition(h)
+            .get(&Yaml::String(MARK_ENTITY_TAG_SUFFIX.to_string()))
+            .is_some()
+    {
         token.push_tabln(1, "ENTITYTAG(Vec<char>),");
     }
 

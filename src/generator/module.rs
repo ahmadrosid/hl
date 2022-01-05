@@ -28,6 +28,7 @@ const CONSTANT_SUFFIX_KEYWORD: &str = "CONSTANT_SUFFIX_KEYWORD";
 const ACCEPT_DASH_IDENTIFIER: &str = "ACCEPT_DASH_IDENTIFIER";
 const SKIP_NON_CHAR_LETTER_PREFIX: &str = "SKIP_NON_CHAR_LETTER_PREFIX";
 const ACCEPT_STRING_EOF: &str = "ACCEPT_STRING_EOF";
+const MARK_ENTITY_TAG_SUFFIX: &str = "MARK_ENTITY_TAG_SUFFIX";
 
 fn write_struct_lexer(module: &mut StringBuilder) {
     module.push_strln("pub struct Lexer {");
@@ -478,8 +479,9 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
         }
     }
 
-    if let Some(_) =
-        get_condition(h).get(&Yaml::String(ACCEPT_CONSTANT_SUFFIX_IDENTIFIER.to_string()))
+    if get_condition(h)
+        .get(&Yaml::String(ACCEPT_CONSTANT_SUFFIX_IDENTIFIER.to_string()))
+        .is_some()
     {
         if let Some(ch) = get_condition(h).get(&Yaml::String(ACCEPT_DASH_IDENTIFIER.to_string())) {
             module.push_tabln(8, &format!("if self.ch == '{}' {{", ch.as_str().unwrap()));
@@ -514,6 +516,12 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
             ),
         );
         module.push_tabln(9, "return token::Token::ENTITY(identifier)");
+        module.push_tabln(8, "}");
+    }
+
+    if let Some(ch) = get_condition(h).get(&Yaml::String(MARK_ENTITY_TAG_SUFFIX.to_string())) {
+        module.push_tabln(8, &format!("if self.ch == '{}' {{", ch.as_str().unwrap()));
+        module.push_tabln(9, "return token::Token::ENTITYTAG(identifier)");
         module.push_tabln(8, "}");
     }
 
@@ -626,7 +634,10 @@ fn write_handle_eof_string() -> String {
     module.push_str("&& self.input[self.position + 3] == 'O' ");
     module.push_str("&& self.input[self.position + 4] == 'F' ");
     module.push_strln("{");
-    module.push_tabln(4, r#"let mut comment = String::from("<<EOF").chars().collect::<Vec<_>>();"#);
+    module.push_tabln(
+        4,
+        r#"let mut comment = String::from("<<EOF").chars().collect::<Vec<_>>();"#,
+    );
     module.push_tabln(4, "self.read_char();");
     module.push_tabln(4, "self.read_char();");
     module.push_tabln(4, "self.read_char();");

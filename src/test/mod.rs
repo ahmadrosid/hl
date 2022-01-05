@@ -1,4 +1,4 @@
-use crate::lexers::{bash, c, cpp, css, go, html, java, javascript, php, rust, typescript};
+use crate::lexers::{bash, c, cpp, css, go, html, java, javascript, php, rust, typescript, yaml};
 use std::fs;
 
 fn read_input(path: &str) -> Vec<char> {
@@ -96,5 +96,13 @@ fn test_typescript() {
     let input = read_input("src/test/testdata/input/typescript.ts.stub");
     let expected = read_file("src/test/testdata/output/typescript.html.stub");
     let actual = typescript::render::render_html(input);
+    assert_eq!(expected, actual);
+}
+
+#[test]
+fn test_yaml() {
+    let input = read_input("src/test/testdata/input/yaml.yml.stub");
+    let expected = read_file("src/test/testdata/output/yaml.html.stub");
+    let actual = yaml::render::render_html(input);
     assert_eq!(expected, actual);
 }

@@ -1,0 +1,31 @@
+<table class="highlight-table">
+<tbody>
+<tr><td class="hl-num" data-line="1"></td><td><span class="hl-cmt"># This is comment</span></td></tr>
+<tr><td class="hl-num" data-line="2"></td><td><span class="hl-cmt"></span><span class="hl-ent">slash_comment</span>: <span class="hl-c">true</span></td></tr>
+<tr><td class="hl-num" data-line="3"></td><td></td></tr>
+<tr><td class="hl-num" data-line="4"></td><td><span class="hl-ent">keyword</span>:</td></tr>
+<tr><td class="hl-num" data-line="5"></td><td>  <span class="hl-ent">ABSTRACT</span>: <span class="hl-s">'abstract'</span></td></tr>
+<tr><td class="hl-num" data-line="6"></td><td>  <span class="hl-ent">BYTE</span>: <span class="hl-s">'byte'</span></td></tr>
+<tr><td class="hl-num" data-line="7"></td><td>  <span class="hl-ent">BREAK</span>: <span class="hl-s">'break'</span></td></tr>
+<tr><td class="hl-num" data-line="8"></td><td>  <span class="hl-ent">CLASS</span>: <span class="hl-s">'class'</span></td></tr>
+<tr><td class="hl-num" data-line="9"></td><td>  <span class="hl-ent">DOUBLE</span>: <span class="hl-s">'double'</span></td></tr>
+<tr><td class="hl-num" data-line="10"></td><td>  <span class="hl-ent">FLOAT</span>: <span class="hl-s">'float'</span></td></tr>
+<tr><td class="hl-num" data-line="11"></td><td></td></tr>
+<tr><td class="hl-num" data-line="12"></td><td><span class="hl-ent">single_keyword</span>:</td></tr>
+<tr><td class="hl-num" data-line="13"></td><td>  - <span class="hl-s">"&"</span></td></tr>
+<tr><td class="hl-num" data-line="14"></td><td>  - <span class="hl-s">"-"</span></td></tr>
+<tr><td class="hl-num" data-line="15"></td><td>  - <span class="hl-s">"&gt;"</span></td></tr>
+<tr><td class="hl-num" data-line="16"></td><td>  - <span class="hl-s">"&lt;"</span></td></tr>
+<tr><td class="hl-num" data-line="17"></td><td>  - <span class="hl-s">"|"</span></td></tr>
+<tr><td class="hl-num" data-line="18"></td><td>  - <span class="hl-s">"!"</span></td></tr>
+<tr><td class="hl-num" data-line="19"></td><td>  - <span class="hl-s">"="</span></td></tr>
+<tr><td class="hl-num" data-line="20"></td><td></td></tr>
+<tr><td class="hl-num" data-line="21"></td><td><span class="hl-ent">condition</span>:</td></tr>
+<tr><td class="hl-num" data-line="22"></td><td>  <span class="hl-ent">ACCEPT_STRING_ONE_QUOTE</span>: <span class="hl-c">true</span></td></tr>
+<tr><td class="hl-num" data-line="23"></td><td>  <span class="hl-ent">ACCEPT_STRING_DOUBLE_QUOTE</span>: <span class="hl-c">true</span></td></tr>
+<tr><td class="hl-num" data-line="24"></td><td>  <span class="hl-ent">ACCEPT_PREFIX_KEYWORD</span>: <span class="hl-s">'@'</span></td></tr>
+<tr><td class="hl-num" data-line="25"></td><td>  <span class="hl-ent">ACCEPT_SUFFIX_DIGIT</span>: <span class="hl-s">'f'</span></td></tr>
+<tr><td class="hl-num" data-line="26"></td><td>  <span class="hl-ent">ACCEPT_ENTITY_TAG_SUFFIX</span>: <span class="hl-s">"is_digit(self.ch)"</span></td></tr>
+<tr><td class="hl-num" data-line="27"></td><td>  <span class="hl-ent">BREAK_ENTITY_TAG_SUFFIX</span>: <span class="hl-s">"!is_digit(self.ch) && !is_letter(self.ch)"</span></td></tr>
+</tbody>
+</table>

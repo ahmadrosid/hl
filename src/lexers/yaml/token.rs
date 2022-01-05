@@ -6,12 +6,17 @@ pub enum Token {
     ENDL(char),
     INT(Vec<char>),
     IDENT(Vec<char>),
+    STRING(Vec<char>),
+    CONSTANT(Vec<char>),
+    ENTITYTAG(Vec<char>),
     COMMENT(Vec<char>),
 }
 
 pub fn get_keyword_token(identifier: &Vec<char>) -> Result<Token, String> {
     let id: String = identifier.into_iter().collect();
     match &id[..] {
+        "true" => Ok(Token::CONSTANT(identifier.to_vec())),
+        "false" => Ok(Token::CONSTANT(identifier.to_vec())),
         _ => Err(String::from("Not a keyword")),
     }
 }
