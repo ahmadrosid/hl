@@ -49,10 +49,24 @@ pub fn generate_render_html(h: &Hash, name: String) -> String {
 
     html.push_tabln(2, "match token {");
 
-    write_token_ch(&mut html, h);
     write_token_string(&mut html, h);
     write_token_integer(&mut html);
     write_token_identifier(&mut html);
+
+    if slash_star_comment_enable(h)
+        || slash_comment_enable(h)
+        || get_condition(h)
+        .get(&Yaml::String(ACCEPT_ENTITY_TAG_PREFIX.to_string()))
+        .is_some()
+        || get_condition(h)
+        .get(&Yaml::String(ENTITY_TAG_PREFIX_CHAR.to_string()))
+        .is_some()
+        || get_condition(h)
+        .get(&Yaml::String(ACCEPT_PREFIX_KEYWORD.to_string()))
+        .is_some()
+    {
+        write_token_ch(&mut html, h);
+    }
 
     if get_entity(h).len() >= 1
         || get_entity_tag(h).len() >= 1
@@ -223,38 +237,24 @@ fn write_token_constant(html: &mut StringBuilder) {
 }
 
 fn write_token_ch(html: &mut StringBuilder, h: &Hash) {
-    if slash_star_comment_enable(h)
-        || slash_comment_enable(h)
-        || get_condition(h)
-            .get(&Yaml::String(ACCEPT_ENTITY_TAG_PREFIX.to_string()))
-            .is_some()
-        || get_condition(h)
-            .get(&Yaml::String(ENTITY_TAG_PREFIX_CHAR.to_string()))
-            .is_some()
-        || get_condition(h)
-            .get(&Yaml::String(ACCEPT_PREFIX_KEYWORD.to_string()))
-            .is_some()
-    {
-        html.push_tabln(3, "token::Token::CH(value) => {");
-        if let Some(prefix) = get_condition(h).get(&Yaml::String(ENCODE_LT.to_string())) {
-            if let Some(encode) = get_condition(h).get(&Yaml::String(ENCODE_LT_STRING.to_string()))
-            {
-                html.push_tabln(4, &format!("if value == '{}' {{", prefix.as_str().unwrap()));
-                html.push_tabln(
-                    5,
-                    &format!("html.push_str(\"{}\");", encode.as_str().unwrap()),
-                );
-                html.push_tabln(4, "} else {");
-                html.push_tabln(5, "html.push(value);");
-                html.push_tabln(4, "}");
-            } else {
-                html.push_tabln(4, "html.push(value);");
-            }
+    html.push_tabln(3, "token::Token::CH(value) => {");
+    if let Some(prefix) = get_condition(h).get(&Yaml::String(ENCODE_LT.to_string())) {
+        if let Some(encode) = get_condition(h).get(&Yaml::String(ENCODE_LT_STRING.to_string())) {
+            html.push_tabln(4, &format!("if value == '{}' {{", prefix.as_str().unwrap()));
+            html.push_tabln(
+                5,
+                &format!("html.push_str(\"{}\");", encode.as_str().unwrap()),
+            );
+            html.push_tabln(4, "} else {");
+            html.push_tabln(5, "html.push(value);");
+            html.push_tabln(4, "}");
         } else {
             html.push_tabln(4, "html.push(value);");
         }
-        html.push_tabln(3, "}");
+    } else {
+        html.push_tabln(4, "html.push(value);");
     }
+    html.push_tabln(3, "}");
 }
 
 fn write_token_string(html: &mut StringBuilder, h: &Hash) {

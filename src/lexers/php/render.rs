@@ -23,13 +23,6 @@ pub fn render_html(input: Vec<char>) -> String {
         }
 
         match token {
-            token::Token::CH(value) => {
-                if value == '<' {
-                    html.push_str("&lt;");
-                } else {
-                    html.push(value);
-                }
-            }
             token::Token::STRING(value) => {
                 let mut s = String::new();
                 for ch in value {
@@ -48,6 +41,13 @@ pub fn render_html(input: Vec<char>) -> String {
             }
             token::Token::IDENT(value) => {
                 html.push_str(&value.iter().collect::<String>());
+            }
+            token::Token::CH(value) => {
+                if value == '<' {
+                    html.push_str("&lt;");
+                } else {
+                    html.push(value);
+                }
             }
             token::Token::ENTITY(value) => {
                 html.push_str(&format!("<span class=\"hl-en\">{}</span>", value.iter().collect::<String>()));
