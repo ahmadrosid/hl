@@ -98,19 +98,6 @@ pub fn generate_render_html(h: &Hash, name: String) -> String {
         write_token_comment(&mut html);
     }
 
-    for (k, _v) in get_entity(h) {
-        html.push_tabln(
-            3,
-            &format!("token::Token::{}(value) => {{", k.as_str().unwrap()),
-        );
-        html.push_tabln(
-            4,
-            "html.push_str(&format!(\"<span class=\\\"hl-en\\\">{}</span>\", \
-                value.iter().collect::<String>()));",
-        );
-        html.push_tabln(3, "}");
-    }
-
     for (k, _v) in get_var(h) {
         html.push_tabln(
             3,

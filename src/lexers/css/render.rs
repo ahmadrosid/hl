@@ -94,33 +94,6 @@ pub fn render_html(input: Vec<char>) -> String {
                     }
                 }
             }
-            token::Token::AFTER(value) => {
-                html.push_str(&format!("<span class=\"hl-en\">{}</span>", value.iter().collect::<String>()));
-            }
-            token::Token::BEFORE(value) => {
-                html.push_str(&format!("<span class=\"hl-en\">{}</span>", value.iter().collect::<String>()));
-            }
-            token::Token::HOVER(value) => {
-                html.push_str(&format!("<span class=\"hl-en\">{}</span>", value.iter().collect::<String>()));
-            }
-            token::Token::NOT(value) => {
-                html.push_str(&format!("<span class=\"hl-en\">{}</span>", value.iter().collect::<String>()));
-            }
-            token::Token::FOCUS(value) => {
-                html.push_str(&format!("<span class=\"hl-en\">{}</span>", value.iter().collect::<String>()));
-            }
-            token::Token::ACTIVE(value) => {
-                html.push_str(&format!("<span class=\"hl-en\">{}</span>", value.iter().collect::<String>()));
-            }
-            token::Token::SELECTION(value) => {
-                html.push_str(&format!("<span class=\"hl-en\">{}</span>", value.iter().collect::<String>()));
-            }
-            token::Token::PX(value) => {
-                html.push_str(&format!("<span class=\"hl-en\">{}</span>", value.iter().collect::<String>()));
-            }
-            token::Token::REM(value) => {
-                html.push_str(&format!("<span class=\"hl-en\">{}</span>", value.iter().collect::<String>()));
-            }
             token::Token::ENDL(_) => {
                 line = line + 1;
                 html.push_str("</td></tr>\n");

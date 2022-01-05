@@ -46,10 +46,6 @@ pub fn generate_token(h: &Hash) -> String {
         token.push_tabln(1, &format!("{}(Vec<char>),", k.as_str().unwrap()));
     }
 
-    for (k, _) in get_entity(h) {
-        token.push_tabln(1, &format!("{}(Vec<char>),", k.as_str().unwrap()));
-    }
-
     if slash_comment_enable(h)
         || slash_star_comment_enable(h)
         || xml_comment_enable(h)
@@ -81,14 +77,9 @@ pub fn generate_token(h: &Hash) -> String {
         }
     }
 
-    for (k, v) in get_entity(h) {
-        if v.as_str().unwrap() != "" {
-            token.push_tab(2, &format!("\"{}\" => ", v.as_str().unwrap()));
-            token.push_strln(&format!(
-                "Ok(Token::{}(identifier.to_vec())),",
-                k.as_str().unwrap()
-            ));
-        }
+    for (_, v) in get_entity(h) {
+        token.push_tab(2, &format!("\"{}\" => ", v.as_str().unwrap()));
+        token.push_strln("Ok(Token::ENTITY(identifier.to_vec())),");
     }
 
     for (_, v) in get_entity_tag(h) {
