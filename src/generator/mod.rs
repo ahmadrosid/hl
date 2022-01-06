@@ -66,6 +66,7 @@ pub fn parse(file_path: &str) -> String {
         "entity_tag",
         "xml_entity_tag",
         "prefix",
+        "triple_dash_comment",
         "hashtag_comment",
         "slash_comment",
         "slash_star_comment",

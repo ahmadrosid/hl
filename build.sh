@@ -11,6 +11,7 @@ array=(
   "rules/html.yml"
   "rules/java.yml"
   "rules/javascript.yml"
+  "rules/lua.yml"
   "rules/php.yml"
   "rules/rust.yml"
   "rules/typescript.yml"

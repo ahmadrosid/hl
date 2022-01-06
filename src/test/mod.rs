@@ -1,4 +1,4 @@
-use crate::lexers::{bash, c, cpp, css, go, html, java, javascript, php, rust, typescript, yaml};
+use crate::lexers::{bash, c, cpp, css, go, html, java, javascript, lua, php, rust, typescript, yaml};
 use std::fs;
 
 fn read_input(path: &str) -> Vec<char> {
@@ -72,6 +72,14 @@ fn test_javascript() {
     let input = read_input("src/test/testdata/input/javascript.js.stub");
     let expected = read_file("src/test/testdata/output/javascript.html.stub");
     let actual = javascript::render::render_html(input);
+    assert_eq!(expected, actual);
+}
+
+#[test]
+fn test_lua() {
+    let input = read_input("src/test/testdata/input/lua.lua.stub");
+    let expected = read_file("src/test/testdata/output/lua.html.stub");
+    let actual = lua::render::render_html(input);
     assert_eq!(expected, actual);
 }
 

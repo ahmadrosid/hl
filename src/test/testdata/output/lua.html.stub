@@ -1,0 +1,29 @@
+<table class="highlight-table">
+<tbody>
+<tr><td class="hl-num" data-line="1"></td><td>local sfind = string.find</td></tr>
+<tr><td class="hl-num" data-line="2"></td><td>local ssub  = string.sub</td></tr>
+<tr><td class="hl-num" data-line="3"></td><td></td></tr>
+<tr><td class="hl-num" data-line="4"></td><td>---@param text string</td></tr>
+<tr><td class="hl-num" data-line="5"></td><td>return function (text)</td></tr>
+<tr><td class="hl-num" data-line="6"></td><td>    local current = <span class="hl-c">1</span></td></tr>
+<tr><td class="hl-num" data-line="7"></td><td>    local lines = {}</td></tr>
+<tr><td class="hl-num" data-line="8"></td><td>    lines[<span class="hl-c">0</span>] = <span class="hl-c">1</span></td></tr>
+<tr><td class="hl-num" data-line="9"></td><td>    local i = <span class="hl-c">0</span></td></tr>
+<tr><td class="hl-num" data-line="10"></td><td>    while true do</td></tr>
+<tr><td class="hl-num" data-line="11"></td><td>        local pos = sfind(text,'[\r\n]', current)</td></tr>
+<tr><td class="hl-num" data-line="12"></td><td>        if not pos then</td></tr>
+<tr><td class="hl-num" data-line="13"></td><td>            break</td></tr>
+<tr><td class="hl-num" data-line="14"></td><td>        end</td></tr>
+<tr><td class="hl-num" data-line="15"></td><td>        i = i + <span class="hl-c">1</span></td></tr>
+<tr><td class="hl-num" data-line="16"></td><td>        if ssub(text, pos, pos + <span class="hl-c">1</span>) == '\r\n' then</td></tr>
+<tr><td class="hl-num" data-line="17"></td><td>            current = pos + <span class="hl-c">2</span></td></tr>
+<tr><td class="hl-num" data-line="18"></td><td>        else</td></tr>
+<tr><td class="hl-num" data-line="19"></td><td>            current = pos + <span class="hl-c">1</span></td></tr>
+<tr><td class="hl-num" data-line="20"></td><td>        end</td></tr>
+<tr><td class="hl-num" data-line="21"></td><td>        lines[i] = current</td></tr>
+<tr><td class="hl-num" data-line="22"></td><td>    end</td></tr>
+<tr><td class="hl-num" data-line="23"></td><td>    return lines</td></tr>
+<tr><td class="hl-num" data-line="24"></td><td>end</td></tr>
+<tr><td class="hl-num" data-line="25"></td><td></td></tr>
+</tbody>
+</table>
