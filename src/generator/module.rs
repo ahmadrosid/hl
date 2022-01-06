@@ -1,7 +1,4 @@
-use crate::generator::{
-    get_condition, get_entity_prefix, get_entity_suffix, hashtag_comment_enable,
-    slash_comment_enable, slash_star_comment_enable, string::StringBuilder, xml_comment_enable,
-};
+use crate::generator::{get_condition, get_entity_prefix, get_entity_suffix, hashtag_comment_enable, slash_comment_enable, slash_star_comment_enable, string::StringBuilder, triple_dash_comment_enable, xml_comment_enable};
 use yaml_rust::yaml::Hash;
 use yaml_rust::Yaml;
 
@@ -150,6 +147,10 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
 
     if xml_comment_enable(h) {
         module.push_str(&write_handle_xml_comment());
+    }
+
+    if triple_dash_comment_enable(h) {
+        module.push_str(&write_handle_triple_dash_comment());
     }
 
     if hashtag_comment_enable(h) {
@@ -617,6 +618,32 @@ fn write_handle_xml_comment() -> String {
     module.push_tabln(7, "break;");
     module.push_tabln(7, "}");
     module.push_tabln(6, "}");
+    module.push_tabln(5, "}");
+    module.push_tabln(5, "self.read_char();");
+    module.push_tabln(4, "}");
+    module.push_tabln(
+        4,
+        "comment.append(&mut self.input[last_position..self.position].to_vec());",
+    );
+    module.push_tabln(4, "return token::Token::COMMENT(comment);");
+    module.push_tabln(3, "}");
+    module.push_tabln(2, "}");
+    module.to_string()
+}
+
+fn write_handle_triple_dash_comment() -> String {
+    let mut module = StringBuilder::new();
+    module.push_tabln(2, "if self.ch == '-' {");
+    module.push_tabln(3, "let next_ch = self.input[self.position + 1];");
+    module.push_tabln(3, "if self.position + 2 < self.input.len() && next_ch == '-' && self.input[self.position+2] == '-' {");
+    module.push_tabln(4, "let mut comment = vec!['-','-','-'];");
+    module.push_tabln(4, "self.read_char();");
+    module.push_tabln(4, "self.read_char();");
+    module.push_tabln(4, "self.read_char();");
+    module.push_tabln(4, "let last_position = self.position;");
+    module.push_tabln(4, "while self.position < self.input.len() {");
+    module.push_tabln(5, "if self.ch == '\\n' {");
+    module.push_tabln(6, "break;");
     module.push_tabln(5, "}");
     module.push_tabln(5, "self.read_char();");
     module.push_tabln(4, "}");

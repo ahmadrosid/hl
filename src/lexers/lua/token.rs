@@ -10,6 +10,7 @@ pub enum Token {
     STRING(Vec<char>),
     CONSTANT(Vec<char>),
     KEYWORD(Vec<char>),
+    COMMENT(Vec<char>),
 }
 
 pub fn get_keyword_token(identifier: &Vec<char>) -> Result<Token, String> {

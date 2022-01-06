@@ -3,7 +3,7 @@
 <tr><td class="hl-num" data-line="1"></td><td><span class="hl-k">local</span> sfind = string.find</td></tr>
 <tr><td class="hl-num" data-line="2"></td><td><span class="hl-k">local</span> ssub  = string.sub</td></tr>
 <tr><td class="hl-num" data-line="3"></td><td></td></tr>
-<tr><td class="hl-num" data-line="4"></td><td>---@param text string</td></tr>
+<tr><td class="hl-num" data-line="4"></td><td><span class="hl-cmt">---@param text string</span></td></tr>
 <tr><td class="hl-num" data-line="5"></td><td><span class="hl-k">return</span> <span class="hl-k">function</span> (text)</td></tr>
 <tr><td class="hl-num" data-line="6"></td><td>    <span class="hl-k">local</span> current = <span class="hl-c">1</span></td></tr>
 <tr><td class="hl-num" data-line="7"></td><td>    <span class="hl-k">local</span> lines = {}</td></tr>
