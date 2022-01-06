@@ -9,18 +9,24 @@ entity_suffix:
   ENTITY_LBRACE: '('
 
 keyword:
+  and: and
   break: break
   do: do
-  if: if
-  then: then
   else: else
-  not: not
-  local: local
-  return: return
-  function: function
+  elseif: elseif
   end: end
+  for: for
+  function: function
+  if: if
+  in: in
+  local: local
+  not: not
   or: or
+  repeat: repeat
+  return: return
+  then: then
   while: while
+  until: until
 
 single_keyword:
   - '='
