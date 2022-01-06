@@ -40,7 +40,21 @@ pub fn render_html(input: Vec<char>) -> String {
                         s.push(ch);
                     }
                 }
-                html.push_str(&format!("<span class=\"hl-s\">{}</span>", s));
+                let split = s.split("\n");
+                let split_len = split.clone().collect::<Vec<&str>>().len();
+                let mut index = 0;
+                for val in split {
+                    html.push_str(&format!("<span class=\"hl-s\">{}</span>", val));
+                    index = index + 1;
+                    if index != split_len {
+                        line = line + 1;
+                        html.push_str("</td></tr>\n");
+                        html.push_str(&format!(
+                            "<tr><td class=\"hl-num\" data-line=\"{}\"></td><td>",
+                            line
+                        ));
+                    }
+                }
             }
             token::Token::ENTITY(value) => {
                 html.push_str(&format!("<span class=\"hl-en\">{}</span>", value.iter().collect::<String>()));

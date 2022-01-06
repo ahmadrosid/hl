@@ -69,11 +69,32 @@ impl Lexer {
         };
 
         let tok: token::Token;
+        if self.ch == '[' {
+            let next_ch = self.input[self.position + 1];
+            if self.position + 1 < self.input.len() 
+&& next_ch == '[' {
+                let mut str_value = vec!['[','['];
+                self.read_char();
+                self.read_char();
+                let last_position = self.position;
+                while self.position < self.input.len() {
+                    if self.ch == ']' {
+                        if self.input[self.position + 1] == ']' {
+                            self.read_char();
+                            self.read_char();
+                            break;
+                        }
+                    }
+                    self.read_char();
+                }
+                str_value.append(&mut self.input[last_position..self.position].to_vec());
+                return token::Token::STRING(str_value);
+            }
+        }
         if self.ch == '-' {
             let next_ch = self.input[self.position + 1];
-            if self.position + 2 < self.input.len() && next_ch == '-' && self.input[self.position+2] == '-' {
-                let mut comment = vec!['-','-','-'];
-                self.read_char();
+            if self.position + 1 < self.input.len() && next_ch == '-' {
+                let mut comment = vec!['-','-'];
                 self.read_char();
                 self.read_char();
                 let last_position = self.position;
@@ -93,6 +114,12 @@ impl Lexer {
             }
             '\0' => {
                 tok = token::Token::EOF;
+            }
+            '=' => {
+                tok = token::Token::KEYWORD(vec![self.ch]);
+            }
+            '#' => {
+                tok = token::Token::KEYWORD(vec![self.ch]);
             }
             _ => {
                 return if is_letter(self.ch) {

@@ -1,9 +1,13 @@
-triple_dash_comment: true
+double_dash_comment: true
+
 constant:
   true: "true"
   false: "false"
+  nil: "nil"
+
 entity_suffix:
   ENTITY_LBRACE: '('
+
 keyword:
   break: break
   do: do
@@ -15,7 +19,15 @@ keyword:
   return: return
   function: function
   end: end
+  or: or
   while: while
+
+single_keyword:
+  - '='
+  - '#'
+
 condition:
   ACCEPT_STRING_ONE_QUOTE: true
   ACCEPT_STRING_DOUBLE_QUOTE: true
+  ACCEPT_DOUBLE_BRACKET_STRING: true
+  RENDER_MULTI_LINE_STRING: true

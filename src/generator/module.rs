@@ -1,4 +1,8 @@
-use crate::generator::{get_condition, get_entity_prefix, get_entity_suffix, hashtag_comment_enable, slash_comment_enable, slash_star_comment_enable, string::StringBuilder, triple_dash_comment_enable, xml_comment_enable};
+use crate::generator::{
+    double_dash_comment_enable, get_condition, get_entity_prefix, get_entity_suffix,
+    hashtag_comment_enable, slash_comment_enable, slash_star_comment_enable, string::StringBuilder,
+    xml_comment_enable,
+};
 use yaml_rust::yaml::Hash;
 use yaml_rust::Yaml;
 
@@ -27,6 +31,7 @@ const SKIP_NON_CHAR_LETTER_PREFIX: &str = "SKIP_NON_CHAR_LETTER_PREFIX";
 const ACCEPT_STRING_EOF: &str = "ACCEPT_STRING_EOF";
 const MARK_ENTITY_TAG_SUFFIX: &str = "MARK_ENTITY_TAG_SUFFIX";
 const MARK_STRING_ENTITY_TAG: &str = "MARK_STRING_ENTITY_TAG";
+const ACCEPT_DOUBLE_BRACKET_STRING: &str = "ACCEPT_DOUBLE_BRACKET_STRING";
 
 fn write_struct_lexer(module: &mut StringBuilder) {
     module.push_strln("pub struct Lexer {");
@@ -149,8 +154,15 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
         module.push_str(&write_handle_xml_comment());
     }
 
-    if triple_dash_comment_enable(h) {
-        module.push_str(&write_handle_triple_dash_comment());
+    if get_condition(h)
+        .get(&Yaml::String(ACCEPT_DOUBLE_BRACKET_STRING.to_string()))
+        .is_some()
+    {
+        module.push_str(&write_handle_double_bracket_string());
+    }
+
+    if double_dash_comment_enable(h) {
+        module.push_str(&write_handle_double_dash_comment());
     }
 
     if hashtag_comment_enable(h) {
@@ -161,7 +173,10 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
         module.push_str(&write_handle_skip_non_char_letter(ch));
     }
 
-    if let Some(_) = get_condition(h).get(&Yaml::String(ACCEPT_STRING_EOF.to_string())) {
+    if get_condition(h)
+        .get(&Yaml::String(ACCEPT_STRING_EOF.to_string()))
+        .is_some()
+    {
         module.push_str(&write_handle_eof_string());
     }
 
@@ -554,7 +569,10 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
         module.push_tabln(6, "token::Token::STRING(str_value)");
     }
 
-    if get_condition(h).get(&Yaml::String(ACCEPT_STRING_DOUBLE_QUOTE.to_string())).is_some() {
+    if get_condition(h)
+        .get(&Yaml::String(ACCEPT_STRING_DOUBLE_QUOTE.to_string()))
+        .is_some()
+    {
         module.push_tabln(5, "} else if self.ch == '\"' {");
         module.push_tabln(6, "let str_value: Vec<char> = read_string(self, '\"');");
         if let Some(ch) = get_condition(h).get(&Yaml::String(MARK_STRING_ENTITY_TAG.to_string())) {
@@ -631,13 +649,12 @@ fn write_handle_xml_comment() -> String {
     module.to_string()
 }
 
-fn write_handle_triple_dash_comment() -> String {
+fn write_handle_double_dash_comment() -> String {
     let mut module = StringBuilder::new();
     module.push_tabln(2, "if self.ch == '-' {");
     module.push_tabln(3, "let next_ch = self.input[self.position + 1];");
-    module.push_tabln(3, "if self.position + 2 < self.input.len() && next_ch == '-' && self.input[self.position+2] == '-' {");
-    module.push_tabln(4, "let mut comment = vec!['-','-','-'];");
-    module.push_tabln(4, "self.read_char();");
+    module.push_tabln(3, "if self.position + 1 < self.input.len() && next_ch == '-' {");
+    module.push_tabln(4, "let mut comment = vec!['-','-'];");
     module.push_tabln(4, "self.read_char();");
     module.push_tabln(4, "self.read_char();");
     module.push_tabln(4, "let last_position = self.position;");
@@ -695,6 +712,37 @@ fn write_handle_eof_string() -> String {
         "comment.append(&mut self.input[last_position..self.position].to_vec());",
     );
     module.push_tabln(4, "return token::Token::STRING(comment);");
+    module.push_tabln(3, "}");
+    module.push_tabln(2, "}");
+    module.to_string()
+}
+
+fn write_handle_double_bracket_string() -> String {
+    let mut module = StringBuilder::new();
+    module.push_tabln(2, "if self.ch == '[' {");
+    module.push_tabln(3, "let next_ch = self.input[self.position + 1];");
+    module.push_tabln(3, "if self.position + 1 < self.input.len() ");
+    module.push_str("&& next_ch == '[' ");
+    module.push_strln("{");
+    module.push_tabln(4, r#"let mut str_value = vec!['[','['];"#);
+    module.push_tabln(4, "self.read_char();");
+    module.push_tabln(4, "self.read_char();");
+    module.push_tabln(4, "let last_position = self.position;");
+    module.push_tabln(4, "while self.position < self.input.len() {");
+    module.push_tabln(5, "if self.ch == ']' {");
+    module.push_tabln(6, "if self.input[self.position + 1] == ']' {");
+    module.push_tabln(7, "self.read_char();");
+    module.push_tabln(7, "self.read_char();");
+    module.push_tabln(7, "break;");
+    module.push_tabln(6, "}");
+    module.push_tabln(5, "}");
+    module.push_tabln(5, "self.read_char();");
+    module.push_tabln(4, "}");
+    module.push_tabln(
+        4,
+        "str_value.append(&mut self.input[last_position..self.position].to_vec());",
+    );
+    module.push_tabln(4, "return token::Token::STRING(str_value);");
     module.push_tabln(3, "}");
     module.push_tabln(2, "}");
     module.to_string()

@@ -18,6 +18,7 @@ pub fn get_keyword_token(identifier: &Vec<char>) -> Result<Token, String> {
     match &id[..] {
         "true" => Ok(Token::CONSTANT(identifier.to_vec())),
         "false" => Ok(Token::CONSTANT(identifier.to_vec())),
+        "nil" => Ok(Token::CONSTANT(identifier.to_vec())),
         "break" => Ok(Token::KEYWORD(identifier.to_vec())),
         "do" => Ok(Token::KEYWORD(identifier.to_vec())),
         "if" => Ok(Token::KEYWORD(identifier.to_vec())),
@@ -28,6 +29,7 @@ pub fn get_keyword_token(identifier: &Vec<char>) -> Result<Token, String> {
         "return" => Ok(Token::KEYWORD(identifier.to_vec())),
         "function" => Ok(Token::KEYWORD(identifier.to_vec())),
         "end" => Ok(Token::KEYWORD(identifier.to_vec())),
+        "or" => Ok(Token::KEYWORD(identifier.to_vec())),
         "while" => Ok(Token::KEYWORD(identifier.to_vec())),
         _ => Err(String::from("Not a keyword")),
     }

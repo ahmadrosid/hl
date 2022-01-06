@@ -1,6 +1,15 @@
 local sfind = string.find
 local ssub  = string.sub
 
+description = [[
+Weak ephemeral Diffie-Hellman parameter detection for SSL/TLS services.
+This script simulates SSL/TLS handshakes using ciphersuites that have ephemeral
+Diffie-Hellman as the key exchange algorithm.
+Diffie-Hellman MODP group parameters are extracted and analyzed for vulnerability
+to Logjam (CVE 2015-4000) and other weaknesses.
+Opportunistic STARTTLS sessions are established on services that support them.
+]]
+
 ---@param text string
 return function (text)
     local current = 1
@@ -21,4 +30,41 @@ return function (text)
         lines[i] = current
     end
     return lines
+end
+
+function server()
+  -- Send request.
+  local req = tls.client_hello(t)
+  status, err = sock:send(req)
+  if not status then
+    ctx_log(1, t.protocol, "Can't send: %s", err)
+    sock:close()
+    return nil
+  end
+
+  -- Read response.
+  local get_next_record = get_record_iter(sock)
+  local records = {}
+  while true do
+    local record
+    record, err = get_next_record()
+    if not record then
+      ctx_log(1, t.protocol, "Couldn't read a TLS record: %s", err)
+      sock:close()
+      return records
+    end
+    -- Collect message bodies into one record per type
+    records[record.type] = records[record.type] or record
+    local done = false
+    for j = 1, #record.body do -- no ipairs because we append below
+      local b = record.body[j]
+      done = ((record.type == "alert" and b.level == "fatal") or
+        (record.type == "handshake" and b.type == "server_hello_done"))
+      table.insert(records[record.type].body, b)
+    end
+    if done then
+      sock:close()
+      return records
+    end
+  end
 end

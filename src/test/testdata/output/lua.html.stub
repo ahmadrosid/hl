@@ -1,29 +1,74 @@
 <table class="highlight-table">
 <tbody>
-<tr><td class="hl-num" data-line="1"></td><td><span class="hl-k">local</span> sfind = string.find</td></tr>
-<tr><td class="hl-num" data-line="2"></td><td><span class="hl-k">local</span> ssub  = string.sub</td></tr>
+<tr><td class="hl-num" data-line="1"></td><td><span class="hl-k">local</span> sfind <span class="hl-k">=</span> string.find</td></tr>
+<tr><td class="hl-num" data-line="2"></td><td><span class="hl-k">local</span> ssub  <span class="hl-k">=</span> string.sub</td></tr>
 <tr><td class="hl-num" data-line="3"></td><td></td></tr>
-<tr><td class="hl-num" data-line="4"></td><td><span class="hl-cmt">---@param text string</span></td></tr>
-<tr><td class="hl-num" data-line="5"></td><td><span class="hl-k">return</span> <span class="hl-k">function</span> (text)</td></tr>
-<tr><td class="hl-num" data-line="6"></td><td>    <span class="hl-k">local</span> current = <span class="hl-c">1</span></td></tr>
-<tr><td class="hl-num" data-line="7"></td><td>    <span class="hl-k">local</span> lines = {}</td></tr>
-<tr><td class="hl-num" data-line="8"></td><td>    lines[<span class="hl-c">0</span>] = <span class="hl-c">1</span></td></tr>
-<tr><td class="hl-num" data-line="9"></td><td>    <span class="hl-k">local</span> i = <span class="hl-c">0</span></td></tr>
-<tr><td class="hl-num" data-line="10"></td><td>    <span class="hl-k">while</span> <span class="hl-c">true</span> <span class="hl-k">do</span></td></tr>
-<tr><td class="hl-num" data-line="11"></td><td>        <span class="hl-k">local</span> pos = <span class="hl-en">sfind</span>(text,<span class="hl-s">'[\r\n]'</span>, current)</td></tr>
-<tr><td class="hl-num" data-line="12"></td><td>        <span class="hl-k">if</span> <span class="hl-k">not</span> pos <span class="hl-k">then</span></td></tr>
-<tr><td class="hl-num" data-line="13"></td><td>            <span class="hl-k">break</span></td></tr>
-<tr><td class="hl-num" data-line="14"></td><td>        <span class="hl-k">end</span></td></tr>
-<tr><td class="hl-num" data-line="15"></td><td>        i = i + <span class="hl-c">1</span></td></tr>
-<tr><td class="hl-num" data-line="16"></td><td>        <span class="hl-k">if</span> <span class="hl-en">ssub</span>(text, pos, pos + <span class="hl-c">1</span>) == <span class="hl-s">'\r\n'</span> <span class="hl-k">then</span></td></tr>
-<tr><td class="hl-num" data-line="17"></td><td>            current = pos + <span class="hl-c">2</span></td></tr>
-<tr><td class="hl-num" data-line="18"></td><td>        <span class="hl-k">else</span></td></tr>
-<tr><td class="hl-num" data-line="19"></td><td>            current = pos + <span class="hl-c">1</span></td></tr>
-<tr><td class="hl-num" data-line="20"></td><td>        <span class="hl-k">end</span></td></tr>
-<tr><td class="hl-num" data-line="21"></td><td>        lines[i] = current</td></tr>
-<tr><td class="hl-num" data-line="22"></td><td>    <span class="hl-k">end</span></td></tr>
-<tr><td class="hl-num" data-line="23"></td><td>    <span class="hl-k">return</span> lines</td></tr>
-<tr><td class="hl-num" data-line="24"></td><td><span class="hl-k">end</span></td></tr>
-<tr><td class="hl-num" data-line="25"></td><td></td></tr>
+<tr><td class="hl-num" data-line="4"></td><td>description <span class="hl-k">=</span> <span class="hl-s">[[</span></td></tr>
+<tr><td class="hl-num" data-line="5"></td><td><span class="hl-s">Weak ephemeral Diffie-Hellman parameter detection for SSL/TLS services.</span></td></tr>
+<tr><td class="hl-num" data-line="6"></td><td><span class="hl-s">This script simulates SSL/TLS handshakes using ciphersuites that have ephemeral</span></td></tr>
+<tr><td class="hl-num" data-line="7"></td><td><span class="hl-s">Diffie-Hellman as the key exchange algorithm.</span></td></tr>
+<tr><td class="hl-num" data-line="8"></td><td><span class="hl-s">Diffie-Hellman MODP group parameters are extracted and analyzed for vulnerability</span></td></tr>
+<tr><td class="hl-num" data-line="9"></td><td><span class="hl-s">to Logjam (CVE 2015-4000) and other weaknesses.</span></td></tr>
+<tr><td class="hl-num" data-line="10"></td><td><span class="hl-s">Opportunistic STARTTLS sessions are established on services that support them.</span></td></tr>
+<tr><td class="hl-num" data-line="11"></td><td><span class="hl-s">]]</span></td></tr>
+<tr><td class="hl-num" data-line="12"></td><td></td></tr>
+<tr><td class="hl-num" data-line="13"></td><td><span class="hl-cmt">---@param text string</span></td></tr>
+<tr><td class="hl-num" data-line="14"></td><td><span class="hl-k">return</span> <span class="hl-k">function</span> (text)</td></tr>
+<tr><td class="hl-num" data-line="15"></td><td>    <span class="hl-k">local</span> current <span class="hl-k">=</span> <span class="hl-c">1</span></td></tr>
+<tr><td class="hl-num" data-line="16"></td><td>    <span class="hl-k">local</span> lines <span class="hl-k">=</span> {}</td></tr>
+<tr><td class="hl-num" data-line="17"></td><td>    lines[<span class="hl-c">0</span>] <span class="hl-k">=</span> <span class="hl-c">1</span></td></tr>
+<tr><td class="hl-num" data-line="18"></td><td>    <span class="hl-k">local</span> i <span class="hl-k">=</span> <span class="hl-c">0</span></td></tr>
+<tr><td class="hl-num" data-line="19"></td><td>    <span class="hl-k">while</span> <span class="hl-c">true</span> <span class="hl-k">do</span></td></tr>
+<tr><td class="hl-num" data-line="20"></td><td>        <span class="hl-k">local</span> pos <span class="hl-k">=</span> <span class="hl-en">sfind</span>(text,<span class="hl-s">'[\r\n]'</span>, current)</td></tr>
+<tr><td class="hl-num" data-line="21"></td><td>        <span class="hl-k">if</span> <span class="hl-k">not</span> pos <span class="hl-k">then</span></td></tr>
+<tr><td class="hl-num" data-line="22"></td><td>            <span class="hl-k">break</span></td></tr>
+<tr><td class="hl-num" data-line="23"></td><td>        <span class="hl-k">end</span></td></tr>
+<tr><td class="hl-num" data-line="24"></td><td>        i <span class="hl-k">=</span> i + <span class="hl-c">1</span></td></tr>
+<tr><td class="hl-num" data-line="25"></td><td>        <span class="hl-k">if</span> <span class="hl-en">ssub</span>(text, pos, pos + <span class="hl-c">1</span>) <span class="hl-k">=</span><span class="hl-k">=</span> <span class="hl-s">'\r\n'</span> <span class="hl-k">then</span></td></tr>
+<tr><td class="hl-num" data-line="26"></td><td>            current <span class="hl-k">=</span> pos + <span class="hl-c">2</span></td></tr>
+<tr><td class="hl-num" data-line="27"></td><td>        <span class="hl-k">else</span></td></tr>
+<tr><td class="hl-num" data-line="28"></td><td>            current <span class="hl-k">=</span> pos + <span class="hl-c">1</span></td></tr>
+<tr><td class="hl-num" data-line="29"></td><td>        <span class="hl-k">end</span></td></tr>
+<tr><td class="hl-num" data-line="30"></td><td>        lines[i] <span class="hl-k">=</span> current</td></tr>
+<tr><td class="hl-num" data-line="31"></td><td>    <span class="hl-k">end</span></td></tr>
+<tr><td class="hl-num" data-line="32"></td><td>    <span class="hl-k">return</span> lines</td></tr>
+<tr><td class="hl-num" data-line="33"></td><td><span class="hl-k">end</span></td></tr>
+<tr><td class="hl-num" data-line="34"></td><td></td></tr>
+<tr><td class="hl-num" data-line="35"></td><td><span class="hl-k">function</span> <span class="hl-en">server</span>()</td></tr>
+<tr><td class="hl-num" data-line="36"></td><td>  <span class="hl-cmt">-- Send request.</span></td></tr>
+<tr><td class="hl-num" data-line="37"></td><td>  <span class="hl-k">local</span> req <span class="hl-k">=</span> tls.<span class="hl-en">client_hello</span>(t)</td></tr>
+<tr><td class="hl-num" data-line="38"></td><td>  status, err <span class="hl-k">=</span> sock:<span class="hl-en">send</span>(req)</td></tr>
+<tr><td class="hl-num" data-line="39"></td><td>  <span class="hl-k">if</span> <span class="hl-k">not</span> status <span class="hl-k">then</span></td></tr>
+<tr><td class="hl-num" data-line="40"></td><td>    <span class="hl-en">ctx_log</span>(<span class="hl-c">1</span>, t.protocol, <span class="hl-s">"Can't send: %s"</span>, err)</td></tr>
+<tr><td class="hl-num" data-line="41"></td><td>    sock:<span class="hl-en">close</span>()</td></tr>
+<tr><td class="hl-num" data-line="42"></td><td>    <span class="hl-k">return</span> <span class="hl-c">nil</span></td></tr>
+<tr><td class="hl-num" data-line="43"></td><td>  <span class="hl-k">end</span></td></tr>
+<tr><td class="hl-num" data-line="44"></td><td></td></tr>
+<tr><td class="hl-num" data-line="45"></td><td>  <span class="hl-cmt">-- Read response.</span></td></tr>
+<tr><td class="hl-num" data-line="46"></td><td>  <span class="hl-k">local</span> get_next_record <span class="hl-k">=</span> <span class="hl-en">get_record_iter</span>(sock)</td></tr>
+<tr><td class="hl-num" data-line="47"></td><td>  <span class="hl-k">local</span> records <span class="hl-k">=</span> {}</td></tr>
+<tr><td class="hl-num" data-line="48"></td><td>  <span class="hl-k">while</span> <span class="hl-c">true</span> <span class="hl-k">do</span></td></tr>
+<tr><td class="hl-num" data-line="49"></td><td>    <span class="hl-k">local</span> record</td></tr>
+<tr><td class="hl-num" data-line="50"></td><td>    record, err <span class="hl-k">=</span> <span class="hl-en">get_next_record</span>()</td></tr>
+<tr><td class="hl-num" data-line="51"></td><td>    <span class="hl-k">if</span> <span class="hl-k">not</span> record <span class="hl-k">then</span></td></tr>
+<tr><td class="hl-num" data-line="52"></td><td>      <span class="hl-en">ctx_log</span>(<span class="hl-c">1</span>, t.protocol, <span class="hl-s">"Couldn't read a TLS record: %s"</span>, err)</td></tr>
+<tr><td class="hl-num" data-line="53"></td><td>      sock:<span class="hl-en">close</span>()</td></tr>
+<tr><td class="hl-num" data-line="54"></td><td>      <span class="hl-k">return</span> records</td></tr>
+<tr><td class="hl-num" data-line="55"></td><td>    <span class="hl-k">end</span></td></tr>
+<tr><td class="hl-num" data-line="56"></td><td>    <span class="hl-cmt">-- Collect message bodies into one record per type</span></td></tr>
+<tr><td class="hl-num" data-line="57"></td><td>    records[record.type] <span class="hl-k">=</span> records[record.type] <span class="hl-k">or</span> record</td></tr>
+<tr><td class="hl-num" data-line="58"></td><td>    <span class="hl-k">local</span> done <span class="hl-k">=</span> <span class="hl-c">false</span></td></tr>
+<tr><td class="hl-num" data-line="59"></td><td>    for j <span class="hl-k">=</span> <span class="hl-c">1</span>, <span class="hl-k">#</span>record.body <span class="hl-k">do</span> <span class="hl-cmt">-- no ipairs because we append below</span></td></tr>
+<tr><td class="hl-num" data-line="60"></td><td>      <span class="hl-k">local</span> b <span class="hl-k">=</span> record.body[j]</td></tr>
+<tr><td class="hl-num" data-line="61"></td><td>      done <span class="hl-k">=</span> ((record.type <span class="hl-k">=</span><span class="hl-k">=</span> <span class="hl-s">"alert"</span> and b.level <span class="hl-k">=</span><span class="hl-k">=</span> <span class="hl-s">"fatal"</span>) <span class="hl-k">or</span></td></tr>
+<tr><td class="hl-num" data-line="62"></td><td>        (record.type <span class="hl-k">=</span><span class="hl-k">=</span> <span class="hl-s">"handshake"</span> and b.type <span class="hl-k">=</span><span class="hl-k">=</span> <span class="hl-s">"server_hello_done"</span>))</td></tr>
+<tr><td class="hl-num" data-line="63"></td><td>      table.<span class="hl-en">insert</span>(records[record.type].body, b)</td></tr>
+<tr><td class="hl-num" data-line="64"></td><td>    <span class="hl-k">end</span></td></tr>
+<tr><td class="hl-num" data-line="65"></td><td>    <span class="hl-k">if</span> done <span class="hl-k">then</span></td></tr>
+<tr><td class="hl-num" data-line="66"></td><td>      sock:<span class="hl-en">close</span>()</td></tr>
+<tr><td class="hl-num" data-line="67"></td><td>      <span class="hl-k">return</span> records</td></tr>
+<tr><td class="hl-num" data-line="68"></td><td>    <span class="hl-k">end</span></td></tr>
+<tr><td class="hl-num" data-line="69"></td><td>  <span class="hl-k">end</span></td></tr>
+<tr><td class="hl-num" data-line="70"></td><td><span class="hl-k">end</span></td></tr>
 </tbody>
 </table>

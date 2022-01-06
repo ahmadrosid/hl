@@ -1,7 +1,7 @@
 use crate::generator::{
-    get_condition, get_constant, get_entity, get_entity_prefix, get_entity_suffix, get_entity_tag,
-    get_keyword, get_var, hashtag_comment_enable, slash_comment_enable, slash_star_comment_enable,
-    string::StringBuilder, triple_dash_comment_enable, xml_comment_enable,
+    double_dash_comment_enable, get_condition, get_constant, get_entity, get_entity_prefix,
+    get_entity_suffix, get_entity_tag, get_keyword, get_var, hashtag_comment_enable,
+    slash_comment_enable, slash_star_comment_enable, string::StringBuilder, xml_comment_enable,
 };
 use yaml_rust::yaml::Hash;
 use yaml_rust::Yaml;
@@ -90,7 +90,7 @@ pub fn generate_token(h: &Hash) -> String {
         || slash_star_comment_enable(h)
         || xml_comment_enable(h)
         || hashtag_comment_enable(h)
-        || triple_dash_comment_enable(h)
+        || double_dash_comment_enable(h)
     {
         token.push_tabln(1, "COMMENT(Vec<char>),");
     }
