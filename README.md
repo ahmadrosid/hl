@@ -62,6 +62,7 @@ See the result in browser [here](https://play.tailwindcss.com/xFlm0rN1wH).
 - [ ] Rust ( 🚧 In Progress )
 - [x] Java ( ✅ Done )
 - [ ] Javascript ( 🚧 In Progress )
+- [ ] Lua ( 🚧 In Progress )
 - [x] PHP ( ✅ Done )
 - [ ] Typescript ( 🚧 In Progress )
 - [x] Yaml ( ✅ Done )
