@@ -1,1 +1,21 @@
 triple_dash_comment: true
+constant:
+  true: "true"
+  false: "false"
+entity_suffix:
+  ENTITY_LBRACE: '('
+keyword:
+  break: break
+  do: do
+  if: if
+  then: then
+  else: else
+  not: not
+  local: local
+  return: return
+  function: function
+  end: end
+  while: while
+condition:
+  ACCEPT_STRING_ONE_QUOTE: true
+  ACCEPT_STRING_DOUBLE_QUOTE: true
