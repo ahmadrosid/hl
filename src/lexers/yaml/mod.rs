@@ -105,6 +105,9 @@ impl Lexer {
                         token::Token::STRING(str_value)
                     } else if self.ch == '"' {
                         let str_value: Vec<char> = read_string(self, '"');
+                            if self.ch == ':' {
+                                return token::Token::ENTITYTAG(str_value);
+                            }
                         token::Token::STRING(str_value)
                     } else {
                         token::Token::ILLEGAL

@@ -29,6 +29,7 @@ const ACCEPT_DASH_IDENTIFIER: &str = "ACCEPT_DASH_IDENTIFIER";
 const SKIP_NON_CHAR_LETTER_PREFIX: &str = "SKIP_NON_CHAR_LETTER_PREFIX";
 const ACCEPT_STRING_EOF: &str = "ACCEPT_STRING_EOF";
 const MARK_ENTITY_TAG_SUFFIX: &str = "MARK_ENTITY_TAG_SUFFIX";
+const MARK_STRING_ENTITY_TAG: &str = "MARK_STRING_ENTITY_TAG";
 
 fn write_struct_lexer(module: &mut StringBuilder) {
     module.push_strln("pub struct Lexer {");
@@ -552,9 +553,14 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
         module.push_tabln(6, "token::Token::STRING(str_value)");
     }
 
-    if let Some(_) = get_condition(h).get(&Yaml::String(ACCEPT_STRING_DOUBLE_QUOTE.to_string())) {
+    if get_condition(h).get(&Yaml::String(ACCEPT_STRING_DOUBLE_QUOTE.to_string())).is_some() {
         module.push_tabln(5, "} else if self.ch == '\"' {");
         module.push_tabln(6, "let str_value: Vec<char> = read_string(self, '\"');");
+        if let Some(ch) = get_condition(h).get(&Yaml::String(MARK_STRING_ENTITY_TAG.to_string())) {
+            module.push_tabln(7, &format!("if self.ch == '{}' {{", ch.as_str().unwrap()));
+            module.push_tabln(8, "return token::Token::ENTITYTAG(str_value);");
+            module.push_tabln(7, "}");
+        }
         module.push_tabln(6, "token::Token::STRING(str_value)");
     }
 

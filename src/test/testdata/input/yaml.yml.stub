@@ -25,3 +25,5 @@ condition:
   ACCEPT_SUFFIX_DIGIT: 'f'
   ACCEPT_ENTITY_TAG_SUFFIX: "is_digit(self.ch)"
   BREAK_ENTITY_TAG_SUFFIX: "!is_digit(self.ch) && !is_letter(self.ch)"
+
+"all love": true
