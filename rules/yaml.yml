@@ -6,6 +6,7 @@ constant:
   FALSE: 'false'
 
 condition:
+  ACCEPT_ESCAPED_STRING: true
   ACCEPT_STRING_ONE_QUOTE: true
   ACCEPT_STRING_DOUBLE_QUOTE: true
   MARK_STRING_ENTITY_TAG: ":"

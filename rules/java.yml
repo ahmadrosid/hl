@@ -78,6 +78,7 @@ single_keyword:
   - "?"
 
 condition:
+  ACCEPT_ESCAPED_STRING: true
   ACCEPT_STRING_ONE_QUOTE: true
   ACCEPT_STRING_DOUBLE_QUOTE: true
   ACCEPT_PREFIX_KEYWORD: '@'

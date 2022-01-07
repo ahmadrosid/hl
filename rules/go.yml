@@ -46,4 +46,5 @@ keyword:
   CONTINUE: 'continue'
 
 condition:
+  ACCEPT_ESCAPED_STRING: true
   ACCEPT_STRING_DOUBLE_QUOTE: true

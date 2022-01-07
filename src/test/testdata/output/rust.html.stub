@@ -24,7 +24,7 @@
 <tr><td class="hl-num" data-line="22"></td><td>        .<span class="hl-en">get_matches</span>();</td></tr>
 <tr><td class="hl-num" data-line="23"></td><td></td></tr>
 <tr><td class="hl-num" data-line="24"></td><td>    <span class="hl-k">let</span> <span class="hl-k">mut</span> lang = <span class="hl-s">""</span>;</td></tr>
-<tr><td class="hl-num" data-line="25"></td><td>    <span class="hl-k">let</span> <span class="hl-k">mut</span> input: <span class="hl-k">Vec</span><<span class="hl-k">char</span>> = <span class="hl-k">vec</span>!['<span class="hl-c">0</span>'];</td></tr>
+<tr><td class="hl-num" data-line="25"></td><td>    <span class="hl-k">let</span> <span class="hl-k">mut</span> input: <span class="hl-k">Vec</span><<span class="hl-k">char</span>> = <span class="hl-k">vec</span>![<span class="hl-s">'0'</span>];</td></tr>
 <tr><td class="hl-num" data-line="26"></td><td>    <span class="hl-k">match</span> matches.<span class="hl-en">subcommand</span>() {</td></tr>
 <tr><td class="hl-num" data-line="27"></td><td>        <span class="hl-en">Some</span>((<span class="hl-s">"generate"</span>, sub_matches)) => {</td></tr>
 <tr><td class="hl-num" data-line="28"></td><td>            <span class="hl-k">let</span> lexer_path = sub_matches.<span class="hl-en">value_of</span>(<span class="hl-s">"LEXER_PATH"</span>).<span class="hl-en">expect</span>(<span class="hl-s">"required"</span>);</td></tr>

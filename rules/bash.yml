@@ -49,6 +49,7 @@ entity_suffix:
   ENTITY_LBRACE: '('
 
 condition:
+  ACCEPT_ESCAPED_STRING: true
   ACCEPT_STRING_ONE_QUOTE: true
   ACCEPT_STRING_DOUBLE_QUOTE: true
   ACCEPT_STRING_EOF: true

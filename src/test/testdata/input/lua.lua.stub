@@ -10,6 +10,12 @@ to Logjam (CVE 2015-4000) and other weaknesses.
 Opportunistic STARTTLS sessions are established on services that support them.
 ]]
 
+local lib_path = reaper.GetExtState("Lokasenna_GUI", "lib_path_v2")
+  if not reaper.file_exists(lib_path .. "Core.lua") or not lib_path or lib_path == "" then
+    reaper.MB("Couldn't load the Lokasenna_GUI library.\n\n1) Please install \"Lokasenna's GUI library v2 for Lua\", 0)
+  return
+end
+
 ---@param text string
 return function (text)
     local current = 1

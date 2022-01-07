@@ -114,6 +114,7 @@ keyword:
   IMPORTANT: important
 
 condition:
+  ACCEPT_ESCAPED_STRING: true
   ACCEPT_STRING_DOUBLE_QUOTE: true
   ACCEPT_ENTITY_PREFIX: "start_position != 0 && self.input[start_position - 1] == '.'"
   ACCEPT_ENTITY_TAG_SUFFIX: "is_digit(self.ch)"
