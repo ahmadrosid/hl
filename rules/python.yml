@@ -13,19 +13,35 @@ entity_suffix:
 
 keyword:
   as: as
+  and: and
+  assert: assert
+  async: async
+  await: await
   break: break
   class: class
+  continue: continue
   else: else
+  elif: elif
   except: except
   def: def
+  del: del
+  finally: finally
   for: for
   from: from
+  global: global
   if: if
+  is: is
   import: import
+  lambda: lambda
+  nonlocal: nonlocal
   pass: pass
+  print: print
   raise: raise
   return: return
   try: try
+  with: with
+  while: while
+  yield: yield
 
 condition:
   ACCEPT_STRING_ONE_QUOTE: true
