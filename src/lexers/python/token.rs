@@ -21,6 +21,7 @@ pub fn get_keyword_token(identifier: &Vec<char>) -> Result<Token, String> {
         "None" => Ok(Token::CONSTANT(identifier.to_vec())),
         "not" => Ok(Token::CONSTANT(identifier.to_vec())),
         "in" => Ok(Token::CONSTANT(identifier.to_vec())),
+        "self" => Ok(Token::CONSTANT(identifier.to_vec())),
         "as" => Ok(Token::KEYWORD(identifier.to_vec())),
         "break" => Ok(Token::KEYWORD(identifier.to_vec())),
         "class" => Ok(Token::KEYWORD(identifier.to_vec())),

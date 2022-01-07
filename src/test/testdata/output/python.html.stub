@@ -24,50 +24,50 @@
 <tr><td class="hl-num" data-line="22"></td><td><span class="hl-s">    Base class for all renderers</span></td></tr>
 <tr><td class="hl-num" data-line="23"></td><td><span class="hl-s">    "</span><span class="hl-s">""</span></td></tr>
 <tr><td class="hl-num" data-line="24"></td><td></td></tr>
-<tr><td class="hl-num" data-line="25"></td><td>    <span class="hl-k">def</span> <span class="hl-en">activate</span>(self):</td></tr>
+<tr><td class="hl-num" data-line="25"></td><td>    <span class="hl-k">def</span> <span class="hl-en">activate</span>(<span class="hl-c">self</span>):</td></tr>
 <tr><td class="hl-num" data-line="26"></td><td>        <span class="hl-k">pass</span></td></tr>
 <tr><td class="hl-num" data-line="27"></td><td></td></tr>
-<tr><td class="hl-num" data-line="28"></td><td>    <span class="hl-k">def</span> <span class="hl-en">__repr__</span>(self):</td></tr>
+<tr><td class="hl-num" data-line="28"></td><td>    <span class="hl-k">def</span> <span class="hl-en">__repr__</span>(<span class="hl-c">self</span>):</td></tr>
 <tr><td class="hl-num" data-line="29"></td><td>        <span class="hl-k">try</span>:</td></tr>
-<tr><td class="hl-num" data-line="30"></td><td>            init_sig = inspect.<span class="hl-en">signature</span>(self.__init__)</td></tr>
+<tr><td class="hl-num" data-line="30"></td><td>            init_sig = inspect.<span class="hl-en">signature</span>(<span class="hl-c">self</span>.__init__)</td></tr>
 <tr><td class="hl-num" data-line="31"></td><td>            init_args = <span class="hl-en">list</span>(init_sig.parameters.<span class="hl-en">keys</span>())</td></tr>
 <tr><td class="hl-num" data-line="32"></td><td>        <span class="hl-k">except</span> AttributeError:</td></tr>
 <tr><td class="hl-num" data-line="33"></td><td>            <span class="hl-cmt"># Python 2.7</span></td></tr>
-<tr><td class="hl-num" data-line="34"></td><td><span class="hl-cmt"></span>            argspec = inspect.<span class="hl-en">getargspec</span>(self.__init__)</td></tr>
+<tr><td class="hl-num" data-line="34"></td><td><span class="hl-cmt"></span>            argspec = inspect.<span class="hl-en">getargspec</span>(<span class="hl-c">self</span>.__init__)</td></tr>
 <tr><td class="hl-num" data-line="35"></td><td>            init_args = [a <span class="hl-k">for</span> a <span class="hl-c">in</span> argspec.args <span class="hl-k">if</span> a != <span class="hl-s">"self"</span>]</td></tr>
 <tr><td class="hl-num" data-line="36"></td><td></td></tr>
 <tr><td class="hl-num" data-line="37"></td><td>        <span class="hl-k">return</span> <span class="hl-s">"{cls}({attrs})\n{doc}"</span>.<span class="hl-en">format</span>(</td></tr>
-<tr><td class="hl-num" data-line="38"></td><td>            cls=self.__class__.__name__,</td></tr>
-<tr><td class="hl-num" data-line="39"></td><td>            attrs=<span class="hl-s">", "</span>.<span class="hl-en">join</span>(<span class="hl-s">"{}={!r}"</span>.<span class="hl-en">format</span>(k, self.__dict__[k]) <span class="hl-k">for</span> k <span class="hl-c">in</span> init_args),</td></tr>
-<tr><td class="hl-num" data-line="40"></td><td>            doc=self.__doc__,</td></tr>
+<tr><td class="hl-num" data-line="38"></td><td>            cls=<span class="hl-c">self</span>.__class__.__name__,</td></tr>
+<tr><td class="hl-num" data-line="39"></td><td>            attrs=<span class="hl-s">", "</span>.<span class="hl-en">join</span>(<span class="hl-s">"{}={!r}"</span>.<span class="hl-en">format</span>(k, <span class="hl-c">self</span>.__dict__[k]) <span class="hl-k">for</span> k <span class="hl-c">in</span> init_args),</td></tr>
+<tr><td class="hl-num" data-line="40"></td><td>            doc=<span class="hl-c">self</span>.__doc__,</td></tr>
 <tr><td class="hl-num" data-line="41"></td><td>        )</td></tr>
 <tr><td class="hl-num" data-line="42"></td><td></td></tr>
-<tr><td class="hl-num" data-line="43"></td><td>    <span class="hl-k">def</span> <span class="hl-en">activate</span>(self):</td></tr>
-<tr><td class="hl-num" data-line="44"></td><td>        <span class="hl-k">if</span> self.global_init:</td></tr>
+<tr><td class="hl-num" data-line="43"></td><td>    <span class="hl-k">def</span> <span class="hl-en">activate</span>(<span class="hl-c">self</span>):</td></tr>
+<tr><td class="hl-num" data-line="44"></td><td>        <span class="hl-k">if</span> <span class="hl-c">self</span>.global_init:</td></tr>
 <tr><td class="hl-num" data-line="45"></td><td>            <span class="hl-k">if</span> <span class="hl-c">not</span> ipython_display:</td></tr>
 <tr><td class="hl-num" data-line="46"></td><td>                <span class="hl-k">raise</span> <span class="hl-en">ValueError</span>(</td></tr>
 <tr><td class="hl-num" data-line="47"></td><td>                    <span class="hl-s">"The {cls} class requires ipython but it is not installed"</span>.<span class="hl-en">format</span>(</td></tr>
-<tr><td class="hl-num" data-line="48"></td><td>                        cls=self.__class__.__name__</td></tr>
+<tr><td class="hl-num" data-line="48"></td><td>                        cls=<span class="hl-c">self</span>.__class__.__name__</td></tr>
 <tr><td class="hl-num" data-line="49"></td><td>                    )</td></tr>
 <tr><td class="hl-num" data-line="50"></td><td>                )</td></tr>
 <tr><td class="hl-num" data-line="51"></td><td></td></tr>
-<tr><td class="hl-num" data-line="52"></td><td>            <span class="hl-k">if</span> <span class="hl-c">not</span> self.requirejs:</td></tr>
+<tr><td class="hl-num" data-line="52"></td><td>            <span class="hl-k">if</span> <span class="hl-c">not</span> <span class="hl-c">self</span>.requirejs:</td></tr>
 <tr><td class="hl-num" data-line="53"></td><td>                <span class="hl-k">raise</span> <span class="hl-en">ValueError</span>(<span class="hl-s">"global_init is only supported with requirejs=True"</span>)</td></tr>
 <tr><td class="hl-num" data-line="54"></td><td></td></tr>
 <tr><td class="hl-num" data-line="55"></td><td>            bufferSize = <span class="hl-c">1024</span> * <span class="hl-c">1024</span></td></tr>
 <tr><td class="hl-num" data-line="56"></td><td>            <span class="hl-k">for</span> i <span class="hl-c">in</span> <span class="hl-en">range</span>(<span class="hl-c">0</span>, <span class="hl-en">len</span>(html), bufferSize):</td></tr>
-<tr><td class="hl-num" data-line="57"></td><td>                self.wfile.<span class="hl-en">write</span>(html[i : i + bufferSize])</td></tr>
+<tr><td class="hl-num" data-line="57"></td><td>                <span class="hl-c">self</span>.wfile.<span class="hl-en">write</span>(html[i : i + bufferSize])</td></tr>
 <tr><td class="hl-num" data-line="58"></td><td></td></tr>
-<tr><td class="hl-num" data-line="59"></td><td>    <span class="hl-k">def</span> <span class="hl-en">log_message</span>(self, format, *args):</td></tr>
+<tr><td class="hl-num" data-line="59"></td><td>    <span class="hl-k">def</span> <span class="hl-en">log_message</span>(<span class="hl-c">self</span>, format, *args):</td></tr>
 <tr><td class="hl-num" data-line="60"></td><td>        <span class="hl-cmt"># Silence stderr logging</span></td></tr>
 <tr><td class="hl-num" data-line="61"></td><td><span class="hl-cmt"></span>        <span class="hl-k">pass</span></td></tr>
 <tr><td class="hl-num" data-line="62"></td><td></td></tr>
-<tr><td class="hl-num" data-line="63"></td><td>    <span class="hl-k">def</span> <span class="hl-en">__hash__</span>(self):</td></tr>
+<tr><td class="hl-num" data-line="63"></td><td>    <span class="hl-k">def</span> <span class="hl-en">__hash__</span>(<span class="hl-c">self</span>):</td></tr>
 <tr><td class="hl-num" data-line="64"></td><td>        <span class="hl-cmt"># Constructor args fully define uniqueness</span></td></tr>
-<tr><td class="hl-num" data-line="65"></td><td><span class="hl-cmt"></span>        <span class="hl-k">return</span> <span class="hl-en">hash</span>(<span class="hl-en">repr</span>(self))</td></tr>
+<tr><td class="hl-num" data-line="65"></td><td><span class="hl-cmt"></span>        <span class="hl-k">return</span> <span class="hl-en">hash</span>(<span class="hl-en">repr</span>(<span class="hl-c">self</span>))</td></tr>
 <tr><td class="hl-num" data-line="66"></td><td></td></tr>
 <tr><td class="hl-num" data-line="67"></td><td><span class="hl-k">class</span> <span class="hl-en">SphinxGalleryOrcaRenderer</span>(ExternalRenderer):</td></tr>
-<tr><td class="hl-num" data-line="68"></td><td>    <span class="hl-k">def</span> <span class="hl-en">render</span>(self, fig_dict):</td></tr>
+<tr><td class="hl-num" data-line="68"></td><td>    <span class="hl-k">def</span> <span class="hl-en">render</span>(<span class="hl-c">self</span>, fig_dict):</td></tr>
 <tr><td class="hl-num" data-line="69"></td><td>        stack = inspect.<span class="hl-en">stack</span>()</td></tr>
 <tr><td class="hl-num" data-line="70"></td><td>        <span class="hl-cmt"># Name of script from which plot function was called is retrieved</span></td></tr>
 <tr><td class="hl-num" data-line="71"></td><td><span class="hl-cmt"></span>        <span class="hl-k">try</span>:</td></tr>

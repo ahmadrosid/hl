@@ -6,6 +6,7 @@ constant:
   None: "None"
   Not: "not"
   In: "in"
+  Self: "self"
 
 entity_suffix:
   ENTITY_LBRACE: '('
