@@ -86,6 +86,16 @@ impl Lexer {
                     let start_position = self.position;
                     #[allow(unused_mut)]
                     let mut identifier: Vec<char> = read_identifier(self);
+                    if is_digit(self.ch) {
+                        let position = self.position;
+                        while self.position < self.input.len() {
+                            if !is_digit(self.ch) && !is_letter(self.ch) {
+                                break;
+                            }
+                            self.read_char();
+                        }
+                        identifier.append(&mut self.input[position..self.position].to_vec());
+                    }
                     match token::get_keyword_token(&identifier) {
                             Ok(keyword_token) => {
                                 keyword_token

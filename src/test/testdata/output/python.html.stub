@@ -1,7 +1,7 @@
 <table class="highlight-table">
 <tbody>
 <tr><td class="hl-num" data-line="1"></td><td><span class="hl-k">from</span> __future__ <span class="hl-k">import</span> absolute_import</td></tr>
-<tr><td class="hl-num" data-line="2"></td><td><span class="hl-k">import</span> base<span class="hl-c">64</span></td></tr>
+<tr><td class="hl-num" data-line="2"></td><td><span class="hl-k">import</span> base64</td></tr>
 <tr><td class="hl-num" data-line="3"></td><td><span class="hl-k">import</span> inspect</td></tr>
 <tr><td class="hl-num" data-line="4"></td><td><span class="hl-k">import</span> os</td></tr>
 <tr><td class="hl-num" data-line="5"></td><td><span class="hl-k">from</span> os.path <span class="hl-k">import</span> isdir</td></tr>
