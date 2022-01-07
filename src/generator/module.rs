@@ -653,7 +653,10 @@ fn write_handle_double_dash_comment() -> String {
     let mut module = StringBuilder::new();
     module.push_tabln(2, "if self.ch == '-' {");
     module.push_tabln(3, "let next_ch = self.input[self.position + 1];");
-    module.push_tabln(3, "if self.position + 1 < self.input.len() && next_ch == '-' {");
+    module.push_tabln(
+        3,
+        "if self.position + 1 < self.input.len() && next_ch == '-' {",
+    );
     module.push_tabln(4, "let mut comment = vec!['-','-'];");
     module.push_tabln(4, "self.read_char();");
     module.push_tabln(4, "self.read_char();");
@@ -678,7 +681,7 @@ fn write_handle_eof_string() -> String {
     let mut module = StringBuilder::new();
     module.push_tabln(2, "if self.ch == '<' {");
     module.push_tabln(3, "let next_ch = self.input[self.position + 1];");
-    module.push_tabln(3, "if self.position + 5 < self.input.len() ");
+    module.push_tab(3, "if self.position + 5 < self.input.len() ");
     module.push_str("&& next_ch == '<' ");
     module.push_str("&& self.input[self.position + 2] == 'E' ");
     module.push_str("&& self.input[self.position + 3] == 'O' ");
@@ -721,9 +724,10 @@ fn write_handle_double_bracket_string() -> String {
     let mut module = StringBuilder::new();
     module.push_tabln(2, "if self.ch == '[' {");
     module.push_tabln(3, "let next_ch = self.input[self.position + 1];");
-    module.push_tabln(3, "if self.position + 1 < self.input.len() ");
-    module.push_str("&& next_ch == '[' ");
-    module.push_strln("{");
+    module.push_tabln(
+        3,
+        "if self.position + 1 < self.input.len() && next_ch == '[' {",
+    );
     module.push_tabln(4, r#"let mut str_value = vec!['[','['];"#);
     module.push_tabln(4, "self.read_char();");
     module.push_tabln(4, "self.read_char();");

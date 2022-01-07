@@ -71,8 +71,7 @@ impl Lexer {
         let tok: token::Token;
         if self.ch == '[' {
             let next_ch = self.input[self.position + 1];
-            if self.position + 1 < self.input.len() 
-&& next_ch == '[' {
+            if self.position + 1 < self.input.len() && next_ch == '[' {
                 let mut str_value = vec!['[','['];
                 self.read_char();
                 self.read_char();
