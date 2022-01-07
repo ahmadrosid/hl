@@ -1,0 +1,86 @@
+from __future__ import absolute_import
+import base64
+import inspect
+import os
+from os.path import isdir
+
+import six
+from plotly import utils, optional_imports
+from plotly.io import to_json, to_image, write_image, write_html
+
+ipython_display = optional_imports.get_module("IPython.display")
+IPython = optional_imports.get_module("IPython")
+
+try:
+    from http.server import BaseHTTPRequestHandler, HTTPServer
+except ImportError:
+    # Python 2.7
+    from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
+
+class BaseRenderer(object):
+    """
+    Base class for all renderers
+    """
+
+    def activate(self):
+        pass
+
+    def __repr__(self):
+        try:
+            init_sig = inspect.signature(self.__init__)
+            init_args = list(init_sig.parameters.keys())
+        except AttributeError:
+            # Python 2.7
+            argspec = inspect.getargspec(self.__init__)
+            init_args = [a for a in argspec.args if a != "self"]
+
+        return "{cls}({attrs})\n{doc}".format(
+            cls=self.__class__.__name__,
+            attrs=", ".join("{}={!r}".format(k, self.__dict__[k]) for k in init_args),
+            doc=self.__doc__,
+        )
+
+    def activate(self):
+        if self.global_init:
+            if not ipython_display:
+                raise ValueError(
+                    "The {cls} class requires ipython but it is not installed".format(
+                        cls=self.__class__.__name__
+                    )
+                )
+
+            if not self.requirejs:
+                raise ValueError("global_init is only supported with requirejs=True")
+
+            bufferSize = 1024 * 1024
+            for i in range(0, len(html), bufferSize):
+                self.wfile.write(html[i : i + bufferSize])
+
+    def log_message(self, format, *args):
+        # Silence stderr logging
+        pass
+
+    def __hash__(self):
+        # Constructor args fully define uniqueness
+        return hash(repr(self))
+
+class SphinxGalleryOrcaRenderer(ExternalRenderer):
+    def render(self, fig_dict):
+        stack = inspect.stack()
+        # Name of script from which plot function was called is retrieved
+        try:
+            filename = stack[3].filename  # let's hope this is robust...
+        except:  # python 2
+            filename = stack[3][1]
+        filename_root, _ = os.path.splitext(filename)
+        filename_html = filename_root + ".html"
+        filename_png = filename_root + ".png"
+        figure = return_figure_from_figure_or_data(fig_dict, True)
+        _ = write_html(fig_dict, file=filename_html, include_plotlyjs="cdn")
+        try:
+            write_image(figure, filename_png)
+        except (ValueError, ImportError):
+            raise ImportError(
+                "orca and psutil are required to use the `sphinx-gallery-orca` renderer. "
+                "See https://plotly.com/python/static-image-export/ for instructions on "
+            )

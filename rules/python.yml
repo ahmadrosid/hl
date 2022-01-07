@@ -1,0 +1,32 @@
+hashtag_comment: true
+
+constant:
+  True: "True"
+  False: "False"
+  None: "None"
+  Not: "not"
+  In: "in"
+
+entity_suffix:
+  ENTITY_LBRACE: '('
+
+keyword:
+  as: as
+  break: break
+  class: class
+  else: else
+  except: except
+  def: def
+  for: for
+  from: from
+  if: if
+  import: import
+  pass: pass
+  raise: raise
+  return: return
+  try: try
+
+condition:
+  ACCEPT_STRING_ONE_QUOTE: true
+  ACCEPT_STRING_DOUBLE_QUOTE: true
+  RENDER_MULTI_LINE_STRING: true

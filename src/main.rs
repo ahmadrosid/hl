@@ -2,7 +2,7 @@ use clap::{arg, App, AppSettings};
 mod generator;
 mod lexers;
 use crate::lexers::{
-    bash, c, cpp, css, go, html, java, javascript, lua, php, rust, typescript, yaml,
+    bash, c, cpp, css, go, html, java, javascript, lua, php, python, rust, typescript, yaml,
 };
 use std::fs::read;
 
@@ -81,6 +81,9 @@ fn main() {
         }
         "php" => {
             print!("{}", php::render::render_html(input));
+        }
+        "python" => {
+            print!("{}", python::render::render_html(input));
         }
         "ts" => {
             print!("{}", typescript::render::render_html(input));
