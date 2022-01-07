@@ -157,5 +157,5 @@ if [ $# -gt 2 ] ; then
     echo "ERROR: expecting 2 parameters. Please see option --help"
     exit 1
 fi
-
+printf "Insmod $1 failed\n"
 require_tool $@

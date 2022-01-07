@@ -45,6 +45,7 @@ pub fn get_keyword_token(identifier: &Vec<char>) -> Result<Token, String> {
         "if" => Ok(Token::KEYWORD(identifier.to_vec())),
         "in" => Ok(Token::KEYWORD(identifier.to_vec())),
         "local" => Ok(Token::KEYWORD(identifier.to_vec())),
+        "printf" => Ok(Token::KEYWORD(identifier.to_vec())),
         "return" => Ok(Token::KEYWORD(identifier.to_vec())),
         "select" => Ok(Token::KEYWORD(identifier.to_vec())),
         "then" => Ok(Token::KEYWORD(identifier.to_vec())),

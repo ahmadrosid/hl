@@ -31,6 +31,7 @@ keyword:
   if: if
   in: in
   local: local
+  printf: printf
   return: return
   select: select
   then: then
