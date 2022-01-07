@@ -75,7 +75,7 @@
 <tr><td class="hl-num" data-line="73"></td><td><span class="hl-cmt"></span>        <span class="hl-k">except</span>:  <span class="hl-cmt"># python 2</span></td></tr>
 <tr><td class="hl-num" data-line="74"></td><td><span class="hl-cmt"></span>            filename = stack[<span class="hl-c">3</span>][<span class="hl-c">1</span>]</td></tr>
 <tr><td class="hl-num" data-line="75"></td><td>        filename_root, _ = os.path.<span class="hl-en">splitext</span>(filename)</td></tr>
-<tr><td class="hl-num" data-line="76"></td><td>        filename_html = filename_root + <span class="hl-s">".html"</span></td></tr>
+<tr><td class="hl-num" data-line="76"></td><td>        filename_html = filename_root + <span class="hl-s">"\".html"</span></td></tr>
 <tr><td class="hl-num" data-line="77"></td><td>        filename_png = filename_root + <span class="hl-s">".png"</span></td></tr>
 <tr><td class="hl-num" data-line="78"></td><td>        figure = <span class="hl-en">return_figure_from_figure_or_data</span>(fig_dict, <span class="hl-c">True</span>)</td></tr>
 <tr><td class="hl-num" data-line="79"></td><td>        _ = <span class="hl-en">write_html</span>(fig_dict, file=filename_html, include_plotlyjs=<span class="hl-s">"cdn"</span>)</td></tr>

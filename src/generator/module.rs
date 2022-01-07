@@ -32,6 +32,7 @@ const ACCEPT_STRING_EOF: &str = "ACCEPT_STRING_EOF";
 const MARK_ENTITY_TAG_SUFFIX: &str = "MARK_ENTITY_TAG_SUFFIX";
 const MARK_STRING_ENTITY_TAG: &str = "MARK_STRING_ENTITY_TAG";
 const ACCEPT_DOUBLE_BRACKET_STRING: &str = "ACCEPT_DOUBLE_BRACKET_STRING";
+const ACCEPT_ESCAPED_STRING: &str = "ACCEPT_ESCAPED_STRING";
 
 fn write_struct_lexer(module: &mut StringBuilder) {
     module.push_strln("pub struct Lexer {");
@@ -94,6 +95,11 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
     module.push_tabln(3, "let position = l.position;");
     module.push_tabln(3, "l.read_char();");
     module.push_tabln(3, "while l.position < l.input.len() && l.ch != ch {");
+    if get_condition(h).get(&Yaml::String(ACCEPT_ESCAPED_STRING.to_string())).is_some() {
+        module.push_tabln(4, "if l.ch == '\\\\' {");
+        module.push_tabln(5, "l.read_char()");
+        module.push_tabln(4, "}");
+    }
     module.push_tabln(4, "l.read_char();");
     module.push_tabln(3, "}");
     module.push_tabln(3, "l.read_char();");
