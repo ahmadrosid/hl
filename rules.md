@@ -56,11 +56,12 @@ match token {
 Now let's see how the lexer generated for each comment register.
 
 #### 1. slash_comment
-This register will parse one line, the lexer will stop when is reach the new line char `\n`.
+This register will parse one line when the string start with `//`, the lexer will stop when is reach the new line char `\n`.
 ```java
 // This is comment.
 This is not valid comment.
 ```
+
 The lexer generated will be like this.
 ```rust
 let read_slash_comment = |l: &mut Lexer| -> Vec<char> {
@@ -98,11 +99,54 @@ This is comment.
 This is not valid comment.
 ```
 
+The generated code will be like this.
+
+```rust
+let read_slash_star_comment = |l: &mut Lexer| -> Vec<char> {
+    let position = l.position;
+    while l.position < l.input.len() {
+        if l.position == l.input.len() {
+            break;
+        }
+        if l.input[l.position + 1] == '*' {
+            if l.input[l.position + 2] == '/' {
+                l.read_char();
+                l.read_char();
+                break;
+            }
+        }
+        l.read_char();
+    }
+    l.input[position..l.position + 1].to_vec()
+};
+
+
+let tok: token::Token;
+match self.ch {
+    ...
+    '/' => {
+        if self.input[self.position + 1] == '*' {
+            tok = token::Token::COMMENT(read_slash_star_comment(self));
+        }
+        self.read_char();
+        return tok;
+    }
+```
+
 #### 3. hashtag_comment
-This register will parse one line string, the lexer will stop when is reach the string `*/`.
+This register will parse one line string when the starting char is `#`, the lexer will stop when is reach the string `*/`.
 ```bash
 # This is comment.
 This is not valid comment.
+```
+
+For this register it will be more simple
+```rust
+let tok: token::Token;
+if self.ch == '#' {
+    let comment: Vec<char> = read_string(self, '\n');
+    return token::Token::COMMENT(comment);
+}
 ```
 
 #### 4. double_dash_comment
@@ -110,4 +154,25 @@ This register will parse one line string, the lexer will stop when is reach the 
 ```lua
 -- This is comment.
 This is not valid comment.
+```
+
+And this is the generated code for it.
+```rust
+if self.ch == '-' {
+    let next_ch = self.input[self.position + 1];
+    if self.position + 1 < self.input.len() && next_ch == '-' {
+        let mut comment = vec!['-','-'];
+        self.read_char();
+        self.read_char();
+        let last_position = self.position;
+        while self.position < self.input.len() {
+            if self.ch == '\n' {
+                break;
+            }
+            self.read_char();
+        }
+        comment.append(&mut self.input[last_position..self.position].to_vec());
+        return token::Token::COMMENT(comment);
+    }
+}
 ```
