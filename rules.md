@@ -20,13 +20,73 @@ Here's the documentation of the rules available for our lexers.
 ```
 
 ### Comment
-Programming language has several implementation of comment, to generate lexer for detecting the comment we have several register for that.
+Programming language has several implementation of comment, to generate lexer for detecting the comment we have several register for that. The rendering for comment will be handled with this generated code.
+```rust
+match token {
+    ...
+    token::Token::COMMENT(value) => {
+        let mut lines = String::new();
+        for ch in value {
+            if ch == '<' {
+                lines.push_str("&lt;");
+            } else if ch == '>' {
+                lines.push_str("&gt;");
+            } else {
+                lines.push(ch);
+            }
+        }
+        let split = lines.split("\n");
+        let split_len = split.clone().collect::<Vec<&str>>().len();
+        let mut index = 0;
+        for val in split {
+            html.push_str(&format!("<span class=\"hl-cmt\">{}</span>", val));
+            index = index + 1;
+            if index != split_len {
+                line = line + 1;
+                html.push_str("</td></tr>\n");
+                html.push_str(&format!(
+                    "<tr><td class=\"hl-num\" data-line=\"{}\"></td><td>",
+                    line
+                ));
+            }
+        }
+    }
+```
+
+Now let's see how the lexer generated for each comment register.
 
 #### 1. slash_comment
 This register will parse one line, the lexer will stop when is reach the new line char `\n`.
 ```java
 // This is comment.
 This is not valid comment.
+```
+The lexer generated will be like this.
+```rust
+let read_slash_comment = |l: &mut Lexer| -> Vec<char> {
+    let position = l.position;
+    while l.position < l.input.len() {
+        l.read_char();
+        if l.input[l.position + 1] == '\n' {
+            break;
+        }
+    }
+    l.input[position..l.position + 1].to_vec()
+};
+
+...
+
+let tok: token::Token;
+match self.ch {
+    ...
+    '/' => {
+        if self.input[self.position + 1] == '/' {
+            tok = token::Token::COMMENT(read_slash_comment(self));
+        } else {
+            tok = token::Token::CH(self.ch);
+        }
+    }
+
 ```
 
 #### 2. slash_star_comment
