@@ -55,6 +55,19 @@ get_bool!(xml_comment_enable, xml_comment);
 get_bool!(hashtag_comment_enable, hashtag_comment);
 get_bool!(double_dash_comment_enable, double_dash_comment);
 
+pub trait ConditionExt {
+    fn get_some_condition(&self, key: &str) -> Option<Yaml>;
+}
+
+impl ConditionExt for Hash {
+    fn get_some_condition(&self, key: &str) -> Option<Yaml> {
+        return match get_condition(self).get(&Yaml::String(key.to_string())) {
+            None => None,
+            Some(val) => Some(val.clone())
+        }
+    }
+}
+
 pub fn parse(file_path: &str) -> String {
     let content = read_file(file_path);
     let docs = YamlLoader::load_from_str(&content).unwrap();
