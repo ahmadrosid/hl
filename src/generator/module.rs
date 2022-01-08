@@ -569,24 +569,23 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
             module.push_tabln(7, "return token::Token::ENTITYTAG(str_value);");
             module.push_tabln(6, "} else if is_white_space(self.ch) {");
             module.push_tabln(
-                6,
-                r#"
-                let start_position = self.position;
-                let mut position = self.position;
-                let mut ch = self.input[position];
-                while position < self.input.len() && is_white_space(ch) {
-                    position = position + 1;
-                    ch = self.input[position];
-                }
-                if ch == ':' {
-                    println!("Goes here! {:?}", self.input[start_position..position+1].to_vec());
-                    self.position = position;
-                    self.read_position = position + 1;
-                    let mut value = str_value;
-                    value.append(&mut self.input[start_position..self.read_position].to_vec());
-                    return token::Token::ENTITYTAG(value)
-                }
-            }"#,
+                7,
+                r#"let start_position = self.position;
+                            let mut position = self.position;
+                            let mut ch = self.input[position];
+                            while position < self.input.len() && is_white_space(ch) {
+                                position = position + 1;
+                                ch = self.input[position];
+                            }
+                            if ch == ':' {
+                                println!("Goes here! {:?}", self.input[start_position..position+1].to_vec());
+                                self.position = position;
+                                self.read_position = position + 1;
+                                let mut value = str_value;
+                                value.append(&mut self.input[start_position..self.read_position].to_vec());
+                                return token::Token::ENTITYTAG(value)
+                            }
+                        }"#,
             )
         }
         module.push_tabln(6, "token::Token::STRING(str_value)");
