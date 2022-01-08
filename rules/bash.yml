@@ -47,7 +47,7 @@ single_keyword:
   - "|"
 
 entity_suffix:
-  ENTITY_LBRACE: '('
+  ENTITY_LBRACE: "("
 
 condition:
   ACCEPT_ESCAPED_STRING: true
@@ -56,5 +56,5 @@ condition:
   ACCEPT_STRING_EOF: true
   RENDER_MULTI_LINE_STRING: true
   SKIP_NON_CHAR_LETTER_PREFIX: "$"
-  ACCEPT_PREFIX_KEYWORD: '-'
-  ACCEPT_PREFIX_KEYWORD_NEXT: '-'
+  ACCEPT_PREFIX_KEYWORD: "-"
+  ACCEPT_PREFIX_KEYWORD_NEXT: "-"

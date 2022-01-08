@@ -2,56 +2,56 @@ slash_comment: true
 slash_star_comment: true
 
 constant:
-  THIS: 'this'
-  TRUE: 'true'
-  FALSE: 'false'
-  SUPER: 'super'
-  NULL: 'null'
-  CSTRING: 'String'
+  THIS: "this"
+  TRUE: "true"
+  FALSE: "false"
+  SUPER: "super"
+  NULL: "null"
+  CSTRING: "String"
 
 entity_suffix:
-  ENTITY_LBRACE: '('
+  ENTITY_LBRACE: "("
 
 keyword:
-  ABSTRACT: 'abstract'
-  BYTE: 'byte'
-  BREAK: 'break'
-  CLASS: 'class'
-  DOUBLE: 'double'
-  FLOAT: 'float'
-  FINAL: 'final'
-  INT: 'int'
-  INTERFACE: 'interface'
-  CHAR: 'char'
-  CASE: 'case'
-  DEFAULT: 'default'
-  SHORT: 'short'
-  FOR: 'for'
-  PACKAGE: 'package'
-  IMPORT: 'import'
-  PUBLIC: 'public'
-  PRIVATE: 'private'
-  PROTECTED: 'protected'
-  EXTENDS: 'extends'
-  STATIC: 'static'
-  VOID: 'void'
-  RETURN: 'return'
-  NEW: 'new'
-  IF: 'if'
-  ELSE: 'else'
-  ENUM: 'enum'
-  INSTANCEOF: 'instanceof'
-  BOOLEAN: 'boolean'
-  ASSERT: 'assert'
-  CONTINUE: 'continue'
-  LIST: 'List'
-  ARRAYLIST: 'ArrayList'
-  MAP: 'Map'
+  ABSTRACT: "abstract"
+  BYTE: "byte"
+  BREAK: "break"
+  CLASS: "class"
+  DOUBLE: "double"
+  FLOAT: "float"
+  FINAL: "final"
+  INT: "int"
+  INTERFACE: "interface"
+  CHAR: "char"
+  CASE: "case"
+  DEFAULT: "default"
+  SHORT: "short"
+  FOR: "for"
+  PACKAGE: "package"
+  IMPORT: "import"
+  PUBLIC: "public"
+  PRIVATE: "private"
+  PROTECTED: "protected"
+  EXTENDS: "extends"
+  STATIC: "static"
+  VOID: "void"
+  RETURN: "return"
+  NEW: "new"
+  IF: "if"
+  ELSE: "else"
+  ENUM: "enum"
+  INSTANCEOF: "instanceof"
+  BOOLEAN: "boolean"
+  ASSERT: "assert"
+  CONTINUE: "continue"
+  LIST: "List"
+  ARRAYLIST: "ArrayList"
+  MAP: "Map"
   NATIVE: "native"
-  HASHMAP: 'HashMap'
-  LINKEDHASHSET: 'LinkedHashSet'
-  SWITCH: 'switch'
-  SYNCHRONIZED: 'synchronized'
+  HASHMAP: "HashMap"
+  LINKEDHASHSET: "LinkedHashSet"
+  SWITCH: "switch"
+  SYNCHRONIZED: "synchronized"
   TRY: "try"
   THROW: "throw"
   CATCH: "catch"
@@ -81,7 +81,7 @@ condition:
   ACCEPT_ESCAPED_STRING: true
   ACCEPT_STRING_ONE_QUOTE: true
   ACCEPT_STRING_DOUBLE_QUOTE: true
-  ACCEPT_PREFIX_KEYWORD: '@'
-  ACCEPT_SUFFIX_DIGIT: 'f'
+  ACCEPT_PREFIX_KEYWORD: "@"
+  ACCEPT_SUFFIX_DIGIT: "f"
   ACCEPT_ENTITY_TAG_SUFFIX: "is_digit(self.ch)"
   BREAK_ENTITY_TAG_SUFFIX: "!is_digit(self.ch) && !is_letter(self.ch)"

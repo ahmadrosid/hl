@@ -2,22 +2,22 @@ slash_comment: true
 slash_star_comment: true
 
 constant:
-  ROOT: 'root'
-  RGB: 'rgb'
-  RGBA: 'rgba'
-  CLAC: 'calc'
-  MEDIA: 'media'
+  ROOT: "root"
+  RGB: "rgb"
+  RGBA: "rgba"
+  CLAC: "calc"
+  MEDIA: "media"
 
 entity:
-  AFTER: 'after'
-  BEFORE: 'before'
-  HOVER: 'hover'
-  NOT: 'not'
-  FOCUS: 'focus'
-  ACTIVE: 'active'
-  SELECTION: 'selection'
-  PX: 'px'
-  REM: 'rem'
+  AFTER: "after"
+  BEFORE: "before"
+  HOVER: "hover"
+  NOT: "not"
+  FOCUS: "focus"
+  ACTIVE: "active"
+  SELECTION: "selection"
+  PX: "px"
+  REM: "rem"
 
 entity_tag:
   HTML: html
@@ -108,7 +108,7 @@ entity_tag:
   INPUT: input
 
 entity_suffix:
-  ENTITY_LBRACE: '('
+  ENTITY_LBRACE: "("
 
 keyword:
   IMPORTANT: important
