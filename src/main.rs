@@ -1,9 +1,7 @@
 use clap::{arg, App, AppSettings};
 mod generator;
 mod lexers;
-use crate::lexers::{
-    bash, c, cpp, css, go, html, java, javascript, lua, php, python, rust, typescript, yaml,
-};
+use crate::lexers::{bash, c, cpp, css, go, html, java, javascript, json, lua, php, python, rust, typescript, yaml};
 use std::fs::read;
 
 fn main() {
@@ -75,6 +73,9 @@ fn main() {
         }
         "js" | "javascript" => {
             print!("{}", javascript::render::render_html(input));
+        }
+        "json" => {
+            print!("{}", json::render::render_html(input));
         }
         "lua" => {
             print!("{}", lua::render::render_html(input));

@@ -16,6 +16,7 @@ const ACCEPT_STRING_ONE_QUOTE: &str = "ACCEPT_STRING_ONE_QUOTE";
 const ACCEPT_STRING_DOUBLE_QUOTE: &str = "ACCEPT_STRING_DOUBLE_QUOTE";
 const ACCEPT_STRING_EOF: &str = "ACCEPT_STRING_EOF";
 const MARK_ENTITY_TAG_SUFFIX: &str = "MARK_ENTITY_TAG_SUFFIX";
+const MARK_STRING_ENTITY_TAG: &str = "MARK_STRING_ENTITY_TAG";
 
 pub fn generate_render_html(h: &Hash, name: String) -> String {
     let mut html = StringBuilder::new();
@@ -86,7 +87,10 @@ pub fn generate_render_html(h: &Hash, name: String) -> String {
         write_token_keyword(&mut html);
     }
 
-    if get_entity_tag(h).len() >= 1 || h.get_some_condition(MARK_ENTITY_TAG_SUFFIX).is_some() {
+    if get_entity_tag(h).len() >= 1
+        || h.get_some_condition(MARK_ENTITY_TAG_SUFFIX).is_some()
+        || h.get_some_condition(MARK_STRING_ENTITY_TAG).is_some()
+    {
         write_token_entity_tag(&mut html);
     }
 

@@ -1,0 +1,13 @@
+{
+    "name" : "Ahmad Rosid",
+    "job": "Software Developer\'s",
+    "score": [1, 2, 3, 4],
+    "open": true,
+    "close": false,
+    "age": 27,
+    "history": [
+        {
+            "date":"10-10-2025"
+        }
+    ]
+}

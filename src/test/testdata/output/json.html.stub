@@ -1,0 +1,17 @@
+<table class="highlight-table">
+<tbody>
+<tr><td class="hl-num" data-line="1"></td><td>{</td></tr>
+<tr><td class="hl-num" data-line="2"></td><td>    <span class="hl-ent">"name" :</span>  <span class="hl-s">"Ahmad Rosid"</span>,</td></tr>
+<tr><td class="hl-num" data-line="3"></td><td>    <span class="hl-ent">"job"</span>: <span class="hl-s">"Software Developer\'s"</span>,</td></tr>
+<tr><td class="hl-num" data-line="4"></td><td>    <span class="hl-ent">"score"</span>: [<span class="hl-c">1</span>, <span class="hl-c">2</span>, <span class="hl-c">3</span>, <span class="hl-c">4</span>],</td></tr>
+<tr><td class="hl-num" data-line="5"></td><td>    <span class="hl-ent">"open"</span>: <span class="hl-c">true</span>,</td></tr>
+<tr><td class="hl-num" data-line="6"></td><td>    <span class="hl-ent">"close"</span>: <span class="hl-c">false</span>,</td></tr>
+<tr><td class="hl-num" data-line="7"></td><td>    <span class="hl-ent">"age"</span>: <span class="hl-c">27</span>,</td></tr>
+<tr><td class="hl-num" data-line="8"></td><td>    <span class="hl-ent">"history"</span>: [</td></tr>
+<tr><td class="hl-num" data-line="9"></td><td>        {</td></tr>
+<tr><td class="hl-num" data-line="10"></td><td>            <span class="hl-ent">"date"</span>:<span class="hl-s">"10-10-2025"</span></td></tr>
+<tr><td class="hl-num" data-line="11"></td><td>        }</td></tr>
+<tr><td class="hl-num" data-line="12"></td><td>    ]</td></tr>
+<tr><td class="hl-num" data-line="13"></td><td>}</td></tr>
+</tbody>
+</table>

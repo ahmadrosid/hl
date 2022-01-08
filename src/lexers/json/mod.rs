@@ -76,11 +76,6 @@ impl Lexer {
         };
 
         let tok: token::Token;
-        if self.ch == '#' {
-            let comment: Vec<char> = read_string(self, '\n');
-            return token::Token::COMMENT(comment);
-        }
-
         match self.ch {
             '\n' => {
                 tok = token::Token::ENDL(self.ch);
@@ -99,18 +94,12 @@ impl Lexer {
                                 keyword_token
                             },
                             Err(_err) => {
-                                if self.ch == ':' {
-                                    return token::Token::ENTITYTAG(identifier)
-                                }
                                 token::Token::IDENT(identifier)
                             }
                         }
                     } else if is_digit(self.ch) {
                         let identifier: Vec<char> = read_number(self);
                         token::Token::INT(identifier)
-                    } else if self.ch == '\'' {
-                        let str_value: Vec<char> = read_string(self, '\'');
-                        token::Token::STRING(str_value)
                     } else if self.ch == '"' {
                         let str_value: Vec<char> = read_string(self, '"');
                         if self.ch == ':' {

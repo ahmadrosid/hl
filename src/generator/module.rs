@@ -58,6 +58,12 @@ fn write_helper_is_digit(module: &mut StringBuilder) {
     module.push_strln("}\n");
 }
 
+fn write_helper_is_white_space(module: &mut StringBuilder) {
+    module.push_strln("fn is_white_space(ch: char) -> bool {");
+    module.push_tabln(1, r#"ch == ' ' || ch == '\t' || ch == '\t' || ch == '\n'"#);
+    module.push_strln("}\n");
+}
+
 fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
     module.push_strln("impl Lexer {");
     module.push_tabln(1, "pub fn new(input: Vec<char>) -> Self {");
@@ -559,9 +565,29 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
         module.push_tabln(5, "} else if self.ch == '\"' {");
         module.push_tabln(6, "let str_value: Vec<char> = read_string(self, '\"');");
         if let Some(ch) = h.get_some_condition(MARK_STRING_ENTITY_TAG) {
-            module.push_tabln(7, &format!("if self.ch == '{}' {{", ch.as_str().unwrap()));
-            module.push_tabln(8, "return token::Token::ENTITYTAG(str_value);");
-            module.push_tabln(7, "}");
+            module.push_tabln(6, &format!("if self.ch == '{}' {{", ch.as_str().unwrap()));
+            module.push_tabln(7, "return token::Token::ENTITYTAG(str_value);");
+            module.push_tabln(6, "} else if is_white_space(self.ch) {");
+            module.push_tabln(
+                6,
+                r#"
+                let start_position = self.position;
+                let mut position = self.position;
+                let mut ch = self.input[position];
+                while position < self.input.len() && is_white_space(ch) {
+                    position = position + 1;
+                    ch = self.input[position];
+                }
+                if ch == ':' {
+                    println!("Goes here! {:?}", self.input[start_position..position+1].to_vec());
+                    self.position = position;
+                    self.read_position = position + 1;
+                    let mut value = str_value;
+                    value.append(&mut self.input[start_position..self.read_position].to_vec());
+                    return token::Token::ENTITYTAG(value)
+                }
+            }"#,
+            )
         }
         module.push_tabln(6, "token::Token::STRING(str_value)");
     }
@@ -758,6 +784,11 @@ pub fn generate_module(h: &Hash) -> String {
     write_struct_lexer(&mut module);
     write_helper_is_letter(&mut module);
     write_helper_is_digit(&mut module);
+    if h.get_some_condition(MARK_STRING_ENTITY_TAG).is_some()
+        || h.get_some_condition(MARK_ENTITY_TAG_SUFFIX).is_some()
+    {
+        write_helper_is_white_space(&mut module);
+    }
     write_impl_lexer(&mut module, h);
 
     module.to_string()
