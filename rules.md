@@ -20,14 +20,14 @@ Here's the documentation of the rules available for our lexers.
 ### Comment
 Programming language has several implementation of comment, to generate lexer for detecting the comment we have several register for that.
 
-#### slash_comment
+#### 1. slash_comment
 This register will parse the line as comment like this, the lexer will stop when is reach the new line char `\n`.
 ```java
 // This is comment.
 This is not valid comment.
 ```
 
-#### slash_star_comment
+#### 2. slash_star_comment
 This register will parse the multi line string, the lexer will stop when is reach the new line char `*/`.
 ```java
 /*
