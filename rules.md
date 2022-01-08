@@ -134,7 +134,7 @@ match self.ch {
 ```
 
 #### 3. hashtag_comment
-This register will parse one line string when the starting char is `#`, the lexer will stop when is reach the string `*/`.
+This register will parse one line string when the starting char is `#`, the lexer will stop when is reach the new line `\n`.
 ```bash
 # This is comment.
 This is not valid comment.
