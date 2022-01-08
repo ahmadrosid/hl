@@ -1,11 +1,9 @@
 use crate::generator::{
-    double_dash_comment_enable, get_condition, get_constant, get_entity, get_entity_prefix,
-    get_entity_suffix, get_entity_tag, get_keyword, get_var, hashtag_comment_enable,
-    slash_comment_enable, slash_star_comment_enable, string::StringBuilder,
-    xml_comment_enable,
+    double_dash_comment_enable, get_constant, get_entity, get_entity_prefix, get_entity_suffix,
+    get_entity_tag, get_keyword, get_var, hashtag_comment_enable, slash_comment_enable,
+    slash_star_comment_enable, string::StringBuilder, xml_comment_enable, ConditionExt,
 };
 use yaml_rust::yaml::Hash;
-use yaml_rust::yaml::Yaml;
 
 const ACCEPT_PREFIX_VAR: &str = "ACCEPT_PREFIX_VAR";
 const ENCODE_LT: &str = "ENCODE_LT";
@@ -56,30 +54,18 @@ pub fn generate_render_html(h: &Hash, name: String) -> String {
     write_token_integer(&mut html);
     write_token_identifier(&mut html);
 
-    if get_condition(h)
-        .get(&Yaml::String(ACCEPT_STRING_ONE_QUOTE.to_string()))
-        .is_some()
-        || get_condition(h)
-            .get(&Yaml::String(ACCEPT_STRING_DOUBLE_QUOTE.to_string()))
-            .is_some()
-        || get_condition(h)
-            .get(&Yaml::String(ACCEPT_STRING_EOF.to_string()))
-            .is_some()
+    if h.get_some_condition(ACCEPT_STRING_ONE_QUOTE).is_some()
+        || h.get_some_condition(ACCEPT_STRING_DOUBLE_QUOTE).is_some()
+        || h.get_some_condition(ACCEPT_STRING_EOF).is_some()
     {
         write_token_string(&mut html, h);
     }
 
     if slash_star_comment_enable(h)
         || slash_comment_enable(h)
-        || get_condition(h)
-            .get(&Yaml::String(ACCEPT_ENTITY_TAG_PREFIX.to_string()))
-            .is_some()
-        || get_condition(h)
-            .get(&Yaml::String(ENTITY_TAG_PREFIX_CHAR.to_string()))
-            .is_some()
-        || get_condition(h)
-            .get(&Yaml::String(ACCEPT_PREFIX_KEYWORD.to_string()))
-            .is_some()
+        || h.get_some_condition(ACCEPT_ENTITY_TAG_PREFIX).is_some()
+        || h.get_some_condition(ENTITY_TAG_PREFIX_CHAR).is_some()
+        || h.get_some_condition(ACCEPT_PREFIX_KEYWORD).is_some()
     {
         write_token_ch(&mut html, h);
     }
@@ -100,18 +86,11 @@ pub fn generate_render_html(h: &Hash, name: String) -> String {
         write_token_keyword(&mut html);
     }
 
-    if get_entity_tag(h).len() >= 1
-        || get_condition(h)
-            .get(&Yaml::String(MARK_ENTITY_TAG_SUFFIX.to_string()))
-            .is_some()
-    {
+    if get_entity_tag(h).len() >= 1 || h.get_some_condition(MARK_ENTITY_TAG_SUFFIX).is_some() {
         write_token_entity_tag(&mut html);
     }
 
-    if get_condition(h)
-        .get(&Yaml::String(ACCEPT_PREFIX_VAR.to_string()))
-        .is_some()
-    {
+    if h.get_some_condition(ACCEPT_PREFIX_VAR).is_some() {
         write_token_var_identifier(&mut html);
     }
 
@@ -150,8 +129,8 @@ pub fn generate_render_html(h: &Hash, name: String) -> String {
     html.push_tabln(3, "}");
 
     html.push_tabln(3, "_ => {");
-    if let Some(prefix) = get_condition(h).get(&Yaml::String(ENCODE_LT.to_string())) {
-        if let Some(encode) = get_condition(h).get(&Yaml::String(ENCODE_LT_STRING.to_string())) {
+    if let Some(prefix) = h.get_some_condition(ENCODE_LT) {
+        if let Some(encode) = h.get_some_condition(ENCODE_LT_STRING) {
             html.push_tabln(4, &format!("if l.ch == '{}' {{", prefix.as_str().unwrap()));
             html.push_tabln(
                 5,
@@ -262,8 +241,8 @@ fn write_token_constant(html: &mut StringBuilder) {
 
 fn write_token_ch(html: &mut StringBuilder, h: &Hash) {
     html.push_tabln(3, "token::Token::CH(value) => {");
-    if let Some(prefix) = get_condition(h).get(&Yaml::String(ENCODE_LT.to_string())) {
-        if let Some(encode) = get_condition(h).get(&Yaml::String(ENCODE_LT_STRING.to_string())) {
+    if let Some(prefix) = h.get_some_condition(ENCODE_LT) {
+        if let Some(encode) = h.get_some_condition(ENCODE_LT_STRING) {
             html.push_tabln(4, &format!("if value == '{}' {{", prefix.as_str().unwrap()));
             html.push_tabln(
                 5,
@@ -293,7 +272,7 @@ fn write_token_string(html: &mut StringBuilder, h: &Hash) {
     html.push_tabln(6, "s.push(ch);");
     html.push_tabln(5, "}");
     html.push_tabln(4, "}");
-    if let Some(_) = get_condition(h).get(&Yaml::String(ACCEPT_STRING_EOF.to_string())) {
+    if h.get_some_condition(ACCEPT_STRING_EOF).is_some() {
         html.push_tabln(
             4,
             r#"s = s.replace("&lt;&lt;","<span class=\"hl-k\">&lt;&lt;</span>");"#,
@@ -303,7 +282,7 @@ fn write_token_string(html: &mut StringBuilder, h: &Hash) {
             r#"s = s.replace("EOF","<span class=\"hl-k\">EOF</span>");"#,
         );
     }
-    if let Some(_) = get_condition(h).get(&Yaml::String(RENDER_MULTI_LINE_STRING.to_string())) {
+    if h.get_some_condition(RENDER_MULTI_LINE_STRING).is_some() {
         html.push_tabln(4, r#"let split = s.split("\n");"#);
         html.push_tabln(
             4,
