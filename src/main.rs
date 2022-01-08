@@ -73,7 +73,7 @@ fn main() {
         "java" => {
             print!("{}", java::render::render_html(input));
         }
-        "js" => {
+        "js" | "javascript" => {
             print!("{}", javascript::render::render_html(input));
         }
         "lua" => {
@@ -85,7 +85,7 @@ fn main() {
         "python" => {
             print!("{}", python::render::render_html(input));
         }
-        "ts" => {
+        "ts" | "typescript" => {
             print!("{}", typescript::render::render_html(input));
         }
         "yaml" | "yml" => {

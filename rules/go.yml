@@ -2,48 +2,48 @@ slash_comment: true
 slash_star_comment: true
 
 constant:
-  ARGS: 'Args'
-  TRUE: 'true'
-  FALSE: 'false'
-  NIL: 'nil'
-  BOOL: 'bool'
-  CINT: 'int'
-  UINT: 'uint'
-  BYTE: 'byte'
-  CSTRING: 'string'
-  ERROR: 'error'
-  RUNE: 'rune'
-  UINTPTR: 'uintptr'
-  FLOAT: 'float'
+  ARGS: "Args"
+  TRUE: "true"
+  FALSE: "false"
+  NIL: "nil"
+  BOOL: "bool"
+  CINT: "int"
+  UINT: "uint"
+  BYTE: "byte"
+  CSTRING: "string"
+  ERROR: "error"
+  RUNE: "rune"
+  UINTPTR: "uintptr"
+  FLOAT: "float"
 
 entity_prefix:
-  ENTITY_DOT: '.'
+  ENTITY_DOT: "."
 
 entity_suffix:
-  ENTITY_LBRACE: '('
-  ENTITY_COLON: ':'
+  ENTITY_LBRACE: "("
+  ENTITY_COLON: ":"
 
 keyword:
-  PACKAGE: 'package'
-  FUNC: 'func'
-  FOR: 'for'
-  VAR: 'var'
-  IF: 'if'
-  ELSE: 'else'
-  MATCH: 'switch'
-  CASE: 'case'
-  RETURN: 'return'
-  DEFAULT: 'default'
-  IMPORT: 'import'
-  TYPE: 'type'
-  INTERFACE: 'interface'
-  CHAN: 'chan'
-  STRUCT: 'struct'
-  CONST: 'const'
-  RANGE: 'range'
-  BREAK: 'break'
-  MAP: 'map'
-  CONTINUE: 'continue'
+  PACKAGE: "package"
+  FUNC: "func"
+  FOR: "for"
+  VAR: "var"
+  IF: "if"
+  ELSE: "else"
+  MATCH: "switch"
+  CASE: "case"
+  RETURN: "return"
+  DEFAULT: "default"
+  IMPORT: "import"
+  TYPE: "type"
+  INTERFACE: "interface"
+  CHAN: "chan"
+  STRUCT: "struct"
+  CONST: "const"
+  RANGE: "range"
+  BREAK: "break"
+  MAP: "map"
+  CONTINUE: "continue"
 
 condition:
   ACCEPT_ESCAPED_STRING: true
