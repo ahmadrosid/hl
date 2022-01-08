@@ -578,7 +578,6 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
                                 ch = self.input[position];
                             }
                             if ch == ':' {
-                                println!("Goes here! {:?}", self.input[start_position..position+1].to_vec());
                                 self.position = position;
                                 self.read_position = position + 1;
                                 let mut value = str_value;

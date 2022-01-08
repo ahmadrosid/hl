@@ -124,7 +124,6 @@ impl Lexer {
                                 ch = self.input[position];
                             }
                             if ch == ':' {
-                                println!("Goes here! {:?}", self.input[start_position..position+1].to_vec());
                                 self.position = position;
                                 self.read_position = position + 1;
                                 let mut value = str_value;
