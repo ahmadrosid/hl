@@ -1,10 +1,5 @@
-use crate::generator::{
-    double_dash_comment_enable, get_condition, get_constant, get_entity, get_entity_prefix,
-    get_entity_suffix, get_entity_tag, get_keyword, get_var, hashtag_comment_enable,
-    slash_comment_enable, slash_star_comment_enable, string::StringBuilder, xml_comment_enable,
-};
+use crate::generator::{ConditionExt, double_dash_comment_enable, get_constant, get_entity, get_entity_prefix, get_entity_suffix, get_entity_tag, get_keyword, get_var, hashtag_comment_enable, slash_comment_enable, slash_star_comment_enable, string::StringBuilder, xml_comment_enable};
 use yaml_rust::yaml::Hash;
-use yaml_rust::Yaml;
 
 const ACCEPT_PREFIX_VAR: &str = "ACCEPT_PREFIX_VAR";
 const ACCEPT_ENTITY_TAG_PREFIX: &str = "ACCEPT_ENTITY_TAG_PREFIX";
@@ -26,17 +21,11 @@ pub fn generate_token(h: &Hash) -> String {
     token.push_tabln(1, "INT(Vec<char>),");
     token.push_tabln(1, "IDENT(Vec<char>),");
 
-    if slash_comment_enable(h)
-        || slash_star_comment_enable(h)
-        || get_condition(h)
-            .get(&Yaml::String(ACCEPT_ENTITY_TAG_PREFIX.to_string()))
-            .is_some()
-        || get_condition(h)
-            .get(&Yaml::String(ENTITY_TAG_PREFIX_CHAR.to_string()))
-            .is_some()
-        || get_condition(h)
-            .get(&Yaml::String(ACCEPT_PREFIX_KEYWORD.to_string()))
-            .is_some()
+    if slash_star_comment_enable(h)
+        || slash_comment_enable(h)
+        || h.get_some_condition(ACCEPT_ENTITY_TAG_PREFIX).is_some()
+        || h.get_some_condition(ENTITY_TAG_PREFIX_CHAR).is_some()
+        || h.get_some_condition(ACCEPT_PREFIX_KEYWORD).is_some()
     {
         token.push_tabln(1, "CH(char),");
     }
@@ -49,15 +38,9 @@ pub fn generate_token(h: &Hash) -> String {
         token.push_tabln(1, "ENTITY(Vec<char>),");
     }
 
-    if get_condition(h)
-        .get(&Yaml::String(ACCEPT_STRING_ONE_QUOTE.to_string()))
-        .is_some()
-        || get_condition(h)
-            .get(&Yaml::String(ACCEPT_STRING_DOUBLE_QUOTE.to_string()))
-            .is_some()
-        || get_condition(h)
-            .get(&Yaml::String(ACCEPT_STRING_EOF.to_string()))
-            .is_some()
+    if h.get_some_condition(ACCEPT_STRING_ONE_QUOTE).is_some()
+        || h.get_some_condition(ACCEPT_STRING_DOUBLE_QUOTE).is_some()
+        || h.get_some_condition(ACCEPT_STRING_EOF).is_some()
     {
         token.push_tabln(1, "STRING(Vec<char>),");
     }
@@ -71,14 +54,12 @@ pub fn generate_token(h: &Hash) -> String {
     }
 
     if get_entity_tag(h).len() >= 1
-        || get_condition(h)
-            .get(&Yaml::String(MARK_ENTITY_TAG_SUFFIX.to_string()))
-            .is_some()
+        || h.get_some_condition(MARK_ENTITY_TAG_SUFFIX).is_some()
     {
         token.push_tabln(1, "ENTITYTAG(Vec<char>),");
     }
 
-    if let Some(_) = get_condition(h).get(&Yaml::String(ACCEPT_PREFIX_VAR.to_string())) {
+    if h.get_some_condition(ACCEPT_PREFIX_VAR).is_some() {
         token.push_tabln(1, "VAR(Vec<char>),");
     }
 
