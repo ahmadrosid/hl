@@ -76,6 +76,7 @@ impl Lexer {
             let comment: Vec<char> = read_string(self, '\n');
             return token::Token::COMMENT(comment);
         }
+
         match self.ch {
             '\n' => {
                 tok = token::Token::ENDL(self.ch);

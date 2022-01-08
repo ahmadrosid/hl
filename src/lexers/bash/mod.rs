@@ -76,14 +76,21 @@ impl Lexer {
             let comment: Vec<char> = read_string(self, '\n');
             return token::Token::COMMENT(comment);
         }
+
         if self.ch == '$' {
-        let start_position = self.position;
-        while self.position < self.input.len() 
-&& !is_letter(self.ch) && !is_digit(self.ch) && self.ch != '\n' && self.ch != ' ' {        self.read_char();
+            let start_position = self.position;
+            while self.position < self.input.len()
+                && !is_letter(self.ch)
+                && !is_digit(self.ch)
+                && self.ch != '\n'
+                && self.ch != ' '
+            {
+                self.read_char();
+            }
+            let identifier = self.input[start_position..self.position].to_vec();
+            return token::Token::IDENT(identifier)
         }
-        let identifier = self.input[start_position..self.position].to_vec();
-        return token::Token::IDENT(identifier)
-        }
+
         if self.ch == '<' {
             let next_ch = self.input[self.position + 1];
             if self.position + 5 < self.input.len() && next_ch == '<' && self.input[self.position + 2] == 'E' && self.input[self.position + 3] == 'O' && self.input[self.position + 4] == 'F' {

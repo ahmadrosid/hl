@@ -581,20 +581,21 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
 fn write_handle_skip_non_char_letter(ch: Yaml) -> String {
     let mut module = StringBuilder::new();
     module.push_tabln(2, &format!("if self.ch == '{}' {{", ch.as_str().unwrap()));
-    module.push_tabln(2, "let start_position = self.position;");
-    module.push_tabln(2, "while self.position < self.input.len() ");
-    module.push_str("&& !is_letter(self.ch) ");
-    module.push_str("&& !is_digit(self.ch) ");
-    module.push_str("&& self.ch != '\\n' ");
-    module.push_str("&& self.ch != ' ' {");
-    module.push_tabln(2, "self.read_char();");
-    module.push_tabln(2, "}");
+    module.push_tabln(3, "let start_position = self.position;");
+    module.push_tabln(3, "while self.position < self.input.len()");
+    module.push_tabln(4, "&& !is_letter(self.ch)");
+    module.push_tabln(4, "&& !is_digit(self.ch)");
+    module.push_tabln(4, "&& self.ch != '\\n'");
+    module.push_tabln(4, "&& self.ch != ' '");
+    module.push_tabln(3, "{");
+    module.push_tabln(4, "self.read_char();");
+    module.push_tabln(3, "}");
     module.push_tabln(
-        2,
+        3,
         "let identifier = self.input[start_position..self.position].to_vec();",
     );
-    module.push_tabln(2, "return token::Token::IDENT(identifier)");
-    module.push_tabln(2, "}");
+    module.push_tabln(3, "return token::Token::IDENT(identifier)");
+    module.push_tabln(2, "}\n");
     module.to_string()
 }
 
@@ -602,7 +603,11 @@ fn write_handle_xml_comment() -> String {
     let mut module = StringBuilder::new();
     module.push_tabln(2, "if self.ch == '<' {");
     module.push_tabln(3, "let next_ch = self.input[self.position + 1];");
-    module.push_tabln(3, "if self.position + 3 < self.input.len() && next_ch == '!' && self.input[self.position+2] == '-' && self.input[self.position+3] == '-' {");
+    module.push_tabln(3, "if self.position + 3 < self.input.len()");
+    module.push_tabln(4, "&& next_ch == '!'");
+    module.push_tabln(4, "&& self.input[self.position + 2] == '-'");
+    module.push_tabln(4, "&& self.input[self.position + 3] == '-'");
+    module.push_tabln(3, "{");
     module.push_tabln(4, "let mut comment = vec!['&','l','t',';','!','-','-'];");
     module.push_tabln(4, "self.read_char();");
     module.push_tabln(4, "self.read_char();");
@@ -628,7 +633,7 @@ fn write_handle_xml_comment() -> String {
     );
     module.push_tabln(4, "return token::Token::COMMENT(comment);");
     module.push_tabln(3, "}");
-    module.push_tabln(2, "}");
+    module.push_tabln(2, "}\n");
     module.to_string()
 }
 
@@ -740,7 +745,7 @@ fn write_handle_hashtag_comment() -> String {
     module.push_tabln(2, "if self.ch == '#' {");
     module.push_tabln(3, "let comment: Vec<char> = read_string(self, '\\n');");
     module.push_tabln(3, "return token::Token::COMMENT(comment);");
-    module.push_tabln(2, "}");
+    module.push_tabln(2, "}\n");
     module.to_string()
 }
 

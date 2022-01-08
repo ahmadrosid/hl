@@ -71,7 +71,11 @@ impl Lexer {
         let tok: token::Token;
         if self.ch == '<' {
             let next_ch = self.input[self.position + 1];
-            if self.position + 3 < self.input.len() && next_ch == '!' && self.input[self.position+2] == '-' && self.input[self.position+3] == '-' {
+            if self.position + 3 < self.input.len()
+                && next_ch == '!'
+                && self.input[self.position + 2] == '-'
+                && self.input[self.position + 3] == '-'
+            {
                 let mut comment = vec!['&','l','t',';','!','-','-'];
                 self.read_char();
                 self.read_char();
@@ -95,6 +99,7 @@ impl Lexer {
                 return token::Token::COMMENT(comment);
             }
         }
+
         match self.ch {
             '\n' => {
                 tok = token::Token::ENDL(self.ch);
