@@ -39,8 +39,15 @@ This is not valid comment.
 ```
 
 #### 3. hashtag_comment
-This register will parse one line string, the lexer will stop when is reach the new line char `*/`.
+This register will parse one line string, the lexer will stop when is reach the string `*/`.
 ```bash
 # This is comment.
+This is not valid comment.
+```
+
+#### 4. double_dash_comment
+This register will parse one line string, the lexer will stop when is reach the new line char `\n`.
+```lua
+-- This is comment.
 This is not valid comment.
 ```
