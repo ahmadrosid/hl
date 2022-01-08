@@ -568,24 +568,21 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
             module.push_tabln(6, &format!("if self.ch == '{}' {{", ch.as_str().unwrap()));
             module.push_tabln(7, "return token::Token::ENTITYTAG(str_value);");
             module.push_tabln(6, "} else if is_white_space(self.ch) {");
-            module.push_tabln(
-                7,
-                r#"let start_position = self.position;
-                            let mut position = self.position;
-                            let mut ch = self.input[position];
-                            while position < self.input.len() && is_white_space(ch) {
-                                position = position + 1;
-                                ch = self.input[position];
-                            }
-                            if ch == ':' {
-                                self.position = position;
-                                self.read_position = position + 1;
-                                let mut value = str_value;
-                                value.append(&mut self.input[start_position..self.read_position].to_vec());
-                                return token::Token::ENTITYTAG(value)
-                            }
-                        }"#,
-            )
+            module.push_tabln(7, "let start_position = self.position;");
+            module.push_tabln(7, "let mut position = self.position;");
+            module.push_tabln(7, "let mut ch = self.input[position];");
+            module.push_tabln(7, "while position < self.input.len() && is_white_space(ch) {");
+            module.push_tabln(8, "position = position + 1;");
+            module.push_tabln(8, "ch = self.input[position];");
+            module.push_tabln(7, "}");
+            module.push_tabln(7, &format!("if ch == '{}' {{", ch.as_str().unwrap()));
+            module.push_tabln(8, "self.position = position;");
+            module.push_tabln(8, "self.read_position = position + 1;");
+            module.push_tabln(8, "let mut value = str_value;");
+            module.push_tabln(8, "value.append(&mut self.input[start_position..self.read_position].to_vec());");
+            module.push_tabln(8, "return token::Token::ENTITYTAG(value)");
+            module.push_tabln(7, "}");
+            module.push_tabln(6, "}");
         }
         module.push_tabln(6, "token::Token::STRING(str_value)");
     }
