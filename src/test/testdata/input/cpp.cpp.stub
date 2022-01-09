@@ -4,6 +4,12 @@
 #include "archive/value_archive.h"
 #include <stdlib.h>
 const int base = 1234567890;
+typedef unsigned short  CV_typ16_t;
+typedef unsigned long   CV_typ_t;
+
+int64_t print_operand_index_annotation_interval() const {
+    return print_operand_index_annotation_interval_;
+}
 
 // Below are the ops with no builtin_data structure.
 // ok for now, since there is no call implementation either.
