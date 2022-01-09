@@ -105,7 +105,7 @@
 <tr><td class="hl-num" data-line="103"></td><td>  }</td></tr>
 <tr><td class="hl-num" data-line="104"></td><td>}</td></tr>
 <tr><td class="hl-num" data-line="105"></td><td></td></tr>
-<tr><td class="hl-num" data-line="106"></td><td>bool Region::<span class="hl-en">fastDisjoint</span>(<span class="hl-k">const</span> Box& other) <span class="hl-k">const</span> {</td></tr>
+<tr><td class="hl-num" data-line="106"></td><td><span class="hl-k">bool</span> Region::<span class="hl-en">fastDisjoint</span>(<span class="hl-k">const</span> Box& other) <span class="hl-k">const</span> {</td></tr>
 <tr><td class="hl-num" data-line="107"></td><td>    <span class="hl-k">if</span> (!_bounds.<span class="hl-en">intersects</span>(other))</td></tr>
 <tr><td class="hl-num" data-line="108"></td><td>        <span class="hl-k">return</span> <span class="hl-c">true</span>;</td></tr>
 <tr><td class="hl-num" data-line="109"></td><td>    <span class="hl-cmt">// Not sure</span></td></tr>
