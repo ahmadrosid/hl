@@ -6,6 +6,7 @@
 const int base = 1234567890;
 typedef unsigned short  CV_typ16_t;
 typedef unsigned long   CV_typ_t;
+constexpr uint32_t DEFAULT_SETTINGS_MAX_CONCURRENT_STREAMS = 0xffffffffu;
 
 int64_t print_operand_index_annotation_interval() const {
     return print_operand_index_annotation_interval_;

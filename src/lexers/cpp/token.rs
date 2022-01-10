@@ -24,6 +24,7 @@ pub fn get_keyword_token(identifier: &Vec<char>) -> Result<Token, String> {
         "NULL" => Ok(Token::CONSTANT(identifier.to_vec())),
         "size_t" => Ok(Token::CONSTANT(identifier.to_vec())),
         "int64_t" => Ok(Token::CONSTANT(identifier.to_vec())),
+        "uint32_t" => Ok(Token::CONSTANT(identifier.to_vec())),
         "asm" => Ok(Token::KEYWORD(identifier.to_vec())),
         "auto" => Ok(Token::KEYWORD(identifier.to_vec())),
         "bool" => Ok(Token::KEYWORD(identifier.to_vec())),
