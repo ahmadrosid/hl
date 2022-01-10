@@ -8,7 +8,7 @@
 <tr><td class="hl-num" data-line="6"></td><td>#<span class="hl-k">include</span> <span class="hl-s">"misc/bstr.h"</span></td></tr>
 <tr><td class="hl-num" data-line="7"></td><td>#<span class="hl-k">include</span> <span class="hl-s">"misc/node.h"</span></td></tr>
 <tr><td class="hl-num" data-line="8"></td><td></td></tr>
-<tr><td class="hl-num" data-line="9"></td><td><span class="hl-k">static</span> <span class="hl-k">int</span> jz4730_mmc_1bit_pins[] = { <span class="hl-c">0x27,</span> <span class="hl-c">0x26,</span> <span class="hl-c">0x22,</span> };</td></tr>
+<tr><td class="hl-num" data-line="9"></td><td><span class="hl-k">static</span> <span class="hl-k">int</span> jz4730_mmc_1bit_pins[] = { <span class="hl-c">0x27</span>, <span class="hl-c">0x26</span>, <span class="hl-c">0x22</span>, };</td></tr>
 <tr><td class="hl-num" data-line="10"></td><td>vector <span class="hl-k">signed</span> <span class="hl-k">short</span> v_dcOffset;</td></tr>
 <tr><td class="hl-num" data-line="11"></td><td><span class="hl-k">const</span> <span class="hl-k">long</span> distance = <span class="hl-c">12345678900</span>;</td></tr>
 <tr><td class="hl-num" data-line="12"></td><td></td></tr>
@@ -17,7 +17,7 @@
 <tr><td class="hl-num" data-line="15"></td><td><span class="hl-k">extern</span> <span class="hl-k">struct</span> smb_hdr *<span class="hl-en">cifs_buf_get</span>(<span class="hl-k">void</span>);</td></tr>
 <tr><td class="hl-num" data-line="16"></td><td></td></tr>
 <tr><td class="hl-num" data-line="17"></td><td><span class="hl-k">typedef</span> <span class="hl-k">enum</span> RequestType {</td></tr>
-<tr><td class="hl-num" data-line="18"></td><td>TYPE_NORMAL                       = <span class="hl-c">0x00000000,</span></td></tr>
+<tr><td class="hl-num" data-line="18"></td><td>TYPE_NORMAL                       = <span class="hl-c">0x00000000</span>,</td></tr>
 <tr><td class="hl-num" data-line="19"></td><td>} RequestType;</td></tr>
 <tr><td class="hl-num" data-line="20"></td><td></td></tr>
 <tr><td class="hl-num" data-line="21"></td><td>#<span class="hl-k">ifdef</span> _H2INC</td></tr>

@@ -8,7 +8,7 @@
 <tr><td class="hl-num" data-line="6"></td><td><span class="hl-k">const</span> <span class="hl-k">int</span> base = <span class="hl-c">1234567890</span>;</td></tr>
 <tr><td class="hl-num" data-line="7"></td><td><span class="hl-k">typedef</span> <span class="hl-k">unsigned</span> <span class="hl-k">short</span>  CV_typ16_t;</td></tr>
 <tr><td class="hl-num" data-line="8"></td><td><span class="hl-k">typedef</span> <span class="hl-k">unsigned</span> <span class="hl-k">long</span>   CV_typ_t;</td></tr>
-<tr><td class="hl-num" data-line="9"></td><td><span class="hl-k">constexpr</span> <span class="hl-c">uint32_t</span> DEFAULT_SETTINGS_MAX_CONCURRENT_STREAMS = <span class="hl-c">0xffffffffu;</span></td></tr>
+<tr><td class="hl-num" data-line="9"></td><td><span class="hl-k">constexpr</span> <span class="hl-c">uint32_t</span> DEFAULT_SETTINGS_MAX_CONCURRENT_STREAMS = <span class="hl-c">0xffffffffu</span>;</td></tr>
 <tr><td class="hl-num" data-line="10"></td><td></td></tr>
 <tr><td class="hl-num" data-line="11"></td><td><span class="hl-c">int64_t</span> <span class="hl-en">print_operand_index_annotation_interval</span>() <span class="hl-k">const</span> {</td></tr>
 <tr><td class="hl-num" data-line="12"></td><td>    <span class="hl-k">return</span> print_operand_index_annotation_interval_;</td></tr>

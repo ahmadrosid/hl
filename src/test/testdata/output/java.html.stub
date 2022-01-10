@@ -13,283 +13,289 @@
 <tr><td class="hl-num" data-line="11"></td><td></td></tr>
 <tr><td class="hl-num" data-line="12"></td><td><span class="hl-k">static</span> <span class="hl-k">float</span> base <span class="hl-k">=</span> <span class="hl-c">0</span>.<span class="hl-c">99f</span>/<span class="hl-c">1</span>.<span class="hl-c">2f</span>;</td></tr>
 <tr><td class="hl-num" data-line="13"></td><td></td></tr>
-<tr><td class="hl-num" data-line="14"></td><td><span class="hl-k">public</span> <span class="hl-k">static</span> <span class="hl-k">boolean</span> <span class="hl-en">isIntersectionEmpty</span>(<span class="hl-k">@NotNull</span> KotlinType typeA, <span class="hl-k">@NotNull</span> KotlinType typeB) {</td></tr>
-<tr><td class="hl-num" data-line="15"></td><td>    <span class="hl-k">assert</span> <span class="hl-k">!</span>types.<span class="hl-en">isEmpty</span>() : <span class="hl-s">"Attempting to intersect empty collection of types, this case should be dealt with on the call site."</span>;</td></tr>
-<tr><td class="hl-num" data-line="16"></td><td></td></tr>
-<tr><td class="hl-num" data-line="17"></td><td>    <span class="hl-k">var</span> spell1 <span class="hl-k">=</span> <span class="hl-k">new</span> <span class="hl-en">Spell</span>(<span class="hl-s">"Ice dart"</span>);</td></tr>
-<tr><td class="hl-num" data-line="18"></td><td></td></tr>
-<tr><td class="hl-num" data-line="19"></td><td>    <span class="hl-k">if</span> (types.<span class="hl-en">size</span>() <span class="hl-k">=</span><span class="hl-k">=</span> <span class="hl-c">1</span>) {</td></tr>
-<tr><td class="hl-num" data-line="20"></td><td>        <span class="hl-k">return</span> types.<span class="hl-en">iterator</span>().<span class="hl-en">next</span>();</td></tr>
-<tr><td class="hl-num" data-line="21"></td><td>    }</td></tr>
+<tr><td class="hl-num" data-line="14"></td><td><span class="hl-cmt">// Initial contents of key schedule</span></td></tr>
+<tr><td class="hl-num" data-line="15"></td><td><span class="hl-k">private</span> <span class="hl-k">static</span> <span class="hl-k">final</span> <span class="hl-k">int</span>[] P_orig <span class="hl-k">=</span></td></tr>
+<tr><td class="hl-num" data-line="16"></td><td>    {<span class="hl-c">0x243f6a88</span>, <span class="hl-c">0x85a308d3</span>, <span class="hl-c">0x13198a2e</span>, <span class="hl-c">0x03707344</span>, <span class="hl-c">0xa4093822</span>, <span class="hl-c">0x299f31d0</span>,</td></tr>
+<tr><td class="hl-num" data-line="17"></td><td>        <span class="hl-c">0x082efa98</span>, <span class="hl-c">0xec4e6c89</span>, <span class="hl-c">0x452821e6</span>, <span class="hl-c">0x38d01377</span>, <span class="hl-c">0xbe5466cf</span>, <span class="hl-c">0xc0ac29b7</span>,</td></tr>
+<tr><td class="hl-num" data-line="18"></td><td>        <span class="hl-c">0xc97c50dd</span>, <span class="hl-c">0x3f84d5b5</span>, <span class="hl-c">0xb5470917</span>, <span class="hl-c">0x9216d5d9</span>, <span class="hl-c">0x8979fb1b</span>, <span class="hl-c">0xd01adfb7</span>.ax};</td></tr>
+<tr><td class="hl-num" data-line="19"></td><td></td></tr>
+<tr><td class="hl-num" data-line="20"></td><td><span class="hl-k">public</span> <span class="hl-k">static</span> <span class="hl-k">boolean</span> <span class="hl-en">isIntersectionEmpty</span>(<span class="hl-k">@NotNull</span> KotlinType typeA, <span class="hl-k">@NotNull</span> KotlinType typeB) {</td></tr>
+<tr><td class="hl-num" data-line="21"></td><td>    <span class="hl-k">assert</span> <span class="hl-k">!</span>types.<span class="hl-en">isEmpty</span>() : <span class="hl-s">"Attempting to intersect empty collection of types, this case should be dealt with on the call site."</span>;</td></tr>
 <tr><td class="hl-num" data-line="22"></td><td></td></tr>
-<tr><td class="hl-num" data-line="23"></td><td>    <span class="hl-c">String</span> line <span class="hl-k">=</span> <span class="hl-c">null</span>;</td></tr>
-<tr><td class="hl-num" data-line="24"></td><td>    <span class="hl-k">do</span> {</td></tr>
-<tr><td class="hl-num" data-line="25"></td><td>        line <span class="hl-k">=</span> reader.<span class="hl-en">readLine</span>();</td></tr>
-<tr><td class="hl-num" data-line="26"></td><td>        <span class="hl-k">if</span> (<span class="hl-c">null</span> <span class="hl-k">!</span><span class="hl-k">=</span> line) {</td></tr>
-<tr><td class="hl-num" data-line="27"></td><td>          inputBuffer.<span class="hl-en">append</span>(line.<span class="hl-en">trim</span>());</td></tr>
-<tr><td class="hl-num" data-line="28"></td><td>        }</td></tr>
-<tr><td class="hl-num" data-line="29"></td><td>    } <span class="hl-k">while</span> (line <span class="hl-k">!</span><span class="hl-k">=</span> <span class="hl-c">null</span>);</td></tr>
-<tr><td class="hl-num" data-line="30"></td><td></td></tr>
-<tr><td class="hl-num" data-line="31"></td><td>    <span class="hl-cmt">// Intersection of T1..Tn is an intersection of their non-null versions,</span></td></tr>
-<tr><td class="hl-num" data-line="32"></td><td>    <span class="hl-cmt">//   made nullable is they all were nullable</span></td></tr>
-<tr><td class="hl-num" data-line="33"></td><td>    KotlinType nothingOrNullableNothing <span class="hl-k">=</span> <span class="hl-c">null</span>;</td></tr>
-<tr><td class="hl-num" data-line="34"></td><td>    <span class="hl-k">boolean</span> allNullable <span class="hl-k">=</span> <span class="hl-c">true</span>;</td></tr>
-<tr><td class="hl-num" data-line="35"></td><td>    <span class="hl-k">List</span><span class="hl-k"><</span>KotlinType<span class="hl-k">></span> nullabilityStripped <span class="hl-k">=</span> <span class="hl-k">new</span> <span class="hl-k">ArrayList</span><span class="hl-k"><</span><span class="hl-k">></span>(types.<span class="hl-en">size</span>());</td></tr>
-<tr><td class="hl-num" data-line="36"></td><td>    <span class="hl-k">for</span> (KotlinType type : types) {</td></tr>
-<tr><td class="hl-num" data-line="37"></td><td>        <span class="hl-k">if</span> (KotlinTypeKt.<span class="hl-en">isError</span>(type)) <span class="hl-k">continue</span>;</td></tr>
-<tr><td class="hl-num" data-line="38"></td><td></td></tr>
-<tr><td class="hl-num" data-line="39"></td><td>        allNullable <span class="hl-k">&</span><span class="hl-k">=</span> type.<span class="hl-en">isMarkedNullable</span>();</td></tr>
-<tr><td class="hl-num" data-line="40"></td><td>        nullabilityStripped.<span class="hl-en">add</span>(TypeUtils.<span class="hl-en">makeNotNullable</span>(type));</td></tr>
-<tr><td class="hl-num" data-line="41"></td><td>    }</td></tr>
-<tr><td class="hl-num" data-line="42"></td><td>    <span class="hl-k">Map</span><span class="hl-k"><</span>TypeParameterDescriptor, Variance<span class="hl-k">></span> parameters <span class="hl-k">=</span> <span class="hl-k">new</span> <span class="hl-k">HashMap</span><span class="hl-k"><</span><span class="hl-k">></span>();</td></tr>
-<tr><td class="hl-num" data-line="43"></td><td>    Function1<span class="hl-k"><</span>TypeParameterUsage, Unit<span class="hl-k">></span> processor <span class="hl-k">=</span> parameterUsage <span class="hl-k">-</span><span class="hl-k">></span> {</td></tr>
-<tr><td class="hl-num" data-line="44"></td><td>        Variance howTheTypeIsUsedBefore <span class="hl-k">=</span> parameters.<span class="hl-en">get</span>(parameterUsage.typeParameterDescriptor);</td></tr>
-<tr><td class="hl-num" data-line="45"></td><td>        <span class="hl-k">if</span> (howTheTypeIsUsedBefore <span class="hl-k">=</span><span class="hl-k">=</span> <span class="hl-c">null</span>) {</td></tr>
-<tr><td class="hl-num" data-line="46"></td><td>            howTheTypeIsUsedBefore <span class="hl-k">=</span> Variance.INVARIANT;</td></tr>
-<tr><td class="hl-num" data-line="47"></td><td>        }</td></tr>
-<tr><td class="hl-num" data-line="48"></td><td>        parameters.<span class="hl-en">put</span>(parameterUsage.typeParameterDescriptor,</td></tr>
-<tr><td class="hl-num" data-line="49"></td><td>                       parameterUsage.howTheTypeParameterIsUsed.<span class="hl-en">superpose</span>(howTheTypeIsUsedBefore));</td></tr>
-<tr><td class="hl-num" data-line="50"></td><td>        <span class="hl-k">return</span> Unit.INSTANCE;</td></tr>
-<tr><td class="hl-num" data-line="51"></td><td>    };</td></tr>
-<tr><td class="hl-num" data-line="52"></td><td></td></tr>
-<tr><td class="hl-num" data-line="53"></td><td>    <span class="hl-k">return</span> <span class="hl-en">intersectTypes</span>(<span class="hl-k">new</span> <span class="hl-k">LinkedHashSet</span><span class="hl-k"><</span><span class="hl-k">></span>(Arrays.<span class="hl-en">asList</span>(typeA, typeB))) <span class="hl-k">=</span><span class="hl-k">=</span> <span class="hl-c">null</span>;</td></tr>
-<tr><td class="hl-num" data-line="54"></td><td>}</td></tr>
-<tr><td class="hl-num" data-line="55"></td><td></td></tr>
-<tr><td class="hl-num" data-line="56"></td><td><span class="hl-k">public</span> <span class="hl-k">interface</span> MeshPartBuilder {</td></tr>
-<tr><td class="hl-num" data-line="57"></td><td>    <span class="hl-k">public</span> MeshPart getMeshPart ();</td></tr>
-<tr><td class="hl-num" data-line="58"></td><td>    <span class="hl-k">public</span> <span class="hl-k">short</span> vertex (<span class="hl-k">final</span> <span class="hl-k">float</span>... values);</td></tr>
-<tr><td class="hl-num" data-line="59"></td><td>    <span class="hl-k">public</span> <span class="hl-k">boolean</span> isVertexTransformationEnabled ();</td></tr>
-<tr><td class="hl-num" data-line="60"></td><td>    <span class="hl-k">strictfp</span> <span class="hl-k">private</span> <span class="hl-k">void</span> <span class="hl-en">doStuff</span>();</td></tr>
-<tr><td class="hl-num" data-line="61"></td><td>}</td></tr>
-<tr><td class="hl-num" data-line="62"></td><td></td></tr>
-<tr><td class="hl-num" data-line="63"></td><td><span class="hl-cmt">/** The syntax of the .proto file. */</span></td></tr>
-<tr><td class="hl-num" data-line="64"></td><td><span class="hl-k">public</span> <span class="hl-k">enum</span> Syntax {</td></tr>
-<tr><td class="hl-num" data-line="65"></td><td>    <span class="hl-en">UNKNOWN</span>(<span class="hl-s">"unknown"</span>),</td></tr>
-<tr><td class="hl-num" data-line="66"></td><td>    <span class="hl-en">PROTO2</span>(<span class="hl-s">"proto2"</span>),</td></tr>
-<tr><td class="hl-num" data-line="67"></td><td>    <span class="hl-en">PROTO3</span>(<span class="hl-s">"proto3"</span>);</td></tr>
-<tr><td class="hl-num" data-line="68"></td><td>    <span class="hl-en">Syntax</span>(<span class="hl-c">String</span> name) {</td></tr>
-<tr><td class="hl-num" data-line="69"></td><td>        <span class="hl-c">this</span>.name <span class="hl-k">=</span> name;</td></tr>
-<tr><td class="hl-num" data-line="70"></td><td>    }</td></tr>
-<tr><td class="hl-num" data-line="71"></td><td>    <span class="hl-k">private</span> <span class="hl-k">final</span> <span class="hl-c">String</span> name;</td></tr>
-<tr><td class="hl-num" data-line="72"></td><td>}</td></tr>
-<tr><td class="hl-num" data-line="73"></td><td></td></tr>
-<tr><td class="hl-num" data-line="74"></td><td><span class="hl-cmt">/*</span></td></tr>
-<tr><td class="hl-num" data-line="75"></td><td><span class="hl-cmt"> * Copyright (C) Hans-Christoph Steiner 2016 &lt;hans@eds.org&gt;</span></td></tr>
-<tr><td class="hl-num" data-line="76"></td><td><span class="hl-cmt"> * App.java is part of NewPipe.</span></td></tr>
-<tr><td class="hl-num" data-line="77"></td><td><span class="hl-cmt"> *</span></td></tr>
-<tr><td class="hl-num" data-line="78"></td><td><span class="hl-cmt"> * You should have received a copy of the GNU General Public License</span></td></tr>
-<tr><td class="hl-num" data-line="79"></td><td><span class="hl-cmt"> * along with NewPipe.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span></td></tr>
-<tr><td class="hl-num" data-line="80"></td><td><span class="hl-cmt"> */</span></td></tr>
-<tr><td class="hl-num" data-line="81"></td><td><span class="hl-k">public</span> <span class="hl-k">abstract</span> <span class="hl-k">class</span> App <span class="hl-k">extends</span> MultiDexApplication {</td></tr>
-<tr><td class="hl-num" data-line="82"></td><td>    <span class="hl-k">public</span> <span class="hl-k">static</span> <span class="hl-k">final</span> <span class="hl-c">String</span> PACKAGE_NAME <span class="hl-k">=</span> BuildConfig.APPLICATION_ID;</td></tr>
-<tr><td class="hl-num" data-line="83"></td><td>    <span class="hl-k">private</span> <span class="hl-k">static</span> <span class="hl-k">final</span> <span class="hl-c">String</span> TAG <span class="hl-k">=</span> App.<span class="hl-k">class</span>.<span class="hl-en">toString</span>();</td></tr>
-<tr><td class="hl-num" data-line="84"></td><td>    <span class="hl-k">private</span> <span class="hl-k">static</span> App app;</td></tr>
-<tr><td class="hl-num" data-line="85"></td><td>    <span class="hl-k">final</span> <span class="hl-k">static</span> <span class="hl-k">float</span> MAX_VELOCITY <span class="hl-k">=</span> <span class="hl-c">14f</span>;</td></tr>
-<tr><td class="hl-num" data-line="86"></td><td>    <span class="hl-k">private</span> <span class="hl-k">transient</span> MetricRegistry metrics;</td></tr>
-<tr><td class="hl-num" data-line="87"></td><td>    <span class="hl-k">static</span> <span class="hl-k">native</span> <span class="hl-k">long</span> <span class="hl-en">jni_YGConfigNewJNI</span>();</td></tr>
-<tr><td class="hl-num" data-line="88"></td><td>    <span class="hl-k">private</span> <span class="hl-k">volatile</span> Settings settings;</td></tr>
-<tr><td class="hl-num" data-line="89"></td><td></td></tr>
-<tr><td class="hl-num" data-line="90"></td><td>    <span class="hl-k">@NonNull</span></td></tr>
-<tr><td class="hl-num" data-line="91"></td><td>    <span class="hl-k">public</span> <span class="hl-k">static</span> App <span class="hl-en">getApp</span>() {</td></tr>
-<tr><td class="hl-num" data-line="92"></td><td>        <span class="hl-k">return</span> app;</td></tr>
-<tr><td class="hl-num" data-line="93"></td><td>    }</td></tr>
-<tr><td class="hl-num" data-line="94"></td><td></td></tr>
-<tr><td class="hl-num" data-line="95"></td><td>    <span class="hl-k">public</span> <span class="hl-k">static</span> <span class="hl-k">void</span> <span class="hl-en">checkArgument</span>(<span class="hl-k">boolean</span> expression) {</td></tr>
-<tr><td class="hl-num" data-line="96"></td><td>        <span class="hl-k">if</span> (<span class="hl-k">!</span>expression) {</td></tr>
-<tr><td class="hl-num" data-line="97"></td><td>            <span class="hl-k">throw</span> <span class="hl-k">new</span> <span class="hl-en">IllegalArgumentException</span>();</td></tr>
-<tr><td class="hl-num" data-line="98"></td><td>        }</td></tr>
+<tr><td class="hl-num" data-line="23"></td><td>    <span class="hl-k">var</span> spell1 <span class="hl-k">=</span> <span class="hl-k">new</span> <span class="hl-en">Spell</span>(<span class="hl-s">"Ice dart"</span>);</td></tr>
+<tr><td class="hl-num" data-line="24"></td><td></td></tr>
+<tr><td class="hl-num" data-line="25"></td><td>    <span class="hl-k">if</span> (types.<span class="hl-en">size</span>() <span class="hl-k">=</span><span class="hl-k">=</span> <span class="hl-c">1</span>) {</td></tr>
+<tr><td class="hl-num" data-line="26"></td><td>        <span class="hl-k">return</span> types.<span class="hl-en">iterator</span>().<span class="hl-en">next</span>();</td></tr>
+<tr><td class="hl-num" data-line="27"></td><td>    }</td></tr>
+<tr><td class="hl-num" data-line="28"></td><td></td></tr>
+<tr><td class="hl-num" data-line="29"></td><td>    <span class="hl-c">String</span> line <span class="hl-k">=</span> <span class="hl-c">null</span>;</td></tr>
+<tr><td class="hl-num" data-line="30"></td><td>    <span class="hl-k">do</span> {</td></tr>
+<tr><td class="hl-num" data-line="31"></td><td>        line <span class="hl-k">=</span> reader.<span class="hl-en">readLine</span>();</td></tr>
+<tr><td class="hl-num" data-line="32"></td><td>        <span class="hl-k">if</span> (<span class="hl-c">null</span> <span class="hl-k">!</span><span class="hl-k">=</span> line) {</td></tr>
+<tr><td class="hl-num" data-line="33"></td><td>          inputBuffer.<span class="hl-en">append</span>(line.<span class="hl-en">trim</span>());</td></tr>
+<tr><td class="hl-num" data-line="34"></td><td>        }</td></tr>
+<tr><td class="hl-num" data-line="35"></td><td>    } <span class="hl-k">while</span> (line <span class="hl-k">!</span><span class="hl-k">=</span> <span class="hl-c">null</span>);</td></tr>
+<tr><td class="hl-num" data-line="36"></td><td></td></tr>
+<tr><td class="hl-num" data-line="37"></td><td>    <span class="hl-cmt">// Intersection of T1..Tn is an intersection of their non-null versions,</span></td></tr>
+<tr><td class="hl-num" data-line="38"></td><td>    <span class="hl-cmt">//   made nullable is they all were nullable</span></td></tr>
+<tr><td class="hl-num" data-line="39"></td><td>    KotlinType nothingOrNullableNothing <span class="hl-k">=</span> <span class="hl-c">null</span>;</td></tr>
+<tr><td class="hl-num" data-line="40"></td><td>    <span class="hl-k">boolean</span> allNullable <span class="hl-k">=</span> <span class="hl-c">true</span>;</td></tr>
+<tr><td class="hl-num" data-line="41"></td><td>    <span class="hl-k">List</span><span class="hl-k"><</span>KotlinType<span class="hl-k">></span> nullabilityStripped <span class="hl-k">=</span> <span class="hl-k">new</span> <span class="hl-k">ArrayList</span><span class="hl-k"><</span><span class="hl-k">></span>(types.<span class="hl-en">size</span>());</td></tr>
+<tr><td class="hl-num" data-line="42"></td><td>    <span class="hl-k">for</span> (KotlinType type : types) {</td></tr>
+<tr><td class="hl-num" data-line="43"></td><td>        <span class="hl-k">if</span> (KotlinTypeKt.<span class="hl-en">isError</span>(type)) <span class="hl-k">continue</span>;</td></tr>
+<tr><td class="hl-num" data-line="44"></td><td></td></tr>
+<tr><td class="hl-num" data-line="45"></td><td>        allNullable <span class="hl-k">&</span><span class="hl-k">=</span> type.<span class="hl-en">isMarkedNullable</span>();</td></tr>
+<tr><td class="hl-num" data-line="46"></td><td>        nullabilityStripped.<span class="hl-en">add</span>(TypeUtils.<span class="hl-en">makeNotNullable</span>(type));</td></tr>
+<tr><td class="hl-num" data-line="47"></td><td>    }</td></tr>
+<tr><td class="hl-num" data-line="48"></td><td>    <span class="hl-k">Map</span><span class="hl-k"><</span>TypeParameterDescriptor, Variance<span class="hl-k">></span> parameters <span class="hl-k">=</span> <span class="hl-k">new</span> <span class="hl-k">HashMap</span><span class="hl-k"><</span><span class="hl-k">></span>();</td></tr>
+<tr><td class="hl-num" data-line="49"></td><td>    Function1<span class="hl-k"><</span>TypeParameterUsage, Unit<span class="hl-k">></span> processor <span class="hl-k">=</span> parameterUsage <span class="hl-k">-</span><span class="hl-k">></span> {</td></tr>
+<tr><td class="hl-num" data-line="50"></td><td>        Variance howTheTypeIsUsedBefore <span class="hl-k">=</span> parameters.<span class="hl-en">get</span>(parameterUsage.typeParameterDescriptor);</td></tr>
+<tr><td class="hl-num" data-line="51"></td><td>        <span class="hl-k">if</span> (howTheTypeIsUsedBefore <span class="hl-k">=</span><span class="hl-k">=</span> <span class="hl-c">null</span>) {</td></tr>
+<tr><td class="hl-num" data-line="52"></td><td>            howTheTypeIsUsedBefore <span class="hl-k">=</span> Variance.INVARIANT;</td></tr>
+<tr><td class="hl-num" data-line="53"></td><td>        }</td></tr>
+<tr><td class="hl-num" data-line="54"></td><td>        parameters.<span class="hl-en">put</span>(parameterUsage.typeParameterDescriptor,</td></tr>
+<tr><td class="hl-num" data-line="55"></td><td>                       parameterUsage.howTheTypeParameterIsUsed.<span class="hl-en">superpose</span>(howTheTypeIsUsedBefore));</td></tr>
+<tr><td class="hl-num" data-line="56"></td><td>        <span class="hl-k">return</span> Unit.INSTANCE;</td></tr>
+<tr><td class="hl-num" data-line="57"></td><td>    };</td></tr>
+<tr><td class="hl-num" data-line="58"></td><td></td></tr>
+<tr><td class="hl-num" data-line="59"></td><td>    <span class="hl-k">return</span> <span class="hl-en">intersectTypes</span>(<span class="hl-k">new</span> <span class="hl-k">LinkedHashSet</span><span class="hl-k"><</span><span class="hl-k">></span>(Arrays.<span class="hl-en">asList</span>(typeA, typeB))) <span class="hl-k">=</span><span class="hl-k">=</span> <span class="hl-c">null</span>;</td></tr>
+<tr><td class="hl-num" data-line="60"></td><td>}</td></tr>
+<tr><td class="hl-num" data-line="61"></td><td></td></tr>
+<tr><td class="hl-num" data-line="62"></td><td><span class="hl-k">public</span> <span class="hl-k">interface</span> MeshPartBuilder {</td></tr>
+<tr><td class="hl-num" data-line="63"></td><td>    <span class="hl-k">public</span> MeshPart getMeshPart ();</td></tr>
+<tr><td class="hl-num" data-line="64"></td><td>    <span class="hl-k">public</span> <span class="hl-k">short</span> vertex (<span class="hl-k">final</span> <span class="hl-k">float</span>... values);</td></tr>
+<tr><td class="hl-num" data-line="65"></td><td>    <span class="hl-k">public</span> <span class="hl-k">boolean</span> isVertexTransformationEnabled ();</td></tr>
+<tr><td class="hl-num" data-line="66"></td><td>    <span class="hl-k">strictfp</span> <span class="hl-k">private</span> <span class="hl-k">void</span> <span class="hl-en">doStuff</span>();</td></tr>
+<tr><td class="hl-num" data-line="67"></td><td>}</td></tr>
+<tr><td class="hl-num" data-line="68"></td><td></td></tr>
+<tr><td class="hl-num" data-line="69"></td><td><span class="hl-cmt">/** The syntax of the .proto file. */</span></td></tr>
+<tr><td class="hl-num" data-line="70"></td><td><span class="hl-k">public</span> <span class="hl-k">enum</span> Syntax {</td></tr>
+<tr><td class="hl-num" data-line="71"></td><td>    <span class="hl-en">UNKNOWN</span>(<span class="hl-s">"unknown"</span>),</td></tr>
+<tr><td class="hl-num" data-line="72"></td><td>    <span class="hl-en">PROTO2</span>(<span class="hl-s">"proto2"</span>),</td></tr>
+<tr><td class="hl-num" data-line="73"></td><td>    <span class="hl-en">PROTO3</span>(<span class="hl-s">"proto3"</span>);</td></tr>
+<tr><td class="hl-num" data-line="74"></td><td>    <span class="hl-en">Syntax</span>(<span class="hl-c">String</span> name) {</td></tr>
+<tr><td class="hl-num" data-line="75"></td><td>        <span class="hl-c">this</span>.name <span class="hl-k">=</span> name;</td></tr>
+<tr><td class="hl-num" data-line="76"></td><td>    }</td></tr>
+<tr><td class="hl-num" data-line="77"></td><td>    <span class="hl-k">private</span> <span class="hl-k">final</span> <span class="hl-c">String</span> name;</td></tr>
+<tr><td class="hl-num" data-line="78"></td><td>}</td></tr>
+<tr><td class="hl-num" data-line="79"></td><td></td></tr>
+<tr><td class="hl-num" data-line="80"></td><td><span class="hl-cmt">/*</span></td></tr>
+<tr><td class="hl-num" data-line="81"></td><td><span class="hl-cmt"> * Copyright (C) Hans-Christoph Steiner 2016 &lt;hans@eds.org&gt;</span></td></tr>
+<tr><td class="hl-num" data-line="82"></td><td><span class="hl-cmt"> * App.java is part of NewPipe.</span></td></tr>
+<tr><td class="hl-num" data-line="83"></td><td><span class="hl-cmt"> *</span></td></tr>
+<tr><td class="hl-num" data-line="84"></td><td><span class="hl-cmt"> * You should have received a copy of the GNU General Public License</span></td></tr>
+<tr><td class="hl-num" data-line="85"></td><td><span class="hl-cmt"> * along with NewPipe.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span></td></tr>
+<tr><td class="hl-num" data-line="86"></td><td><span class="hl-cmt"> */</span></td></tr>
+<tr><td class="hl-num" data-line="87"></td><td><span class="hl-k">public</span> <span class="hl-k">abstract</span> <span class="hl-k">class</span> App <span class="hl-k">extends</span> MultiDexApplication {</td></tr>
+<tr><td class="hl-num" data-line="88"></td><td>    <span class="hl-k">public</span> <span class="hl-k">static</span> <span class="hl-k">final</span> <span class="hl-c">String</span> PACKAGE_NAME <span class="hl-k">=</span> BuildConfig.APPLICATION_ID;</td></tr>
+<tr><td class="hl-num" data-line="89"></td><td>    <span class="hl-k">private</span> <span class="hl-k">static</span> <span class="hl-k">final</span> <span class="hl-c">String</span> TAG <span class="hl-k">=</span> App.<span class="hl-k">class</span>.<span class="hl-en">toString</span>();</td></tr>
+<tr><td class="hl-num" data-line="90"></td><td>    <span class="hl-k">private</span> <span class="hl-k">static</span> App app;</td></tr>
+<tr><td class="hl-num" data-line="91"></td><td>    <span class="hl-k">final</span> <span class="hl-k">static</span> <span class="hl-k">float</span> MAX_VELOCITY <span class="hl-k">=</span> <span class="hl-c">14f</span>;</td></tr>
+<tr><td class="hl-num" data-line="92"></td><td>    <span class="hl-k">private</span> <span class="hl-k">transient</span> MetricRegistry metrics;</td></tr>
+<tr><td class="hl-num" data-line="93"></td><td>    <span class="hl-k">static</span> <span class="hl-k">native</span> <span class="hl-k">long</span> <span class="hl-en">jni_YGConfigNewJNI</span>();</td></tr>
+<tr><td class="hl-num" data-line="94"></td><td>    <span class="hl-k">private</span> <span class="hl-k">volatile</span> Settings settings;</td></tr>
+<tr><td class="hl-num" data-line="95"></td><td></td></tr>
+<tr><td class="hl-num" data-line="96"></td><td>    <span class="hl-k">@NonNull</span></td></tr>
+<tr><td class="hl-num" data-line="97"></td><td>    <span class="hl-k">public</span> <span class="hl-k">static</span> App <span class="hl-en">getApp</span>() {</td></tr>
+<tr><td class="hl-num" data-line="98"></td><td>        <span class="hl-k">return</span> app;</td></tr>
 <tr><td class="hl-num" data-line="99"></td><td>    }</td></tr>
 <tr><td class="hl-num" data-line="100"></td><td></td></tr>
-<tr><td class="hl-num" data-line="101"></td><td>    <span class="hl-k">private</span> <span class="hl-k">void</span> <span class="hl-en">readObject</span>(ObjectInputStream in) <span class="hl-k">throws</span> IOException) {</td></tr>
-<tr><td class="hl-num" data-line="102"></td><td>        in.<span class="hl-en">defaultReadObject</span>();</td></tr>
-<tr><td class="hl-num" data-line="103"></td><td>        handleOperTimecostHistogramMap <span class="hl-k">=</span> <span class="hl-k">new</span> <span class="hl-k">HashMap</span><span class="hl-k"><</span><span class="hl-k">></span>();</td></tr>
-<tr><td class="hl-num" data-line="104"></td><td>        <span class="hl-k">switch</span> (unit) {</td></tr>
-<tr><td class="hl-num" data-line="105"></td><td>          <span class="hl-k">case</span> POINT:</td></tr>
-<tr><td class="hl-num" data-line="106"></td><td>          <span class="hl-k">case</span> UNDEFINED:</td></tr>
-<tr><td class="hl-num" data-line="107"></td><td>            <span class="hl-en">setStyleMinWidth</span>(mTempYogaValue.value);</td></tr>
-<tr><td class="hl-num" data-line="108"></td><td>            <span class="hl-k">break</span>;</td></tr>
-<tr><td class="hl-num" data-line="109"></td><td>          <span class="hl-k">case</span> PERCENT:</td></tr>
-<tr><td class="hl-num" data-line="110"></td><td>            <span class="hl-en">setStyleMinWidthPercent</span>(mTempYogaValue.value);</td></tr>
-<tr><td class="hl-num" data-line="111"></td><td>            <span class="hl-k">break</span>;</td></tr>
-<tr><td class="hl-num" data-line="112"></td><td>          <span class="hl-k">default</span>:</td></tr>
-<tr><td class="hl-num" data-line="113"></td><td>            <span class="hl-k">throw</span> <span class="hl-k">new</span> <span class="hl-en">IOException</span>();</td></tr>
-<tr><td class="hl-num" data-line="114"></td><td>        }</td></tr>
-<tr><td class="hl-num" data-line="115"></td><td>    }</td></tr>
-<tr><td class="hl-num" data-line="116"></td><td>    <span class="hl-k">public</span> <span class="hl-k">static</span> <span class="hl-k">boolean</span> <span class="hl-en">is</span>(<span class="hl-k">int</span> number) {</td></tr>
-<tr><td class="hl-num" data-line="117"></td><td>        <span class="hl-k">for</span> (<span class="hl-k">var</span> i <span class="hl-k">=</span> <span class="hl-c">3</span>; i <span class="hl-k">*</span> i <span class="hl-k"><</span><span class="hl-k">=</span> number; i +<span class="hl-k">=</span> <span class="hl-c">2</span>) {</td></tr>
-<tr><td class="hl-num" data-line="118"></td><td>          <span class="hl-k">if</span> (number <span class="hl-k">%</span> i <span class="hl-k">=</span><span class="hl-k">=</span> <span class="hl-c">0</span>) {</td></tr>
-<tr><td class="hl-num" data-line="119"></td><td>            <span class="hl-k">return</span> <span class="hl-c">false</span>;</td></tr>
-<tr><td class="hl-num" data-line="120"></td><td>          }</td></tr>
-<tr><td class="hl-num" data-line="121"></td><td>        }</td></tr>
-<tr><td class="hl-num" data-line="122"></td><td>        <span class="hl-k">return</span> <span class="hl-c">true</span>;</td></tr>
-<tr><td class="hl-num" data-line="123"></td><td>    }</td></tr>
-<tr><td class="hl-num" data-line="124"></td><td></td></tr>
-<tr><td class="hl-num" data-line="125"></td><td>    <span class="hl-k">public</span> <span class="hl-k">static</span> Long <span class="hl-en">fromBinary</span>(<span class="hl-c">String</span> binary) {</td></tr>
-<tr><td class="hl-num" data-line="126"></td><td>        binary.<span class="hl-en">chars</span>().<span class="hl-en">filter</span>(c <span class="hl-k">-</span><span class="hl-k">></span> c <span class="hl-k">!</span><span class="hl-k">=</span> <span class="hl-s">'0'</span> <span class="hl-k">&</span><span class="hl-k">&</span> c <span class="hl-k">!</span><span class="hl-k">=</span> <span class="hl-s">'1'</span>).<span class="hl-en">findFirst</span>().<span class="hl-en">ifPresent</span>(in <span class="hl-k">-</span><span class="hl-k">></span> {</td></tr>
-<tr><td class="hl-num" data-line="127"></td><td>          <span class="hl-k">throw</span> <span class="hl-k">new</span> <span class="hl-en">NumberFormatException</span>(</td></tr>
-<tr><td class="hl-num" data-line="128"></td><td>                  <span class="hl-s">"Binary string contains values other than '0' and '1'"</span>);</td></tr>
-<tr><td class="hl-num" data-line="129"></td><td>        });</td></tr>
-<tr><td class="hl-num" data-line="130"></td><td>        <span class="hl-k">return</span> IntStream.<span class="hl-en">range</span>(<span class="hl-c">0</span>, binary.<span class="hl-en">length</span>())</td></tr>
-<tr><td class="hl-num" data-line="131"></td><td>                .<span class="hl-en">filter</span>(in <span class="hl-k">-</span><span class="hl-k">></span> binary.<span class="hl-en">charAt</span>(binary.<span class="hl-en">length</span>() <span class="hl-k">-</span> <span class="hl-c">1</span> <span class="hl-k">-</span> in) <span class="hl-k">=</span><span class="hl-k">=</span> <span class="hl-s">'1'</span>)</td></tr>
-<tr><td class="hl-num" data-line="132"></td><td>                .<span class="hl-en">mapToLong</span>(in <span class="hl-k">-</span><span class="hl-k">></span> ((<span class="hl-k">long</span>) <span class="hl-c">0</span>b1) <span class="hl-k"><</span><span class="hl-k"><</span> in).<span class="hl-en">sum</span>();</td></tr>
-<tr><td class="hl-num" data-line="133"></td><td>    }</td></tr>
-<tr><td class="hl-num" data-line="134"></td><td></td></tr>
-<tr><td class="hl-num" data-line="135"></td><td>    <span class="hl-k">public</span> <span class="hl-c">String</span> <span class="hl-en">toString</span>() {</td></tr>
-<tr><td class="hl-num" data-line="136"></td><td>        <span class="hl-k">synchronized</span> (mutex) {</td></tr>
-<tr><td class="hl-num" data-line="137"></td><td>            <span class="hl-k">return</span> delegate.<span class="hl-en">toString</span>();</td></tr>
-<tr><td class="hl-num" data-line="138"></td><td>        }</td></tr>
+<tr><td class="hl-num" data-line="101"></td><td>    <span class="hl-k">public</span> <span class="hl-k">static</span> <span class="hl-k">void</span> <span class="hl-en">checkArgument</span>(<span class="hl-k">boolean</span> expression) {</td></tr>
+<tr><td class="hl-num" data-line="102"></td><td>        <span class="hl-k">if</span> (<span class="hl-k">!</span>expression) {</td></tr>
+<tr><td class="hl-num" data-line="103"></td><td>            <span class="hl-k">throw</span> <span class="hl-k">new</span> <span class="hl-en">IllegalArgumentException</span>();</td></tr>
+<tr><td class="hl-num" data-line="104"></td><td>        }</td></tr>
+<tr><td class="hl-num" data-line="105"></td><td>    }</td></tr>
+<tr><td class="hl-num" data-line="106"></td><td></td></tr>
+<tr><td class="hl-num" data-line="107"></td><td>    <span class="hl-k">private</span> <span class="hl-k">void</span> <span class="hl-en">readObject</span>(ObjectInputStream in) <span class="hl-k">throws</span> IOException) {</td></tr>
+<tr><td class="hl-num" data-line="108"></td><td>        in.<span class="hl-en">defaultReadObject</span>();</td></tr>
+<tr><td class="hl-num" data-line="109"></td><td>        handleOperTimecostHistogramMap <span class="hl-k">=</span> <span class="hl-k">new</span> <span class="hl-k">HashMap</span><span class="hl-k"><</span><span class="hl-k">></span>();</td></tr>
+<tr><td class="hl-num" data-line="110"></td><td>        <span class="hl-k">switch</span> (unit) {</td></tr>
+<tr><td class="hl-num" data-line="111"></td><td>          <span class="hl-k">case</span> POINT:</td></tr>
+<tr><td class="hl-num" data-line="112"></td><td>          <span class="hl-k">case</span> UNDEFINED:</td></tr>
+<tr><td class="hl-num" data-line="113"></td><td>            <span class="hl-en">setStyleMinWidth</span>(mTempYogaValue.value);</td></tr>
+<tr><td class="hl-num" data-line="114"></td><td>            <span class="hl-k">break</span>;</td></tr>
+<tr><td class="hl-num" data-line="115"></td><td>          <span class="hl-k">case</span> PERCENT:</td></tr>
+<tr><td class="hl-num" data-line="116"></td><td>            <span class="hl-en">setStyleMinWidthPercent</span>(mTempYogaValue.value);</td></tr>
+<tr><td class="hl-num" data-line="117"></td><td>            <span class="hl-k">break</span>;</td></tr>
+<tr><td class="hl-num" data-line="118"></td><td>          <span class="hl-k">default</span>:</td></tr>
+<tr><td class="hl-num" data-line="119"></td><td>            <span class="hl-k">throw</span> <span class="hl-k">new</span> <span class="hl-en">IOException</span>();</td></tr>
+<tr><td class="hl-num" data-line="120"></td><td>        }</td></tr>
+<tr><td class="hl-num" data-line="121"></td><td>    }</td></tr>
+<tr><td class="hl-num" data-line="122"></td><td>    <span class="hl-k">public</span> <span class="hl-k">static</span> <span class="hl-k">boolean</span> <span class="hl-en">is</span>(<span class="hl-k">int</span> number) {</td></tr>
+<tr><td class="hl-num" data-line="123"></td><td>        <span class="hl-k">for</span> (<span class="hl-k">var</span> i <span class="hl-k">=</span> <span class="hl-c">3</span>; i <span class="hl-k">*</span> i <span class="hl-k"><</span><span class="hl-k">=</span> number; i +<span class="hl-k">=</span> <span class="hl-c">2</span>) {</td></tr>
+<tr><td class="hl-num" data-line="124"></td><td>          <span class="hl-k">if</span> (number <span class="hl-k">%</span> i <span class="hl-k">=</span><span class="hl-k">=</span> <span class="hl-c">0</span>) {</td></tr>
+<tr><td class="hl-num" data-line="125"></td><td>            <span class="hl-k">return</span> <span class="hl-c">false</span>;</td></tr>
+<tr><td class="hl-num" data-line="126"></td><td>          }</td></tr>
+<tr><td class="hl-num" data-line="127"></td><td>        }</td></tr>
+<tr><td class="hl-num" data-line="128"></td><td>        <span class="hl-k">return</span> <span class="hl-c">true</span>;</td></tr>
+<tr><td class="hl-num" data-line="129"></td><td>    }</td></tr>
+<tr><td class="hl-num" data-line="130"></td><td></td></tr>
+<tr><td class="hl-num" data-line="131"></td><td>    <span class="hl-k">public</span> <span class="hl-k">static</span> Long <span class="hl-en">fromBinary</span>(<span class="hl-c">String</span> binary) {</td></tr>
+<tr><td class="hl-num" data-line="132"></td><td>        binary.<span class="hl-en">chars</span>().<span class="hl-en">filter</span>(c <span class="hl-k">-</span><span class="hl-k">></span> c <span class="hl-k">!</span><span class="hl-k">=</span> <span class="hl-s">'0'</span> <span class="hl-k">&</span><span class="hl-k">&</span> c <span class="hl-k">!</span><span class="hl-k">=</span> <span class="hl-s">'1'</span>).<span class="hl-en">findFirst</span>().<span class="hl-en">ifPresent</span>(in <span class="hl-k">-</span><span class="hl-k">></span> {</td></tr>
+<tr><td class="hl-num" data-line="133"></td><td>          <span class="hl-k">throw</span> <span class="hl-k">new</span> <span class="hl-en">NumberFormatException</span>(</td></tr>
+<tr><td class="hl-num" data-line="134"></td><td>                  <span class="hl-s">"Binary string contains values other than '0' and '1'"</span>);</td></tr>
+<tr><td class="hl-num" data-line="135"></td><td>        });</td></tr>
+<tr><td class="hl-num" data-line="136"></td><td>        <span class="hl-k">return</span> IntStream.<span class="hl-en">range</span>(<span class="hl-c">0</span>, binary.<span class="hl-en">length</span>())</td></tr>
+<tr><td class="hl-num" data-line="137"></td><td>                .<span class="hl-en">filter</span>(in <span class="hl-k">-</span><span class="hl-k">></span> binary.<span class="hl-en">charAt</span>(binary.<span class="hl-en">length</span>() <span class="hl-k">-</span> <span class="hl-c">1</span> <span class="hl-k">-</span> in) <span class="hl-k">=</span><span class="hl-k">=</span> <span class="hl-s">'1'</span>)</td></tr>
+<tr><td class="hl-num" data-line="138"></td><td>                .<span class="hl-en">mapToLong</span>(in <span class="hl-k">-</span><span class="hl-k">></span> ((<span class="hl-k">long</span>) <span class="hl-c">0</span>b1) <span class="hl-k"><</span><span class="hl-k"><</span> in).<span class="hl-en">sum</span>();</td></tr>
 <tr><td class="hl-num" data-line="139"></td><td>    }</td></tr>
 <tr><td class="hl-num" data-line="140"></td><td></td></tr>
-<tr><td class="hl-num" data-line="141"></td><td>    <span class="hl-k">@Override</span></td></tr>
-<tr><td class="hl-num" data-line="142"></td><td>    <span class="hl-k">protected</span> <span class="hl-k">void</span> <span class="hl-en">attachBaseContext</span>(<span class="hl-k">final</span> Context base) {</td></tr>
-<tr><td class="hl-num" data-line="143"></td><td>        <span class="hl-c">super</span>.<span class="hl-en">attachBaseContext</span>(base);</td></tr>
-<tr><td class="hl-num" data-line="144"></td><td>        <span class="hl-en">initACRA</span>();</td></tr>
+<tr><td class="hl-num" data-line="141"></td><td>    <span class="hl-k">public</span> <span class="hl-c">String</span> <span class="hl-en">toString</span>() {</td></tr>
+<tr><td class="hl-num" data-line="142"></td><td>        <span class="hl-k">synchronized</span> (mutex) {</td></tr>
+<tr><td class="hl-num" data-line="143"></td><td>            <span class="hl-k">return</span> delegate.<span class="hl-en">toString</span>();</td></tr>
+<tr><td class="hl-num" data-line="144"></td><td>        }</td></tr>
 <tr><td class="hl-num" data-line="145"></td><td>    }</td></tr>
 <tr><td class="hl-num" data-line="146"></td><td></td></tr>
 <tr><td class="hl-num" data-line="147"></td><td>    <span class="hl-k">@Override</span></td></tr>
-<tr><td class="hl-num" data-line="148"></td><td>    <span class="hl-k">public</span> <span class="hl-k">void</span> <span class="hl-en">onCreate</span>() {</td></tr>
-<tr><td class="hl-num" data-line="149"></td><td>        <span class="hl-c">super</span>.<span class="hl-en">onCreate</span>();</td></tr>
-<tr><td class="hl-num" data-line="150"></td><td></td></tr>
-<tr><td class="hl-num" data-line="151"></td><td>        app <span class="hl-k">=</span> <span class="hl-c">this</span>;</td></tr>
+<tr><td class="hl-num" data-line="148"></td><td>    <span class="hl-k">protected</span> <span class="hl-k">void</span> <span class="hl-en">attachBaseContext</span>(<span class="hl-k">final</span> Context base) {</td></tr>
+<tr><td class="hl-num" data-line="149"></td><td>        <span class="hl-c">super</span>.<span class="hl-en">attachBaseContext</span>(base);</td></tr>
+<tr><td class="hl-num" data-line="150"></td><td>        <span class="hl-en">initACRA</span>();</td></tr>
+<tr><td class="hl-num" data-line="151"></td><td>    }</td></tr>
 <tr><td class="hl-num" data-line="152"></td><td></td></tr>
-<tr><td class="hl-num" data-line="153"></td><td>        <span class="hl-k">if</span> (ProcessPhoenix.<span class="hl-en">isPhoenixProcess</span>(<span class="hl-c">this</span>)) {</td></tr>
-<tr><td class="hl-num" data-line="154"></td><td>            Log.<span class="hl-en">i</span>(TAG, <span class="hl-s">"This is a phoenix process! "</span></td></tr>
-<tr><td class="hl-num" data-line="155"></td><td>                    + <span class="hl-s">"Aborting initialization of App[onCreate]"</span>);</td></tr>
-<tr><td class="hl-num" data-line="156"></td><td>            <span class="hl-k">return</span>;</td></tr>
-<tr><td class="hl-num" data-line="157"></td><td>        }</td></tr>
+<tr><td class="hl-num" data-line="153"></td><td>    <span class="hl-k">@Override</span></td></tr>
+<tr><td class="hl-num" data-line="154"></td><td>    <span class="hl-k">public</span> <span class="hl-k">void</span> <span class="hl-en">onCreate</span>() {</td></tr>
+<tr><td class="hl-num" data-line="155"></td><td>        <span class="hl-c">super</span>.<span class="hl-en">onCreate</span>();</td></tr>
+<tr><td class="hl-num" data-line="156"></td><td></td></tr>
+<tr><td class="hl-num" data-line="157"></td><td>        app <span class="hl-k">=</span> <span class="hl-c">this</span>;</td></tr>
 <tr><td class="hl-num" data-line="158"></td><td></td></tr>
-<tr><td class="hl-num" data-line="159"></td><td>        <span class="hl-cmt">// Initialize settings first because others inits can use its values</span></td></tr>
-<tr><td class="hl-num" data-line="160"></td><td>        NewPipeSettings.<span class="hl-en">initSettings</span>(<span class="hl-c">this</span>);</td></tr>
-<tr><td class="hl-num" data-line="161"></td><td></td></tr>
-<tr><td class="hl-num" data-line="162"></td><td>        NewPipe.<span class="hl-en">init</span>(<span class="hl-en">getDownloader</span>(),</td></tr>
-<tr><td class="hl-num" data-line="163"></td><td>            Localization.<span class="hl-en">getPreferredLocalization</span>(<span class="hl-c">this</span>),</td></tr>
-<tr><td class="hl-num" data-line="164"></td><td>            Localization.<span class="hl-en">getPreferredContentCountry</span>(<span class="hl-c">this</span>));</td></tr>
-<tr><td class="hl-num" data-line="165"></td><td>        Localization.<span class="hl-en">initPrettyTime</span>(Localization.<span class="hl-en">resolvePrettyTime</span>(<span class="hl-en">getApplicationContext</span>()));</td></tr>
-<tr><td class="hl-num" data-line="166"></td><td></td></tr>
-<tr><td class="hl-num" data-line="167"></td><td>        StateSaver.<span class="hl-en">init</span>(<span class="hl-c">this</span>);</td></tr>
-<tr><td class="hl-num" data-line="168"></td><td>        ServiceHelper.<span class="hl-en">initServices</span>(<span class="hl-c">this</span>);</td></tr>
-<tr><td class="hl-num" data-line="169"></td><td>    }</td></tr>
-<tr><td class="hl-num" data-line="170"></td><td></td></tr>
-<tr><td class="hl-num" data-line="171"></td><td>    <span class="hl-k">public</span> UTF8String <span class="hl-en">substring</span>(<span class="hl-k">final</span> <span class="hl-k">int</span> start, <span class="hl-k">final</span> <span class="hl-k">int</span> until) {</td></tr>
-<tr><td class="hl-num" data-line="172"></td><td>        <span class="hl-k">int</span> j <span class="hl-k">=</span> i;</td></tr>
-<tr><td class="hl-num" data-line="173"></td><td>        <span class="hl-k">while</span> (i <span class="hl-k"><</span> numBytes <span class="hl-k">&</span><span class="hl-k">&</span> c <span class="hl-k"><</span> until) {</td></tr>
-<tr><td class="hl-num" data-line="174"></td><td>            i +<span class="hl-k">=</span> <span class="hl-en">numBytesForFirstByte</span>(<span class="hl-en">getByte</span>(i));</td></tr>
-<tr><td class="hl-num" data-line="175"></td><td>            c +<span class="hl-k">=</span> <span class="hl-c">1</span>;</td></tr>
-<tr><td class="hl-num" data-line="176"></td><td>        }</td></tr>
-<tr><td class="hl-num" data-line="177"></td><td>        <span class="hl-k">if</span> (i <span class="hl-k">></span> j) {</td></tr>
-<tr><td class="hl-num" data-line="178"></td><td>            <span class="hl-k">byte</span>[] bytes <span class="hl-k">=</span> <span class="hl-k">new</span> <span class="hl-k">byte</span>[i <span class="hl-k">-</span> j];</td></tr>
-<tr><td class="hl-num" data-line="179"></td><td>            <span class="hl-en">copyMemory</span>(base, offset + j, bytes, BYTE_ARRAY_OFFSET, i <span class="hl-k">-</span> j);</td></tr>
-<tr><td class="hl-num" data-line="180"></td><td>            <span class="hl-k">return</span> <span class="hl-en">fromBytes</span>(bytes);</td></tr>
-<tr><td class="hl-num" data-line="181"></td><td>        } <span class="hl-k">else</span> {</td></tr>
-<tr><td class="hl-num" data-line="182"></td><td>            <span class="hl-k">return</span> EMPTY_UTF8;</td></tr>
-<tr><td class="hl-num" data-line="183"></td><td>        }</td></tr>
-<tr><td class="hl-num" data-line="184"></td><td>    }</td></tr>
-<tr><td class="hl-num" data-line="185"></td><td></td></tr>
-<tr><td class="hl-num" data-line="186"></td><td>    <span class="hl-k">@Override</span></td></tr>
-<tr><td class="hl-num" data-line="187"></td><td>    <span class="hl-k">public</span> <span class="hl-k">void</span> <span class="hl-en">onTerminate</span>() {</td></tr>
-<tr><td class="hl-num" data-line="188"></td><td>        <span class="hl-c">super</span>.<span class="hl-en">onTerminate</span>();</td></tr>
-<tr><td class="hl-num" data-line="189"></td><td>        PicassoHelper.<span class="hl-en">terminate</span>();</td></tr>
+<tr><td class="hl-num" data-line="159"></td><td>        <span class="hl-k">if</span> (ProcessPhoenix.<span class="hl-en">isPhoenixProcess</span>(<span class="hl-c">this</span>)) {</td></tr>
+<tr><td class="hl-num" data-line="160"></td><td>            Log.<span class="hl-en">i</span>(TAG, <span class="hl-s">"This is a phoenix process! "</span></td></tr>
+<tr><td class="hl-num" data-line="161"></td><td>                    + <span class="hl-s">"Aborting initialization of App[onCreate]"</span>);</td></tr>
+<tr><td class="hl-num" data-line="162"></td><td>            <span class="hl-k">return</span>;</td></tr>
+<tr><td class="hl-num" data-line="163"></td><td>        }</td></tr>
+<tr><td class="hl-num" data-line="164"></td><td></td></tr>
+<tr><td class="hl-num" data-line="165"></td><td>        <span class="hl-cmt">// Initialize settings first because others inits can use its values</span></td></tr>
+<tr><td class="hl-num" data-line="166"></td><td>        NewPipeSettings.<span class="hl-en">initSettings</span>(<span class="hl-c">this</span>);</td></tr>
+<tr><td class="hl-num" data-line="167"></td><td></td></tr>
+<tr><td class="hl-num" data-line="168"></td><td>        NewPipe.<span class="hl-en">init</span>(<span class="hl-en">getDownloader</span>(),</td></tr>
+<tr><td class="hl-num" data-line="169"></td><td>            Localization.<span class="hl-en">getPreferredLocalization</span>(<span class="hl-c">this</span>),</td></tr>
+<tr><td class="hl-num" data-line="170"></td><td>            Localization.<span class="hl-en">getPreferredContentCountry</span>(<span class="hl-c">this</span>));</td></tr>
+<tr><td class="hl-num" data-line="171"></td><td>        Localization.<span class="hl-en">initPrettyTime</span>(Localization.<span class="hl-en">resolvePrettyTime</span>(<span class="hl-en">getApplicationContext</span>()));</td></tr>
+<tr><td class="hl-num" data-line="172"></td><td></td></tr>
+<tr><td class="hl-num" data-line="173"></td><td>        StateSaver.<span class="hl-en">init</span>(<span class="hl-c">this</span>);</td></tr>
+<tr><td class="hl-num" data-line="174"></td><td>        ServiceHelper.<span class="hl-en">initServices</span>(<span class="hl-c">this</span>);</td></tr>
+<tr><td class="hl-num" data-line="175"></td><td>    }</td></tr>
+<tr><td class="hl-num" data-line="176"></td><td></td></tr>
+<tr><td class="hl-num" data-line="177"></td><td>    <span class="hl-k">public</span> UTF8String <span class="hl-en">substring</span>(<span class="hl-k">final</span> <span class="hl-k">int</span> start, <span class="hl-k">final</span> <span class="hl-k">int</span> until) {</td></tr>
+<tr><td class="hl-num" data-line="178"></td><td>        <span class="hl-k">int</span> j <span class="hl-k">=</span> i;</td></tr>
+<tr><td class="hl-num" data-line="179"></td><td>        <span class="hl-k">while</span> (i <span class="hl-k"><</span> numBytes <span class="hl-k">&</span><span class="hl-k">&</span> c <span class="hl-k"><</span> until) {</td></tr>
+<tr><td class="hl-num" data-line="180"></td><td>            i +<span class="hl-k">=</span> <span class="hl-en">numBytesForFirstByte</span>(<span class="hl-en">getByte</span>(i));</td></tr>
+<tr><td class="hl-num" data-line="181"></td><td>            c +<span class="hl-k">=</span> <span class="hl-c">1</span>;</td></tr>
+<tr><td class="hl-num" data-line="182"></td><td>        }</td></tr>
+<tr><td class="hl-num" data-line="183"></td><td>        <span class="hl-k">if</span> (i <span class="hl-k">></span> j) {</td></tr>
+<tr><td class="hl-num" data-line="184"></td><td>            <span class="hl-k">byte</span>[] bytes <span class="hl-k">=</span> <span class="hl-k">new</span> <span class="hl-k">byte</span>[i <span class="hl-k">-</span> j];</td></tr>
+<tr><td class="hl-num" data-line="185"></td><td>            <span class="hl-en">copyMemory</span>(base, offset + j, bytes, BYTE_ARRAY_OFFSET, i <span class="hl-k">-</span> j);</td></tr>
+<tr><td class="hl-num" data-line="186"></td><td>            <span class="hl-k">return</span> <span class="hl-en">fromBytes</span>(bytes);</td></tr>
+<tr><td class="hl-num" data-line="187"></td><td>        } <span class="hl-k">else</span> {</td></tr>
+<tr><td class="hl-num" data-line="188"></td><td>            <span class="hl-k">return</span> EMPTY_UTF8;</td></tr>
+<tr><td class="hl-num" data-line="189"></td><td>        }</td></tr>
 <tr><td class="hl-num" data-line="190"></td><td>    }</td></tr>
 <tr><td class="hl-num" data-line="191"></td><td></td></tr>
 <tr><td class="hl-num" data-line="192"></td><td>    <span class="hl-k">@Override</span></td></tr>
-<tr><td class="hl-num" data-line="193"></td><td>    <span class="hl-k">@ReactProp</span>(name <span class="hl-k">=</span> ViewProps.TRANSFORM)</td></tr>
-<tr><td class="hl-num" data-line="194"></td><td>    <span class="hl-k">public</span> <span class="hl-k">void</span> <span class="hl-en">setTransform</span>(<span class="hl-k">@NonNull</span> T view, <span class="hl-k">@Nullable</span> ReadableArray matrix) {</td></tr>
-<tr><td class="hl-num" data-line="195"></td><td>        <span class="hl-k">if</span> (matrix <span class="hl-k">=</span><span class="hl-k">=</span> <span class="hl-c">null</span>) {</td></tr>
-<tr><td class="hl-num" data-line="196"></td><td>            <span class="hl-en">resetTransformProperty</span>(view);</td></tr>
-<tr><td class="hl-num" data-line="197"></td><td>        } <span class="hl-k">else</span> {</td></tr>
-<tr><td class="hl-num" data-line="198"></td><td>            <span class="hl-en">setTransformProperty</span>(view, matrix);</td></tr>
-<tr><td class="hl-num" data-line="199"></td><td>        }</td></tr>
-<tr><td class="hl-num" data-line="200"></td><td>    }</td></tr>
-<tr><td class="hl-num" data-line="201"></td><td></td></tr>
-<tr><td class="hl-num" data-line="202"></td><td>    <span class="hl-k">private</span> <span class="hl-k">void</span> <span class="hl-en">configureRxJavaErrorHandler</span>() {</td></tr>
-<tr><td class="hl-num" data-line="203"></td><td>        <span class="hl-cmt">// https://github.com/ReactiveX/RxJava/wiki/What's-different-in-2.0#error-handling</span></td></tr>
-<tr><td class="hl-num" data-line="204"></td><td>        RxJavaPlugins.<span class="hl-en">setErrorHandler</span>(<span class="hl-k">new</span> Consumer<span class="hl-k"><</span>Throwable<span class="hl-k">></span>() {</td></tr>
-<tr><td class="hl-num" data-line="205"></td><td>            <span class="hl-k">@Override</span></td></tr>
-<tr><td class="hl-num" data-line="206"></td><td>            <span class="hl-k">public</span> <span class="hl-k">void</span> <span class="hl-en">accept</span>(<span class="hl-k">@NonNull</span> <span class="hl-k">final</span> Throwable throwable) {</td></tr>
-<tr><td class="hl-num" data-line="207"></td><td>                Log.<span class="hl-en">e</span>(TAG, <span class="hl-s">"RxJavaPlugins.ErrorHandler called with -&gt; : "</span></td></tr>
-<tr><td class="hl-num" data-line="208"></td><td>                        + <span class="hl-s">"throwable = ["</span> + throwable.<span class="hl-en">getClass</span>().<span class="hl-en">getName</span>() + <span class="hl-s">"]"</span>);</td></tr>
-<tr><td class="hl-num" data-line="209"></td><td></td></tr>
-<tr><td class="hl-num" data-line="210"></td><td>                <span class="hl-k">final</span> Throwable actualThrowable;</td></tr>
-<tr><td class="hl-num" data-line="211"></td><td>                <span class="hl-k">if</span> (throwable <span class="hl-k">instanceof</span> UndeliverableException) {</td></tr>
-<tr><td class="hl-num" data-line="212"></td><td>                    <span class="hl-cmt">// As UndeliverableException is a wrapper,</span></td></tr>
-<tr><td class="hl-num" data-line="213"></td><td>                    <span class="hl-cmt">// get the cause of it to get the "real" exception</span></td></tr>
-<tr><td class="hl-num" data-line="214"></td><td>                    actualThrowable <span class="hl-k">=</span> throwable.<span class="hl-en">getCause</span>();</td></tr>
-<tr><td class="hl-num" data-line="215"></td><td>                } <span class="hl-k">else</span> {</td></tr>
-<tr><td class="hl-num" data-line="216"></td><td>                    actualThrowable <span class="hl-k">=</span> throwable;</td></tr>
-<tr><td class="hl-num" data-line="217"></td><td>                }</td></tr>
-<tr><td class="hl-num" data-line="218"></td><td></td></tr>
-<tr><td class="hl-num" data-line="219"></td><td>                <span class="hl-k">final</span> <span class="hl-k">List</span><span class="hl-k"><</span>Throwable<span class="hl-k">></span> errors;</td></tr>
-<tr><td class="hl-num" data-line="220"></td><td>                <span class="hl-k">if</span> (actualThrowable <span class="hl-k">instanceof</span> CompositeException) {</td></tr>
-<tr><td class="hl-num" data-line="221"></td><td>                    errors <span class="hl-k">=</span> ((CompositeException) actualThrowable).<span class="hl-en">getExceptions</span>();</td></tr>
-<tr><td class="hl-num" data-line="222"></td><td>                } <span class="hl-k">else</span> {</td></tr>
-<tr><td class="hl-num" data-line="223"></td><td>                    errors <span class="hl-k">=</span> Collections.<span class="hl-en">singletonList</span>(actualThrowable);</td></tr>
-<tr><td class="hl-num" data-line="224"></td><td>                }</td></tr>
-<tr><td class="hl-num" data-line="225"></td><td></td></tr>
-<tr><td class="hl-num" data-line="226"></td><td>                <span class="hl-k">for</span> (<span class="hl-k">final</span> Throwable error : errors) {</td></tr>
-<tr><td class="hl-num" data-line="227"></td><td>                    <span class="hl-k">if</span> (<span class="hl-en">isThrowableIgnored</span>(error)) {</td></tr>
-<tr><td class="hl-num" data-line="228"></td><td>                        <span class="hl-k">return</span>;</td></tr>
-<tr><td class="hl-num" data-line="229"></td><td>                    }</td></tr>
-<tr><td class="hl-num" data-line="230"></td><td>                    <span class="hl-k">if</span> (<span class="hl-en">isThrowableCritical</span>(error)) {</td></tr>
-<tr><td class="hl-num" data-line="231"></td><td>                        <span class="hl-en">reportException</span>(error);</td></tr>
-<tr><td class="hl-num" data-line="232"></td><td>                        <span class="hl-k">return</span>;</td></tr>
-<tr><td class="hl-num" data-line="233"></td><td>                    }</td></tr>
-<tr><td class="hl-num" data-line="234"></td><td>                }</td></tr>
-<tr><td class="hl-num" data-line="235"></td><td>            }</td></tr>
-<tr><td class="hl-num" data-line="236"></td><td></td></tr>
-<tr><td class="hl-num" data-line="237"></td><td>            <span class="hl-k">private</span> <span class="hl-k">boolean</span> <span class="hl-en">isThrowableIgnored</span>(<span class="hl-k">@NonNull</span> <span class="hl-k">final</span> Throwable throwable) {</td></tr>
-<tr><td class="hl-num" data-line="238"></td><td>                <span class="hl-cmt">// Don't crash the application over a simple network problem</span></td></tr>
-<tr><td class="hl-num" data-line="239"></td><td>                <span class="hl-k">return</span> ExceptionUtils.<span class="hl-en">hasAssignableCause</span>(throwable,</td></tr>
-<tr><td class="hl-num" data-line="240"></td><td>                        IOException.<span class="hl-k">class</span>, SocketException.<span class="hl-k">class</span>,</td></tr>
-<tr><td class="hl-num" data-line="241"></td><td>                        InterruptedException.<span class="hl-k">class</span>, InterruptedIOException.<span class="hl-k">class</span>);</td></tr>
-<tr><td class="hl-num" data-line="242"></td><td>            }</td></tr>
-<tr><td class="hl-num" data-line="243"></td><td></td></tr>
-<tr><td class="hl-num" data-line="244"></td><td>        });</td></tr>
-<tr><td class="hl-num" data-line="245"></td><td>    }</td></tr>
-<tr><td class="hl-num" data-line="246"></td><td></td></tr>
-<tr><td class="hl-num" data-line="247"></td><td>    <span class="hl-cmt">/**</span></td></tr>
-<tr><td class="hl-num" data-line="248"></td><td><span class="hl-cmt">     * Called in {@link #attachBaseContext(Context)} after calling the {@code super} method.</span></td></tr>
-<tr><td class="hl-num" data-line="249"></td><td><span class="hl-cmt">     * Should be overridden if MultiDex is enabled, since it has to be initialized before ACRA.</span></td></tr>
-<tr><td class="hl-num" data-line="250"></td><td><span class="hl-cmt">     */</span></td></tr>
-<tr><td class="hl-num" data-line="251"></td><td>    <span class="hl-k">protected</span> <span class="hl-k">void</span> <span class="hl-en">init</span>() {</td></tr>
-<tr><td class="hl-num" data-line="252"></td><td>        <span class="hl-k">if</span> (ACRA.<span class="hl-en">isACRASenderServiceProcess</span>()) {</td></tr>
-<tr><td class="hl-num" data-line="253"></td><td>            <span class="hl-k">return</span>;</td></tr>
-<tr><td class="hl-num" data-line="254"></td><td>        }</td></tr>
-<tr><td class="hl-num" data-line="255"></td><td>        <span class="hl-k">long</span>[] opHandles <span class="hl-k">=</span> <span class="hl-k">new</span> <span class="hl-k">long</span>[inputs.length];</td></tr>
-<tr><td class="hl-num" data-line="256"></td><td></td></tr>
-<tr><td class="hl-num" data-line="257"></td><td>        <span class="hl-k">try</span> {</td></tr>
-<tr><td class="hl-num" data-line="258"></td><td>            <span class="hl-k">final</span> CoreConfiguration acraConfig <span class="hl-k">=</span> <span class="hl-k">new</span> <span class="hl-en">CoreConfigurationBuilder</span>(<span class="hl-c">this</span>)</td></tr>
-<tr><td class="hl-num" data-line="259"></td><td>                    .<span class="hl-en">setBuildConfigClass</span>(BuildConfig.<span class="hl-k">class</span>)</td></tr>
-<tr><td class="hl-num" data-line="260"></td><td>                    .<span class="hl-en">build</span>();</td></tr>
-<tr><td class="hl-num" data-line="261"></td><td>            ACRA.<span class="hl-en">init</span>(<span class="hl-c">this</span>, acraConfig);</td></tr>
-<tr><td class="hl-num" data-line="262"></td><td>        } <span class="hl-k">catch</span> (<span class="hl-k">final</span> ACRAConfigurationException exception) {</td></tr>
-<tr><td class="hl-num" data-line="263"></td><td>            exception.<span class="hl-en">printStackTrace</span>();</td></tr>
-<tr><td class="hl-num" data-line="264"></td><td>            ErrorUtil.<span class="hl-en">openActivity</span>(<span class="hl-c">this</span>, <span class="hl-k">new</span> <span class="hl-en">ErrorInfo</span>(exception,</td></tr>
-<tr><td class="hl-num" data-line="265"></td><td>                    UserAction.SOMETHING_ELSE, <span class="hl-s">"Could not initialize ACRA crash report"</span>));</td></tr>
-<tr><td class="hl-num" data-line="266"></td><td>        } <span class="hl-k">finally</span> {</td></tr>
-<tr><td class="hl-num" data-line="267"></td><td>            <span class="hl-en">close</span>();</td></tr>
-<tr><td class="hl-num" data-line="268"></td><td>        }</td></tr>
-<tr><td class="hl-num" data-line="269"></td><td>    }</td></tr>
-<tr><td class="hl-num" data-line="270"></td><td></td></tr>
-<tr><td class="hl-num" data-line="271"></td><td>    <span class="hl-k">private</span> <span class="hl-k">void</span> <span class="hl-en">initNotificationChannels</span>() {</td></tr>
-<tr><td class="hl-num" data-line="272"></td><td>        <span class="hl-cmt">// Keep the importance below DEFAULT to avoid making noise on every notification update for</span></td></tr>
-<tr><td class="hl-num" data-line="273"></td><td>        <span class="hl-cmt">// the main and update channels</span></td></tr>
-<tr><td class="hl-num" data-line="274"></td><td>        <span class="hl-k">final</span> NotificationChannelCompat mainChannel <span class="hl-k">=</span> <span class="hl-k">new</span> NotificationChannelCompat</td></tr>
-<tr><td class="hl-num" data-line="275"></td><td>                .<span class="hl-en">Builder</span>(<span class="hl-en">getString</span>(R.string.notification_channel_id),</td></tr>
-<tr><td class="hl-num" data-line="276"></td><td>                        NotificationManagerCompat.IMPORTANCE_LOW)</td></tr>
-<tr><td class="hl-num" data-line="277"></td><td>                .<span class="hl-en">setName</span>(<span class="hl-en">getString</span>(R.string.notification_channel_name))</td></tr>
-<tr><td class="hl-num" data-line="278"></td><td>                .<span class="hl-en">setDescription</span>(<span class="hl-en">getString</span>(R.string.notification_channel_description))</td></tr>
-<tr><td class="hl-num" data-line="279"></td><td>                .<span class="hl-en">build</span>();</td></tr>
-<tr><td class="hl-num" data-line="280"></td><td></td></tr>
-<tr><td class="hl-num" data-line="281"></td><td>        <span class="hl-k">final</span> NotificationManagerCompat notificationManager <span class="hl-k">=</span> NotificationManagerCompat.<span class="hl-en">from</span>(<span class="hl-c">this</span>);</td></tr>
-<tr><td class="hl-num" data-line="282"></td><td>        notificationManager.<span class="hl-en">createNotificationChannelsCompat</span>(Arrays.<span class="hl-en">asList</span>(mainChannel,</td></tr>
-<tr><td class="hl-num" data-line="283"></td><td>                appUpdateChannel, hashChannel, errorReportChannel));</td></tr>
-<tr><td class="hl-num" data-line="284"></td><td>    }</td></tr>
-<tr><td class="hl-num" data-line="285"></td><td></td></tr>
-<tr><td class="hl-num" data-line="286"></td><td>    <span class="hl-k">protected</span> <span class="hl-k">boolean</span> <span class="hl-en">isDisposedRxExceptionsReported</span>() {</td></tr>
-<tr><td class="hl-num" data-line="287"></td><td>        <span class="hl-k">return</span> <span class="hl-c">false</span>;</td></tr>
-<tr><td class="hl-num" data-line="288"></td><td>    }</td></tr>
-<tr><td class="hl-num" data-line="289"></td><td></td></tr>
-<tr><td class="hl-num" data-line="290"></td><td>}</td></tr>
+<tr><td class="hl-num" data-line="193"></td><td>    <span class="hl-k">public</span> <span class="hl-k">void</span> <span class="hl-en">onTerminate</span>() {</td></tr>
+<tr><td class="hl-num" data-line="194"></td><td>        <span class="hl-c">super</span>.<span class="hl-en">onTerminate</span>();</td></tr>
+<tr><td class="hl-num" data-line="195"></td><td>        PicassoHelper.<span class="hl-en">terminate</span>();</td></tr>
+<tr><td class="hl-num" data-line="196"></td><td>    }</td></tr>
+<tr><td class="hl-num" data-line="197"></td><td></td></tr>
+<tr><td class="hl-num" data-line="198"></td><td>    <span class="hl-k">@Override</span></td></tr>
+<tr><td class="hl-num" data-line="199"></td><td>    <span class="hl-k">@ReactProp</span>(name <span class="hl-k">=</span> ViewProps.TRANSFORM)</td></tr>
+<tr><td class="hl-num" data-line="200"></td><td>    <span class="hl-k">public</span> <span class="hl-k">void</span> <span class="hl-en">setTransform</span>(<span class="hl-k">@NonNull</span> T view, <span class="hl-k">@Nullable</span> ReadableArray matrix) {</td></tr>
+<tr><td class="hl-num" data-line="201"></td><td>        <span class="hl-k">if</span> (matrix <span class="hl-k">=</span><span class="hl-k">=</span> <span class="hl-c">null</span>) {</td></tr>
+<tr><td class="hl-num" data-line="202"></td><td>            <span class="hl-en">resetTransformProperty</span>(view);</td></tr>
+<tr><td class="hl-num" data-line="203"></td><td>        } <span class="hl-k">else</span> {</td></tr>
+<tr><td class="hl-num" data-line="204"></td><td>            <span class="hl-en">setTransformProperty</span>(view, matrix);</td></tr>
+<tr><td class="hl-num" data-line="205"></td><td>        }</td></tr>
+<tr><td class="hl-num" data-line="206"></td><td>    }</td></tr>
+<tr><td class="hl-num" data-line="207"></td><td></td></tr>
+<tr><td class="hl-num" data-line="208"></td><td>    <span class="hl-k">private</span> <span class="hl-k">void</span> <span class="hl-en">configureRxJavaErrorHandler</span>() {</td></tr>
+<tr><td class="hl-num" data-line="209"></td><td>        <span class="hl-cmt">// https://github.com/ReactiveX/RxJava/wiki/What's-different-in-2.0#error-handling</span></td></tr>
+<tr><td class="hl-num" data-line="210"></td><td>        RxJavaPlugins.<span class="hl-en">setErrorHandler</span>(<span class="hl-k">new</span> Consumer<span class="hl-k"><</span>Throwable<span class="hl-k">></span>() {</td></tr>
+<tr><td class="hl-num" data-line="211"></td><td>            <span class="hl-k">@Override</span></td></tr>
+<tr><td class="hl-num" data-line="212"></td><td>            <span class="hl-k">public</span> <span class="hl-k">void</span> <span class="hl-en">accept</span>(<span class="hl-k">@NonNull</span> <span class="hl-k">final</span> Throwable throwable) {</td></tr>
+<tr><td class="hl-num" data-line="213"></td><td>                Log.<span class="hl-en">e</span>(TAG, <span class="hl-s">"RxJavaPlugins.ErrorHandler called with -&gt; : "</span></td></tr>
+<tr><td class="hl-num" data-line="214"></td><td>                        + <span class="hl-s">"throwable = ["</span> + throwable.<span class="hl-en">getClass</span>().<span class="hl-en">getName</span>() + <span class="hl-s">"]"</span>);</td></tr>
+<tr><td class="hl-num" data-line="215"></td><td></td></tr>
+<tr><td class="hl-num" data-line="216"></td><td>                <span class="hl-k">final</span> Throwable actualThrowable;</td></tr>
+<tr><td class="hl-num" data-line="217"></td><td>                <span class="hl-k">if</span> (throwable <span class="hl-k">instanceof</span> UndeliverableException) {</td></tr>
+<tr><td class="hl-num" data-line="218"></td><td>                    <span class="hl-cmt">// As UndeliverableException is a wrapper,</span></td></tr>
+<tr><td class="hl-num" data-line="219"></td><td>                    <span class="hl-cmt">// get the cause of it to get the "real" exception</span></td></tr>
+<tr><td class="hl-num" data-line="220"></td><td>                    actualThrowable <span class="hl-k">=</span> throwable.<span class="hl-en">getCause</span>();</td></tr>
+<tr><td class="hl-num" data-line="221"></td><td>                } <span class="hl-k">else</span> {</td></tr>
+<tr><td class="hl-num" data-line="222"></td><td>                    actualThrowable <span class="hl-k">=</span> throwable;</td></tr>
+<tr><td class="hl-num" data-line="223"></td><td>                }</td></tr>
+<tr><td class="hl-num" data-line="224"></td><td></td></tr>
+<tr><td class="hl-num" data-line="225"></td><td>                <span class="hl-k">final</span> <span class="hl-k">List</span><span class="hl-k"><</span>Throwable<span class="hl-k">></span> errors;</td></tr>
+<tr><td class="hl-num" data-line="226"></td><td>                <span class="hl-k">if</span> (actualThrowable <span class="hl-k">instanceof</span> CompositeException) {</td></tr>
+<tr><td class="hl-num" data-line="227"></td><td>                    errors <span class="hl-k">=</span> ((CompositeException) actualThrowable).<span class="hl-en">getExceptions</span>();</td></tr>
+<tr><td class="hl-num" data-line="228"></td><td>                } <span class="hl-k">else</span> {</td></tr>
+<tr><td class="hl-num" data-line="229"></td><td>                    errors <span class="hl-k">=</span> Collections.<span class="hl-en">singletonList</span>(actualThrowable);</td></tr>
+<tr><td class="hl-num" data-line="230"></td><td>                }</td></tr>
+<tr><td class="hl-num" data-line="231"></td><td></td></tr>
+<tr><td class="hl-num" data-line="232"></td><td>                <span class="hl-k">for</span> (<span class="hl-k">final</span> Throwable error : errors) {</td></tr>
+<tr><td class="hl-num" data-line="233"></td><td>                    <span class="hl-k">if</span> (<span class="hl-en">isThrowableIgnored</span>(error)) {</td></tr>
+<tr><td class="hl-num" data-line="234"></td><td>                        <span class="hl-k">return</span>;</td></tr>
+<tr><td class="hl-num" data-line="235"></td><td>                    }</td></tr>
+<tr><td class="hl-num" data-line="236"></td><td>                    <span class="hl-k">if</span> (<span class="hl-en">isThrowableCritical</span>(error)) {</td></tr>
+<tr><td class="hl-num" data-line="237"></td><td>                        <span class="hl-en">reportException</span>(error);</td></tr>
+<tr><td class="hl-num" data-line="238"></td><td>                        <span class="hl-k">return</span>;</td></tr>
+<tr><td class="hl-num" data-line="239"></td><td>                    }</td></tr>
+<tr><td class="hl-num" data-line="240"></td><td>                }</td></tr>
+<tr><td class="hl-num" data-line="241"></td><td>            }</td></tr>
+<tr><td class="hl-num" data-line="242"></td><td></td></tr>
+<tr><td class="hl-num" data-line="243"></td><td>            <span class="hl-k">private</span> <span class="hl-k">boolean</span> <span class="hl-en">isThrowableIgnored</span>(<span class="hl-k">@NonNull</span> <span class="hl-k">final</span> Throwable throwable) {</td></tr>
+<tr><td class="hl-num" data-line="244"></td><td>                <span class="hl-cmt">// Don't crash the application over a simple network problem</span></td></tr>
+<tr><td class="hl-num" data-line="245"></td><td>                <span class="hl-k">return</span> ExceptionUtils.<span class="hl-en">hasAssignableCause</span>(throwable,</td></tr>
+<tr><td class="hl-num" data-line="246"></td><td>                        IOException.<span class="hl-k">class</span>, SocketException.<span class="hl-k">class</span>,</td></tr>
+<tr><td class="hl-num" data-line="247"></td><td>                        InterruptedException.<span class="hl-k">class</span>, InterruptedIOException.<span class="hl-k">class</span>);</td></tr>
+<tr><td class="hl-num" data-line="248"></td><td>            }</td></tr>
+<tr><td class="hl-num" data-line="249"></td><td></td></tr>
+<tr><td class="hl-num" data-line="250"></td><td>        });</td></tr>
+<tr><td class="hl-num" data-line="251"></td><td>    }</td></tr>
+<tr><td class="hl-num" data-line="252"></td><td></td></tr>
+<tr><td class="hl-num" data-line="253"></td><td>    <span class="hl-cmt">/**</span></td></tr>
+<tr><td class="hl-num" data-line="254"></td><td><span class="hl-cmt">     * Called in {@link #attachBaseContext(Context)} after calling the {@code super} method.</span></td></tr>
+<tr><td class="hl-num" data-line="255"></td><td><span class="hl-cmt">     * Should be overridden if MultiDex is enabled, since it has to be initialized before ACRA.</span></td></tr>
+<tr><td class="hl-num" data-line="256"></td><td><span class="hl-cmt">     */</span></td></tr>
+<tr><td class="hl-num" data-line="257"></td><td>    <span class="hl-k">protected</span> <span class="hl-k">void</span> <span class="hl-en">init</span>() {</td></tr>
+<tr><td class="hl-num" data-line="258"></td><td>        <span class="hl-k">if</span> (ACRA.<span class="hl-en">isACRASenderServiceProcess</span>()) {</td></tr>
+<tr><td class="hl-num" data-line="259"></td><td>            <span class="hl-k">return</span>;</td></tr>
+<tr><td class="hl-num" data-line="260"></td><td>        }</td></tr>
+<tr><td class="hl-num" data-line="261"></td><td>        <span class="hl-k">long</span>[] opHandles <span class="hl-k">=</span> <span class="hl-k">new</span> <span class="hl-k">long</span>[inputs.length];</td></tr>
+<tr><td class="hl-num" data-line="262"></td><td></td></tr>
+<tr><td class="hl-num" data-line="263"></td><td>        <span class="hl-k">try</span> {</td></tr>
+<tr><td class="hl-num" data-line="264"></td><td>            <span class="hl-k">final</span> CoreConfiguration acraConfig <span class="hl-k">=</span> <span class="hl-k">new</span> <span class="hl-en">CoreConfigurationBuilder</span>(<span class="hl-c">this</span>)</td></tr>
+<tr><td class="hl-num" data-line="265"></td><td>                    .<span class="hl-en">setBuildConfigClass</span>(BuildConfig.<span class="hl-k">class</span>)</td></tr>
+<tr><td class="hl-num" data-line="266"></td><td>                    .<span class="hl-en">build</span>();</td></tr>
+<tr><td class="hl-num" data-line="267"></td><td>            ACRA.<span class="hl-en">init</span>(<span class="hl-c">this</span>, acraConfig);</td></tr>
+<tr><td class="hl-num" data-line="268"></td><td>        } <span class="hl-k">catch</span> (<span class="hl-k">final</span> ACRAConfigurationException exception) {</td></tr>
+<tr><td class="hl-num" data-line="269"></td><td>            exception.<span class="hl-en">printStackTrace</span>();</td></tr>
+<tr><td class="hl-num" data-line="270"></td><td>            ErrorUtil.<span class="hl-en">openActivity</span>(<span class="hl-c">this</span>, <span class="hl-k">new</span> <span class="hl-en">ErrorInfo</span>(exception,</td></tr>
+<tr><td class="hl-num" data-line="271"></td><td>                    UserAction.SOMETHING_ELSE, <span class="hl-s">"Could not initialize ACRA crash report"</span>));</td></tr>
+<tr><td class="hl-num" data-line="272"></td><td>        } <span class="hl-k">finally</span> {</td></tr>
+<tr><td class="hl-num" data-line="273"></td><td>            <span class="hl-en">close</span>();</td></tr>
+<tr><td class="hl-num" data-line="274"></td><td>        }</td></tr>
+<tr><td class="hl-num" data-line="275"></td><td>    }</td></tr>
+<tr><td class="hl-num" data-line="276"></td><td></td></tr>
+<tr><td class="hl-num" data-line="277"></td><td>    <span class="hl-k">private</span> <span class="hl-k">void</span> <span class="hl-en">initNotificationChannels</span>() {</td></tr>
+<tr><td class="hl-num" data-line="278"></td><td>        <span class="hl-cmt">// Keep the importance below DEFAULT to avoid making noise on every notification update for</span></td></tr>
+<tr><td class="hl-num" data-line="279"></td><td>        <span class="hl-cmt">// the main and update channels</span></td></tr>
+<tr><td class="hl-num" data-line="280"></td><td>        <span class="hl-k">final</span> NotificationChannelCompat mainChannel <span class="hl-k">=</span> <span class="hl-k">new</span> NotificationChannelCompat</td></tr>
+<tr><td class="hl-num" data-line="281"></td><td>                .<span class="hl-en">Builder</span>(<span class="hl-en">getString</span>(R.string.notification_channel_id),</td></tr>
+<tr><td class="hl-num" data-line="282"></td><td>                        NotificationManagerCompat.IMPORTANCE_LOW)</td></tr>
+<tr><td class="hl-num" data-line="283"></td><td>                .<span class="hl-en">setName</span>(<span class="hl-en">getString</span>(R.string.notification_channel_name))</td></tr>
+<tr><td class="hl-num" data-line="284"></td><td>                .<span class="hl-en">setDescription</span>(<span class="hl-en">getString</span>(R.string.notification_channel_description))</td></tr>
+<tr><td class="hl-num" data-line="285"></td><td>                .<span class="hl-en">build</span>();</td></tr>
+<tr><td class="hl-num" data-line="286"></td><td></td></tr>
+<tr><td class="hl-num" data-line="287"></td><td>        <span class="hl-k">final</span> NotificationManagerCompat notificationManager <span class="hl-k">=</span> NotificationManagerCompat.<span class="hl-en">from</span>(<span class="hl-c">this</span>);</td></tr>
+<tr><td class="hl-num" data-line="288"></td><td>        notificationManager.<span class="hl-en">createNotificationChannelsCompat</span>(Arrays.<span class="hl-en">asList</span>(mainChannel,</td></tr>
+<tr><td class="hl-num" data-line="289"></td><td>                appUpdateChannel, hashChannel, errorReportChannel));</td></tr>
+<tr><td class="hl-num" data-line="290"></td><td>    }</td></tr>
 <tr><td class="hl-num" data-line="291"></td><td></td></tr>
+<tr><td class="hl-num" data-line="292"></td><td>    <span class="hl-k">protected</span> <span class="hl-k">boolean</span> <span class="hl-en">isDisposedRxExceptionsReported</span>() {</td></tr>
+<tr><td class="hl-num" data-line="293"></td><td>        <span class="hl-k">return</span> <span class="hl-c">false</span>;</td></tr>
+<tr><td class="hl-num" data-line="294"></td><td>    }</td></tr>
+<tr><td class="hl-num" data-line="295"></td><td></td></tr>
+<tr><td class="hl-num" data-line="296"></td><td>}</td></tr>
+<tr><td class="hl-num" data-line="297"></td><td></td></tr>
 </tbody>
 </table>
