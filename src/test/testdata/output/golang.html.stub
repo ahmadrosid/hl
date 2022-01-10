@@ -9,7 +9,7 @@
 <tr><td class="hl-num" data-line="7"></td><td></td></tr>
 <tr><td class="hl-num" data-line="8"></td><td><span class="hl-k">func</span> <span class="hl-en">expTrampolineSetup</span>(x <span class="hl-c">float64</span>) <span class="hl-c">float64</span></td></tr>
 <tr><td class="hl-num" data-line="9"></td><td><span class="hl-k">func</span> (c *sigctxt) <span class="hl-en">r0</span>() <span class="hl-c">uint64</span>  { <span class="hl-k">return</span> c.<span class="hl-en">regs</span>().<span class="hl-en">gpr</span>[<span class="hl-c">0</span>] }</td></tr>
-<tr><td class="hl-num" data-line="10"></td><td><span class="hl-k">func</span> (c *sigctxt) <span class="hl-en">set_sigcode</span>(x <span class="hl-c">uint32</span>) { c.<span class="hl-en">info</span>.<span class="hl-en">si_code</span> = <span class="hl-en">int32</span>(x) }</td></tr>
+<tr><td class="hl-num" data-line="10"></td><td><span class="hl-k">func</span> (c *sigctxt) <span class="hl-en">set_sigcode</span>(x <span class="hl-c">uint32</span>) { c.<span class="hl-en">info</span>.<span class="hl-en">si_code</span> = <span class="hl-c">int32</span>(x) }</td></tr>
 <tr><td class="hl-num" data-line="11"></td><td></td></tr>
 <tr><td class="hl-num" data-line="12"></td><td><span class="hl-k">const</span> new_line = <span class="hl-s">'\n'</span></td></tr>
 <tr><td class="hl-num" data-line="13"></td><td><span class="hl-cmt">/**</span></td></tr>
@@ -73,7 +73,7 @@
 <tr><td class="hl-num" data-line="71"></td><td>        <span class="hl-k">return</span> map_Affinity</td></tr>
 <tr><td class="hl-num" data-line="72"></td><td>}</td></tr>
 <tr><td class="hl-num" data-line="73"></td><td></td></tr>
-<tr><td class="hl-num" data-line="74"></td><td><span class="hl-k">func</span> (ado Ada) <span class="hl-en">Ask</span>() ([]<span class="hl-c">byte</span>, <span class="hl-c">error</span>) {</td></tr>
+<tr><td class="hl-num" data-line="74"></td><td><span class="hl-k">func</span> (ado Ada) <span class="hl-en">Ask</span>() ([]<span class="hl-c">byte</span>, <span class="hl-k">error</span>) {</td></tr>
 <tr><td class="hl-num" data-line="75"></td><td>        <span class="hl-k">return</span> <span class="hl-s">&</span>ado, <span class="hl-c">nil</span></td></tr>
 <tr><td class="hl-num" data-line="76"></td><td>}</td></tr>
 <tr><td class="hl-num" data-line="77"></td><td></td></tr>
