@@ -13,7 +13,6 @@ const values = [true,false,null,void 0,0,0.0,-0,"",-1,-1.25,1,1.25,-2147483648,2
 var expected = [
   [NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN],
   [1,0,0,NaN,0,0,0,0,0,0,1,1.25,0,2147483648,Infinity,0,NaN],
-  [1,0,0,NaN,0,0,0,0,0,0,1,1.25,0,2147483648,Infinity,0,NaN],
 ];
 let func = (function max(a,b) { return Math.max(a, b); });
 var left_funcs = [
@@ -54,4 +53,15 @@ function test() {
   }
 }
 test();
-test();
+
+function mapSpecialUnicodeValues(code) {
+  if (code >= 0xfff0 && code <= 0xffff) {
+    // Specials unicode block.
+    return 0;
+  } else if (code >= 0xf600 && code <= 0xf8ff) {
+    return getSpecialPUASymbols()[code] || code;
+  } else if (code === /* softhyphen = */ 0x00ad) {
+    return 0x002d; // hyphen
+  }
+  return code;
+}
