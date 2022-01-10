@@ -24,26 +24,31 @@ entity_suffix:
   ENTITY_COLON: ":"
 
 keyword:
-  package: "package"
-  func: "func"
-  for: "for"
-  var: "var"
-  if: "if"
-  else: "else"
-  match: "switch"
-  case: "case"
-  return: "return"
-  default: "default"
-  import: "import"
-  type: "type"
-  interface: "interface"
-  chan: "chan"
-  struct: "struct"
-  const: "const"
-  range: "range"
-  break: "break"
-  map: "map"
-  continue: "continue"
+  break: break
+  case: case
+  chan: chan
+  const: const
+  continue: continue
+  default: default
+  defer: defer
+  else: else
+  fallthrough: fallthrough
+  for: for
+  func: func
+  go: go
+  goto: goto
+  if: if
+  import: import
+  interface: interface
+  map: map
+  package: package
+  range: range
+  return: return
+  select: select
+  struct: struct
+  switch: switch
+  type: type
+  var: var
 
 condition:
   ACCEPT_ESCAPED_STRING: true
