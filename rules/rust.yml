@@ -18,6 +18,7 @@ keyword:
     break: break
     const: const
     continue: continue
+    char: char
     crate: crate
     else: else
     enum: enum
@@ -65,6 +66,7 @@ keyword:
     try : try
     union : union
     staticlifetime : "'static"
+    KString: String
     option: Option
     default: Default
     result: Result
@@ -81,6 +83,8 @@ keyword:
     u64: u64
     u128: u128
     usize: usize
+    f32: f32
+    f64: f64
 
 single_keyword:
     - "&"

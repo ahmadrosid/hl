@@ -24,7 +24,7 @@
 <tr><td class="hl-num" data-line="22"></td><td>        .<span class="hl-en">get_matches</span>();</td></tr>
 <tr><td class="hl-num" data-line="23"></td><td></td></tr>
 <tr><td class="hl-num" data-line="24"></td><td>    <span class="hl-k">let</span> <span class="hl-k">mut</span> lang = <span class="hl-s">""</span>;</td></tr>
-<tr><td class="hl-num" data-line="25"></td><td>    <span class="hl-k">let</span> <span class="hl-k">mut</span> input: <span class="hl-k">Vec</span><span class="hl-k"><</span>char<span class="hl-k">></span> = <span class="hl-en">vec</span>![<span class="hl-s">'0'</span>];</td></tr>
+<tr><td class="hl-num" data-line="25"></td><td>    <span class="hl-k">let</span> <span class="hl-k">mut</span> input: <span class="hl-k">Vec</span><span class="hl-k"><</span><span class="hl-k">char</span><span class="hl-k">></span> = <span class="hl-en">vec</span>![<span class="hl-s">'0'</span>];</td></tr>
 <tr><td class="hl-num" data-line="26"></td><td>    <span class="hl-k">match</span> matches.<span class="hl-en">subcommand</span>() {</td></tr>
 <tr><td class="hl-num" data-line="27"></td><td>        <span class="hl-en">Some</span>((<span class="hl-s">"generate"</span>, sub_matches)) =<span class="hl-k">></span> {</td></tr>
 <tr><td class="hl-num" data-line="28"></td><td>            <span class="hl-k">let</span> lexer_path = sub_matches.<span class="hl-en">value_of</span>(<span class="hl-s">"LEXER_PATH"</span>).<span class="hl-en">expect</span>(<span class="hl-s">"required"</span>);</td></tr>
@@ -35,7 +35,7 @@
 <tr><td class="hl-num" data-line="33"></td><td>        _ =<span class="hl-k">></span> {</td></tr>
 <tr><td class="hl-num" data-line="34"></td><td>            <span class="hl-k">if</span> <span class="hl-k">let</span> <span class="hl-en">Some</span>(file) = matches.<span class="hl-en">value_of</span>(<span class="hl-s">"FILE_PATH"</span>) {</td></tr>
 <tr><td class="hl-num" data-line="35"></td><td>                <span class="hl-k">let</span> source = <span class="hl-en">read</span>(file).<span class="hl-en">expect</span>(<span class="hl-k">&</span><span class="hl-en">format</span>!(<span class="hl-s">"Filed reading file {}"</span>, file));</td></tr>
-<tr><td class="hl-num" data-line="36"></td><td>                input = source.<span class="hl-en">iter</span>().<span class="hl-en">map</span>(|c| <span class="hl-k">*</span>c <span class="hl-k">as</span> char).<span class="hl-en">collect</span>::<span class="hl-k"><</span><span class="hl-k">Vec</span><span class="hl-k"><</span>_<span class="hl-k">></span><span class="hl-k">></span>();</td></tr>
+<tr><td class="hl-num" data-line="36"></td><td>                input = source.<span class="hl-en">iter</span>().<span class="hl-en">map</span>(|c| <span class="hl-k">*</span>c <span class="hl-k">as</span> <span class="hl-k">char</span>).<span class="hl-en">collect</span>::<span class="hl-k"><</span><span class="hl-k">Vec</span><span class="hl-k"><</span>_<span class="hl-k">></span><span class="hl-k">></span>();</td></tr>
 <tr><td class="hl-num" data-line="37"></td><td>            }</td></tr>
 <tr><td class="hl-num" data-line="38"></td><td>            <span class="hl-k">if</span> <span class="hl-k">let</span> <span class="hl-en">Some</span>(language) = matches.<span class="hl-en">value_of</span>(<span class="hl-s">"lang"</span>) {</td></tr>
 <tr><td class="hl-num" data-line="39"></td><td>                lang = language;</td></tr>

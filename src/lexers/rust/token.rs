@@ -24,6 +24,7 @@ pub fn get_keyword_token(identifier: &Vec<char>) -> Result<Token, String> {
         "break" => Ok(Token::KEYWORD(identifier.to_vec())),
         "const" => Ok(Token::KEYWORD(identifier.to_vec())),
         "continue" => Ok(Token::KEYWORD(identifier.to_vec())),
+        "char" => Ok(Token::KEYWORD(identifier.to_vec())),
         "crate" => Ok(Token::KEYWORD(identifier.to_vec())),
         "else" => Ok(Token::KEYWORD(identifier.to_vec())),
         "enum" => Ok(Token::KEYWORD(identifier.to_vec())),
@@ -71,6 +72,7 @@ pub fn get_keyword_token(identifier: &Vec<char>) -> Result<Token, String> {
         "try" => Ok(Token::KEYWORD(identifier.to_vec())),
         "union" => Ok(Token::KEYWORD(identifier.to_vec())),
         "'static" => Ok(Token::KEYWORD(identifier.to_vec())),
+        "String" => Ok(Token::KEYWORD(identifier.to_vec())),
         "Option" => Ok(Token::KEYWORD(identifier.to_vec())),
         "Default" => Ok(Token::KEYWORD(identifier.to_vec())),
         "Result" => Ok(Token::KEYWORD(identifier.to_vec())),
@@ -87,6 +89,8 @@ pub fn get_keyword_token(identifier: &Vec<char>) -> Result<Token, String> {
         "u64" => Ok(Token::KEYWORD(identifier.to_vec())),
         "u128" => Ok(Token::KEYWORD(identifier.to_vec())),
         "usize" => Ok(Token::KEYWORD(identifier.to_vec())),
+        "f32" => Ok(Token::KEYWORD(identifier.to_vec())),
+        "f64" => Ok(Token::KEYWORD(identifier.to_vec())),
         _ => Err(String::from("Not a keyword")),
     }
 }
