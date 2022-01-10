@@ -7,82 +7,82 @@
 <tr><td class="hl-num" data-line="5"></td><td><span class="hl-k">use</span> std::fs::read;</td></tr>
 <tr><td class="hl-num" data-line="6"></td><td><span class="hl-k">use</span> std::io::Write;</td></tr>
 <tr><td class="hl-num" data-line="7"></td><td></td></tr>
-<tr><td class="hl-num" data-line="8"></td><td><span class="hl-k">pub</span> <span class="hl-k">type</span> sa_family_t = <span class="hl-k">u8</span>;</td></tr>
-<tr><td class="hl-num" data-line="9"></td><td><span class="hl-k">pub</span> <span class="hl-k">type</span> in_addr_t = <span class="hl-k">u32</span>;</td></tr>
-<tr><td class="hl-num" data-line="10"></td><td><span class="hl-k">pub</span> <span class="hl-k">type</span> in_port_t = <span class="hl-k">u16</span>;</td></tr>
-<tr><td class="hl-num" data-line="11"></td><td><span class="hl-k">pub</span> <span class="hl-k">const</span> FIONBIO: c_long = <span class="hl-c">0x8008667eu32</span> <span class="hl-k">as</span> c_long;</td></tr>
+<tr><td class="hl-num" data-line="8"></td><td><span class="hl-k">pub</span> <span class="hl-k">type</span> sa_family_t <span class="hl-k">=</span> <span class="hl-k">u8</span>;</td></tr>
+<tr><td class="hl-num" data-line="9"></td><td><span class="hl-k">pub</span> <span class="hl-k">type</span> in_addr_t <span class="hl-k">=</span> <span class="hl-k">u32</span>;</td></tr>
+<tr><td class="hl-num" data-line="10"></td><td><span class="hl-k">pub</span> <span class="hl-k">type</span> in_port_t <span class="hl-k">=</span> <span class="hl-k">u16</span>;</td></tr>
+<tr><td class="hl-num" data-line="11"></td><td><span class="hl-k">pub</span> <span class="hl-k">const</span> FIONBIO: c_long <span class="hl-k">=</span> <span class="hl-c">0x8008667eu32</span> <span class="hl-k">as</span> c_long;</td></tr>
 <tr><td class="hl-num" data-line="12"></td><td></td></tr>
 <tr><td class="hl-num" data-line="13"></td><td><span class="hl-k">pub</span> <span class="hl-k">struct</span> msghdr {</td></tr>
 <tr><td class="hl-num" data-line="14"></td><td>    <span class="hl-k">pub</span> msg_name: <span class="hl-k">*</span><span class="hl-k">mut</span> c_void,</td></tr>
 <tr><td class="hl-num" data-line="15"></td><td>}</td></tr>
 <tr><td class="hl-num" data-line="16"></td><td><span class="hl-k">fn</span> <span class="hl-en">main</span>() {</td></tr>
-<tr><td class="hl-num" data-line="17"></td><td>    <span class="hl-k">let</span> matches = App::<span class="hl-en">new</span>(<span class="hl-s">"hl"</span>)</td></tr>
+<tr><td class="hl-num" data-line="17"></td><td>    <span class="hl-k">let</span> matches <span class="hl-k">=</span> App::<span class="hl-en">new</span>(<span class="hl-s">"hl"</span>)</td></tr>
 <tr><td class="hl-num" data-line="18"></td><td>        .<span class="hl-en">version</span>(<span class="hl-s">"0.1.0"</span>)</td></tr>
 <tr><td class="hl-num" data-line="19"></td><td>        .<span class="hl-en">author</span>(<span class="hl-s">"Ahmad Rosid &lt;alahmadrosid@gmail.com&gt;"</span>)</td></tr>
 <tr><td class="hl-num" data-line="20"></td><td>        .<span class="hl-en">about</span>(<span class="hl-s">"Syntax highlighting."</span>)</td></tr>
 <tr><td class="hl-num" data-line="21"></td><td>        .<span class="hl-en">setting</span>(AppSettings::ArgRequiredElseHelp)</td></tr>
 <tr><td class="hl-num" data-line="22"></td><td>        .<span class="hl-en">get_matches</span>();</td></tr>
 <tr><td class="hl-num" data-line="23"></td><td></td></tr>
-<tr><td class="hl-num" data-line="24"></td><td>    <span class="hl-k">let</span> <span class="hl-k">mut</span> lang = <span class="hl-s">""</span>;</td></tr>
-<tr><td class="hl-num" data-line="25"></td><td>    <span class="hl-k">let</span> <span class="hl-k">mut</span> input: <span class="hl-k">Vec</span><span class="hl-k"><</span><span class="hl-k">char</span><span class="hl-k">></span> = <span class="hl-en">vec</span>![<span class="hl-s">'0'</span>];</td></tr>
+<tr><td class="hl-num" data-line="24"></td><td>    <span class="hl-k">let</span> <span class="hl-k">mut</span> lang <span class="hl-k">=</span> <span class="hl-s">""</span>;</td></tr>
+<tr><td class="hl-num" data-line="25"></td><td>    <span class="hl-k">let</span> <span class="hl-k">mut</span> input: <span class="hl-k">Vec</span><span class="hl-k"><</span><span class="hl-k">char</span><span class="hl-k">></span> <span class="hl-k">=</span> <span class="hl-en">vec</span>![<span class="hl-s">'0'</span>];</td></tr>
 <tr><td class="hl-num" data-line="26"></td><td>    <span class="hl-k">match</span> matches.<span class="hl-en">subcommand</span>() {</td></tr>
-<tr><td class="hl-num" data-line="27"></td><td>        <span class="hl-en">Some</span>((<span class="hl-s">"generate"</span>, sub_matches)) =<span class="hl-k">></span> {</td></tr>
-<tr><td class="hl-num" data-line="28"></td><td>            <span class="hl-k">let</span> lexer_path = sub_matches.<span class="hl-en">value_of</span>(<span class="hl-s">"LEXER_PATH"</span>).<span class="hl-en">expect</span>(<span class="hl-s">"required"</span>);</td></tr>
-<tr><td class="hl-num" data-line="29"></td><td>            <span class="hl-k">let</span> s = generator::<span class="hl-en">parse</span>(lexer_path);</td></tr>
+<tr><td class="hl-num" data-line="27"></td><td>        <span class="hl-en">Some</span>((<span class="hl-s">"generate"</span>, sub_matches)) <span class="hl-k">=</span><span class="hl-k">></span> {</td></tr>
+<tr><td class="hl-num" data-line="28"></td><td>            <span class="hl-k">let</span> lexer_path <span class="hl-k">=</span> sub_matches.<span class="hl-en">value_of</span>(<span class="hl-s">"LEXER_PATH"</span>).<span class="hl-en">expect</span>(<span class="hl-s">"required"</span>);</td></tr>
+<tr><td class="hl-num" data-line="29"></td><td>            <span class="hl-k">let</span> s <span class="hl-k">=</span> generator::<span class="hl-en">parse</span>(lexer_path);</td></tr>
 <tr><td class="hl-num" data-line="30"></td><td>            <span class="hl-en">println</span>!(<span class="hl-s">"{}"</span>, s);</td></tr>
 <tr><td class="hl-num" data-line="31"></td><td>            std::process::<span class="hl-en">exit</span>(<span class="hl-c">0x001</span>);</td></tr>
 <tr><td class="hl-num" data-line="32"></td><td>        }</td></tr>
-<tr><td class="hl-num" data-line="33"></td><td>        _ =<span class="hl-k">></span> {</td></tr>
-<tr><td class="hl-num" data-line="34"></td><td>            <span class="hl-k">if</span> <span class="hl-k">let</span> <span class="hl-en">Some</span>(file) = matches.<span class="hl-en">value_of</span>(<span class="hl-s">"FILE_PATH"</span>) {</td></tr>
-<tr><td class="hl-num" data-line="35"></td><td>                <span class="hl-k">let</span> source = <span class="hl-en">read</span>(file).<span class="hl-en">expect</span>(<span class="hl-k">&</span><span class="hl-en">format</span>!(<span class="hl-s">"Filed reading file {}"</span>, file));</td></tr>
-<tr><td class="hl-num" data-line="36"></td><td>                input = source.<span class="hl-en">iter</span>().<span class="hl-en">map</span>(|c| <span class="hl-k">*</span>c <span class="hl-k">as</span> <span class="hl-k">char</span>).<span class="hl-en">collect</span>::<span class="hl-k"><</span><span class="hl-k">Vec</span><span class="hl-k"><</span>_<span class="hl-k">></span><span class="hl-k">></span>();</td></tr>
+<tr><td class="hl-num" data-line="33"></td><td>        _ <span class="hl-k">=</span><span class="hl-k">></span> {</td></tr>
+<tr><td class="hl-num" data-line="34"></td><td>            <span class="hl-k">if</span> <span class="hl-k">let</span> <span class="hl-en">Some</span>(file) <span class="hl-k">=</span> matches.<span class="hl-en">value_of</span>(<span class="hl-s">"FILE_PATH"</span>) {</td></tr>
+<tr><td class="hl-num" data-line="35"></td><td>                <span class="hl-k">let</span> source <span class="hl-k">=</span> <span class="hl-en">read</span>(file).<span class="hl-en">expect</span>(<span class="hl-k">&</span><span class="hl-en">format</span>!(<span class="hl-s">"Filed reading file {}"</span>, file));</td></tr>
+<tr><td class="hl-num" data-line="36"></td><td>                input <span class="hl-k">=</span> source.<span class="hl-en">iter</span>().<span class="hl-en">map</span>(|c| <span class="hl-k">*</span>c <span class="hl-k">as</span> <span class="hl-k">char</span>).<span class="hl-en">collect</span>::<span class="hl-k"><</span><span class="hl-k">Vec</span><span class="hl-k"><</span>_<span class="hl-k">></span><span class="hl-k">></span>();</td></tr>
 <tr><td class="hl-num" data-line="37"></td><td>            }</td></tr>
-<tr><td class="hl-num" data-line="38"></td><td>            <span class="hl-k">if</span> <span class="hl-k">let</span> <span class="hl-en">Some</span>(language) = matches.<span class="hl-en">value_of</span>(<span class="hl-s">"lang"</span>) {</td></tr>
-<tr><td class="hl-num" data-line="39"></td><td>                lang = language;</td></tr>
+<tr><td class="hl-num" data-line="38"></td><td>            <span class="hl-k">if</span> <span class="hl-k">let</span> <span class="hl-en">Some</span>(language) <span class="hl-k">=</span> matches.<span class="hl-en">value_of</span>(<span class="hl-s">"lang"</span>) {</td></tr>
+<tr><td class="hl-num" data-line="39"></td><td>                lang <span class="hl-k">=</span> language;</td></tr>
 <tr><td class="hl-num" data-line="40"></td><td>            }</td></tr>
 <tr><td class="hl-num" data-line="41"></td><td>        }</td></tr>
 <tr><td class="hl-num" data-line="42"></td><td>    }</td></tr>
 <tr><td class="hl-num" data-line="43"></td><td></td></tr>
 <tr><td class="hl-num" data-line="44"></td><td>    <span class="hl-k">match</span> lang {</td></tr>
-<tr><td class="hl-num" data-line="45"></td><td>        _ =<span class="hl-k">></span> {</td></tr>
+<tr><td class="hl-num" data-line="45"></td><td>        _ <span class="hl-k">=</span><span class="hl-k">></span> {</td></tr>
 <tr><td class="hl-num" data-line="46"></td><td>            <span class="hl-en">println</span>!(<span class="hl-s">"Language {} not supported"</span>, lang);</td></tr>
 <tr><td class="hl-num" data-line="47"></td><td>        }</td></tr>
 <tr><td class="hl-num" data-line="48"></td><td>    }</td></tr>
 <tr><td class="hl-num" data-line="49"></td><td>}</td></tr>
 <tr><td class="hl-num" data-line="50"></td><td></td></tr>
 <tr><td class="hl-num" data-line="51"></td><td><span class="hl-k">impl</span> Stream <span class="hl-k">for</span> RecursiveModuleLoad {</td></tr>
-<tr><td class="hl-num" data-line="52"></td><td>  <span class="hl-k">type</span> Item = <span class="hl-k">Result</span><span class="hl-k"><</span>(ModuleRequest, ModuleSource), Error<span class="hl-k">></span>;</td></tr>
-<tr><td class="hl-num" data-line="53"></td><td>  <span class="hl-k">let</span> scope = <span class="hl-k">&</span><span class="hl-k">mut</span> <span class="hl-k">unsafe</span> { v8::CallbackScope::<span class="hl-en">new</span>(context) };</td></tr>
+<tr><td class="hl-num" data-line="52"></td><td>  <span class="hl-k">type</span> Item <span class="hl-k">=</span> <span class="hl-k">Result</span><span class="hl-k"><</span>(ModuleRequest, ModuleSource), Error<span class="hl-k">></span>;</td></tr>
+<tr><td class="hl-num" data-line="53"></td><td>  <span class="hl-k">let</span> scope <span class="hl-k">=</span> <span class="hl-k">&</span><span class="hl-k">mut</span> <span class="hl-k">unsafe</span> { v8::CallbackScope::<span class="hl-en">new</span>(context) };</td></tr>
 <tr><td class="hl-num" data-line="54"></td><td></td></tr>
 <tr><td class="hl-num" data-line="55"></td><td>  <span class="hl-k">fn</span> <span class="hl-en">poll_next</span>(</td></tr>
 <tr><td class="hl-num" data-line="56"></td><td>    <span class="hl-k">self</span>: Pin<span class="hl-k"><</span><span class="hl-k">&</span><span class="hl-k">mut</span> <span class="hl-k">Self</span><span class="hl-k">></span>,</td></tr>
 <tr><td class="hl-num" data-line="57"></td><td>    cx: <span class="hl-k">&</span><span class="hl-k">mut</span> Context,</td></tr>
-<tr><td class="hl-num" data-line="58"></td><td>  ) -<span class="hl-k">></span> Poll<span class="hl-k"><</span><span class="hl-k">Option</span><span class="hl-k"><</span><span class="hl-k">Self</span>::Item<span class="hl-k">></span><span class="hl-k">></span> {</td></tr>
-<tr><td class="hl-num" data-line="59"></td><td>    <span class="hl-k">let</span> inner = <span class="hl-k">self</span>.<span class="hl-en">get_mut</span>();</td></tr>
+<tr><td class="hl-num" data-line="58"></td><td>  ) <span class="hl-k">-</span><span class="hl-k">></span> Poll<span class="hl-k"><</span><span class="hl-k">Option</span><span class="hl-k"><</span><span class="hl-k">Self</span>::Item<span class="hl-k">></span><span class="hl-k">></span> {</td></tr>
+<tr><td class="hl-num" data-line="59"></td><td>    <span class="hl-k">let</span> inner <span class="hl-k">=</span> <span class="hl-k">self</span>.<span class="hl-en">get_mut</span>();</td></tr>
 <tr><td class="hl-num" data-line="60"></td><td>    <span class="hl-k">match</span> inner.<span class="hl-en">state</span> {</td></tr>
-<tr><td class="hl-num" data-line="61"></td><td>      LoadState::Init =<span class="hl-k">></span> {</td></tr>
-<tr><td class="hl-num" data-line="62"></td><td>        <span class="hl-k">let</span> module_specifier = <span class="hl-k">match</span> inner.<span class="hl-en">resolve_root</span>() {</td></tr>
-<tr><td class="hl-num" data-line="63"></td><td>          <span class="hl-en">Ok</span>(url) =<span class="hl-k">></span> url,</td></tr>
-<tr><td class="hl-num" data-line="64"></td><td>          <span class="hl-en">Err</span>(error) =<span class="hl-k">></span> <span class="hl-k">return</span> Poll::<span class="hl-en">Ready</span>(<span class="hl-en">Some</span>(<span class="hl-en">Err</span>(error))),</td></tr>
+<tr><td class="hl-num" data-line="61"></td><td>      LoadState::Init <span class="hl-k">=</span><span class="hl-k">></span> {</td></tr>
+<tr><td class="hl-num" data-line="62"></td><td>        <span class="hl-k">let</span> module_specifier <span class="hl-k">=</span> <span class="hl-k">match</span> inner.<span class="hl-en">resolve_root</span>() {</td></tr>
+<tr><td class="hl-num" data-line="63"></td><td>          <span class="hl-en">Ok</span>(url) <span class="hl-k">=</span><span class="hl-k">></span> url,</td></tr>
+<tr><td class="hl-num" data-line="64"></td><td>          <span class="hl-en">Err</span>(error) <span class="hl-k">=</span><span class="hl-k">></span> <span class="hl-k">return</span> Poll::<span class="hl-en">Ready</span>(<span class="hl-en">Some</span>(<span class="hl-en">Err</span>(error))),</td></tr>
 <tr><td class="hl-num" data-line="65"></td><td>        };</td></tr>
-<tr><td class="hl-num" data-line="66"></td><td>        <span class="hl-k">let</span> load_fut = <span class="hl-k">if</span> <span class="hl-k">let</span> <span class="hl-en">Some</span>(_module_id) = inner.<span class="hl-en">root_module_id</span> {</td></tr>
-<tr><td class="hl-num" data-line="67"></td><td>          <span class="hl-k">let</span> module_source = ModuleSource {</td></tr>
+<tr><td class="hl-num" data-line="66"></td><td>        <span class="hl-k">let</span> load_fut <span class="hl-k">=</span> <span class="hl-k">if</span> <span class="hl-k">let</span> <span class="hl-en">Some</span>(_module_id) <span class="hl-k">=</span> inner.<span class="hl-en">root_module_id</span> {</td></tr>
+<tr><td class="hl-num" data-line="67"></td><td>          <span class="hl-k">let</span> module_source <span class="hl-k">=</span> ModuleSource {</td></tr>
 <tr><td class="hl-num" data-line="68"></td><td>            code: <span class="hl-k">Default</span>::<span class="hl-en">default</span>(),</td></tr>
 <tr><td class="hl-num" data-line="69"></td><td>            module_type,</td></tr>
 <tr><td class="hl-num" data-line="70"></td><td>          };</td></tr>
 <tr><td class="hl-num" data-line="71"></td><td>        } <span class="hl-k">else</span> {</td></tr>
-<tr><td class="hl-num" data-line="72"></td><td>          <span class="hl-k">let</span> maybe_referrer = <span class="hl-k">match</span> inner.<span class="hl-en">init</span> {</td></tr>
-<tr><td class="hl-num" data-line="73"></td><td>            LoadInit::<span class="hl-en">DynamicImport</span>(_, <span class="hl-k">ref</span> referrer, _) =<span class="hl-k">></span> {</td></tr>
+<tr><td class="hl-num" data-line="72"></td><td>          <span class="hl-k">let</span> maybe_referrer <span class="hl-k">=</span> <span class="hl-k">match</span> inner.<span class="hl-en">init</span> {</td></tr>
+<tr><td class="hl-num" data-line="73"></td><td>            LoadInit::<span class="hl-en">DynamicImport</span>(_, <span class="hl-k">ref</span> referrer, _) <span class="hl-k">=</span><span class="hl-k">></span> {</td></tr>
 <tr><td class="hl-num" data-line="74"></td><td>              <span class="hl-en">resolve_url</span>(referrer).<span class="hl-en">ok</span>()</td></tr>
 <tr><td class="hl-num" data-line="75"></td><td>            }</td></tr>
-<tr><td class="hl-num" data-line="76"></td><td>            _ =<span class="hl-k">></span> <span class="hl-c">None</span>,</td></tr>
+<tr><td class="hl-num" data-line="76"></td><td>            _ <span class="hl-k">=</span><span class="hl-k">></span> <span class="hl-c">None</span>,</td></tr>
 <tr><td class="hl-num" data-line="77"></td><td>          };</td></tr>
 <tr><td class="hl-num" data-line="78"></td><td>          <span class="hl-k">match</span> inner.<span class="hl-en">pending</span>.<span class="hl-en">try_poll_next_unpin</span>(cx)? {</td></tr>
-<tr><td class="hl-num" data-line="79"></td><td>            Poll::<span class="hl-en">Ready</span>(<span class="hl-c">None</span>) =<span class="hl-k">></span> <span class="hl-en">unreachable</span>!(),</td></tr>
-<tr><td class="hl-num" data-line="80"></td><td>            Poll::<span class="hl-en">Ready</span>(<span class="hl-en">Some</span>(info)) =<span class="hl-k">></span> Poll::<span class="hl-en">Ready</span>(<span class="hl-en">Some</span>(<span class="hl-en">Ok</span>(info))),</td></tr>
+<tr><td class="hl-num" data-line="79"></td><td>            Poll::<span class="hl-en">Ready</span>(<span class="hl-c">None</span>) <span class="hl-k">=</span><span class="hl-k">></span> <span class="hl-en">unreachable</span>!(),</td></tr>
+<tr><td class="hl-num" data-line="80"></td><td>            Poll::<span class="hl-en">Ready</span>(<span class="hl-en">Some</span>(info)) <span class="hl-k">=</span><span class="hl-k">></span> Poll::<span class="hl-en">Ready</span>(<span class="hl-en">Some</span>(<span class="hl-en">Ok</span>(info))),</td></tr>
 <tr><td class="hl-num" data-line="81"></td><td>          }</td></tr>
 <tr><td class="hl-num" data-line="82"></td><td>          <span class="hl-k">async</span> <span class="hl-k">move</span> {</td></tr>
-<tr><td class="hl-num" data-line="83"></td><td>            <span class="hl-k">let</span> result = loader</td></tr>
+<tr><td class="hl-num" data-line="83"></td><td>            <span class="hl-k">let</span> result <span class="hl-k">=</span> loader</td></tr>
 <tr><td class="hl-num" data-line="84"></td><td>              .<span class="hl-en">load</span>(<span class="hl-k">&</span>module_specifier, maybe_referrer, is_dynamic_import)</td></tr>
 <tr><td class="hl-num" data-line="85"></td><td>              .<span class="hl-k">await</span>;</td></tr>
 <tr><td class="hl-num" data-line="86"></td><td>            result.<span class="hl-en">map</span>(|s| (module_request, s))</td></tr>
