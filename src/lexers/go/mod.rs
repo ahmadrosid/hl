@@ -108,6 +108,21 @@ impl Lexer {
             '\0' => {
                 tok = token::Token::EOF;
             }
+            '0' => {
+                return if self.input[self.read_position] == 'x' {
+                    let start_position = self.position;
+                    self.read_char();
+                    self.read_char();
+                    while self.position < self.input.len() && is_digit(self.ch) {
+                        self.read_char()
+                    }
+                    let hexadecimal = &self.input[start_position..self.position];
+                    token::Token::INT(hexadecimal.to_vec())
+                } else {
+                    let number = read_number(self);
+                    token::Token::INT(number)
+                }
+            }
             '&' => {
                 tok = token::Token::STRING(vec![self.ch]);
             }

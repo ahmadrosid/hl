@@ -33,6 +33,7 @@ const MARK_ENTITY_TAG_SUFFIX: &str = "MARK_ENTITY_TAG_SUFFIX";
 const MARK_STRING_ENTITY_TAG: &str = "MARK_STRING_ENTITY_TAG";
 const ACCEPT_DOUBLE_BRACKET_STRING: &str = "ACCEPT_DOUBLE_BRACKET_STRING";
 const ACCEPT_ESCAPED_STRING: &str = "ACCEPT_ESCAPED_STRING";
+const ACCEPT_HEXADECIMAL_NUMBER: &str = "ACCEPT_HEXADECIMAL_NUMBER";
 
 fn write_struct_lexer(module: &mut StringBuilder) {
     module.push_strln("pub struct Lexer {");
@@ -194,6 +195,10 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
     module.push_tabln(3, "'\\0' => {");
     module.push_tabln(4, "tok = token::Token::EOF;");
     module.push_tabln(3, "}");
+
+    if h.get_some_condition(ACCEPT_HEXADECIMAL_NUMBER).is_some() {
+        module.push_str(&write_handle_hexadecimal());
+    }
 
     if let Some(prefix) = h.get_some_condition(ACCEPT_ENTITY_TAG_PREFIX) {
         if let Some(ch) = h.get_some_condition(ENTITY_TAG_PREFIX_CHAR) {
@@ -597,6 +602,26 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
     module.push_tabln(2, "tok");
     module.push_tabln(1, "}");
     module.push_strln("}");
+}
+
+fn write_handle_hexadecimal() -> String {
+    let mut module = StringBuilder::new();
+    module.push_tabln(3, "'0' => {");
+    module.push_tabln(4, "return if self.input[self.read_position] == 'x' {");
+    module.push_tabln(5, "let start_position = self.position;");
+    module.push_tabln(5, "self.read_char();");
+    module.push_tabln(5, "self.read_char();");
+    module.push_tabln(5, "while self.position < self.input.len() && is_digit(self.ch) {");
+    module.push_tabln(6, "self.read_char()");
+    module.push_tabln(5, "}");
+    module.push_tabln(5, "let hexadecimal = &self.input[start_position..self.position];");
+    module.push_tabln(5, "token::Token::INT(hexadecimal.to_vec())");
+    module.push_tabln(4, "} else {");
+    module.push_tabln(5, "let number = read_number(self);");
+    module.push_tabln(5, "token::Token::INT(number)");
+    module.push_tabln(4, "}");
+    module.push_tabln(3, "}");
+    module.to_string()
 }
 
 fn write_handle_skip_non_char_letter(ch: Yaml) -> String {

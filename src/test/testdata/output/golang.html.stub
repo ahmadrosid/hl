@@ -57,7 +57,7 @@
 <tr><td class="hl-num" data-line="55"></td><td><span class="hl-k">func</span> <span class="hl-en">Find1234Code</span>(f *macho.<span class="hl-en">File</span>) (CodeSigCmd, <span class="hl-c">bool</span>) {</td></tr>
 <tr><td class="hl-num" data-line="56"></td><td>        cdir := CodeDirectory{</td></tr>
 <tr><td class="hl-num" data-line="57"></td><td>                <span class="hl-en">length</span>: <span class="hl-c">uint32</span>(sz) - (superBlobSize + blobSize),</td></tr>
-<tr><td class="hl-num" data-line="58"></td><td>                <span class="hl-en">flags</span>:  <span class="hl-c">0</span>x20002, <span class="hl-cmt">// adhoc | linkerSigned</span></td></tr>
+<tr><td class="hl-num" data-line="58"></td><td>                <span class="hl-en">flags</span>:  <span class="hl-c">0x20002</span>, <span class="hl-cmt">// adhoc | linkerSigned</span></td></tr>
 <tr><td class="hl-num" data-line="59"></td><td>        }</td></tr>
 <tr><td class="hl-num" data-line="60"></td><td>        <span class="hl-k">for</span> _, l := <span class="hl-k">range</span> f.<span class="hl-en">Loads</span> {</td></tr>
 <tr><td class="hl-num" data-line="61"></td><td>                <span class="hl-k">if</span> cmd == LC_CODE_SIGNATURE {</td></tr>
