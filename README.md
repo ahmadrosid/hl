@@ -57,6 +57,7 @@ See the result in browser [here](https://play.tailwindcss.com/xFlm0rN1wH).
 - [x] C ( ✅ Done )
 - [x] CSS ( ✅ Done )
 - [x] CPP ( ✅ Done )
+- [ ] c# ( 🚧 In Progress )
 - [ ] Go ( 🚧 In Progress )
 - [ ] HTML ( 🚧 In Progress )
 - [ ] Rust ( 🚧 In Progress )

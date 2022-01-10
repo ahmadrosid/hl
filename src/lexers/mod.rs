@@ -5,6 +5,7 @@ pub mod go;
 pub mod html;
 pub mod css;
 pub mod cpp;
+pub mod cs;
 pub mod java;
 pub mod javascript;
 pub mod json;

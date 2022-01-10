@@ -1,0 +1,28 @@
+slash_comment: true
+slash_star_comment: true
+
+constant:
+  TRUE: "true"
+  FALSE: "false"
+  NULL: "null"
+
+entity_suffix:
+  ENTITY_LBRACE: "("
+
+keyword:
+  using: using
+  namespace: namespace
+  public: public
+  static: static
+  class: class
+  string: string
+  decimal: decimal
+  var: var
+  try: try
+  catch: catch
+  return: return
+  new: new
+  bool: bool
+
+double_keyword:
+  - "="

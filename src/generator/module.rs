@@ -95,27 +95,12 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
     module.push_tabln(3, "l.input[position..l.position].to_vec()");
     module.push_tabln(2, "};\n");
 
-    module.push_tabln(
-        2,
-        "let read_string = |l: &mut Lexer, ch: char| -> Vec<char> {",
-    );
-    module.push_tabln(3, "let position = l.position;");
-    module.push_tabln(3, "l.read_char();");
-    module.push_tabln(3, "while l.position < l.input.len() && l.ch != ch {");
-    if h.get_some_condition(ACCEPT_ESCAPED_STRING).is_some() {
-        module.push_tabln(4, "if l.ch == '\\\\' {");
-        module.push_tabln(5, "l.read_char()");
-        module.push_tabln(4, "}");
+    if h.get_some_condition(ACCEPT_STRING_ONE_QUOTE).is_some()
+        || h.get_some_condition(ACCEPT_STRING_DOUBLE_QUOTE).is_some()
+        || h.get_some_condition(ACCEPT_STRING_EOF).is_some()
+    {
+        module.push_str(&write_handle_read_string(h.clone()));
     }
-    module.push_tabln(4, "l.read_char();");
-    module.push_tabln(3, "}");
-    module.push_tabln(3, "l.read_char();");
-    module.push_tabln(3, "if l.position > l.input.len() {");
-    module.push_tabln(4, "l.position = l.position - 1;");
-    module.push_tabln(4, "l.read_position = l.read_position - 1;");
-    module.push_tabln(3, "}");
-    module.push_tabln(3, "l.input[position..l.position].to_vec()");
-    module.push_tabln(2, "};\n");
 
     module.push_tabln(2, "let read_number = |l: &mut Lexer| -> Vec<char> {");
     module.push_tabln(3, "let position = l.position;");
@@ -126,16 +111,7 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
     module.push_tabln(2, "};\n");
 
     if slash_comment_enable(h) {
-        module.push_tabln(2, "let read_slash_comment = |l: &mut Lexer| -> Vec<char> {");
-        module.push_tabln(3, "let position = l.position;");
-        module.push_tabln(3, "while l.position < l.input.len() {");
-        module.push_tabln(4, "l.read_char();");
-        module.push_tabln(4, "if l.input[l.position + 1] == '\\n' {");
-        module.push_tabln(5, "break;");
-        module.push_tabln(4, "}");
-        module.push_tabln(3, "}");
-        module.push_tabln(3, "l.input[position..l.position + 1].to_vec()");
-        module.push_tabln(2, "};\n");
+        module.push_str(&write_handle_read_slash_comment());
     }
 
     if slash_star_comment_enable(h) {
@@ -576,7 +552,10 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
             module.push_tabln(7, "let start_position = self.position;");
             module.push_tabln(7, "let mut position = self.position;");
             module.push_tabln(7, "let mut ch = self.input[position];");
-            module.push_tabln(7, "while position < self.input.len() && is_white_space(ch) {");
+            module.push_tabln(
+                7,
+                "while position < self.input.len() && is_white_space(ch) {",
+            );
             module.push_tabln(8, "position = position + 1;");
             module.push_tabln(8, "ch = self.input[position];");
             module.push_tabln(7, "}");
@@ -584,7 +563,10 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
             module.push_tabln(8, "self.position = position;");
             module.push_tabln(8, "self.read_position = position + 1;");
             module.push_tabln(8, "let mut value = str_value;");
-            module.push_tabln(8, "value.append(&mut self.input[start_position..self.read_position].to_vec());");
+            module.push_tabln(
+                8,
+                "value.append(&mut self.input[start_position..self.read_position].to_vec());",
+            );
             module.push_tabln(8, "return token::Token::ENTITYTAG(value)");
             module.push_tabln(7, "}");
             module.push_tabln(6, "}");
@@ -604,6 +586,47 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
     module.push_strln("}");
 }
 
+fn write_handle_read_slash_comment() -> String {
+    let mut module = StringBuilder::new();
+    module.push_tabln(2, "let read_slash_comment = |l: &mut Lexer| -> Vec<char> {");
+    module.push_tabln(3, "let position = l.position;");
+    module.push_tabln(3, "while l.position < l.input.len() {");
+    module.push_tabln(4, "l.read_char();");
+    module.push_tabln(4, "if l.input[l.position + 1] == '\\n' {");
+    module.push_tabln(5, "break;");
+    module.push_tabln(4, "}");
+    module.push_tabln(3, "}");
+    module.push_tabln(3, "l.input[position..l.position + 1].to_vec()");
+    module.push_tabln(2, "};\n");
+    module.to_string()
+}
+
+fn write_handle_read_string(h: Hash) -> String {
+    let mut module = StringBuilder::new();
+    module.push_tabln(
+        2,
+        "let read_string = |l: &mut Lexer, ch: char| -> Vec<char> {",
+    );
+    module.push_tabln(3, "let position = l.position;");
+    module.push_tabln(3, "l.read_char();");
+    module.push_tabln(3, "while l.position < l.input.len() && l.ch != ch {");
+    if h.get_some_condition(ACCEPT_ESCAPED_STRING).is_some() {
+        module.push_tabln(4, "if l.ch == '\\\\' {");
+        module.push_tabln(5, "l.read_char()");
+        module.push_tabln(4, "}");
+    }
+    module.push_tabln(4, "l.read_char();");
+    module.push_tabln(3, "}");
+    module.push_tabln(3, "l.read_char();");
+    module.push_tabln(3, "if l.position > l.input.len() {");
+    module.push_tabln(4, "l.position = l.position - 1;");
+    module.push_tabln(4, "l.read_position = l.read_position - 1;");
+    module.push_tabln(3, "}");
+    module.push_tabln(3, "l.input[position..l.position].to_vec()");
+    module.push_tabln(2, "};\n");
+    module.to_string()
+}
+
 fn write_handle_hexadecimal() -> String {
     let mut module = StringBuilder::new();
     module.push_tabln(3, "'0' => {");
@@ -611,10 +634,16 @@ fn write_handle_hexadecimal() -> String {
     module.push_tabln(5, "let start_position = self.position;");
     module.push_tabln(5, "self.read_char();");
     module.push_tabln(5, "self.read_char();");
-    module.push_tabln(5, "while self.position < self.input.len() && (is_digit(self.ch) || is_letter(self.ch)) {");
+    module.push_tabln(
+        5,
+        "while self.position < self.input.len() && (is_digit(self.ch) || is_letter(self.ch)) {",
+    );
     module.push_tabln(6, "self.read_char()");
     module.push_tabln(5, "}");
-    module.push_tabln(5, "let hexadecimal = &self.input[start_position..self.position];");
+    module.push_tabln(
+        5,
+        "let hexadecimal = &self.input[start_position..self.position];",
+    );
     module.push_tabln(5, "token::Token::INT(hexadecimal.to_vec())");
     module.push_tabln(4, "} else {");
     module.push_tabln(5, "let number = read_number(self);");

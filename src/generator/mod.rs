@@ -44,6 +44,7 @@ pub fn $name(h: &Hash) -> bool {
 get_hash!(get_constant, constant);
 get_hash!(get_var, var);
 get_hash!(get_keyword, keyword);
+get_hash!(get_double_keyword, double_keyword);
 get_hash!(get_entity, entity);
 get_hash!(get_entity_prefix, entity_prefix);
 get_hash!(get_entity_suffix, entity_suffix);
@@ -76,6 +77,7 @@ pub fn parse(file_path: &str) -> String {
         "single_constant",
         "keyword",
         "single_keyword",
+        "double_keyword",
         "entity",
         "entity_tag",
         "xml_entity_tag",

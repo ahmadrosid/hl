@@ -44,6 +44,14 @@ fn test_cpp() {
 }
 
 #[test]
+fn test_cs() {
+    let input = read_input("src/test/testdata/input/cs.cs.stub");
+    let expected = read_file("src/test/testdata/output/cs.html.stub");
+    let actual = cs::render::render_html(input);
+    assert_eq!(expected, actual);
+}
+
+#[test]
 fn test_golang() {
     let input = read_input("src/test/testdata/input/golang.go.stub");
     let expected = read_file("src/test/testdata/output/golang.html.stub");
