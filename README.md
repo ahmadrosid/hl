@@ -65,5 +65,6 @@ See the result in browser [here](https://play.tailwindcss.com/xFlm0rN1wH).
 - [x] JSON ( ✅ Done )
 - [x] Lua ( ✅ Done )
 - [x] PHP ( ✅ Done )
+- [ ] Python ( 🚧 In Progress )
 - [ ] Typescript ( 🚧 In Progress )
 - [x] Yaml ( ✅ Done )
