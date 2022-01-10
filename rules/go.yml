@@ -12,9 +12,13 @@ constant:
   BYTE: "byte"
   CSTRING: "string"
   ERROR: "error"
-  RUNE: "rune"
-  UINTPTR: "uintptr"
-  FLOAT: "float"
+  rune: "rune"
+  uintptr: "uintptr"
+  float: "float"
+  float32: float32
+  float64: float64
+  uint32: uint32
+  uint64: uint64
 
 entity_prefix:
   ENTITY_DOT: "."
@@ -53,3 +57,5 @@ keyword:
 condition:
   ACCEPT_ESCAPED_STRING: true
   ACCEPT_STRING_DOUBLE_QUOTE: true
+  ACCEPT_ENTITY_TAG_SUFFIX: "is_digit(self.ch)"
+  BREAK_ENTITY_TAG_SUFFIX: "!is_digit(self.ch) && !is_letter(self.ch)"
