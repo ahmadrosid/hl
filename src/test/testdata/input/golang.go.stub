@@ -9,6 +9,7 @@ func expTrampolineSetup(x float64) float64
 func (c *sigctxt) r0() uint64  { return c.regs().gpr[0] }
 func (c *sigctxt) set_sigcode(x uint32) { c.info.si_code = int32(x) }
 
+const new_line = '\n'
 /**
  * Some slash start comment!
  */

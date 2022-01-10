@@ -20,6 +20,9 @@ constant:
   uint32: uint32
   uint64: uint64
 
+single_constant:
+  - "&"
+
 entity_prefix:
   ENTITY_DOT: "."
 
@@ -56,6 +59,7 @@ keyword:
 
 condition:
   ACCEPT_ESCAPED_STRING: true
+  ACCEPT_STRING_ONE_QUOTE: true
   ACCEPT_STRING_DOUBLE_QUOTE: true
   ACCEPT_ENTITY_TAG_SUFFIX: "is_digit(self.ch)"
   BREAK_ENTITY_TAG_SUFFIX: "!is_digit(self.ch) && !is_letter(self.ch)"
