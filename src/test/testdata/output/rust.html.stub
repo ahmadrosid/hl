@@ -35,7 +35,7 @@
 <tr><td class="hl-num" data-line="33"></td><td>        _ <span class="hl-k">=</span><span class="hl-k">></span> {</td></tr>
 <tr><td class="hl-num" data-line="34"></td><td>            <span class="hl-k">if</span> <span class="hl-k">let</span> <span class="hl-en">Some</span>(file) <span class="hl-k">=</span> matches.<span class="hl-en">value_of</span>(<span class="hl-s">"FILE_PATH"</span>) {</td></tr>
 <tr><td class="hl-num" data-line="35"></td><td>                <span class="hl-k">let</span> source <span class="hl-k">=</span> <span class="hl-en">read</span>(file).<span class="hl-en">expect</span>(<span class="hl-k">&</span><span class="hl-en">format</span>!(<span class="hl-s">"Filed reading file {}"</span>, file));</td></tr>
-<tr><td class="hl-num" data-line="36"></td><td>                input <span class="hl-k">=</span> source.<span class="hl-en">iter</span>().<span class="hl-en">map</span>(|c| <span class="hl-k">*</span>c <span class="hl-k">as</span> <span class="hl-k">char</span>).<span class="hl-en">collect</span>::<span class="hl-k"><</span><span class="hl-k">Vec</span><span class="hl-k"><</span>_<span class="hl-k">></span><span class="hl-k">></span>();</td></tr>
+<tr><td class="hl-num" data-line="36"></td><td>                input <span class="hl-k">=</span> source.<span class="hl-en">iter</span>().<span class="hl-en">map</span>(<span class="hl-k">|</span>c<span class="hl-k">|</span> <span class="hl-k">*</span>c <span class="hl-k">as</span> <span class="hl-k">char</span>).<span class="hl-en">collect</span>::<span class="hl-k"><</span><span class="hl-k">Vec</span><span class="hl-k"><</span>_<span class="hl-k">></span><span class="hl-k">></span>();</td></tr>
 <tr><td class="hl-num" data-line="37"></td><td>            }</td></tr>
 <tr><td class="hl-num" data-line="38"></td><td>            <span class="hl-k">if</span> <span class="hl-k">let</span> <span class="hl-en">Some</span>(language) <span class="hl-k">=</span> matches.<span class="hl-en">value_of</span>(<span class="hl-s">"lang"</span>) {</td></tr>
 <tr><td class="hl-num" data-line="39"></td><td>                lang <span class="hl-k">=</span> language;</td></tr>
@@ -85,7 +85,7 @@
 <tr><td class="hl-num" data-line="83"></td><td>            <span class="hl-k">let</span> result <span class="hl-k">=</span> loader</td></tr>
 <tr><td class="hl-num" data-line="84"></td><td>              .<span class="hl-en">load</span>(<span class="hl-k">&</span>module_specifier, maybe_referrer, is_dynamic_import)</td></tr>
 <tr><td class="hl-num" data-line="85"></td><td>              .<span class="hl-k">await</span>;</td></tr>
-<tr><td class="hl-num" data-line="86"></td><td>            result.<span class="hl-en">map</span>(|s| (module_request, s))</td></tr>
+<tr><td class="hl-num" data-line="86"></td><td>            result.<span class="hl-en">map</span>(<span class="hl-k">|</span>s<span class="hl-k">|</span> (module_request, s))</td></tr>
 <tr><td class="hl-num" data-line="87"></td><td>          }</td></tr>
 <tr><td class="hl-num" data-line="88"></td><td>          .<span class="hl-en">boxed_local</span>()</td></tr>
 <tr><td class="hl-num" data-line="89"></td><td>        };</td></tr>

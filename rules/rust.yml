@@ -93,6 +93,7 @@ single_keyword:
     - ">"
     - "-"
     - "="
+    - "|"
 
 condition:
     ACCEPT_ESCAPED_STRING: true
