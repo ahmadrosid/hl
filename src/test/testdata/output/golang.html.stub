@@ -54,28 +54,33 @@
 <tr><td class="hl-num" data-line="52"></td><td>        Datasize <span class="hl-c">uint32</span> <span class="hl-cmt">// file size of data in __LINKEDIT segment</span></td></tr>
 <tr><td class="hl-num" data-line="53"></td><td>}</td></tr>
 <tr><td class="hl-num" data-line="54"></td><td></td></tr>
-<tr><td class="hl-num" data-line="55"></td><td><span class="hl-k">func</span> <span class="hl-en">Find1234Code</span>(f *macho.<span class="hl-en">File</span>) (CodeSigCmd, <span class="hl-c">bool</span>) {</td></tr>
-<tr><td class="hl-num" data-line="56"></td><td>        cdir := CodeDirectory{</td></tr>
-<tr><td class="hl-num" data-line="57"></td><td>                <span class="hl-en">length</span>: <span class="hl-c">uint32</span>(sz) - (superBlobSize + blobSize),</td></tr>
-<tr><td class="hl-num" data-line="58"></td><td>                <span class="hl-en">flags</span>:  <span class="hl-c">0x20002</span>, <span class="hl-cmt">// adhoc | linkerSigned</span></td></tr>
-<tr><td class="hl-num" data-line="59"></td><td>        }</td></tr>
-<tr><td class="hl-num" data-line="60"></td><td>        <span class="hl-k">for</span> _, l := <span class="hl-k">range</span> f.<span class="hl-en">Loads</span> {</td></tr>
-<tr><td class="hl-num" data-line="61"></td><td>                <span class="hl-k">if</span> cmd == LC_CODE_SIGNATURE {</td></tr>
-<tr><td class="hl-num" data-line="62"></td><td>                        <span class="hl-k">return</span> CodeSigCmd{</td></tr>
-<tr><td class="hl-num" data-line="63"></td><td>                                <span class="hl-en">get32</span>(data[<span class="hl-c">12</span>:]),</td></tr>
-<tr><td class="hl-num" data-line="64"></td><td>                        }, <span class="hl-c">true</span></td></tr>
-<tr><td class="hl-num" data-line="65"></td><td>                }</td></tr>
-<tr><td class="hl-num" data-line="66"></td><td>        }</td></tr>
-<tr><td class="hl-num" data-line="67"></td><td>        <span class="hl-k">return</span> CodeSigCmd{}, <span class="hl-c">false</span></td></tr>
-<tr><td class="hl-num" data-line="68"></td><td>}</td></tr>
-<tr><td class="hl-num" data-line="69"></td><td></td></tr>
-<tr><td class="hl-num" data-line="70"></td><td><span class="hl-k">func</span> (Some) <span class="hl-en">SomeDoc</span>() <span class="hl-k">map</span>[<span class="hl-c">string</span>]<span class="hl-c">string</span> {</td></tr>
-<tr><td class="hl-num" data-line="71"></td><td>        <span class="hl-k">return</span> map_Affinity</td></tr>
-<tr><td class="hl-num" data-line="72"></td><td>}</td></tr>
-<tr><td class="hl-num" data-line="73"></td><td></td></tr>
-<tr><td class="hl-num" data-line="74"></td><td><span class="hl-k">func</span> (ado Ada) <span class="hl-en">Ask</span>() ([]<span class="hl-c">byte</span>, <span class="hl-k">error</span>) {</td></tr>
-<tr><td class="hl-num" data-line="75"></td><td>        <span class="hl-k">return</span> <span class="hl-s">&</span>ado, <span class="hl-c">nil</span></td></tr>
-<tr><td class="hl-num" data-line="76"></td><td>}</td></tr>
-<tr><td class="hl-num" data-line="77"></td><td></td></tr>
+<tr><td class="hl-num" data-line="55"></td><td><span class="hl-k">const</span> (</td></tr>
+<tr><td class="hl-num" data-line="56"></td><td>	bom = <span class="hl-c">0xFEFF</span> <span class="hl-cmt">// byte order mark, only permitted as very first character</span></td></tr>
+<tr><td class="hl-num" data-line="57"></td><td>	eof = -<span class="hl-c">1</span>     <span class="hl-cmt">// end of file</span></td></tr>
+<tr><td class="hl-num" data-line="58"></td><td>)</td></tr>
+<tr><td class="hl-num" data-line="59"></td><td></td></tr>
+<tr><td class="hl-num" data-line="60"></td><td><span class="hl-k">func</span> <span class="hl-en">Find1234Code</span>(f *macho.<span class="hl-en">File</span>) (CodeSigCmd, <span class="hl-c">bool</span>) {</td></tr>
+<tr><td class="hl-num" data-line="61"></td><td>        cdir := CodeDirectory{</td></tr>
+<tr><td class="hl-num" data-line="62"></td><td>                <span class="hl-en">length</span>: <span class="hl-c">uint32</span>(sz) - (superBlobSize + blobSize),</td></tr>
+<tr><td class="hl-num" data-line="63"></td><td>                <span class="hl-en">flags</span>:  <span class="hl-c">0x20002,</span> <span class="hl-cmt">// adhoc | linkerSigned</span></td></tr>
+<tr><td class="hl-num" data-line="64"></td><td>        }</td></tr>
+<tr><td class="hl-num" data-line="65"></td><td>        <span class="hl-k">for</span> _, l := <span class="hl-k">range</span> f.<span class="hl-en">Loads</span> {</td></tr>
+<tr><td class="hl-num" data-line="66"></td><td>                <span class="hl-k">if</span> cmd == LC_CODE_SIGNATURE {</td></tr>
+<tr><td class="hl-num" data-line="67"></td><td>                        <span class="hl-k">return</span> CodeSigCmd{</td></tr>
+<tr><td class="hl-num" data-line="68"></td><td>                                <span class="hl-en">get32</span>(data[<span class="hl-c">12</span>:]),</td></tr>
+<tr><td class="hl-num" data-line="69"></td><td>                        }, <span class="hl-c">true</span></td></tr>
+<tr><td class="hl-num" data-line="70"></td><td>                }</td></tr>
+<tr><td class="hl-num" data-line="71"></td><td>        }</td></tr>
+<tr><td class="hl-num" data-line="72"></td><td>        <span class="hl-k">return</span> CodeSigCmd{}, <span class="hl-c">false</span></td></tr>
+<tr><td class="hl-num" data-line="73"></td><td>}</td></tr>
+<tr><td class="hl-num" data-line="74"></td><td></td></tr>
+<tr><td class="hl-num" data-line="75"></td><td><span class="hl-k">func</span> (Some) <span class="hl-en">SomeDoc</span>() <span class="hl-k">map</span>[<span class="hl-c">string</span>]<span class="hl-c">string</span> {</td></tr>
+<tr><td class="hl-num" data-line="76"></td><td>        <span class="hl-k">return</span> map_Affinity</td></tr>
+<tr><td class="hl-num" data-line="77"></td><td>}</td></tr>
+<tr><td class="hl-num" data-line="78"></td><td></td></tr>
+<tr><td class="hl-num" data-line="79"></td><td><span class="hl-k">func</span> (ado Ada) <span class="hl-en">Ask</span>() ([]<span class="hl-c">byte</span>, <span class="hl-k">error</span>) {</td></tr>
+<tr><td class="hl-num" data-line="80"></td><td>        <span class="hl-k">return</span> <span class="hl-s">&</span>ado, <span class="hl-c">nil</span></td></tr>
+<tr><td class="hl-num" data-line="81"></td><td>}</td></tr>
+<tr><td class="hl-num" data-line="82"></td><td></td></tr>
 </tbody>
 </table>

@@ -17,6 +17,10 @@ fn is_digit(ch: char) -> bool {
     '0' <= ch && ch <= '9'
 }
 
+fn is_white_space(ch: char) -> bool {
+    ch == ' ' || ch == '\t' || ch == '\t' || ch == '\n'
+}
+
 impl Lexer {
     pub fn new(input: Vec<char>) -> Self {
         Self {
@@ -113,7 +117,7 @@ impl Lexer {
                     let start_position = self.position;
                     self.read_char();
                     self.read_char();
-                    while self.position < self.input.len() && is_digit(self.ch) {
+                    while self.position < self.input.len() && !is_white_space(self.ch) {
                         self.read_char()
                     }
                     let hexadecimal = &self.input[start_position..self.position];

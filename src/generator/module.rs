@@ -611,7 +611,7 @@ fn write_handle_hexadecimal() -> String {
     module.push_tabln(5, "let start_position = self.position;");
     module.push_tabln(5, "self.read_char();");
     module.push_tabln(5, "self.read_char();");
-    module.push_tabln(5, "while self.position < self.input.len() && is_digit(self.ch) {");
+    module.push_tabln(5, "while self.position < self.input.len() && !is_white_space(self.ch) {");
     module.push_tabln(6, "self.read_char()");
     module.push_tabln(5, "}");
     module.push_tabln(5, "let hexadecimal = &self.input[start_position..self.position];");
@@ -806,6 +806,7 @@ pub fn generate_module(h: &Hash) -> String {
     write_helper_is_digit(&mut module);
     if h.get_some_condition(MARK_STRING_ENTITY_TAG).is_some()
         || h.get_some_condition(MARK_ENTITY_TAG_SUFFIX).is_some()
+        || h.get_some_condition(ACCEPT_HEXADECIMAL_NUMBER).is_some()
     {
         write_helper_is_white_space(&mut module);
     }

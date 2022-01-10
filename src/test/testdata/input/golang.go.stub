@@ -52,6 +52,11 @@ type Sig struct {
         Datasize uint32 // file size of data in __LINKEDIT segment
 }
 
+const (
+	bom = 0xFEFF // byte order mark, only permitted as very first character
+	eof = -1     // end of file
+)
+
 func Find1234Code(f *macho.File) (CodeSigCmd, bool) {
         cdir := CodeDirectory{
                 length: uint32(sz) - (superBlobSize + blobSize),
