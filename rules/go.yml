@@ -10,7 +10,7 @@ constant:
   CINT: "int"
   UINT: "uint"
   BYTE: "byte"
-  CSTRING: "string"
+  string: "string"
   rune: "rune"
   uintptr: "uintptr"
   float: "float"
@@ -24,6 +24,9 @@ constant:
   uint16: uint16
   uint32: uint32
   uint64: uint64
+  complex: complex
+  complex64: complex64
+  complex128: complex128
 
 single_constant:
   - "&"

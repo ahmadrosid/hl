@@ -4,6 +4,7 @@ import (
         "os"
         "some/cmd"
 )
+var sum complex64
 
 func expTrampolineSetup(x float64) float64
 func (c *sigctxt) r0() uint64  { return c.regs().gpr[0] }
