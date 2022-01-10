@@ -5,7 +5,6 @@ constant:
     TRUE: 'true'
     FALSE: 'false'
     NONE: 'None'
-    CSELF: 'self'
 
 entity_prefix:
     ENTITY_DOT: '.'
@@ -15,43 +14,71 @@ entity_suffix:
     ENTITY_BANG: '!'
 
 keyword:
-    as: 'as'
-    const: 'const'
-    use: 'use'
-    fn: 'fn'
-    for: 'for'
-    loop: 'loop'
-    let: 'let'
-    mut: 'mut'
-    if: 'if'
-    else: 'else'
-    pub: 'pub'
-    match: 'match'
-    mod: 'mod'
-    return: 'return'
-    where: 'where'
-    impl: 'impl'
-    char: 'char'
-    str: 'str'
-    kstring: 'String'
-    vec: 'Vec'
-    kvec: 'vec'
-    crate: 'crate'
-    ref: 'ref'
-    unsafe: 'unsafe'
-    kself: 'Self'
-    async: 'async'
-    await: 'await'
-    type: 'type'
-    result: 'Result'
-    option: 'Option'
-    dyn: 'dyn'
+    as: as
+    break: break
+    const: const
+    continue: continue
+    crate: crate
+    else: else
+    enum: enum
+    extern: extern
+    fn: fn
+    for: for
+    if: if
+    impl: impl
+    in: in
+    let: let
+    loop: loop
+    match: match
+    mod: mod
+    move: move
+    mut: mut
+    pub: pub
+    ref: ref
+    return: return
+    selfvalue: self
+    selftype: Self
+    static: static
+    struct: struct
+    super: super
+    trait: trait
+    type: type
+    unsafe: unsafe
+    use: use
+    where: where
+    while: while
+    async : async
+    await : await
+    dyn : dyn
+    abstract : abstract
+    become : become
+    box : box
+    do : do
+    final : final
+    macro : macro
+    override : override
+    priv : priv
+    typeof : typeof
+    unsized : unsized
+    virtual : virtual
+    yield : yield
+    try : try
+    union : union
+    staticlifetime : "'static"
+    option: Option
+    default: Default
+    result: Result
 
 single_keyword:
     - "&"
     - "*"
+    - "<"
+    - ">"
 
 condition:
     ACCEPT_ESCAPED_STRING: true
+    ACCEPT_HEXADECIMAL_NUMBER: true
     ACCEPT_STRING_DOUBLE_QUOTE: true
     ACCEPT_STRING_ONE_QUOTE: true
+    ACCEPT_ENTITY_TAG_SUFFIX: "is_digit(self.ch)"
+    BREAK_ENTITY_TAG_SUFFIX: "!is_digit(self.ch) && !is_letter(self.ch)"
