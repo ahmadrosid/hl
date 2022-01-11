@@ -1,7 +1,7 @@
 use crate::generator::{
-    double_dash_comment_enable, get_entity_prefix, get_entity_suffix, hashtag_comment_enable,
-    slash_comment_enable, slash_star_comment_enable, string::StringBuilder, xml_comment_enable,
-    ConditionExt,
+    double_dash_comment_enable, get_double_keyword, get_entity_prefix, get_entity_suffix,
+    hashtag_comment_enable, slash_comment_enable, slash_star_comment_enable, string::StringBuilder,
+    xml_comment_enable, ConditionExt,
 };
 use yaml_rust::yaml::Hash;
 use yaml_rust::Yaml;
@@ -144,6 +144,21 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
 
     if h.get_some_condition(ACCEPT_STRING_EOF).is_some() {
         module.push_str(&write_handle_eof_string());
+    }
+
+    for (_, val) in get_double_keyword(h) {
+        let v = val.as_hash().unwrap();
+        let first = v[&Yaml::String("first".to_string())].as_str().unwrap();
+        let last = v[&Yaml::String("last".to_string())].as_str().unwrap();
+        module.push_tab(3, &format!("if self.ch == '{}' ", first));
+        module.push_strln(&format!(
+            "&& self.input[self.read_position] == '{}' {{",
+            last
+        ));
+        module.push_tabln(4, "self.read_char();");
+        module.push_tabln(4, "self.read_char();");
+        module.push_tabln(4, &format!("return token::Token::KEYWORD(vec!['{}', '{}']);", first, last));
+        module.push_tabln(3, "}");
     }
 
     module.push_tabln(2, "match self.ch {");

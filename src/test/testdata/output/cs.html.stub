@@ -19,7 +19,7 @@
 <tr><td class="hl-num" data-line="17"></td><td></td></tr>
 <tr><td class="hl-num" data-line="18"></td><td>        <span class="hl-k">public</span> <span class="hl-k">static</span> Result <span class="hl-en">CreateResult</span>(<span class="hl-k">decimal</span>? roundedResult, <span class="hl-k">string</span> iconPath) {</td></tr>
 <tr><td class="hl-num" data-line="19"></td><td>            <span class="hl-cmt">// Return null when the expression is not a valid calculator query.</span></td></tr>
-<tr><td class="hl-num" data-line="20"></td><td>            <span class="hl-k">if</span> (roundedResult == <span class="hl-c">null</span>) {</td></tr>
+<tr><td class="hl-num" data-line="20"></td><td>            <span class="hl-k">if</span> (roundedResult <span class="hl-k">==</span> <span class="hl-c">null</span>) {</td></tr>
 <tr><td class="hl-num" data-line="21"></td><td>                <span class="hl-k">return</span> <span class="hl-c">null</span>;</td></tr>
 <tr><td class="hl-num" data-line="22"></td><td>            }</td></tr>
 <tr><td class="hl-num" data-line="23"></td><td></td></tr>
@@ -29,7 +29,7 @@
 <tr><td class="hl-num" data-line="27"></td><td>                IcoPath = iconPath,</td></tr>
 <tr><td class="hl-num" data-line="28"></td><td>                Score = <span class="hl-c">300</span>,</td></tr>
 <tr><td class="hl-num" data-line="29"></td><td>                SubTitle = Properties.Resources.wox_plugin_calculator_copy_number_to_clipboard,</td></tr>
-<tr><td class="hl-num" data-line="30"></td><td>                Action = c => <span class="hl-en">Action</span>(roundedResult),</td></tr>
+<tr><td class="hl-num" data-line="30"></td><td>                Action = c <span class="hl-k">=></span> <span class="hl-en">Action</span>(roundedResult),</td></tr>
 <tr><td class="hl-num" data-line="31"></td><td>            };</td></tr>
 <tr><td class="hl-num" data-line="32"></td><td>        }</td></tr>
 <tr><td class="hl-num" data-line="33"></td><td></td></tr>
@@ -37,7 +37,7 @@
 <tr><td class="hl-num" data-line="35"></td><td>            <span class="hl-k">var</span> ret = <span class="hl-c">false</span>;</td></tr>
 <tr><td class="hl-num" data-line="36"></td><td></td></tr>
 <tr><td class="hl-num" data-line="37"></td><td>            <span class="hl-k">if</span> (roundedResult != <span class="hl-c">null</span>) {</td></tr>
-<tr><td class="hl-num" data-line="38"></td><td>                <span class="hl-k">var</span> thread = <span class="hl-k">new</span> <span class="hl-en">Thread</span>(() => {</td></tr>
+<tr><td class="hl-num" data-line="38"></td><td>                <span class="hl-k">var</span> thread = <span class="hl-k">new</span> <span class="hl-en">Thread</span>(() <span class="hl-k">=></span> {</td></tr>
 <tr><td class="hl-num" data-line="39"></td><td>                    <span class="hl-k">try</span></td></tr>
 <tr><td class="hl-num" data-line="40"></td><td>                    {</td></tr>
 <tr><td class="hl-num" data-line="41"></td><td>                        Clipboard.<span class="hl-en">SetText</span>(roundedResult?.<span class="hl-en">ToString</span>(CultureInfo.CurrentCulture));</td></tr>
@@ -78,9 +78,9 @@
 <tr><td class="hl-num" data-line="76"></td><td></td></tr>
 <tr><td class="hl-num" data-line="77"></td><td>    <span class="hl-k">public</span> <span class="hl-k">static</span> <span class="hl-k">int</span> test_0_bne_un () {</td></tr>
 <tr><td class="hl-num" data-line="78"></td><td>        <span class="hl-k">long</span> a = <span class="hl-c">0xffffffffff</span>;</td></tr>
-<tr><td class="hl-num" data-line="79"></td><td>        <span class="hl-k">if</span> (a == <span class="hl-c">0xfffffffffe</span>)</td></tr>
+<tr><td class="hl-num" data-line="79"></td><td>        <span class="hl-k">if</span> (a <span class="hl-k">==</span> <span class="hl-c">0xfffffffffe</span>)</td></tr>
 <tr><td class="hl-num" data-line="80"></td><td>            <span class="hl-k">return</span> <span class="hl-c">1</span>;</td></tr>
-<tr><td class="hl-num" data-line="81"></td><td>        <span class="hl-k">if</span> (a == <span class="hl-c">0xfeffffffff</span>)</td></tr>
+<tr><td class="hl-num" data-line="81"></td><td>        <span class="hl-k">if</span> (a <span class="hl-k">==</span> <span class="hl-c">0xfeffffffff</span>)</td></tr>
 <tr><td class="hl-num" data-line="82"></td><td>            <span class="hl-k">return</span> <span class="hl-c">2</span>;</td></tr>
 <tr><td class="hl-num" data-line="83"></td><td>        <span class="hl-k">return</span> <span class="hl-c">0</span>;</td></tr>
 <tr><td class="hl-num" data-line="84"></td><td>    }</td></tr>

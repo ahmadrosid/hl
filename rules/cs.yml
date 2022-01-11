@@ -91,7 +91,12 @@ keyword:
   endregion: "endregion"
 
 double_keyword:
-  - "="
+  assign:
+    first: "="
+    last: "="
+  double_arrow:
+    first: "="
+    last: ">"
 
 condition:
   ACCEPT_ESCAPED_STRING: true
