@@ -52,7 +52,7 @@
 <tr><td class="hl-num" data-line="50"></td><td>        <span class="hl-k">public</span> <span class="hl-k">static</span> <span class="hl-k">bool</span> <span class="hl-en">Action</span>(<span class="hl-k">decimal</span>? roundedResult) {</td></tr>
 <tr><td class="hl-num" data-line="51"></td><td>            <span class="hl-k">var</span> ret <span class="hl-k">=</span> <span class="hl-c">false</span>;</td></tr>
 <tr><td class="hl-num" data-line="52"></td><td></td></tr>
-<tr><td class="hl-num" data-line="53"></td><td>            <span class="hl-k">if</span> (roundedResult !<span class="hl-k">=</span> <span class="hl-c">null</span>) {</td></tr>
+<tr><td class="hl-num" data-line="53"></td><td>            <span class="hl-k">if</span> (roundedResult <span class="hl-k">!=</span> <span class="hl-c">null</span>) {</td></tr>
 <tr><td class="hl-num" data-line="54"></td><td>                <span class="hl-k">var</span> thread <span class="hl-k">=</span> <span class="hl-k">new</span> <span class="hl-en">Thread</span>(() <span class="hl-k">=></span> {</td></tr>
 <tr><td class="hl-num" data-line="55"></td><td>                    <span class="hl-k">try</span></td></tr>
 <tr><td class="hl-num" data-line="56"></td><td>                    {</td></tr>

@@ -24,17 +24,17 @@
 <tr><td class="hl-num" data-line="22"></td><td></td></tr>
 <tr><td class="hl-num" data-line="23"></td><td>    <span class="hl-k">var</span> spell1 <span class="hl-k">=</span> <span class="hl-k">new</span> <span class="hl-en">Spell</span>(<span class="hl-s">"Ice dart"</span>);</td></tr>
 <tr><td class="hl-num" data-line="24"></td><td></td></tr>
-<tr><td class="hl-num" data-line="25"></td><td>    <span class="hl-k">if</span> (types.<span class="hl-en">size</span>() <span class="hl-k">=</span><span class="hl-k">=</span> <span class="hl-c">1</span>) {</td></tr>
+<tr><td class="hl-num" data-line="25"></td><td>    <span class="hl-k">if</span> (types.<span class="hl-en">size</span>() <span class="hl-k">==</span> <span class="hl-c">1</span>) {</td></tr>
 <tr><td class="hl-num" data-line="26"></td><td>        <span class="hl-k">return</span> types.<span class="hl-en">iterator</span>().<span class="hl-en">next</span>();</td></tr>
 <tr><td class="hl-num" data-line="27"></td><td>    }</td></tr>
 <tr><td class="hl-num" data-line="28"></td><td></td></tr>
 <tr><td class="hl-num" data-line="29"></td><td>    <span class="hl-c">String</span> line <span class="hl-k">=</span> <span class="hl-c">null</span>;</td></tr>
 <tr><td class="hl-num" data-line="30"></td><td>    <span class="hl-k">do</span> {</td></tr>
 <tr><td class="hl-num" data-line="31"></td><td>        line <span class="hl-k">=</span> reader.<span class="hl-en">readLine</span>();</td></tr>
-<tr><td class="hl-num" data-line="32"></td><td>        <span class="hl-k">if</span> (<span class="hl-c">null</span> <span class="hl-k">!</span><span class="hl-k">=</span> line) {</td></tr>
+<tr><td class="hl-num" data-line="32"></td><td>        <span class="hl-k">if</span> (<span class="hl-c">null</span> <span class="hl-k">!=</span> line) {</td></tr>
 <tr><td class="hl-num" data-line="33"></td><td>          inputBuffer.<span class="hl-en">append</span>(line.<span class="hl-en">trim</span>());</td></tr>
 <tr><td class="hl-num" data-line="34"></td><td>        }</td></tr>
-<tr><td class="hl-num" data-line="35"></td><td>    } <span class="hl-k">while</span> (line <span class="hl-k">!</span><span class="hl-k">=</span> <span class="hl-c">null</span>);</td></tr>
+<tr><td class="hl-num" data-line="35"></td><td>    } <span class="hl-k">while</span> (line <span class="hl-k">!=</span> <span class="hl-c">null</span>);</td></tr>
 <tr><td class="hl-num" data-line="36"></td><td></td></tr>
 <tr><td class="hl-num" data-line="37"></td><td>    <span class="hl-cmt">// Intersection of T1..Tn is an intersection of their non-null versions,</span></td></tr>
 <tr><td class="hl-num" data-line="38"></td><td>    <span class="hl-cmt">//   made nullable is they all were nullable</span></td></tr>
@@ -50,7 +50,7 @@
 <tr><td class="hl-num" data-line="48"></td><td>    <span class="hl-k">Map</span><span class="hl-k"><</span>TypeParameterDescriptor, Variance<span class="hl-k">></span> parameters <span class="hl-k">=</span> <span class="hl-k">new</span> <span class="hl-k">HashMap</span><span class="hl-k"><</span><span class="hl-k">></span>();</td></tr>
 <tr><td class="hl-num" data-line="49"></td><td>    Function1<span class="hl-k"><</span>TypeParameterUsage, Unit<span class="hl-k">></span> processor <span class="hl-k">=</span> parameterUsage <span class="hl-k">-</span><span class="hl-k">></span> {</td></tr>
 <tr><td class="hl-num" data-line="50"></td><td>        Variance howTheTypeIsUsedBefore <span class="hl-k">=</span> parameters.<span class="hl-en">get</span>(parameterUsage.typeParameterDescriptor);</td></tr>
-<tr><td class="hl-num" data-line="51"></td><td>        <span class="hl-k">if</span> (howTheTypeIsUsedBefore <span class="hl-k">=</span><span class="hl-k">=</span> <span class="hl-c">null</span>) {</td></tr>
+<tr><td class="hl-num" data-line="51"></td><td>        <span class="hl-k">if</span> (howTheTypeIsUsedBefore <span class="hl-k">==</span> <span class="hl-c">null</span>) {</td></tr>
 <tr><td class="hl-num" data-line="52"></td><td>            howTheTypeIsUsedBefore <span class="hl-k">=</span> Variance.INVARIANT;</td></tr>
 <tr><td class="hl-num" data-line="53"></td><td>        }</td></tr>
 <tr><td class="hl-num" data-line="54"></td><td>        parameters.<span class="hl-en">put</span>(parameterUsage.typeParameterDescriptor,</td></tr>
@@ -58,7 +58,7 @@
 <tr><td class="hl-num" data-line="56"></td><td>        <span class="hl-k">return</span> Unit.INSTANCE;</td></tr>
 <tr><td class="hl-num" data-line="57"></td><td>    };</td></tr>
 <tr><td class="hl-num" data-line="58"></td><td></td></tr>
-<tr><td class="hl-num" data-line="59"></td><td>    <span class="hl-k">return</span> <span class="hl-en">intersectTypes</span>(<span class="hl-k">new</span> <span class="hl-k">LinkedHashSet</span><span class="hl-k"><</span><span class="hl-k">></span>(Arrays.<span class="hl-en">asList</span>(typeA, typeB))) <span class="hl-k">=</span><span class="hl-k">=</span> <span class="hl-c">null</span>;</td></tr>
+<tr><td class="hl-num" data-line="59"></td><td>    <span class="hl-k">return</span> <span class="hl-en">intersectTypes</span>(<span class="hl-k">new</span> <span class="hl-k">LinkedHashSet</span><span class="hl-k"><</span><span class="hl-k">></span>(Arrays.<span class="hl-en">asList</span>(typeA, typeB))) <span class="hl-k">==</span> <span class="hl-c">null</span>;</td></tr>
 <tr><td class="hl-num" data-line="60"></td><td>}</td></tr>
 <tr><td class="hl-num" data-line="61"></td><td></td></tr>
 <tr><td class="hl-num" data-line="62"></td><td><span class="hl-k">public</span> <span class="hl-k">interface</span> MeshPartBuilder {</td></tr>
@@ -123,7 +123,7 @@
 <tr><td class="hl-num" data-line="121"></td><td>    }</td></tr>
 <tr><td class="hl-num" data-line="122"></td><td>    <span class="hl-k">public</span> <span class="hl-k">static</span> <span class="hl-k">boolean</span> <span class="hl-en">is</span>(<span class="hl-k">int</span> number) {</td></tr>
 <tr><td class="hl-num" data-line="123"></td><td>        <span class="hl-k">for</span> (<span class="hl-k">var</span> i <span class="hl-k">=</span> <span class="hl-c">3</span>; i <span class="hl-k">*</span> i <span class="hl-k"><</span><span class="hl-k">=</span> number; i +<span class="hl-k">=</span> <span class="hl-c">2</span>) {</td></tr>
-<tr><td class="hl-num" data-line="124"></td><td>          <span class="hl-k">if</span> (number <span class="hl-k">%</span> i <span class="hl-k">=</span><span class="hl-k">=</span> <span class="hl-c">0</span>) {</td></tr>
+<tr><td class="hl-num" data-line="124"></td><td>          <span class="hl-k">if</span> (number <span class="hl-k">%</span> i <span class="hl-k">==</span> <span class="hl-c">0</span>) {</td></tr>
 <tr><td class="hl-num" data-line="125"></td><td>            <span class="hl-k">return</span> <span class="hl-c">false</span>;</td></tr>
 <tr><td class="hl-num" data-line="126"></td><td>          }</td></tr>
 <tr><td class="hl-num" data-line="127"></td><td>        }</td></tr>
@@ -131,12 +131,12 @@
 <tr><td class="hl-num" data-line="129"></td><td>    }</td></tr>
 <tr><td class="hl-num" data-line="130"></td><td></td></tr>
 <tr><td class="hl-num" data-line="131"></td><td>    <span class="hl-k">public</span> <span class="hl-k">static</span> Long <span class="hl-en">fromBinary</span>(<span class="hl-c">String</span> binary) {</td></tr>
-<tr><td class="hl-num" data-line="132"></td><td>        binary.<span class="hl-en">chars</span>().<span class="hl-en">filter</span>(c <span class="hl-k">-</span><span class="hl-k">></span> c <span class="hl-k">!</span><span class="hl-k">=</span> <span class="hl-s">'0'</span> <span class="hl-k">&</span><span class="hl-k">&</span> c <span class="hl-k">!</span><span class="hl-k">=</span> <span class="hl-s">'1'</span>).<span class="hl-en">findFirst</span>().<span class="hl-en">ifPresent</span>(in <span class="hl-k">-</span><span class="hl-k">></span> {</td></tr>
+<tr><td class="hl-num" data-line="132"></td><td>        binary.<span class="hl-en">chars</span>().<span class="hl-en">filter</span>(c <span class="hl-k">-</span><span class="hl-k">></span> c <span class="hl-k">!=</span> <span class="hl-s">'0'</span> <span class="hl-k">&&</span> c <span class="hl-k">!=</span> <span class="hl-s">'1'</span>).<span class="hl-en">findFirst</span>().<span class="hl-en">ifPresent</span>(in <span class="hl-k">-</span><span class="hl-k">></span> {</td></tr>
 <tr><td class="hl-num" data-line="133"></td><td>          <span class="hl-k">throw</span> <span class="hl-k">new</span> <span class="hl-en">NumberFormatException</span>(</td></tr>
 <tr><td class="hl-num" data-line="134"></td><td>                  <span class="hl-s">"Binary string contains values other than '0' and '1'"</span>);</td></tr>
 <tr><td class="hl-num" data-line="135"></td><td>        });</td></tr>
 <tr><td class="hl-num" data-line="136"></td><td>        <span class="hl-k">return</span> IntStream.<span class="hl-en">range</span>(<span class="hl-c">0</span>, binary.<span class="hl-en">length</span>())</td></tr>
-<tr><td class="hl-num" data-line="137"></td><td>                .<span class="hl-en">filter</span>(in <span class="hl-k">-</span><span class="hl-k">></span> binary.<span class="hl-en">charAt</span>(binary.<span class="hl-en">length</span>() <span class="hl-k">-</span> <span class="hl-c">1</span> <span class="hl-k">-</span> in) <span class="hl-k">=</span><span class="hl-k">=</span> <span class="hl-s">'1'</span>)</td></tr>
+<tr><td class="hl-num" data-line="137"></td><td>                .<span class="hl-en">filter</span>(in <span class="hl-k">-</span><span class="hl-k">></span> binary.<span class="hl-en">charAt</span>(binary.<span class="hl-en">length</span>() <span class="hl-k">-</span> <span class="hl-c">1</span> <span class="hl-k">-</span> in) <span class="hl-k">==</span> <span class="hl-s">'1'</span>)</td></tr>
 <tr><td class="hl-num" data-line="138"></td><td>                .<span class="hl-en">mapToLong</span>(in <span class="hl-k">-</span><span class="hl-k">></span> ((<span class="hl-k">long</span>) <span class="hl-c">0</span>b1) <span class="hl-k"><</span><span class="hl-k"><</span> in).<span class="hl-en">sum</span>();</td></tr>
 <tr><td class="hl-num" data-line="139"></td><td>    }</td></tr>
 <tr><td class="hl-num" data-line="140"></td><td></td></tr>
@@ -178,7 +178,7 @@
 <tr><td class="hl-num" data-line="176"></td><td></td></tr>
 <tr><td class="hl-num" data-line="177"></td><td>    <span class="hl-k">public</span> UTF8String <span class="hl-en">substring</span>(<span class="hl-k">final</span> <span class="hl-k">int</span> start, <span class="hl-k">final</span> <span class="hl-k">int</span> until) {</td></tr>
 <tr><td class="hl-num" data-line="178"></td><td>        <span class="hl-k">int</span> j <span class="hl-k">=</span> i;</td></tr>
-<tr><td class="hl-num" data-line="179"></td><td>        <span class="hl-k">while</span> (i <span class="hl-k"><</span> numBytes <span class="hl-k">&</span><span class="hl-k">&</span> c <span class="hl-k"><</span> until) {</td></tr>
+<tr><td class="hl-num" data-line="179"></td><td>        <span class="hl-k">while</span> (i <span class="hl-k"><</span> numBytes <span class="hl-k">&&</span> c <span class="hl-k"><</span> until) {</td></tr>
 <tr><td class="hl-num" data-line="180"></td><td>            i +<span class="hl-k">=</span> <span class="hl-en">numBytesForFirstByte</span>(<span class="hl-en">getByte</span>(i));</td></tr>
 <tr><td class="hl-num" data-line="181"></td><td>            c +<span class="hl-k">=</span> <span class="hl-c">1</span>;</td></tr>
 <tr><td class="hl-num" data-line="182"></td><td>        }</td></tr>
@@ -200,7 +200,7 @@
 <tr><td class="hl-num" data-line="198"></td><td>    <span class="hl-k">@Override</span></td></tr>
 <tr><td class="hl-num" data-line="199"></td><td>    <span class="hl-k">@ReactProp</span>(name <span class="hl-k">=</span> ViewProps.TRANSFORM)</td></tr>
 <tr><td class="hl-num" data-line="200"></td><td>    <span class="hl-k">public</span> <span class="hl-k">void</span> <span class="hl-en">setTransform</span>(<span class="hl-k">@NonNull</span> T view, <span class="hl-k">@Nullable</span> ReadableArray matrix) {</td></tr>
-<tr><td class="hl-num" data-line="201"></td><td>        <span class="hl-k">if</span> (matrix <span class="hl-k">=</span><span class="hl-k">=</span> <span class="hl-c">null</span>) {</td></tr>
+<tr><td class="hl-num" data-line="201"></td><td>        <span class="hl-k">if</span> (matrix <span class="hl-k">==</span> <span class="hl-c">null</span>) {</td></tr>
 <tr><td class="hl-num" data-line="202"></td><td>            <span class="hl-en">resetTransformProperty</span>(view);</td></tr>
 <tr><td class="hl-num" data-line="203"></td><td>        } <span class="hl-k">else</span> {</td></tr>
 <tr><td class="hl-num" data-line="204"></td><td>            <span class="hl-en">setTransformProperty</span>(view, matrix);</td></tr>

@@ -89,6 +89,10 @@ keyword:
   remove: "remove"
   region: "region"
   endregion: "endregion"
+  where: where
+  get: get
+  set: set
+  global: global
 
 single_keyword:
   - "="
@@ -103,6 +107,12 @@ double_keyword:
   logical_and:
     first: "&"
     last: "&"
+  nullish_coalescing_operator:
+    first: "?"
+    last: "?"
+  inequality:
+    first: "!"
+    last: "="
 
 condition:
   ACCEPT_ESCAPED_STRING: true

@@ -99,6 +99,10 @@ pub fn get_keyword_token(identifier: &Vec<char>) -> Result<Token, String> {
         "remove" => Ok(Token::KEYWORD(identifier.to_vec())),
         "region" => Ok(Token::KEYWORD(identifier.to_vec())),
         "endregion" => Ok(Token::KEYWORD(identifier.to_vec())),
+        "where" => Ok(Token::KEYWORD(identifier.to_vec())),
+        "get" => Ok(Token::KEYWORD(identifier.to_vec())),
+        "set" => Ok(Token::KEYWORD(identifier.to_vec())),
+        "global" => Ok(Token::KEYWORD(identifier.to_vec())),
         _ => Err(String::from("Not a keyword")),
     }
 }

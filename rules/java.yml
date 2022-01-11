@@ -77,6 +77,23 @@ single_keyword:
   - "%"
   - "?"
 
+double_keyword:
+  comparison:
+    first: "="
+    last: "="
+  double_arrow:
+    first: "="
+    last: ">"
+  logical_and:
+    first: "&"
+    last: "&"
+  nullish_coalescing_operator:
+    first: "?"
+    last: "?"
+  inequality:
+    first: "!"
+    last: "="
+
 condition:
   ACCEPT_ESCAPED_STRING: true
   ACCEPT_STRING_ONE_QUOTE: true
