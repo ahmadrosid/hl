@@ -102,7 +102,7 @@ entity_prefix:
   ENTITY_DOT: '>'
 
 entity_suffix:
-  ENTITY_LBRACE: '('
+  left_brace: "("
 
 keyword:
   abstract: "abstract"

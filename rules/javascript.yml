@@ -17,8 +17,8 @@ entity_prefix:
   ENTITY_DOT: '.'
 
 entity_suffix:
-  ENTITY_LBRACE: '('
-  ENTITY_COLON: ':'
+  left_brace: "("
+  colon: ':'
 
 keyword:
   IMPORT: 'import'

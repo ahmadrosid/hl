@@ -47,7 +47,7 @@ single_keyword:
   - "|"
 
 entity_suffix:
-  ENTITY_LBRACE: "("
+  left_brace: "("
 
 condition:
   ACCEPT_ESCAPED_STRING: true

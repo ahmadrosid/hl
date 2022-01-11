@@ -9,7 +9,7 @@ constant:
   Self: "self"
 
 entity_suffix:
-  ENTITY_LBRACE: '('
+  left_brace: "("
 
 keyword:
   as: as

@@ -10,7 +10,7 @@ constant:
   CSTRING: "String"
 
 entity_suffix:
-  ENTITY_LBRACE: "("
+  left_brace: "("
 
 keyword:
   ABSTRACT: "abstract"

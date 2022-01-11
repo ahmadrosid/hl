@@ -12,7 +12,7 @@ single_constant:
   - ">"
 
 entity_suffix:
-  ENTITY_LBRACE: "("
+  left_brace: "("
 
 keyword:
   asm: "asm"

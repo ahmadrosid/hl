@@ -6,7 +6,7 @@ constant:
   nil: "nil"
 
 entity_suffix:
-  ENTITY_LBRACE: '('
+  left_brace: "("
 
 keyword:
   and: and

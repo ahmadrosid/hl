@@ -7,7 +7,7 @@ constant:
   NULL: "null"
 
 entity_suffix:
-  ENTITY_LBRACE: "("
+  left_brace: "("
 
 keyword:
   abstract: "abstract"

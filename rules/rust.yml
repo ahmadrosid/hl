@@ -10,8 +10,8 @@ entity_prefix:
     ENTITY_DOT: '.'
 
 entity_suffix:
-    ENTITY_LBRACE: '('
-    ENTITY_BANG: '!'
+    left_brace: "("
+    bang: '!'
 
 keyword:
     as: as

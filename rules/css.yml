@@ -108,7 +108,7 @@ entity_tag:
   INPUT: input
 
 entity_suffix:
-  ENTITY_LBRACE: "("
+  left_brace: "("
 
 keyword:
   IMPORTANT: important
