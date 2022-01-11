@@ -498,13 +498,9 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
     }
 
     for (_k, v) in get_entity_prefix(h) {
-        module.push_tabln(
-            8,
-            &format!(
-                "if start_position != 0 && self.input[start_position - 1] == '{}' {{",
-                v.as_str().unwrap()
-            ),
-        );
+        let ch = v.as_str().unwrap();
+        module.push_tab(8, "if start_position > 0 ");
+        module.push_strln(&format!("&& self.input[start_position - 1] == '{}' {{", ch));
         module.push_tabln(9, "return token::Token::ENTITY(identifier)");
         module.push_tabln(8, "}");
     }

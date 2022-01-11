@@ -174,7 +174,7 @@ impl Lexer {
                                 keyword_token
                             },
                             Err(_err) => {
-                                if start_position != 0 && self.input[start_position - 1] == '.' {
+                                if start_position > 0 && self.input[start_position - 1] == '.' {
                                     return token::Token::ENTITY(identifier)
                                 }
                                 if self.ch == '(' {

@@ -154,7 +154,7 @@ impl Lexer {
                                     identifier.append(&mut self.input[position..self.position].to_vec());
                                     return token::Token::ENTITY(identifier)
                                 }
-                                if start_position != 0 && self.input[start_position - 1] == '.' {
+                                if start_position > 0 && self.input[start_position - 1] == '.' {
                                     return token::Token::ENTITY(identifier)
                                 }
                                 if self.ch == '(' {
