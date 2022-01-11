@@ -5,6 +5,7 @@ constant:
   TRUE: "true"
   FALSE: "false"
   NULL: "null"
+  this: this
 
 entity_suffix:
   left_brace: "("

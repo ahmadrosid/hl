@@ -27,6 +27,12 @@ namespace Microsoft.PowerToys.Run.Plugin.Calculator {
     }
 
     public static class ResultHelper {
+
+        public VarianceDecl (Variance variance, Location loc) {
+            this.Variance = variance;
+            this.Location = loc;
+        }
+
         public static Result CreateResult(CalculateResult result, string iconPath) {
             return CreateResult(result.RoundedResult, iconPath);
         }

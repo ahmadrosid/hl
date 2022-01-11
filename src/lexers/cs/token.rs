@@ -20,6 +20,7 @@ pub fn get_keyword_token(identifier: &Vec<char>) -> Result<Token, String> {
         "true" => Ok(Token::CONSTANT(identifier.to_vec())),
         "false" => Ok(Token::CONSTANT(identifier.to_vec())),
         "null" => Ok(Token::CONSTANT(identifier.to_vec())),
+        "this" => Ok(Token::CONSTANT(identifier.to_vec())),
         "abstract" => Ok(Token::KEYWORD(identifier.to_vec())),
         "as" => Ok(Token::KEYWORD(identifier.to_vec())),
         "base" => Ok(Token::KEYWORD(identifier.to_vec())),
