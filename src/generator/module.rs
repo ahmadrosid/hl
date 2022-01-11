@@ -34,6 +34,8 @@ const MARK_STRING_ENTITY_TAG: &str = "MARK_STRING_ENTITY_TAG";
 const ACCEPT_DOUBLE_BRACKET_STRING: &str = "ACCEPT_DOUBLE_BRACKET_STRING";
 const ACCEPT_ESCAPED_STRING: &str = "ACCEPT_ESCAPED_STRING";
 const ACCEPT_HEXADECIMAL_NUMBER: &str = "ACCEPT_HEXADECIMAL_NUMBER";
+const ACCEPT_ENTITY_SUFFIX: &str = "ACCEPT_ENTITY_SUFFIX";
+const BREAK_ENTITY_SUFFIX: &str = "BREAK_ENTITY_SUFFIX";
 
 fn write_struct_lexer(module: &mut StringBuilder) {
     module.push_strln("pub struct Lexer {");
@@ -447,9 +449,9 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
         }
     }
 
-    if let Some(val_prefix) = h.get_some_condition("ACCEPT_ENTITY_SUFFIX") {
+    if let Some(val_prefix) = h.get_some_condition(ACCEPT_ENTITY_SUFFIX) {
         let val_condition = val_prefix.as_str().unwrap();
-        if let Some(val) = h.get_some_condition("BREAK_ENTITY_SUFFIX") {
+        if let Some(val) = h.get_some_condition(BREAK_ENTITY_SUFFIX) {
             let val_break = val.as_str().unwrap();
             module.push_tab(8, &format!("if {} ", val_condition));
             module.push_strln("{");
