@@ -26,6 +26,16 @@ namespace Microsoft.PowerToys.Run.Plugin.Calculator {
         EbcdicCodePage = 4,
     }
 
+    public static async Task<bool> ContainsAsync<T>(
+        [NotNull] this IReadOnlyRepository<T> repository,
+        [NotNull] T item,
+        CancellationToken cancellationToken = default)
+        where T : class, IEntity
+    {
+        var queryable = await repository.GetQueryableAsync();
+        return await repository.AsyncExecuter.ContainsAsync(queryable, item, cancellationToken);
+    }
+
     public static class ResultHelper {
 
         public VarianceDecl (Variance variance, Location loc) {

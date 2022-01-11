@@ -13,6 +13,8 @@ entity_suffix:
 keyword:
   abstract: "abstract"
   as: "as"
+  async: "async"
+  await: "await"
   base: "base"
   bool: "bool"
   break: "break"

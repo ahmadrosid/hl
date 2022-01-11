@@ -23,6 +23,8 @@ pub fn get_keyword_token(identifier: &Vec<char>) -> Result<Token, String> {
         "this" => Ok(Token::CONSTANT(identifier.to_vec())),
         "abstract" => Ok(Token::KEYWORD(identifier.to_vec())),
         "as" => Ok(Token::KEYWORD(identifier.to_vec())),
+        "async" => Ok(Token::KEYWORD(identifier.to_vec())),
+        "await" => Ok(Token::KEYWORD(identifier.to_vec())),
         "base" => Ok(Token::KEYWORD(identifier.to_vec())),
         "bool" => Ok(Token::KEYWORD(identifier.to_vec())),
         "break" => Ok(Token::KEYWORD(identifier.to_vec())),
