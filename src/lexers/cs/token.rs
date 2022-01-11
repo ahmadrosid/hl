@@ -8,6 +8,7 @@ pub enum Token {
     IDENT(Vec<char>),
     CH(char),
     ENTITY(Vec<char>),
+    STRING(Vec<char>),
     CONSTANT(Vec<char>),
     KEYWORD(Vec<char>),
     COMMENT(Vec<char>),
@@ -93,6 +94,11 @@ pub fn get_keyword_token(identifier: &Vec<char>) -> Result<Token, String> {
         "void" => Ok(Token::KEYWORD(identifier.to_vec())),
         "volatile" => Ok(Token::KEYWORD(identifier.to_vec())),
         "while" => Ok(Token::KEYWORD(identifier.to_vec())),
+        "yield" => Ok(Token::KEYWORD(identifier.to_vec())),
+        "add" => Ok(Token::KEYWORD(identifier.to_vec())),
+        "remove" => Ok(Token::KEYWORD(identifier.to_vec())),
+        "region" => Ok(Token::KEYWORD(identifier.to_vec())),
+        "endregion" => Ok(Token::KEYWORD(identifier.to_vec())),
         _ => Err(String::from("Not a keyword")),
     }
 }

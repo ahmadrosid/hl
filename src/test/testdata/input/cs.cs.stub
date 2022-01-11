@@ -9,25 +9,19 @@ using System.Threading;
 using System.Windows;
 using Wox.Plugin;
 
-namespace Microsoft.PowerToys.Run.Plugin.Calculator
-{
-    public static class ResultHelper
-    {
-        public static Result CreateResult(CalculateResult result, string iconPath)
-        {
+namespace Microsoft.PowerToys.Run.Plugin.Calculator {
+    public static class ResultHelper {
+        public static Result CreateResult(CalculateResult result, string iconPath) {
             return CreateResult(result.RoundedResult, iconPath);
         }
 
-        public static Result CreateResult(decimal? roundedResult, string iconPath)
-        {
+        public static Result CreateResult(decimal? roundedResult, string iconPath) {
             // Return null when the expression is not a valid calculator query.
-            if (roundedResult == null)
-            {
+            if (roundedResult == null) {
                 return null;
             }
 
-            return new Result
-            {
+            return new Result {
                 // Using CurrentCulture since this is user facing
                 Title = roundedResult?.ToString(CultureInfo.CurrentCulture),
                 IcoPath = iconPath,
@@ -37,14 +31,11 @@ namespace Microsoft.PowerToys.Run.Plugin.Calculator
             };
         }
 
-        public static bool Action(decimal? roundedResult)
-        {
+        public static bool Action(decimal? roundedResult) {
             var ret = false;
 
-            if (roundedResult != null)
-            {
-                var thread = new Thread(() =>
-                {
+            if (roundedResult != null) {
+                var thread = new Thread(() => {
                     try
                     {
                         Clipboard.SetText(roundedResult?.ToString(CultureInfo.CurrentCulture));
@@ -63,5 +54,32 @@ namespace Microsoft.PowerToys.Run.Plugin.Calculator
 
             return ret;
         }
+
+        #region Events
+
+        [Browsable (false)]
+        [EditorBrowsable (EditorBrowsableState.Never)]
+        public new event EventHandler BackColorChanged {
+            add { throw new NotSupportedException ("Invalid event handler for BackColorChanged"); }
+            remove { }
+        }
+
+        [Browsable (false)]
+        [EditorBrowsable (EditorBrowsableState.Never)]
+        public new event EventHandler TextChanged {
+            add { throw new NotSupportedException ("Invalid event handler for TextChanged"); }
+            remove { }
+        }
+
+        #endregion
+    }
+
+    public static int test_0_bne_un () {
+        long a = 0xffffffffff;
+        if (a == 0xfffffffffe)
+            return 1;
+        if (a == 0xfeffffffff)
+            return 2;
+        return 0;
     }
 }

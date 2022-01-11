@@ -29,6 +29,19 @@ pub fn render_html(input: Vec<char>) -> String {
             token::Token::IDENT(value) => {
                 html.push_str(&value.iter().collect::<String>());
             }
+            token::Token::STRING(value) => {
+                let mut s = String::new();
+                for ch in value {
+                    if ch == '<' {
+                        s.push_str("&lt;");
+                    } else if ch == '>' {
+                        s.push_str("&gt;");
+                    } else {
+                        s.push(ch);
+                    }
+                }
+                html.push_str(&format!("<span class=\"hl-s\">{}</span>", s));
+            }
             token::Token::CH(value) => {
                 html.push(value);
             }
