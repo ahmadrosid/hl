@@ -23,7 +23,7 @@
 <tr><td class="hl-num" data-line="21"></td><td>        <span class="hl-k">public</span> <span class="hl-k">static</span> Result <span class="hl-en">CreateResult</span>(<span class="hl-k">decimal</span>? roundedResult, <span class="hl-k">string</span> iconPath)</td></tr>
 <tr><td class="hl-num" data-line="22"></td><td>        {</td></tr>
 <tr><td class="hl-num" data-line="23"></td><td>            <span class="hl-cmt">// Return null when the expression is not a valid calculator query.</span></td></tr>
-<tr><td class="hl-num" data-line="24"></td><td>            if (roundedResult == <span class="hl-c">null</span>)</td></tr>
+<tr><td class="hl-num" data-line="24"></td><td>            <span class="hl-k">if</span> (roundedResult == <span class="hl-c">null</span>)</td></tr>
 <tr><td class="hl-num" data-line="25"></td><td>            {</td></tr>
 <tr><td class="hl-num" data-line="26"></td><td>                <span class="hl-k">return</span> <span class="hl-c">null</span>;</td></tr>
 <tr><td class="hl-num" data-line="27"></td><td>            }</td></tr>
@@ -43,7 +43,7 @@
 <tr><td class="hl-num" data-line="41"></td><td>        {</td></tr>
 <tr><td class="hl-num" data-line="42"></td><td>            <span class="hl-k">var</span> ret = <span class="hl-c">false</span>;</td></tr>
 <tr><td class="hl-num" data-line="43"></td><td></td></tr>
-<tr><td class="hl-num" data-line="44"></td><td>            if (roundedResult != <span class="hl-c">null</span>)</td></tr>
+<tr><td class="hl-num" data-line="44"></td><td>            <span class="hl-k">if</span> (roundedResult != <span class="hl-c">null</span>)</td></tr>
 <tr><td class="hl-num" data-line="45"></td><td>            {</td></tr>
 <tr><td class="hl-num" data-line="46"></td><td>                <span class="hl-k">var</span> thread = <span class="hl-k">new</span> <span class="hl-en">Thread</span>(() =></td></tr>
 <tr><td class="hl-num" data-line="47"></td><td>                {</td></tr>
