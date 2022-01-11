@@ -95,6 +95,17 @@ single_keyword:
     - "="
     - "|"
 
+double_keyword:
+    comparison:
+        first: "="
+        last: "="
+    double_arrow:
+        first: "="
+        last: ">"
+    path_separator:
+        first: ":"
+        last: ":"
+
 condition:
     ACCEPT_ESCAPED_STRING: true
     ACCEPT_HEXADECIMAL_NUMBER: true
