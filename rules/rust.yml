@@ -105,6 +105,9 @@ double_keyword:
     path_separator:
         first: ":"
         last: ":"
+    logical_and:
+        first: "&"
+        last: "&"
 
 condition:
     ACCEPT_ESCAPED_STRING: true
