@@ -101,16 +101,18 @@ impl Lexer {
         };
 
         let tok: token::Token;
-            if self.ch == '=' && self.input[self.read_position] == '=' {
-                self.read_char();
-                self.read_char();
-                return token::Token::KEYWORD(vec!['=', '=']);
-            }
-            if self.ch == '=' && self.input[self.read_position] == '>' {
-                self.read_char();
-                self.read_char();
-                return token::Token::KEYWORD(vec!['=', '>']);
-            }
+        if self.read_position < self.input.len() && self.ch == '=' && self.input[self.read_position] == '=' {
+            self.read_char();
+            self.read_char();
+            return token::Token::KEYWORD(vec!['=', '=']);
+        }
+
+        if self.read_position < self.input.len() && self.ch == '=' && self.input[self.read_position] == '>' {
+            self.read_char();
+            self.read_char();
+            return token::Token::KEYWORD(vec!['=', '>']);
+        }
+
         match self.ch {
             '\n' => {
                 tok = token::Token::ENDL(self.ch);

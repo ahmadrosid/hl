@@ -150,15 +150,16 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
         let v = val.as_hash().unwrap();
         let first = v[&Yaml::String("first".to_string())].as_str().unwrap();
         let last = v[&Yaml::String("last".to_string())].as_str().unwrap();
-        module.push_tab(3, &format!("if self.ch == '{}' ", first));
+        module.push_tab(2, "if self.read_position < self.input.len() ");
+        module.push_str(&format!("&& self.ch == '{}' ", first));
         module.push_strln(&format!(
             "&& self.input[self.read_position] == '{}' {{",
             last
         ));
-        module.push_tabln(4, "self.read_char();");
-        module.push_tabln(4, "self.read_char();");
-        module.push_tabln(4, &format!("return token::Token::KEYWORD(vec!['{}', '{}']);", first, last));
-        module.push_tabln(3, "}");
+        module.push_tabln(3, "self.read_char();");
+        module.push_tabln(3, "self.read_char();");
+        module.push_tabln(3, &format!("return token::Token::KEYWORD(vec!['{}', '{}']);", first, last));
+        module.push_tabln(2, "}\n");
     }
 
     module.push_tabln(2, "match self.ch {");
