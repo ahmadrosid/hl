@@ -17,6 +17,10 @@ fn is_digit(ch: char) -> bool {
     '0' <= ch && ch <= '9'
 }
 
+fn is_white_space(ch: char) -> bool {
+    ch == ' ' || ch == '\t' || ch == '\t' || ch == '\n'
+}
+
 impl Lexer {
     pub fn new(input: Vec<char>) -> Self {
         Self {
@@ -166,7 +170,22 @@ impl Lexer {
                             },
                             Err(_err) => {
                                 if self.ch == '(' {
-                                    return token::Token::ENTITY(identifier)
+                                    return token::Token::ENTITY(identifier);
+                                } else if is_white_space(self.ch) {
+                                    let start_position = self.position;
+                                    let mut position = self.position;
+                                    let mut ch = self.input[position];
+                                    while position < self.input.len() && is_white_space(ch) {
+                                        position = position + 1;
+                                        ch = self.input[position];
+                                    }
+                                    if ch == '(' {
+                                        self.position = position - 1;
+                                        self.read_position = position;
+                                        let mut value = identifier;
+                                        value.append(&mut self.input[start_position..self.position].to_vec());
+                                        return token::Token::ENTITY(value)
+                                    }
                                 }
                                 token::Token::IDENT(identifier)
                             }

@@ -62,9 +62,9 @@
 <tr><td class="hl-num" data-line="60"></td><td>}</td></tr>
 <tr><td class="hl-num" data-line="61"></td><td></td></tr>
 <tr><td class="hl-num" data-line="62"></td><td><span class="hl-k">public</span> <span class="hl-k">interface</span> MeshPartBuilder {</td></tr>
-<tr><td class="hl-num" data-line="63"></td><td>    <span class="hl-k">public</span> MeshPart getMeshPart ();</td></tr>
-<tr><td class="hl-num" data-line="64"></td><td>    <span class="hl-k">public</span> <span class="hl-k">short</span> vertex (<span class="hl-k">final</span> <span class="hl-k">float</span>... values);</td></tr>
-<tr><td class="hl-num" data-line="65"></td><td>    <span class="hl-k">public</span> <span class="hl-k">boolean</span> isVertexTransformationEnabled ();</td></tr>
+<tr><td class="hl-num" data-line="63"></td><td>    <span class="hl-k">public</span> MeshPart <span class="hl-en">getMeshPart</span> ();</td></tr>
+<tr><td class="hl-num" data-line="64"></td><td>    <span class="hl-k">public</span> <span class="hl-k">short</span> <span class="hl-en">vertex</span> (<span class="hl-k">final</span> <span class="hl-k">float</span>... values);</td></tr>
+<tr><td class="hl-num" data-line="65"></td><td>    <span class="hl-k">public</span> <span class="hl-k">boolean</span> <span class="hl-en">isVertexTransformationEnabled</span> ();</td></tr>
 <tr><td class="hl-num" data-line="66"></td><td>    <span class="hl-k">strictfp</span> <span class="hl-k">private</span> <span class="hl-k">void</span> <span class="hl-en">doStuff</span>();</td></tr>
 <tr><td class="hl-num" data-line="67"></td><td>}</td></tr>
 <tr><td class="hl-num" data-line="68"></td><td></td></tr>

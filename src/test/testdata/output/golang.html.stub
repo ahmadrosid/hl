@@ -20,7 +20,7 @@
 <tr><td class="hl-num" data-line="18"></td><td>        <span class="hl-k">var</span> name = <span class="hl-s">"Ahmad Rosid"</span></td></tr>
 <tr><td class="hl-num" data-line="19"></td><td>        os.<span class="hl-en">Exit</span>(cmd.<span class="hl-en">Run</span>(os.<span class="hl-c">Args</span>[<span class="hl-c">1</span>:]))</td></tr>
 <tr><td class="hl-num" data-line="20"></td><td>        <span class="hl-k">var</span> lastChar <span class="hl-c">rune</span></td></tr>
-<tr><td class="hl-num" data-line="21"></td><td>        data := <span class="hl-en">make</span>([]<span class="hl-c">string</span>, <span class="hl-c">0</span>)</td></tr>
+<tr><td class="hl-num" data-line="21"></td><td>        <span class="hl-en">data</span> := <span class="hl-en">make</span>([]<span class="hl-c">string</span>, <span class="hl-c">0</span>)</td></tr>
 <tr><td class="hl-num" data-line="22"></td><td>        <span class="hl-cmt">// emit hashes</span></td></tr>
 <tr><td class="hl-num" data-line="23"></td><td>        <span class="hl-k">var</span> buf [pageSize]<span class="hl-c">byte</span></td></tr>
 <tr><td class="hl-num" data-line="24"></td><td>        <span class="hl-k">for</span> p < <span class="hl-c">int</span>(codeSize) {</td></tr>
@@ -31,14 +31,14 @@
 <tr><td class="hl-num" data-line="29"></td><td>                        <span class="hl-en">panic</span>(err)</td></tr>
 <tr><td class="hl-num" data-line="30"></td><td>                }</td></tr>
 <tr><td class="hl-num" data-line="31"></td><td>        }</td></tr>
-<tr><td class="hl-num" data-line="32"></td><td>        <span class="hl-k">switch</span> s := v.(<span class="hl-k">type</span>) {</td></tr>
+<tr><td class="hl-num" data-line="32"></td><td>        <span class="hl-k">switch</span> <span class="hl-en">s</span> := v.(<span class="hl-k">type</span>) {</td></tr>
 <tr><td class="hl-num" data-line="33"></td><td>        <span class="hl-k">case</span> <span class="hl-c">string</span>:</td></tr>
 <tr><td class="hl-num" data-line="34"></td><td>                <span class="hl-k">return</span> utils.<span class="hl-en">Base64EncodeIfNot</span>(s)</td></tr>
 <tr><td class="hl-num" data-line="35"></td><td>        <span class="hl-k">default</span>:</td></tr>
 <tr><td class="hl-num" data-line="36"></td><td>                <span class="hl-k">return</span> <span class="hl-s">""</span></td></tr>
 <tr><td class="hl-num" data-line="37"></td><td>        }</td></tr>
-<tr><td class="hl-num" data-line="38"></td><td>        sum := <span class="hl-c">0</span></td></tr>
-<tr><td class="hl-num" data-line="39"></td><td>        <span class="hl-k">for</span> i := <span class="hl-c">1</span>; i < <span class="hl-c">5</span>; i++ {</td></tr>
+<tr><td class="hl-num" data-line="38"></td><td>        <span class="hl-en">sum</span> := <span class="hl-c">0</span></td></tr>
+<tr><td class="hl-num" data-line="39"></td><td>        <span class="hl-k">for</span> <span class="hl-en">i</span> := <span class="hl-c">1</span>; i < <span class="hl-c">5</span>; i++ {</td></tr>
 <tr><td class="hl-num" data-line="40"></td><td>                <span class="hl-k">if</span> i%<span class="hl-c">2</span> != <span class="hl-c">0</span> { <span class="hl-cmt">// skip odd numbers</span></td></tr>
 <tr><td class="hl-num" data-line="41"></td><td>                        <span class="hl-k">continue</span></td></tr>
 <tr><td class="hl-num" data-line="42"></td><td>                }</td></tr>
@@ -61,11 +61,11 @@
 <tr><td class="hl-num" data-line="59"></td><td>)</td></tr>
 <tr><td class="hl-num" data-line="60"></td><td></td></tr>
 <tr><td class="hl-num" data-line="61"></td><td><span class="hl-k">func</span> <span class="hl-en">Find1234Code</span>(f *macho.<span class="hl-en">File</span>) (CodeSigCmd, <span class="hl-c">bool</span>) {</td></tr>
-<tr><td class="hl-num" data-line="62"></td><td>        cdir := CodeDirectory{</td></tr>
+<tr><td class="hl-num" data-line="62"></td><td>        <span class="hl-en">cdir</span> := CodeDirectory{</td></tr>
 <tr><td class="hl-num" data-line="63"></td><td>                <span class="hl-en">length</span>: <span class="hl-c">uint32</span>(sz) - (superBlobSize + blobSize),</td></tr>
 <tr><td class="hl-num" data-line="64"></td><td>                <span class="hl-en">flags</span>:  <span class="hl-c">0x20002</span>, <span class="hl-cmt">// adhoc | linkerSigned</span></td></tr>
 <tr><td class="hl-num" data-line="65"></td><td>        }</td></tr>
-<tr><td class="hl-num" data-line="66"></td><td>        <span class="hl-k">for</span> _, l := <span class="hl-k">range</span> f.<span class="hl-en">Loads</span> {</td></tr>
+<tr><td class="hl-num" data-line="66"></td><td>        <span class="hl-k">for</span> _, <span class="hl-en">l</span> := <span class="hl-k">range</span> f.<span class="hl-en">Loads</span> {</td></tr>
 <tr><td class="hl-num" data-line="67"></td><td>                <span class="hl-k">if</span> cmd == LC_CODE_SIGNATURE {</td></tr>
 <tr><td class="hl-num" data-line="68"></td><td>                        <span class="hl-k">return</span> CodeSigCmd{</td></tr>
 <tr><td class="hl-num" data-line="69"></td><td>                                <span class="hl-en">get32</span>(data[<span class="hl-c">12</span>:]),</td></tr>

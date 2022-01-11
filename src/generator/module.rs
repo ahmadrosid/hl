@@ -510,9 +510,34 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
         module.push_tabln(8, "}");
     }
 
-    for (_k, v) in get_entity_suffix(h) {
-        module.push_tabln(8, &format!("if self.ch == '{}' {{", v.as_str().unwrap()));
-        module.push_tabln(9, "return token::Token::ENTITY(identifier)");
+    for (_k, ch) in get_entity_suffix(h) {
+        // module.push_tabln(8, &format!("if self.ch == '{}' {{", v.as_str().unwrap()));
+        // module.push_tabln(9, "return token::Token::ENTITY(identifier)");
+        // module.push_tabln(8, "}");
+
+        module.push_tabln(8, &format!("if self.ch == '{}' {{", ch.as_str().unwrap()));
+        module.push_tabln(9, "return token::Token::ENTITY(identifier);");
+        module.push_tabln(8, "} else if is_white_space(self.ch) {");
+        module.push_tabln(9, "let start_position = self.position;");
+        module.push_tabln(9, "let mut position = self.position;");
+        module.push_tabln(9, "let mut ch = self.input[position];");
+        module.push_tabln(
+            9,
+            "while position < self.input.len() && is_white_space(ch) {",
+        );
+        module.push_tabln(10, "position = position + 1;");
+        module.push_tabln(10, "ch = self.input[position];");
+        module.push_tabln(9, "}");
+        module.push_tabln(9, &format!("if ch == '{}' {{", ch.as_str().unwrap()));
+        module.push_tabln(10, "self.position = position - 1;");
+        module.push_tabln(10, "self.read_position = position;");
+        module.push_tabln(10, "let mut value = identifier;");
+        module.push_tabln(
+            10,
+            "value.append(&mut self.input[start_position..self.position].to_vec());",
+        );
+        module.push_tabln(10, "return token::Token::ENTITY(value)");
+        module.push_tabln(9, "}");
         module.push_tabln(8, "}");
     }
 
@@ -855,6 +880,7 @@ pub fn generate_module(h: &Hash) -> String {
     write_helper_is_digit(&mut module);
     if h.get_some_condition(MARK_STRING_ENTITY_TAG).is_some()
         || h.get_some_condition(MARK_ENTITY_TAG_SUFFIX).is_some()
+        || get_entity_suffix(h).len() > 0
     {
         write_helper_is_white_space(&mut module);
     }

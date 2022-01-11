@@ -66,24 +66,24 @@
 <tr><td class="hl-num" data-line="64"></td><td></td></tr>
 <tr><td class="hl-num" data-line="65"></td><td>        #<span class="hl-k">region</span> Events</td></tr>
 <tr><td class="hl-num" data-line="66"></td><td></td></tr>
-<tr><td class="hl-num" data-line="67"></td><td>        [Browsable (<span class="hl-c">false</span>)]</td></tr>
-<tr><td class="hl-num" data-line="68"></td><td>        [EditorBrowsable (EditorBrowsableState.Never)]</td></tr>
+<tr><td class="hl-num" data-line="67"></td><td>        [<span class="hl-en">Browsable</span> (<span class="hl-c">false</span>)]</td></tr>
+<tr><td class="hl-num" data-line="68"></td><td>        [<span class="hl-en">EditorBrowsable</span> (EditorBrowsableState.Never)]</td></tr>
 <tr><td class="hl-num" data-line="69"></td><td>        <span class="hl-k">public</span> <span class="hl-k">new</span> <span class="hl-k">event</span> EventHandler BackColorChanged {</td></tr>
-<tr><td class="hl-num" data-line="70"></td><td>            <span class="hl-k">add</span> { <span class="hl-k">throw</span> <span class="hl-k">new</span> NotSupportedException (<span class="hl-s">"Invalid event handler for BackColorChanged"</span>); }</td></tr>
+<tr><td class="hl-num" data-line="70"></td><td>            <span class="hl-k">add</span> { <span class="hl-k">throw</span> <span class="hl-k">new</span> <span class="hl-en">NotSupportedException</span> (<span class="hl-s">"Invalid event handler for BackColorChanged"</span>); }</td></tr>
 <tr><td class="hl-num" data-line="71"></td><td>            <span class="hl-k">remove</span> { }</td></tr>
 <tr><td class="hl-num" data-line="72"></td><td>        }</td></tr>
 <tr><td class="hl-num" data-line="73"></td><td></td></tr>
-<tr><td class="hl-num" data-line="74"></td><td>        [Browsable (<span class="hl-c">false</span>)]</td></tr>
-<tr><td class="hl-num" data-line="75"></td><td>        [EditorBrowsable (EditorBrowsableState.Never)]</td></tr>
+<tr><td class="hl-num" data-line="74"></td><td>        [<span class="hl-en">Browsable</span> (<span class="hl-c">false</span>)]</td></tr>
+<tr><td class="hl-num" data-line="75"></td><td>        [<span class="hl-en">EditorBrowsable</span> (EditorBrowsableState.Never)]</td></tr>
 <tr><td class="hl-num" data-line="76"></td><td>        <span class="hl-k">public</span> <span class="hl-k">new</span> <span class="hl-k">event</span> EventHandler TextChanged {</td></tr>
-<tr><td class="hl-num" data-line="77"></td><td>            <span class="hl-k">add</span> { <span class="hl-k">throw</span> <span class="hl-k">new</span> NotSupportedException (<span class="hl-s">"Invalid event handler for TextChanged"</span>); }</td></tr>
+<tr><td class="hl-num" data-line="77"></td><td>            <span class="hl-k">add</span> { <span class="hl-k">throw</span> <span class="hl-k">new</span> <span class="hl-en">NotSupportedException</span> (<span class="hl-s">"Invalid event handler for TextChanged"</span>); }</td></tr>
 <tr><td class="hl-num" data-line="78"></td><td>            <span class="hl-k">remove</span> { }</td></tr>
 <tr><td class="hl-num" data-line="79"></td><td>        }</td></tr>
 <tr><td class="hl-num" data-line="80"></td><td></td></tr>
 <tr><td class="hl-num" data-line="81"></td><td>        #<span class="hl-k">endregion</span></td></tr>
 <tr><td class="hl-num" data-line="82"></td><td>    }</td></tr>
 <tr><td class="hl-num" data-line="83"></td><td></td></tr>
-<tr><td class="hl-num" data-line="84"></td><td>    <span class="hl-k">public</span> <span class="hl-k">static</span> <span class="hl-k">int</span> test_0_bne_un () {</td></tr>
+<tr><td class="hl-num" data-line="84"></td><td>    <span class="hl-k">public</span> <span class="hl-k">static</span> <span class="hl-k">int</span> <span class="hl-en">test_0_bne_un</span> () {</td></tr>
 <tr><td class="hl-num" data-line="85"></td><td>        <span class="hl-k">long</span> a = <span class="hl-c">0xffffffffff</span>;</td></tr>
 <tr><td class="hl-num" data-line="86"></td><td>        <span class="hl-k">if</span> (a <span class="hl-k">==</span> <span class="hl-c">0xfffffffffe</span>)</td></tr>
 <tr><td class="hl-num" data-line="87"></td><td>            <span class="hl-k">return</span> <span class="hl-c">1</span>;</td></tr>

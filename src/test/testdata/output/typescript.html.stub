@@ -28,14 +28,14 @@
 <tr><td class="hl-num" data-line="26"></td><td>    firstMatchOnly = <span class="hl-c">true</span></td></tr>
 <tr><td class="hl-num" data-line="27"></td><td>    priority = <span class="hl-c">0</span></td></tr>
 <tr><td class="hl-num" data-line="28"></td><td></td></tr>
-<tr><td class="hl-num" data-line="29"></td><td>    constructor (</td></tr>
+<tr><td class="hl-num" data-line="29"></td><td>    <span class="hl-en">constructor</span> (</td></tr>
 <tr><td class="hl-num" data-line="30"></td><td>        <span class="hl-k">private</span> <span class="hl-en">app</span>: AppService,</td></tr>
 <tr><td class="hl-num" data-line="31"></td><td>        <span class="hl-k">private</span> <span class="hl-en">hostWindow</span>: HostWindowService,</td></tr>
 <tr><td class="hl-num" data-line="32"></td><td>    ) {</td></tr>
 <tr><td class="hl-num" data-line="33"></td><td>        <span class="hl-en">super</span>()</td></tr>
 <tr><td class="hl-num" data-line="34"></td><td>    }</td></tr>
 <tr><td class="hl-num" data-line="35"></td><td></td></tr>
-<tr><td class="hl-num" data-line="36"></td><td>    <span class="hl-k">async</span> handle (<span class="hl-en">event</span>: CLIEvent): Promise<<span class="hl-c">boolean</span>> {</td></tr>
+<tr><td class="hl-num" data-line="36"></td><td>    <span class="hl-k">async</span> <span class="hl-en">handle</span> (<span class="hl-en">event</span>: CLIEvent): Promise<<span class="hl-c">boolean</span>> {</td></tr>
 <tr><td class="hl-num" data-line="37"></td><td>        <span class="hl-k">const</span> op = event.<span class="hl-en">argv</span>.<span class="hl-en">_</span>[<span class="hl-c">0</span>]</td></tr>
 <tr><td class="hl-num" data-line="38"></td><td>        <span class="hl-k">if</span> (op === <span class="hl-s">'paste'</span>) {</td></tr>
 <tr><td class="hl-num" data-line="39"></td><td>            <span class="hl-k">return</span> <span class="hl-c">true</span></td></tr>
@@ -44,7 +44,7 @@
 <tr><td class="hl-num" data-line="42"></td><td>        <span class="hl-k">return</span> <span class="hl-c">false</span></td></tr>
 <tr><td class="hl-num" data-line="43"></td><td>    }</td></tr>
 <tr><td class="hl-num" data-line="44"></td><td></td></tr>
-<tr><td class="hl-num" data-line="45"></td><td>    <span class="hl-k">private</span> handlePaste (<span class="hl-en">text</span>: <span class="hl-c">string</span>) {</td></tr>
+<tr><td class="hl-num" data-line="45"></td><td>    <span class="hl-k">private</span> <span class="hl-en">handlePaste</span> (<span class="hl-en">text</span>: <span class="hl-c">string</span>) {</td></tr>
 <tr><td class="hl-num" data-line="46"></td><td>        <span class="hl-k">if</span> (<span class="hl-k">this</span>.<span class="hl-en">app</span>.<span class="hl-en">activeTab</span> <span class="hl-k">instanceof</span> BaseTerminalTabComponent && <span class="hl-k">this</span>.<span class="hl-en">app</span>.<span class="hl-en">activeTab</span>.<span class="hl-en">session</span>) {</td></tr>
 <tr><td class="hl-num" data-line="47"></td><td>            <span class="hl-k">this</span>.<span class="hl-en">app</span>.<span class="hl-en">activeTab</span>.<span class="hl-en">sendInput</span>(text)</td></tr>
 <tr><td class="hl-num" data-line="48"></td><td>            <span class="hl-k">this</span>.<span class="hl-en">hostWindow</span>.<span class="hl-en">bringToFront</span>()</td></tr>
