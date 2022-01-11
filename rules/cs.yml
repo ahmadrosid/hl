@@ -91,7 +91,7 @@ keyword:
   endregion: "endregion"
 
 double_keyword:
-  assign:
+  comparison:
     first: "="
     last: "="
   double_arrow:
