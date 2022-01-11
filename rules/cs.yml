@@ -90,6 +90,9 @@ keyword:
   region: "region"
   endregion: "endregion"
 
+single_keyword:
+  - "="
+
 double_keyword:
   comparison:
     first: "="

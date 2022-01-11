@@ -17,6 +17,15 @@ private static ReadOnlySpan<byte> CultureNames => new byte[]
 }
 
 namespace Microsoft.PowerToys.Run.Plugin.Calculator {
+    internal enum IcuLocaleDataParts
+    {
+        Lcid = 0,
+        AnsiCodePage = 1,
+        OemCodePage = 2,
+        MacCodePage = 3,
+        EbcdicCodePage = 4,
+    }
+
     public static class ResultHelper {
         public static Result CreateResult(CalculateResult result, string iconPath) {
             return CreateResult(result.RoundedResult, iconPath);

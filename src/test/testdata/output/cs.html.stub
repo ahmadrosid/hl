@@ -19,79 +19,88 @@
 <tr><td class="hl-num" data-line="17"></td><td>}</td></tr>
 <tr><td class="hl-num" data-line="18"></td><td></td></tr>
 <tr><td class="hl-num" data-line="19"></td><td><span class="hl-k">namespace</span> Microsoft.PowerToys.Run.Plugin.Calculator {</td></tr>
-<tr><td class="hl-num" data-line="20"></td><td>    <span class="hl-k">public</span> <span class="hl-k">static</span> <span class="hl-k">class</span> ResultHelper {</td></tr>
-<tr><td class="hl-num" data-line="21"></td><td>        <span class="hl-k">public</span> <span class="hl-k">static</span> Result <span class="hl-en">CreateResult</span>(CalculateResult result, <span class="hl-k">string</span> iconPath) {</td></tr>
-<tr><td class="hl-num" data-line="22"></td><td>            <span class="hl-k">return</span> <span class="hl-en">CreateResult</span>(result.RoundedResult, iconPath);</td></tr>
-<tr><td class="hl-num" data-line="23"></td><td>        }</td></tr>
-<tr><td class="hl-num" data-line="24"></td><td></td></tr>
-<tr><td class="hl-num" data-line="25"></td><td>        <span class="hl-k">public</span> <span class="hl-k">static</span> Result <span class="hl-en">CreateResult</span>(<span class="hl-k">decimal</span>? roundedResult, <span class="hl-k">string</span> iconPath) {</td></tr>
-<tr><td class="hl-num" data-line="26"></td><td>            <span class="hl-cmt">// Return null when the expression is not a valid calculator query.</span></td></tr>
-<tr><td class="hl-num" data-line="27"></td><td>            <span class="hl-k">if</span> (roundedResult <span class="hl-k">==</span> <span class="hl-c">null</span>) {</td></tr>
-<tr><td class="hl-num" data-line="28"></td><td>                <span class="hl-k">return</span> <span class="hl-c">null</span>;</td></tr>
-<tr><td class="hl-num" data-line="29"></td><td>            }</td></tr>
-<tr><td class="hl-num" data-line="30"></td><td></td></tr>
-<tr><td class="hl-num" data-line="31"></td><td>            <span class="hl-k">return</span> <span class="hl-k">new</span> Result {</td></tr>
-<tr><td class="hl-num" data-line="32"></td><td>                <span class="hl-cmt">// Using CurrentCulture since this is user facing</span></td></tr>
-<tr><td class="hl-num" data-line="33"></td><td>                Title = roundedResult?.<span class="hl-en">ToString</span>(CultureInfo.CurrentCulture),</td></tr>
-<tr><td class="hl-num" data-line="34"></td><td>                IcoPath = iconPath,</td></tr>
-<tr><td class="hl-num" data-line="35"></td><td>                Score = <span class="hl-c">300</span>,</td></tr>
-<tr><td class="hl-num" data-line="36"></td><td>                SubTitle = Properties.Resources.wox_plugin_calculator_copy_number_to_clipboard,</td></tr>
-<tr><td class="hl-num" data-line="37"></td><td>                Action = c <span class="hl-k">=></span> <span class="hl-en">Action</span>(roundedResult),</td></tr>
-<tr><td class="hl-num" data-line="38"></td><td>            };</td></tr>
-<tr><td class="hl-num" data-line="39"></td><td>        }</td></tr>
-<tr><td class="hl-num" data-line="40"></td><td></td></tr>
-<tr><td class="hl-num" data-line="41"></td><td>        <span class="hl-k">public</span> <span class="hl-k">static</span> <span class="hl-k">bool</span> <span class="hl-en">Action</span>(<span class="hl-k">decimal</span>? roundedResult) {</td></tr>
-<tr><td class="hl-num" data-line="42"></td><td>            <span class="hl-k">var</span> ret = <span class="hl-c">false</span>;</td></tr>
-<tr><td class="hl-num" data-line="43"></td><td></td></tr>
-<tr><td class="hl-num" data-line="44"></td><td>            <span class="hl-k">if</span> (roundedResult != <span class="hl-c">null</span>) {</td></tr>
-<tr><td class="hl-num" data-line="45"></td><td>                <span class="hl-k">var</span> thread = <span class="hl-k">new</span> <span class="hl-en">Thread</span>(() <span class="hl-k">=></span> {</td></tr>
-<tr><td class="hl-num" data-line="46"></td><td>                    <span class="hl-k">try</span></td></tr>
-<tr><td class="hl-num" data-line="47"></td><td>                    {</td></tr>
-<tr><td class="hl-num" data-line="48"></td><td>                        Clipboard.<span class="hl-en">SetText</span>(roundedResult?.<span class="hl-en">ToString</span>(CultureInfo.CurrentCulture));</td></tr>
-<tr><td class="hl-num" data-line="49"></td><td>                        ret = <span class="hl-c">true</span>;</td></tr>
-<tr><td class="hl-num" data-line="50"></td><td>                    }</td></tr>
-<tr><td class="hl-num" data-line="51"></td><td>                    <span class="hl-k">catch</span> (ExternalException)</td></tr>
-<tr><td class="hl-num" data-line="52"></td><td>                    {</td></tr>
-<tr><td class="hl-num" data-line="53"></td><td>                        MessageBox.<span class="hl-en">Show</span>(Properties.Resources.wox_plugin_calculator_copy_failed);</td></tr>
-<tr><td class="hl-num" data-line="54"></td><td>                    }</td></tr>
-<tr><td class="hl-num" data-line="55"></td><td>                });</td></tr>
-<tr><td class="hl-num" data-line="56"></td><td></td></tr>
-<tr><td class="hl-num" data-line="57"></td><td>                thread.<span class="hl-en">SetApartmentState</span>(ApartmentState.STA);</td></tr>
-<tr><td class="hl-num" data-line="58"></td><td>                thread.<span class="hl-en">Start</span>();</td></tr>
-<tr><td class="hl-num" data-line="59"></td><td>                thread.<span class="hl-en">Join</span>();</td></tr>
-<tr><td class="hl-num" data-line="60"></td><td>            }</td></tr>
-<tr><td class="hl-num" data-line="61"></td><td></td></tr>
-<tr><td class="hl-num" data-line="62"></td><td>            <span class="hl-k">return</span> ret;</td></tr>
-<tr><td class="hl-num" data-line="63"></td><td>        }</td></tr>
-<tr><td class="hl-num" data-line="64"></td><td></td></tr>
-<tr><td class="hl-num" data-line="65"></td><td>        #<span class="hl-k">region</span> Events</td></tr>
-<tr><td class="hl-num" data-line="66"></td><td></td></tr>
-<tr><td class="hl-num" data-line="67"></td><td>        [<span class="hl-en">Browsable</span> (<span class="hl-c">false</span>)]</td></tr>
-<tr><td class="hl-num" data-line="68"></td><td>        [<span class="hl-en">EditorBrowsable</span> (EditorBrowsableState.Never)]</td></tr>
-<tr><td class="hl-num" data-line="69"></td><td>        <span class="hl-k">public</span> <span class="hl-k">new</span> <span class="hl-k">event</span> EventHandler BackColorChanged {</td></tr>
-<tr><td class="hl-num" data-line="70"></td><td>            <span class="hl-k">add</span> { <span class="hl-k">throw</span> <span class="hl-k">new</span> <span class="hl-en">NotSupportedException</span> (<span class="hl-s">"Invalid event handler for BackColorChanged"</span>); }</td></tr>
-<tr><td class="hl-num" data-line="71"></td><td>            <span class="hl-k">remove</span> { }</td></tr>
+<tr><td class="hl-num" data-line="20"></td><td>    <span class="hl-k">internal</span> <span class="hl-k">enum</span> IcuLocaleDataParts</td></tr>
+<tr><td class="hl-num" data-line="21"></td><td>    {</td></tr>
+<tr><td class="hl-num" data-line="22"></td><td>        Lcid <span class="hl-k">=</span> <span class="hl-c">0</span>,</td></tr>
+<tr><td class="hl-num" data-line="23"></td><td>        AnsiCodePage <span class="hl-k">=</span> <span class="hl-c">1</span>,</td></tr>
+<tr><td class="hl-num" data-line="24"></td><td>        OemCodePage <span class="hl-k">=</span> <span class="hl-c">2</span>,</td></tr>
+<tr><td class="hl-num" data-line="25"></td><td>        MacCodePage <span class="hl-k">=</span> <span class="hl-c">3</span>,</td></tr>
+<tr><td class="hl-num" data-line="26"></td><td>        EbcdicCodePage <span class="hl-k">=</span> <span class="hl-c">4</span>,</td></tr>
+<tr><td class="hl-num" data-line="27"></td><td>    }</td></tr>
+<tr><td class="hl-num" data-line="28"></td><td></td></tr>
+<tr><td class="hl-num" data-line="29"></td><td>    <span class="hl-k">public</span> <span class="hl-k">static</span> <span class="hl-k">class</span> ResultHelper {</td></tr>
+<tr><td class="hl-num" data-line="30"></td><td>        <span class="hl-k">public</span> <span class="hl-k">static</span> Result <span class="hl-en">CreateResult</span>(CalculateResult result, <span class="hl-k">string</span> iconPath) {</td></tr>
+<tr><td class="hl-num" data-line="31"></td><td>            <span class="hl-k">return</span> <span class="hl-en">CreateResult</span>(result.RoundedResult, iconPath);</td></tr>
+<tr><td class="hl-num" data-line="32"></td><td>        }</td></tr>
+<tr><td class="hl-num" data-line="33"></td><td></td></tr>
+<tr><td class="hl-num" data-line="34"></td><td>        <span class="hl-k">public</span> <span class="hl-k">static</span> Result <span class="hl-en">CreateResult</span>(<span class="hl-k">decimal</span>? roundedResult, <span class="hl-k">string</span> iconPath) {</td></tr>
+<tr><td class="hl-num" data-line="35"></td><td>            <span class="hl-cmt">// Return null when the expression is not a valid calculator query.</span></td></tr>
+<tr><td class="hl-num" data-line="36"></td><td>            <span class="hl-k">if</span> (roundedResult <span class="hl-k">==</span> <span class="hl-c">null</span>) {</td></tr>
+<tr><td class="hl-num" data-line="37"></td><td>                <span class="hl-k">return</span> <span class="hl-c">null</span>;</td></tr>
+<tr><td class="hl-num" data-line="38"></td><td>            }</td></tr>
+<tr><td class="hl-num" data-line="39"></td><td></td></tr>
+<tr><td class="hl-num" data-line="40"></td><td>            <span class="hl-k">return</span> <span class="hl-k">new</span> Result {</td></tr>
+<tr><td class="hl-num" data-line="41"></td><td>                <span class="hl-cmt">// Using CurrentCulture since this is user facing</span></td></tr>
+<tr><td class="hl-num" data-line="42"></td><td>                Title <span class="hl-k">=</span> roundedResult?.<span class="hl-en">ToString</span>(CultureInfo.CurrentCulture),</td></tr>
+<tr><td class="hl-num" data-line="43"></td><td>                IcoPath <span class="hl-k">=</span> iconPath,</td></tr>
+<tr><td class="hl-num" data-line="44"></td><td>                Score <span class="hl-k">=</span> <span class="hl-c">300</span>,</td></tr>
+<tr><td class="hl-num" data-line="45"></td><td>                SubTitle <span class="hl-k">=</span> Properties.Resources.wox_plugin_calculator_copy_number_to_clipboard,</td></tr>
+<tr><td class="hl-num" data-line="46"></td><td>                Action <span class="hl-k">=</span> c <span class="hl-k">=></span> <span class="hl-en">Action</span>(roundedResult),</td></tr>
+<tr><td class="hl-num" data-line="47"></td><td>            };</td></tr>
+<tr><td class="hl-num" data-line="48"></td><td>        }</td></tr>
+<tr><td class="hl-num" data-line="49"></td><td></td></tr>
+<tr><td class="hl-num" data-line="50"></td><td>        <span class="hl-k">public</span> <span class="hl-k">static</span> <span class="hl-k">bool</span> <span class="hl-en">Action</span>(<span class="hl-k">decimal</span>? roundedResult) {</td></tr>
+<tr><td class="hl-num" data-line="51"></td><td>            <span class="hl-k">var</span> ret <span class="hl-k">=</span> <span class="hl-c">false</span>;</td></tr>
+<tr><td class="hl-num" data-line="52"></td><td></td></tr>
+<tr><td class="hl-num" data-line="53"></td><td>            <span class="hl-k">if</span> (roundedResult !<span class="hl-k">=</span> <span class="hl-c">null</span>) {</td></tr>
+<tr><td class="hl-num" data-line="54"></td><td>                <span class="hl-k">var</span> thread <span class="hl-k">=</span> <span class="hl-k">new</span> <span class="hl-en">Thread</span>(() <span class="hl-k">=></span> {</td></tr>
+<tr><td class="hl-num" data-line="55"></td><td>                    <span class="hl-k">try</span></td></tr>
+<tr><td class="hl-num" data-line="56"></td><td>                    {</td></tr>
+<tr><td class="hl-num" data-line="57"></td><td>                        Clipboard.<span class="hl-en">SetText</span>(roundedResult?.<span class="hl-en">ToString</span>(CultureInfo.CurrentCulture));</td></tr>
+<tr><td class="hl-num" data-line="58"></td><td>                        ret <span class="hl-k">=</span> <span class="hl-c">true</span>;</td></tr>
+<tr><td class="hl-num" data-line="59"></td><td>                    }</td></tr>
+<tr><td class="hl-num" data-line="60"></td><td>                    <span class="hl-k">catch</span> (ExternalException)</td></tr>
+<tr><td class="hl-num" data-line="61"></td><td>                    {</td></tr>
+<tr><td class="hl-num" data-line="62"></td><td>                        MessageBox.<span class="hl-en">Show</span>(Properties.Resources.wox_plugin_calculator_copy_failed);</td></tr>
+<tr><td class="hl-num" data-line="63"></td><td>                    }</td></tr>
+<tr><td class="hl-num" data-line="64"></td><td>                });</td></tr>
+<tr><td class="hl-num" data-line="65"></td><td></td></tr>
+<tr><td class="hl-num" data-line="66"></td><td>                thread.<span class="hl-en">SetApartmentState</span>(ApartmentState.STA);</td></tr>
+<tr><td class="hl-num" data-line="67"></td><td>                thread.<span class="hl-en">Start</span>();</td></tr>
+<tr><td class="hl-num" data-line="68"></td><td>                thread.<span class="hl-en">Join</span>();</td></tr>
+<tr><td class="hl-num" data-line="69"></td><td>            }</td></tr>
+<tr><td class="hl-num" data-line="70"></td><td></td></tr>
+<tr><td class="hl-num" data-line="71"></td><td>            <span class="hl-k">return</span> ret;</td></tr>
 <tr><td class="hl-num" data-line="72"></td><td>        }</td></tr>
 <tr><td class="hl-num" data-line="73"></td><td></td></tr>
-<tr><td class="hl-num" data-line="74"></td><td>        [<span class="hl-en">Browsable</span> (<span class="hl-c">false</span>)]</td></tr>
-<tr><td class="hl-num" data-line="75"></td><td>        [<span class="hl-en">EditorBrowsable</span> (EditorBrowsableState.Never)]</td></tr>
-<tr><td class="hl-num" data-line="76"></td><td>        <span class="hl-k">public</span> <span class="hl-k">new</span> <span class="hl-k">event</span> EventHandler TextChanged {</td></tr>
-<tr><td class="hl-num" data-line="77"></td><td>            <span class="hl-k">add</span> { <span class="hl-k">throw</span> <span class="hl-k">new</span> <span class="hl-en">NotSupportedException</span> (<span class="hl-s">"Invalid event handler for TextChanged"</span>); }</td></tr>
-<tr><td class="hl-num" data-line="78"></td><td>            <span class="hl-k">remove</span> { }</td></tr>
-<tr><td class="hl-num" data-line="79"></td><td>        }</td></tr>
-<tr><td class="hl-num" data-line="80"></td><td></td></tr>
-<tr><td class="hl-num" data-line="81"></td><td>        #<span class="hl-k">endregion</span></td></tr>
-<tr><td class="hl-num" data-line="82"></td><td>    }</td></tr>
-<tr><td class="hl-num" data-line="83"></td><td></td></tr>
-<tr><td class="hl-num" data-line="84"></td><td>    <span class="hl-k">public</span> <span class="hl-k">static</span> <span class="hl-k">int</span> <span class="hl-en">test_0_bne_un</span> () {</td></tr>
-<tr><td class="hl-num" data-line="85"></td><td>        <span class="hl-k">long</span> a = <span class="hl-c">0xffffffffff</span>;</td></tr>
-<tr><td class="hl-num" data-line="86"></td><td>        <span class="hl-k">if</span> (a <span class="hl-k">==</span> <span class="hl-c">0xfffffffffe</span>)</td></tr>
-<tr><td class="hl-num" data-line="87"></td><td>            <span class="hl-k">return</span> <span class="hl-c">1</span>;</td></tr>
-<tr><td class="hl-num" data-line="88"></td><td>        <span class="hl-k">if</span> (a <span class="hl-k">==</span> <span class="hl-c">0xfeffffffff</span>)</td></tr>
-<tr><td class="hl-num" data-line="89"></td><td>            <span class="hl-k">return</span> <span class="hl-c">2</span>;</td></tr>
-<tr><td class="hl-num" data-line="90"></td><td>        <span class="hl-k">return</span> <span class="hl-c">0</span>;</td></tr>
+<tr><td class="hl-num" data-line="74"></td><td>        #<span class="hl-k">region</span> Events</td></tr>
+<tr><td class="hl-num" data-line="75"></td><td></td></tr>
+<tr><td class="hl-num" data-line="76"></td><td>        [<span class="hl-en">Browsable</span> (<span class="hl-c">false</span>)]</td></tr>
+<tr><td class="hl-num" data-line="77"></td><td>        [<span class="hl-en">EditorBrowsable</span> (EditorBrowsableState.Never)]</td></tr>
+<tr><td class="hl-num" data-line="78"></td><td>        <span class="hl-k">public</span> <span class="hl-k">new</span> <span class="hl-k">event</span> EventHandler BackColorChanged {</td></tr>
+<tr><td class="hl-num" data-line="79"></td><td>            <span class="hl-k">add</span> { <span class="hl-k">throw</span> <span class="hl-k">new</span> <span class="hl-en">NotSupportedException</span> (<span class="hl-s">"Invalid event handler for BackColorChanged"</span>); }</td></tr>
+<tr><td class="hl-num" data-line="80"></td><td>            <span class="hl-k">remove</span> { }</td></tr>
+<tr><td class="hl-num" data-line="81"></td><td>        }</td></tr>
+<tr><td class="hl-num" data-line="82"></td><td></td></tr>
+<tr><td class="hl-num" data-line="83"></td><td>        [<span class="hl-en">Browsable</span> (<span class="hl-c">false</span>)]</td></tr>
+<tr><td class="hl-num" data-line="84"></td><td>        [<span class="hl-en">EditorBrowsable</span> (EditorBrowsableState.Never)]</td></tr>
+<tr><td class="hl-num" data-line="85"></td><td>        <span class="hl-k">public</span> <span class="hl-k">new</span> <span class="hl-k">event</span> EventHandler TextChanged {</td></tr>
+<tr><td class="hl-num" data-line="86"></td><td>            <span class="hl-k">add</span> { <span class="hl-k">throw</span> <span class="hl-k">new</span> <span class="hl-en">NotSupportedException</span> (<span class="hl-s">"Invalid event handler for TextChanged"</span>); }</td></tr>
+<tr><td class="hl-num" data-line="87"></td><td>            <span class="hl-k">remove</span> { }</td></tr>
+<tr><td class="hl-num" data-line="88"></td><td>        }</td></tr>
+<tr><td class="hl-num" data-line="89"></td><td></td></tr>
+<tr><td class="hl-num" data-line="90"></td><td>        #<span class="hl-k">endregion</span></td></tr>
 <tr><td class="hl-num" data-line="91"></td><td>    }</td></tr>
-<tr><td class="hl-num" data-line="92"></td><td>}</td></tr>
-<tr><td class="hl-num" data-line="93"></td><td></td></tr>
+<tr><td class="hl-num" data-line="92"></td><td></td></tr>
+<tr><td class="hl-num" data-line="93"></td><td>    <span class="hl-k">public</span> <span class="hl-k">static</span> <span class="hl-k">int</span> <span class="hl-en">test_0_bne_un</span> () {</td></tr>
+<tr><td class="hl-num" data-line="94"></td><td>        <span class="hl-k">long</span> a <span class="hl-k">=</span> <span class="hl-c">0xffffffffff</span>;</td></tr>
+<tr><td class="hl-num" data-line="95"></td><td>        <span class="hl-k">if</span> (a <span class="hl-k">==</span> <span class="hl-c">0xfffffffffe</span>)</td></tr>
+<tr><td class="hl-num" data-line="96"></td><td>            <span class="hl-k">return</span> <span class="hl-c">1</span>;</td></tr>
+<tr><td class="hl-num" data-line="97"></td><td>        <span class="hl-k">if</span> (a <span class="hl-k">==</span> <span class="hl-c">0xfeffffffff</span>)</td></tr>
+<tr><td class="hl-num" data-line="98"></td><td>            <span class="hl-k">return</span> <span class="hl-c">2</span>;</td></tr>
+<tr><td class="hl-num" data-line="99"></td><td>        <span class="hl-k">return</span> <span class="hl-c">0</span>;</td></tr>
+<tr><td class="hl-num" data-line="100"></td><td>    }</td></tr>
+<tr><td class="hl-num" data-line="101"></td><td>}</td></tr>
+<tr><td class="hl-num" data-line="102"></td><td></td></tr>
 </tbody>
 </table>

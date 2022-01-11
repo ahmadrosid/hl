@@ -139,6 +139,9 @@ impl Lexer {
                     token::Token::INT(number)
                 }
             }
+            '=' => {
+                tok = token::Token::KEYWORD(vec![self.ch]);
+            }
             '/' => {
                 if self.input[self.position + 1] == '/' {
                     tok = token::Token::COMMENT(read_slash_comment(self));
