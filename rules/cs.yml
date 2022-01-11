@@ -100,6 +100,9 @@ double_keyword:
   double_arrow:
     first: "="
     last: ">"
+  logical_and:
+    first: "&"
+    last: "&"
 
 condition:
   ACCEPT_ESCAPED_STRING: true
