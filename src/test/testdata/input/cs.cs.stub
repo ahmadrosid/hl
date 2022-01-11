@@ -9,6 +9,13 @@ using System.Threading;
 using System.Windows;
 using Wox.Plugin;
 
+private static ReadOnlySpan<byte> CultureNames => new byte[]
+{
+    (byte)'a', (byte)'a', (byte)'-', (byte)'d', (byte)'j',  // aa, aa-dj
+    (byte)'a', (byte)'a', (byte)'-', (byte)'e', (byte)'r',  // aa-er
+    (byte)'a', (byte)'a', (byte)'-', (byte)'e', (byte)'t',  // aa-et
+}
+
 namespace Microsoft.PowerToys.Run.Plugin.Calculator {
     public static class ResultHelper {
         public static Result CreateResult(CalculateResult result, string iconPath) {
