@@ -99,6 +99,7 @@ keyword:
 
 single_keyword:
   - "="
+  - "?"
 
 double_keyword:
   comparison:

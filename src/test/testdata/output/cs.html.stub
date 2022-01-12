@@ -49,7 +49,7 @@
 <tr><td class="hl-num" data-line="47"></td><td>            <span class="hl-k">return</span> <span class="hl-en">CreateResult</span>(result.RoundedResult, iconPath);</td></tr>
 <tr><td class="hl-num" data-line="48"></td><td>        }</td></tr>
 <tr><td class="hl-num" data-line="49"></td><td></td></tr>
-<tr><td class="hl-num" data-line="50"></td><td>        <span class="hl-k">public</span> <span class="hl-k">static</span> Result <span class="hl-en">CreateResult</span>(<span class="hl-k">decimal</span>? roundedResult, <span class="hl-k">string</span> iconPath) {</td></tr>
+<tr><td class="hl-num" data-line="50"></td><td>        <span class="hl-k">public</span> <span class="hl-k">static</span> Result <span class="hl-en">CreateResult</span>(<span class="hl-k">decimal</span><span class="hl-k">?</span> roundedResult, <span class="hl-k">string</span> iconPath) {</td></tr>
 <tr><td class="hl-num" data-line="51"></td><td>            <span class="hl-cmt">// Return null when the expression is not a valid calculator query.</span></td></tr>
 <tr><td class="hl-num" data-line="52"></td><td>            <span class="hl-k">if</span> (roundedResult <span class="hl-k">==</span> <span class="hl-c">null</span>) {</td></tr>
 <tr><td class="hl-num" data-line="53"></td><td>                <span class="hl-k">return</span> <span class="hl-c">null</span>;</td></tr>
@@ -57,7 +57,7 @@
 <tr><td class="hl-num" data-line="55"></td><td></td></tr>
 <tr><td class="hl-num" data-line="56"></td><td>            <span class="hl-k">return</span> <span class="hl-k">new</span> Result {</td></tr>
 <tr><td class="hl-num" data-line="57"></td><td>                <span class="hl-cmt">// Using CurrentCulture since this is user facing</span></td></tr>
-<tr><td class="hl-num" data-line="58"></td><td>                Title <span class="hl-k">=</span> roundedResult?.<span class="hl-en">ToString</span>(CultureInfo.CurrentCulture),</td></tr>
+<tr><td class="hl-num" data-line="58"></td><td>                Title <span class="hl-k">=</span> roundedResult<span class="hl-k">?</span>.<span class="hl-en">ToString</span>(CultureInfo.CurrentCulture),</td></tr>
 <tr><td class="hl-num" data-line="59"></td><td>                IcoPath <span class="hl-k">=</span> iconPath,</td></tr>
 <tr><td class="hl-num" data-line="60"></td><td>                Score <span class="hl-k">=</span> <span class="hl-c">300</span>,</td></tr>
 <tr><td class="hl-num" data-line="61"></td><td>                SubTitle <span class="hl-k">=</span> Properties.Resources.wox_plugin_calculator_copy_number_to_clipboard,</td></tr>
@@ -65,14 +65,14 @@
 <tr><td class="hl-num" data-line="63"></td><td>            };</td></tr>
 <tr><td class="hl-num" data-line="64"></td><td>        }</td></tr>
 <tr><td class="hl-num" data-line="65"></td><td></td></tr>
-<tr><td class="hl-num" data-line="66"></td><td>        <span class="hl-k">public</span> <span class="hl-k">static</span> <span class="hl-k">bool</span> <span class="hl-en">Action</span>(<span class="hl-k">decimal</span>? roundedResult) {</td></tr>
+<tr><td class="hl-num" data-line="66"></td><td>        <span class="hl-k">public</span> <span class="hl-k">static</span> <span class="hl-k">bool</span> <span class="hl-en">Action</span>(<span class="hl-k">decimal</span><span class="hl-k">?</span> roundedResult) {</td></tr>
 <tr><td class="hl-num" data-line="67"></td><td>            <span class="hl-k">var</span> ret <span class="hl-k">=</span> <span class="hl-c">false</span>;</td></tr>
 <tr><td class="hl-num" data-line="68"></td><td></td></tr>
 <tr><td class="hl-num" data-line="69"></td><td>            <span class="hl-k">if</span> (roundedResult <span class="hl-k">!=</span> <span class="hl-c">null</span>) {</td></tr>
 <tr><td class="hl-num" data-line="70"></td><td>                <span class="hl-k">var</span> thread <span class="hl-k">=</span> <span class="hl-k">new</span> <span class="hl-en">Thread</span>(() <span class="hl-k">=></span> {</td></tr>
 <tr><td class="hl-num" data-line="71"></td><td>                    <span class="hl-k">try</span></td></tr>
 <tr><td class="hl-num" data-line="72"></td><td>                    {</td></tr>
-<tr><td class="hl-num" data-line="73"></td><td>                        Clipboard.<span class="hl-en">SetText</span>(roundedResult?.<span class="hl-en">ToString</span>(CultureInfo.CurrentCulture));</td></tr>
+<tr><td class="hl-num" data-line="73"></td><td>                        Clipboard.<span class="hl-en">SetText</span>(roundedResult<span class="hl-k">?</span>.<span class="hl-en">ToString</span>(CultureInfo.CurrentCulture));</td></tr>
 <tr><td class="hl-num" data-line="74"></td><td>                        ret <span class="hl-k">=</span> <span class="hl-c">true</span>;</td></tr>
 <tr><td class="hl-num" data-line="75"></td><td>                    }</td></tr>
 <tr><td class="hl-num" data-line="76"></td><td>                    <span class="hl-k">catch</span> (ExternalException)</td></tr>
