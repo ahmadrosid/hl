@@ -1,8 +1,10 @@
 constant:
   nil: nil
+  full: full
 
 entity_prefix:
   colon: ":"
+  left_parent: "("
 
 keyword:
   ns: ns
@@ -15,5 +17,5 @@ condition:
   ACCEPT_STRING_DOUBLE_QUOTE: true
   ACCEPT_ENTITY_TAG_SUFFIX: "is_digit(self.ch)"
   BREAK_ENTITY_TAG_SUFFIX: "!is_digit(self.ch) && !is_letter(self.ch)"
-  ACCEPT_CHAR_IDENTIFIER: "./-"
+  ACCEPT_CHAR_IDENTIFIER: "./-!?"
   PREFIX_ONE_LINE_COMMENT: ";;"

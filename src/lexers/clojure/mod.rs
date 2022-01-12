@@ -51,6 +51,12 @@ impl Lexer {
                 if l.ch == '-' {
                     l.read_char();
                 }
+                if l.ch == '!' {
+                    l.read_char();
+                }
+                if l.ch == '?' {
+                    l.read_char();
+                }
             }
             l.input[position..l.position].to_vec()
         };
@@ -111,6 +117,9 @@ impl Lexer {
                             },
                             Err(_err) => {
                                 if start_position > 0 && self.input[start_position - 1] == ':' {
+                                    return token::Token::ENTITY(identifier)
+                                }
+                                if start_position > 0 && self.input[start_position - 1] == '(' {
                                     return token::Token::ENTITY(identifier)
                                 }
                                 token::Token::IDENT(identifier)
