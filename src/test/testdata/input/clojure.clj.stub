@@ -38,6 +38,14 @@
 
 (def system nil)
 
+(def string->charset
+  {"iso-8859-1" StandardCharsets/ISO_8859_1
+   "us-ascii"   StandardCharsets/US_ASCII
+   "utf-16"     StandardCharsets/UTF_16
+   "utf-16be"   StandardCharsets/UTF_16BE
+   "utf-16le"   StandardCharsets/UTF_16LE
+   "utf-8"      StandardCharsets/UTF_8})
+
 (defn start
   []
   (ig/load-namespaces system-config)

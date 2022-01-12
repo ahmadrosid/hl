@@ -1,7 +1,7 @@
 <table class="highlight-table">
 <tbody>
 <tr><td class="hl-num" data-line="1"></td><td>(<span class="hl-k">ns</span> app.main</td></tr>
-<tr><td class="hl-num" data-line="2"></td><td>  (:<span class="hl-en">require</span></td></tr>
+<tr><td class="hl-num" data-line="2"></td><td>  (:<span class="hl-k">require</span></td></tr>
 <tr><td class="hl-num" data-line="3"></td><td>   [app.common.logging :<span class="hl-en">as</span> l]</td></tr>
 <tr><td class="hl-num" data-line="4"></td><td>   [app.config :<span class="hl-en">as</span> cf]</td></tr>
 <tr><td class="hl-num" data-line="5"></td><td>   [app.util.time :<span class="hl-en">as</span> dt]</td></tr>
@@ -40,26 +40,34 @@
 <tr><td class="hl-num" data-line="38"></td><td></td></tr>
 <tr><td class="hl-num" data-line="39"></td><td>(<span class="hl-k">def</span> system <span class="hl-c">nil</span>)</td></tr>
 <tr><td class="hl-num" data-line="40"></td><td></td></tr>
-<tr><td class="hl-num" data-line="41"></td><td>(<span class="hl-k">defn</span> start</td></tr>
-<tr><td class="hl-num" data-line="42"></td><td>  []</td></tr>
-<tr><td class="hl-num" data-line="43"></td><td>  (<span class="hl-en">ig/load-namespaces</span> system-config)</td></tr>
-<tr><td class="hl-num" data-line="44"></td><td>  (<span class="hl-en">alter-var-root</span> #'system (<span class="hl-k">fn</span> [sys]</td></tr>
-<tr><td class="hl-num" data-line="45"></td><td>                             (<span class="hl-k">when</span> sys (<span class="hl-en">ig/halt!</span> sys))</td></tr>
-<tr><td class="hl-num" data-line="46"></td><td>                             (-> system-config</td></tr>
-<tr><td class="hl-num" data-line="47"></td><td>                                 (<span class="hl-en">ig/prep</span>)</td></tr>
-<tr><td class="hl-num" data-line="48"></td><td>                                 (<span class="hl-en">ig/init</span>))))</td></tr>
-<tr><td class="hl-num" data-line="49"></td><td>  (<span class="hl-en">l/info</span> :<span class="hl-en">msg</span> <span class="hl-s">"welcome to penpot"</span></td></tr>
-<tr><td class="hl-num" data-line="50"></td><td>          :<span class="hl-en">version</span> (:<span class="hl-c">full</span> cf/version)))</td></tr>
-<tr><td class="hl-num" data-line="51"></td><td></td></tr>
-<tr><td class="hl-num" data-line="52"></td><td>(<span class="hl-k">defn</span> stop</td></tr>
-<tr><td class="hl-num" data-line="53"></td><td>  []</td></tr>
-<tr><td class="hl-num" data-line="54"></td><td>  (<span class="hl-en">alter-var-root</span> #'system (<span class="hl-k">fn</span> [sys]</td></tr>
-<tr><td class="hl-num" data-line="55"></td><td>                             (<span class="hl-k">when</span> sys (<span class="hl-en">ig/halt!</span> sys))</td></tr>
-<tr><td class="hl-num" data-line="56"></td><td>                             <span class="hl-c">nil</span>)))</td></tr>
-<tr><td class="hl-num" data-line="57"></td><td></td></tr>
-<tr><td class="hl-num" data-line="58"></td><td>(<span class="hl-k">defn</span> -main</td></tr>
-<tr><td class="hl-num" data-line="59"></td><td>  [& _args]</td></tr>
-<tr><td class="hl-num" data-line="60"></td><td>  (<span class="hl-en">start</span>))</td></tr>
-<tr><td class="hl-num" data-line="61"></td><td></td></tr>
+<tr><td class="hl-num" data-line="41"></td><td>(<span class="hl-k">def</span> string->charset</td></tr>
+<tr><td class="hl-num" data-line="42"></td><td>  {<span class="hl-s">"iso-8859-1"</span> StandardCharsets/ISO_8859_1</td></tr>
+<tr><td class="hl-num" data-line="43"></td><td>   <span class="hl-s">"us-ascii"</span>   StandardCharsets/US_ASCII</td></tr>
+<tr><td class="hl-num" data-line="44"></td><td>   <span class="hl-s">"utf-16"</span>     StandardCharsets/UTF_16</td></tr>
+<tr><td class="hl-num" data-line="45"></td><td>   <span class="hl-s">"utf-16be"</span>   StandardCharsets/UTF_16BE</td></tr>
+<tr><td class="hl-num" data-line="46"></td><td>   <span class="hl-s">"utf-16le"</span>   StandardCharsets/UTF_16LE</td></tr>
+<tr><td class="hl-num" data-line="47"></td><td>   <span class="hl-s">"utf-8"</span>      StandardCharsets/UTF_8})</td></tr>
+<tr><td class="hl-num" data-line="48"></td><td></td></tr>
+<tr><td class="hl-num" data-line="49"></td><td>(<span class="hl-k">defn</span> start</td></tr>
+<tr><td class="hl-num" data-line="50"></td><td>  []</td></tr>
+<tr><td class="hl-num" data-line="51"></td><td>  (<span class="hl-en">ig/load-namespaces</span> system-config)</td></tr>
+<tr><td class="hl-num" data-line="52"></td><td>  (<span class="hl-en">alter-var-root</span> #'system (<span class="hl-k">fn</span> [sys]</td></tr>
+<tr><td class="hl-num" data-line="53"></td><td>                             (<span class="hl-k">when</span> sys (<span class="hl-en">ig/halt!</span> sys))</td></tr>
+<tr><td class="hl-num" data-line="54"></td><td>                             (-> system-config</td></tr>
+<tr><td class="hl-num" data-line="55"></td><td>                                 (<span class="hl-en">ig/prep</span>)</td></tr>
+<tr><td class="hl-num" data-line="56"></td><td>                                 (<span class="hl-en">ig/init</span>))))</td></tr>
+<tr><td class="hl-num" data-line="57"></td><td>  (<span class="hl-en">l/info</span> :<span class="hl-en">msg</span> <span class="hl-s">"welcome to penpot"</span></td></tr>
+<tr><td class="hl-num" data-line="58"></td><td>          :<span class="hl-en">version</span> (:<span class="hl-c">full</span> cf/version)))</td></tr>
+<tr><td class="hl-num" data-line="59"></td><td></td></tr>
+<tr><td class="hl-num" data-line="60"></td><td>(<span class="hl-k">defn</span> stop</td></tr>
+<tr><td class="hl-num" data-line="61"></td><td>  []</td></tr>
+<tr><td class="hl-num" data-line="62"></td><td>  (<span class="hl-en">alter-var-root</span> #'system (<span class="hl-k">fn</span> [sys]</td></tr>
+<tr><td class="hl-num" data-line="63"></td><td>                             (<span class="hl-k">when</span> sys (<span class="hl-en">ig/halt!</span> sys))</td></tr>
+<tr><td class="hl-num" data-line="64"></td><td>                             <span class="hl-c">nil</span>)))</td></tr>
+<tr><td class="hl-num" data-line="65"></td><td></td></tr>
+<tr><td class="hl-num" data-line="66"></td><td>(<span class="hl-k">defn</span> -main</td></tr>
+<tr><td class="hl-num" data-line="67"></td><td>  [& _args]</td></tr>
+<tr><td class="hl-num" data-line="68"></td><td>  (<span class="hl-en">start</span>))</td></tr>
+<tr><td class="hl-num" data-line="69"></td><td></td></tr>
 </tbody>
 </table>

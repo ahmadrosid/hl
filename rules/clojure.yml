@@ -7,11 +7,31 @@ entity_prefix:
   left_parent: "("
 
 keyword:
+  binding: binding
+  case: case
+  catch: catch
+  cond: cond
+  do: do
   ns: ns
   def: def
+  defonce: defonce
+  defmulti: defmulti
+  defmethod: defmethod
   defn: defn
+  if: if
   fn: fn
+  require: require
   when: when
+  try: try
+  throw: throw
+  for: for
+  let: let
+  "defn-": "defn-"
+  "in-ns": "in-ns"
+  "if-let": "if-let"
+  "s/defn": "s/defn"
+  "if-not": "if-not"
+  "when-not": "when-not"
 
 condition:
   ACCEPT_STRING_DOUBLE_QUOTE: true
