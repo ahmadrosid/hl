@@ -17,6 +17,7 @@ const ACCEPT_STRING_DOUBLE_QUOTE: &str = "ACCEPT_STRING_DOUBLE_QUOTE";
 const ACCEPT_STRING_EOF: &str = "ACCEPT_STRING_EOF";
 const MARK_ENTITY_TAG_SUFFIX: &str = "MARK_ENTITY_TAG_SUFFIX";
 const MARK_STRING_ENTITY_TAG: &str = "MARK_STRING_ENTITY_TAG";
+const PREFIX_ONE_LINE_COMMENT: &str = "PREFIX_ONE_LINE_COMMENT";
 
 pub fn generate_render_html(h: &Hash, name: String) -> String {
     let mut html = StringBuilder::new();
@@ -103,6 +104,7 @@ pub fn generate_render_html(h: &Hash, name: String) -> String {
         || xml_comment_enable(h)
         || hashtag_comment_enable(h)
         || double_dash_comment_enable(h)
+        || h.get_some_condition(PREFIX_ONE_LINE_COMMENT).is_some()
     {
         write_token_comment(&mut html);
     }
@@ -177,10 +179,12 @@ fn write_token_comment(html: &mut StringBuilder) {
     );
     html.push_tabln(4, "let mut index = 0;");
     html.push_tabln(4, "for val in split {");
+    html.push_tabln(5, "if val.len() > 1 {");
     html.push_tabln(
-        5,
+        6,
         r#"html.push_str(&format!("<span class=\"hl-cmt\">{}</span>", val));"#,
     );
+    html.push_tabln(5, "}");
     html.push_tabln(5, "index = index + 1;");
     html.push_tabln(5, "if index != split_len {");
     html.push_tabln(6, "line = line + 1;");

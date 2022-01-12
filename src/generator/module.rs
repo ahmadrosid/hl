@@ -37,6 +37,7 @@ const ACCEPT_HEXADECIMAL_NUMBER: &str = "ACCEPT_HEXADECIMAL_NUMBER";
 const ACCEPT_ENTITY_SUFFIX: &str = "ACCEPT_ENTITY_SUFFIX";
 const BREAK_ENTITY_SUFFIX: &str = "BREAK_ENTITY_SUFFIX";
 const ACCEPT_CHAR_IDENTIFIER: &str = "ACCEPT_CHAR_IDENTIFIER";
+const PREFIX_ONE_LINE_COMMENT: &str = "PREFIX_ONE_LINE_COMMENT";
 
 fn write_struct_lexer(module: &mut StringBuilder) {
     module.push_strln("pub struct Lexer {");
@@ -150,6 +151,37 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
 
     if h.get_some_condition(ACCEPT_STRING_EOF).is_some() {
         module.push_str(&write_handle_eof_string());
+    }
+
+    for (_, val) in get_double_keyword(h) {
+        let v = val.as_hash().unwrap();
+        let first = v[&Yaml::String("first".to_string())].as_str().unwrap();
+        let last = v[&Yaml::String("last".to_string())].as_str().unwrap();
+        module.push_tab(2, "if self.read_position < self.input.len() ");
+        module.push_str(&format!("&& self.ch == '{}' ", first));
+        module.push_strln(&format!(
+            "&& self.input[self.read_position] == '{}' {{",
+            last
+        ));
+        module.push_tabln(3, "self.read_char();");
+        module.push_tabln(3, "self.read_char();");
+        module.push_tabln(3, &format!("return token::Token::KEYWORD(vec!['{}', '{}']);", first, last));
+        module.push_tabln(2, "}\n");
+    }
+
+    if let Some(ch) = h.get_some_condition(PREFIX_ONE_LINE_COMMENT) {
+        let v = ch.as_str().unwrap();
+        let chars: Vec<char> = v.chars().collect();
+        let first = chars[0];
+        let last = chars[1];
+        module.push_tab(2, "if self.read_position < self.input.len() ");
+        module.push_str(&format!("&& self.ch == '{}' ", first));
+        module.push_strln(&format!(
+            "&& self.input[self.read_position] == '{}' {{",
+            last
+        ));
+        module.push_tabln(3, "return token::Token::COMMENT(read_string(self, '\\n'));");
+        module.push_tabln(2, "}\n");
     }
 
     for (_, val) in get_double_keyword(h) {

@@ -10,6 +10,7 @@ const ACCEPT_STRING_DOUBLE_QUOTE: &str = "ACCEPT_STRING_DOUBLE_QUOTE";
 const ACCEPT_STRING_EOF: &str = "ACCEPT_STRING_EOF";
 const MARK_ENTITY_TAG_SUFFIX: &str = "MARK_ENTITY_TAG_SUFFIX";
 const MARK_STRING_ENTITY_TAG: &str = "MARK_STRING_ENTITY_TAG";
+const PREFIX_ONE_LINE_COMMENT: &str = "PREFIX_ONE_LINE_COMMENT";
 
 pub fn generate_token(h: &Hash) -> String {
     let mut token = StringBuilder::new();
@@ -74,6 +75,7 @@ pub fn generate_token(h: &Hash) -> String {
         || xml_comment_enable(h)
         || hashtag_comment_enable(h)
         || double_dash_comment_enable(h)
+        || h.get_some_condition(PREFIX_ONE_LINE_COMMENT).is_some()
     {
         token.push_tabln(1, "COMMENT(Vec<char>),");
     }
