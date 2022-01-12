@@ -17,7 +17,7 @@
 <tr><td class="hl-num" data-line="15"></td><td>    <span class="hl-k">from</span> http.server <span class="hl-k">import</span> BaseHTTPRequestHandler, HTTPServer</td></tr>
 <tr><td class="hl-num" data-line="16"></td><td><span class="hl-k">except</span> ImportError:</td></tr>
 <tr><td class="hl-num" data-line="17"></td><td>    <span class="hl-cmt"># Python 2.7</span></td></tr>
-<tr><td class="hl-num" data-line="18"></td><td><span class="hl-cmt"></span>    <span class="hl-k">from</span> BaseHTTPServer <span class="hl-k">import</span> BaseHTTPRequestHandler, HTTPServer</td></tr>
+<tr><td class="hl-num" data-line="18"></td><td>    <span class="hl-k">from</span> BaseHTTPServer <span class="hl-k">import</span> BaseHTTPRequestHandler, HTTPServer</td></tr>
 <tr><td class="hl-num" data-line="19"></td><td></td></tr>
 <tr><td class="hl-num" data-line="20"></td><td><span class="hl-k">class</span> <span class="hl-en">BaseRenderer</span>(object):</td></tr>
 <tr><td class="hl-num" data-line="21"></td><td>    <span class="hl-s">""</span><span class="hl-s">"</span></td></tr>
@@ -33,7 +33,7 @@
 <tr><td class="hl-num" data-line="31"></td><td>            init_args = <span class="hl-en">list</span>(init_sig.parameters.<span class="hl-en">keys</span>())</td></tr>
 <tr><td class="hl-num" data-line="32"></td><td>        <span class="hl-k">except</span> AttributeError:</td></tr>
 <tr><td class="hl-num" data-line="33"></td><td>            <span class="hl-cmt"># Python 2.7</span></td></tr>
-<tr><td class="hl-num" data-line="34"></td><td><span class="hl-cmt"></span>            argspec = inspect.<span class="hl-en">getargspec</span>(<span class="hl-c">self</span>.__init__)</td></tr>
+<tr><td class="hl-num" data-line="34"></td><td>            argspec = inspect.<span class="hl-en">getargspec</span>(<span class="hl-c">self</span>.__init__)</td></tr>
 <tr><td class="hl-num" data-line="35"></td><td>            init_args = [a <span class="hl-k">for</span> a <span class="hl-c">in</span> argspec.args <span class="hl-k">if</span> a != <span class="hl-s">"self"</span>]</td></tr>
 <tr><td class="hl-num" data-line="36"></td><td></td></tr>
 <tr><td class="hl-num" data-line="37"></td><td>        <span class="hl-k">return</span> <span class="hl-s">"{cls}({attrs})\n{doc}"</span>.<span class="hl-en">format</span>(</td></tr>
@@ -60,20 +60,20 @@
 <tr><td class="hl-num" data-line="58"></td><td></td></tr>
 <tr><td class="hl-num" data-line="59"></td><td>    <span class="hl-k">def</span> <span class="hl-en">log_message</span>(<span class="hl-c">self</span>, format, *args):</td></tr>
 <tr><td class="hl-num" data-line="60"></td><td>        <span class="hl-cmt"># Silence stderr logging</span></td></tr>
-<tr><td class="hl-num" data-line="61"></td><td><span class="hl-cmt"></span>        <span class="hl-k">pass</span></td></tr>
+<tr><td class="hl-num" data-line="61"></td><td>        <span class="hl-k">pass</span></td></tr>
 <tr><td class="hl-num" data-line="62"></td><td></td></tr>
 <tr><td class="hl-num" data-line="63"></td><td>    <span class="hl-k">def</span> <span class="hl-en">__hash__</span>(<span class="hl-c">self</span>):</td></tr>
 <tr><td class="hl-num" data-line="64"></td><td>        <span class="hl-cmt"># Constructor args fully define uniqueness</span></td></tr>
-<tr><td class="hl-num" data-line="65"></td><td><span class="hl-cmt"></span>        <span class="hl-k">return</span> <span class="hl-en">hash</span>(<span class="hl-en">repr</span>(<span class="hl-c">self</span>))</td></tr>
+<tr><td class="hl-num" data-line="65"></td><td>        <span class="hl-k">return</span> <span class="hl-en">hash</span>(<span class="hl-en">repr</span>(<span class="hl-c">self</span>))</td></tr>
 <tr><td class="hl-num" data-line="66"></td><td></td></tr>
 <tr><td class="hl-num" data-line="67"></td><td><span class="hl-k">class</span> <span class="hl-en">SphinxGalleryOrcaRenderer</span>(ExternalRenderer):</td></tr>
 <tr><td class="hl-num" data-line="68"></td><td>    <span class="hl-k">def</span> <span class="hl-en">render</span>(<span class="hl-c">self</span>, fig_dict):</td></tr>
 <tr><td class="hl-num" data-line="69"></td><td>        stack = inspect.<span class="hl-en">stack</span>()</td></tr>
 <tr><td class="hl-num" data-line="70"></td><td>        <span class="hl-cmt"># Name of script from which plot function was called is retrieved</span></td></tr>
-<tr><td class="hl-num" data-line="71"></td><td><span class="hl-cmt"></span>        <span class="hl-k">try</span>:</td></tr>
+<tr><td class="hl-num" data-line="71"></td><td>        <span class="hl-k">try</span>:</td></tr>
 <tr><td class="hl-num" data-line="72"></td><td>            filename = stack[<span class="hl-c">3</span>].filename  <span class="hl-cmt"># let's hope this is robust...</span></td></tr>
-<tr><td class="hl-num" data-line="73"></td><td><span class="hl-cmt"></span>        <span class="hl-k">except</span>:  <span class="hl-cmt"># python 2</span></td></tr>
-<tr><td class="hl-num" data-line="74"></td><td><span class="hl-cmt"></span>            filename = stack[<span class="hl-c">3</span>][<span class="hl-c">1</span>]</td></tr>
+<tr><td class="hl-num" data-line="73"></td><td>        <span class="hl-k">except</span>:  <span class="hl-cmt"># python 2</span></td></tr>
+<tr><td class="hl-num" data-line="74"></td><td>            filename = stack[<span class="hl-c">3</span>][<span class="hl-c">1</span>]</td></tr>
 <tr><td class="hl-num" data-line="75"></td><td>        filename_root, _ = os.path.<span class="hl-en">splitext</span>(filename)</td></tr>
 <tr><td class="hl-num" data-line="76"></td><td>        filename_html = filename_root + <span class="hl-s">"\".html"</span></td></tr>
 <tr><td class="hl-num" data-line="77"></td><td>        filename_png = filename_root + <span class="hl-s">".png"</span></td></tr>

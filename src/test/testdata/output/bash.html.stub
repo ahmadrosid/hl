@@ -4,8 +4,8 @@
 <tr><td class="hl-num" data-line="2"></td><td>{</td></tr>
 <tr><td class="hl-num" data-line="3"></td><td>  (</td></tr>
 <tr><td class="hl-num" data-line="4"></td><td>    <span class="hl-cmt"># Locally ignore failures, otherwise we'll exit whenever $1 and $2</span></td></tr>
-<tr><td class="hl-num" data-line="5"></td><td><span class="hl-cmt"></span>    <span class="hl-cmt"># are not equal!</span></td></tr>
-<tr><td class="hl-num" data-line="6"></td><td><span class="hl-cmt"></span>    set +e</td></tr>
+<tr><td class="hl-num" data-line="5"></td><td>    <span class="hl-cmt"># are not equal!</span></td></tr>
+<tr><td class="hl-num" data-line="6"></td><td>    set +e</td></tr>
 <tr><td class="hl-num" data-line="7"></td><td></td></tr>
 <tr><td class="hl-num" data-line="8"></td><td>awk_strverscmp=<span class="hl-s">'</span></td></tr>
 <tr><td class="hl-num" data-line="9"></td><td><span class="hl-s">  # Use only awk features that work with 7th edition Unix awk (1978).</span></td></tr>
@@ -80,13 +80,13 @@
 <tr><td class="hl-num" data-line="78"></td><td>}</td></tr>
 <tr><td class="hl-num" data-line="79"></td><td></td></tr>
 <tr><td class="hl-num" data-line="80"></td><td><span class="hl-cmt"># Usage: require_tool program version</span></td></tr>
-<tr><td class="hl-num" data-line="81"></td><td><span class="hl-cmt"></span><span class="hl-cmt"># Returns: 0 if $1 version if greater equals than $2, 1 otherwise.</span></td></tr>
-<tr><td class="hl-num" data-line="82"></td><td><span class="hl-cmt"></span><span class="hl-cmt"># In case of error, message is written on error output.</span></td></tr>
-<tr><td class="hl-num" data-line="83"></td><td><span class="hl-cmt"></span><span class="hl-cmt">#</span></td></tr>
-<tr><td class="hl-num" data-line="84"></td><td><span class="hl-cmt"></span><span class="hl-cmt"># Example: require_tool gcc 4.6</span></td></tr>
-<tr><td class="hl-num" data-line="85"></td><td><span class="hl-cmt"></span><span class="hl-cmt"># Use GCC environment variable if defined instead of lookup for the tool</span></td></tr>
-<tr><td class="hl-num" data-line="86"></td><td><span class="hl-cmt"></span><span class="hl-cmt"># in the environment.</span></td></tr>
-<tr><td class="hl-num" data-line="87"></td><td><span class="hl-cmt"></span><span class="hl-en">require_tool</span> ()</td></tr>
+<tr><td class="hl-num" data-line="81"></td><td><span class="hl-cmt"># Returns: 0 if $1 version if greater equals than $2, 1 otherwise.</span></td></tr>
+<tr><td class="hl-num" data-line="82"></td><td><span class="hl-cmt"># In case of error, message is written on error output.</span></td></tr>
+<tr><td class="hl-num" data-line="83"></td><td></td></tr>
+<tr><td class="hl-num" data-line="84"></td><td><span class="hl-cmt"># Example: require_tool gcc 4.6</span></td></tr>
+<tr><td class="hl-num" data-line="85"></td><td><span class="hl-cmt"># Use GCC environment variable if defined instead of lookup for the tool</span></td></tr>
+<tr><td class="hl-num" data-line="86"></td><td><span class="hl-cmt"># in the environment.</span></td></tr>
+<tr><td class="hl-num" data-line="87"></td><td><span class="hl-en">require_tool</span> ()</td></tr>
 <tr><td class="hl-num" data-line="88"></td><td>{</td></tr>
 <tr><td class="hl-num" data-line="89"></td><td>  envvar_name=$(<span class="hl-c">echo</span> $<span class="hl-c">1</span> <span class="hl-k">|</span> tr <span class="hl-s">'[:lower:]'</span> <span class="hl-s">'[:upper:]'</span>)</td></tr>
 <tr><td class="hl-num" data-line="90"></td><td>  tool=$(printenv $envvar_name <span class="hl-k">|</span><span class="hl-k">|</span> <span class="hl-c">echo</span> $<span class="hl-c">1</span>)</td></tr>

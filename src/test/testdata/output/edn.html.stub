@@ -3,7 +3,7 @@
 <tr><td class="hl-num" data-line="1"></td><td>{:<span class="hl-en">deps</span></td></tr>
 <tr><td class="hl-num" data-line="2"></td><td> {penpot/common {:<span class="hl-en">local/root</span> <span class="hl-s">"../common"</span>}</td></tr>
 <tr><td class="hl-num" data-line="3"></td><td>  org.clojure/core.async {:<span class="hl-en">mvn/version</span> <span class="hl-s">"1.5.648"</span>}</td></tr>
-<tr><td class="hl-num" data-line="4"></td><td>  ;; Logging</td></tr>
+<tr><td class="hl-num" data-line="4"></td><td>  <span class="hl-cmt">;; Logging</span></td></tr>
 <tr><td class="hl-num" data-line="5"></td><td>  org.zeromq/jeromq {:<span class="hl-en">mvn/version</span> <span class="hl-s">"0.5.2"</span>}</td></tr>
 <tr><td class="hl-num" data-line="6"></td><td>  com.taoensso/nippy {:<span class="hl-en">mvn/version</span> <span class="hl-s">"3.1.1"</span>}</td></tr>
 <tr><td class="hl-num" data-line="7"></td><td>  com.github.luben/zstd-jni {:<span class="hl-en">mvn/version</span> <span class="hl-s">"1.5.1-1"</span>}</td></tr>
@@ -33,7 +33,7 @@
 <tr><td class="hl-num" data-line="31"></td><td>  org.clojars.pntblnk/clj-ldap {:<span class="hl-en">mvn/version</span> <span class="hl-s">"0.0.17"</span>}</td></tr>
 <tr><td class="hl-num" data-line="32"></td><td>  integrant/integrant {:<span class="hl-en">mvn/version</span> <span class="hl-s">"0.8.0"</span>}</td></tr>
 <tr><td class="hl-num" data-line="33"></td><td>  io.sentry/sentry {:<span class="hl-en">mvn/version</span> <span class="hl-s">"5.5.2"</span>}</td></tr>
-<tr><td class="hl-num" data-line="34"></td><td>  ;; Pretty Print specs</td></tr>
+<tr><td class="hl-num" data-line="34"></td><td>  <span class="hl-cmt">;; Pretty Print specs</span></td></tr>
 <tr><td class="hl-num" data-line="35"></td><td>  pretty-spec/pretty-spec {:<span class="hl-en">mvn/version</span> <span class="hl-s">"0.1.4"</span>}</td></tr>
 <tr><td class="hl-num" data-line="36"></td><td>  software.amazon.awssdk/s3 {:<span class="hl-en">mvn/version</span> <span class="hl-s">"2.17.102"</span>}}</td></tr>
 <tr><td class="hl-num" data-line="37"></td><td> :<span class="hl-en">paths</span> [<span class="hl-s">"src"</span> <span class="hl-s">"resources"</span> <span class="hl-s">"target/classes"</span>]</td></tr>

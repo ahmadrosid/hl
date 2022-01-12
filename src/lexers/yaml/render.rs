@@ -73,7 +73,9 @@ pub fn render_html(input: Vec<char>) -> String {
                 let split_len = split.clone().collect::<Vec<&str>>().len();
                 let mut index = 0;
                 for val in split {
-                    html.push_str(&format!("<span class=\"hl-cmt\">{}</span>", val));
+                    if val.len() > 1 {
+                        html.push_str(&format!("<span class=\"hl-cmt\">{}</span>", val));
+                    }
                     index = index + 1;
                     if index != split_len {
                         line = line + 1;

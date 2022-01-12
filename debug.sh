@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 #source ./build.sh
-cargo run -- src/test/testdata/input/typescript.ts.stub -l ts > table.html
+cargo run -- src/test/testdata/input/python.py.stub -l python > table.html
