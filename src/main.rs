@@ -51,6 +51,12 @@ fn main() {
             let content = c::render::render_html(input);
             print!("{}", content);
         }
+        "css" => {
+            print!("{}", css::render::render_html(input));
+        }
+        "edn" => {
+            print!("{}", edn::render::render_html(input));
+        }
         "go" => {
             let content = go::render::render_html(input);
             print!("{}", content);
@@ -61,9 +67,6 @@ fn main() {
         }
         "rust" => {
             print!("{}", rust::render::render_html(input));
-        }
-        "css" => {
-            print!("{}", css::render::render_html(input));
         }
         "cpp" => {
             print!("{}", cpp::render::render_html(input));

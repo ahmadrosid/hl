@@ -1,0 +1,73 @@
+{:deps
+ {penpot/common {:local/root "../common"}
+  org.clojure/core.async {:mvn/version "1.5.648"}
+  ;; Logging
+  org.zeromq/jeromq {:mvn/version "0.5.2"}
+  com.taoensso/nippy {:mvn/version "3.1.1"}
+  com.github.luben/zstd-jni {:mvn/version "1.5.1-1"}
+  org.clojure/data.fressian {:mvn/version "1.0.0"}
+  io.prometheus/simpleclient {:mvn/version "0.14.1"}
+  io.prometheus/simpleclient_hotspot {:mvn/version "0.14.1"}
+  io.prometheus/simpleclient_jetty {:mvn/version "0.14.1"
+                                    :exclusions [org.eclipse.jetty/jetty-server
+                                                 org.eclipse.jetty/jetty-servlet]}
+  io.prometheus/simpleclient_httpserver {:mvn/version "0.14.1"}
+  io.lettuce/lettuce-core {:mvn/version "6.1.5.RELEASE"}
+  java-http-clj/java-http-clj {:mvn/version "0.4.3"}
+  funcool/yetti {:git/tag "v4.0" :git/sha "59ed2a7"
+                 :git/url "https://github.com/funcool/yetti.git"
+                 :exclusions [org.slf4j/slf4j-api]}
+  com.github.seancorfield/next.jdbc {:mvn/version "1.2.761"}
+  metosin/reitit-ring {:mvn/version "0.5.15"}
+  org.postgresql/postgresql {:mvn/version "42.3.1"}
+  com.zaxxer/HikariCP {:mvn/version "5.0.0"}
+  funcool/datoteka {:mvn/version "2.0.0"}
+  buddy/buddy-core {:mvn/version "1.10.1"}
+  buddy/buddy-hashers {:mvn/version "1.8.1"}
+  buddy/buddy-sign {:mvn/version "3.4.1"}
+  org.jsoup/jsoup {:mvn/version "1.14.3"}
+  org.im4java/im4java {:mvn/version "1.4.0"}
+  org.lz4/lz4-java {:mvn/version "1.8.0"}
+  org.clojars.pntblnk/clj-ldap {:mvn/version "0.0.17"}
+  integrant/integrant {:mvn/version "0.8.0"}
+  io.sentry/sentry {:mvn/version "5.5.2"}
+  ;; Pretty Print specs
+  pretty-spec/pretty-spec {:mvn/version "0.1.4"}
+  software.amazon.awssdk/s3 {:mvn/version "2.17.102"}}
+ :paths ["src" "resources" "target/classes"]
+ :aliases
+ {:dev
+  {:extra-deps
+   {com.bhauman/rebel-readline {:mvn/version "RELEASE"}
+    org.clojure/tools.namespace {:mvn/version "RELEASE"}
+    org.clojure/test.check {:mvn/version "RELEASE"}
+    clojure-humanize/clojure-humanize {:mvn/version "0.2.2"}
+    org.clojure/data.csv {:mvn/version "RELEASE"}
+    com.clojure-goes-fast/clj-async-profiler {:mvn/version "RELEASE"}
+    criterium/criterium {:mvn/version "RELEASE"}
+    mockery/mockery {:mvn/version "RELEASE"}}
+   :extra-paths ["test" "dev"]}
+  :build
+  {:extra-deps {io.github.clojure/tools.build {:git/tag "v0.7.4" :git/sha "ac442da"}}
+   :ns-default build}
+  :kaocha
+  {:extra-deps {lambdaisland/kaocha {:mvn/version "RELEASE"}}
+   :main-opts ["-m" "kaocha.runner"]}
+  :test
+  {:extra-paths ["test"]
+   :extra-deps {io.github.cognitect-labs/test-runner
+                {:git/url "https://github.com/cognitect-labs/test-runner.git"
+                 :sha "dd6da11611eeb87f08780a30ac8ea6012d4c05ce"}}
+   :exec-fn cognitect.test-runner.api/test}
+  :outdated
+  {:extra-deps {com.github.liquidz/antq {:mvn/version "RELEASE"}}
+   :main-opts ["-m" "antq.core"]}
+  :jmx-remote
+  {:jvm-opts ["-Dcom.sun.management.jmxremote"
+              "-Dcom.sun.management.jmxremote.port=9090"
+              "-Dcom.sun.management.jmxremote.rmi.port=9090"
+              "-Dcom.sun.management.jmxremote.local.only=false"
+              "-Dcom.sun.management.jmxremote.authenticate=false"
+              "-Dcom.sun.management.jmxremote.ssl=false"
+              "-Djava.rmi.server.hostname=localhost"]}
+  }}

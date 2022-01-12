@@ -6,6 +6,7 @@ array=(
   "rules/bash.yml"
   "rules/c.yml"
   "rules/css.yml"
+  "rules/edn.yml"
   "rules/cpp.yml"
   "rules/cs.yml"
   "rules/go.yml"

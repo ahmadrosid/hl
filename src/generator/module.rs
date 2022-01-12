@@ -36,6 +36,7 @@ const ACCEPT_ESCAPED_STRING: &str = "ACCEPT_ESCAPED_STRING";
 const ACCEPT_HEXADECIMAL_NUMBER: &str = "ACCEPT_HEXADECIMAL_NUMBER";
 const ACCEPT_ENTITY_SUFFIX: &str = "ACCEPT_ENTITY_SUFFIX";
 const BREAK_ENTITY_SUFFIX: &str = "BREAK_ENTITY_SUFFIX";
+const ACCEPT_CHAR_IDENTIFIER: &str = "ACCEPT_CHAR_IDENTIFIER";
 
 fn write_struct_lexer(module: &mut StringBuilder) {
     module.push_strln("pub struct Lexer {");
@@ -93,6 +94,11 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
     module.push_tabln(3, "let position = l.position;");
     module.push_tabln(3, "while l.position < l.input.len() && is_letter(l.ch) {");
     module.push_tabln(4, "l.read_char();");
+    if let Some(ch) = h.get_some_condition(ACCEPT_CHAR_IDENTIFIER) {
+        module.push_tabln(4, &format!("if l.ch == '{}' {{", ch.as_str().unwrap()));
+        module.push_tabln(5, "l.read_char();");
+        module.push_tabln(4, "}");
+    }
     module.push_tabln(3, "}");
     module.push_tabln(3, "l.input[position..l.position].to_vec()");
     module.push_tabln(2, "};\n");

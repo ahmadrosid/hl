@@ -4,6 +4,7 @@ pub mod rust;
 pub mod go;
 pub mod html;
 pub mod css;
+pub mod edn;
 pub mod cpp;
 pub mod cs;
 pub mod java;

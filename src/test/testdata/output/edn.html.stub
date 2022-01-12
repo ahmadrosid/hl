@@ -1,0 +1,78 @@
+<table class="highlight-table">
+<tbody>
+<tr><td class="hl-num" data-line="1"></td><td>{:<span class="hl-en">deps</span></td></tr>
+<tr><td class="hl-num" data-line="2"></td><td> {penpot/common {:<span class="hl-en">local/root</span> <span class="hl-s">"../common"</span>}</td></tr>
+<tr><td class="hl-num" data-line="3"></td><td>  org.clojure/core.async {:<span class="hl-en">mvn/version</span> <span class="hl-s">"1.5.648"</span>}</td></tr>
+<tr><td class="hl-num" data-line="4"></td><td>  ;; Logging</td></tr>
+<tr><td class="hl-num" data-line="5"></td><td>  org.zeromq/jeromq {:<span class="hl-en">mvn/version</span> <span class="hl-s">"0.5.2"</span>}</td></tr>
+<tr><td class="hl-num" data-line="6"></td><td>  com.taoensso/nippy {:<span class="hl-en">mvn/version</span> <span class="hl-s">"3.1.1"</span>}</td></tr>
+<tr><td class="hl-num" data-line="7"></td><td>  com.github.luben/zstd-jni {:<span class="hl-en">mvn/version</span> <span class="hl-s">"1.5.1-1"</span>}</td></tr>
+<tr><td class="hl-num" data-line="8"></td><td>  org.clojure/data.fressian {:<span class="hl-en">mvn/version</span> <span class="hl-s">"1.0.0"</span>}</td></tr>
+<tr><td class="hl-num" data-line="9"></td><td>  io.prometheus/simpleclient {:<span class="hl-en">mvn/version</span> <span class="hl-s">"0.14.1"</span>}</td></tr>
+<tr><td class="hl-num" data-line="10"></td><td>  io.prometheus/simpleclient_hotspot {:<span class="hl-en">mvn/version</span> <span class="hl-s">"0.14.1"</span>}</td></tr>
+<tr><td class="hl-num" data-line="11"></td><td>  io.prometheus/simpleclient_jetty {:<span class="hl-en">mvn/version</span> <span class="hl-s">"0.14.1"</span></td></tr>
+<tr><td class="hl-num" data-line="12"></td><td>                                    :<span class="hl-en">exclusions</span> [org.eclipse.jetty/jetty-server</td></tr>
+<tr><td class="hl-num" data-line="13"></td><td>                                                 org.eclipse.jetty/jetty-servlet]}</td></tr>
+<tr><td class="hl-num" data-line="14"></td><td>  io.prometheus/simpleclient_httpserver {:<span class="hl-en">mvn/version</span> <span class="hl-s">"0.14.1"</span>}</td></tr>
+<tr><td class="hl-num" data-line="15"></td><td>  io.lettuce/lettuce-core {:<span class="hl-en">mvn/version</span> <span class="hl-s">"6.1.5.RELEASE"</span>}</td></tr>
+<tr><td class="hl-num" data-line="16"></td><td>  java-http-clj/java-http-clj {:<span class="hl-en">mvn/version</span> <span class="hl-s">"0.4.3"</span>}</td></tr>
+<tr><td class="hl-num" data-line="17"></td><td>  funcool/yetti {:<span class="hl-en">git/tag</span> <span class="hl-s">"v4.0"</span> :<span class="hl-en">git/sha</span> <span class="hl-s">"59ed2a7"</span></td></tr>
+<tr><td class="hl-num" data-line="18"></td><td>                 :<span class="hl-en">git/url</span> <span class="hl-s">"https://github.com/funcool/yetti.git"</span></td></tr>
+<tr><td class="hl-num" data-line="19"></td><td>                 :<span class="hl-en">exclusions</span> [org.slf4j/slf4j-api]}</td></tr>
+<tr><td class="hl-num" data-line="20"></td><td>  com.github.seancorfield/next.jdbc {:<span class="hl-en">mvn/version</span> <span class="hl-s">"1.2.761"</span>}</td></tr>
+<tr><td class="hl-num" data-line="21"></td><td>  metosin/reitit-ring {:<span class="hl-en">mvn/version</span> <span class="hl-s">"0.5.15"</span>}</td></tr>
+<tr><td class="hl-num" data-line="22"></td><td>  org.postgresql/postgresql {:<span class="hl-en">mvn/version</span> <span class="hl-s">"42.3.1"</span>}</td></tr>
+<tr><td class="hl-num" data-line="23"></td><td>  com.zaxxer/HikariCP {:<span class="hl-en">mvn/version</span> <span class="hl-s">"5.0.0"</span>}</td></tr>
+<tr><td class="hl-num" data-line="24"></td><td>  funcool/datoteka {:<span class="hl-en">mvn/version</span> <span class="hl-s">"2.0.0"</span>}</td></tr>
+<tr><td class="hl-num" data-line="25"></td><td>  buddy/buddy-core {:<span class="hl-en">mvn/version</span> <span class="hl-s">"1.10.1"</span>}</td></tr>
+<tr><td class="hl-num" data-line="26"></td><td>  buddy/buddy-hashers {:<span class="hl-en">mvn/version</span> <span class="hl-s">"1.8.1"</span>}</td></tr>
+<tr><td class="hl-num" data-line="27"></td><td>  buddy/buddy-sign {:<span class="hl-en">mvn/version</span> <span class="hl-s">"3.4.1"</span>}</td></tr>
+<tr><td class="hl-num" data-line="28"></td><td>  org.jsoup/jsoup {:<span class="hl-en">mvn/version</span> <span class="hl-s">"1.14.3"</span>}</td></tr>
+<tr><td class="hl-num" data-line="29"></td><td>  org.im4java/im4java {:<span class="hl-en">mvn/version</span> <span class="hl-s">"1.4.0"</span>}</td></tr>
+<tr><td class="hl-num" data-line="30"></td><td>  org.lz4/lz4-java {:<span class="hl-en">mvn/version</span> <span class="hl-s">"1.8.0"</span>}</td></tr>
+<tr><td class="hl-num" data-line="31"></td><td>  org.clojars.pntblnk/clj-ldap {:<span class="hl-en">mvn/version</span> <span class="hl-s">"0.0.17"</span>}</td></tr>
+<tr><td class="hl-num" data-line="32"></td><td>  integrant/integrant {:<span class="hl-en">mvn/version</span> <span class="hl-s">"0.8.0"</span>}</td></tr>
+<tr><td class="hl-num" data-line="33"></td><td>  io.sentry/sentry {:<span class="hl-en">mvn/version</span> <span class="hl-s">"5.5.2"</span>}</td></tr>
+<tr><td class="hl-num" data-line="34"></td><td>  ;; Pretty Print specs</td></tr>
+<tr><td class="hl-num" data-line="35"></td><td>  pretty-spec/pretty-spec {:<span class="hl-en">mvn/version</span> <span class="hl-s">"0.1.4"</span>}</td></tr>
+<tr><td class="hl-num" data-line="36"></td><td>  software.amazon.awssdk/s3 {:<span class="hl-en">mvn/version</span> <span class="hl-s">"2.17.102"</span>}}</td></tr>
+<tr><td class="hl-num" data-line="37"></td><td> :<span class="hl-en">paths</span> [<span class="hl-s">"src"</span> <span class="hl-s">"resources"</span> <span class="hl-s">"target/classes"</span>]</td></tr>
+<tr><td class="hl-num" data-line="38"></td><td> :<span class="hl-en">aliases</span></td></tr>
+<tr><td class="hl-num" data-line="39"></td><td> {:<span class="hl-en">dev</span></td></tr>
+<tr><td class="hl-num" data-line="40"></td><td>  {:<span class="hl-en">extra</span>-deps</td></tr>
+<tr><td class="hl-num" data-line="41"></td><td>   {com.bhauman/rebel-readline {:<span class="hl-en">mvn/version</span> <span class="hl-s">"RELEASE"</span>}</td></tr>
+<tr><td class="hl-num" data-line="42"></td><td>    org.clojure/tools.namespace {:<span class="hl-en">mvn/version</span> <span class="hl-s">"RELEASE"</span>}</td></tr>
+<tr><td class="hl-num" data-line="43"></td><td>    org.clojure/test.check {:<span class="hl-en">mvn/version</span> <span class="hl-s">"RELEASE"</span>}</td></tr>
+<tr><td class="hl-num" data-line="44"></td><td>    clojure-humanize/clojure-humanize {:<span class="hl-en">mvn/version</span> <span class="hl-s">"0.2.2"</span>}</td></tr>
+<tr><td class="hl-num" data-line="45"></td><td>    org.clojure/data.csv {:<span class="hl-en">mvn/version</span> <span class="hl-s">"RELEASE"</span>}</td></tr>
+<tr><td class="hl-num" data-line="46"></td><td>    com.clojure-goes-fast/clj-async-profiler {:<span class="hl-en">mvn/version</span> <span class="hl-s">"RELEASE"</span>}</td></tr>
+<tr><td class="hl-num" data-line="47"></td><td>    criterium/criterium {:<span class="hl-en">mvn/version</span> <span class="hl-s">"RELEASE"</span>}</td></tr>
+<tr><td class="hl-num" data-line="48"></td><td>    mockery/mockery {:<span class="hl-en">mvn/version</span> <span class="hl-s">"RELEASE"</span>}}</td></tr>
+<tr><td class="hl-num" data-line="49"></td><td>   :<span class="hl-en">extra</span>-paths [<span class="hl-s">"test"</span> <span class="hl-s">"dev"</span>]}</td></tr>
+<tr><td class="hl-num" data-line="50"></td><td>  :<span class="hl-en">build</span></td></tr>
+<tr><td class="hl-num" data-line="51"></td><td>  {:<span class="hl-en">extra</span>-deps {io.github.clojure/tools.build {:<span class="hl-en">git/tag</span> <span class="hl-s">"v0.7.4"</span> :<span class="hl-en">git/sha</span> <span class="hl-s">"ac442da"</span>}}</td></tr>
+<tr><td class="hl-num" data-line="52"></td><td>   :<span class="hl-en">ns</span>-default build}</td></tr>
+<tr><td class="hl-num" data-line="53"></td><td>  :<span class="hl-en">kaocha</span></td></tr>
+<tr><td class="hl-num" data-line="54"></td><td>  {:<span class="hl-en">extra</span>-deps {lambdaisland/kaocha {:<span class="hl-en">mvn/version</span> <span class="hl-s">"RELEASE"</span>}}</td></tr>
+<tr><td class="hl-num" data-line="55"></td><td>   :<span class="hl-en">main</span>-opts [<span class="hl-s">"-m"</span> <span class="hl-s">"kaocha.runner"</span>]}</td></tr>
+<tr><td class="hl-num" data-line="56"></td><td>  :<span class="hl-en">test</span></td></tr>
+<tr><td class="hl-num" data-line="57"></td><td>  {:<span class="hl-en">extra</span>-paths [<span class="hl-s">"test"</span>]</td></tr>
+<tr><td class="hl-num" data-line="58"></td><td>   :<span class="hl-en">extra</span>-deps {io.github.cognitect-labs/test-runner</td></tr>
+<tr><td class="hl-num" data-line="59"></td><td>                {:<span class="hl-en">git/url</span> <span class="hl-s">"https://github.com/cognitect-labs/test-runner.git"</span></td></tr>
+<tr><td class="hl-num" data-line="60"></td><td>                 :<span class="hl-en">sha</span> <span class="hl-s">"dd6da11611eeb87f08780a30ac8ea6012d4c05ce"</span>}}</td></tr>
+<tr><td class="hl-num" data-line="61"></td><td>   :<span class="hl-en">exec</span>-fn cognitect.test-runner.api/test}</td></tr>
+<tr><td class="hl-num" data-line="62"></td><td>  :<span class="hl-en">outdated</span></td></tr>
+<tr><td class="hl-num" data-line="63"></td><td>  {:<span class="hl-en">extra</span>-deps {com.github.liquidz/antq {:<span class="hl-en">mvn/version</span> <span class="hl-s">"RELEASE"</span>}}</td></tr>
+<tr><td class="hl-num" data-line="64"></td><td>   :<span class="hl-en">main</span>-opts [<span class="hl-s">"-m"</span> <span class="hl-s">"antq.core"</span>]}</td></tr>
+<tr><td class="hl-num" data-line="65"></td><td>  :<span class="hl-en">jmx</span>-remote</td></tr>
+<tr><td class="hl-num" data-line="66"></td><td>  {:<span class="hl-en">jvm</span>-opts [<span class="hl-s">"-Dcom.sun.management.jmxremote"</span></td></tr>
+<tr><td class="hl-num" data-line="67"></td><td>              <span class="hl-s">"-Dcom.sun.management.jmxremote.port=9090"</span></td></tr>
+<tr><td class="hl-num" data-line="68"></td><td>              <span class="hl-s">"-Dcom.sun.management.jmxremote.rmi.port=9090"</span></td></tr>
+<tr><td class="hl-num" data-line="69"></td><td>              <span class="hl-s">"-Dcom.sun.management.jmxremote.local.only=false"</span></td></tr>
+<tr><td class="hl-num" data-line="70"></td><td>              <span class="hl-s">"-Dcom.sun.management.jmxremote.authenticate=false"</span></td></tr>
+<tr><td class="hl-num" data-line="71"></td><td>              <span class="hl-s">"-Dcom.sun.management.jmxremote.ssl=false"</span></td></tr>
+<tr><td class="hl-num" data-line="72"></td><td>              <span class="hl-s">"-Djava.rmi.server.hostname=localhost"</span>]}</td></tr>
+<tr><td class="hl-num" data-line="73"></td><td>  }}</td></tr>
+<tr><td class="hl-num" data-line="74"></td><td></td></tr>
+</tbody>
+</table>
