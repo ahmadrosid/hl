@@ -5,6 +5,7 @@ cargo build -q
 array=(
   "rules/bash.yml"
   "rules/c.yml"
+  "rules/clojure.yml"
   "rules/css.yml"
   "rules/edn.yml"
   "rules/cpp.yml"

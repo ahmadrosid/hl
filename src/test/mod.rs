@@ -28,6 +28,14 @@ fn test_c() {
 }
 
 #[test]
+fn test_clojure() {
+    let input = read_input("src/test/testdata/input/clojure.clj.stub");
+    let expected = read_file("src/test/testdata/output/clojure.html.stub");
+    let actual = clojure::render::render_html(input);
+    assert_eq!(expected, actual);
+}
+
+#[test]
 fn test_css() {
     let input = read_input("src/test/testdata/input/css.css.stub");
     let expected = read_file("src/test/testdata/output/css.html.stub");

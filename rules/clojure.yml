@@ -1,0 +1,19 @@
+constant:
+  nil: nil
+
+entity_prefix:
+  colon: ":"
+
+keyword:
+  ns: ns
+  def: def
+  defn: defn
+  fn: fn
+  when: when
+
+condition:
+  ACCEPT_STRING_DOUBLE_QUOTE: true
+  ACCEPT_ENTITY_TAG_SUFFIX: "is_digit(self.ch)"
+  BREAK_ENTITY_TAG_SUFFIX: "!is_digit(self.ch) && !is_letter(self.ch)"
+  ACCEPT_CHAR_IDENTIFIER: "./-"
+  PREFIX_ONE_LINE_COMMENT: ";;"

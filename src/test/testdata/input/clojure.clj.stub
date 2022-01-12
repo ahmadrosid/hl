@@ -1,0 +1,60 @@
+(ns app.main
+  (:require
+   [app.common.logging :as l]
+   [app.config :as cf]
+   [app.util.time :as dt]
+   [integrant.core :as ig]))
+
+(def system-config
+  {:app.db/pool
+   {:uri        (cf/get :database-uri)
+    :username   (cf/get :database-username)
+    :password   (cf/get :database-password)
+    :metrics    (ig/ref :app.metrics/metrics)
+    :migrations (ig/ref :app.migrations/all)
+    :name :main
+    :min-pool-size 0
+    :max-pool-size 30}
+
+     {:cron #app/cron "0 0 0 * * ?"  ;; daily
+      :task :tasks-gc}
+
+     (when (cf/get :fdata-storage-backed)
+       {:cron #app/cron "0 0 * * * ?"  ;; hourly
+        :task :file-offload})
+
+     (when (contains? cf/flags :audit-log-archive)
+       {:cron #app/cron "0 */3 * * * ?" ;; every 3m
+        :task :audit-log-archive})
+
+     (when (contains? cf/flags :audit-log-gc)
+       {:cron #app/cron "0 0 0 * * ?" ;; daily
+        :task :audit-log-gc})
+
+     (when (or (contains? cf/flags :telemetry)
+               (cf/get :telemetry-enabled))
+       {:cron #app/cron "0 0 */6 * * ?" ;; every 6h
+        :task :telemetry})]})
+
+(def system nil)
+
+(defn start
+  []
+  (ig/load-namespaces system-config)
+  (alter-var-root #'system (fn [sys]
+                             (when sys (ig/halt! sys))
+                             (-> system-config
+                                 (ig/prep)
+                                 (ig/init))))
+  (l/info :msg "welcome to penpot"
+          :version (:full cf/version)))
+
+(defn stop
+  []
+  (alter-var-root #'system (fn [sys]
+                             (when sys (ig/halt! sys))
+                             nil)))
+
+(defn -main
+  [& _args]
+  (start))
