@@ -51,6 +51,10 @@ fn main() {
             let content = c::render::render_html(input);
             print!("{}", content);
         }
+        "clojure" | "clj" => {
+            let content = clojure::render::render_html(input);
+            print!("{}", content);
+        }
         "css" => {
             print!("{}", css::render::render_html(input));
         }

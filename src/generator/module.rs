@@ -156,9 +156,9 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
     }
 
     for (_, val) in get_double_keyword(h) {
-        let v = val.as_hash().unwrap();
-        let first = v[&Yaml::String("first".to_string())].as_str().unwrap();
-        let last = v[&Yaml::String("last".to_string())].as_str().unwrap();
+        let v: Vec<char> = val.as_str().unwrap().chars().collect();
+        let first = v[0];
+        let last = v[1];
         module.push_tab(2, "if self.read_position < self.input.len() ");
         module.push_str(&format!("&& self.ch == '{}' ", first));
         module.push_strln(&format!(
@@ -167,7 +167,13 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
         ));
         module.push_tabln(3, "self.read_char();");
         module.push_tabln(3, "self.read_char();");
-        module.push_tabln(3, &format!("return token::Token::KEYWORD(vec!['{}', '{}']);", first, last));
+        module.push_tabln(
+            3,
+            &format!(
+                "return token::Token::KEYWORD(vec!['{}', '{}']);",
+                first, last
+            ),
+        );
         module.push_tabln(2, "}\n");
     }
 
@@ -187,9 +193,9 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
     }
 
     for (_, val) in get_double_keyword(h) {
-        let v = val.as_hash().unwrap();
-        let first = v[&Yaml::String("first".to_string())].as_str().unwrap();
-        let last = v[&Yaml::String("last".to_string())].as_str().unwrap();
+        let v: Vec<char> = val.as_str().unwrap().chars().collect();
+        let first = v[0];
+        let last = v[1];
         module.push_tab(2, "if self.read_position < self.input.len() ");
         module.push_str(&format!("&& self.ch == '{}' ", first));
         module.push_strln(&format!(
@@ -198,7 +204,13 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
         ));
         module.push_tabln(3, "self.read_char();");
         module.push_tabln(3, "self.read_char();");
-        module.push_tabln(3, &format!("return token::Token::KEYWORD(vec!['{}', '{}']);", first, last));
+        module.push_tabln(
+            3,
+            &format!(
+                "return token::Token::KEYWORD(vec!['{}', '{}']);",
+                first, last
+            ),
+        );
         module.push_tabln(2, "}\n");
     }
 

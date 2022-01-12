@@ -96,18 +96,10 @@ single_keyword:
     - "|"
 
 double_keyword:
-    comparison:
-        first: "="
-        last: "="
-    double_arrow:
-        first: "="
-        last: ">"
-    path_separator:
-        first: ":"
-        last: ":"
-    logical_and:
-        first: "&"
-        last: "&"
+    comparison: "=="
+    double_arrow: "=>"
+    path_separator: "::"
+    logical_and: "&&"
 
 condition:
     ACCEPT_ESCAPED_STRING: true
