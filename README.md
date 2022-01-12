@@ -55,6 +55,7 @@ See the result in browser [here](https://play.tailwindcss.com/xFlm0rN1wH).
 ## Lexers
 - [x] Bash ( ✅ Done )
 - [x] C ( ✅ Done )
+- [ ] Clojure ( 🚧 In Progress )
 - [x] CSS ( ✅ Done )
 - [x] CPP ( ✅ Done )
 - [ ] C# ( 🚧 In Progress )
