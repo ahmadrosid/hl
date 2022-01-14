@@ -1,8 +1,8 @@
 use clap::{arg, App, AppSettings};
 mod generator;
 mod lexers;
-use std::fs::read;
 use crate::lexers::*;
+use std::fs::read;
 
 fn main() {
     let matches = App::new("hl")

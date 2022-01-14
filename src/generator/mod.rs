@@ -64,8 +64,8 @@ impl ConditionExt for Hash {
     fn get_some_condition(&self, key: &str) -> Option<Yaml> {
         return match get_condition(self).get(&Yaml::String(key.to_string())) {
             None => None,
-            Some(val) => Some(val.clone())
-        }
+            Some(val) => Some(val.clone()),
+        };
     }
 }
 
@@ -100,7 +100,10 @@ pub fn parse(file_path: &str) -> String {
 
     if docs.len() == 0 {
         let mut message = String::new();
-        message.push_str(&color::red(&format!("Failed processing {} file is empty!", file_path)));
+        message.push_str(&color::red(&format!(
+            "Failed processing {} file is empty!",
+            file_path
+        )));
         return message;
     }
 

@@ -1,4 +1,8 @@
-use crate::generator::{ConditionExt, double_dash_comment_enable, get_constant, get_entity, get_entity_prefix, get_entity_suffix, get_entity_tag, get_keyword, get_var, hashtag_comment_enable, slash_comment_enable, slash_star_comment_enable, string::StringBuilder, xml_comment_enable};
+use crate::generator::{
+    double_dash_comment_enable, get_constant, get_entity, get_entity_prefix, get_entity_suffix,
+    get_entity_tag, get_keyword, get_var, hashtag_comment_enable, slash_comment_enable,
+    slash_star_comment_enable, string::StringBuilder, xml_comment_enable, ConditionExt,
+};
 use yaml_rust::yaml::Hash;
 
 const ACCEPT_PREFIX_VAR: &str = "ACCEPT_PREFIX_VAR";
