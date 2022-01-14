@@ -42,11 +42,27 @@ pub fn render_html(input: Vec<char>) -> String {
                 }
                 html.push_str(&format!("<span class=\"hl-s\">{}</span>", s));
             }
+            token::Token::ENTITY(value) => {
+                html.push_str(&format!("<span class=\"hl-en\">{}</span>", value.iter().collect::<String>()));
+            }
             token::Token::CONSTANT(value) => {
                 html.push_str(&format!("<span class=\"hl-c\">{}</span>", value.iter().collect::<String>()));
             }
             token::Token::KEYWORD(value) => {
                 html.push_str(&format!("<span class=\"hl-k\">{}</span>", value.iter().collect::<String>()));
+            }
+            token::Token::ENTITYTAG(value) => {
+                let mut s = String::new();
+                for ch in value {
+                    if ch == '<' {
+                        s.push_str("&lt;");
+                    } else if ch == '>' {
+                        s.push_str("&gt;");
+                    } else {
+                        s.push(ch);
+                    }
+                }
+                html.push_str(&format!("<span class=\"hl-ent\">{}</span>", s));
             }
             token::Token::COMMENT(value) => {
                 let mut lines = String::new();

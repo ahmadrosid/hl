@@ -1,8 +1,45 @@
 constant:
   TRUE: "True"
   FALSE: "False"
+  return: return
+  mempty: mempty
+  not: not
+  foldr: foldr
+  Map: Map
+  lookup: lookup
+  Left: Left
+  Right: Right
+  Walk: Walk
+  Char: Char
+  Bool: Bool
+  Maybe: Maybe
+  Int: Int
+  Prelude: Prelude
+  any: any
+  filter: filter
+  map: map
+  init: init
+  null: "null"
+  last: last
+  unwords: unwords
+  otherwise: otherwise
+  either: either
+  const: const
+  fmap: fmap
+
+entity_tag:
+  Bibtex: Bibtex
+  Biblatex: Biblatex
+  Nothing: Nothing
+  Just: Just
+  Str: Str
+  Space: Space
+  FancyVal: FancyVal
+  BibState: BibState
+  Many: Many
 
 keyword:
+  as: as
   import: import
   type: type
   case: case
@@ -14,7 +51,13 @@ keyword:
   let: let
   in: in
   module: module
+  qualified: qualified
   where: where
+  LANGUAGE: LANGUAGE
+  OPTIONS_GHC: OPTIONS_GHC
+  hiding: hiding
+  data: data
+  deriving: deriving
 
 condition:
   ACCEPT_STRING_DOUBLE_QUOTE: true
