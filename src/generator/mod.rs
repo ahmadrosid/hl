@@ -91,6 +91,7 @@ pub fn parse(file_path: &str) -> String {
         "var",
         "entity_prefix",
         "entity_suffix",
+        "raw",
     ];
 
     let mut token_stub = String::new();

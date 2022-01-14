@@ -13,6 +13,7 @@ pub mod json;
 pub mod lua;
 pub mod php;
 pub mod python;
+pub mod raw;
 pub mod rust;
 pub mod typescript;
 pub mod yaml;

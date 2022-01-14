@@ -18,6 +18,7 @@ array=(
   "rules/lua.yml"
   "rules/php.yml"
   "rules/python.yml"
+  "rules/raw.yml"
   "rules/rust.yml"
   "rules/typescript.yml"
   "rules/yaml.yml"

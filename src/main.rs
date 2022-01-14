@@ -1,8 +1,8 @@
 use clap::{arg, App, AppSettings};
 mod generator;
 mod lexers;
-use crate::lexers::*;
 use std::fs::read;
+use crate::lexers::*;
 
 fn main() {
     let matches = App::new("hl")
@@ -103,7 +103,7 @@ fn main() {
             print!("{}", yaml::render::render_html(input));
         }
         _ => {
-            println!("Language {} not supported", lang);
+            print!("{}", raw::render::render_html(input));
         }
     }
 }
