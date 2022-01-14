@@ -76,6 +76,14 @@ fn test_golang() {
 }
 
 #[test]
+fn test_haskell() {
+    let input = read_input("src/test/testdata/input/haskell.hs.stub");
+    let expected = read_file("src/test/testdata/output/haskell.html.stub");
+    let actual = haskell::render::render_html(input);
+    assert_eq!(expected, actual);
+}
+
+#[test]
 fn test_html() {
     let input = read_input("src/test/testdata/input/html.html.stub");
     let expected = read_file("src/test/testdata/output/html.html.stub");

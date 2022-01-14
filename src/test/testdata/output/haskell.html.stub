@@ -1,0 +1,200 @@
+<table class="highlight-table">
+<tbody>
+<tr><td class="hl-num" data-line="1"></td><td>{-</td></tr>
+<tr><td class="hl-num" data-line="2"></td><td>    Copyright <span class="hl-c">2012</span>-<span class="hl-c">2019</span> Vidar Holen</td></tr>
+<tr><td class="hl-num" data-line="3"></td><td></td></tr>
+<tr><td class="hl-num" data-line="4"></td><td>    This file is part <span class="hl-k">of</span> ShellCheck.</td></tr>
+<tr><td class="hl-num" data-line="5"></td><td>    https://www.shellcheck.net</td></tr>
+<tr><td class="hl-num" data-line="6"></td><td></td></tr>
+<tr><td class="hl-num" data-line="7"></td><td>    ShellCheck is free software: you can redistribute it and/or modify</td></tr>
+<tr><td class="hl-num" data-line="8"></td><td>    it under the terms <span class="hl-k">of</span> the GNU General Public License as published by</td></tr>
+<tr><td class="hl-num" data-line="9"></td><td>    the Free Software Foundation, either version <span class="hl-c">3</span> <span class="hl-k">of</span> the License, or</td></tr>
+<tr><td class="hl-num" data-line="10"></td><td>    (at your option) any later version.</td></tr>
+<tr><td class="hl-num" data-line="11"></td><td></td></tr>
+<tr><td class="hl-num" data-line="12"></td><td>    ShellCheck is distributed <span class="hl-k">in</span> the hope that it will be useful,</td></tr>
+<tr><td class="hl-num" data-line="13"></td><td>    but WITHOUT ANY WARRANTY; without even the implied warranty <span class="hl-k">of</span></td></tr>
+<tr><td class="hl-num" data-line="14"></td><td>    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</td></tr>
+<tr><td class="hl-num" data-line="15"></td><td>    GNU General Public License for more details.</td></tr>
+<tr><td class="hl-num" data-line="16"></td><td></td></tr>
+<tr><td class="hl-num" data-line="17"></td><td>    You should have received a copy <span class="hl-k">of</span> the GNU General Public License</td></tr>
+<tr><td class="hl-num" data-line="18"></td><td>    along with this program.  If not, see <https://www.gnu.org/licenses/>.</td></tr>
+<tr><td class="hl-num" data-line="19"></td><td>-}</td></tr>
+<tr><td class="hl-num" data-line="20"></td><td><span class="hl-k">module</span> ShellCheck.Formatter.TTY (format) <span class="hl-k">where</span></td></tr>
+<tr><td class="hl-num" data-line="21"></td><td></td></tr>
+<tr><td class="hl-num" data-line="22"></td><td><span class="hl-k">import</span> ShellCheck.Fixer</td></tr>
+<tr><td class="hl-num" data-line="23"></td><td><span class="hl-k">import</span> ShellCheck.Interface</td></tr>
+<tr><td class="hl-num" data-line="24"></td><td><span class="hl-k">import</span> ShellCheck.Formatter.Format</td></tr>
+<tr><td class="hl-num" data-line="25"></td><td></td></tr>
+<tr><td class="hl-num" data-line="26"></td><td><span class="hl-k">import</span> Control.Monad</td></tr>
+<tr><td class="hl-num" data-line="27"></td><td><span class="hl-k">import</span> Data.Array</td></tr>
+<tr><td class="hl-num" data-line="28"></td><td><span class="hl-k">import</span> Data.Foldable</td></tr>
+<tr><td class="hl-num" data-line="29"></td><td><span class="hl-k">import</span> Data.Ord</td></tr>
+<tr><td class="hl-num" data-line="30"></td><td><span class="hl-k">import</span> Data.IORef</td></tr>
+<tr><td class="hl-num" data-line="31"></td><td><span class="hl-k">import</span> Data.List</td></tr>
+<tr><td class="hl-num" data-line="32"></td><td><span class="hl-k">import</span> Data.Maybe</td></tr>
+<tr><td class="hl-num" data-line="33"></td><td><span class="hl-k">import</span> GHC.Exts</td></tr>
+<tr><td class="hl-num" data-line="34"></td><td><span class="hl-k">import</span> System.IO</td></tr>
+<tr><td class="hl-num" data-line="35"></td><td><span class="hl-k">import</span> System.Info</td></tr>
+<tr><td class="hl-num" data-line="36"></td><td></td></tr>
+<tr><td class="hl-num" data-line="37"></td><td>wikiLink = <span class="hl-s">"https://www.shellcheck.net/wiki/"</span></td></tr>
+<tr><td class="hl-num" data-line="38"></td><td></td></tr>
+<tr><td class="hl-num" data-line="39"></td><td><span class="hl-cmt">-- An arbitrary Ord thing to order warnings</span></td></tr>
+<tr><td class="hl-num" data-line="40"></td><td><span class="hl-k">type</span> Ranking = (Char, Severity, Integer)</td></tr>
+<tr><td class="hl-num" data-line="41"></td><td><span class="hl-cmt">-- Ansi coloring function</span></td></tr>
+<tr><td class="hl-num" data-line="42"></td><td><span class="hl-k">type</span> ColorFunc = (String -> String -> String)</td></tr>
+<tr><td class="hl-num" data-line="43"></td><td></td></tr>
+<tr><td class="hl-num" data-line="44"></td><td>format :: FormatterOptions -> IO Formatter</td></tr>
+<tr><td class="hl-num" data-line="45"></td><td>format options = <span class="hl-k">do</span></td></tr>
+<tr><td class="hl-num" data-line="46"></td><td>    topErrorRef <- newIORef []</td></tr>
+<tr><td class="hl-num" data-line="47"></td><td>    return Formatter {</td></tr>
+<tr><td class="hl-num" data-line="48"></td><td>        header = return (),</td></tr>
+<tr><td class="hl-num" data-line="49"></td><td>        footer = outputWiki topErrorRef,</td></tr>
+<tr><td class="hl-num" data-line="50"></td><td>        onFailure = outputError options,</td></tr>
+<tr><td class="hl-num" data-line="51"></td><td>        onResult = outputResult options topErrorRef</td></tr>
+<tr><td class="hl-num" data-line="52"></td><td>    }</td></tr>
+<tr><td class="hl-num" data-line="53"></td><td></td></tr>
+<tr><td class="hl-num" data-line="54"></td><td>colorForLevel level =</td></tr>
+<tr><td class="hl-num" data-line="55"></td><td>    <span class="hl-k">case</span> level <span class="hl-k">of</span></td></tr>
+<tr><td class="hl-num" data-line="56"></td><td>        <span class="hl-s">"error"</span>   -> <span class="hl-c">31</span> <span class="hl-cmt">-- red</span></td></tr>
+<tr><td class="hl-num" data-line="57"></td><td>        <span class="hl-s">"warning"</span> -> <span class="hl-c">33</span> <span class="hl-cmt">-- yellow</span></td></tr>
+<tr><td class="hl-num" data-line="58"></td><td>        <span class="hl-s">"info"</span>    -> <span class="hl-c">32</span> <span class="hl-cmt">-- green</span></td></tr>
+<tr><td class="hl-num" data-line="59"></td><td>        <span class="hl-s">"style"</span>   -> <span class="hl-c">32</span> <span class="hl-cmt">-- green</span></td></tr>
+<tr><td class="hl-num" data-line="60"></td><td>        <span class="hl-s">"verbose"</span> -> <span class="hl-c">32</span> <span class="hl-cmt">-- green</span></td></tr>
+<tr><td class="hl-num" data-line="61"></td><td>        <span class="hl-s">"message"</span> -> <span class="hl-c">1</span> <span class="hl-cmt">-- bold</span></td></tr>
+<tr><td class="hl-num" data-line="62"></td><td>        <span class="hl-s">"source"</span>  -> <span class="hl-c">0</span> <span class="hl-cmt">-- none</span></td></tr>
+<tr><td class="hl-num" data-line="63"></td><td>        _ -> <span class="hl-c">0</span>         <span class="hl-cmt">-- none</span></td></tr>
+<tr><td class="hl-num" data-line="64"></td><td></td></tr>
+<tr><td class="hl-num" data-line="65"></td><td>rankError :: PositionedComment -> Ranking</td></tr>
+<tr><td class="hl-num" data-line="66"></td><td>rankError err = (ranking, cSeverity $ pcComment err, cCode $ pcComment err)</td></tr>
+<tr><td class="hl-num" data-line="67"></td><td>  <span class="hl-k">where</span></td></tr>
+<tr><td class="hl-num" data-line="68"></td><td>    ranking =</td></tr>
+<tr><td class="hl-num" data-line="69"></td><td>        <span class="hl-k">if</span> cCode (pcComment err) `elem` uninteresting</td></tr>
+<tr><td class="hl-num" data-line="70"></td><td>        <span class="hl-k">then</span> 'Z'</td></tr>
+<tr><td class="hl-num" data-line="71"></td><td>        <span class="hl-k">else</span> 'A'</td></tr>
+<tr><td class="hl-num" data-line="72"></td><td></td></tr>
+<tr><td class="hl-num" data-line="73"></td><td>    <span class="hl-cmt">-- A list of the most generic, least directly helpful</span></td></tr>
+<tr><td class="hl-num" data-line="74"></td><td>    <span class="hl-cmt">-- error codes to downrank.</span></td></tr>
+<tr><td class="hl-num" data-line="75"></td><td>    uninteresting = [</td></tr>
+<tr><td class="hl-num" data-line="76"></td><td>        <span class="hl-c">1009</span>, <span class="hl-cmt">-- Mentioned parser error was..</span></td></tr>
+<tr><td class="hl-num" data-line="77"></td><td>        <span class="hl-c">1019</span>, <span class="hl-cmt">-- Expected this to be an argument</span></td></tr>
+<tr><td class="hl-num" data-line="78"></td><td>        <span class="hl-c">1036</span>, <span class="hl-cmt">-- ( is invalid here</span></td></tr>
+<tr><td class="hl-num" data-line="79"></td><td>        <span class="hl-c">1047</span>, <span class="hl-cmt">-- Expected 'fi'</span></td></tr>
+<tr><td class="hl-num" data-line="80"></td><td>        <span class="hl-c">1062</span>, <span class="hl-cmt">-- Expected 'done'</span></td></tr>
+<tr><td class="hl-num" data-line="81"></td><td>        <span class="hl-c">1070</span>, <span class="hl-cmt">-- Parsing stopped here (generic)</span></td></tr>
+<tr><td class="hl-num" data-line="82"></td><td>        <span class="hl-c">1072</span>, <span class="hl-cmt">-- Missing/unexpected ..</span></td></tr>
+<tr><td class="hl-num" data-line="83"></td><td>        <span class="hl-c">1073</span>, <span class="hl-cmt">-- Couldn't parse this ..</span></td></tr>
+<tr><td class="hl-num" data-line="84"></td><td>        <span class="hl-c">1088</span>, <span class="hl-cmt">-- Parsing stopped here (paren)</span></td></tr>
+<tr><td class="hl-num" data-line="85"></td><td>        <span class="hl-c">1089</span>  <span class="hl-cmt">-- Parsing stopped here (keyword)</span></td></tr>
+<tr><td class="hl-num" data-line="86"></td><td>        ]</td></tr>
+<tr><td class="hl-num" data-line="87"></td><td></td></tr>
+<tr><td class="hl-num" data-line="88"></td><td>appendComments errRef comments max = <span class="hl-k">do</span></td></tr>
+<tr><td class="hl-num" data-line="89"></td><td>    previous <- readIORef errRef</td></tr>
+<tr><td class="hl-num" data-line="90"></td><td>    <span class="hl-k">let</span> current = map (\x -> (rankError x, cCode $ pcComment x, cMessage $ pcComment x)) comments</td></tr>
+<tr><td class="hl-num" data-line="91"></td><td>    writeIORef errRef . take max . nubBy equal . sort $ previous ++ current</td></tr>
+<tr><td class="hl-num" data-line="92"></td><td>  <span class="hl-k">where</span></td></tr>
+<tr><td class="hl-num" data-line="93"></td><td>    fst3 (x,_,_) = x</td></tr>
+<tr><td class="hl-num" data-line="94"></td><td>    equal x y = fst3 x == fst3 y</td></tr>
+<tr><td class="hl-num" data-line="95"></td><td></td></tr>
+<tr><td class="hl-num" data-line="96"></td><td>outputWiki :: IORef [(Ranking, Integer, String)] -> IO ()</td></tr>
+<tr><td class="hl-num" data-line="97"></td><td>outputWiki errRef = <span class="hl-k">do</span></td></tr>
+<tr><td class="hl-num" data-line="98"></td><td>    issues <- readIORef errRef</td></tr>
+<tr><td class="hl-num" data-line="99"></td><td>    unless (null issues) $ <span class="hl-k">do</span></td></tr>
+<tr><td class="hl-num" data-line="100"></td><td>        putStrLn <span class="hl-s">"For more information:"</span></td></tr>
+<tr><td class="hl-num" data-line="101"></td><td>        mapM_ showErr issues</td></tr>
+<tr><td class="hl-num" data-line="102"></td><td>  <span class="hl-k">where</span></td></tr>
+<tr><td class="hl-num" data-line="103"></td><td>    showErr (_, code, msg) =</td></tr>
+<tr><td class="hl-num" data-line="104"></td><td>        putStrLn $ <span class="hl-s">"  "</span> ++ wikiLink ++ <span class="hl-s">"SC"</span> ++ show code ++ <span class="hl-s">" -- "</span> ++ shorten msg</td></tr>
+<tr><td class="hl-num" data-line="105"></td><td>    limit = <span class="hl-c">36</span></td></tr>
+<tr><td class="hl-num" data-line="106"></td><td>    shorten msg =</td></tr>
+<tr><td class="hl-num" data-line="107"></td><td>        <span class="hl-k">if</span> length msg < limit</td></tr>
+<tr><td class="hl-num" data-line="108"></td><td>        <span class="hl-k">then</span> msg</td></tr>
+<tr><td class="hl-num" data-line="109"></td><td>        <span class="hl-k">else</span> (take (limit-<span class="hl-c">3</span>) msg) ++ <span class="hl-s">"..."</span></td></tr>
+<tr><td class="hl-num" data-line="110"></td><td></td></tr>
+<tr><td class="hl-num" data-line="111"></td><td>outputError options file error = <span class="hl-k">do</span></td></tr>
+<tr><td class="hl-num" data-line="112"></td><td>    color <- getColorFunc $ foColorOption options</td></tr>
+<tr><td class="hl-num" data-line="113"></td><td>    hPutStrLn stderr $ color <span class="hl-s">"error"</span> $ file ++ <span class="hl-s">": "</span> ++ error</td></tr>
+<tr><td class="hl-num" data-line="114"></td><td></td></tr>
+<tr><td class="hl-num" data-line="115"></td><td>outputResult options ref result sys = <span class="hl-k">do</span></td></tr>
+<tr><td class="hl-num" data-line="116"></td><td>    color <- getColorFunc $ foColorOption options</td></tr>
+<tr><td class="hl-num" data-line="117"></td><td>    <span class="hl-k">let</span> comments = crComments result</td></tr>
+<tr><td class="hl-num" data-line="118"></td><td>    appendComments ref comments (fromIntegral $ foWikiLinkCount options)</td></tr>
+<tr><td class="hl-num" data-line="119"></td><td>    <span class="hl-k">let</span> fileGroups = groupWith sourceFile comments</td></tr>
+<tr><td class="hl-num" data-line="120"></td><td>    mapM_ (outputForFile color sys) fileGroups</td></tr>
+<tr><td class="hl-num" data-line="121"></td><td></td></tr>
+<tr><td class="hl-num" data-line="122"></td><td>outputForFile color sys comments = <span class="hl-k">do</span></td></tr>
+<tr><td class="hl-num" data-line="123"></td><td>    <span class="hl-k">let</span> fileName = sourceFile (head comments)</td></tr>
+<tr><td class="hl-num" data-line="124"></td><td>    result <- siReadFile sys (Just <span class="hl-c">True</span>) fileName</td></tr>
+<tr><td class="hl-num" data-line="125"></td><td>    <span class="hl-k">let</span> contents = either (const <span class="hl-s">""</span>) id result</td></tr>
+<tr><td class="hl-num" data-line="126"></td><td>    <span class="hl-k">let</span> fileLinesList = lines contents</td></tr>
+<tr><td class="hl-num" data-line="127"></td><td>    <span class="hl-k">let</span> lineCount = length fileLinesList</td></tr>
+<tr><td class="hl-num" data-line="128"></td><td>    <span class="hl-k">let</span> fileLines = listArray (<span class="hl-c">1</span>, lineCount) fileLinesList</td></tr>
+<tr><td class="hl-num" data-line="129"></td><td>    <span class="hl-k">let</span> groups = groupWith lineNo comments</td></tr>
+<tr><td class="hl-num" data-line="130"></td><td>    forM_ groups $ \commentsForLine -> <span class="hl-k">do</span></td></tr>
+<tr><td class="hl-num" data-line="131"></td><td>        <span class="hl-k">let</span> lineNum = fromIntegral $ lineNo (head commentsForLine)</td></tr>
+<tr><td class="hl-num" data-line="132"></td><td>        <span class="hl-k">let</span> line = <span class="hl-k">if</span> lineNum < <span class="hl-c">1</span> || lineNum > lineCount</td></tr>
+<tr><td class="hl-num" data-line="133"></td><td>                        <span class="hl-k">then</span> <span class="hl-s">""</span></td></tr>
+<tr><td class="hl-num" data-line="134"></td><td>                        <span class="hl-k">else</span> fileLines ! fromIntegral lineNum</td></tr>
+<tr><td class="hl-num" data-line="135"></td><td>        putStrLn <span class="hl-s">""</span></td></tr>
+<tr><td class="hl-num" data-line="136"></td><td>        putStrLn $ color <span class="hl-s">"message"</span> $</td></tr>
+<tr><td class="hl-num" data-line="137"></td><td>           <span class="hl-s">"In "</span> ++ fileName ++<span class="hl-s">" line "</span> ++ show lineNum ++ <span class="hl-s">":"</span></td></tr>
+<tr><td class="hl-num" data-line="138"></td><td>        putStrLn (color <span class="hl-s">"source"</span> line)</td></tr>
+<tr><td class="hl-num" data-line="139"></td><td>        forM_ commentsForLine $ \c -> putStrLn $ color (severityText c) $ cuteIndent c</td></tr>
+<tr><td class="hl-num" data-line="140"></td><td>        putStrLn <span class="hl-s">""</span></td></tr>
+<tr><td class="hl-num" data-line="141"></td><td>        showFixedString color commentsForLine (fromIntegral lineNum) fileLines</td></tr>
+<tr><td class="hl-num" data-line="142"></td><td></td></tr>
+<tr><td class="hl-num" data-line="143"></td><td><span class="hl-cmt">-- Pick out only the lines necessary to show a fix in action</span></td></tr>
+<tr><td class="hl-num" data-line="144"></td><td>sliceFile :: Fix -> Array Int String -> (Fix, Array Int String)</td></tr>
+<tr><td class="hl-num" data-line="145"></td><td>sliceFile fix lines =</td></tr>
+<tr><td class="hl-num" data-line="146"></td><td>    (mapPositions adjust fix, sliceLines lines)</td></tr>
+<tr><td class="hl-num" data-line="147"></td><td>  <span class="hl-k">where</span></td></tr>
+<tr><td class="hl-num" data-line="148"></td><td>    (minLine, maxLine) =</td></tr>
+<tr><td class="hl-num" data-line="149"></td><td>        foldl (\(mm, mx) pos -> ((min mm $ fromIntegral $ posLine pos), (max mx $ fromIntegral $ posLine pos)))</td></tr>
+<tr><td class="hl-num" data-line="150"></td><td>                (maxBound, minBound) $</td></tr>
+<tr><td class="hl-num" data-line="151"></td><td>            concatMap (\x -> [repStartPos x, repEndPos x]) $ fixReplacements fix</td></tr>
+<tr><td class="hl-num" data-line="152"></td><td>    sliceLines :: Array Int String -> Array Int String</td></tr>
+<tr><td class="hl-num" data-line="153"></td><td>    sliceLines = ixmap (<span class="hl-c">1</span>, maxLine - minLine + <span class="hl-c">1</span>) (\x -> x + minLine - <span class="hl-c">1</span>)</td></tr>
+<tr><td class="hl-num" data-line="154"></td><td>    adjust pos =</td></tr>
+<tr><td class="hl-num" data-line="155"></td><td>        pos {</td></tr>
+<tr><td class="hl-num" data-line="156"></td><td>            posLine = posLine pos - (fromIntegral minLine) + <span class="hl-c">1</span></td></tr>
+<tr><td class="hl-num" data-line="157"></td><td>        }</td></tr>
+<tr><td class="hl-num" data-line="158"></td><td></td></tr>
+<tr><td class="hl-num" data-line="159"></td><td>showFixedString :: ColorFunc -> [PositionedComment] -> Int -> Array Int String -> IO ()</td></tr>
+<tr><td class="hl-num" data-line="160"></td><td>showFixedString color comments lineNum fileLines =</td></tr>
+<tr><td class="hl-num" data-line="161"></td><td>    <span class="hl-k">let</span> line = fileLines ! fromIntegral lineNum <span class="hl-k">in</span></td></tr>
+<tr><td class="hl-num" data-line="162"></td><td>    <span class="hl-k">case</span> mapMaybe pcFix comments <span class="hl-k">of</span></td></tr>
+<tr><td class="hl-num" data-line="163"></td><td>        [] -> return ()</td></tr>
+<tr><td class="hl-num" data-line="164"></td><td>        fixes -> <span class="hl-k">do</span></td></tr>
+<tr><td class="hl-num" data-line="165"></td><td>            <span class="hl-cmt">-- Folding automatically removes overlap</span></td></tr>
+<tr><td class="hl-num" data-line="166"></td><td>            <span class="hl-k">let</span> mergedFix = fold fixes</td></tr>
+<tr><td class="hl-num" data-line="167"></td><td>            <span class="hl-cmt">-- We show the complete, associated fixes, whether or not it includes this</span></td></tr>
+<tr><td class="hl-num" data-line="168"></td><td>            <span class="hl-cmt">-- and/or other unrelated lines.</span></td></tr>
+<tr><td class="hl-num" data-line="169"></td><td>            <span class="hl-k">let</span> (excerptFix, excerpt) = sliceFile mergedFix fileLines</td></tr>
+<tr><td class="hl-num" data-line="170"></td><td>            <span class="hl-cmt">-- in the spirit of error prone</span></td></tr>
+<tr><td class="hl-num" data-line="171"></td><td>            putStrLn $ color <span class="hl-s">"message"</span> <span class="hl-s">"Did you mean: "</span></td></tr>
+<tr><td class="hl-num" data-line="172"></td><td>            putStrLn $ unlines $ applyFix excerptFix excerpt</td></tr>
+<tr><td class="hl-num" data-line="173"></td><td></td></tr>
+<tr><td class="hl-num" data-line="174"></td><td>cuteIndent :: PositionedComment -> String</td></tr>
+<tr><td class="hl-num" data-line="175"></td><td>cuteIndent comment =</td></tr>
+<tr><td class="hl-num" data-line="176"></td><td>    replicate (fromIntegral $ colNo comment - <span class="hl-c">1</span>) ' ' ++</td></tr>
+<tr><td class="hl-num" data-line="177"></td><td>        makeArrow ++ <span class="hl-s">" "</span> ++ code (codeNo comment) ++ <span class="hl-s">" ("</span> ++ severityText comment ++ <span class="hl-s">"): "</span> ++ messageText comment</td></tr>
+<tr><td class="hl-num" data-line="178"></td><td>  <span class="hl-k">where</span></td></tr>
+<tr><td class="hl-num" data-line="179"></td><td>    arrow n = '^' : replicate (fromIntegral $ n-<span class="hl-c">2</span>) '-' ++ <span class="hl-s">"^"</span></td></tr>
+<tr><td class="hl-num" data-line="180"></td><td>    makeArrow =</td></tr>
+<tr><td class="hl-num" data-line="181"></td><td>        <span class="hl-k">let</span> sameLine = lineNo comment == endLineNo comment</td></tr>
+<tr><td class="hl-num" data-line="182"></td><td>            delta = endColNo comment - colNo comment</td></tr>
+<tr><td class="hl-num" data-line="183"></td><td>        <span class="hl-k">in</span></td></tr>
+<tr><td class="hl-num" data-line="184"></td><td>            <span class="hl-k">if</span> sameLine && delta > <span class="hl-c">2</span> && delta < <span class="hl-c">32</span> <span class="hl-k">then</span> arrow delta <span class="hl-k">else</span> <span class="hl-s">"^--"</span></td></tr>
+<tr><td class="hl-num" data-line="185"></td><td></td></tr>
+<tr><td class="hl-num" data-line="186"></td><td>code num = <span class="hl-s">"SC"</span> ++ show num</td></tr>
+<tr><td class="hl-num" data-line="187"></td><td></td></tr>
+<tr><td class="hl-num" data-line="188"></td><td>getColorFunc :: ColorOption -> IO ColorFunc</td></tr>
+<tr><td class="hl-num" data-line="189"></td><td>getColorFunc colorOption = <span class="hl-k">do</span></td></tr>
+<tr><td class="hl-num" data-line="190"></td><td>    useColor <- shouldOutputColor colorOption</td></tr>
+<tr><td class="hl-num" data-line="191"></td><td>    return $ <span class="hl-k">if</span> useColor <span class="hl-k">then</span> colorComment <span class="hl-k">else</span> const id</td></tr>
+<tr><td class="hl-num" data-line="192"></td><td>  <span class="hl-k">where</span></td></tr>
+<tr><td class="hl-num" data-line="193"></td><td>    colorComment level comment =</td></tr>
+<tr><td class="hl-num" data-line="194"></td><td>        ansi (colorForLevel level) ++ comment ++ clear</td></tr>
+<tr><td class="hl-num" data-line="195"></td><td>    clear = ansi <span class="hl-c">0</span></td></tr>
+<tr><td class="hl-num" data-line="196"></td><td>    ansi n = <span class="hl-s">"\x1B["</span> ++ show n ++ <span class="hl-s">"m"</span></td></tr>
+</tbody>
+</table>

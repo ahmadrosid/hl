@@ -6,6 +6,7 @@ pub mod cs;
 pub mod css;
 pub mod edn;
 pub mod go;
+pub mod haskell;
 pub mod html;
 pub mod java;
 pub mod javascript;

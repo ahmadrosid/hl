@@ -65,6 +65,10 @@ fn main() {
             let content = go::render::render_html(input);
             print!("{}", content);
         }
+        "hs" | "haskell" => {
+            let content = haskell::render::render_html(input);
+            print!("{}", content);
+        }
         "html" => {
             let content = html::render::render_html(input);
             print!("{}", content);

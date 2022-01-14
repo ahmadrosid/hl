@@ -1,0 +1,23 @@
+constant:
+  TRUE: "True"
+  FALSE: "False"
+
+keyword:
+  import: import
+  type: type
+  case: case
+  do: do
+  of: of
+  if: if
+  then: then
+  else: else
+  let: let
+  in: in
+  module: module
+  where: where
+
+condition:
+  ACCEPT_STRING_DOUBLE_QUOTE: true
+  ACCEPT_ENTITY_TAG_SUFFIX: "is_digit(self.ch)"
+  BREAK_ENTITY_TAG_SUFFIX: "!is_digit(self.ch) && !is_letter(self.ch)"
+  PREFIX_ONE_LINE_COMMENT: "--"
