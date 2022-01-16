@@ -563,10 +563,6 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
     }
 
     for (_k, ch) in get_entity_suffix(h) {
-        // module.push_tabln(8, &format!("if self.ch == '{}' {{", v.as_str().unwrap()));
-        // module.push_tabln(9, "return token::Token::ENTITY(identifier)");
-        // module.push_tabln(8, "}");
-
         module.push_tabln(8, &format!("if self.ch == '{}' {{", ch.as_str().unwrap()));
         module.push_tabln(9, "return token::Token::ENTITY(identifier);");
         module.push_tabln(8, "} else if is_white_space(self.ch) {");
