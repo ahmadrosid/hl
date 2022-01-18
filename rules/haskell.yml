@@ -1,3 +1,5 @@
+bracket_dash_comment: true
+
 constant:
   TRUE: "True"
   FALSE: "False"

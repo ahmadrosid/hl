@@ -69,6 +69,25 @@ impl Lexer {
         };
 
         let tok: token::Token;
+        if self.ch == '{' {
+            let next_ch = self.input[self.position + 1];
+            if self.position + 1 < self.input.len() && next_ch == '-' {
+                let mut comment = vec!['{','-'];
+                self.read_char();
+                self.read_char();
+                let last_position = self.position;
+                while self.position < self.input.len() {
+                    if self.read_position <= self.input.len() && self.ch == '-' && self.input[self.read_position] == '}' {
+                        break;
+                    }
+                    self.read_char();
+                }
+                self.read_char();
+                self.read_char();
+                comment.append(&mut self.input[last_position..self.position].to_vec());
+                return token::Token::COMMENT(comment);
+            }
+        }
         if self.read_position < self.input.len() && self.ch == '-' && self.input[self.read_position] == '-' {
             return token::Token::COMMENT(read_string(self, '\n'));
         }
