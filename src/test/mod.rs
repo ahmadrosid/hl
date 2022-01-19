@@ -44,6 +44,14 @@ fn test_css() {
 }
 
 #[test]
+fn test_cuda() {
+    let input = read_input("src/test/testdata/input/cuda.cu.stub");
+    let expected = read_file("src/test/testdata/output/cuda.html.stub");
+    let actual = cuda::render::render_html(input);
+    assert_eq!(expected, actual);
+}
+
+#[test]
 fn test_edn() {
     let input = read_input("src/test/testdata/input/edn.edn.stub");
     let expected = read_file("src/test/testdata/output/edn.html.stub");

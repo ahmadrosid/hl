@@ -1,0 +1,69 @@
+slash_comment: true
+slash_star_comment: true
+
+constant:
+  TRUE: "true"
+  FALSE: "false"
+  NULL: "NULL"
+  SizeT: "size_t"
+
+single_constant:
+  - "<"
+  - ">"
+
+entity_suffix:
+  left_brace: "("
+
+keyword:
+  asm: "asm"
+  const: "const"
+  char: "char"
+  case: "case"
+  catch: "catch"
+  continue: "continue"
+  do: "do"
+  default: "default"
+  define: "define"
+  delete: "delete"
+  double: "double"
+  else: "else"
+  extern: "extern"
+  enum: "enum"
+  float: "float"
+  goto: "goto"
+  for: "for"
+  if: "if"
+  ifdef: "ifdef"
+  ifndef: "ifndef"
+  endif: "endif"
+  long: "long"
+  return: "return"
+  int: "int"
+  include: "include"
+  inline : "inline"
+  namespace: "namespace"
+  unsigned: "unsigned"
+  union: "union"
+  using: "using"
+  break: "break"
+  void: "void"
+  volatile: "volatile"
+  register: "register"
+  signed: "signed"
+  static: "static"
+  struct: "struct"
+  sizeof: "sizeof"
+  short: "short"
+  switch: "switch"
+  typedef: "typedef"
+  try: "try"
+  throw: "throw"
+  while: "while"
+
+condition:
+  ACCEPT_ESCAPED_STRING: true
+  ACCEPT_STRING_ONE_QUOTE: true
+  ACCEPT_STRING_DOUBLE_QUOTE: true
+  ACCEPT_ENTITY_TAG_SUFFIX: "is_digit(self.ch)"
+  BREAK_ENTITY_TAG_SUFFIX: "!is_digit(self.ch) && !is_letter(self.ch)"
+  ACCEPT_HEXADECIMAL_NUMBER: true

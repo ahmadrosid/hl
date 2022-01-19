@@ -1,0 +1,245 @@
+<table class="highlight-table">
+<tbody>
+<tr><td class="hl-num" data-line="1"></td><td><span class="hl-cmt">/*</span></td></tr>
+<tr><td class="hl-num" data-line="2"></td><td><span class="hl-cmt"> * Copyright (c) 2020-2022, NVIDIA CORPORATION.  All rights reserved.</span></td></tr>
+<tr><td class="hl-num" data-line="3"></td><td><span class="hl-cmt"> *</span></td></tr>
+<tr><td class="hl-num" data-line="4"></td><td><span class="hl-cmt"> * NVIDIA CORPORATION and its licensors retain all intellectual property</span></td></tr>
+<tr><td class="hl-num" data-line="5"></td><td><span class="hl-cmt"> * and proprietary rights in and to this software, related documentation</span></td></tr>
+<tr><td class="hl-num" data-line="6"></td><td><span class="hl-cmt"> * and any modifications thereto.  Any use, reproduction, disclosure or</span></td></tr>
+<tr><td class="hl-num" data-line="7"></td><td><span class="hl-cmt"> * distribution of this software and related documentation without an express</span></td></tr>
+<tr><td class="hl-num" data-line="8"></td><td><span class="hl-cmt"> * license agreement from NVIDIA CORPORATION is strictly prohibited.</span></td></tr>
+<tr><td class="hl-num" data-line="9"></td><td><span class="hl-cmt"> */</span></td></tr>
+<tr><td class="hl-num" data-line="10"></td><td></td></tr>
+<tr><td class="hl-num" data-line="11"></td><td><span class="hl-cmt">/** @file   main.cu</span></td></tr>
+<tr><td class="hl-num" data-line="12"></td><td><span class="hl-cmt"> *  @author Thomas MÃ¼ller, NVIDIA</span></td></tr>
+<tr><td class="hl-num" data-line="13"></td><td><span class="hl-cmt"> */</span></td></tr>
+<tr><td class="hl-num" data-line="14"></td><td></td></tr>
+<tr><td class="hl-num" data-line="15"></td><td></td></tr>
+<tr><td class="hl-num" data-line="16"></td><td>#<span class="hl-k">include</span> <span class="hl-s">&lt;</span>neural-graphics-primitives/testbed.h<span class="hl-s">&gt;</span></td></tr>
+<tr><td class="hl-num" data-line="17"></td><td></td></tr>
+<tr><td class="hl-num" data-line="18"></td><td>#<span class="hl-k">include</span> <span class="hl-s">&lt;</span>tiny-cuda-nn/common.h<span class="hl-s">&gt;</span></td></tr>
+<tr><td class="hl-num" data-line="19"></td><td></td></tr>
+<tr><td class="hl-num" data-line="20"></td><td>#<span class="hl-k">include</span> <span class="hl-s">&lt;</span>args/args.hxx<span class="hl-s">&gt;</span></td></tr>
+<tr><td class="hl-num" data-line="21"></td><td></td></tr>
+<tr><td class="hl-num" data-line="22"></td><td>#<span class="hl-k">include</span> <span class="hl-s">&lt;</span>filesystem/path.h<span class="hl-s">&gt;</span></td></tr>
+<tr><td class="hl-num" data-line="23"></td><td></td></tr>
+<tr><td class="hl-num" data-line="24"></td><td></td></tr>
+<tr><td class="hl-num" data-line="25"></td><td><span class="hl-k">namespace</span> fs = filesystem;</td></tr>
+<tr><td class="hl-num" data-line="26"></td><td></td></tr>
+<tr><td class="hl-num" data-line="27"></td><td><span class="hl-k">using</span> <span class="hl-k">namespace</span> args;</td></tr>
+<tr><td class="hl-num" data-line="28"></td><td><span class="hl-k">using</span> <span class="hl-k">namespace</span> ngp;</td></tr>
+<tr><td class="hl-num" data-line="29"></td><td><span class="hl-k">using</span> <span class="hl-k">namespace</span> std;</td></tr>
+<tr><td class="hl-num" data-line="30"></td><td><span class="hl-k">using</span> <span class="hl-k">namespace</span> tcnn;</td></tr>
+<tr><td class="hl-num" data-line="31"></td><td></td></tr>
+<tr><td class="hl-num" data-line="32"></td><td><span class="hl-k">int</span> <span class="hl-en">main</span>(<span class="hl-k">int</span> argc, <span class="hl-k">char</span>** argv) {</td></tr>
+<tr><td class="hl-num" data-line="33"></td><td>	ArgumentParser parser{</td></tr>
+<tr><td class="hl-num" data-line="34"></td><td>		<span class="hl-s">"neural graphics primitives\n"</span></td></tr>
+<tr><td class="hl-num" data-line="35"></td><td>		<span class="hl-s">"version "</span> NGP_VERSION,</td></tr>
+<tr><td class="hl-num" data-line="36"></td><td>		<span class="hl-s">""</span>,</td></tr>
+<tr><td class="hl-num" data-line="37"></td><td>	};</td></tr>
+<tr><td class="hl-num" data-line="38"></td><td></td></tr>
+<tr><td class="hl-num" data-line="39"></td><td>	HelpFlag help_flag{</td></tr>
+<tr><td class="hl-num" data-line="40"></td><td>		parser,</td></tr>
+<tr><td class="hl-num" data-line="41"></td><td>		<span class="hl-s">"HELP"</span>,</td></tr>
+<tr><td class="hl-num" data-line="42"></td><td>		<span class="hl-s">"Display this help menu."</span>,</td></tr>
+<tr><td class="hl-num" data-line="43"></td><td>		{<span class="hl-s">'h'</span>, <span class="hl-s">"help"</span>},</td></tr>
+<tr><td class="hl-num" data-line="44"></td><td>	};</td></tr>
+<tr><td class="hl-num" data-line="45"></td><td></td></tr>
+<tr><td class="hl-num" data-line="46"></td><td>	ValueFlag<span class="hl-s">&lt;</span>string<span class="hl-s">&gt;</span> mode_flag{</td></tr>
+<tr><td class="hl-num" data-line="47"></td><td>		parser,</td></tr>
+<tr><td class="hl-num" data-line="48"></td><td>		<span class="hl-s">"MODE"</span>,</td></tr>
+<tr><td class="hl-num" data-line="49"></td><td>		<span class="hl-s">"Mode can be 'nerf', 'sdf', or 'image' or 'volume'. Inferred from the scene if unspecified."</span>,</td></tr>
+<tr><td class="hl-num" data-line="50"></td><td>		{<span class="hl-s">'m'</span>, <span class="hl-s">"mode"</span>},</td></tr>
+<tr><td class="hl-num" data-line="51"></td><td>	};</td></tr>
+<tr><td class="hl-num" data-line="52"></td><td></td></tr>
+<tr><td class="hl-num" data-line="53"></td><td>	ValueFlag<span class="hl-s">&lt;</span>string<span class="hl-s">&gt;</span> network_config_flag{</td></tr>
+<tr><td class="hl-num" data-line="54"></td><td>		parser,</td></tr>
+<tr><td class="hl-num" data-line="55"></td><td>		<span class="hl-s">"CONFIG"</span>,</td></tr>
+<tr><td class="hl-num" data-line="56"></td><td>		<span class="hl-s">"Path to the network config. Uses the scene's default if unspecified."</span>,</td></tr>
+<tr><td class="hl-num" data-line="57"></td><td>		{<span class="hl-s">'n'</span>, <span class="hl-s">'c'</span>, <span class="hl-s">"network"</span>, <span class="hl-s">"config"</span>},</td></tr>
+<tr><td class="hl-num" data-line="58"></td><td>	};</td></tr>
+<tr><td class="hl-num" data-line="59"></td><td></td></tr>
+<tr><td class="hl-num" data-line="60"></td><td>	Flag no_gui_flag{</td></tr>
+<tr><td class="hl-num" data-line="61"></td><td>		parser,</td></tr>
+<tr><td class="hl-num" data-line="62"></td><td>		<span class="hl-s">"NO_GUI"</span>,</td></tr>
+<tr><td class="hl-num" data-line="63"></td><td>		<span class="hl-s">"Disables the GUI and instead reports training progress on the command line."</span>,</td></tr>
+<tr><td class="hl-num" data-line="64"></td><td>		{<span class="hl-s">"no_gui"</span>},</td></tr>
+<tr><td class="hl-num" data-line="65"></td><td>	};</td></tr>
+<tr><td class="hl-num" data-line="66"></td><td></td></tr>
+<tr><td class="hl-num" data-line="67"></td><td>	Flag no_train_flag{</td></tr>
+<tr><td class="hl-num" data-line="68"></td><td>		parser,</td></tr>
+<tr><td class="hl-num" data-line="69"></td><td>		<span class="hl-s">"NO_TRAIN"</span>,</td></tr>
+<tr><td class="hl-num" data-line="70"></td><td>		<span class="hl-s">"Disables training on startup."</span>,</td></tr>
+<tr><td class="hl-num" data-line="71"></td><td>		{<span class="hl-s">"no_train"</span>},</td></tr>
+<tr><td class="hl-num" data-line="72"></td><td>	};</td></tr>
+<tr><td class="hl-num" data-line="73"></td><td></td></tr>
+<tr><td class="hl-num" data-line="74"></td><td>	ValueFlag<span class="hl-s">&lt;</span>string<span class="hl-s">&gt;</span> scene_flag{</td></tr>
+<tr><td class="hl-num" data-line="75"></td><td>		parser,</td></tr>
+<tr><td class="hl-num" data-line="76"></td><td>		<span class="hl-s">"SCENE"</span>,</td></tr>
+<tr><td class="hl-num" data-line="77"></td><td>		<span class="hl-s">"The scene to load. Can be NeRF dataset, a *.obj mesh for training a SDF, an image, or a *.nvdb volume."</span>,</td></tr>
+<tr><td class="hl-num" data-line="78"></td><td>		{<span class="hl-s">'s'</span>, <span class="hl-s">"scene"</span>},</td></tr>
+<tr><td class="hl-num" data-line="79"></td><td>	};</td></tr>
+<tr><td class="hl-num" data-line="80"></td><td></td></tr>
+<tr><td class="hl-num" data-line="81"></td><td>	ValueFlag<span class="hl-s">&lt;</span>string<span class="hl-s">&gt;</span> snapshot_flag{</td></tr>
+<tr><td class="hl-num" data-line="82"></td><td>		parser,</td></tr>
+<tr><td class="hl-num" data-line="83"></td><td>		<span class="hl-s">"SNAPSHOT"</span>,</td></tr>
+<tr><td class="hl-num" data-line="84"></td><td>		<span class="hl-s">"Optional snapshot to load upon startup."</span>,</td></tr>
+<tr><td class="hl-num" data-line="85"></td><td>		{<span class="hl-s">"snapshot"</span>},</td></tr>
+<tr><td class="hl-num" data-line="86"></td><td>	};</td></tr>
+<tr><td class="hl-num" data-line="87"></td><td></td></tr>
+<tr><td class="hl-num" data-line="88"></td><td>	ValueFlag<span class="hl-s">&lt;</span>uint32_t<span class="hl-s">&gt;</span> width_flag{</td></tr>
+<tr><td class="hl-num" data-line="89"></td><td>		parser,</td></tr>
+<tr><td class="hl-num" data-line="90"></td><td>		<span class="hl-s">"WIDTH"</span>,</td></tr>
+<tr><td class="hl-num" data-line="91"></td><td>		<span class="hl-s">"Resolution width of the GUI."</span>,</td></tr>
+<tr><td class="hl-num" data-line="92"></td><td>		{<span class="hl-s">"width"</span>},</td></tr>
+<tr><td class="hl-num" data-line="93"></td><td>	};</td></tr>
+<tr><td class="hl-num" data-line="94"></td><td></td></tr>
+<tr><td class="hl-num" data-line="95"></td><td>	ValueFlag<span class="hl-s">&lt;</span>uint32_t<span class="hl-s">&gt;</span> height_flag{</td></tr>
+<tr><td class="hl-num" data-line="96"></td><td>		parser,</td></tr>
+<tr><td class="hl-num" data-line="97"></td><td>		<span class="hl-s">"HEIGHT"</span>,</td></tr>
+<tr><td class="hl-num" data-line="98"></td><td>		<span class="hl-s">"Resolution height of the GUI."</span>,</td></tr>
+<tr><td class="hl-num" data-line="99"></td><td>		{<span class="hl-s">"height"</span>},</td></tr>
+<tr><td class="hl-num" data-line="100"></td><td>	};</td></tr>
+<tr><td class="hl-num" data-line="101"></td><td></td></tr>
+<tr><td class="hl-num" data-line="102"></td><td>	Flag version_flag{</td></tr>
+<tr><td class="hl-num" data-line="103"></td><td>		parser,</td></tr>
+<tr><td class="hl-num" data-line="104"></td><td>		<span class="hl-s">"VERSION"</span>,</td></tr>
+<tr><td class="hl-num" data-line="105"></td><td>		<span class="hl-s">"Display the version of neural graphics primitives."</span>,</td></tr>
+<tr><td class="hl-num" data-line="106"></td><td>		{<span class="hl-s">'v'</span>, <span class="hl-s">"version"</span>},</td></tr>
+<tr><td class="hl-num" data-line="107"></td><td>	};</td></tr>
+<tr><td class="hl-num" data-line="108"></td><td></td></tr>
+<tr><td class="hl-num" data-line="109"></td><td>	<span class="hl-cmt">// Parse command line arguments and react to parsing</span></td></tr>
+<tr><td class="hl-num" data-line="110"></td><td>	<span class="hl-cmt">// errors using exceptions.</span></td></tr>
+<tr><td class="hl-num" data-line="111"></td><td>	<span class="hl-k">try</span> {</td></tr>
+<tr><td class="hl-num" data-line="112"></td><td>		parser.<span class="hl-en">ParseCLI</span>(argc, argv);</td></tr>
+<tr><td class="hl-num" data-line="113"></td><td>	} <span class="hl-k">catch</span> (<span class="hl-k">const</span> Help&) {</td></tr>
+<tr><td class="hl-num" data-line="114"></td><td>		cout <span class="hl-s">&lt;</span><span class="hl-s">&lt;</span> parser;</td></tr>
+<tr><td class="hl-num" data-line="115"></td><td>		<span class="hl-k">return</span> <span class="hl-c">0</span>;</td></tr>
+<tr><td class="hl-num" data-line="116"></td><td>	} <span class="hl-k">catch</span> (<span class="hl-k">const</span> ParseError& e) {</td></tr>
+<tr><td class="hl-num" data-line="117"></td><td>		cerr <span class="hl-s">&lt;</span><span class="hl-s">&lt;</span> e.<span class="hl-en">what</span>() <span class="hl-s">&lt;</span><span class="hl-s">&lt;</span> endl;</td></tr>
+<tr><td class="hl-num" data-line="118"></td><td>		cerr <span class="hl-s">&lt;</span><span class="hl-s">&lt;</span> parser;</td></tr>
+<tr><td class="hl-num" data-line="119"></td><td>		<span class="hl-k">return</span> -<span class="hl-c">1</span>;</td></tr>
+<tr><td class="hl-num" data-line="120"></td><td>	} <span class="hl-k">catch</span> (<span class="hl-k">const</span> ValidationError& e) {</td></tr>
+<tr><td class="hl-num" data-line="121"></td><td>		cerr <span class="hl-s">&lt;</span><span class="hl-s">&lt;</span> e.<span class="hl-en">what</span>() <span class="hl-s">&lt;</span><span class="hl-s">&lt;</span> endl;</td></tr>
+<tr><td class="hl-num" data-line="122"></td><td>		cerr <span class="hl-s">&lt;</span><span class="hl-s">&lt;</span> parser;</td></tr>
+<tr><td class="hl-num" data-line="123"></td><td>		<span class="hl-k">return</span> -<span class="hl-c">2</span>;</td></tr>
+<tr><td class="hl-num" data-line="124"></td><td>	}</td></tr>
+<tr><td class="hl-num" data-line="125"></td><td></td></tr>
+<tr><td class="hl-num" data-line="126"></td><td>	<span class="hl-k">if</span> (version_flag) {</td></tr>
+<tr><td class="hl-num" data-line="127"></td><td>		tlog::<span class="hl-en">none</span>() <span class="hl-s">&lt;</span><span class="hl-s">&lt;</span> <span class="hl-s">"neural graphics primitives version "</span> NGP_VERSION;</td></tr>
+<tr><td class="hl-num" data-line="128"></td><td>		<span class="hl-k">return</span> <span class="hl-c">0</span>;</td></tr>
+<tr><td class="hl-num" data-line="129"></td><td>	}</td></tr>
+<tr><td class="hl-num" data-line="130"></td><td></td></tr>
+<tr><td class="hl-num" data-line="131"></td><td>	<span class="hl-k">try</span> {</td></tr>
+<tr><td class="hl-num" data-line="132"></td><td>		ETestbedMode mode;</td></tr>
+<tr><td class="hl-num" data-line="133"></td><td>		<span class="hl-k">if</span> (!mode_flag) {</td></tr>
+<tr><td class="hl-num" data-line="134"></td><td>			<span class="hl-k">if</span> (!scene_flag) {</td></tr>
+<tr><td class="hl-num" data-line="135"></td><td>				tlog::<span class="hl-en">error</span>() <span class="hl-s">&lt;</span><span class="hl-s">&lt;</span> <span class="hl-s">"Must specify either a mode or a scene"</span>;</td></tr>
+<tr><td class="hl-num" data-line="136"></td><td>				<span class="hl-k">return</span> <span class="hl-c">1</span>;</td></tr>
+<tr><td class="hl-num" data-line="137"></td><td>			}</td></tr>
+<tr><td class="hl-num" data-line="138"></td><td></td></tr>
+<tr><td class="hl-num" data-line="139"></td><td>			fs::path scene_path = <span class="hl-en">get</span>(scene_flag);</td></tr>
+<tr><td class="hl-num" data-line="140"></td><td>			<span class="hl-k">if</span> (!scene_path.<span class="hl-en">exists</span>()) {</td></tr>
+<tr><td class="hl-num" data-line="141"></td><td>				tlog::<span class="hl-en">error</span>() <span class="hl-s">&lt;</span><span class="hl-s">&lt;</span> <span class="hl-s">"Scene path "</span> <span class="hl-s">&lt;</span><span class="hl-s">&lt;</span> scene_path <span class="hl-s">&lt;</span><span class="hl-s">&lt;</span> <span class="hl-s">" does not exist."</span>;</td></tr>
+<tr><td class="hl-num" data-line="142"></td><td>				<span class="hl-k">return</span> <span class="hl-c">1</span>;</td></tr>
+<tr><td class="hl-num" data-line="143"></td><td>			}</td></tr>
+<tr><td class="hl-num" data-line="144"></td><td></td></tr>
+<tr><td class="hl-num" data-line="145"></td><td>			<span class="hl-k">if</span> (scene_path.<span class="hl-en">is_directory</span>() || <span class="hl-en">equals_case_insensitive</span>(scene_path.<span class="hl-en">extension</span>(), <span class="hl-s">"json"</span>)) {</td></tr>
+<tr><td class="hl-num" data-line="146"></td><td>				mode = ETestbedMode::Nerf;</td></tr>
+<tr><td class="hl-num" data-line="147"></td><td>			} <span class="hl-k">else</span> <span class="hl-k">if</span> (<span class="hl-en">equals_case_insensitive</span>(scene_path.<span class="hl-en">extension</span>(), <span class="hl-s">"obj"</span>)) {</td></tr>
+<tr><td class="hl-num" data-line="148"></td><td>				mode = ETestbedMode::Sdf;</td></tr>
+<tr><td class="hl-num" data-line="149"></td><td>			} <span class="hl-k">else</span> <span class="hl-k">if</span> (<span class="hl-en">equals_case_insensitive</span>(scene_path.<span class="hl-en">extension</span>(), <span class="hl-s">"nvdb"</span>)) {</td></tr>
+<tr><td class="hl-num" data-line="150"></td><td>				mode = ETestbedMode::Volume;</td></tr>
+<tr><td class="hl-num" data-line="151"></td><td>			} <span class="hl-k">else</span> {</td></tr>
+<tr><td class="hl-num" data-line="152"></td><td>				mode = ETestbedMode::Image;</td></tr>
+<tr><td class="hl-num" data-line="153"></td><td>			}</td></tr>
+<tr><td class="hl-num" data-line="154"></td><td>		} <span class="hl-k">else</span> {</td></tr>
+<tr><td class="hl-num" data-line="155"></td><td>			auto mode_str = <span class="hl-en">get</span>(mode_flag);</td></tr>
+<tr><td class="hl-num" data-line="156"></td><td>			<span class="hl-k">if</span> (<span class="hl-en">equals_case_insensitive</span>(mode_str, <span class="hl-s">"nerf"</span>)) {</td></tr>
+<tr><td class="hl-num" data-line="157"></td><td>				mode = ETestbedMode::Nerf;</td></tr>
+<tr><td class="hl-num" data-line="158"></td><td>			} <span class="hl-k">else</span> <span class="hl-k">if</span> (<span class="hl-en">equals_case_insensitive</span>(mode_str, <span class="hl-s">"sdf"</span>)) {</td></tr>
+<tr><td class="hl-num" data-line="159"></td><td>				mode = ETestbedMode::Sdf;</td></tr>
+<tr><td class="hl-num" data-line="160"></td><td>			} <span class="hl-k">else</span> <span class="hl-k">if</span> (<span class="hl-en">equals_case_insensitive</span>(mode_str, <span class="hl-s">"image"</span>)) {</td></tr>
+<tr><td class="hl-num" data-line="161"></td><td>				mode = ETestbedMode::Image;</td></tr>
+<tr><td class="hl-num" data-line="162"></td><td>			} <span class="hl-k">else</span> <span class="hl-k">if</span> (<span class="hl-en">equals_case_insensitive</span>(mode_str, <span class="hl-s">"volume"</span>)) {</td></tr>
+<tr><td class="hl-num" data-line="163"></td><td>				mode = ETestbedMode::Volume;</td></tr>
+<tr><td class="hl-num" data-line="164"></td><td>			} <span class="hl-k">else</span> {</td></tr>
+<tr><td class="hl-num" data-line="165"></td><td>				tlog::<span class="hl-en">error</span>() <span class="hl-s">&lt;</span><span class="hl-s">&lt;</span> <span class="hl-s">"Mode must be one of 'nerf', 'sdf', 'image', and 'volume'."</span>;</td></tr>
+<tr><td class="hl-num" data-line="166"></td><td>				<span class="hl-k">return</span> <span class="hl-c">1</span>;</td></tr>
+<tr><td class="hl-num" data-line="167"></td><td>			}</td></tr>
+<tr><td class="hl-num" data-line="168"></td><td>		}</td></tr>
+<tr><td class="hl-num" data-line="169"></td><td></td></tr>
+<tr><td class="hl-num" data-line="170"></td><td>		Testbed testbed{mode};</td></tr>
+<tr><td class="hl-num" data-line="171"></td><td></td></tr>
+<tr><td class="hl-num" data-line="172"></td><td>		<span class="hl-k">if</span> (scene_flag) {</td></tr>
+<tr><td class="hl-num" data-line="173"></td><td>			fs::path scene_path = <span class="hl-en">get</span>(scene_flag);</td></tr>
+<tr><td class="hl-num" data-line="174"></td><td>			<span class="hl-k">if</span> (!scene_path.<span class="hl-en">exists</span>()) {</td></tr>
+<tr><td class="hl-num" data-line="175"></td><td>				tlog::<span class="hl-en">error</span>() <span class="hl-s">&lt;</span><span class="hl-s">&lt;</span> <span class="hl-s">"Scene path "</span> <span class="hl-s">&lt;</span><span class="hl-s">&lt;</span> scene_path <span class="hl-s">&lt;</span><span class="hl-s">&lt;</span> <span class="hl-s">" does not exist."</span>;</td></tr>
+<tr><td class="hl-num" data-line="176"></td><td>				<span class="hl-k">return</span> <span class="hl-c">1</span>;</td></tr>
+<tr><td class="hl-num" data-line="177"></td><td>			}</td></tr>
+<tr><td class="hl-num" data-line="178"></td><td>			testbed.<span class="hl-en">load_training_data</span>(scene_path.<span class="hl-en">str</span>());</td></tr>
+<tr><td class="hl-num" data-line="179"></td><td>		}</td></tr>
+<tr><td class="hl-num" data-line="180"></td><td></td></tr>
+<tr><td class="hl-num" data-line="181"></td><td>		std::string mode_str;</td></tr>
+<tr><td class="hl-num" data-line="182"></td><td>		<span class="hl-k">switch</span> (mode) {</td></tr>
+<tr><td class="hl-num" data-line="183"></td><td>			<span class="hl-k">case</span> ETestbedMode::Nerf:   mode_str = <span class="hl-s">"nerf"</span>;   <span class="hl-k">break</span>;</td></tr>
+<tr><td class="hl-num" data-line="184"></td><td>			<span class="hl-k">case</span> ETestbedMode::Sdf:    mode_str = <span class="hl-s">"sdf"</span>;    <span class="hl-k">break</span>;</td></tr>
+<tr><td class="hl-num" data-line="185"></td><td>			<span class="hl-k">case</span> ETestbedMode::Image:  mode_str = <span class="hl-s">"image"</span>;  <span class="hl-k">break</span>;</td></tr>
+<tr><td class="hl-num" data-line="186"></td><td>			<span class="hl-k">case</span> ETestbedMode::Volume: mode_str = <span class="hl-s">"volume"</span>; <span class="hl-k">break</span>;</td></tr>
+<tr><td class="hl-num" data-line="187"></td><td>		}</td></tr>
+<tr><td class="hl-num" data-line="188"></td><td></td></tr>
+<tr><td class="hl-num" data-line="189"></td><td>		<span class="hl-k">if</span> (snapshot_flag) {</td></tr>
+<tr><td class="hl-num" data-line="190"></td><td>			<span class="hl-cmt">// Load network from a snapshot if one is provided</span></td></tr>
+<tr><td class="hl-num" data-line="191"></td><td>			fs::path snapshot_path = <span class="hl-en">get</span>(snapshot_flag);</td></tr>
+<tr><td class="hl-num" data-line="192"></td><td>			<span class="hl-k">if</span> (!snapshot_path.<span class="hl-en">exists</span>()) {</td></tr>
+<tr><td class="hl-num" data-line="193"></td><td>				tlog::<span class="hl-en">error</span>() <span class="hl-s">&lt;</span><span class="hl-s">&lt;</span> <span class="hl-s">"Snapshot path "</span> <span class="hl-s">&lt;</span><span class="hl-s">&lt;</span> snapshot_path <span class="hl-s">&lt;</span><span class="hl-s">&lt;</span> <span class="hl-s">" does not exist."</span>;</td></tr>
+<tr><td class="hl-num" data-line="194"></td><td>				<span class="hl-k">return</span> <span class="hl-c">1</span>;</td></tr>
+<tr><td class="hl-num" data-line="195"></td><td>			}</td></tr>
+<tr><td class="hl-num" data-line="196"></td><td></td></tr>
+<tr><td class="hl-num" data-line="197"></td><td>			testbed.<span class="hl-en">load_snapshot</span>(snapshot_path.<span class="hl-en">str</span>());</td></tr>
+<tr><td class="hl-num" data-line="198"></td><td>			testbed.m_train = <span class="hl-c">false</span>;</td></tr>
+<tr><td class="hl-num" data-line="199"></td><td>		} <span class="hl-k">else</span> {</td></tr>
+<tr><td class="hl-num" data-line="200"></td><td>			<span class="hl-cmt">// Otherwise, load the network config and prepare for training</span></td></tr>
+<tr><td class="hl-num" data-line="201"></td><td>			fs::path network_config_path = fs::path{<span class="hl-s">"configs"</span>}/mode_str;</td></tr>
+<tr><td class="hl-num" data-line="202"></td><td>			<span class="hl-k">if</span> (network_config_flag) {</td></tr>
+<tr><td class="hl-num" data-line="203"></td><td>				auto network_config_str = <span class="hl-en">get</span>(network_config_flag);</td></tr>
+<tr><td class="hl-num" data-line="204"></td><td>				<span class="hl-k">if</span> ((network_config_path/network_config_str).<span class="hl-en">exists</span>()) {</td></tr>
+<tr><td class="hl-num" data-line="205"></td><td>					network_config_path = network_config_path/network_config_str;</td></tr>
+<tr><td class="hl-num" data-line="206"></td><td>				} <span class="hl-k">else</span> {</td></tr>
+<tr><td class="hl-num" data-line="207"></td><td>					network_config_path = network_config_str;</td></tr>
+<tr><td class="hl-num" data-line="208"></td><td>				}</td></tr>
+<tr><td class="hl-num" data-line="209"></td><td>			} <span class="hl-k">else</span> {</td></tr>
+<tr><td class="hl-num" data-line="210"></td><td>				network_config_path = network_config_path/<span class="hl-s">"base.json"</span>;</td></tr>
+<tr><td class="hl-num" data-line="211"></td><td>			}</td></tr>
+<tr><td class="hl-num" data-line="212"></td><td></td></tr>
+<tr><td class="hl-num" data-line="213"></td><td>			<span class="hl-k">if</span> (!network_config_path.<span class="hl-en">exists</span>()) {</td></tr>
+<tr><td class="hl-num" data-line="214"></td><td>				tlog::<span class="hl-en">error</span>() <span class="hl-s">&lt;</span><span class="hl-s">&lt;</span> <span class="hl-s">"Network config path "</span> <span class="hl-s">&lt;</span><span class="hl-s">&lt;</span> network_config_path <span class="hl-s">&lt;</span><span class="hl-s">&lt;</span> <span class="hl-s">" does not exist."</span>;</td></tr>
+<tr><td class="hl-num" data-line="215"></td><td>				<span class="hl-k">return</span> <span class="hl-c">1</span>;</td></tr>
+<tr><td class="hl-num" data-line="216"></td><td>			}</td></tr>
+<tr><td class="hl-num" data-line="217"></td><td></td></tr>
+<tr><td class="hl-num" data-line="218"></td><td>			testbed.<span class="hl-en">reload_network_from_file</span>(network_config_path.<span class="hl-en">str</span>());</td></tr>
+<tr><td class="hl-num" data-line="219"></td><td>			testbed.m_train = !no_train_flag;</td></tr>
+<tr><td class="hl-num" data-line="220"></td><td>		}</td></tr>
+<tr><td class="hl-num" data-line="221"></td><td></td></tr>
+<tr><td class="hl-num" data-line="222"></td><td>		bool gui = !no_gui_flag;</td></tr>
+<tr><td class="hl-num" data-line="223"></td><td>#<span class="hl-k">ifndef</span> NGP_GUI</td></tr>
+<tr><td class="hl-num" data-line="224"></td><td>		gui = <span class="hl-c">false</span>;</td></tr>
+<tr><td class="hl-num" data-line="225"></td><td>#<span class="hl-k">endif</span></td></tr>
+<tr><td class="hl-num" data-line="226"></td><td></td></tr>
+<tr><td class="hl-num" data-line="227"></td><td>		<span class="hl-k">if</span> (gui) {</td></tr>
+<tr><td class="hl-num" data-line="228"></td><td>			testbed.<span class="hl-en">init_window</span>(width_flag ? <span class="hl-en">get</span>(width_flag) : <span class="hl-c">1920</span>, height_flag ? <span class="hl-en">get</span>(height_flag) : <span class="hl-c">1080</span>);</td></tr>
+<tr><td class="hl-num" data-line="229"></td><td>		}</td></tr>
+<tr><td class="hl-num" data-line="230"></td><td></td></tr>
+<tr><td class="hl-num" data-line="231"></td><td>		<span class="hl-cmt">// Render/training loop</span></td></tr>
+<tr><td class="hl-num" data-line="232"></td><td>		<span class="hl-k">while</span> (testbed.<span class="hl-en">frame</span>()) {</td></tr>
+<tr><td class="hl-num" data-line="233"></td><td>			<span class="hl-k">if</span> (!gui) {</td></tr>
+<tr><td class="hl-num" data-line="234"></td><td>				tlog::<span class="hl-en">info</span>() <span class="hl-s">&lt;</span><span class="hl-s">&lt;</span> <span class="hl-s">"iteration="</span> <span class="hl-s">&lt;</span><span class="hl-s">&lt;</span> testbed.m_training_step <span class="hl-s">&lt;</span><span class="hl-s">&lt;</span> <span class="hl-s">" loss="</span> <span class="hl-s">&lt;</span><span class="hl-s">&lt;</span> testbed.m_loss_scalar;</td></tr>
+<tr><td class="hl-num" data-line="235"></td><td>			}</td></tr>
+<tr><td class="hl-num" data-line="236"></td><td>		}</td></tr>
+<tr><td class="hl-num" data-line="237"></td><td>	} <span class="hl-k">catch</span> (<span class="hl-k">const</span> exception& e) {</td></tr>
+<tr><td class="hl-num" data-line="238"></td><td>		tlog::<span class="hl-en">error</span>() <span class="hl-s">&lt;</span><span class="hl-s">&lt;</span> <span class="hl-s">"Uncaught exception: "</span> <span class="hl-s">&lt;</span><span class="hl-s">&lt;</span> e.<span class="hl-en">what</span>();</td></tr>
+<tr><td class="hl-num" data-line="239"></td><td>		<span class="hl-k">return</span> <span class="hl-c">1</span>;</td></tr>
+<tr><td class="hl-num" data-line="240"></td><td>	}</td></tr>
+<tr><td class="hl-num" data-line="241"></td><td>}</td></tr>
+</tbody>
+</table>

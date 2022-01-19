@@ -58,6 +58,9 @@ fn main() {
         "css" => {
             print!("{}", css::render::render_html(input));
         }
+        "cuda" => {
+            print!("{}", cuda::render::render_html(input));
+        }
         "edn" => {
             print!("{}", edn::render::render_html(input));
         }
