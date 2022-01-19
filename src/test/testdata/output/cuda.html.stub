@@ -229,17 +229,18 @@
 <tr><td class="hl-num" data-line="227"></td><td>		<span class="hl-k">if</span> (gui) {</td></tr>
 <tr><td class="hl-num" data-line="228"></td><td>			testbed.<span class="hl-en">init_window</span>(width_flag ? <span class="hl-en">get</span>(width_flag) : <span class="hl-c">1920</span>, height_flag ? <span class="hl-en">get</span>(height_flag) : <span class="hl-c">1080</span>);</td></tr>
 <tr><td class="hl-num" data-line="229"></td><td>		}</td></tr>
-<tr><td class="hl-num" data-line="230"></td><td></td></tr>
-<tr><td class="hl-num" data-line="231"></td><td>		<span class="hl-cmt">// Render/training loop</span></td></tr>
-<tr><td class="hl-num" data-line="232"></td><td>		<span class="hl-k">while</span> (testbed.<span class="hl-en">frame</span>()) {</td></tr>
-<tr><td class="hl-num" data-line="233"></td><td>			<span class="hl-k">if</span> (!gui) {</td></tr>
-<tr><td class="hl-num" data-line="234"></td><td>				tlog::<span class="hl-en">info</span>() <span class="hl-s">&lt;</span><span class="hl-s">&lt;</span> <span class="hl-s">"iteration="</span> <span class="hl-s">&lt;</span><span class="hl-s">&lt;</span> testbed.m_training_step <span class="hl-s">&lt;</span><span class="hl-s">&lt;</span> <span class="hl-s">" loss="</span> <span class="hl-s">&lt;</span><span class="hl-s">&lt;</span> testbed.m_loss_scalar;</td></tr>
-<tr><td class="hl-num" data-line="235"></td><td>			}</td></tr>
-<tr><td class="hl-num" data-line="236"></td><td>		}</td></tr>
-<tr><td class="hl-num" data-line="237"></td><td>	} <span class="hl-k">catch</span> (<span class="hl-k">const</span> exception& e) {</td></tr>
-<tr><td class="hl-num" data-line="238"></td><td>		tlog::<span class="hl-en">error</span>() <span class="hl-s">&lt;</span><span class="hl-s">&lt;</span> <span class="hl-s">"Uncaught exception: "</span> <span class="hl-s">&lt;</span><span class="hl-s">&lt;</span> e.<span class="hl-en">what</span>();</td></tr>
-<tr><td class="hl-num" data-line="239"></td><td>		<span class="hl-k">return</span> <span class="hl-c">1</span>;</td></tr>
-<tr><td class="hl-num" data-line="240"></td><td>	}</td></tr>
-<tr><td class="hl-num" data-line="241"></td><td>}</td></tr>
+<tr><td class="hl-num" data-line="230"></td><td>		<span class="hl-en">visualize_nerf_camera</span>(world2proj, <span class="hl-en">eval_camera_path</span>(m_playtime).<span class="hl-en">m</span>(), aspect, <span class="hl-c">0xff80ff80</span>);</td></tr>
+<tr><td class="hl-num" data-line="231"></td><td></td></tr>
+<tr><td class="hl-num" data-line="232"></td><td>		<span class="hl-cmt">// Render/training loop</span></td></tr>
+<tr><td class="hl-num" data-line="233"></td><td>		<span class="hl-k">while</span> (testbed.<span class="hl-en">frame</span>()) {</td></tr>
+<tr><td class="hl-num" data-line="234"></td><td>			<span class="hl-k">if</span> (!gui) {</td></tr>
+<tr><td class="hl-num" data-line="235"></td><td>				tlog::<span class="hl-en">info</span>() <span class="hl-s">&lt;</span><span class="hl-s">&lt;</span> <span class="hl-s">"iteration="</span> <span class="hl-s">&lt;</span><span class="hl-s">&lt;</span> testbed.m_training_step <span class="hl-s">&lt;</span><span class="hl-s">&lt;</span> <span class="hl-s">" loss="</span> <span class="hl-s">&lt;</span><span class="hl-s">&lt;</span> testbed.m_loss_scalar;</td></tr>
+<tr><td class="hl-num" data-line="236"></td><td>			}</td></tr>
+<tr><td class="hl-num" data-line="237"></td><td>		}</td></tr>
+<tr><td class="hl-num" data-line="238"></td><td>	} <span class="hl-k">catch</span> (<span class="hl-k">const</span> exception& e) {</td></tr>
+<tr><td class="hl-num" data-line="239"></td><td>		tlog::<span class="hl-en">error</span>() <span class="hl-s">&lt;</span><span class="hl-s">&lt;</span> <span class="hl-s">"Uncaught exception: "</span> <span class="hl-s">&lt;</span><span class="hl-s">&lt;</span> e.<span class="hl-en">what</span>();</td></tr>
+<tr><td class="hl-num" data-line="240"></td><td>		<span class="hl-k">return</span> <span class="hl-c">1</span>;</td></tr>
+<tr><td class="hl-num" data-line="241"></td><td>	}</td></tr>
+<tr><td class="hl-num" data-line="242"></td><td>}</td></tr>
 </tbody>
 </table>
