@@ -86,10 +86,10 @@ impl Lexer {
                     if self.ch == '-' {
                         if self.input[self.position+1] == '-' {
                             if self.input[self.position+2] == '>' {
-                            self.read_char();
-                            self.read_char();
-                            self.read_char();
-                            break;
+                                self.read_char();
+                                self.read_char();
+                                self.read_char();
+                                break;
                             }
                         }
                     }

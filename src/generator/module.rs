@@ -790,10 +790,10 @@ fn write_handle_xml_comment() -> String {
     module.push_tabln(5, "if self.ch == '-' {");
     module.push_tabln(6, "if self.input[self.position+1] == '-' {");
     module.push_tabln(7, "if self.input[self.position+2] == '>' {");
-    module.push_tabln(7, "self.read_char();");
-    module.push_tabln(7, "self.read_char();");
-    module.push_tabln(7, "self.read_char();");
-    module.push_tabln(7, "break;");
+    module.push_tabln(8, "self.read_char();");
+    module.push_tabln(8, "self.read_char();");
+    module.push_tabln(8, "self.read_char();");
+    module.push_tabln(8, "break;");
     module.push_tabln(7, "}");
     module.push_tabln(6, "}");
     module.push_tabln(5, "}");
