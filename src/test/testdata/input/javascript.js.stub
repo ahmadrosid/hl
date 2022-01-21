@@ -1,4 +1,5 @@
 // No Copyright!
+const invariant = require('invariant');
 
 const obj = {
     name: 'Ahmad Rosid',

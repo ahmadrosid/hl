@@ -67,6 +67,7 @@ keyword:
 
 condition:
   ACCEPT_ESCAPED_STRING: true
+  ACCEPT_STRING_ONE_QUOTE: true
   ACCEPT_STRING_DOUBLE_QUOTE: true
   ACCEPT_ENTITY_SUFFIX: "is_digit(self.ch)"
   BREAK_ENTITY_SUFFIX: "self.ch == ' ' || self.ch == ':' || self.ch == ':' || self.ch == '(' || self.ch == '{' || self.ch == '\\n'"
