@@ -11,6 +11,11 @@ from plotly.io import to_json, to_image, write_image, write_html
 ipython_display = optional_imports.get_module("IPython.display")
 IPython = optional_imports.get_module("IPython")
 
+ERROR_MESSAGES = {
+    0x80004002: ("MAPI_E_INTERFACE_NO_SUPPORT"),
+    0x80004005: ("MAPI_E_CALL_FAILED"),
+}
+
 try:
     from http.server import BaseHTTPRequestHandler, HTTPServer
 except ImportError:

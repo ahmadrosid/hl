@@ -50,3 +50,4 @@ condition:
   RENDER_MULTI_LINE_STRING: true
   ACCEPT_ENTITY_TAG_SUFFIX: "is_digit(self.ch)"
   BREAK_ENTITY_TAG_SUFFIX: "!is_digit(self.ch) && !is_letter(self.ch)"
+  ACCEPT_HEXADECIMAL_NUMBER: true
