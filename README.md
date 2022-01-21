@@ -59,7 +59,7 @@ See the result in browser [here](https://play.tailwindcss.com/xFlm0rN1wH).
 - [x] CSS ( ✅ Done )
 - [x] CUDA ( ✅ Done )
 - [x] CPP ( ✅ Done )
-- [ ] C# ( 🚧 In Progress )
+- [x] C# ( ✅ Done )
 - [ ] Go ( 🚧 In Progress )
 - [ ] HTML ( 🚧 In Progress )
 - [ ] Rust ( 🚧 In Progress )
