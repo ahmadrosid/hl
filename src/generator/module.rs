@@ -1,8 +1,4 @@
-use crate::generator::{
-    bracket_dash_comment_enable, double_dash_comment_enable, get_double_keyword, get_entity_prefix,
-    get_entity_suffix, hashtag_comment_enable, slash_comment_enable, slash_star_comment_enable,
-    string::StringBuilder, xml_comment_enable, ConditionExt,
-};
+use crate::generator::{bracket_dash_comment_enable, double_dash_comment_enable, get_double_keyword, get_entity_prefix, get_entity_suffix, hashtag_comment_enable, slash_comment_enable, slash_star_comment_enable, string::StringBuilder, xml_comment_enable, ConditionExt, get_xml_entity_tag};
 use yaml_rust::yaml::Hash;
 use yaml_rust::Yaml;
 
@@ -452,7 +448,17 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
             }
         }
     }
-    module.push_tabln(8, "keyword_token");
+    if get_xml_entity_tag(h).len() >= 1 {
+        module.push_tabln(8, "if start_position - 1 != 0");
+        module.push_tabln(9, "&& self.input[start_position-1] == '<'");
+        module.push_tabln(9, "|| self.input[start_position-1] == '/'");
+        module.push_tabln(9, "|| self.ch == '>' {");
+        module.push_tabln(9, "return keyword_token");
+        module.push_tabln(8, "}");
+        module.push_tabln(8, "return token::Token::IDENT(identifier);");
+    } else {
+        module.push_tabln(8, "keyword_token");
+    }
     module.push_tabln(7, "},");
     module.push_tabln(7, "Err(_err) => {");
 

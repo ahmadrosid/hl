@@ -115,7 +115,13 @@ impl Lexer {
                     let mut identifier: Vec<char> = read_identifier(self);
                     match token::get_keyword_token(&identifier) {
                             Ok(keyword_token) => {
-                                keyword_token
+                                if start_position - 1 != 0
+                                    && self.input[start_position-1] == '<'
+                                    || self.input[start_position-1] == '/'
+                                    || self.ch == '>' {
+                                    return keyword_token
+                                }
+                                return token::Token::IDENT(identifier);
                             },
                             Err(_err) => {
                                 token::Token::IDENT(identifier)

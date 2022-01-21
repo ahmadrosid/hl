@@ -12,7 +12,7 @@
 <tr><td class="hl-num" data-line="10"></td><td><span class="hl-cmt">    --&gt;</span></td></tr>
 <tr><td class="hl-num" data-line="11"></td><td>&lt;/<span class="hl-ent">head</span>></td></tr>
 <tr><td class="hl-num" data-line="12"></td><td>&lt;<span class="hl-ent">body</span>></td></tr>
-<tr><td class="hl-num" data-line="13"></td><td>    &lt;<span class="hl-ent">div</span>>The <span class="hl-ent">script</span> should not be highlighted! An <span class="hl-ent">a</span> as well!&lt;/<span class="hl-ent">div</span>></td></tr>
+<tr><td class="hl-num" data-line="13"></td><td>    &lt;<span class="hl-ent">div</span>>The script should not be highlighted! An a as well!&lt;/<span class="hl-ent">div</span>></td></tr>
 <tr><td class="hl-num" data-line="14"></td><td>    &lt;<span class="hl-ent">div</span> class=<span class="hl-s">"main"</span>></td></tr>
 <tr><td class="hl-num" data-line="15"></td><td>        &lt;<span class="hl-ent">span</span> class=<span class="hl-s">"something"</span>>Blah&lt;/<span class="hl-ent">span</span>></td></tr>
 <tr><td class="hl-num" data-line="16"></td><td>        &lt;<span class="hl-ent">span</span> class=<span class="hl-s">"something"</span>></td></tr>
