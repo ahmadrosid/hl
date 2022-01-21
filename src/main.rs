@@ -41,76 +41,31 @@ fn main() {
             }
         }
     }
+    println!("{}", render_html(input, lang));
+}
 
-    match lang {
-        "bash" => {
-            let content = bash::render::render_html(input);
-            print!("{}", content);
-        }
-        "c" => {
-            let content = c::render::render_html(input);
-            print!("{}", content);
-        }
-        "clojure" | "clj" => {
-            let content = clojure::render::render_html(input);
-            print!("{}", content);
-        }
-        "css" => {
-            print!("{}", css::render::render_html(input));
-        }
-        "cuda" => {
-            print!("{}", cuda::render::render_html(input));
-        }
-        "edn" => {
-            print!("{}", edn::render::render_html(input));
-        }
-        "go" => {
-            let content = go::render::render_html(input);
-            print!("{}", content);
-        }
-        "hs" | "haskell" => {
-            let content = haskell::render::render_html(input);
-            print!("{}", content);
-        }
-        "html" => {
-            let content = html::render::render_html(input);
-            print!("{}", content);
-        }
-        "rust" => {
-            print!("{}", rust::render::render_html(input));
-        }
-        "cpp" => {
-            print!("{}", cpp::render::render_html(input));
-        }
-        "cs" | "c#" => {
-            print!("{}", cs::render::render_html(input));
-        }
-        "java" => {
-            print!("{}", java::render::render_html(input));
-        }
-        "js" | "javascript" => {
-            print!("{}", javascript::render::render_html(input));
-        }
-        "json" => {
-            print!("{}", json::render::render_html(input));
-        }
-        "lua" => {
-            print!("{}", lua::render::render_html(input));
-        }
-        "php" => {
-            print!("{}", php::render::render_html(input));
-        }
-        "python" => {
-            print!("{}", python::render::render_html(input));
-        }
-        "ts" | "typescript" => {
-            print!("{}", typescript::render::render_html(input));
-        }
-        "yaml" | "yml" => {
-            print!("{}", yaml::render::render_html(input));
-        }
-        _ => {
-            print!("{}", raw::render::render_html(input));
-        }
-    }
+fn render_html(input: Vec<char>, lang: &str) -> String {
+    return match lang {
+        "bash" => bash::render::render_html(input),
+        "c" => c::render::render_html(input),
+        "clojure" | "clj" => clojure::render::render_html(input),
+        "css" => css::render::render_html(input),
+        "cuda" => cuda::render::render_html(input),
+        "edn" => edn::render::render_html(input),
+        "go" => go::render::render_html(input),
+        "hs" | "haskell" => haskell::render::render_html(input),
+        "html" => html::render::render_html(input),
+        "rust" => rust::render::render_html(input),
+        "cpp" => cpp::render::render_html(input),
+        "cs" | "c#" => cs::render::render_html(input),
+        "java" => java::render::render_html(input),
+        "js" | "javascript" => javascript::render::render_html(input),
+        "json" => json::render::render_html(input),
+        "lua" => lua::render::render_html(input),
+        "php" => php::render::render_html(input),
+        "python" => python::render::render_html(input),
+        "ts" | "typescript" => typescript::render::render_html(input),
+        "yaml" | "yml" => yaml::render::render_html(input),
+        _ => raw::render::render_html(input),
+    };
 }
