@@ -79,9 +79,12 @@ impl Lexer {
             let position = l.position;
             while l.position < l.input.len() {
                 l.read_char();
-                if l.input[l.position + 1] == '\n' {
+                if l.position + 1 < l.input.len() && l.input[l.position + 1] == '\n' {
                     break;
                 }
+            }
+            if l.position + 1 >= l.input.len(){
+                return l.input[position..l.position].to_vec();
             }
             l.input[position..l.position + 1].to_vec()
         };
