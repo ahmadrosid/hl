@@ -34,6 +34,7 @@ const ACCEPT_ENTITY_SUFFIX: &str = "ACCEPT_ENTITY_SUFFIX";
 const BREAK_ENTITY_SUFFIX: &str = "BREAK_ENTITY_SUFFIX";
 const ACCEPT_CHAR_IDENTIFIER: &str = "ACCEPT_CHAR_IDENTIFIER";
 const PREFIX_ONE_LINE_COMMENT: &str = "PREFIX_ONE_LINE_COMMENT";
+const MARK_KEYWORD_AS_ENTITY_ON_PREFIX: &str = "MARK_KEYWORD_AS_ENTITY_ON_PREFIX";
 
 fn write_struct_lexer(module: &mut StringBuilder) {
     module.push_strln("pub struct Lexer {");
@@ -448,6 +449,14 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
             }
         }
     }
+
+    if let Some(ch) = h.get_some_condition(MARK_KEYWORD_AS_ENTITY_ON_PREFIX) {
+        module.push_tabln(8 , "if start_position >= 1 && self.input[start_position - 1] ==");
+        module.push_strln(&format!("'{}' {{", ch.as_str().unwrap()));
+        module.push_tabln(9, "return token::Token::ENTITY(identifier)");
+        module.push_tabln(8, "}");
+    }
+
     if get_xml_entity_tag(h).len() >= 1 {
         module.push_tabln(8, "if start_position - 1 != 0");
         module.push_tabln(9, "&& self.input[start_position-1] == '<'");

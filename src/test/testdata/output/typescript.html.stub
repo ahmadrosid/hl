@@ -32,7 +32,7 @@
 <tr><td class="hl-num" data-line="30"></td><td>        <span class="hl-k">private</span> <span class="hl-en">app</span>: AppService,</td></tr>
 <tr><td class="hl-num" data-line="31"></td><td>        <span class="hl-k">private</span> <span class="hl-en">hostWindow</span>: HostWindowService,</td></tr>
 <tr><td class="hl-num" data-line="32"></td><td>    ) {</td></tr>
-<tr><td class="hl-num" data-line="33"></td><td>        <span class="hl-en">super</span>()</td></tr>
+<tr><td class="hl-num" data-line="33"></td><td>        <span class="hl-k">super</span>()</td></tr>
 <tr><td class="hl-num" data-line="34"></td><td>    }</td></tr>
 <tr><td class="hl-num" data-line="35"></td><td></td></tr>
 <tr><td class="hl-num" data-line="36"></td><td>    <span class="hl-k">async</span> <span class="hl-en">handle</span> (<span class="hl-en">event</span>: CLIEvent): Promise<<span class="hl-c">boolean</span>> {</td></tr>
@@ -54,19 +54,19 @@
 <tr><td class="hl-num" data-line="52"></td><td></td></tr>
 <tr><td class="hl-num" data-line="53"></td><td><span class="hl-k">export</span> * <span class="hl-k">from</span> <span class="hl-s">'./session'</span></td></tr>
 <tr><td class="hl-num" data-line="54"></td><td></td></tr>
-<tr><td class="hl-num" data-line="55"></td><td><span class="hl-k">public</span> <span class="hl-k">readonly</span> <span class="hl-c">type</span> = ContextKeyExprType.<span class="hl-en">NotEquals</span>;</td></tr>
+<tr><td class="hl-num" data-line="55"></td><td><span class="hl-k">public</span> readonly <span class="hl-c">type</span> = ContextKeyExprType.<span class="hl-en">NotEquals</span>;</td></tr>
 <tr><td class="hl-num" data-line="56"></td><td></td></tr>
 <tr><td class="hl-num" data-line="57"></td><td><span class="hl-cmt">/** A foreign function as defined by its parameter and result types */</span></td></tr>
 <tr><td class="hl-num" data-line="58"></td><td><span class="hl-k">export</span> <span class="hl-k">interface</span> ForeignFunction<</td></tr>
-<tr><td class="hl-num" data-line="59"></td><td>    Parameter <span class="hl-k">extends</span> <span class="hl-k">readonly</span> NativeType[],</td></tr>
+<tr><td class="hl-num" data-line="59"></td><td>    Parameter <span class="hl-k">extends</span> readonly NativeType[],</td></tr>
 <tr><td class="hl-num" data-line="60"></td><td>    NonBlocking <span class="hl-k">extends</span> <span class="hl-c">boolean</span>,</td></tr>
 <tr><td class="hl-num" data-line="61"></td><td>> {</td></tr>
 <tr><td class="hl-num" data-line="62"></td><td>    <span class="hl-en">parameters</span>: Parameter;</td></tr>
 <tr><td class="hl-num" data-line="63"></td><td>    <span class="hl-cmt">/** When true, function calls will run on a dedicated blocking thread and will return a Promise resolving to the `result`. */</span></td></tr>
-<tr><td class="hl-num" data-line="64"></td><td>    nonblocking?: NonBlocking;</td></tr>
+<tr><td class="hl-num" data-line="64"></td><td>    <span class="hl-en">nonblocking?</span>: NonBlocking;</td></tr>
 <tr><td class="hl-num" data-line="65"></td><td>}</td></tr>
 <tr><td class="hl-num" data-line="66"></td><td></td></tr>
-<tr><td class="hl-num" data-line="67"></td><td><span class="hl-k">public</span> <span class="hl-k">static</span> <span class="hl-en">getAll</span>() : <span class="hl-k">readonly</span> Codicon[] {</td></tr>
+<tr><td class="hl-num" data-line="67"></td><td><span class="hl-k">public</span> <span class="hl-k">static</span> <span class="hl-en">getAll</span>() : readonly Codicon[] {</td></tr>
 <tr><td class="hl-num" data-line="68"></td><td>    <span class="hl-k">return</span> Codicon.<span class="hl-en">_allCodicons</span>;</td></tr>
 <tr><td class="hl-num" data-line="69"></td><td>}</td></tr>
 <tr><td class="hl-num" data-line="70"></td><td></td></tr>

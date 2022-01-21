@@ -46,6 +46,9 @@ impl Lexer {
             let position = l.position;
             while l.position < l.input.len() && is_letter(l.ch) {
                 l.read_char();
+                if l.ch == '?' {
+                    l.read_char();
+                }
             }
             l.input[position..l.position].to_vec()
         };
@@ -129,6 +132,10 @@ impl Lexer {
                     let mut identifier: Vec<char> = read_identifier(self);
                     match token::get_keyword_token(&identifier) {
                             Ok(keyword_token) => {
+                                if start_position >= 1 && self.input[start_position - 1] ==
+'.' {
+                                    return token::Token::ENTITY(identifier)
+                                }
                                 keyword_token
                             },
                             Err(_err) => {
