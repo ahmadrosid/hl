@@ -1,8 +1,4 @@
-use crate::generator::{
-    double_dash_comment_enable, get_constant, get_entity, get_entity_prefix, get_entity_suffix,
-    get_entity_tag, get_keyword, get_var, hashtag_comment_enable, slash_comment_enable,
-    slash_star_comment_enable, string::StringBuilder, xml_comment_enable, ConditionExt,
-};
+use crate::generator::{double_dash_comment_enable, get_constant, get_entity, get_entity_prefix, get_entity_suffix, get_entity_tag, get_keyword, get_var, hashtag_comment_enable, slash_comment_enable, slash_star_comment_enable, string::StringBuilder, xml_comment_enable, ConditionExt, get_xml_entity_tag};
 use yaml_rust::yaml::Hash;
 
 const ACCEPT_PREFIX_VAR: &str = "ACCEPT_PREFIX_VAR";
@@ -89,6 +85,7 @@ pub fn generate_render_html(h: &Hash, name: String) -> String {
     }
 
     if get_entity_tag(h).len() >= 1
+        || get_xml_entity_tag(h).len() >= 1
         || h.get_some_condition(MARK_ENTITY_TAG_SUFFIX).is_some()
         || h.get_some_condition(MARK_STRING_ENTITY_TAG).is_some()
     {

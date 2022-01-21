@@ -1,26 +1,26 @@
 <table class="highlight-table">
 <tbody>
 <tr><td class="hl-num" data-line="1"></td><td>&lt;?xml version=<span class="hl-s">"1.0"</span> encoding=<span class="hl-s">"utf-8"</span>?></td></tr>
-<tr><td class="hl-num" data-line="2"></td><td>&lt;!DOCTYPE html></td></tr>
-<tr><td class="hl-num" data-line="3"></td><td>&lt;html></td></tr>
-<tr><td class="hl-num" data-line="4"></td><td>&lt;head></td></tr>
-<tr><td class="hl-num" data-line="5"></td><td>    &lt;meta charset=<span class="hl-s">"utf-8"</span> /></td></tr>
-<tr><td class="hl-num" data-line="6"></td><td>    &lt;title>Page Title Here&lt;/title></td></tr>
+<tr><td class="hl-num" data-line="2"></td><td>&lt;!DOCTYPE <span class="hl-ent">html</span>></td></tr>
+<tr><td class="hl-num" data-line="3"></td><td>&lt;<span class="hl-ent">html</span>></td></tr>
+<tr><td class="hl-num" data-line="4"></td><td>&lt;<span class="hl-ent">head</span>></td></tr>
+<tr><td class="hl-num" data-line="5"></td><td>    &lt;<span class="hl-ent">meta</span> charset=<span class="hl-s">"utf-8"</span> /></td></tr>
+<tr><td class="hl-num" data-line="6"></td><td>    &lt;<span class="hl-ent">title</span>>Page Title Here&lt;/<span class="hl-ent">title</span>></td></tr>
 <tr><td class="hl-num" data-line="7"></td><td>    <span class="hl-cmt">&lt;!-- this comment's</span></td></tr>
 <tr><td class="hl-num" data-line="8"></td><td><span class="hl-cmt">        indentation should</span></td></tr>
 <tr><td class="hl-num" data-line="9"></td><td><span class="hl-cmt">        be unchanged</span></td></tr>
 <tr><td class="hl-num" data-line="10"></td><td><span class="hl-cmt">    --&gt;</span></td></tr>
-<tr><td class="hl-num" data-line="11"></td><td>&lt;/head></td></tr>
-<tr><td class="hl-num" data-line="12"></td><td>&lt;body></td></tr>
-<tr><td class="hl-num" data-line="13"></td><td>    &lt;div>The script should not be highlighted! An a as well!&lt;/div></td></tr>
-<tr><td class="hl-num" data-line="14"></td><td>    &lt;div class=<span class="hl-s">"main"</span>></td></tr>
-<tr><td class="hl-num" data-line="15"></td><td>        &lt;span class=<span class="hl-s">"something"</span>>Blah&lt;/span></td></tr>
-<tr><td class="hl-num" data-line="16"></td><td>        &lt;span class=<span class="hl-s">"something"</span>></td></tr>
+<tr><td class="hl-num" data-line="11"></td><td>&lt;/<span class="hl-ent">head</span>></td></tr>
+<tr><td class="hl-num" data-line="12"></td><td>&lt;<span class="hl-ent">body</span>></td></tr>
+<tr><td class="hl-num" data-line="13"></td><td>    &lt;<span class="hl-ent">div</span>>The <span class="hl-ent">script</span> should not be highlighted! An <span class="hl-ent">a</span> as well!&lt;/<span class="hl-ent">div</span>></td></tr>
+<tr><td class="hl-num" data-line="14"></td><td>    &lt;<span class="hl-ent">div</span> class=<span class="hl-s">"main"</span>></td></tr>
+<tr><td class="hl-num" data-line="15"></td><td>        &lt;<span class="hl-ent">span</span> class=<span class="hl-s">"something"</span>>Blah&lt;/<span class="hl-ent">span</span>></td></tr>
+<tr><td class="hl-num" data-line="16"></td><td>        &lt;<span class="hl-ent">span</span> class=<span class="hl-s">"something"</span>></td></tr>
 <tr><td class="hl-num" data-line="17"></td><td>            Foobar</td></tr>
-<tr><td class="hl-num" data-line="18"></td><td>        &lt;/span></td></tr>
-<tr><td class="hl-num" data-line="19"></td><td>    &lt;/div></td></tr>
+<tr><td class="hl-num" data-line="18"></td><td>        &lt;/<span class="hl-ent">span</span>></td></tr>
+<tr><td class="hl-num" data-line="19"></td><td>    &lt;/<span class="hl-ent">div</span>></td></tr>
 <tr><td class="hl-num" data-line="20"></td><td></td></tr>
-<tr><td class="hl-num" data-line="21"></td><td>    &lt;script type=<span class="hl-s">"text/javascript"</span> src=<span class="hl-s">"/some_script.js"</span>>&lt;/script></td></tr>
+<tr><td class="hl-num" data-line="21"></td><td>    &lt;<span class="hl-ent">script</span> type=<span class="hl-s">"text/javascript"</span> src=<span class="hl-s">"/some_script.js"</span>>&lt;/<span class="hl-ent">script</span>></td></tr>
 <tr><td class="hl-num" data-line="22"></td><td></td></tr>
 <tr><td class="hl-num" data-line="23"></td><td>    <span class="hl-cmt">&lt;!-- Curly braces --&gt;</span></td></tr>
 <tr><td class="hl-num" data-line="24"></td><td>    foo {</td></tr>
@@ -29,13 +29,13 @@
 <tr><td class="hl-num" data-line="27"></td><td>        }</td></tr>
 <tr><td class="hl-num" data-line="28"></td><td>    }</td></tr>
 <tr><td class="hl-num" data-line="29"></td><td>    text</td></tr>
-<tr><td class="hl-num" data-line="30"></td><td>    { &lt;p>&lt;/p> }</td></tr>
+<tr><td class="hl-num" data-line="30"></td><td>    { &lt;<span class="hl-ent">p</span>>&lt;/<span class="hl-ent">p</span>> }</td></tr>
 <tr><td class="hl-num" data-line="31"></td><td>    text</td></tr>
 <tr><td class="hl-num" data-line="32"></td><td>    {{template}}</td></tr>
 <tr><td class="hl-num" data-line="33"></td><td>    text</td></tr>
 <tr><td class="hl-num" data-line="34"></td><td></td></tr>
-<tr><td class="hl-num" data-line="35"></td><td>&lt;/body></td></tr>
-<tr><td class="hl-num" data-line="36"></td><td>&lt;/html></td></tr>
+<tr><td class="hl-num" data-line="35"></td><td>&lt;/<span class="hl-ent">body</span>></td></tr>
+<tr><td class="hl-num" data-line="36"></td><td>&lt;/<span class="hl-ent">html</span>></td></tr>
 <tr><td class="hl-num" data-line="37"></td><td></td></tr>
 </tbody>
 </table>
