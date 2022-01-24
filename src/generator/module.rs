@@ -129,9 +129,9 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
 
     if let Some(ch) = h.get_some_condition(MARK_AS_KEYWORD_ON_CHAR) {
         let c = ch.as_str().unwrap();
-        module.push_tabln(2, "if self.ch == '{}' {{");
-        module.push_tabln(2, "return token::Token::KEYWORD(read_string(self, '{}')");
-        module.push_tabln(2, "}")
+        module.push_tabln(2, &format!("if self.ch == '{}' {{", c));
+        module.push_tabln(3, &format!("return token::Token::KEYWORD(read_string(self, '{}'));", c));
+        module.push_tabln(2, "}");
     }
 
     module.push_tabln(2, "let tok: token::Token;");

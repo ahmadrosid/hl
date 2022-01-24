@@ -68,7 +68,7 @@
 <tr><td class="hl-num" data-line="66"></td><td>rankError err = (ranking, cSeverity $ pcComment err, cCode $ pcComment err)</td></tr>
 <tr><td class="hl-num" data-line="67"></td><td>  <span class="hl-k">where</span></td></tr>
 <tr><td class="hl-num" data-line="68"></td><td>    ranking =</td></tr>
-<tr><td class="hl-num" data-line="69"></td><td>        <span class="hl-k">if</span> cCode (pcComment err) `elem` uninteresting</td></tr>
+<tr><td class="hl-num" data-line="69"></td><td>        <span class="hl-k">if</span> cCode (pcComment err) <span class="hl-k">`elem`</span> uninteresting</td></tr>
 <tr><td class="hl-num" data-line="70"></td><td>        <span class="hl-k">then</span> 'Z'</td></tr>
 <tr><td class="hl-num" data-line="71"></td><td>        <span class="hl-k">else</span> 'A'</td></tr>
 <tr><td class="hl-num" data-line="72"></td><td></td></tr>

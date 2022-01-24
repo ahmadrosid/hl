@@ -72,6 +72,9 @@ impl Lexer {
             l.input[position..l.position].to_vec()
         };
 
+        if self.ch == '`' {
+            return token::Token::KEYWORD(read_string(self, '`'));
+        }
         let tok: token::Token;
         if self.ch == '{' {
             let next_ch = self.input[self.position + 1];
@@ -94,10 +97,6 @@ impl Lexer {
         }
         if self.read_position < self.input.len() && self.ch == '-' && self.input[self.read_position] == '-' {
             return token::Token::COMMENT(read_string(self, '\n'));
-        }
-
-        if self.ch == '`' {
-            return token::Token::KEYWORD(read_string(self, '`'));
         }
 
         match self.ch {
