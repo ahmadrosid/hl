@@ -43,7 +43,7 @@
 <tr><td class="hl-num" data-line="41"></td><td><span class="hl-cmt">-- Ansi coloring function</span></td></tr>
 <tr><td class="hl-num" data-line="42"></td><td><span class="hl-k">type</span> ColorFunc = (String -> String -> String)</td></tr>
 <tr><td class="hl-num" data-line="43"></td><td></td></tr>
-<tr><td class="hl-num" data-line="44"></td><td>format :: FormatterOptions -> IO Formatter</td></tr>
+<tr><td class="hl-num" data-line="44"></td><td><span class="hl-en">format</span> :: FormatterOptions -> IO Formatter</td></tr>
 <tr><td class="hl-num" data-line="45"></td><td>format options = <span class="hl-k">do</span></td></tr>
 <tr><td class="hl-num" data-line="46"></td><td>    topErrorRef <- newIORef []</td></tr>
 <tr><td class="hl-num" data-line="47"></td><td>    <span class="hl-c">return</span> Formatter {</td></tr>
@@ -64,7 +64,7 @@
 <tr><td class="hl-num" data-line="62"></td><td>        <span class="hl-s">"source"</span>  -> <span class="hl-c">0</span> <span class="hl-cmt">-- none</span></td></tr>
 <tr><td class="hl-num" data-line="63"></td><td>        _ -> <span class="hl-c">0</span>         <span class="hl-cmt">-- none</span></td></tr>
 <tr><td class="hl-num" data-line="64"></td><td></td></tr>
-<tr><td class="hl-num" data-line="65"></td><td>rankError :: PositionedComment -> Ranking</td></tr>
+<tr><td class="hl-num" data-line="65"></td><td><span class="hl-en">rankError</span> :: PositionedComment -> Ranking</td></tr>
 <tr><td class="hl-num" data-line="66"></td><td>rankError err = (ranking, cSeverity $ pcComment err, cCode $ pcComment err)</td></tr>
 <tr><td class="hl-num" data-line="67"></td><td>  <span class="hl-k">where</span></td></tr>
 <tr><td class="hl-num" data-line="68"></td><td>    ranking =</td></tr>
@@ -87,28 +87,28 @@
 <tr><td class="hl-num" data-line="85"></td><td>        <span class="hl-c">1089</span>  <span class="hl-cmt">-- Parsing stopped here (keyword)</span></td></tr>
 <tr><td class="hl-num" data-line="86"></td><td>        ]</td></tr>
 <tr><td class="hl-num" data-line="87"></td><td></td></tr>
-<tr><td class="hl-num" data-line="88"></td><td>appendComments errRef comments max = <span class="hl-k">do</span></td></tr>
+<tr><td class="hl-num" data-line="88"></td><td>appendComments errRef comments <span class="hl-c">max</span> = <span class="hl-k">do</span></td></tr>
 <tr><td class="hl-num" data-line="89"></td><td>    previous <- readIORef errRef</td></tr>
 <tr><td class="hl-num" data-line="90"></td><td>    <span class="hl-k">let</span> current = <span class="hl-c">map</span> (\x -> (rankError x, cCode $ pcComment x, cMessage $ pcComment x)) comments</td></tr>
-<tr><td class="hl-num" data-line="91"></td><td>    writeIORef errRef . take max . nubBy equal . sort $ previous ++ current</td></tr>
+<tr><td class="hl-num" data-line="91"></td><td>    writeIORef errRef . <span class="hl-c">take</span> <span class="hl-c">max</span> . nubBy equal . sort $ previous ++ current</td></tr>
 <tr><td class="hl-num" data-line="92"></td><td>  <span class="hl-k">where</span></td></tr>
 <tr><td class="hl-num" data-line="93"></td><td>    fst3 (x,_,_) = x</td></tr>
 <tr><td class="hl-num" data-line="94"></td><td>    equal x y = fst3 x == fst3 y</td></tr>
 <tr><td class="hl-num" data-line="95"></td><td></td></tr>
-<tr><td class="hl-num" data-line="96"></td><td>outputWiki :: IORef [(Ranking, Integer, String)] -> IO ()</td></tr>
+<tr><td class="hl-num" data-line="96"></td><td><span class="hl-en">outputWiki</span> :: IORef [(Ranking, Integer, String)] -> IO ()</td></tr>
 <tr><td class="hl-num" data-line="97"></td><td>outputWiki errRef = <span class="hl-k">do</span></td></tr>
 <tr><td class="hl-num" data-line="98"></td><td>    issues <- readIORef errRef</td></tr>
 <tr><td class="hl-num" data-line="99"></td><td>    unless (<span class="hl-c">null</span> issues) $ <span class="hl-k">do</span></td></tr>
-<tr><td class="hl-num" data-line="100"></td><td>        putStrLn <span class="hl-s">"For more information:"</span></td></tr>
+<tr><td class="hl-num" data-line="100"></td><td>        <span class="hl-c">putStrLn</span> <span class="hl-s">"For more information:"</span></td></tr>
 <tr><td class="hl-num" data-line="101"></td><td>        mapM_ showErr issues</td></tr>
 <tr><td class="hl-num" data-line="102"></td><td>  <span class="hl-k">where</span></td></tr>
 <tr><td class="hl-num" data-line="103"></td><td>    showErr (_, code, msg) =</td></tr>
-<tr><td class="hl-num" data-line="104"></td><td>        putStrLn $ <span class="hl-s">"  "</span> ++ wikiLink ++ <span class="hl-s">"SC"</span> ++ show code ++ <span class="hl-s">" -- "</span> ++ shorten msg</td></tr>
+<tr><td class="hl-num" data-line="104"></td><td>        <span class="hl-c">putStrLn</span> $ <span class="hl-s">"  "</span> ++ wikiLink ++ <span class="hl-s">"SC"</span> ++ show code ++ <span class="hl-s">" -- "</span> ++ shorten msg</td></tr>
 <tr><td class="hl-num" data-line="105"></td><td>    limit = <span class="hl-c">36</span></td></tr>
 <tr><td class="hl-num" data-line="106"></td><td>    shorten msg =</td></tr>
 <tr><td class="hl-num" data-line="107"></td><td>        <span class="hl-k">if</span> length msg < limit</td></tr>
 <tr><td class="hl-num" data-line="108"></td><td>        <span class="hl-k">then</span> msg</td></tr>
-<tr><td class="hl-num" data-line="109"></td><td>        <span class="hl-k">else</span> (take (limit-<span class="hl-c">3</span>) msg) ++ <span class="hl-s">"..."</span></td></tr>
+<tr><td class="hl-num" data-line="109"></td><td>        <span class="hl-k">else</span> (<span class="hl-c">take</span> (limit-<span class="hl-c">3</span>) msg) ++ <span class="hl-s">"..."</span></td></tr>
 <tr><td class="hl-num" data-line="110"></td><td></td></tr>
 <tr><td class="hl-num" data-line="111"></td><td>outputError options file error = <span class="hl-k">do</span></td></tr>
 <tr><td class="hl-num" data-line="112"></td><td>    color <- getColorFunc $ foColorOption options</td></tr>
@@ -134,31 +134,31 @@
 <tr><td class="hl-num" data-line="132"></td><td>        <span class="hl-k">let</span> line = <span class="hl-k">if</span> lineNum < <span class="hl-c">1</span> || lineNum > lineCount</td></tr>
 <tr><td class="hl-num" data-line="133"></td><td>                        <span class="hl-k">then</span> <span class="hl-s">""</span></td></tr>
 <tr><td class="hl-num" data-line="134"></td><td>                        <span class="hl-k">else</span> fileLines ! fromIntegral lineNum</td></tr>
-<tr><td class="hl-num" data-line="135"></td><td>        putStrLn <span class="hl-s">""</span></td></tr>
-<tr><td class="hl-num" data-line="136"></td><td>        putStrLn $ color <span class="hl-s">"message"</span> $</td></tr>
+<tr><td class="hl-num" data-line="135"></td><td>        <span class="hl-c">putStrLn</span> <span class="hl-s">""</span></td></tr>
+<tr><td class="hl-num" data-line="136"></td><td>        <span class="hl-c">putStrLn</span> $ color <span class="hl-s">"message"</span> $</td></tr>
 <tr><td class="hl-num" data-line="137"></td><td>           <span class="hl-s">"In "</span> ++ fileName ++<span class="hl-s">" line "</span> ++ show lineNum ++ <span class="hl-s">":"</span></td></tr>
-<tr><td class="hl-num" data-line="138"></td><td>        putStrLn (color <span class="hl-s">"source"</span> line)</td></tr>
-<tr><td class="hl-num" data-line="139"></td><td>        forM_ commentsForLine $ \c -> putStrLn $ color (severityText c) $ cuteIndent c</td></tr>
-<tr><td class="hl-num" data-line="140"></td><td>        putStrLn <span class="hl-s">""</span></td></tr>
+<tr><td class="hl-num" data-line="138"></td><td>        <span class="hl-c">putStrLn</span> (color <span class="hl-s">"source"</span> line)</td></tr>
+<tr><td class="hl-num" data-line="139"></td><td>        forM_ commentsForLine $ \c -> <span class="hl-c">putStrLn</span> $ color (severityText c) $ cuteIndent c</td></tr>
+<tr><td class="hl-num" data-line="140"></td><td>        <span class="hl-c">putStrLn</span> <span class="hl-s">""</span></td></tr>
 <tr><td class="hl-num" data-line="141"></td><td>        showFixedString color commentsForLine (fromIntegral lineNum) fileLines</td></tr>
 <tr><td class="hl-num" data-line="142"></td><td></td></tr>
 <tr><td class="hl-num" data-line="143"></td><td><span class="hl-cmt">-- Pick out only the lines necessary to show a fix in action</span></td></tr>
-<tr><td class="hl-num" data-line="144"></td><td>sliceFile :: Fix -> Array <span class="hl-c">Int</span> String -> (Fix, Array <span class="hl-c">Int</span> String)</td></tr>
+<tr><td class="hl-num" data-line="144"></td><td><span class="hl-en">sliceFile</span> :: Fix -> Array <span class="hl-c">Int</span> String -> (Fix, Array <span class="hl-c">Int</span> String)</td></tr>
 <tr><td class="hl-num" data-line="145"></td><td>sliceFile fix lines =</td></tr>
 <tr><td class="hl-num" data-line="146"></td><td>    (mapPositions adjust fix, sliceLines lines)</td></tr>
 <tr><td class="hl-num" data-line="147"></td><td>  <span class="hl-k">where</span></td></tr>
 <tr><td class="hl-num" data-line="148"></td><td>    (minLine, maxLine) =</td></tr>
-<tr><td class="hl-num" data-line="149"></td><td>        foldl (\(mm, mx) pos -> ((min mm $ fromIntegral $ posLine pos), (max mx $ fromIntegral $ posLine pos)))</td></tr>
+<tr><td class="hl-num" data-line="149"></td><td>        foldl (\(mm, mx) pos -> ((min mm $ fromIntegral $ posLine pos), (<span class="hl-c">max</span> mx $ fromIntegral $ posLine pos)))</td></tr>
 <tr><td class="hl-num" data-line="150"></td><td>                (maxBound, minBound) $</td></tr>
 <tr><td class="hl-num" data-line="151"></td><td>            concatMap (\x -> [repStartPos x, repEndPos x]) $ fixReplacements fix</td></tr>
-<tr><td class="hl-num" data-line="152"></td><td>    sliceLines :: Array <span class="hl-c">Int</span> String -> Array <span class="hl-c">Int</span> String</td></tr>
+<tr><td class="hl-num" data-line="152"></td><td>    <span class="hl-en">sliceLines</span> :: Array <span class="hl-c">Int</span> String -> Array <span class="hl-c">Int</span> String</td></tr>
 <tr><td class="hl-num" data-line="153"></td><td>    sliceLines = ixmap (<span class="hl-c">1</span>, maxLine - minLine + <span class="hl-c">1</span>) (\x -> x + minLine - <span class="hl-c">1</span>)</td></tr>
 <tr><td class="hl-num" data-line="154"></td><td>    adjust pos =</td></tr>
 <tr><td class="hl-num" data-line="155"></td><td>        pos {</td></tr>
 <tr><td class="hl-num" data-line="156"></td><td>            posLine = posLine pos - (fromIntegral minLine) + <span class="hl-c">1</span></td></tr>
 <tr><td class="hl-num" data-line="157"></td><td>        }</td></tr>
 <tr><td class="hl-num" data-line="158"></td><td></td></tr>
-<tr><td class="hl-num" data-line="159"></td><td>showFixedString :: ColorFunc -> [PositionedComment] -> <span class="hl-c">Int</span> -> Array <span class="hl-c">Int</span> String -> IO ()</td></tr>
+<tr><td class="hl-num" data-line="159"></td><td><span class="hl-en">showFixedString</span> :: ColorFunc -> [PositionedComment] -> <span class="hl-c">Int</span> -> Array <span class="hl-c">Int</span> String -> IO ()</td></tr>
 <tr><td class="hl-num" data-line="160"></td><td>showFixedString color comments lineNum fileLines =</td></tr>
 <tr><td class="hl-num" data-line="161"></td><td>    <span class="hl-k">let</span> line = fileLines ! fromIntegral lineNum <span class="hl-k">in</span></td></tr>
 <tr><td class="hl-num" data-line="162"></td><td>    <span class="hl-k">case</span> mapMaybe pcFix comments <span class="hl-k">of</span></td></tr>
@@ -170,10 +170,10 @@
 <tr><td class="hl-num" data-line="168"></td><td>            <span class="hl-cmt">-- and/or other unrelated lines.</span></td></tr>
 <tr><td class="hl-num" data-line="169"></td><td>            <span class="hl-k">let</span> (excerptFix, excerpt) = sliceFile mergedFix fileLines</td></tr>
 <tr><td class="hl-num" data-line="170"></td><td>            <span class="hl-cmt">-- in the spirit of error prone</span></td></tr>
-<tr><td class="hl-num" data-line="171"></td><td>            putStrLn $ color <span class="hl-s">"message"</span> <span class="hl-s">"Did you mean: "</span></td></tr>
-<tr><td class="hl-num" data-line="172"></td><td>            putStrLn $ unlines $ applyFix excerptFix excerpt</td></tr>
+<tr><td class="hl-num" data-line="171"></td><td>            <span class="hl-c">putStrLn</span> $ color <span class="hl-s">"message"</span> <span class="hl-s">"Did you mean: "</span></td></tr>
+<tr><td class="hl-num" data-line="172"></td><td>            <span class="hl-c">putStrLn</span> $ unlines $ applyFix excerptFix excerpt</td></tr>
 <tr><td class="hl-num" data-line="173"></td><td></td></tr>
-<tr><td class="hl-num" data-line="174"></td><td>cuteIndent :: PositionedComment -> String</td></tr>
+<tr><td class="hl-num" data-line="174"></td><td><span class="hl-en">cuteIndent</span> :: PositionedComment -> String</td></tr>
 <tr><td class="hl-num" data-line="175"></td><td>cuteIndent comment =</td></tr>
 <tr><td class="hl-num" data-line="176"></td><td>    replicate (fromIntegral $ colNo comment - <span class="hl-c">1</span>) ' ' ++</td></tr>
 <tr><td class="hl-num" data-line="177"></td><td>        makeArrow ++ <span class="hl-s">" "</span> ++ code (codeNo comment) ++ <span class="hl-s">" ("</span> ++ severityText comment ++ <span class="hl-s">"): "</span> ++ messageText comment</td></tr>
@@ -187,7 +187,7 @@
 <tr><td class="hl-num" data-line="185"></td><td></td></tr>
 <tr><td class="hl-num" data-line="186"></td><td>code num = <span class="hl-s">"SC"</span> ++ show num</td></tr>
 <tr><td class="hl-num" data-line="187"></td><td></td></tr>
-<tr><td class="hl-num" data-line="188"></td><td>getColorFunc :: ColorOption -> IO ColorFunc</td></tr>
+<tr><td class="hl-num" data-line="188"></td><td><span class="hl-en">getColorFunc</span> :: ColorOption -> IO ColorFunc</td></tr>
 <tr><td class="hl-num" data-line="189"></td><td>getColorFunc colorOption = <span class="hl-k">do</span></td></tr>
 <tr><td class="hl-num" data-line="190"></td><td>    useColor <- shouldOutputColor colorOption</td></tr>
 <tr><td class="hl-num" data-line="191"></td><td>    <span class="hl-c">return</span> $ <span class="hl-k">if</span> useColor <span class="hl-k">then</span> colorComment <span class="hl-k">else</span> <span class="hl-c">const</span> id</td></tr>

@@ -28,6 +28,15 @@ constant:
   either: either
   const: const
   fmap: fmap
+  take: take
+  max: max
+  putStrLn: putStrLn
+
+entity_prefix:
+  colon: ":"
+
+entity_suffix:
+  colon: ":"
 
 entity_tag:
   Bibtex: Bibtex

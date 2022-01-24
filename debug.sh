@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 #source ./build.sh
-cargo run -- src/test/testdata/input/python.py.stub -l python > table.html
+cargo run -- src/test/testdata/input/haskell.hs.stub -l haskell > table.html
