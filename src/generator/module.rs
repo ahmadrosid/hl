@@ -35,6 +35,7 @@ const BREAK_ENTITY_SUFFIX: &str = "BREAK_ENTITY_SUFFIX";
 const ACCEPT_CHAR_IDENTIFIER: &str = "ACCEPT_CHAR_IDENTIFIER";
 const PREFIX_ONE_LINE_COMMENT: &str = "PREFIX_ONE_LINE_COMMENT";
 const MARK_KEYWORD_AS_ENTITY_ON_PREFIX: &str = "MARK_KEYWORD_AS_ENTITY_ON_PREFIX";
+const MARK_AS_KEYWORD_ON_CHAR: &str = "MARK_AS_KEYWORD_ON_CHAR";
 
 fn write_struct_lexer(module: &mut StringBuilder) {
     module.push_strln("pub struct Lexer {");
@@ -124,6 +125,13 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
 
     if slash_star_comment_enable(h) {
         module.push_str(&write_handle_read_slash_star_comment())
+    }
+
+    if let Some(ch) = h.get_some_condition(MARK_AS_KEYWORD_ON_CHAR) {
+        let c = ch.as_str().unwrap();
+        module.push_tabln(2, "if self.ch == '{}' {{");
+        module.push_tabln(2, "return token::Token::KEYWORD(read_string(self, '{}')");
+        module.push_tabln(2, "}")
     }
 
     module.push_tabln(2, "let tok: token::Token;");

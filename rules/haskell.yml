@@ -75,3 +75,4 @@ condition:
   ACCEPT_ENTITY_TAG_SUFFIX: "is_digit(self.ch)"
   BREAK_ENTITY_TAG_SUFFIX: "!is_digit(self.ch) && !is_letter(self.ch)"
   PREFIX_ONE_LINE_COMMENT: "--"
+  MARK_AS_KEYWORD_ON_CHAR: "`"

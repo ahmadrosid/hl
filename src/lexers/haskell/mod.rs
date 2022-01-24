@@ -96,6 +96,10 @@ impl Lexer {
             return token::Token::COMMENT(read_string(self, '\n'));
         }
 
+        if self.ch == '`' {
+            return token::Token::KEYWORD(read_string(self, '`'));
+        }
+
         match self.ch {
             '\n' => {
                 tok = token::Token::ENDL(self.ch);
