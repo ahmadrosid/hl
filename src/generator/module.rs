@@ -37,6 +37,26 @@ const PREFIX_ONE_LINE_COMMENT: &str = "PREFIX_ONE_LINE_COMMENT";
 const MARK_KEYWORD_AS_ENTITY_ON_PREFIX: &str = "MARK_KEYWORD_AS_ENTITY_ON_PREFIX";
 const MARK_AS_KEYWORD_ON_CHAR: &str = "MARK_AS_KEYWORD_ON_CHAR";
 
+pub fn generate_module(h: &Hash) -> String {
+    let mut module = StringBuilder::new();
+    module.push_strln("// ---- DON'T EDIT! THIS IS AUTO GENERATED CODE ---- //");
+    module.push_strln("pub mod token;");
+    module.push_strln("pub mod render;\n");
+
+    write_struct_lexer(&mut module);
+    write_helper_is_letter(&mut module);
+    write_helper_is_digit(&mut module);
+    if h.get_some_condition(MARK_STRING_ENTITY_TAG).is_some()
+        || h.get_some_condition(MARK_ENTITY_TAG_SUFFIX).is_some()
+        || get_entity_suffix(h).len() > 0
+    {
+        write_helper_is_white_space(&mut module);
+    }
+    write_impl_lexer(&mut module, h);
+
+    module.to_string()
+}
+
 fn write_struct_lexer(module: &mut StringBuilder) {
     module.push_strln("pub struct Lexer {");
     module.push_tabln(1, "input: Vec<char>,");
@@ -974,25 +994,5 @@ fn write_handle_hashtag_comment() -> String {
     module.push_tabln(3, "let comment: Vec<char> = read_string(self, '\\n');");
     module.push_tabln(3, "return token::Token::COMMENT(comment);");
     module.push_tabln(2, "}\n");
-    module.to_string()
-}
-
-pub fn generate_module(h: &Hash) -> String {
-    let mut module = StringBuilder::new();
-    module.push_strln("// ---- DON'T EDIT! THIS IS AUTO GENERATED CODE ---- //");
-    module.push_strln("pub mod token;");
-    module.push_strln("pub mod render;\n");
-
-    write_struct_lexer(&mut module);
-    write_helper_is_letter(&mut module);
-    write_helper_is_digit(&mut module);
-    if h.get_some_condition(MARK_STRING_ENTITY_TAG).is_some()
-        || h.get_some_condition(MARK_ENTITY_TAG_SUFFIX).is_some()
-        || get_entity_suffix(h).len() > 0
-    {
-        write_helper_is_white_space(&mut module);
-    }
-    write_impl_lexer(&mut module, h);
-
     module.to_string()
 }
