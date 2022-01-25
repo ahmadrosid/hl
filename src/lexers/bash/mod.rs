@@ -46,6 +46,9 @@ impl Lexer {
             let position = l.position;
             while l.position < l.input.len() && is_letter(l.ch) {
                 l.read_char();
+                if l.ch == '-' {
+                    l.read_char();
+                }
             }
             l.input[position..l.position].to_vec()
         };
@@ -174,7 +177,9 @@ impl Lexer {
                                     let mut ch = self.input[position];
                                     while position < self.input.len() && is_white_space(ch) {
                                         position = position + 1;
-                                        ch = self.input[position];
+                                        if position < self.input.len() {
+                                            ch = self.input[position];
+                                        }
                                     }
                                     if ch == '(' {
                                         self.position = position - 1;
