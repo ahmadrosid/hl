@@ -1,0 +1,7 @@
+
+condition:
+  ACCEPT_STRING_ONE_QUOTE: true
+  ACCEPT_STRING_DOUBLE_QUOTE: true
+  ENCODE_LT: "<"
+  ENCODE_LT_STRING: "&lt;"
+  MARKUP_HEAD: "####"

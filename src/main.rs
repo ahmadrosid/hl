@@ -62,6 +62,7 @@ fn render_html(input: Vec<char>, lang: &str) -> String {
         "js" | "javascript" => javascript::render::render_html(input),
         "json" => json::render::render_html(input),
         "lua" => lua::render::render_html(input),
+        "markdown" | "md" => markdown::render::render_html(input),
         "php" => php::render::render_html(input),
         "python" => python::render::render_html(input),
         "ts" | "typescript" => typescript::render::render_html(input),
