@@ -1,0 +1,19 @@
+// ---- DON'T EDIT! THIS IS AUTO GENERATED CODE ---- //
+pub mod token;
+pub mod render;
+
+pub struct Lexer {
+    input: Vec<char>,
+    pub position: usize,
+    pub read_position: usize,
+    pub ch: char,
+}
+
+fn is_letter(ch: char) -> bool {
+    'a' <= ch && ch <= 'z' || 'A' <= ch && ch <= 'Z' || ch == '_'
+}
+
+fn is_digit(ch: char) -> bool {
+    '0' <= ch && ch <= '9'
+}
+

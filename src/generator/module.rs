@@ -44,14 +44,10 @@ const MARKUP_HEAD: &str = "MARKUP_HEAD";
 const IGNORE_INTEGER: &str = "IGNORE_INTEGER";
 
 pub fn generate_module(h: &Hash) -> String {
+    let initial_module = include_str!("stub/initial_module.stub");
     let mut module = StringBuilder::new();
-    module.push_strln("// ---- DON'T EDIT! THIS IS AUTO GENERATED CODE ---- //");
-    module.push_strln("pub mod token;");
-    module.push_strln("pub mod render;\n");
+    module.push_str(initial_module);
 
-    write_struct_lexer(&mut module);
-    write_helper_is_letter(&mut module);
-    write_helper_is_digit(&mut module);
     if h.get_some_condition(MARK_STRING_ENTITY_TAG).is_some()
         || h.get_some_condition(MARK_ENTITY_TAG_SUFFIX).is_some()
         || get_entity_suffix(h).len() > 0
@@ -61,30 +57,6 @@ pub fn generate_module(h: &Hash) -> String {
     write_impl_lexer(&mut module, h);
 
     module.to_string()
-}
-
-fn write_struct_lexer(module: &mut StringBuilder) {
-    module.push_strln("pub struct Lexer {");
-    module.push_tabln(1, "input: Vec<char>,");
-    module.push_tabln(1, "pub position: usize,");
-    module.push_tabln(1, "pub read_position: usize,");
-    module.push_tabln(1, "pub ch: char,");
-    module.push_strln("}\n");
-}
-
-fn write_helper_is_letter(module: &mut StringBuilder) {
-    module.push_strln("fn is_letter(ch: char) -> bool {");
-    module.push_tabln(
-        1,
-        "'a' <= ch && ch <= 'z' || 'A' <= ch && ch <= 'Z' || ch == '_'",
-    );
-    module.push_strln("}\n");
-}
-
-fn write_helper_is_digit(module: &mut StringBuilder) {
-    module.push_strln("fn is_digit(ch: char) -> bool {");
-    module.push_tabln(1, "'0' <= ch && ch <= '9'");
-    module.push_strln("}\n");
 }
 
 fn write_helper_is_white_space(module: &mut StringBuilder) {
