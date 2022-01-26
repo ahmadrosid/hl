@@ -59,6 +59,11 @@ pub fn render_html(input: Vec<char>) -> String {
                     l.read_char();
                     continue;
                 }
+                if l.ch == '>' {
+                    html.push_str("&gt;");
+                    l.read_char();
+                    continue;
+                }
                 html.push(l.ch);
                 l.read_char();
             }

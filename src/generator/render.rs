@@ -8,6 +8,8 @@ use yaml_rust::yaml::Hash;
 const ACCEPT_PREFIX_VAR: &str = "ACCEPT_PREFIX_VAR";
 const ENCODE_LT: &str = "ENCODE_LT";
 const ENCODE_LT_STRING: &str = "ENCODE_LT_STRING";
+const ENCODE_GT: &str = "ENCODE_GT";
+const ENCODE_GT_STRING: &str = "ENCODE_GT_STRING";
 const RENDER_MULTI_LINE_STRING: &str = "RENDER_MULTI_LINE_STRING";
 const ACCEPT_ENTITY_TAG_PREFIX: &str = "ACCEPT_ENTITY_TAG_PREFIX";
 const ENTITY_TAG_PREFIX_CHAR: &str = "ENTITY_TAG_PREFIX_CHAR";
@@ -133,6 +135,18 @@ pub fn generate_render_html(h: &Hash, name: String) -> String {
     html.push_tabln(3, "_ => {");
     if let Some(prefix) = h.get_some_condition(ENCODE_LT) {
         if let Some(encode) = h.get_some_condition(ENCODE_LT_STRING) {
+            html.push_tabln(4, &format!("if l.ch == '{}' {{", prefix.as_str().unwrap()));
+            html.push_tabln(
+                5,
+                &format!("html.push_str(\"{}\");", encode.as_str().unwrap()),
+            );
+            html.push_tabln(5, "l.read_char();");
+            html.push_tabln(5, "continue;");
+            html.push_tabln(4, "}");
+        }
+    }
+    if let Some(prefix) = h.get_some_condition(ENCODE_GT) {
+        if let Some(encode) = h.get_some_condition(ENCODE_GT_STRING) {
             html.push_tabln(4, &format!("if l.ch == '{}' {{", prefix.as_str().unwrap()));
             html.push_tabln(
                 5,

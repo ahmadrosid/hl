@@ -2,12 +2,12 @@
 <tbody>
 <tr><td class="hl-num" data-line="1"></td><td><span class="hl-mh"># Zeus</span></td></tr>
 <tr><td class="hl-num" data-line="2"></td><td></td></tr>
-<tr><td class="hl-num" data-line="3"></td><td>&lt;p align=<span class="hl-s">"center"</span>></td></tr>
-<tr><td class="hl-num" data-line="4"></td><td>&lt;img src=<span class="hl-s">"zeuslogo.png"</span> width=<span class="hl-s">"30%"</span>>&lt;/img></td></tr>
-<tr><td class="hl-num" data-line="5"></td><td>&lt;/p></td></tr>
-<tr><td class="hl-num" data-line="6"></td><td>&lt;p align=<span class="hl-s">"center"</span>></td></tr>
-<tr><td class="hl-num" data-line="7"></td><td>&lt;a href=<span class="hl-s">"https://en.wikipedia.org/wiki/Shell_script"</span>>&lt;img src=<span class="hl-s">"https://img.shields.io/badge/Shell%20Script-*nix-brightgreen.svg"</span>>&lt;/a>&lt;img src=<span class="hl-s">"https://img.shields.io/github/license/mashape/apistatus.svg"</span>>&lt;img src=<span class="hl-s">"https://img.shields.io/badge/LSE%20tools-Zeus-red.svg"</span>></td></tr>
-<tr><td class="hl-num" data-line="8"></td><td>&lt;a href=<span class="hl-s">"https://www.blackhat.com"</span>>&lt;img src=<span class="hl-s">"https://img.shields.io/badge/Black%20Hat%20Arsenal-Asia%202018-blue.svg"</span>>&lt;/a>&lt;/a></td></tr>
+<tr><td class="hl-num" data-line="3"></td><td>&lt;p align=<span class="hl-s">"center"</span>&gt;</td></tr>
+<tr><td class="hl-num" data-line="4"></td><td>&lt;img src=<span class="hl-s">"zeuslogo.png"</span> width=<span class="hl-s">"30%"</span>&gt;&lt;/img&gt;</td></tr>
+<tr><td class="hl-num" data-line="5"></td><td>&lt;/p&gt;</td></tr>
+<tr><td class="hl-num" data-line="6"></td><td>&lt;p align=<span class="hl-s">"center"</span>&gt;</td></tr>
+<tr><td class="hl-num" data-line="7"></td><td>&lt;a href=<span class="hl-s">"https://en.wikipedia.org/wiki/Shell_script"</span>&gt;&lt;img src=<span class="hl-s">"https://img.shields.io/badge/Shell%20Script-*nix-brightgreen.svg"</span>&gt;&lt;/a&gt;&lt;img src=<span class="hl-s">"https://img.shields.io/github/license/mashape/apistatus.svg"</span>&gt;&lt;img src=<span class="hl-s">"https://img.shields.io/badge/LSE%20tools-Zeus-red.svg"</span>&gt;</td></tr>
+<tr><td class="hl-num" data-line="8"></td><td>&lt;a href=<span class="hl-s">"https://www.blackhat.com"</span>&gt;&lt;img src=<span class="hl-s">"https://img.shields.io/badge/Black%20Hat%20Arsenal-Asia%202018-blue.svg"</span>&gt;&lt;/a&gt;&lt;/a&gt;</td></tr>
 <tr><td class="hl-num" data-line="9"></td><td></td></tr>
 <tr><td class="hl-num" data-line="10"></td><td><span class="hl-mh"># Zeus</span></td></tr>
 <tr><td class="hl-num" data-line="11"></td><td>AWS Auditing &amp; Hardening Tool</td></tr>
