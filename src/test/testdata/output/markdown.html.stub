@@ -10,20 +10,20 @@
 <tr><td class="hl-num" data-line="8"></td><td><span class="hl-mh"># Zeus</span></td></tr>
 <tr><td class="hl-num" data-line="9"></td><td>AWS Auditing &amp; Hardening Tool</td></tr>
 <tr><td class="hl-num" data-line="10"></td><td></td></tr>
-<tr><td class="hl-num" data-line="11"></td><td>Zeus is a powerful tool for AWS EC<span class="hl-c">2</span> / S<span class="hl-c">3</span> / CloudTrail / CloudWatch / KMS best hardening practices. It checks security settings according to the profiles the user creates and changes them to recommended settings based on the CIS AWS Benchmark source at request of the user.</td></tr>
+<tr><td class="hl-num" data-line="11"></td><td>Zeus is a powerful tool for AWS EC2 / S3 / CloudTrail / CloudWatch / KMS best hardening practices. It checks security settings according to the profiles the user creates and changes them to recommended settings based on the CIS AWS Benchmark source at request of the user.</td></tr>
 <tr><td class="hl-num" data-line="12"></td><td></td></tr>
 <tr><td class="hl-num" data-line="13"></td><td>~~Currently, it only includes the Logging mechanism.~~</td></tr>
 <tr><td class="hl-num" data-line="14"></td><td></td></tr>
 <tr><td class="hl-num" data-line="15"></td><td><span class="hl-mh">## Identity and Access Management</span></td></tr>
 <tr><td class="hl-num" data-line="16"></td><td>- Avoid the use of the <span class="hl-s">"root"</span> account</td></tr>
 <tr><td class="hl-num" data-line="17"></td><td>- Ensure multi-factor authentication (MFA) is enabled for all IAM users that have a console password</td></tr>
-<tr><td class="hl-num" data-line="18"></td><td>- Ensure credentials unused for <span class="hl-c">90</span> days or greater are disabled</td></tr>
-<tr><td class="hl-num" data-line="19"></td><td>- Ensure access keys are rotated every <span class="hl-c">90</span> days or less</td></tr>
+<tr><td class="hl-num" data-line="18"></td><td>- Ensure credentials unused for 90 days or greater are disabled</td></tr>
+<tr><td class="hl-num" data-line="19"></td><td>- Ensure access keys are rotated every 90 days or less</td></tr>
 <tr><td class="hl-num" data-line="20"></td><td>- Ensure IAM password policy requires at least one uppercase letter</td></tr>
 <tr><td class="hl-num" data-line="21"></td><td>- Ensure IAM password policy requires at least one lowercase letter</td></tr>
 <tr><td class="hl-num" data-line="22"></td><td>- Ensure IAM password policy requires at least one symbol</td></tr>
 <tr><td class="hl-num" data-line="23"></td><td>- Ensure IAM password policy requires at least one number</td></tr>
-<tr><td class="hl-num" data-line="24"></td><td>- Ensure IAM password policy requires minimum length of <span class="hl-c">14</span> or greater</td></tr>
+<tr><td class="hl-num" data-line="24"></td><td>- Ensure IAM password policy requires minimum length of 14 or greater</td></tr>
 <tr><td class="hl-num" data-line="25"></td><td>- Ensure no root account access key exists</td></tr>
 <tr><td class="hl-num" data-line="26"></td><td>- Ensure MFA is enabled for the <span class="hl-s">"root"</span> account</td></tr>
 <tr><td class="hl-num" data-line="27"></td><td>- Ensure security questions are registered in the AWS account</td></tr>
@@ -36,16 +36,16 @@
 <tr><td class="hl-num" data-line="34"></td><td><span class="hl-mh">## Logging</span></td></tr>
 <tr><td class="hl-num" data-line="35"></td><td>- Ensure CloudTrail is enabled in all regions</td></tr>
 <tr><td class="hl-num" data-line="36"></td><td>- Ensure CloudTrail log file validation is enabled</td></tr>
-<tr><td class="hl-num" data-line="37"></td><td>- Ensure the S<span class="hl-c">3</span> bucket CloudTrail logs to is not publicly accessible</td></tr>
+<tr><td class="hl-num" data-line="37"></td><td>- Ensure the S3 bucket CloudTrail logs to is not publicly accessible</td></tr>
 <tr><td class="hl-num" data-line="38"></td><td>- Ensure CloudTrail trails are integrated with CloudWatch Logs</td></tr>
 <tr><td class="hl-num" data-line="39"></td><td>- Ensure AWS Config is enabled in all regions</td></tr>
-<tr><td class="hl-num" data-line="40"></td><td>- Ensure S<span class="hl-c">3</span> bucket access logging is enabled on the CloudTrail S<span class="hl-c">3</span> bucket</td></tr>
+<tr><td class="hl-num" data-line="40"></td><td>- Ensure S3 bucket access logging is enabled on the CloudTrail S3 bucket</td></tr>
 <tr><td class="hl-num" data-line="41"></td><td>- Ensure CloudTrail logs are encrypted at rest using KMS CMKs</td></tr>
 <tr><td class="hl-num" data-line="42"></td><td>- Ensure rotation for customer created CMKs is enabled</td></tr>
 <tr><td class="hl-num" data-line="43"></td><td></td></tr>
 <tr><td class="hl-num" data-line="44"></td><td><span class="hl-mh">## Networking</span></td></tr>
-<tr><td class="hl-num" data-line="45"></td><td>- Ensure no security groups allow ingress from <span class="hl-c">0</span>.<span class="hl-c">0</span>.<span class="hl-c">0</span>.<span class="hl-c">0</span>/<span class="hl-c">0</span> to port <span class="hl-c">22</span></td></tr>
-<tr><td class="hl-num" data-line="46"></td><td>- Ensure no security groups allow ingress from <span class="hl-c">0</span>.<span class="hl-c">0</span>.<span class="hl-c">0</span>.<span class="hl-c">0</span>/<span class="hl-c">0</span> to port <span class="hl-c">3389</span></td></tr>
+<tr><td class="hl-num" data-line="45"></td><td>- Ensure no security groups allow ingress from 0.0.0.0/0 to port 22</td></tr>
+<tr><td class="hl-num" data-line="46"></td><td>- Ensure no security groups allow ingress from 0.0.0.0/0 to port 3389</td></tr>
 <tr><td class="hl-num" data-line="47"></td><td>- Ensure VPC flow logging is enabled in all VPC</td></tr>
 <tr><td class="hl-num" data-line="48"></td><td>- Ensure the default security group of every VPC restricts all traffic</td></tr>
 <tr><td class="hl-num" data-line="49"></td><td></td></tr>
@@ -57,7 +57,7 @@
 <tr><td class="hl-num" data-line="55"></td><td> - Ensure a log metric filter and alarm exist for CloudTrail configuration changes</td></tr>
 <tr><td class="hl-num" data-line="56"></td><td> - Ensure a log metric filter and alarm exist for AWS Management Console authentication failures</td></tr>
 <tr><td class="hl-num" data-line="57"></td><td> - Ensure a log metric filter and alarm exist for disabling or scheduled deletion of customer created CMKs</td></tr>
-<tr><td class="hl-num" data-line="58"></td><td> - Ensure a log metric filter and alarm exist for S<span class="hl-c">3</span> bucket policy changes</td></tr>
+<tr><td class="hl-num" data-line="58"></td><td> - Ensure a log metric filter and alarm exist for S3 bucket policy changes</td></tr>
 <tr><td class="hl-num" data-line="59"></td><td> - Ensure a log metric filter and alarm exist for AWS Config configuration changes</td></tr>
 <tr><td class="hl-num" data-line="60"></td><td> - Ensure a log metric filter and alarm exist for security group changes</td></tr>
 <tr><td class="hl-num" data-line="61"></td><td> - Ensure a log metric filter and alarm exist for changes to NetworkAccess Control Lists (NACL)</td></tr>

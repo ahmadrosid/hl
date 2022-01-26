@@ -5,3 +5,4 @@ condition:
   ENCODE_LT: "<"
   ENCODE_LT_STRING: "&lt;"
   MARKUP_HEAD: "####"
+  IGNORE_INTEGER: true

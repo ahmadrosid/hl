@@ -37,6 +37,7 @@ const PREFIX_ONE_LINE_COMMENT: &str = "PREFIX_ONE_LINE_COMMENT";
 const MARK_KEYWORD_AS_ENTITY_ON_PREFIX: &str = "MARK_KEYWORD_AS_ENTITY_ON_PREFIX";
 const MARK_AS_KEYWORD_ON_CHAR: &str = "MARK_AS_KEYWORD_ON_CHAR";
 const MARKUP_HEAD: &str = "MARKUP_HEAD";
+const IGNORE_INTEGER: &str = "IGNORE_INTEGER";
 
 pub fn generate_module(h: &Hash) -> String {
     let mut module = StringBuilder::new();
@@ -656,7 +657,12 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
     } else {
         module.push_tabln(6, "let identifier: Vec<char> = read_number(self);");
     }
-    module.push_tabln(6, "token::Token::INT(identifier)");
+
+    if h.get_some_condition(IGNORE_INTEGER).is_some() {
+        module.push_tabln(6, "token::Token::IDENT(identifier)");
+    } else {
+        module.push_tabln(6, "token::Token::INT(identifier)");
+    }
 
     if h.get_some_condition(ACCEPT_STRING_ONE_QUOTE).is_some() {
         module.push_tabln(5, "} else if self.ch == '\\'' {");
