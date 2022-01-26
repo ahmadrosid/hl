@@ -20,6 +20,7 @@ const MARK_ENTITY_TAG_SUFFIX: &str = "MARK_ENTITY_TAG_SUFFIX";
 const MARK_STRING_ENTITY_TAG: &str = "MARK_STRING_ENTITY_TAG";
 const PREFIX_ONE_LINE_COMMENT: &str = "PREFIX_ONE_LINE_COMMENT";
 const MARKUP_HEAD: &str = "MARKUP_HEAD";
+const IGNORE_INTEGER: &str = "IGNORE_INTEGER";
 
 pub fn generate_render_html(h: &Hash, name: String) -> String {
     let mut html = StringBuilder::new();
@@ -55,7 +56,9 @@ pub fn generate_render_html(h: &Hash, name: String) -> String {
 
     html.push_tabln(2, "match token {");
 
-    write_token_integer(&mut html);
+    if !h.get_some_condition(IGNORE_INTEGER).is_some() {
+        write_token_integer(&mut html);
+    }
     write_token_identifier(&mut html);
 
     if h.get_some_condition(ACCEPT_STRING_ONE_QUOTE).is_some()

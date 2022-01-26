@@ -17,6 +17,7 @@ const MARK_ENTITY_TAG_SUFFIX: &str = "MARK_ENTITY_TAG_SUFFIX";
 const MARK_STRING_ENTITY_TAG: &str = "MARK_STRING_ENTITY_TAG";
 const PREFIX_ONE_LINE_COMMENT: &str = "PREFIX_ONE_LINE_COMMENT";
 const MARKUP_HEAD: &str = "MARKUP_HEAD";
+const IGNORE_INTEGER: &str = "IGNORE_INTEGER";
 
 pub fn generate_token(h: &Hash) -> String {
     let mut token = StringBuilder::new();
@@ -26,8 +27,10 @@ pub fn generate_token(h: &Hash) -> String {
     token.push_tabln(1, "ILLEGAL,");
     token.push_tabln(1, "EOF,");
     token.push_tabln(1, "ENDL(char),");
-    token.push_tabln(1, "INT(Vec<char>),");
     token.push_tabln(1, "IDENT(Vec<char>),");
+    if !h.get_some_condition(IGNORE_INTEGER).is_some() {
+        token.push_tabln(1, "INT(Vec<char>),");
+    }
 
     if h.get_some_condition(MARKUP_HEAD).is_some() {
         token.push_tabln(1, "HEAD(Vec<char>),")

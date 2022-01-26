@@ -4,7 +4,6 @@ pub enum Token {
     ILLEGAL,
     EOF,
     ENDL(char),
-    INT(Vec<char>),
     IDENT(Vec<char>),
     HEAD(Vec<char>),
     STRING(Vec<char>),

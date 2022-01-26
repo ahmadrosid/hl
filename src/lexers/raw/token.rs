@@ -4,8 +4,8 @@ pub enum Token {
     ILLEGAL,
     EOF,
     ENDL(char),
-    INT(Vec<char>),
     IDENT(Vec<char>),
+    INT(Vec<char>),
 }
 
 pub fn get_keyword_token(identifier: &Vec<char>) -> Result<Token, String> {
