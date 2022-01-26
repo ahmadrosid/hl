@@ -12,7 +12,7 @@
 <tr><td class="hl-num" data-line="10"></td><td><span class="hl-mh"># Zeus</span></td></tr>
 <tr><td class="hl-num" data-line="11"></td><td>AWS Auditing &amp; Hardening Tool</td></tr>
 <tr><td class="hl-num" data-line="12"></td><td></td></tr>
-<tr><td class="hl-num" data-line="13"></td><td>Zeus is a powerful tool for AWS EC2 / S3 / CloudTrail / CloudWatch / KMS best hardening practices. It checks security settings according to the profiles the user creates and changes them to recommended settings based on the CIS AWS Benchmark source at request of the user.</td></tr>
+<tr><td class="hl-num" data-line="13"></td><td>Zeus is a # powerful tool for AWS EC2 / S3 / CloudTrail / CloudWatch / KMS best hardening practices. It checks security settings according to the profiles the user creates and changes them to recommended settings based on the CIS AWS Benchmark source at request of the user.</td></tr>
 <tr><td class="hl-num" data-line="14"></td><td></td></tr>
 <tr><td class="hl-num" data-line="15"></td><td>~~Currently, it only includes the Logging mechanism.~~</td></tr>
 <tr><td class="hl-num" data-line="16"></td><td></td></tr>
