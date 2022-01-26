@@ -238,7 +238,7 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
     module.push_tabln(3, "}");
 
     if h.get_some_condition(ACCEPT_HEXADECIMAL_NUMBER).is_some() {
-        module.push_str(&write_handle_hexadecimal());
+        module.push_str(include_str!("stub/handle_hexadecimal.stub"));
     }
 
     if let Some(prefix) = h.get_some_condition(ACCEPT_ENTITY_TAG_PREFIX) {
@@ -784,31 +784,5 @@ fn write_handle_read_string(h: Hash) -> String {
     module.push_tabln(3, "}");
     module.push_tabln(3, "l.input[position..l.position].to_vec()");
     module.push_tabln(2, "};\n");
-    module.to_string()
-}
-
-fn write_handle_hexadecimal() -> String {
-    let mut module = StringBuilder::new();
-    module.push_tabln(3, "'0' => {");
-    module.push_tabln(4, "return if self.input[self.read_position] == 'x' {");
-    module.push_tabln(5, "let start_position = self.position;");
-    module.push_tabln(5, "self.read_char();");
-    module.push_tabln(5, "self.read_char();");
-    module.push_tabln(
-        5,
-        "while self.position < self.input.len() && (is_digit(self.ch) || is_letter(self.ch)) {",
-    );
-    module.push_tabln(6, "self.read_char()");
-    module.push_tabln(5, "}");
-    module.push_tabln(
-        5,
-        "let hexadecimal = &self.input[start_position..self.position];",
-    );
-    module.push_tabln(5, "token::Token::INT(hexadecimal.to_vec())");
-    module.push_tabln(4, "} else {");
-    module.push_tabln(5, "let number = read_number(self);");
-    module.push_tabln(5, "token::Token::INT(number)");
-    module.push_tabln(4, "}");
-    module.push_tabln(3, "}");
     module.to_string()
 }
