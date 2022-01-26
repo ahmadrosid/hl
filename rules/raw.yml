@@ -1,1 +1,8 @@
 raw: true
+
+condition:
+  ENCODE_LT: "<"
+  ENCODE_LT_STRING: "&lt;"
+  ENCODE_GT: ">"
+  ENCODE_GT_STRING: "&gt;"
+  IGNORE_INTEGER: true

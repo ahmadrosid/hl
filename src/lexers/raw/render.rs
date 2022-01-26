@@ -23,12 +23,6 @@ pub fn render_html(input: Vec<char>) -> String {
         }
 
         match token {
-            token::Token::INT(value) => {
-                html.push_str(&format!(
-                    "<span class=\"hl-c\">{}</span>",
-                    value.iter().collect::<String>()
-                ));
-            }
             token::Token::IDENT(value) => {
                 html.push_str(&value.iter().collect::<String>());
             }
@@ -41,6 +35,16 @@ pub fn render_html(input: Vec<char>) -> String {
                 ));
             }
             _ => {
+                if l.ch == '<' {
+                    html.push_str("&lt;");
+                    l.read_char();
+                    continue;
+                }
+                if l.ch == '>' {
+                    html.push_str("&gt;");
+                    l.read_char();
+                    continue;
+                }
                 html.push(l.ch);
                 l.read_char();
             }
