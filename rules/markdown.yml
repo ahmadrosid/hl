@@ -4,5 +4,5 @@ condition:
   ACCEPT_STRING_DOUBLE_QUOTE: true
   ENCODE_LT: "<"
   ENCODE_LT_STRING: "&lt;"
-  MARKUP_HEAD: "####"
+  MARKUP_HEAD: "######"
   IGNORE_INTEGER: true
