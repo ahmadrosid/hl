@@ -1,0 +1,18 @@
+if self.position + {index} < self.input.len()
+    && self.input[self.position..self.position + {index}]
+        == vec![{mark} ' ']
+{
+    let start_position = self.position;
+    self.position += {index};
+    self.read_position += {index};
+    self.ch = self.input[self.position];
+    let mut start_mark = self.input[start_position..self.position].to_vec();
+    while self.position < self.input.len() {
+        start_mark.push(self.ch);
+        self.read_char();
+        if self.ch == '\n' {
+            break;
+        }
+    }
+    return token::Token::HEAD(start_mark);
+}

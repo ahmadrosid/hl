@@ -726,38 +726,21 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
 
 fn write_handle_markup_head(head: &str) -> String {
     let heads: Vec<char> = head.to_string().chars().collect();
-    let mut module = StringBuilder::new();
+    let scope = include_str!("stub/markup_head_scope.stub").to_string();
+    let template = include_str!("stub/markup_head.stub").to_string();
+    let mut code = String::new();
     for index in 0..heads.len() {
         let next_position = index + 2;
-        let mut h = heads[0..index + 1].to_vec();
-        h.push(' ');
+        let h = heads[0..index + 1].to_vec();
         let vec_char = h.iter().map(|c| format!("'{}',", c)).collect::<String>();
-        module.push_tabln(
-            2,
-            &format!(
-                "if self.position + {} < self.input.len() && self.input[self.position..self.position + {}] == vec![{}] {{",
-                next_position, next_position, vec_char.trim_end_matches(',')
-            )
-        );
-        module.push_tabln(3, "let start_position = self.position;");
-        for _ in 0..(index + 1) {
-            module.push_tabln(3, "self.read_char();");
-        }
-        module.push_tabln(
-            3,
-            "let mut start_mark = self.input[start_position..self.position].to_vec();",
-        );
-        module.push_tabln(3, "while self.position < self.input.len() {");
-        module.push_tabln(4, "start_mark.push(self.ch);");
-        module.push_tabln(4, "self.read_char();");
-        module.push_tabln(4, "if self.ch == '\\n' {");
-        module.push_tabln(5, "break;");
-        module.push_tabln(4, "}");
-        module.push_tabln(3, "}");
-        module.push_tabln(3, "return token::Token::HEAD(start_mark);");
-        module.push_tabln(2, "}\n");
+        let result = template
+            .replace("{index}", &next_position.to_string())
+            .replace("{mark}", &vec_char);
+        code.push_str(&result);
     }
-    module.to_string()
+    scope
+        .replace("{mark}", &heads.first().unwrap().to_string())
+        .replace("{scope}", &code)
 }
 
 fn write_handle_read_slash_star_comment() -> String {

@@ -1,0 +1,9 @@
+
+if self.position > 1
+    && self.position < self.input.len()
+    && self.input[self.position] == '#'
+    && self.input[self.position - 1] == '\n'
+    || (self.position == 0 && self.input[self.position] == '#')
+{
+    {scope}
+}
