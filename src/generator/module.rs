@@ -1,4 +1,8 @@
-use crate::generator::{bracket_dash_comment_enable, double_dash_comment_enable, get_double_keyword, get_entity_prefix, get_entity_suffix, hashtag_comment_enable, slash_comment_enable, slash_star_comment_enable, string::StringBuilder, xml_comment_enable, ConditionExt, get_xml_entity_tag};
+use crate::generator::{
+    bracket_dash_comment_enable, double_dash_comment_enable, get_double_keyword, get_entity_prefix,
+    get_entity_suffix, get_xml_entity_tag, hashtag_comment_enable, slash_comment_enable,
+    slash_star_comment_enable, string::StringBuilder, xml_comment_enable, ConditionExt,
+};
 use yaml_rust::yaml::Hash;
 use yaml_rust::Yaml;
 
@@ -152,7 +156,10 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
     if let Some(ch) = h.get_some_condition(MARK_AS_KEYWORD_ON_CHAR) {
         let c = ch.as_str().unwrap();
         module.push_tabln(2, &format!("if self.ch == '{}' {{", c));
-        module.push_tabln(3, &format!("return token::Token::KEYWORD(read_string(self, '{}'));", c));
+        module.push_tabln(
+            3,
+            &format!("return token::Token::KEYWORD(read_string(self, '{}'));", c),
+        );
         module.push_tabln(2, "}");
     }
 
@@ -485,7 +492,10 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
     }
 
     if let Some(ch) = h.get_some_condition(MARK_KEYWORD_AS_ENTITY_ON_PREFIX) {
-        module.push_tabln(8 , "if start_position >= 1 && self.input[start_position - 1] ==");
+        module.push_tabln(
+            8,
+            "if start_position >= 1 && self.input[start_position - 1] ==",
+        );
         module.push_strln(&format!("'{}' {{", ch.as_str().unwrap()));
         module.push_tabln(9, "return token::Token::ENTITY(identifier)");
         module.push_tabln(8, "}");
@@ -721,7 +731,7 @@ fn write_handle_markup_head(head: &str) -> String {
         let next_position = index + 2;
         let mut h = heads[0..index + 1].to_vec();
         h.push(' ');
-        let vec_char = h.iter().map(| c | format!("'{}',", c)).collect::<String>();
+        let vec_char = h.iter().map(|c| format!("'{}',", c)).collect::<String>();
         module.push_tabln(
             2,
             &format!(
@@ -733,7 +743,10 @@ fn write_handle_markup_head(head: &str) -> String {
         for _ in 0..(index + 1) {
             module.push_tabln(3, "self.read_char();");
         }
-        module.push_tabln(3, "let mut start_mark = self.input[start_position..self.position].to_vec();");
+        module.push_tabln(
+            3,
+            "let mut start_mark = self.input[start_position..self.position].to_vec();",
+        );
         module.push_tabln(3, "while self.position < self.input.len() {");
         module.push_tabln(4, "start_mark.push(self.ch);");
         module.push_tabln(4, "self.read_char();");
@@ -778,7 +791,10 @@ fn write_handle_read_slash_comment() -> String {
     module.push_tabln(3, "let position = l.position;");
     module.push_tabln(3, "while l.position < l.input.len() {");
     module.push_tabln(4, "l.read_char();");
-    module.push_tabln(4, "if l.position + 1 < l.input.len() && l.input[l.position + 1] == '\\n' {");
+    module.push_tabln(
+        4,
+        "if l.position + 1 < l.input.len() && l.input[l.position + 1] == '\\n' {",
+    );
     module.push_tabln(5, "break;");
     module.push_tabln(4, "}");
     module.push_tabln(3, "}");

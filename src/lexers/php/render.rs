@@ -1,6 +1,6 @@
 // ---- DON'T EDIT! THIS IS AUTO GENERATED CODE ---- //
-use crate::lexers::php::Lexer;
 use crate::lexers::php::token;
+use crate::lexers::php::Lexer;
 
 pub fn render_html(input: Vec<char>) -> String {
     let mut l = Lexer::new(input);
@@ -24,7 +24,10 @@ pub fn render_html(input: Vec<char>) -> String {
 
         match token {
             token::Token::INT(value) => {
-                html.push_str(&format!("<span class=\"hl-c\">{}</span>", value.iter().collect::<String>()));
+                html.push_str(&format!(
+                    "<span class=\"hl-c\">{}</span>",
+                    value.iter().collect::<String>()
+                ));
             }
             token::Token::IDENT(value) => {
                 html.push_str(&value.iter().collect::<String>());
@@ -50,13 +53,22 @@ pub fn render_html(input: Vec<char>) -> String {
                 }
             }
             token::Token::ENTITY(value) => {
-                html.push_str(&format!("<span class=\"hl-en\">{}</span>", value.iter().collect::<String>()));
+                html.push_str(&format!(
+                    "<span class=\"hl-en\">{}</span>",
+                    value.iter().collect::<String>()
+                ));
             }
             token::Token::CONSTANT(value) => {
-                html.push_str(&format!("<span class=\"hl-c\">{}</span>", value.iter().collect::<String>()));
+                html.push_str(&format!(
+                    "<span class=\"hl-c\">{}</span>",
+                    value.iter().collect::<String>()
+                ));
             }
             token::Token::KEYWORD(value) => {
-                html.push_str(&format!("<span class=\"hl-k\">{}</span>", value.iter().collect::<String>()));
+                html.push_str(&format!(
+                    "<span class=\"hl-k\">{}</span>",
+                    value.iter().collect::<String>()
+                ));
             }
             token::Token::ENTITYTAG(value) => {
                 let mut s = String::new();
@@ -72,7 +84,10 @@ pub fn render_html(input: Vec<char>) -> String {
                 html.push_str(&format!("<span class=\"hl-ent\">{}</span>", s));
             }
             token::Token::VAR(value) => {
-                html.push_str(&format!("<span class=\"hl-vid\">{}</span>", value.iter().collect::<String>()));
+                html.push_str(&format!(
+                    "<span class=\"hl-vid\">{}</span>",
+                    value.iter().collect::<String>()
+                ));
             }
             token::Token::COMMENT(value) => {
                 let mut lines = String::new();

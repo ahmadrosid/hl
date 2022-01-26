@@ -1,6 +1,6 @@
 // ---- DON'T EDIT! THIS IS AUTO GENERATED CODE ---- //
-use crate::lexers::markdown::Lexer;
 use crate::lexers::markdown::token;
+use crate::lexers::markdown::Lexer;
 
 pub fn render_html(input: Vec<char>) -> String {
     let mut l = Lexer::new(input);
@@ -40,7 +40,10 @@ pub fn render_html(input: Vec<char>) -> String {
                 html.push_str(&format!("<span class=\"hl-s\">{}</span>", s));
             }
             token::Token::HEAD(value) => {
-                html.push_str(&format!("<span class=\"hl-mh\">{}</span>", value.iter().collect::<String>()));
+                html.push_str(&format!(
+                    "<span class=\"hl-mh\">{}</span>",
+                    value.iter().collect::<String>()
+                ));
             }
             token::Token::ENDL(_) => {
                 line = line + 1;

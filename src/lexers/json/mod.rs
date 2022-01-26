@@ -1,6 +1,6 @@
 // ---- DON'T EDIT! THIS IS AUTO GENERATED CODE ---- //
-pub mod token;
 pub mod render;
+pub mod token;
 
 pub struct Lexer {
     input: Vec<char>,
@@ -90,42 +90,40 @@ impl Lexer {
                     #[allow(unused_mut)]
                     let mut identifier: Vec<char> = read_identifier(self);
                     match token::get_keyword_token(&identifier) {
-                            Ok(keyword_token) => {
-                                keyword_token
-                            },
-                            Err(_err) => {
-                                token::Token::IDENT(identifier)
-                            }
-                        }
-                    } else if is_digit(self.ch) {
-                        let identifier: Vec<char> = read_number(self);
-                        token::Token::INT(identifier)
-                    } else if self.ch == '"' {
-                        let str_value: Vec<char> = read_string(self, '"');
-                        if self.ch == ':' {
-                            return token::Token::ENTITYTAG(str_value);
-                        } else if is_white_space(self.ch) {
-                            let start_position = self.position;
-                            let mut position = self.position;
-                            let mut ch = self.input[position];
-                            while position < self.input.len() && is_white_space(ch) {
-                                position = position + 1;
-                                ch = self.input[position];
-                            }
-                            if ch == ':' {
-                                self.position = position;
-                                self.read_position = position + 1;
-                                let mut value = str_value;
-                                value.append(&mut self.input[start_position..self.read_position].to_vec());
-                                return token::Token::ENTITYTAG(value)
-                            }
-                        }
-                        token::Token::STRING(str_value)
-                    } else {
-                        token::Token::ILLEGAL
+                        Ok(keyword_token) => keyword_token,
+                        Err(_err) => token::Token::IDENT(identifier),
                     }
+                } else if is_digit(self.ch) {
+                    let identifier: Vec<char> = read_number(self);
+                    token::Token::INT(identifier)
+                } else if self.ch == '"' {
+                    let str_value: Vec<char> = read_string(self, '"');
+                    if self.ch == ':' {
+                        return token::Token::ENTITYTAG(str_value);
+                    } else if is_white_space(self.ch) {
+                        let start_position = self.position;
+                        let mut position = self.position;
+                        let mut ch = self.input[position];
+                        while position < self.input.len() && is_white_space(ch) {
+                            position = position + 1;
+                            ch = self.input[position];
+                        }
+                        if ch == ':' {
+                            self.position = position;
+                            self.read_position = position + 1;
+                            let mut value = str_value;
+                            value.append(
+                                &mut self.input[start_position..self.read_position].to_vec(),
+                            );
+                            return token::Token::ENTITYTAG(value);
+                        }
+                    }
+                    token::Token::STRING(str_value)
+                } else {
+                    token::Token::ILLEGAL
                 }
             }
+        }
         self.read_char();
         tok
     }

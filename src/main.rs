@@ -1,7 +1,7 @@
 use clap::{arg, App, AppSettings};
 mod generator;
-use std::fs::read;
 use hl::render_html;
+use std::fs::read;
 
 fn main() {
     let matches = App::new("hl")

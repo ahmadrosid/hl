@@ -1,6 +1,6 @@
 // ---- DON'T EDIT! THIS IS AUTO GENERATED CODE ---- //
-use crate::lexers::typescript::Lexer;
 use crate::lexers::typescript::token;
+use crate::lexers::typescript::Lexer;
 
 pub fn render_html(input: Vec<char>) -> String {
     let mut l = Lexer::new(input);
@@ -24,7 +24,10 @@ pub fn render_html(input: Vec<char>) -> String {
 
         match token {
             token::Token::INT(value) => {
-                html.push_str(&format!("<span class=\"hl-c\">{}</span>", value.iter().collect::<String>()));
+                html.push_str(&format!(
+                    "<span class=\"hl-c\">{}</span>",
+                    value.iter().collect::<String>()
+                ));
             }
             token::Token::IDENT(value) => {
                 html.push_str(&value.iter().collect::<String>());
@@ -46,13 +49,22 @@ pub fn render_html(input: Vec<char>) -> String {
                 html.push(value);
             }
             token::Token::ENTITY(value) => {
-                html.push_str(&format!("<span class=\"hl-en\">{}</span>", value.iter().collect::<String>()));
+                html.push_str(&format!(
+                    "<span class=\"hl-en\">{}</span>",
+                    value.iter().collect::<String>()
+                ));
             }
             token::Token::CONSTANT(value) => {
-                html.push_str(&format!("<span class=\"hl-c\">{}</span>", value.iter().collect::<String>()));
+                html.push_str(&format!(
+                    "<span class=\"hl-c\">{}</span>",
+                    value.iter().collect::<String>()
+                ));
             }
             token::Token::KEYWORD(value) => {
-                html.push_str(&format!("<span class=\"hl-k\">{}</span>", value.iter().collect::<String>()));
+                html.push_str(&format!(
+                    "<span class=\"hl-k\">{}</span>",
+                    value.iter().collect::<String>()
+                ));
             }
             token::Token::COMMENT(value) => {
                 let mut lines = String::new();
@@ -84,16 +96,28 @@ pub fn render_html(input: Vec<char>) -> String {
                 }
             }
             token::Token::VINFINITY(value) => {
-                html.push_str(&format!("<span class=\"hl-v\">{}</span>", value.iter().collect::<String>()));
+                html.push_str(&format!(
+                    "<span class=\"hl-v\">{}</span>",
+                    value.iter().collect::<String>()
+                ));
             }
             token::Token::VNAN(value) => {
-                html.push_str(&format!("<span class=\"hl-v\">{}</span>", value.iter().collect::<String>()));
+                html.push_str(&format!(
+                    "<span class=\"hl-v\">{}</span>",
+                    value.iter().collect::<String>()
+                ));
             }
             token::Token::MATH(value) => {
-                html.push_str(&format!("<span class=\"hl-v\">{}</span>", value.iter().collect::<String>()));
+                html.push_str(&format!(
+                    "<span class=\"hl-v\">{}</span>",
+                    value.iter().collect::<String>()
+                ));
             }
             token::Token::DATE(value) => {
-                html.push_str(&format!("<span class=\"hl-v\">{}</span>", value.iter().collect::<String>()));
+                html.push_str(&format!(
+                    "<span class=\"hl-v\">{}</span>",
+                    value.iter().collect::<String>()
+                ));
             }
             token::Token::ENDL(_) => {
                 line = line + 1;

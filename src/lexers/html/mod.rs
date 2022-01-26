@@ -1,6 +1,6 @@
 // ---- DON'T EDIT! THIS IS AUTO GENERATED CODE ---- //
-pub mod token;
 pub mod render;
+pub mod token;
 
 pub struct Lexer {
     input: Vec<char>,
@@ -76,7 +76,7 @@ impl Lexer {
                 && self.input[self.position + 2] == '-'
                 && self.input[self.position + 3] == '-'
             {
-                let mut comment = vec!['&','l','t',';','!','-','-'];
+                let mut comment = vec!['&', 'l', 't', ';', '!', '-', '-'];
                 self.read_char();
                 self.read_char();
                 self.read_char();
@@ -84,8 +84,8 @@ impl Lexer {
                 let last_position = self.position;
                 while self.position < self.input.len() {
                     if self.ch == '-' {
-                        if self.input[self.position+1] == '-' {
-                            if self.input[self.position+2] == '>' {
+                        if self.input[self.position + 1] == '-' {
+                            if self.input[self.position + 2] == '>' {
                                 self.read_char();
                                 self.read_char();
                                 self.read_char();
@@ -114,33 +114,31 @@ impl Lexer {
                     #[allow(unused_mut)]
                     let mut identifier: Vec<char> = read_identifier(self);
                     match token::get_keyword_token(&identifier) {
-                            Ok(keyword_token) => {
-                                if start_position - 1 != 0
-                                    && self.input[start_position-1] == '<'
-                                    || self.input[start_position-1] == '/'
-                                    || self.ch == '>' {
-                                    return keyword_token
-                                }
-                                return token::Token::IDENT(identifier);
-                            },
-                            Err(_err) => {
-                                token::Token::IDENT(identifier)
+                        Ok(keyword_token) => {
+                            if start_position - 1 != 0 && self.input[start_position - 1] == '<'
+                                || self.input[start_position - 1] == '/'
+                                || self.ch == '>'
+                            {
+                                return keyword_token;
                             }
+                            return token::Token::IDENT(identifier);
                         }
-                    } else if is_digit(self.ch) {
-                        let identifier: Vec<char> = read_number(self);
-                        token::Token::INT(identifier)
-                    } else if self.ch == '\'' {
-                        let str_value: Vec<char> = read_string(self, '\'');
-                        token::Token::STRING(str_value)
-                    } else if self.ch == '"' {
-                        let str_value: Vec<char> = read_string(self, '"');
-                        token::Token::STRING(str_value)
-                    } else {
-                        token::Token::ILLEGAL
+                        Err(_err) => token::Token::IDENT(identifier),
                     }
+                } else if is_digit(self.ch) {
+                    let identifier: Vec<char> = read_number(self);
+                    token::Token::INT(identifier)
+                } else if self.ch == '\'' {
+                    let str_value: Vec<char> = read_string(self, '\'');
+                    token::Token::STRING(str_value)
+                } else if self.ch == '"' {
+                    let str_value: Vec<char> = read_string(self, '"');
+                    token::Token::STRING(str_value)
+                } else {
+                    token::Token::ILLEGAL
                 }
             }
+        }
         self.read_char();
         tok
     }
