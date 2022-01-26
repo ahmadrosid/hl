@@ -1,0 +1,5 @@
+if self.ch == '#' {
+    let comment: Vec<char> = read_string(self, '\n');
+    return token::Token::COMMENT(comment);
+}
+

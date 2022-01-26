@@ -154,7 +154,7 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
     }
 
     if hashtag_comment_enable(h) {
-        module.push_str(&write_handle_hashtag_comment());
+        module.push_str(include_str!("stub/handle_hashtag_comment.stub"));
     }
 
     if let Some(ch) = h.get_some_condition(SKIP_NON_CHAR_LETTER_PREFIX) {
@@ -1002,14 +1002,5 @@ fn write_handle_double_bracket_string() -> String {
     module.push_tabln(4, "return token::Token::STRING(str_value);");
     module.push_tabln(3, "}");
     module.push_tabln(2, "}");
-    module.to_string()
-}
-
-fn write_handle_hashtag_comment() -> String {
-    let mut module = StringBuilder::new();
-    module.push_tabln(2, "if self.ch == '#' {");
-    module.push_tabln(3, "let comment: Vec<char> = read_string(self, '\\n');");
-    module.push_tabln(3, "return token::Token::COMMENT(comment);");
-    module.push_tabln(2, "}\n");
     module.to_string()
 }
