@@ -1,0 +1,30 @@
+if self.ch == '<' {
+    let next_ch = self.input[self.position + 1];
+    if self.position + 3 < self.input.len()
+        && next_ch == '!'
+        && self.input[self.position + 2] == '-'
+        && self.input[self.position + 3] == '-'
+    {
+        let mut comment = vec!['&','l','t',';','!','-','-'];
+        self.read_char();
+        self.read_char();
+        self.read_char();
+        self.read_char();
+        let last_position = self.position;
+        while self.position < self.input.len() {
+            if self.ch == '-' {
+                if self.input[self.position+1] == '-' {
+                    if self.input[self.position+2] == '>' {
+                        self.read_char();
+                        self.read_char();
+                        self.read_char();
+                        break;
+                    }
+                }
+            }
+            self.read_char();
+        }
+        comment.append(&mut self.input[last_position..self.position].to_vec());
+        return token::Token::COMMENT(comment);
+    }
+}

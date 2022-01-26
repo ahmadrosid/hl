@@ -1,7 +1,7 @@
 use crate::generator::{
-    bracket_dash_comment_enable, double_dash_comment_enable, get_double_keyword, get_entity_prefix,
-    get_entity_suffix, get_xml_entity_tag, hashtag_comment_enable, slash_comment_enable,
-    slash_star_comment_enable, string::StringBuilder, xml_comment_enable, ConditionExt,
+    bracket_dash_comment_enable, get_double_keyword, get_entity_prefix, get_entity_suffix,
+    get_xml_entity_tag, hashtag_comment_enable, slash_comment_enable, slash_star_comment_enable,
+    string::StringBuilder, xml_comment_enable, ConditionExt,
 };
 use yaml_rust::yaml::Hash;
 use yaml_rust::Yaml;
@@ -138,15 +138,11 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
     module.push_tabln(2, "let tok: token::Token;");
 
     if xml_comment_enable(h) {
-        module.push_str(&write_handle_xml_comment());
+        module.push_str(include_str!("stub/handle_xml_comment.stub"));
     }
 
     if h.get_some_condition(ACCEPT_DOUBLE_BRACKET_STRING).is_some() {
         module.push_str(include_str!("stub/handle_double_bracket_string.stub"));
-    }
-
-    if double_dash_comment_enable(h) {
-        module.push_str(&write_handle_double_dash_comment());
     }
 
     if bracket_dash_comment_enable(h) {
@@ -830,44 +826,6 @@ fn write_handle_skip_non_char_letter(ch: Yaml) -> String {
         "let identifier = self.input[start_position..self.position].to_vec();",
     );
     module.push_tabln(3, "return token::Token::IDENT(identifier)");
-    module.push_tabln(2, "}\n");
-    module.to_string()
-}
-
-fn write_handle_xml_comment() -> String {
-    let mut module = StringBuilder::new();
-    module.push_tabln(2, "if self.ch == '<' {");
-    module.push_tabln(3, "let next_ch = self.input[self.position + 1];");
-    module.push_tabln(3, "if self.position + 3 < self.input.len()");
-    module.push_tabln(4, "&& next_ch == '!'");
-    module.push_tabln(4, "&& self.input[self.position + 2] == '-'");
-    module.push_tabln(4, "&& self.input[self.position + 3] == '-'");
-    module.push_tabln(3, "{");
-    module.push_tabln(4, "let mut comment = vec!['&','l','t',';','!','-','-'];");
-    module.push_tabln(4, "self.read_char();");
-    module.push_tabln(4, "self.read_char();");
-    module.push_tabln(4, "self.read_char();");
-    module.push_tabln(4, "self.read_char();");
-    module.push_tabln(4, "let last_position = self.position;");
-    module.push_tabln(4, "while self.position < self.input.len() {");
-    module.push_tabln(5, "if self.ch == '-' {");
-    module.push_tabln(6, "if self.input[self.position+1] == '-' {");
-    module.push_tabln(7, "if self.input[self.position+2] == '>' {");
-    module.push_tabln(8, "self.read_char();");
-    module.push_tabln(8, "self.read_char();");
-    module.push_tabln(8, "self.read_char();");
-    module.push_tabln(8, "break;");
-    module.push_tabln(7, "}");
-    module.push_tabln(6, "}");
-    module.push_tabln(5, "}");
-    module.push_tabln(5, "self.read_char();");
-    module.push_tabln(4, "}");
-    module.push_tabln(
-        4,
-        "comment.append(&mut self.input[last_position..self.position].to_vec());",
-    );
-    module.push_tabln(4, "return token::Token::COMMENT(comment);");
-    module.push_tabln(3, "}");
     module.push_tabln(2, "}\n");
     module.to_string()
 }

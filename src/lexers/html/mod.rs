@@ -99,7 +99,6 @@ impl Lexer {
                 return token::Token::COMMENT(comment);
             }
         }
-
         match self.ch {
             '\n' => {
                 tok = token::Token::ENDL(self.ch);
