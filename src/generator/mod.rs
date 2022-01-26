@@ -51,7 +51,6 @@ get_hash!(get_entity_suffix, entity_suffix);
 get_hash!(get_entity_tag, entity_tag);
 get_hash!(get_condition, condition);
 get_hash!(get_xml_entity_tag, xml_entity_tag);
-get_bool!(slash_comment_enable, slash_comment);
 get_bool!(slash_star_comment_enable, slash_star_comment);
 get_bool!(xml_comment_enable, xml_comment);
 get_bool!(hashtag_comment_enable, hashtag_comment);
@@ -85,7 +84,6 @@ pub fn parse(file_path: &str) -> String {
         "prefix",
         "bracket_dash_comment",
         "hashtag_comment",
-        "slash_comment",
         "slash_star_comment",
         "xml_comment",
         "condition",
