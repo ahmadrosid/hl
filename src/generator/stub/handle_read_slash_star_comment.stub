@@ -1,0 +1,18 @@
+let read_slash_star_comment = |l: &mut Lexer| -> Vec<char> {
+    let position = l.position;
+    while l.position < l.input.len() {
+        if l.position == l.input.len() {
+            break;
+        }
+        if l.input[l.position + 1] == '*' {
+            if l.input[l.position + 2] == '/' {
+                l.read_char();
+                l.read_char();
+                break;
+            }
+        }
+        l.read_char();
+    }
+    l.input[position..l.position + 1].to_vec()
+};
+

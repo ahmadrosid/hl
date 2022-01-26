@@ -100,7 +100,7 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
     module.push_tabln(2, "};\n");
 
     if slash_star_comment_enable(h) {
-        module.push_str(&write_handle_read_slash_star_comment())
+        module.push_str(include_str!("stub/handle_read_slash_star_comment.stub"))
     }
 
     if let Some(ch) = h.get_some_condition(MARK_AS_KEYWORD_ON_CHAR) {
@@ -676,31 +676,6 @@ fn write_handle_markup_head(head: &str) -> String {
     scope
         .replace("{mark}", &heads.first().unwrap().to_string())
         .replace("{scope}", &code)
-}
-
-fn write_handle_read_slash_star_comment() -> String {
-    let mut module = StringBuilder::new();
-    module.push_tabln(
-        2,
-        "let read_slash_star_comment = |l: &mut Lexer| -> Vec<char> {",
-    );
-    module.push_tabln(3, "let position = l.position;");
-    module.push_tabln(3, "while l.position < l.input.len() {");
-    module.push_tabln(4, "if l.position == l.input.len() {");
-    module.push_tabln(5, "break;");
-    module.push_tabln(4, "}");
-    module.push_tabln(4, "if l.input[l.position + 1] == '*' {");
-    module.push_tabln(5, "if l.input[l.position + 2] == '/' {");
-    module.push_tabln(6, "l.read_char();");
-    module.push_tabln(6, "l.read_char();");
-    module.push_tabln(6, "break;");
-    module.push_tabln(5, "}");
-    module.push_tabln(4, "}");
-    module.push_tabln(4, "l.read_char();");
-    module.push_tabln(3, "}");
-    module.push_tabln(3, "l.input[position..l.position + 1].to_vec()");
-    module.push_tabln(2, "};\n");
-    module.to_string()
 }
 
 fn write_handle_read_string(h: Hash) -> String {
