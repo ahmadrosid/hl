@@ -56,7 +56,7 @@ pub fn generate_render_html(h: &Hash, name: String) -> String {
     html.push_tabln(2, "match token {");
 
     if !h.get_some_condition(IGNORE_INTEGER).is_some() {
-        write_token_integer(&mut html);
+        html.push_str(include_str!("stub/render_token_int.stub"));
     }
     write_token_identifier(&mut html);
 
@@ -336,16 +336,6 @@ fn write_token_entity_tag(html: &mut StringBuilder) {
     html.push_tabln(
         4,
         "html.push_str(&format!(\"<span class=\\\"hl-ent\\\">{}</span>\", s));",
-    );
-    html.push_tabln(3, "}");
-}
-
-fn write_token_integer(html: &mut StringBuilder) {
-    html.push_tabln(3, "token::Token::INT(value) => {");
-    html.push_tabln(
-        4,
-        "html.push_str(&format!(\"<span class=\\\"hl-c\\\">{}</span>\", \
-        value.iter().collect::<String>()));",
     );
     html.push_tabln(3, "}");
 }
