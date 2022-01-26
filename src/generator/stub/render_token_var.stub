@@ -1,0 +1,6 @@
+token::Token::VAR(value) => {
+    html.push_str(&format!(
+        "<span class=\"hl-vid\">{}</span>",
+        value.iter().collect::<String>()
+    ));
+}

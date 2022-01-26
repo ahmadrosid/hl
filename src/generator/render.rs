@@ -100,7 +100,7 @@ pub fn generate_render_html(h: &Hash, name: String) -> String {
     }
 
     if h.get_some_condition(ACCEPT_PREFIX_VAR).is_some() {
-        write_token_var_identifier(&mut html);
+        html.push_str(include_str!("stub/render_token_var.stub"));
     }
 
     if h.get_some_condition(MARKUP_HEAD).is_some() {
@@ -128,17 +128,7 @@ pub fn generate_render_html(h: &Hash, name: String) -> String {
         html.push_tabln(3, "}");
     }
 
-    html.push_tabln(3, "token::Token::ENDL(_) => {");
-    html.push_tabln(4, "line = line + 1;");
-    html.push_tabln(4, "html.push_str(\"</td></tr>\\n\");");
-    html.push_tabln(4, "html.push_str(&format!(");
-    html.push_tabln(
-        5,
-        r#""<tr><td class=\"hl-num\" data-line=\"{}\"></td><td>","#,
-    );
-    html.push_tabln(5, "line");
-    html.push_tabln(4, "));");
-    html.push_tabln(3, "}");
+    html.push_str(include_str!("stub/render_token_endl.stub"));
 
     html.push_tabln(3, "_ => {");
     if let Some(prefix) = h.get_some_condition(ENCODE_LT) {
@@ -238,16 +228,6 @@ fn write_token_keyword(html: &mut StringBuilder) {
     html.push_tabln(
         4,
         "html.push_str(&format!(\"<span class=\\\"hl-k\\\">{}</span>\", \
-        value.iter().collect::<String>()));",
-    );
-    html.push_tabln(3, "}");
-}
-
-fn write_token_var_identifier(html: &mut StringBuilder) {
-    html.push_tabln(3, "token::Token::VAR(value) => {");
-    html.push_tabln(
-        4,
-        "html.push_str(&format!(\"<span class=\\\"hl-vid\\\">{}</span>\", \
         value.iter().collect::<String>()));",
     );
     html.push_tabln(3, "}");
