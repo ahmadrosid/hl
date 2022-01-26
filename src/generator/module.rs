@@ -871,31 +871,3 @@ fn write_handle_xml_comment() -> String {
     module.push_tabln(2, "}\n");
     module.to_string()
 }
-
-fn write_handle_double_dash_comment() -> String {
-    let mut module = StringBuilder::new();
-    module.push_tabln(2, "if self.ch == '-' {");
-    module.push_tabln(3, "let next_ch = self.input[self.position + 1];");
-    module.push_tabln(
-        3,
-        "if self.position + 1 < self.input.len() && next_ch == '-' {",
-    );
-    module.push_tabln(4, "let mut comment = vec!['-','-'];");
-    module.push_tabln(4, "self.read_char();");
-    module.push_tabln(4, "self.read_char();");
-    module.push_tabln(4, "let last_position = self.position;");
-    module.push_tabln(4, "while self.position < self.input.len() {");
-    module.push_tabln(5, "if self.ch == '\\n' {");
-    module.push_tabln(6, "break;");
-    module.push_tabln(5, "}");
-    module.push_tabln(5, "self.read_char();");
-    module.push_tabln(4, "}");
-    module.push_tabln(
-        4,
-        "comment.append(&mut self.input[last_position..self.position].to_vec());",
-    );
-    module.push_tabln(4, "return token::Token::COMMENT(comment);");
-    module.push_tabln(3, "}");
-    module.push_tabln(2, "}");
-    module.to_string()
-}

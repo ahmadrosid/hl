@@ -1,5 +1,3 @@
-double_dash_comment: true
-
 constant:
   true: "true"
   false: "false"
@@ -38,3 +36,4 @@ condition:
   ACCEPT_STRING_DOUBLE_QUOTE: true
   ACCEPT_DOUBLE_BRACKET_STRING: true
   RENDER_MULTI_LINE_STRING: true
+  PREFIX_ONE_LINE_COMMENT: "--"
