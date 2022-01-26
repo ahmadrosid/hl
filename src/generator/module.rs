@@ -66,25 +66,7 @@ fn write_helper_is_white_space(module: &mut StringBuilder) {
 }
 
 fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
-    module.push_strln("impl Lexer {");
-    module.push_tabln(1, "pub fn new(input: Vec<char>) -> Self {");
-    module.push_tabln(2, "Self {");
-    module.push_tabln(3, "input,");
-    module.push_tabln(3, "position: 0,");
-    module.push_tabln(3, "read_position: 0,");
-    module.push_tabln(3, "ch: '\\0',");
-    module.push_tabln(2, "}");
-    module.push_tabln(1, "}\n");
-
-    module.push_tabln(1, "pub fn read_char(&mut self) {");
-    module.push_tabln(2, "if self.read_position >= self.input.len() {");
-    module.push_tabln(3, "self.ch = '\\0';");
-    module.push_tabln(2, "} else {");
-    module.push_tabln(3, "self.ch = self.input[self.read_position];");
-    module.push_tabln(2, "}");
-    module.push_tabln(2, "self.position = self.read_position;");
-    module.push_tabln(2, "self.read_position = self.read_position + 1;");
-    module.push_tabln(1, "}\n");
+    module.push_str(include_str!("stub/initial_impl_lexer.stub"));
 
     module.push_tabln(1, "pub fn next_token(&mut self) -> token::Token {");
     module.push_tabln(2, "let read_identifier = |l: &mut Lexer| -> Vec<char> {");
