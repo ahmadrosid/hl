@@ -42,6 +42,9 @@ pub fn render_html(input: Vec<char>) -> String {
                 }
                 html.push_str(&format!("<span class=\"hl-s\">{}</span>", s));
             }
+            token::Token::HEAD(value) => {
+                html.push_str(&format!("<span class=\"hl-mh\">{}</span>", value.iter().collect::<String>()));
+            }
             token::Token::ENDL(_) => {
                 line = line + 1;
                 html.push_str("</td></tr>\n");

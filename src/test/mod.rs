@@ -132,6 +132,14 @@ fn test_lua() {
 }
 
 #[test]
+fn test_markdown() {
+    let input = read_input("src/test/testdata/input/markdown.md.stub");
+    let expected = read_file("src/test/testdata/output/markdown.html.stub");
+    let actual = markdown::render::render_html(input);
+    assert_eq!(expected, actual);
+}
+
+#[test]
 fn test_php() {
     let input = read_input("src/test/testdata/input/php.php.stub");
     let expected = read_file("src/test/testdata/output/php.html.stub");

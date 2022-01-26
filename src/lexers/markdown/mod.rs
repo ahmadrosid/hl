@@ -69,6 +69,68 @@ impl Lexer {
         };
 
         let tok: token::Token;
+        if self.position + 2 < self.input.len() && self.input[self.position..self.position + 2] == vec!['#',' '] {
+            let start_position = self.position;
+            self.read_char();
+            let mut start_mark = self.input[start_position..self.position].to_vec();
+            while self.position < self.input.len() {
+                start_mark.push(self.ch);
+                self.read_char();
+                if self.ch == '\n' {
+                    break;
+                }
+            }
+            return token::Token::HEAD(start_mark);
+        }
+
+        if self.position + 3 < self.input.len() && self.input[self.position..self.position + 3] == vec!['#','#',' '] {
+            let start_position = self.position;
+            self.read_char();
+            self.read_char();
+            let mut start_mark = self.input[start_position..self.position].to_vec();
+            while self.position < self.input.len() {
+                start_mark.push(self.ch);
+                self.read_char();
+                if self.ch == '\n' {
+                    break;
+                }
+            }
+            return token::Token::HEAD(start_mark);
+        }
+
+        if self.position + 4 < self.input.len() && self.input[self.position..self.position + 4] == vec!['#','#','#',' '] {
+            let start_position = self.position;
+            self.read_char();
+            self.read_char();
+            self.read_char();
+            let mut start_mark = self.input[start_position..self.position].to_vec();
+            while self.position < self.input.len() {
+                start_mark.push(self.ch);
+                self.read_char();
+                if self.ch == '\n' {
+                    break;
+                }
+            }
+            return token::Token::HEAD(start_mark);
+        }
+
+        if self.position + 5 < self.input.len() && self.input[self.position..self.position + 5] == vec!['#','#','#','#',' '] {
+            let start_position = self.position;
+            self.read_char();
+            self.read_char();
+            self.read_char();
+            self.read_char();
+            let mut start_mark = self.input[start_position..self.position].to_vec();
+            while self.position < self.input.len() {
+                start_mark.push(self.ch);
+                self.read_char();
+                if self.ch == '\n' {
+                    break;
+                }
+            }
+            return token::Token::HEAD(start_mark);
+        }
+
         match self.ch {
             '\n' => {
                 tok = token::Token::ENDL(self.ch);

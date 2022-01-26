@@ -36,6 +36,7 @@ const ACCEPT_CHAR_IDENTIFIER: &str = "ACCEPT_CHAR_IDENTIFIER";
 const PREFIX_ONE_LINE_COMMENT: &str = "PREFIX_ONE_LINE_COMMENT";
 const MARK_KEYWORD_AS_ENTITY_ON_PREFIX: &str = "MARK_KEYWORD_AS_ENTITY_ON_PREFIX";
 const MARK_AS_KEYWORD_ON_CHAR: &str = "MARK_AS_KEYWORD_ON_CHAR";
+const MARKUP_HEAD: &str = "MARKUP_HEAD";
 
 pub fn generate_module(h: &Hash) -> String {
     let mut module = StringBuilder::new();
@@ -182,6 +183,10 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
 
     if h.get_some_condition(ACCEPT_STRING_EOF).is_some() {
         module.push_str(&write_handle_eof_string());
+    }
+
+    if let Some(ch) = h.get_some_condition(MARKUP_HEAD) {
+        module.push_str(&write_handle_markup_head(ch.as_str().unwrap()));
     }
 
     for (_, val) in get_double_keyword(h) {
@@ -701,6 +706,39 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
     module.push_tabln(2, "tok");
     module.push_tabln(1, "}");
     module.push_strln("}");
+}
+
+fn write_handle_markup_head(head: &str) -> String {
+    let heads: Vec<char> = head.to_string().chars().collect();
+    let mut module = StringBuilder::new();
+    for index in 0..heads.len() {
+        let next_position = index + 2;
+        let mut h = heads[0..index + 1].to_vec();
+        h.push(' ');
+        let vec_char = h.iter().map(| c | format!("'{}',", c)).collect::<String>();
+        module.push_tabln(
+            2,
+            &format!(
+                "if self.position + {} < self.input.len() && self.input[self.position..self.position + {}] == vec![{}] {{",
+                next_position, next_position, vec_char.trim_end_matches(',')
+            )
+        );
+        module.push_tabln(3, "let start_position = self.position;");
+        for _ in 0..(index + 1) {
+            module.push_tabln(3, "self.read_char();");
+        }
+        module.push_tabln(3, "let mut start_mark = self.input[start_position..self.position].to_vec();");
+        module.push_tabln(3, "while self.position < self.input.len() {");
+        module.push_tabln(4, "start_mark.push(self.ch);");
+        module.push_tabln(4, "self.read_char();");
+        module.push_tabln(4, "if self.ch == '\\n' {");
+        module.push_tabln(5, "break;");
+        module.push_tabln(4, "}");
+        module.push_tabln(3, "}");
+        module.push_tabln(3, "return token::Token::HEAD(start_mark);");
+        module.push_tabln(2, "}\n");
+    }
+    module.to_string()
 }
 
 fn write_handle_read_slash_star_comment() -> String {

@@ -16,6 +16,7 @@ const ACCEPT_STRING_EOF: &str = "ACCEPT_STRING_EOF";
 const MARK_ENTITY_TAG_SUFFIX: &str = "MARK_ENTITY_TAG_SUFFIX";
 const MARK_STRING_ENTITY_TAG: &str = "MARK_STRING_ENTITY_TAG";
 const PREFIX_ONE_LINE_COMMENT: &str = "PREFIX_ONE_LINE_COMMENT";
+const MARKUP_HEAD: &str = "MARKUP_HEAD";
 
 pub fn generate_token(h: &Hash) -> String {
     let mut token = StringBuilder::new();
@@ -27,6 +28,10 @@ pub fn generate_token(h: &Hash) -> String {
     token.push_tabln(1, "ENDL(char),");
     token.push_tabln(1, "INT(Vec<char>),");
     token.push_tabln(1, "IDENT(Vec<char>),");
+
+    if h.get_some_condition(MARKUP_HEAD).is_some() {
+        token.push_tabln(1, "HEAD(Vec<char>),")
+    }
 
     if slash_star_comment_enable(h)
         || slash_comment_enable(h)

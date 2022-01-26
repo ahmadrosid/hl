@@ -19,6 +19,7 @@ const ACCEPT_STRING_EOF: &str = "ACCEPT_STRING_EOF";
 const MARK_ENTITY_TAG_SUFFIX: &str = "MARK_ENTITY_TAG_SUFFIX";
 const MARK_STRING_ENTITY_TAG: &str = "MARK_STRING_ENTITY_TAG";
 const PREFIX_ONE_LINE_COMMENT: &str = "PREFIX_ONE_LINE_COMMENT";
+const MARKUP_HEAD: &str = "MARKUP_HEAD";
 
 pub fn generate_render_html(h: &Hash, name: String) -> String {
     let mut html = StringBuilder::new();
@@ -101,6 +102,10 @@ pub fn generate_render_html(h: &Hash, name: String) -> String {
         write_token_var_identifier(&mut html);
     }
 
+    if h.get_some_condition(MARKUP_HEAD).is_some() {
+        write_token_head(&mut html);
+    }
+
     if slash_comment_enable(h)
         || slash_star_comment_enable(h)
         || xml_comment_enable(h)
@@ -160,6 +165,16 @@ pub fn generate_render_html(h: &Hash, name: String) -> String {
     html.push_tabln(1, "html");
     html.push_strln("}");
     html.to_string()
+}
+
+fn write_token_head(html: &mut StringBuilder) {
+    html.push_tabln(3, "token::Token::HEAD(value) => {");
+    html.push_tabln(
+        4,
+        "html.push_str(&format!(\"<span class=\\\"hl-mh\\\">{}</span>\", \
+        value.iter().collect::<String>()));",
+    );
+    html.push_tabln(3, "}");
 }
 
 fn write_token_comment(html: &mut StringBuilder) {

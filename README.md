@@ -50,7 +50,7 @@ hl src/main.rs -l rust
 </table>
 ```
 
-See the result in browser [here](https://play.tailwindcss.com/xFlm0rN1wH).
+See the result in browser [here](https://play.tailwindcss.com/JevzqYGpuH).
 
 ## Lexers
 - [x] Bash ( ✅ Done )

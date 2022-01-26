@@ -1,0 +1,87 @@
+<table class="highlight-table">
+<tbody>
+<tr><td class="hl-num" data-line="1"></td><td>&lt;p align=<span class="hl-s">"center"</span>></td></tr>
+<tr><td class="hl-num" data-line="2"></td><td>&lt;img src=<span class="hl-s">"zeuslogo.png"</span> width=<span class="hl-s">"30%"</span>>&lt;/img></td></tr>
+<tr><td class="hl-num" data-line="3"></td><td>&lt;/p></td></tr>
+<tr><td class="hl-num" data-line="4"></td><td>&lt;p align=<span class="hl-s">"center"</span>></td></tr>
+<tr><td class="hl-num" data-line="5"></td><td>&lt;a href=<span class="hl-s">"https://en.wikipedia.org/wiki/Shell_script"</span>>&lt;img src=<span class="hl-s">"https://img.shields.io/badge/Shell%20Script-*nix-brightgreen.svg"</span>>&lt;/a>&lt;img src=<span class="hl-s">"https://img.shields.io/github/license/mashape/apistatus.svg"</span>>&lt;img src=<span class="hl-s">"https://img.shields.io/badge/LSE%20tools-Zeus-red.svg"</span>></td></tr>
+<tr><td class="hl-num" data-line="6"></td><td>&lt;a href=<span class="hl-s">"https://www.blackhat.com"</span>>&lt;img src=<span class="hl-s">"https://img.shields.io/badge/Black%20Hat%20Arsenal-Asia%202018-blue.svg"</span>>&lt;/a>&lt;/a></td></tr>
+<tr><td class="hl-num" data-line="7"></td><td></td></tr>
+<tr><td class="hl-num" data-line="8"></td><td><span class="hl-mh"># Zeus</span></td></tr>
+<tr><td class="hl-num" data-line="9"></td><td>AWS Auditing &amp; Hardening Tool</td></tr>
+<tr><td class="hl-num" data-line="10"></td><td></td></tr>
+<tr><td class="hl-num" data-line="11"></td><td>Zeus is a powerful tool for AWS EC<span class="hl-c">2</span> / S<span class="hl-c">3</span> / CloudTrail / CloudWatch / KMS best hardening practices. It checks security settings according to the profiles the user creates and changes them to recommended settings based on the CIS AWS Benchmark source at request of the user.</td></tr>
+<tr><td class="hl-num" data-line="12"></td><td></td></tr>
+<tr><td class="hl-num" data-line="13"></td><td>~~Currently, it only includes the Logging mechanism.~~</td></tr>
+<tr><td class="hl-num" data-line="14"></td><td></td></tr>
+<tr><td class="hl-num" data-line="15"></td><td><span class="hl-mh">## Identity and Access Management</span></td></tr>
+<tr><td class="hl-num" data-line="16"></td><td>- Avoid the use of the <span class="hl-s">"root"</span> account</td></tr>
+<tr><td class="hl-num" data-line="17"></td><td>- Ensure multi-factor authentication (MFA) is enabled for all IAM users that have a console password</td></tr>
+<tr><td class="hl-num" data-line="18"></td><td>- Ensure credentials unused for <span class="hl-c">90</span> days or greater are disabled</td></tr>
+<tr><td class="hl-num" data-line="19"></td><td>- Ensure access keys are rotated every <span class="hl-c">90</span> days or less</td></tr>
+<tr><td class="hl-num" data-line="20"></td><td>- Ensure IAM password policy requires at least one uppercase letter</td></tr>
+<tr><td class="hl-num" data-line="21"></td><td>- Ensure IAM password policy requires at least one lowercase letter</td></tr>
+<tr><td class="hl-num" data-line="22"></td><td>- Ensure IAM password policy requires at least one symbol</td></tr>
+<tr><td class="hl-num" data-line="23"></td><td>- Ensure IAM password policy requires at least one number</td></tr>
+<tr><td class="hl-num" data-line="24"></td><td>- Ensure IAM password policy requires minimum length of <span class="hl-c">14</span> or greater</td></tr>
+<tr><td class="hl-num" data-line="25"></td><td>- Ensure no root account access key exists</td></tr>
+<tr><td class="hl-num" data-line="26"></td><td>- Ensure MFA is enabled for the <span class="hl-s">"root"</span> account</td></tr>
+<tr><td class="hl-num" data-line="27"></td><td>- Ensure security questions are registered in the AWS account</td></tr>
+<tr><td class="hl-num" data-line="28"></td><td>- Ensure IAM policies are attached only to groups or role</td></tr>
+<tr><td class="hl-num" data-line="29"></td><td>- Enable detailed billing</td></tr>
+<tr><td class="hl-num" data-line="30"></td><td>- Maintain current contact details</td></tr>
+<tr><td class="hl-num" data-line="31"></td><td>- Ensure security contact information is registered</td></tr>
+<tr><td class="hl-num" data-line="32"></td><td>- Ensure IAM instance roles are used for AWS resource access from instances</td></tr>
+<tr><td class="hl-num" data-line="33"></td><td></td></tr>
+<tr><td class="hl-num" data-line="34"></td><td><span class="hl-mh">## Logging</span></td></tr>
+<tr><td class="hl-num" data-line="35"></td><td>- Ensure CloudTrail is enabled in all regions</td></tr>
+<tr><td class="hl-num" data-line="36"></td><td>- Ensure CloudTrail log file validation is enabled</td></tr>
+<tr><td class="hl-num" data-line="37"></td><td>- Ensure the S<span class="hl-c">3</span> bucket CloudTrail logs to is not publicly accessible</td></tr>
+<tr><td class="hl-num" data-line="38"></td><td>- Ensure CloudTrail trails are integrated with CloudWatch Logs</td></tr>
+<tr><td class="hl-num" data-line="39"></td><td>- Ensure AWS Config is enabled in all regions</td></tr>
+<tr><td class="hl-num" data-line="40"></td><td>- Ensure S<span class="hl-c">3</span> bucket access logging is enabled on the CloudTrail S<span class="hl-c">3</span> bucket</td></tr>
+<tr><td class="hl-num" data-line="41"></td><td>- Ensure CloudTrail logs are encrypted at rest using KMS CMKs</td></tr>
+<tr><td class="hl-num" data-line="42"></td><td>- Ensure rotation for customer created CMKs is enabled</td></tr>
+<tr><td class="hl-num" data-line="43"></td><td></td></tr>
+<tr><td class="hl-num" data-line="44"></td><td><span class="hl-mh">## Networking</span></td></tr>
+<tr><td class="hl-num" data-line="45"></td><td>- Ensure no security groups allow ingress from <span class="hl-c">0</span>.<span class="hl-c">0</span>.<span class="hl-c">0</span>.<span class="hl-c">0</span>/<span class="hl-c">0</span> to port <span class="hl-c">22</span></td></tr>
+<tr><td class="hl-num" data-line="46"></td><td>- Ensure no security groups allow ingress from <span class="hl-c">0</span>.<span class="hl-c">0</span>.<span class="hl-c">0</span>.<span class="hl-c">0</span>/<span class="hl-c">0</span> to port <span class="hl-c">3389</span></td></tr>
+<tr><td class="hl-num" data-line="47"></td><td>- Ensure VPC flow logging is enabled in all VPC</td></tr>
+<tr><td class="hl-num" data-line="48"></td><td>- Ensure the default security group of every VPC restricts all traffic</td></tr>
+<tr><td class="hl-num" data-line="49"></td><td></td></tr>
+<tr><td class="hl-num" data-line="50"></td><td><span class="hl-mh">## Monitoring</span></td></tr>
+<tr><td class="hl-num" data-line="51"></td><td> - Ensure a log metric filter and alarm exist for unauthorized API calls</td></tr>
+<tr><td class="hl-num" data-line="52"></td><td> - Ensure a log metric filter and alarm exist for Management Consolesign-in without MFA</td></tr>
+<tr><td class="hl-num" data-line="53"></td><td> - Ensure a log metric filter and alarm exist for usage of <span class="hl-s">"root"</span> account</td></tr>
+<tr><td class="hl-num" data-line="54"></td><td> - Ensure a log metric filter and alarm exist for IAM policy changes</td></tr>
+<tr><td class="hl-num" data-line="55"></td><td> - Ensure a log metric filter and alarm exist for CloudTrail configuration changes</td></tr>
+<tr><td class="hl-num" data-line="56"></td><td> - Ensure a log metric filter and alarm exist for AWS Management Console authentication failures</td></tr>
+<tr><td class="hl-num" data-line="57"></td><td> - Ensure a log metric filter and alarm exist for disabling or scheduled deletion of customer created CMKs</td></tr>
+<tr><td class="hl-num" data-line="58"></td><td> - Ensure a log metric filter and alarm exist for S<span class="hl-c">3</span> bucket policy changes</td></tr>
+<tr><td class="hl-num" data-line="59"></td><td> - Ensure a log metric filter and alarm exist for AWS Config configuration changes</td></tr>
+<tr><td class="hl-num" data-line="60"></td><td> - Ensure a log metric filter and alarm exist for security group changes</td></tr>
+<tr><td class="hl-num" data-line="61"></td><td> - Ensure a log metric filter and alarm exist for changes to NetworkAccess Control Lists (NACL)</td></tr>
+<tr><td class="hl-num" data-line="62"></td><td> - Ensure a log metric filter and alarm exist for changes to network gateways</td></tr>
+<tr><td class="hl-num" data-line="63"></td><td> - Ensure a log metric filter and alarm exist for route table changes</td></tr>
+<tr><td class="hl-num" data-line="64"></td><td> - Ensure a log metric filter and alarm exist for VPC changes</td></tr>
+<tr><td class="hl-num" data-line="65"></td><td></td></tr>
+<tr><td class="hl-num" data-line="66"></td><td><span class="hl-mh">### ChangeLog</span></td></tr>
+<tr><td class="hl-num" data-line="67"></td><td></td></tr>
+<tr><td class="hl-num" data-line="68"></td><td>Soon.</td></tr>
+<tr><td class="hl-num" data-line="69"></td><td></td></tr>
+<tr><td class="hl-num" data-line="70"></td><td><span class="hl-mh"># Requirements</span></td></tr>
+<tr><td class="hl-num" data-line="71"></td><td></td></tr>
+<tr><td class="hl-num" data-line="72"></td><td>Zeus has been written in bash script using AWS-CLI and it works in Linux/UNIX and OSX.</td></tr>
+<tr><td class="hl-num" data-line="73"></td><td></td></tr>
+<tr><td class="hl-num" data-line="74"></td><td>~~Make sure that the AWS-CLI tool is installed on the system and profile is configured (aws configure).~~</td></tr>
+<tr><td class="hl-num" data-line="75"></td><td></td></tr>
+<tr><td class="hl-num" data-line="76"></td><td><span class="hl-mh">### Update:</span></td></tr>
+<tr><td class="hl-num" data-line="77"></td><td></td></tr>
+<tr><td class="hl-num" data-line="78"></td><td>pip & aws-cli checking functions are added that based on operating system.</td></tr>
+<tr><td class="hl-num" data-line="79"></td><td></td></tr>
+<tr><td class="hl-num" data-line="80"></td><td><span class="hl-mh"># Usage</span></td></tr>
+<tr><td class="hl-num" data-line="81"></td><td></td></tr>
+<tr><td class="hl-num" data-line="82"></td><td>git clone https://github.com/DenizParlak/Zeus.git && cd Zeus && chmod +x zeus.sh && ./zeus.sh</td></tr>
+<tr><td class="hl-num" data-line="83"></td><td></td></tr>
+</tbody>
+</table>
