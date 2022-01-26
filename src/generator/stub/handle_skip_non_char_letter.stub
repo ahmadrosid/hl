@@ -1,0 +1,14 @@
+if self.ch == '{ch}' {
+    let start_position = self.position;
+    while self.position < self.input.len()
+        && !is_letter(self.ch)
+        && !is_digit(self.ch)
+        && self.ch != '\n'
+        && self.ch != ' '
+    {
+        self.read_char();
+    }
+    let identifier = self.input[start_position..self.position].to_vec();
+    return token::Token::IDENT(identifier)
+}
+

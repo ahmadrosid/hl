@@ -154,7 +154,11 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
     }
 
     if let Some(ch) = h.get_some_condition(SKIP_NON_CHAR_LETTER_PREFIX) {
-        module.push_str(&write_handle_skip_non_char_letter(ch));
+        module.push_str(
+            &include_str!("stub/handle_skip_non_char_letter.stub")
+                .to_string()
+                .replace("{ch}", ch.as_str().unwrap()),
+        );
     }
 
     if h.get_some_condition(ACCEPT_STRING_EOF).is_some() {
@@ -806,26 +810,5 @@ fn write_handle_hexadecimal() -> String {
     module.push_tabln(5, "token::Token::INT(number)");
     module.push_tabln(4, "}");
     module.push_tabln(3, "}");
-    module.to_string()
-}
-
-fn write_handle_skip_non_char_letter(ch: Yaml) -> String {
-    let mut module = StringBuilder::new();
-    module.push_tabln(2, &format!("if self.ch == '{}' {{", ch.as_str().unwrap()));
-    module.push_tabln(3, "let start_position = self.position;");
-    module.push_tabln(3, "while self.position < self.input.len()");
-    module.push_tabln(4, "&& !is_letter(self.ch)");
-    module.push_tabln(4, "&& !is_digit(self.ch)");
-    module.push_tabln(4, "&& self.ch != '\\n'");
-    module.push_tabln(4, "&& self.ch != ' '");
-    module.push_tabln(3, "{");
-    module.push_tabln(4, "self.read_char();");
-    module.push_tabln(3, "}");
-    module.push_tabln(
-        3,
-        "let identifier = self.input[start_position..self.position].to_vec();",
-    );
-    module.push_tabln(3, "return token::Token::IDENT(identifier)");
-    module.push_tabln(2, "}\n");
     module.to_string()
 }
