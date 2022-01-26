@@ -1,4 +1,3 @@
-slash_comment: true
 slash_star_comment: true
 
 constant:
@@ -67,3 +66,4 @@ condition:
   ACCEPT_ENTITY_TAG_SUFFIX: "is_digit(self.ch)"
   BREAK_ENTITY_TAG_SUFFIX: "!is_digit(self.ch) && !is_letter(self.ch)"
   ACCEPT_HEXADECIMAL_NUMBER: true
+  PREFIX_ONE_LINE_COMMENT: "//"

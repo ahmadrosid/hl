@@ -52,14 +52,6 @@ fn test_cuda() {
 }
 
 #[test]
-fn test_edn() {
-    let input = read_input("src/test/testdata/input/edn.edn.stub");
-    let expected = read_file("src/test/testdata/output/edn.html.stub");
-    let actual = edn::render::render_html(input);
-    assert_eq!(expected, actual);
-}
-
-#[test]
 fn test_cpp() {
     let input = read_input("src/test/testdata/input/cpp.cpp.stub");
     let expected = read_file("src/test/testdata/output/cpp.html.stub");
@@ -72,6 +64,14 @@ fn test_cs() {
     let input = read_input("src/test/testdata/input/cs.cs.stub");
     let expected = read_file("src/test/testdata/output/cs.html.stub");
     let actual = cs::render::render_html(input);
+    assert_eq!(expected, actual);
+}
+
+#[test]
+fn test_edn() {
+    let input = read_input("src/test/testdata/input/edn.edn.stub");
+    let expected = read_file("src/test/testdata/output/edn.html.stub");
+    let actual = edn::render::render_html(input);
     assert_eq!(expected, actual);
 }
 

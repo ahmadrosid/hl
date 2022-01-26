@@ -78,20 +78,6 @@ impl Lexer {
             l.input[position..l.position].to_vec()
         };
 
-        let read_slash_comment = |l: &mut Lexer| -> Vec<char> {
-            let position = l.position;
-            while l.position < l.input.len() {
-                l.read_char();
-                if l.position + 1 < l.input.len() && l.input[l.position + 1] == '\n' {
-                    break;
-                }
-            }
-            if l.position + 1 >= l.input.len() {
-                return l.input[position..l.position].to_vec();
-            }
-            l.input[position..l.position + 1].to_vec()
-        };
-
         let read_slash_star_comment = |l: &mut Lexer| -> Vec<char> {
             let position = l.position;
             while l.position < l.input.len() {
@@ -111,6 +97,13 @@ impl Lexer {
         };
 
         let tok: token::Token;
+        if self.read_position < self.input.len()
+            && self.ch == '/'
+            && self.input[self.read_position] == '/'
+        {
+            return token::Token::COMMENT(read_string(self, '\n'));
+        }
+
         match self.ch {
             '\n' => {
                 tok = token::Token::ENDL(self.ch);
@@ -119,12 +112,10 @@ impl Lexer {
                 tok = token::Token::EOF;
             }
             '/' => {
-                if self.input[self.position + 1] == '/' {
-                    tok = token::Token::COMMENT(read_slash_comment(self));
-                } else if self.input[self.position + 1] == '*' {
+                if self.input[self.position + 1] == '*' {
                     tok = token::Token::COMMENT(read_slash_star_comment(self));
                 } else {
-                    tok = token::Token::CH(self.ch);
+                    tok = token::Token::IDENT(vec![self.ch]);
                 }
             }
             _ => {
