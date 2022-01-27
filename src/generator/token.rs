@@ -17,7 +17,7 @@ const MARK_STRING_ENTITY_TAG: &str = "MARK_STRING_ENTITY_TAG";
 const PREFIX_ONE_LINE_COMMENT: &str = "PREFIX_ONE_LINE_COMMENT";
 const MARKUP_HEAD: &str = "MARKUP_HEAD";
 const IGNORE_INTEGER: &str = "IGNORE_INTEGER";
-const MARK_AS_KEYWORD_ON_CHARS: &str = "MARK_AS_KEYWORD_ON_CHARS";
+const MARK_AS_KEYWORD_IN_SCOPE: &str = "MARK_AS_KEYWORD_IN_SCOPE";
 
 pub fn generate_token(h: &Hash) -> String {
     let mut token = StringBuilder::new();
@@ -63,7 +63,7 @@ pub fn generate_token(h: &Hash) -> String {
         token.push_tabln(1, "CONSTANT(Vec<char>),");
     }
 
-    if get_keyword(h).len() >= 1 || h.get_some_condition(MARK_AS_KEYWORD_ON_CHARS).is_some() {
+    if get_keyword(h).len() >= 1 || h.get_some_condition(MARK_AS_KEYWORD_IN_SCOPE).is_some() {
         token.push_tabln(1, "KEYWORD(Vec<char>),");
     }
 

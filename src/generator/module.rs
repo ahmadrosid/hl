@@ -43,7 +43,7 @@ const MARK_AS_KEYWORD_ON_CHAR: &str = "MARK_AS_KEYWORD_ON_CHAR";
 const MARKUP_HEAD: &str = "MARKUP_HEAD";
 const IGNORE_INTEGER: &str = "IGNORE_INTEGER";
 const MARK_AS_IDENT_ON_CHAR: &str = "MARK_AS_IDENT_ON_CHAR";
-const MARK_AS_KEYWORD_ON_CHARS: &str = "MARK_AS_KEYWORD_ON_CHARS";
+const MARK_AS_KEYWORD_IN_SCOPE: &str = "MARK_AS_KEYWORD_IN_SCOPE";
 
 pub fn generate_module(h: &Hash) -> String {
     let initial_module = include_str!("stub/initial_module.stub");
@@ -105,26 +105,6 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
         module.push_str(include_str!("stub/handle_read_slash_star_comment.stub"))
     }
 
-    if let Some(ch) = h.get_some_condition(MARK_AS_KEYWORD_ON_CHAR) {
-        let c = ch.as_str().unwrap();
-        module.push_tabln(2, &format!("if self.ch == '{}' {{", c));
-        module.push_tabln(
-            3,
-            &format!("return token::Token::KEYWORD(read_string(self, '{}'));", c),
-        );
-        module.push_tabln(2, "}");
-    }
-
-    if let Some(ch) = h.get_some_condition(MARK_AS_KEYWORD_ON_CHARS) {
-        let c: Vec<char> = ch.as_str().unwrap().to_string().chars().collect();
-        module.push_str(
-            &include_str!("stub/mark_as_keyword_in_scope.stub")
-                .to_string()
-                .replace("{left}", &*c[0].to_string())
-                .replace("{right}", &*c[1].to_string()),
-        )
-    }
-
     module.push_tabln(2, "let tok: token::Token;");
 
     if xml_comment_enable(h) {
@@ -141,6 +121,26 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
 
     if hashtag_comment_enable(h) {
         module.push_str(include_str!("stub/handle_hashtag_comment.stub"));
+    }
+
+    if let Some(ch) = h.get_some_condition(MARK_AS_KEYWORD_ON_CHAR) {
+        let c = ch.as_str().unwrap();
+        module.push_tabln(2, &format!("if self.ch == '{}' {{", c));
+        module.push_tabln(
+            3,
+            &format!("return token::Token::KEYWORD(read_string(self, '{}'));", c),
+        );
+        module.push_tabln(2, "}");
+    }
+
+    if let Some(ch) = h.get_some_condition(MARK_AS_KEYWORD_IN_SCOPE) {
+        let c: Vec<char> = ch.as_str().unwrap().to_string().chars().collect();
+        module.push_str(
+            &include_str!("stub/mark_as_keyword_in_scope.stub")
+                .to_string()
+                .replace("{left}", &*c[0].to_string())
+                .replace("{right}", &*c[1].to_string()),
+        )
     }
 
     if let Some(ch) = h.get_some_condition(SKIP_NON_CHAR_LETTER_PREFIX) {

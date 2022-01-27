@@ -10,4 +10,4 @@ condition:
   ACCEPT_CHAR_IDENTIFIER: "-"
   ACCEPT_ENTITY_TAG_SUFFIX: "is_digit(self.ch)"
   BREAK_ENTITY_TAG_SUFFIX: "!is_digit(self.ch) && !is_letter(self.ch)"
-  MARK_AS_KEYWORD_ON_CHARS: "[]"
+  MARK_AS_KEYWORD_IN_SCOPE: "[]"
