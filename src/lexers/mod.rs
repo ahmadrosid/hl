@@ -6,7 +6,6 @@ pub mod cs;
 pub mod css;
 pub mod cuda;
 pub mod edn;
-pub mod gemfile;
 pub mod go;
 pub mod groovy;
 pub mod haskell;

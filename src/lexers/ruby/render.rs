@@ -92,6 +92,12 @@ pub fn render_html(input: Vec<char>) -> String {
                     }
                 }
             }
+            token::Token::Rails(value) => {
+                html.push_str(&format!(
+                    "<span class=\"hl-v\">{}</span>",
+                    value.iter().collect::<String>()
+                ));
+            }
             token::Token::ENDL(_) => {
                 line = line + 1;
                 html.push_str("</td></tr>\n");

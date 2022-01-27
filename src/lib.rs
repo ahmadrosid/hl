@@ -13,7 +13,6 @@ pub fn render_html(input: Vec<char>, lang: &str) -> String {
         "clojure" | "clj" => clojure::render::render_html(input),
         "css" => css::render::render_html(input),
         "cuda" => cuda::render::render_html(input),
-        "gemfile" => gemfile::render::render_html(input),
         "edn" => edn::render::render_html(input),
         "go" => go::render::render_html(input),
         "groovy" => groovy::render::render_html(input),

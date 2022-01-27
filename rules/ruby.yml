@@ -4,9 +4,14 @@ constant:
   True: "true"
   False: "false"
 
+entity_prefix:
+  dot: "."
+  new_line: '\n'
+
 entity_suffix:
   left_parent: "("
   left_brace: "{"
+  quote: "\\'"
 
 keyword:
   alias: alias
@@ -46,6 +51,9 @@ keyword:
   when: when
   while: while
   yield: yield
+
+var:
+  Rails: Rails
 
 condition:
   ACCEPT_ESCAPED_STRING: true

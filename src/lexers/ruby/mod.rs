@@ -118,6 +118,12 @@ impl Lexer {
                                 self.function_scope = false;
                                 return token::Token::ENTITY(identifier);
                             }
+                            if start_position > 0 && self.input[start_position - 1] == '.' {
+                                return token::Token::ENTITY(identifier);
+                            }
+                            if start_position > 0 && self.input[start_position - 1] == '\n' {
+                                return token::Token::ENTITY(identifier);
+                            }
                             if self.ch == '(' {
                                 return token::Token::ENTITY(identifier);
                             } else if is_white_space(self.ch) {
@@ -153,6 +159,28 @@ impl Lexer {
                                     }
                                 }
                                 if ch == '{' {
+                                    self.position = position - 1;
+                                    self.read_position = position;
+                                    let mut value = identifier;
+                                    value.append(
+                                        &mut self.input[start_position..self.position].to_vec(),
+                                    );
+                                    return token::Token::ENTITY(value);
+                                }
+                            }
+                            if self.ch == '\'' {
+                                return token::Token::ENTITY(identifier);
+                            } else if is_white_space(self.ch) {
+                                let start_position = self.position;
+                                let mut position = self.position;
+                                let mut ch = self.input[position];
+                                while position < self.input.len() && is_white_space(ch) {
+                                    position = position + 1;
+                                    if position < self.input.len() {
+                                        ch = self.input[position];
+                                    }
+                                }
+                                if ch == '\'' {
                                     self.position = position - 1;
                                     self.read_position = position;
                                     let mut value = identifier;

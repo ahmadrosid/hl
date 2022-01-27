@@ -18,7 +18,7 @@
 <tr><td class="hl-num" data-line="16"></td><td><span class="hl-k">end</span></td></tr>
 <tr><td class="hl-num" data-line="17"></td><td></td></tr>
 <tr><td class="hl-num" data-line="18"></td><td><span class="hl-en">group</span> :test <span class="hl-k">do</span></td></tr>
-<tr><td class="hl-num" data-line="19"></td><td>  <span class="hl-en">install_if</span> -> { RUBY_VERSION >= <span class="hl-s">'2.8'</span> } <span class="hl-k">do</span></td></tr>
+<tr><td class="hl-num" data-line="19"></td><td>  install_if -> { RUBY_VERSION >= <span class="hl-s">'2.8'</span> } <span class="hl-k">do</span></td></tr>
 <tr><td class="hl-num" data-line="20"></td><td>    <span class="hl-en">gem</span> <span class="hl-s">'rexml'</span>, <span class="hl-s">'&gt;= 3.2.4'</span></td></tr>
 <tr><td class="hl-num" data-line="21"></td><td>  <span class="hl-k">end</span></td></tr>
 <tr><td class="hl-num" data-line="22"></td><td>  <span class="hl-en">gem</span> <span class="hl-s">'json'</span>, <span class="hl-s">'&gt;= 2.3.0'</span>, platforms: [:jruby]</td></tr>

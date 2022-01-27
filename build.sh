@@ -8,7 +8,6 @@ array=(
   "rules/clojure.yml"
   "rules/css.yml"
   "rules/cuda.yml"
-  "rules/gemfile.yml"
   "rules/edn.yml"
   "rules/cpp.yml"
   "rules/cs.yml"
