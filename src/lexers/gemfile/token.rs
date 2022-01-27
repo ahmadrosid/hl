@@ -8,6 +8,7 @@ pub enum Token {
     INT(Vec<char>),
     ENTITY(Vec<char>),
     STRING(Vec<char>),
+    CONSTANT(Vec<char>),
     KEYWORD(Vec<char>),
     COMMENT(Vec<char>),
 }
@@ -15,6 +16,8 @@ pub enum Token {
 pub fn get_keyword_token(identifier: &Vec<char>) -> Result<Token, String> {
     let id: String = identifier.into_iter().collect();
     match &id[..] {
+        "true" => Ok(Token::CONSTANT(identifier.to_vec())),
+        "false" => Ok(Token::CONSTANT(identifier.to_vec())),
         "gem" => Ok(Token::ENTITY(identifier.to_vec())),
         "source" => Ok(Token::ENTITY(identifier.to_vec())),
         "group" => Ok(Token::ENTITY(identifier.to_vec())),

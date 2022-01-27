@@ -1,6 +1,6 @@
 // ---- DON'T EDIT! THIS IS AUTO GENERATED CODE ---- //
-pub mod token;
 pub mod render;
+pub mod token;
 
 pub struct Lexer {
     input: Vec<char>,
@@ -46,20 +46,22 @@ impl Lexer {
             l.input[position..l.position].to_vec()
         };
 
-let read_string = |l: &mut Lexer, ch: char| -> Vec<char> {
-    let position = l.position;
-    l.read_char();
-    while l.position < l.input.len() && l.ch != ch {
-        if l.ch == '\\' {l.read_char()}
-        l.read_char();
-    }
-    l.read_char();
-    if l.position > l.input.len() {
-        l.position = l.position - 1;
-        l.read_position = l.read_position - 1;
-    }
-    l.input[position..l.position].to_vec()
-};
+        let read_string = |l: &mut Lexer, ch: char| -> Vec<char> {
+            let position = l.position;
+            l.read_char();
+            while l.position < l.input.len() && l.ch != ch {
+                if l.ch == '\\' {
+                    l.read_char()
+                }
+                l.read_char();
+            }
+            l.read_char();
+            if l.position > l.input.len() {
+                l.position = l.position - 1;
+                l.read_position = l.read_position - 1;
+            }
+            l.input[position..l.position].to_vec()
+        };
 
         let read_number = |l: &mut Lexer| -> Vec<char> {
             let position = l.position;
@@ -70,10 +72,10 @@ let read_string = |l: &mut Lexer, ch: char| -> Vec<char> {
         };
 
         let tok: token::Token;
-if self.ch == '#' {
-    let comment: Vec<char> = read_string(self, '\n');
-    return token::Token::COMMENT(comment);
-}
+        if self.ch == '#' {
+            let comment: Vec<char> = read_string(self, '\n');
+            return token::Token::COMMENT(comment);
+        }
 
         match self.ch {
             '\n' => {
@@ -89,27 +91,23 @@ if self.ch == '#' {
                     #[allow(unused_mut)]
                     let mut identifier: Vec<char> = read_identifier(self);
                     match token::get_keyword_token(&identifier) {
-                            Ok(keyword_token) => {
-                                keyword_token
-                            },
-                            Err(_err) => {
-                                token::Token::IDENT(identifier)
-                            }
-                        }
-                    } else if is_digit(self.ch) {
-                        let identifier: Vec<char> = read_number(self);
-                        token::Token::INT(identifier)
-                    } else if self.ch == '\'' {
-                        let str_value: Vec<char> = read_string(self, '\'');
-                        token::Token::STRING(str_value)
-                    } else if self.ch == '"' {
-                        let str_value: Vec<char> = read_string(self, '"');
-                        token::Token::STRING(str_value)
-                    } else {
-                        token::Token::ILLEGAL
+                        Ok(keyword_token) => keyword_token,
+                        Err(_err) => token::Token::IDENT(identifier),
                     }
+                } else if is_digit(self.ch) {
+                    let identifier: Vec<char> = read_number(self);
+                    token::Token::INT(identifier)
+                } else if self.ch == '\'' {
+                    let str_value: Vec<char> = read_string(self, '\'');
+                    token::Token::STRING(str_value)
+                } else if self.ch == '"' {
+                    let str_value: Vec<char> = read_string(self, '"');
+                    token::Token::STRING(str_value)
+                } else {
+                    token::Token::ILLEGAL
                 }
             }
+        }
         self.read_char();
         tok
     }

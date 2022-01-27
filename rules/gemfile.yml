@@ -1,4 +1,7 @@
 hashtag_comment: true
+constant:
+  True: "true"
+  False: "false"
 
 entity:
   gem: gem

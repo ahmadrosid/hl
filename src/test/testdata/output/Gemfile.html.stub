@@ -29,7 +29,7 @@
 <tr><td class="hl-num" data-line="27"></td><td>  <span class="hl-en">gem</span> <span class="hl-s">'rb-fsevent'</span>, <span class="hl-s">'~&gt; 0.10.3'</span></td></tr>
 <tr><td class="hl-num" data-line="28"></td><td>  <span class="hl-en">gem</span> <span class="hl-s">'rbnacl'</span>, <span class="hl-s">'~&gt; 7.1.1'</span></td></tr>
 <tr><td class="hl-num" data-line="29"></td><td>  <span class="hl-en">gem</span> <span class="hl-s">'rspec'</span>, <span class="hl-s">'~&gt; 3.9'</span></td></tr>
-<tr><td class="hl-num" data-line="30"></td><td>  <span class="hl-en">gem</span> <span class="hl-s">'simplecov'</span>, require: false</td></tr>
+<tr><td class="hl-num" data-line="30"></td><td>  <span class="hl-en">gem</span> <span class="hl-s">'simplecov'</span>, require: <span class="hl-c">false</span></td></tr>
 <tr><td class="hl-num" data-line="31"></td><td>  <span class="hl-en">gem</span> <span class="hl-s">'vcr'</span>, <span class="hl-s">'~&gt; 5.1'</span></td></tr>
 <tr><td class="hl-num" data-line="32"></td><td>  <span class="hl-en">gem</span> <span class="hl-s">'webmock'</span>, <span class="hl-s">'~&gt; 3.8'</span>, <span class="hl-s">'&gt;= 3.8.2'</span></td></tr>
 <tr><td class="hl-num" data-line="33"></td><td><span class="hl-k">end</span></td></tr>
