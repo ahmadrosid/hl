@@ -5,6 +5,10 @@ constant:
   "null": "null"
   "true": "true"
 
+entity_suffix:
+  left_brace: "("
+  colon: ":"
+
 keyword:
   as: as
   assert: assert
@@ -20,6 +24,7 @@ keyword:
   else: else
   enum: enum
   extends: extends
+  final: final
   finally: finally
   for: for
   goto: goto
@@ -31,8 +36,11 @@ keyword:
   interface: interface
   new: new
   package: package
+  private: private
+  public: public
   return: return
   super: super
+  static: static
   switch: switch
   this: this
   throw: throw

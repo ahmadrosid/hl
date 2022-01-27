@@ -48,6 +48,12 @@ pub fn render_html(input: Vec<char>) -> String {
             token::Token::CH(value) => {
                 html.push(value);
             }
+            token::Token::ENTITY(value) => {
+                html.push_str(&format!(
+                    "<span class=\"hl-en\">{}</span>",
+                    value.iter().collect::<String>()
+                ));
+            }
             token::Token::CONSTANT(value) => {
                 html.push_str(&format!(
                     "<span class=\"hl-c\">{}</span>",
