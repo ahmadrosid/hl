@@ -42,6 +42,7 @@ const MARK_KEYWORD_AS_ENTITY_ON_PREFIX: &str = "MARK_KEYWORD_AS_ENTITY_ON_PREFIX
 const MARK_AS_KEYWORD_ON_CHAR: &str = "MARK_AS_KEYWORD_ON_CHAR";
 const MARKUP_HEAD: &str = "MARKUP_HEAD";
 const IGNORE_INTEGER: &str = "IGNORE_INTEGER";
+const MARK_AS_IDENT_ON_CHAR: &str = "MARK_AS_IDENT_ON_CHAR";
 
 pub fn generate_module(h: &Hash) -> String {
     let initial_module = include_str!("stub/initial_module.stub");
@@ -407,6 +408,15 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
 
     module.push_tabln(5, "match token::get_keyword_token(&identifier) {");
     module.push_tabln(7, "Ok(keyword_token) => {");
+
+    if let Some(ch) = h.get_some_condition(MARK_AS_IDENT_ON_CHAR) {
+        module.push_str(
+            &include_str!("stub/mark_as_ident_on_char.stub")
+                .to_string()
+                .replace("{ch}", ch.as_str().unwrap()),
+        )
+    }
+
     if h.get_some_condition(ACCEPT_CONSTANT_SUFFIX_KEYWORD)
         .is_some()
     {

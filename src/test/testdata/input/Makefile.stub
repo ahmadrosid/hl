@@ -1,242 +1,182 @@
-/*
- * Copyright (c) 2020-2022, NVIDIA CORPORATION.  All rights reserved.
- *
- * NVIDIA CORPORATION and its licensors retain all intellectual property
- * and proprietary rights in and to this software, related documentation
- * and any modifications thereto.  Any use, reproduction, disclosure or
- * distribution of this software and related documentation without an express
- * license agreement from NVIDIA CORPORATION is strictly prohibited.
- */
+# SPDX-License-Identifier: GPL-2.0
+# Some of the tools (perf) use same make variables
+# as in kernel build.
+export srctree=
+export objtree=
 
-/** @file   main.cu
- *  @author Thomas Müller, NVIDIA
- */
+include scripts/Makefile.include
 
+help:
+	@echo 'Possible targets:'
+	@echo ''
+	@echo '  acpi                   - ACPI tools'
+	@echo '  bpf                    - misc BPF tools'
+	@echo '  cgroup                 - cgroup tools'
+	@echo '  counter                - counter tools'
+	@echo '  cpupower               - a tool for all things x86 CPU power'
+	@echo '  debugging              - tools for debugging'
+	@echo '  firewire               - the userspace part of nosy, an IEEE-1394 traffic sniffer'
+	@echo '  firmware               - Firmware tools'
+	@echo '  freefall               - laptop accelerometer program for disk protection'
+	@echo '  gpio                   - GPIO tools'
+	@echo '  hv                     - tools used when in Hyper-V clients'
+	@echo '  iio                    - IIO tools'
+	@echo '  intel-speed-select     - Intel Speed Select tool'
+	@echo '  kvm_stat               - top-like utility for displaying kvm statistics'
+	@echo '  leds                   - LEDs  tools'
+	@echo '  objtool                - an ELF object analysis tool'
+	@echo '  pci                    - PCI tools'
+	@echo '  perf                   - Linux performance measurement and analysis tool'
+	@echo '  selftests              - various kernel selftests'
+	@echo '  bootconfig             - boot config tool'
+	@echo '  spi                    - spi tools'
+	@echo '  tmon                   - thermal monitoring and tuning tool'
+	@echo '  tracing                - misc tracing tools'
+	@echo '  turbostat              - Intel CPU idle stats and freq reporting tool'
+	@echo '  usb                    - USB testing tools'
+	@echo '  virtio                 - vhost test module'
+	@echo '  vm                     - misc vm tools'
+	@echo '  wmi			- WMI interface examples'
+	@echo '  x86_energy_perf_policy - Intel energy policy tool'
+	@echo ''
+	@echo 'You can do:'
+	@echo ' $$ make -C tools/ <tool>_install'
+	@echo ''
+	@echo '  from the kernel command line to build and install one of'
+	@echo '  the tools above'
+	@echo ''
+	@echo '  $$ make tools/all'
+	@echo ''
+	@echo '  builds all tools.'
+	@echo ''
+	@echo '  $$ make tools/install'
+	@echo ''
+	@echo '  installs all tools.'
+	@echo ''
+	@echo 'Cleaning targets:'
+	@echo ''
+	@echo '  all of the above with the "_clean" string appended cleans'
+	@echo '    the respective build directory.'
+	@echo '  clean: a summary clean target to clean _all_ folders'
 
-#include <neural-graphics-primitives/testbed.h>
+acpi: FORCE
+	$(call descend,power/$@)
 
-#include <tiny-cuda-nn/common.h>
+cpupower: FORCE
+	$(call descend,power/$@)
 
-#include <args/args.hxx>
+cgroup counter firewire hv guest bootconfig spi usb virtio vm bpf iio gpio objtool leds wmi pci firmware debugging tracing: FORCE
+	$(call descend,$@)
 
-#include <filesystem/path.h>
+bpf/%: FORCE
+	$(call descend,$@)
 
+libapi: FORCE
+	$(call descend,lib/api)
 
-namespace fs = filesystem;
+# The perf build does not follow the descend function setup,
+# invoking it via it's own make rule.
+PERF_O   = $(if $(O),$(O)/tools/perf,)
 
-using namespace args;
-using namespace ngp;
-using namespace std;
-using namespace tcnn;
+perf: FORCE
+	$(Q)mkdir -p $(PERF_O) .
+	$(Q)$(MAKE) --no-print-directory -C perf O=$(PERF_O) subdir=
 
-int main(int argc, char** argv) {
-	ArgumentParser parser{
-		"neural graphics primitives\n"
-		"version " NGP_VERSION,
-		"",
-	};
+selftests: FORCE
+	$(call descend,testing/$@)
 
-	HelpFlag help_flag{
-		parser,
-		"HELP",
-		"Display this help menu.",
-		{'h', "help"},
-	};
+turbostat x86_energy_perf_policy intel-speed-select: FORCE
+	$(call descend,power/x86/$@)
 
-	ValueFlag<string> mode_flag{
-		parser,
-		"MODE",
-		"Mode can be 'nerf', 'sdf', or 'image' or 'volume'. Inferred from the scene if unspecified.",
-		{'m', "mode"},
-	};
+tmon: FORCE
+	$(call descend,thermal/$@)
 
-	ValueFlag<string> network_config_flag{
-		parser,
-		"CONFIG",
-		"Path to the network config. Uses the scene's default if unspecified.",
-		{'n', 'c', "network", "config"},
-	};
+freefall: FORCE
+	$(call descend,laptop/$@)
 
-	Flag no_gui_flag{
-		parser,
-		"NO_GUI",
-		"Disables the GUI and instead reports training progress on the command line.",
-		{"no_gui"},
-	};
+kvm_stat: FORCE
+	$(call descend,kvm/$@)
 
-	Flag no_train_flag{
-		parser,
-		"NO_TRAIN",
-		"Disables training on startup.",
-		{"no_train"},
-	};
+all: acpi cgroup counter cpupower gpio hv firewire \
+		perf selftests bootconfig spi turbostat usb \
+		virtio vm bpf x86_energy_perf_policy \
+		tmon freefall iio objtool kvm_stat wmi \
+		pci debugging tracing
 
-	ValueFlag<string> scene_flag{
-		parser,
-		"SCENE",
-		"The scene to load. Can be NeRF dataset, a *.obj mesh for training a SDF, an image, or a *.nvdb volume.",
-		{'s', "scene"},
-	};
+acpi_install:
+	$(call descend,power/$(@:_install=),install)
 
-	ValueFlag<string> snapshot_flag{
-		parser,
-		"SNAPSHOT",
-		"Optional snapshot to load upon startup.",
-		{"snapshot"},
-	};
+cpupower_install:
+	$(call descend,power/$(@:_install=),install)
 
-	ValueFlag<uint32_t> width_flag{
-		parser,
-		"WIDTH",
-		"Resolution width of the GUI.",
-		{"width"},
-	};
+cgroup_install counter_install firewire_install gpio_install hv_install iio_install perf_install bootconfig_install spi_install usb_install virtio_install vm_install bpf_install objtool_install wmi_install pci_install debugging_install tracing_install:
+	$(call descend,$(@:_install=),install)
 
-	ValueFlag<uint32_t> height_flag{
-		parser,
-		"HEIGHT",
-		"Resolution height of the GUI.",
-		{"height"},
-	};
+selftests_install:
+	$(call descend,testing/$(@:_install=),install)
 
-	Flag version_flag{
-		parser,
-		"VERSION",
-		"Display the version of neural graphics primitives.",
-		{'v', "version"},
-	};
+turbostat_install x86_energy_perf_policy_install intel-speed-select_install:
+	$(call descend,power/x86/$(@:_install=),install)
 
-	// Parse command line arguments and react to parsing
-	// errors using exceptions.
-	try {
-		parser.ParseCLI(argc, argv);
-	} catch (const Help&) {
-		cout << parser;
-		return 0;
-	} catch (const ParseError& e) {
-		cerr << e.what() << endl;
-		cerr << parser;
-		return -1;
-	} catch (const ValidationError& e) {
-		cerr << e.what() << endl;
-		cerr << parser;
-		return -2;
-	}
+tmon_install:
+	$(call descend,thermal/$(@:_install=),install)
 
-	if (version_flag) {
-		tlog::none() << "neural graphics primitives version " NGP_VERSION;
-		return 0;
-	}
+freefall_install:
+	$(call descend,laptop/$(@:_install=),install)
 
-	try {
-		ETestbedMode mode;
-		if (!mode_flag) {
-			if (!scene_flag) {
-				tlog::error() << "Must specify either a mode or a scene";
-				return 1;
-			}
+kvm_stat_install:
+	$(call descend,kvm/$(@:_install=),install)
 
-			fs::path scene_path = get(scene_flag);
-			if (!scene_path.exists()) {
-				tlog::error() << "Scene path " << scene_path << " does not exist.";
-				return 1;
-			}
+install: acpi_install cgroup_install counter_install cpupower_install gpio_install \
+		hv_install firewire_install iio_install \
+		perf_install selftests_install turbostat_install usb_install \
+		virtio_install vm_install bpf_install x86_energy_perf_policy_install \
+		tmon_install freefall_install objtool_install kvm_stat_install \
+		wmi_install pci_install debugging_install intel-speed-select_install \
+		tracing_install
 
-			if (scene_path.is_directory() || equals_case_insensitive(scene_path.extension(), "json")) {
-				mode = ETestbedMode::Nerf;
-			} else if (equals_case_insensitive(scene_path.extension(), "obj")) {
-				mode = ETestbedMode::Sdf;
-			} else if (equals_case_insensitive(scene_path.extension(), "nvdb")) {
-				mode = ETestbedMode::Volume;
-			} else {
-				mode = ETestbedMode::Image;
-			}
-		} else {
-			auto mode_str = get(mode_flag);
-			if (equals_case_insensitive(mode_str, "nerf")) {
-				mode = ETestbedMode::Nerf;
-			} else if (equals_case_insensitive(mode_str, "sdf")) {
-				mode = ETestbedMode::Sdf;
-			} else if (equals_case_insensitive(mode_str, "image")) {
-				mode = ETestbedMode::Image;
-			} else if (equals_case_insensitive(mode_str, "volume")) {
-				mode = ETestbedMode::Volume;
-			} else {
-				tlog::error() << "Mode must be one of 'nerf', 'sdf', 'image', and 'volume'.";
-				return 1;
-			}
-		}
+acpi_clean:
+	$(call descend,power/acpi,clean)
 
-		Testbed testbed{mode};
+cpupower_clean:
+	$(call descend,power/cpupower,clean)
 
-		if (scene_flag) {
-			fs::path scene_path = get(scene_flag);
-			if (!scene_path.exists()) {
-				tlog::error() << "Scene path " << scene_path << " does not exist.";
-				return 1;
-			}
-			testbed.load_training_data(scene_path.str());
-		}
+cgroup_clean counter_clean hv_clean firewire_clean bootconfig_clean spi_clean usb_clean virtio_clean vm_clean wmi_clean bpf_clean iio_clean gpio_clean objtool_clean leds_clean pci_clean firmware_clean debugging_clean tracing_clean:
+	$(call descend,$(@:_clean=),clean)
 
-		std::string mode_str;
-		switch (mode) {
-			case ETestbedMode::Nerf:   mode_str = "nerf";   break;
-			case ETestbedMode::Sdf:    mode_str = "sdf";    break;
-			case ETestbedMode::Image:  mode_str = "image";  break;
-			case ETestbedMode::Volume: mode_str = "volume"; break;
-		}
+libapi_clean:
+	$(call descend,lib/api,clean)
 
-		if (snapshot_flag) {
-			// Load network from a snapshot if one is provided
-			fs::path snapshot_path = get(snapshot_flag);
-			if (!snapshot_path.exists()) {
-				tlog::error() << "Snapshot path " << snapshot_path << " does not exist.";
-				return 1;
-			}
+libbpf_clean:
+	$(call descend,lib/bpf,clean)
 
-			testbed.load_snapshot(snapshot_path.str());
-			testbed.m_train = false;
-		} else {
-			// Otherwise, load the network config and prepare for training
-			fs::path network_config_path = fs::path{"configs"}/mode_str;
-			if (network_config_flag) {
-				auto network_config_str = get(network_config_flag);
-				if ((network_config_path/network_config_str).exists()) {
-					network_config_path = network_config_path/network_config_str;
-				} else {
-					network_config_path = network_config_str;
-				}
-			} else {
-				network_config_path = network_config_path/"base.json";
-			}
+libsubcmd_clean:
+	$(call descend,lib/subcmd,clean)
 
-			if (!network_config_path.exists()) {
-				tlog::error() << "Network config path " << network_config_path << " does not exist.";
-				return 1;
-			}
+perf_clean:
+	$(Q)mkdir -p $(PERF_O) .
+	$(Q)$(MAKE) --no-print-directory -C perf O=$(PERF_O) subdir= clean
 
-			testbed.reload_network_from_file(network_config_path.str());
-			testbed.m_train = !no_train_flag;
-		}
+selftests_clean:
+	$(call descend,testing/$(@:_clean=),clean)
 
-		bool gui = !no_gui_flag;
-#ifndef NGP_GUI
-		gui = false;
-#endif
+turbostat_clean x86_energy_perf_policy_clean intel-speed-select_clean:
+	$(call descend,power/x86/$(@:_clean=),clean)
 
-		if (gui) {
-			testbed.init_window(width_flag ? get(width_flag) : 1920, height_flag ? get(height_flag) : 1080);
-		}
-		visualize_nerf_camera(world2proj, eval_camera_path(m_playtime).m(), aspect, 0xff80ff80);
+tmon_clean:
+	$(call descend,thermal/tmon,clean)
 
-		// Render/training loop
-		while (testbed.frame()) {
-			if (!gui) {
-				tlog::info() << "iteration=" << testbed.m_training_step << " loss=" << testbed.m_loss_scalar;
-			}
-		}
-	} catch (const exception& e) {
-		tlog::error() << "Uncaught exception: " << e.what();
-		return 1;
-	}
-}
+freefall_clean:
+	$(call descend,laptop/freefall,clean)
+
+build_clean:
+	$(call descend,build,clean)
+
+clean: acpi_clean cgroup_clean counter_clean cpupower_clean hv_clean firewire_clean \
+		perf_clean selftests_clean turbostat_clean bootconfig_clean spi_clean usb_clean virtio_clean \
+		vm_clean bpf_clean iio_clean x86_energy_perf_policy_clean tmon_clean \
+		freefall_clean build_clean libbpf_clean libsubcmd_clean \
+		gpio_clean objtool_clean leds_clean wmi_clean pci_clean firmware_clean debugging_clean \
+		intel-speed-select_clean tracing_clean
+
+.PHONY: FORCE

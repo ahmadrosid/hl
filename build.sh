@@ -19,6 +19,7 @@ array=(
   "rules/javascript.yml"
   "rules/json.yml"
   "rules/lua.yml"
+  "rules/makefile.yml"
   "rules/markdown.yml"
   "rules/php.yml"
   "rules/python.yml"

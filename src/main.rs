@@ -31,7 +31,8 @@ fn main() {
         }
         _ => {
             if let Some(file) = matches.value_of("FILE_PATH") {
-                let source = std::fs::read_to_string(file).expect(&format!("Filed reading file {}", file));
+                let source =
+                    std::fs::read_to_string(file).expect(&format!("Filed reading file {}", file));
                 input = source.chars().collect::<Vec<_>>();
             }
             if let Some(language) = matches.value_of("lang") {
