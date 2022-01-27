@@ -1,0 +1,55 @@
+hashtag_comment: true
+
+constant:
+  True: "true"
+  False: "false"
+
+entity_suffix:
+  left_parent: "("
+  left_brace: "{"
+
+keyword:
+  alias: alias
+  and: and
+  BEGIN: BEGIN
+  begin: begin
+  break: break
+  case: case
+  class: class
+  def: def
+  defined: defined?
+  do: do
+  else: else
+  elsif: elsif
+  END: END
+  end: end
+  ensure: ensure
+  for: for
+  if: if
+  in: in
+  module: module
+  next: next
+  nil: nil
+  not: not
+  or: or
+  private: private
+  redo: redo
+  rescue: rescue
+  retry: retry
+  return: return
+  self: self
+  super: super
+  then: then
+  undef: undef
+  unless: unless
+  until: until
+  when: when
+  while: while
+  yield: yield
+
+condition:
+  ACCEPT_ESCAPED_STRING: true
+  ACCEPT_STRING_ONE_QUOTE: true
+  ACCEPT_STRING_DOUBLE_QUOTE: true
+  MARK_AS_CONSTANT_ON_PREFIX: "@"
+  MARK_AS_ENTYTY_ON_FUNCTION_SCOPE: "def"

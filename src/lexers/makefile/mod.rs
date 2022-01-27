@@ -122,7 +122,7 @@ impl Lexer {
                             }
                             keyword_token
                         }
-                        Err(_err) => {
+                        Err(_) => {
                             if self.ch == ':' {
                                 return token::Token::ENTITY(identifier);
                             } else if is_white_space(self.ch) {

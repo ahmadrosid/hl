@@ -171,7 +171,7 @@ impl Lexer {
                     let mut identifier: Vec<char> = read_identifier(self);
                     match token::get_keyword_token(&identifier) {
                         Ok(keyword_token) => keyword_token,
-                        Err(_err) => {
+                        Err(_) => {
                             if self.ch == '(' {
                                 return token::Token::ENTITY(identifier);
                             } else if is_white_space(self.ch) {

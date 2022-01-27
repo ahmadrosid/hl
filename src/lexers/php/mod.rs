@@ -173,7 +173,7 @@ impl Lexer {
                             }
                             keyword_token
                         }
-                        Err(_err) => {
+                        Err(_) => {
                             if self.ch == '-' {
                                 let last_position = self.position;
                                 self.read_char();

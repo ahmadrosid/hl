@@ -25,6 +25,7 @@ array=(
   "rules/php.yml"
   "rules/python.yml"
   "rules/raw.yml"
+  "rules/ruby.yml"
   "rules/rust.yml"
   "rules/toml.yml"
   "rules/typescript.yml"

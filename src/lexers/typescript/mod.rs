@@ -131,7 +131,7 @@ impl Lexer {
                             }
                             keyword_token
                         }
-                        Err(_err) => {
+                        Err(_) => {
                             if is_digit(self.ch) {
                                 let position = self.position;
                                 while self.position < self.input.len() {

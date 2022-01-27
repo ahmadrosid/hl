@@ -122,7 +122,7 @@ impl Lexer {
                             }
                             return token::Token::IDENT(identifier);
                         }
-                        Err(_err) => token::Token::IDENT(identifier),
+                        Err(_) => token::Token::IDENT(identifier),
                     }
                 } else if is_digit(self.ch) {
                     let identifier: Vec<char> = read_number(self);

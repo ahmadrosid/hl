@@ -1,0 +1,9 @@
+if self.ch == '{ch}'
+    && self.read_position <= self.input.len()
+    && is_letter(self.input[self.read_position])
+{
+    let mut id = vec![self.ch];
+    self.read_char();
+    id.append(&mut read_identifier(self));
+    return token::Token::CONSTANT(id);
+}

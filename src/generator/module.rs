@@ -44,11 +44,21 @@ const MARKUP_HEAD: &str = "MARKUP_HEAD";
 const IGNORE_INTEGER: &str = "IGNORE_INTEGER";
 const MARK_AS_IDENT_ON_CHAR: &str = "MARK_AS_IDENT_ON_CHAR";
 const MARK_AS_KEYWORD_IN_SCOPE: &str = "MARK_AS_KEYWORD_IN_SCOPE";
+const MARK_AS_CONSTANT_ON_PREFIX: &str = "MARK_AS_CONSTANT_ON_PREFIX";
+const MARK_AS_ENTYTY_ON_FUNCTION_SCOPE: &str = "MARK_AS_ENTYTY_ON_FUNCTION_SCOPE";
 
 pub fn generate_module(h: &Hash) -> String {
-    let initial_module = include_str!("stub/initial_module.stub");
+    let mut initial_module = include_str!("stub/initial_module.stub").to_string();
+    if h.get_some_condition(MARK_AS_ENTYTY_ON_FUNCTION_SCOPE)
+        .is_some()
+    {
+        initial_module = initial_module.replace(
+            "input: Vec<char>,",
+            "input: Vec<char>,\nfunction_scope: bool,",
+        )
+    }
     let mut module = StringBuilder::new();
-    module.push_str(initial_module);
+    module.push_str(&initial_module);
 
     if h.get_some_condition(MARK_STRING_ENTITY_TAG).is_some()
         || h.get_some_condition(MARK_ENTITY_TAG_SUFFIX).is_some()
@@ -68,7 +78,16 @@ fn write_helper_is_white_space(module: &mut StringBuilder) {
 }
 
 fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
-    module.push_str(include_str!("stub/initial_impl_lexer.stub"));
+    if h.get_some_condition(MARK_AS_ENTYTY_ON_FUNCTION_SCOPE)
+        .is_some()
+    {
+        module.push_str(
+            &include_str!("stub/initial_impl_lexer.stub")
+                .replace("input,", "input,function_scope: false,"),
+        );
+    } else {
+        module.push_str(include_str!("stub/initial_impl_lexer.stub"));
+    }
 
     module.push_tabln(1, "pub fn next_token(&mut self) -> token::Token {");
     module.push_tabln(2, "let read_identifier = |l: &mut Lexer| -> Vec<char> {");
@@ -146,6 +165,14 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
     if let Some(ch) = h.get_some_condition(SKIP_NON_CHAR_LETTER_PREFIX) {
         module.push_str(
             &include_str!("stub/handle_skip_non_char_letter.stub")
+                .to_string()
+                .replace("{ch}", ch.as_str().unwrap()),
+        );
+    }
+
+    if let Some(ch) = h.get_some_condition(MARK_AS_CONSTANT_ON_PREFIX) {
+        module.push_str(
+            &include_str!("stub/mark_as_constant_in_prefix.stub")
                 .to_string()
                 .replace("{ch}", ch.as_str().unwrap()),
         );
@@ -420,6 +447,19 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
     module.push_tabln(5, "match token::get_keyword_token(&identifier) {");
     module.push_tabln(7, "Ok(keyword_token) => {");
 
+    if let Some(ch) = h.get_some_condition(MARK_AS_ENTYTY_ON_FUNCTION_SCOPE) {
+        module.push_str(
+            &include_str!("stub/handle_set_function_scope.stub")
+                .to_string()
+                .split("-")
+                .collect::<Vec<&str>>()
+                .first()
+                .unwrap()
+                .to_string()
+                .replace("{scope}", ch.as_str().unwrap()),
+        )
+    }
+
     if let Some(ch) = h.get_some_condition(MARK_AS_IDENT_ON_CHAR) {
         module.push_str(
             &include_str!("stub/mark_as_ident_on_char.stub")
@@ -469,7 +509,20 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
         module.push_tabln(8, "keyword_token");
     }
     module.push_tabln(7, "},");
-    module.push_tabln(7, "Err(_err) => {");
+    module.push_tabln(7, "Err(_) => {");
+
+    if h.get_some_condition(MARK_AS_ENTYTY_ON_FUNCTION_SCOPE)
+        .is_some()
+    {
+        module.push_str(
+            include_str!("stub/handle_set_function_scope.stub")
+                .to_string()
+                .split("-")
+                .collect::<Vec<&str>>()
+                .last()
+                .unwrap(),
+        )
+    }
 
     if let Some(val_prefix) = h.get_some_condition(ACCEPT_ENTITY_PREFIX) {
         let val_condition = val_prefix.as_str().unwrap();

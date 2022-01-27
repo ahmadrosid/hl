@@ -127,6 +127,17 @@ pub fn parse(file_path: &str) -> String {
     write_file(&token_stub, &out_file_path, &"token.rs");
     write_file(&module_stub, &out_file_path, &"mod.rs");
     write_file(&render_stub, &out_file_path, &"render.rs");
+    let name = get_file_name(file_path);
+    write_file(
+        &update_lexer_mod(&name),
+        &out_file_path.replace(&format!("/{}", name), ""),
+        &"mod.rs",
+    );
+    write_file(
+        &update_lib_mod(&name),
+        &out_file_path.replace(&format!("lexers/{}", name), ""),
+        &"lib.rs",
+    );
 
     let mut message = String::new();
     message.push_str(&color::green("Success generate lexer for \""));
@@ -136,6 +147,29 @@ pub fn parse(file_path: &str) -> String {
     message.push_str(&color::cyan(&format!("- {}/mod.rs\n", out_file_path)));
     message.push_str(&color::cyan(&format!("- {}/render.rs\n", out_file_path)));
     message
+}
+
+fn update_lexer_mod(name: &str) -> String {
+    let mut source = include_str!("../lexers/mod.rs").to_string();
+    if !source.contains(name) {
+        source.push_str(&format!("pub mod {};", name));
+    }
+    source
+}
+
+fn update_lib_mod(name: &str) -> String {
+    let source = include_str!("../lib.rs").to_string();
+    if !source.contains(name) {
+        return source.replace(
+            &format!("_ => raw::render::render_html(input)"),
+            &format!(
+                r#""{}" => {}::render::render_html(input),
+                _ => raw::render::render_html(input)"#,
+                name, name
+            ),
+        );
+    }
+    source
 }
 
 fn read_file(file_path: &str) -> String {

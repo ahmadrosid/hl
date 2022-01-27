@@ -1,0 +1,9 @@
+let keyword: String = identifier.iter().collect();
+if keyword == "{scope}" {
+    self.function_scope = true;
+}
+-
+if self.function_scope {
+    self.function_scope = false;
+    return token::Token::ENTITY(identifier);
+}

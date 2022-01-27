@@ -20,6 +20,7 @@ pub mod markdown;
 pub mod php;
 pub mod python;
 pub mod raw;
+pub mod ruby;
 pub mod rust;
 pub mod toml;
 pub mod typescript;
