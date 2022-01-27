@@ -1,0 +1,17 @@
+hashtag_comment: true
+
+entity:
+  gem: gem
+  source: source
+  group: group
+  install_if: install_if
+  gemspec: gemspec
+
+keyword:
+  do: do
+  end: end
+
+condition:
+  ACCEPT_ESCAPED_STRING: true
+  ACCEPT_STRING_ONE_QUOTE: true
+  ACCEPT_STRING_DOUBLE_QUOTE: true

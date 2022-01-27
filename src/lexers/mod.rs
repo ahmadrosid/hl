@@ -5,6 +5,7 @@ pub mod cpp;
 pub mod cs;
 pub mod css;
 pub mod cuda;
+pub mod gemfile;
 pub mod edn;
 pub mod go;
 pub mod groovy;

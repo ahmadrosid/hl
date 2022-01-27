@@ -67,6 +67,14 @@ fn test_cs() {
 }
 
 #[test]
+fn test_gemfile() {
+    let input = read_input("src/test/testdata/input/Gemfile.stub");
+    let expected = read_file("src/test/testdata/output/Gemfile.html.stub");
+    let actual = gemfile::render::render_html(input);
+    assert_eq!(expected, actual);
+}
+
+#[test]
 fn test_edn() {
     let input = read_input("src/test/testdata/input/edn.edn.stub");
     let expected = read_file("src/test/testdata/output/edn.html.stub");
