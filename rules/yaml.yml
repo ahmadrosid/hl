@@ -10,3 +10,6 @@ condition:
   ACCEPT_STRING_DOUBLE_QUOTE: true
   MARK_STRING_ENTITY_TAG: ":"
   MARK_ENTITY_TAG_SUFFIX: ":"
+  ACCEPT_CHAR_IDENTIFIER: "-"
+  ACCEPT_ENTITY_TAG_SUFFIX: "is_digit(self.ch)"
+  BREAK_ENTITY_TAG_SUFFIX: "!is_digit(self.ch) && !is_letter(self.ch)"
