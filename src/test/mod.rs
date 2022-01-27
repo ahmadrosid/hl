@@ -162,7 +162,6 @@ fn test_python() {
     assert_eq!(expected, actual);
 }
 
-
 #[test]
 fn test_ruby() {
     let input = read_input("src/test/testdata/input/ruby.rb.stub");

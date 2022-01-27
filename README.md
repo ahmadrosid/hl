@@ -62,6 +62,7 @@ See the result in browser [here](https://play.tailwindcss.com/JevzqYGpuH).
 - [x] C# ( ✅ Done )
 - [ ] Go ( 🚧 In Progress )
 - [ ] HTML ( 🚧 In Progress )
+- [x] Ruby ( ✅ Done )
 - [ ] Rust ( 🚧 In Progress )
 - [x] Java ( ✅ Done )
 - [x] Javascript ( ✅ Done )
