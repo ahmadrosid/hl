@@ -1,0 +1,252 @@
+/**
+ *  Copyright 2021 Sarkis Kabrailian
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
+ *  in compliance with the License. You may obtain a copy of the License at:
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software distributed under the License is distributed
+ *  on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License
+ *  for the specific language governing permissions and limitations under the License.
+ *
+ */
+metadata {
+	definition (name: "HELTUN HLS01 Switch", namespace: "HELTUN", author: "Sarkis Kabrailian", cstHandler: true) {
+		capability "Energy Meter"
+		capability "Power Meter"
+		capability "Switch"
+		capability "Temperature Measurement"
+		capability "Voltage Measurement"
+		capability "Configuration"
+		capability "Health Check"
+		capability "Refresh"
+
+		fingerprint mfr: "0344", prod: "0004", inClusters:"0x25", deviceJoinName: "HELTUN Switch" //model: "000A"
+	}
+	preferences {
+		input (
+			title: "HE-HLS01 | HELTUN High Load Switch",
+			description: "The user manual document with all technical information is available in support.heltun.com page. In case of technical questions please contact HELTUN Support Team at support@heltun.com",
+			type: "paragraph",
+			element: "paragraph"
+		)
+		parameterMap().each {
+			input (
+				title: "${it.title}",
+				description: it.description,
+				type: "paragraph",
+				element: "paragraph"
+			)
+			def unit = it.unit ? it.unit : ""
+			def defV = it.default as Integer
+			def defVDescr = it.options ? it.options.get(defV) : "${defV}${unit} - Default Value"
+			input (
+				name: it.name,
+				title: null,
+				description: "$defVDescr",
+				type: it.type,
+				options: it.options,
+				range: (it.min != null && it.max != null) ? "${it.min}..${it.max}" : null,
+				defaultValue: it.default,
+				required: false
+			)
+		}
+	}
+}
+
+// let's start working
+def initialize() {
+	runIn(3, "checkParam")
+}
+
+def parse(String description) {
+	def result = null
+	def cmd = zwave.parse(description)
+	if (cmd) {result = zwaveEvent(cmd)}
+	return result
+}
+
+def updated() {
+	initialize()
+}
+
+def checkParam() {
+	boolean needConfig = false
+	parameterMap().each {
+		if (state."$it.name" == null || state."$it.name".state == "defNotConfigured") {
+			state."$it.name" = [value: it.default as Integer, state: "defNotConfigured"]
+			needConfig = true
+		}
+		if (settings."$it.name" != null && (state."$it.name".value != settings."$it.name" as Integer || state."$it.name".state == "notConfigured")) {
+			state."$it.name".value = settings."$it.name" as Integer
+			state."$it.name".state = "notConfigured"
+			needConfig = true
+		}
+	}
+	if ( needConfig ) {
+		configParam()
+	}
+}
+
+private configParam() {
+	def cmds = []
+	for (parameter in parameterMap()) {
+		if ( state."$parameter.name"?.value != null && state."$parameter.name"?.state in ["notConfigured", "defNotConfigured"] ) {
+			cmds << zwave.configurationV2.configurationSet(scaledConfigurationValue: state."$parameter.name".value, parameterNumber: parameter.paramNum, size: parameter.size).format()
+			cmds << zwave.configurationV2.configurationGet(parameterNumber: parameter.paramNum).format()
+			break
+		}
+	}
+	if (cmds) {
+		runIn(5, "checkParam")
+		sendHubCommand(cmds,500)
+	}
+}
+
+def zwaveEvent(physicalgraph.zwave.commands.configurationv2.ConfigurationReport cmd) {
+	def parameter = parameterMap().find( {it.paramNum == cmd.parameterNumber } ).name
+	if (state."$parameter".value == cmd.scaledConfigurationValue) {
+		state."$parameter".state = "configured"
+	}
+	else {
+		state."$parameter".state = "error"
+	}
+	configParam()
+}
+
+def zwaveEvent(physicalgraph.zwave.commands.sensormultilevelv5.SensorMultilevelReport cmd) {
+	def locaScale = getTemperatureScale() //HubScale
+	def externalTemp = 1
+	def map = [:]
+	if (externalTemp == cmd.sensorType) {
+		def deviceScale = (cmd.scale == 1) ? "F" : "C" //DeviceScale
+		def deviceTemp = cmd.scaledSensorValue
+		def scaledTemp = (deviceScale == locaScale) ? deviceTemp : (deviceScale == "F" ? roundC(fahrenheitToCelsius(deviceTemp)) : celsiusToFahrenheit(deviceTemp).toDouble().round(0).toInteger())
+		map.name = "temperature"
+		map.value = scaledTemp
+		map.unit = locaScale
+		sendEvent(map)
+	}
+}
+
+def zwaveEvent(physicalgraph.zwave.commands.meterv3.MeterReport cmd) {
+	def map = [:]
+	if (cmd.meterType == 1) {
+		if (cmd.scale == 0) {
+			map.name = "energy"
+			map.value = cmd.scaledMeterValue
+			map.unit = "kWh"
+			sendEvent(map)
+		} else if (cmd.scale == 2) {
+			map.name = "power"
+			map.value = Math.round(cmd.scaledMeterValue)
+			map.unit = "W"
+			sendEvent(map)
+		} else if (cmd.scale == 4) {
+			map.name = "voltage"
+			map.value = Math.round(cmd.scaledMeterValue)
+			map.unit = "V"
+			sendEvent(map)
+		} else if (cmd.scale == 5) {
+			map.name = "current"
+			map.value = Math.round(cmd.scaledMeterValue)
+			map.unit = "A"
+		}
+	}
+}
+
+def zwaveEvent(physicalgraph.zwave.commands.clockv1.ClockReport cmd) {
+	def currDate = Calendar.getInstance(location.timeZone)
+	def time = [hour: currDate.get(Calendar.HOUR_OF_DAY), minute: currDate.get(Calendar.MINUTE), weekday: currDate.get(Calendar.DAY_OF_WEEK)]
+	if ((time.hour != cmd.hour) || (time.minute != cmd.minute) || (time.weekday != cmd.weekday)){
+		sendHubCommand(zwave.clockV1.clockSet(time).format())
+	}
+}
+
+def zwaveEvent(physicalgraph.zwave.commands.switchbinaryv1.SwitchBinaryReport cmd) {
+	def state = cmd.value ? "on" : "off"
+	sendEvent(name: "switch", value: state)
+}
+
+def zwaveEvent(physicalgraph.zwave.commands.multichannelassociationv2.MultiChannelAssociationReport cmd) {
+	def cmds = []
+	if (cmd.groupingIdentifier == 1) {
+		if (cmd.nodeId != [zwaveHubNodeId]) {
+			cmds << zwave.multiChannelAssociationV2.multiChannelAssociationRemove(groupingIdentifier: 1).format()
+			cmds << zwave.multiChannelAssociationV2.multiChannelAssociationSet(groupingIdentifier: 1, nodeId: zwaveHubNodeId).format()
+		}
+	}
+	if (cmds) {
+		sendHubCommand(cmds, 1200)
+	}
+}
+
+def roundC (tempInC) {
+	return (Math.round(tempInC.toDouble() * 2))/2
+}
+
+def refresh() {
+	def cmds = []
+	cmds << zwave.sensorMultilevelV5.sensorMultilevelGet(sensorType:1).format() //get Temperature
+	cmds << zwave.meterV3.meterGet(scale: 0).format() //get kWh
+	cmds << zwave.meterV3.meterGet(scale: 2).format() //get Watts
+	cmds << zwave.meterV3.meterGet(scale: 4).format() //get Voltage
+	cmds << zwave.multiChannelAssociationV2.multiChannelAssociationGet(groupingIdentifier: 1).format() //get channel association
+	sendHubCommand(cmds, 1200)
+	runIn(10, "checkParam")
+}
+
+def ping() {
+	refresh()
+}
+
+def resetEnergyMeter() {
+	sendHubCommand(zwave.meterV3.meterReset().format())
+}
+
+def on() {
+	delayBetween([
+		zwave.basicV1.basicSet(value: 0xFF).format(),
+		zwave.switchBinaryV1.switchBinaryGet().format()
+	])
+}
+
+def off() {
+	delayBetween([
+		zwave.basicV1.basicSet(value: 0x00).format(),
+		zwave.switchBinaryV1.switchBinaryGet().format()
+	])
+}
+
+def configure() {
+	ping()
+}
+
+private parameterMap() {[
+[title: "External Input: Click Control Mode", description: "This Parameter defines how the relay should react when clicking the button connected to the external input. The options are: Click is disabled, Toggle switch: relay inverts state (ON to OFF, OFF to ON), Only On: Relay switches to ON state only, Only Off: Relay switches to OFF state only, Timer: On > Off: Relay output switches to ON state (contacts are closed) then after a specified time switches back to OFF state (contacts are open). The time is specified in 'Relay Timer Mode Duration' below, Timer: Off > On: Relay output switches to OFF state (contacts are open) then after a specified time switches back to On state (contacts are closed). The time is specified in 'Relay Timer Mode Duration' below ",
+ name: "Selected Click Control Mode", options: [
+			0: "Click is disabled",
+			1: "Toggle Switch",
+			2: "Only On",
+			3: "Only Off",
+			4: "Timer: On > Off",
+			5: "Timer: Off > On"
+	], paramNum: 51, size: 1, default: "1", type: "enum"],
+
+[title: "Relay Timer Mode Duration", description: "This parameters specify the duration in seconds for the Timer modes for Click Control Mode above. Press the button and the relay output goes to ON/OFF for the specified time then changes back to OFF/ON. If the value is set to “0” the relay output will operate as a short contact (duration is about 0.5 sec)",
+ name: "Selected Timer Mode Duration in seconds", paramNum: 71, size: 2, default: 0, type: "number", min: 0 , max: 43200, unit: "s"],
+
+[title: "Retore Relay State", description: "This parameter determines if the last relay state should be restored after power failure or not. This parameter is available on firmware V1.5 or higher",
+ name: "Selected Mode", options: [
+			0: "Relay Off After Power Failure",
+			1: "Restore Last State"
+	], paramNum: 66, size: 1, default: "0", type: "enum"],
+
+[title: "Energy Consumption Meter Consecutive Report Interval", description: "When the device is connected to the gateway, it periodically sends reports from its energy consumption sensor even if there is no change in the value. This parameter defines the interval between consecutive reports of real time and cumulative energy consumption data to the gateway",
+ name: "Selected Energy Report Interval in minutes", paramNum: 141, size: 1, default: 10, type: "number", min: 1 , max: 120, unit: "min"],
+
+[title: "Energy Consumption Meter Report", description: "This Parameter determines the change in the load power resulting in the consumption report being sent to the gateway. Use the value 0 if there is a need to stop sending the reports.",
+ name: "Selected Change Percentage", paramNum: 142, size: 1, default: 25, type: "number", min: 0 , max: 50, unit: "%"],
+
+]}

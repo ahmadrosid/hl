@@ -1,0 +1,256 @@
+<table class="highlight-table">
+<tbody>
+<tr><td class="hl-num" data-line="1"></td><td><span class="hl-cmt">/**</span></td></tr>
+<tr><td class="hl-num" data-line="2"></td><td><span class="hl-cmt"> *  Copyright 2021 Sarkis Kabrailian</span></td></tr>
+<tr><td class="hl-num" data-line="3"></td><td><span class="hl-cmt"> *</span></td></tr>
+<tr><td class="hl-num" data-line="4"></td><td><span class="hl-cmt"> *  Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except</span></td></tr>
+<tr><td class="hl-num" data-line="5"></td><td><span class="hl-cmt"> *  in compliance with the License. You may obtain a copy of the License at:</span></td></tr>
+<tr><td class="hl-num" data-line="6"></td><td><span class="hl-cmt"> *</span></td></tr>
+<tr><td class="hl-num" data-line="7"></td><td><span class="hl-cmt"> *      http://www.apache.org/licenses/LICENSE-2.0</span></td></tr>
+<tr><td class="hl-num" data-line="8"></td><td><span class="hl-cmt"> *</span></td></tr>
+<tr><td class="hl-num" data-line="9"></td><td><span class="hl-cmt"> *  Unless required by applicable law or agreed to in writing, software distributed under the License is distributed</span></td></tr>
+<tr><td class="hl-num" data-line="10"></td><td><span class="hl-cmt"> *  on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License</span></td></tr>
+<tr><td class="hl-num" data-line="11"></td><td><span class="hl-cmt"> *  for the specific language governing permissions and limitations under the License.</span></td></tr>
+<tr><td class="hl-num" data-line="12"></td><td><span class="hl-cmt"> *</span></td></tr>
+<tr><td class="hl-num" data-line="13"></td><td><span class="hl-cmt"> */</span></td></tr>
+<tr><td class="hl-num" data-line="14"></td><td>metadata {</td></tr>
+<tr><td class="hl-num" data-line="15"></td><td>	<span class="hl-en">definition</span> (<span class="hl-en">name</span>: <span class="hl-s">"HELTUN HLS01 Switch"</span>, <span class="hl-en">namespace</span>: <span class="hl-s">"HELTUN"</span>, <span class="hl-en">author</span>: <span class="hl-s">"Sarkis Kabrailian"</span>, <span class="hl-en">cstHandler</span>: <span class="hl-c">true</span>) {</td></tr>
+<tr><td class="hl-num" data-line="16"></td><td>		capability <span class="hl-s">"Energy Meter"</span></td></tr>
+<tr><td class="hl-num" data-line="17"></td><td>		capability <span class="hl-s">"Power Meter"</span></td></tr>
+<tr><td class="hl-num" data-line="18"></td><td>		capability <span class="hl-s">"Switch"</span></td></tr>
+<tr><td class="hl-num" data-line="19"></td><td>		capability <span class="hl-s">"Temperature Measurement"</span></td></tr>
+<tr><td class="hl-num" data-line="20"></td><td>		capability <span class="hl-s">"Voltage Measurement"</span></td></tr>
+<tr><td class="hl-num" data-line="21"></td><td>		capability <span class="hl-s">"Configuration"</span></td></tr>
+<tr><td class="hl-num" data-line="22"></td><td>		capability <span class="hl-s">"Health Check"</span></td></tr>
+<tr><td class="hl-num" data-line="23"></td><td>		capability <span class="hl-s">"Refresh"</span></td></tr>
+<tr><td class="hl-num" data-line="24"></td><td></td></tr>
+<tr><td class="hl-num" data-line="25"></td><td>		fingerprint <span class="hl-en">mfr</span>: <span class="hl-s">"0344"</span>, <span class="hl-en">prod</span>: <span class="hl-s">"0004"</span>, <span class="hl-en">inClusters</span>:<span class="hl-s">"0x25"</span>, <span class="hl-en">deviceJoinName</span>: <span class="hl-s">"HELTUN Switch"</span> <span class="hl-cmt">//model: "000A"</span></td></tr>
+<tr><td class="hl-num" data-line="26"></td><td>	}</td></tr>
+<tr><td class="hl-num" data-line="27"></td><td>	preferences {</td></tr>
+<tr><td class="hl-num" data-line="28"></td><td>		<span class="hl-en">input</span> (</td></tr>
+<tr><td class="hl-num" data-line="29"></td><td>			<span class="hl-en">title</span>: <span class="hl-s">"HE-HLS01 | HELTUN High Load Switch"</span>,</td></tr>
+<tr><td class="hl-num" data-line="30"></td><td>			<span class="hl-en">description</span>: <span class="hl-s">"The user manual document with all technical information is available in support.heltun.com page. In case of technical questions please contact HELTUN Support Team at support@heltun.com"</span>,</td></tr>
+<tr><td class="hl-num" data-line="31"></td><td>			<span class="hl-en">type</span>: <span class="hl-s">"paragraph"</span>,</td></tr>
+<tr><td class="hl-num" data-line="32"></td><td>			<span class="hl-en">element</span>: <span class="hl-s">"paragraph"</span></td></tr>
+<tr><td class="hl-num" data-line="33"></td><td>		)</td></tr>
+<tr><td class="hl-num" data-line="34"></td><td>		<span class="hl-en">parameterMap</span>().each {</td></tr>
+<tr><td class="hl-num" data-line="35"></td><td>			<span class="hl-en">input</span> (</td></tr>
+<tr><td class="hl-num" data-line="36"></td><td>				<span class="hl-en">title</span>: <span class="hl-s">"${it.title}"</span>,</td></tr>
+<tr><td class="hl-num" data-line="37"></td><td>				<span class="hl-en">description</span>: it.description,</td></tr>
+<tr><td class="hl-num" data-line="38"></td><td>				<span class="hl-en">type</span>: <span class="hl-s">"paragraph"</span>,</td></tr>
+<tr><td class="hl-num" data-line="39"></td><td>				<span class="hl-en">element</span>: <span class="hl-s">"paragraph"</span></td></tr>
+<tr><td class="hl-num" data-line="40"></td><td>			)</td></tr>
+<tr><td class="hl-num" data-line="41"></td><td>			<span class="hl-k">def</span> unit = it.unit ? it.<span class="hl-en">unit</span> : <span class="hl-s">""</span></td></tr>
+<tr><td class="hl-num" data-line="42"></td><td>			<span class="hl-k">def</span> defV = it.<span class="hl-k">default</span> <span class="hl-k">as</span> Integer</td></tr>
+<tr><td class="hl-num" data-line="43"></td><td>			<span class="hl-k">def</span> defVDescr = it.options ? it.options.<span class="hl-en">get</span>(defV) : <span class="hl-s">"${defV}${unit} - Default Value"</span></td></tr>
+<tr><td class="hl-num" data-line="44"></td><td>			<span class="hl-en">input</span> (</td></tr>
+<tr><td class="hl-num" data-line="45"></td><td>				<span class="hl-en">name</span>: it.name,</td></tr>
+<tr><td class="hl-num" data-line="46"></td><td>				<span class="hl-en">title</span>: <span class="hl-c">null</span>,</td></tr>
+<tr><td class="hl-num" data-line="47"></td><td>				<span class="hl-en">description</span>: <span class="hl-s">"$defVDescr"</span>,</td></tr>
+<tr><td class="hl-num" data-line="48"></td><td>				<span class="hl-en">type</span>: it.type,</td></tr>
+<tr><td class="hl-num" data-line="49"></td><td>				<span class="hl-en">options</span>: it.options,</td></tr>
+<tr><td class="hl-num" data-line="50"></td><td>				<span class="hl-en">range</span>: (it.min != <span class="hl-c">null</span> && it.max != <span class="hl-c">null</span>) ? <span class="hl-s">"${it.min}..${it.max}"</span> : <span class="hl-c">null</span>,</td></tr>
+<tr><td class="hl-num" data-line="51"></td><td>				<span class="hl-en">defaultValue</span>: it.<span class="hl-k">default</span>,</td></tr>
+<tr><td class="hl-num" data-line="52"></td><td>				<span class="hl-en">required</span>: <span class="hl-c">false</span></td></tr>
+<tr><td class="hl-num" data-line="53"></td><td>			)</td></tr>
+<tr><td class="hl-num" data-line="54"></td><td>		}</td></tr>
+<tr><td class="hl-num" data-line="55"></td><td>	}</td></tr>
+<tr><td class="hl-num" data-line="56"></td><td>}</td></tr>
+<tr><td class="hl-num" data-line="57"></td><td></td></tr>
+<tr><td class="hl-num" data-line="58"></td><td><span class="hl-cmt">// let's start working</span></td></tr>
+<tr><td class="hl-num" data-line="59"></td><td><span class="hl-k">def</span> <span class="hl-en">initialize</span>() {</td></tr>
+<tr><td class="hl-num" data-line="60"></td><td>	<span class="hl-en">runIn</span>(<span class="hl-c">3</span>, <span class="hl-s">"checkParam"</span>)</td></tr>
+<tr><td class="hl-num" data-line="61"></td><td>}</td></tr>
+<tr><td class="hl-num" data-line="62"></td><td></td></tr>
+<tr><td class="hl-num" data-line="63"></td><td><span class="hl-k">def</span> <span class="hl-en">parse</span>(String description) {</td></tr>
+<tr><td class="hl-num" data-line="64"></td><td>	<span class="hl-k">def</span> result = <span class="hl-c">null</span></td></tr>
+<tr><td class="hl-num" data-line="65"></td><td>	<span class="hl-k">def</span> cmd = zwave.<span class="hl-en">parse</span>(description)</td></tr>
+<tr><td class="hl-num" data-line="66"></td><td>	<span class="hl-k">if</span> (cmd) {result = <span class="hl-en">zwaveEvent</span>(cmd)}</td></tr>
+<tr><td class="hl-num" data-line="67"></td><td>	<span class="hl-k">return</span> result</td></tr>
+<tr><td class="hl-num" data-line="68"></td><td>}</td></tr>
+<tr><td class="hl-num" data-line="69"></td><td></td></tr>
+<tr><td class="hl-num" data-line="70"></td><td><span class="hl-k">def</span> <span class="hl-en">updated</span>() {</td></tr>
+<tr><td class="hl-num" data-line="71"></td><td>	<span class="hl-en">initialize</span>()</td></tr>
+<tr><td class="hl-num" data-line="72"></td><td>}</td></tr>
+<tr><td class="hl-num" data-line="73"></td><td></td></tr>
+<tr><td class="hl-num" data-line="74"></td><td><span class="hl-k">def</span> <span class="hl-en">checkParam</span>() {</td></tr>
+<tr><td class="hl-num" data-line="75"></td><td>	boolean needConfig = <span class="hl-c">false</span></td></tr>
+<tr><td class="hl-num" data-line="76"></td><td>	<span class="hl-en">parameterMap</span>().each {</td></tr>
+<tr><td class="hl-num" data-line="77"></td><td>		<span class="hl-k">if</span> (state.<span class="hl-s">"$it.name"</span> == <span class="hl-c">null</span> || state.<span class="hl-s">"$it.name"</span>.state == <span class="hl-s">"defNotConfigured"</span>) {</td></tr>
+<tr><td class="hl-num" data-line="78"></td><td>			state.<span class="hl-s">"$it.name"</span> = [<span class="hl-en">value</span>: it.<span class="hl-k">default</span> <span class="hl-k">as</span> Integer, <span class="hl-en">state</span>: <span class="hl-s">"defNotConfigured"</span>]</td></tr>
+<tr><td class="hl-num" data-line="79"></td><td>			needConfig = <span class="hl-c">true</span></td></tr>
+<tr><td class="hl-num" data-line="80"></td><td>		}</td></tr>
+<tr><td class="hl-num" data-line="81"></td><td>		<span class="hl-k">if</span> (settings.<span class="hl-s">"$it.name"</span> != <span class="hl-c">null</span> && (state.<span class="hl-s">"$it.name"</span>.value != settings.<span class="hl-s">"$it.name"</span> <span class="hl-k">as</span> Integer || state.<span class="hl-s">"$it.name"</span>.state == <span class="hl-s">"notConfigured"</span>)) {</td></tr>
+<tr><td class="hl-num" data-line="82"></td><td>			state.<span class="hl-s">"$it.name"</span>.value = settings.<span class="hl-s">"$it.name"</span> <span class="hl-k">as</span> Integer</td></tr>
+<tr><td class="hl-num" data-line="83"></td><td>			state.<span class="hl-s">"$it.name"</span>.state = <span class="hl-s">"notConfigured"</span></td></tr>
+<tr><td class="hl-num" data-line="84"></td><td>			needConfig = <span class="hl-c">true</span></td></tr>
+<tr><td class="hl-num" data-line="85"></td><td>		}</td></tr>
+<tr><td class="hl-num" data-line="86"></td><td>	}</td></tr>
+<tr><td class="hl-num" data-line="87"></td><td>	<span class="hl-k">if</span> ( needConfig ) {</td></tr>
+<tr><td class="hl-num" data-line="88"></td><td>		<span class="hl-en">configParam</span>()</td></tr>
+<tr><td class="hl-num" data-line="89"></td><td>	}</td></tr>
+<tr><td class="hl-num" data-line="90"></td><td>}</td></tr>
+<tr><td class="hl-num" data-line="91"></td><td></td></tr>
+<tr><td class="hl-num" data-line="92"></td><td><span class="hl-k">private</span> <span class="hl-en">configParam</span>() {</td></tr>
+<tr><td class="hl-num" data-line="93"></td><td>	<span class="hl-k">def</span> cmds = []</td></tr>
+<tr><td class="hl-num" data-line="94"></td><td>	<span class="hl-k">for</span> (parameter <span class="hl-k">in</span> <span class="hl-en">parameterMap</span>()) {</td></tr>
+<tr><td class="hl-num" data-line="95"></td><td>		<span class="hl-k">if</span> ( state.<span class="hl-s">"$parameter.name"</span>?.value != <span class="hl-c">null</span> && state.<span class="hl-s">"$parameter.name"</span>?.state <span class="hl-k">in</span> [<span class="hl-s">"notConfigured"</span>, <span class="hl-s">"defNotConfigured"</span>] ) {</td></tr>
+<tr><td class="hl-num" data-line="96"></td><td>			cmds << zwave.configurationV2.<span class="hl-en">configurationSet</span>(<span class="hl-en">scaledConfigurationValue</span>: state.<span class="hl-s">"$parameter.name"</span>.value, <span class="hl-en">parameterNumber</span>: parameter.paramNum, <span class="hl-en">size</span>: parameter.size).<span class="hl-en">format</span>()</td></tr>
+<tr><td class="hl-num" data-line="97"></td><td>			cmds << zwave.configurationV2.<span class="hl-en">configurationGet</span>(<span class="hl-en">parameterNumber</span>: parameter.paramNum).<span class="hl-en">format</span>()</td></tr>
+<tr><td class="hl-num" data-line="98"></td><td>			<span class="hl-k">break</span></td></tr>
+<tr><td class="hl-num" data-line="99"></td><td>		}</td></tr>
+<tr><td class="hl-num" data-line="100"></td><td>	}</td></tr>
+<tr><td class="hl-num" data-line="101"></td><td>	<span class="hl-k">if</span> (cmds) {</td></tr>
+<tr><td class="hl-num" data-line="102"></td><td>		<span class="hl-en">runIn</span>(<span class="hl-c">5</span>, <span class="hl-s">"checkParam"</span>)</td></tr>
+<tr><td class="hl-num" data-line="103"></td><td>		<span class="hl-en">sendHubCommand</span>(cmds,<span class="hl-c">500</span>)</td></tr>
+<tr><td class="hl-num" data-line="104"></td><td>	}</td></tr>
+<tr><td class="hl-num" data-line="105"></td><td>}</td></tr>
+<tr><td class="hl-num" data-line="106"></td><td></td></tr>
+<tr><td class="hl-num" data-line="107"></td><td><span class="hl-k">def</span> <span class="hl-en">zwaveEvent</span>(physicalgraph.zwave.commands.configurationv2.ConfigurationReport cmd) {</td></tr>
+<tr><td class="hl-num" data-line="108"></td><td>	<span class="hl-k">def</span> parameter = <span class="hl-en">parameterMap</span>().<span class="hl-en">find</span>( {it.paramNum == cmd.parameterNumber } ).name</td></tr>
+<tr><td class="hl-num" data-line="109"></td><td>	<span class="hl-k">if</span> (state.<span class="hl-s">"$parameter"</span>.value == cmd.scaledConfigurationValue) {</td></tr>
+<tr><td class="hl-num" data-line="110"></td><td>		state.<span class="hl-s">"$parameter"</span>.state = <span class="hl-s">"configured"</span></td></tr>
+<tr><td class="hl-num" data-line="111"></td><td>	}</td></tr>
+<tr><td class="hl-num" data-line="112"></td><td>	<span class="hl-k">else</span> {</td></tr>
+<tr><td class="hl-num" data-line="113"></td><td>		state.<span class="hl-s">"$parameter"</span>.state = <span class="hl-s">"error"</span></td></tr>
+<tr><td class="hl-num" data-line="114"></td><td>	}</td></tr>
+<tr><td class="hl-num" data-line="115"></td><td>	<span class="hl-en">configParam</span>()</td></tr>
+<tr><td class="hl-num" data-line="116"></td><td>}</td></tr>
+<tr><td class="hl-num" data-line="117"></td><td></td></tr>
+<tr><td class="hl-num" data-line="118"></td><td><span class="hl-k">def</span> <span class="hl-en">zwaveEvent</span>(physicalgraph.zwave.commands.sensormultilevelv5.SensorMultilevelReport cmd) {</td></tr>
+<tr><td class="hl-num" data-line="119"></td><td>	<span class="hl-k">def</span> locaScale = <span class="hl-en">getTemperatureScale</span>() <span class="hl-cmt">//HubScale</span></td></tr>
+<tr><td class="hl-num" data-line="120"></td><td>	<span class="hl-k">def</span> externalTemp = <span class="hl-c">1</span></td></tr>
+<tr><td class="hl-num" data-line="121"></td><td>	<span class="hl-k">def</span> map = [:]</td></tr>
+<tr><td class="hl-num" data-line="122"></td><td>	<span class="hl-k">if</span> (externalTemp == cmd.sensorType) {</td></tr>
+<tr><td class="hl-num" data-line="123"></td><td>		<span class="hl-k">def</span> deviceScale = (cmd.scale == <span class="hl-c">1</span>) ? <span class="hl-s">"F"</span> : <span class="hl-s">"C"</span> <span class="hl-cmt">//DeviceScale</span></td></tr>
+<tr><td class="hl-num" data-line="124"></td><td>		<span class="hl-k">def</span> deviceTemp = cmd.scaledSensorValue</td></tr>
+<tr><td class="hl-num" data-line="125"></td><td>		<span class="hl-k">def</span> scaledTemp = (deviceScale == locaScale) ? <span class="hl-en">deviceTemp</span> : (deviceScale == <span class="hl-s">"F"</span> ? <span class="hl-en">roundC</span>(<span class="hl-en">fahrenheitToCelsius</span>(deviceTemp)) : <span class="hl-en">celsiusToFahrenheit</span>(deviceTemp).<span class="hl-en">toDouble</span>().<span class="hl-en">round</span>(<span class="hl-c">0</span>).<span class="hl-en">toInteger</span>())</td></tr>
+<tr><td class="hl-num" data-line="126"></td><td>		map.name = <span class="hl-s">"temperature"</span></td></tr>
+<tr><td class="hl-num" data-line="127"></td><td>		map.value = scaledTemp</td></tr>
+<tr><td class="hl-num" data-line="128"></td><td>		map.unit = locaScale</td></tr>
+<tr><td class="hl-num" data-line="129"></td><td>		<span class="hl-en">sendEvent</span>(map)</td></tr>
+<tr><td class="hl-num" data-line="130"></td><td>	}</td></tr>
+<tr><td class="hl-num" data-line="131"></td><td>}</td></tr>
+<tr><td class="hl-num" data-line="132"></td><td></td></tr>
+<tr><td class="hl-num" data-line="133"></td><td><span class="hl-k">def</span> <span class="hl-en">zwaveEvent</span>(physicalgraph.zwave.commands.meterv3.MeterReport cmd) {</td></tr>
+<tr><td class="hl-num" data-line="134"></td><td>	<span class="hl-k">def</span> map = [:]</td></tr>
+<tr><td class="hl-num" data-line="135"></td><td>	<span class="hl-k">if</span> (cmd.meterType == <span class="hl-c">1</span>) {</td></tr>
+<tr><td class="hl-num" data-line="136"></td><td>		<span class="hl-k">if</span> (cmd.scale == <span class="hl-c">0</span>) {</td></tr>
+<tr><td class="hl-num" data-line="137"></td><td>			map.name = <span class="hl-s">"energy"</span></td></tr>
+<tr><td class="hl-num" data-line="138"></td><td>			map.value = cmd.scaledMeterValue</td></tr>
+<tr><td class="hl-num" data-line="139"></td><td>			map.unit = <span class="hl-s">"kWh"</span></td></tr>
+<tr><td class="hl-num" data-line="140"></td><td>			<span class="hl-en">sendEvent</span>(map)</td></tr>
+<tr><td class="hl-num" data-line="141"></td><td>		} <span class="hl-k">else</span> <span class="hl-k">if</span> (cmd.scale == <span class="hl-c">2</span>) {</td></tr>
+<tr><td class="hl-num" data-line="142"></td><td>			map.name = <span class="hl-s">"power"</span></td></tr>
+<tr><td class="hl-num" data-line="143"></td><td>			map.value = Math.<span class="hl-en">round</span>(cmd.scaledMeterValue)</td></tr>
+<tr><td class="hl-num" data-line="144"></td><td>			map.unit = <span class="hl-s">"W"</span></td></tr>
+<tr><td class="hl-num" data-line="145"></td><td>			<span class="hl-en">sendEvent</span>(map)</td></tr>
+<tr><td class="hl-num" data-line="146"></td><td>		} <span class="hl-k">else</span> <span class="hl-k">if</span> (cmd.scale == <span class="hl-c">4</span>) {</td></tr>
+<tr><td class="hl-num" data-line="147"></td><td>			map.name = <span class="hl-s">"voltage"</span></td></tr>
+<tr><td class="hl-num" data-line="148"></td><td>			map.value = Math.<span class="hl-en">round</span>(cmd.scaledMeterValue)</td></tr>
+<tr><td class="hl-num" data-line="149"></td><td>			map.unit = <span class="hl-s">"V"</span></td></tr>
+<tr><td class="hl-num" data-line="150"></td><td>			<span class="hl-en">sendEvent</span>(map)</td></tr>
+<tr><td class="hl-num" data-line="151"></td><td>		} <span class="hl-k">else</span> <span class="hl-k">if</span> (cmd.scale == <span class="hl-c">5</span>) {</td></tr>
+<tr><td class="hl-num" data-line="152"></td><td>			map.name = <span class="hl-s">"current"</span></td></tr>
+<tr><td class="hl-num" data-line="153"></td><td>			map.value = Math.<span class="hl-en">round</span>(cmd.scaledMeterValue)</td></tr>
+<tr><td class="hl-num" data-line="154"></td><td>			map.unit = <span class="hl-s">"A"</span></td></tr>
+<tr><td class="hl-num" data-line="155"></td><td>		}</td></tr>
+<tr><td class="hl-num" data-line="156"></td><td>	}</td></tr>
+<tr><td class="hl-num" data-line="157"></td><td>}</td></tr>
+<tr><td class="hl-num" data-line="158"></td><td></td></tr>
+<tr><td class="hl-num" data-line="159"></td><td><span class="hl-k">def</span> <span class="hl-en">zwaveEvent</span>(physicalgraph.zwave.commands.clockv1.ClockReport cmd) {</td></tr>
+<tr><td class="hl-num" data-line="160"></td><td>	<span class="hl-k">def</span> currDate = Calendar.<span class="hl-en">getInstance</span>(location.timeZone)</td></tr>
+<tr><td class="hl-num" data-line="161"></td><td>	<span class="hl-k">def</span> time = [<span class="hl-en">hour</span>: currDate.<span class="hl-en">get</span>(Calendar.HOUR_OF_DAY), <span class="hl-en">minute</span>: currDate.<span class="hl-en">get</span>(Calendar.MINUTE), <span class="hl-en">weekday</span>: currDate.<span class="hl-en">get</span>(Calendar.DAY_OF_WEEK)]</td></tr>
+<tr><td class="hl-num" data-line="162"></td><td>	<span class="hl-k">if</span> ((time.hour != cmd.hour) || (time.minute != cmd.minute) || (time.weekday != cmd.weekday)){</td></tr>
+<tr><td class="hl-num" data-line="163"></td><td>		<span class="hl-en">sendHubCommand</span>(zwave.clockV1.<span class="hl-en">clockSet</span>(time).<span class="hl-en">format</span>())</td></tr>
+<tr><td class="hl-num" data-line="164"></td><td>	}</td></tr>
+<tr><td class="hl-num" data-line="165"></td><td>}</td></tr>
+<tr><td class="hl-num" data-line="166"></td><td></td></tr>
+<tr><td class="hl-num" data-line="167"></td><td><span class="hl-k">def</span> <span class="hl-en">zwaveEvent</span>(physicalgraph.zwave.commands.switchbinaryv1.SwitchBinaryReport cmd) {</td></tr>
+<tr><td class="hl-num" data-line="168"></td><td>	<span class="hl-k">def</span> state = cmd.value ? <span class="hl-s">"on"</span> : <span class="hl-s">"off"</span></td></tr>
+<tr><td class="hl-num" data-line="169"></td><td>	<span class="hl-en">sendEvent</span>(<span class="hl-en">name</span>: <span class="hl-s">"switch"</span>, <span class="hl-en">value</span>: state)</td></tr>
+<tr><td class="hl-num" data-line="170"></td><td>}</td></tr>
+<tr><td class="hl-num" data-line="171"></td><td></td></tr>
+<tr><td class="hl-num" data-line="172"></td><td><span class="hl-k">def</span> <span class="hl-en">zwaveEvent</span>(physicalgraph.zwave.commands.multichannelassociationv2.MultiChannelAssociationReport cmd) {</td></tr>
+<tr><td class="hl-num" data-line="173"></td><td>	<span class="hl-k">def</span> cmds = []</td></tr>
+<tr><td class="hl-num" data-line="174"></td><td>	<span class="hl-k">if</span> (cmd.groupingIdentifier == <span class="hl-c">1</span>) {</td></tr>
+<tr><td class="hl-num" data-line="175"></td><td>		<span class="hl-k">if</span> (cmd.nodeId != [zwaveHubNodeId]) {</td></tr>
+<tr><td class="hl-num" data-line="176"></td><td>			cmds << zwave.multiChannelAssociationV2.<span class="hl-en">multiChannelAssociationRemove</span>(<span class="hl-en">groupingIdentifier</span>: <span class="hl-c">1</span>).<span class="hl-en">format</span>()</td></tr>
+<tr><td class="hl-num" data-line="177"></td><td>			cmds << zwave.multiChannelAssociationV2.<span class="hl-en">multiChannelAssociationSet</span>(<span class="hl-en">groupingIdentifier</span>: <span class="hl-c">1</span>, <span class="hl-en">nodeId</span>: zwaveHubNodeId).<span class="hl-en">format</span>()</td></tr>
+<tr><td class="hl-num" data-line="178"></td><td>		}</td></tr>
+<tr><td class="hl-num" data-line="179"></td><td>	}</td></tr>
+<tr><td class="hl-num" data-line="180"></td><td>	<span class="hl-k">if</span> (cmds) {</td></tr>
+<tr><td class="hl-num" data-line="181"></td><td>		<span class="hl-en">sendHubCommand</span>(cmds, <span class="hl-c">1200</span>)</td></tr>
+<tr><td class="hl-num" data-line="182"></td><td>	}</td></tr>
+<tr><td class="hl-num" data-line="183"></td><td>}</td></tr>
+<tr><td class="hl-num" data-line="184"></td><td></td></tr>
+<tr><td class="hl-num" data-line="185"></td><td><span class="hl-k">def</span> <span class="hl-en">roundC</span> (tempInC) {</td></tr>
+<tr><td class="hl-num" data-line="186"></td><td>	<span class="hl-k">return</span> (Math.<span class="hl-en">round</span>(tempInC.<span class="hl-en">toDouble</span>() * <span class="hl-c">2</span>))/<span class="hl-c">2</span></td></tr>
+<tr><td class="hl-num" data-line="187"></td><td>}</td></tr>
+<tr><td class="hl-num" data-line="188"></td><td></td></tr>
+<tr><td class="hl-num" data-line="189"></td><td><span class="hl-k">def</span> <span class="hl-en">refresh</span>() {</td></tr>
+<tr><td class="hl-num" data-line="190"></td><td>	<span class="hl-k">def</span> cmds = []</td></tr>
+<tr><td class="hl-num" data-line="191"></td><td>	cmds << zwave.sensorMultilevelV5.<span class="hl-en">sensorMultilevelGet</span>(<span class="hl-en">sensorType</span>:<span class="hl-c">1</span>).<span class="hl-en">format</span>() <span class="hl-cmt">//get Temperature</span></td></tr>
+<tr><td class="hl-num" data-line="192"></td><td>	cmds << zwave.meterV3.<span class="hl-en">meterGet</span>(<span class="hl-en">scale</span>: <span class="hl-c">0</span>).<span class="hl-en">format</span>() <span class="hl-cmt">//get kWh</span></td></tr>
+<tr><td class="hl-num" data-line="193"></td><td>	cmds << zwave.meterV3.<span class="hl-en">meterGet</span>(<span class="hl-en">scale</span>: <span class="hl-c">2</span>).<span class="hl-en">format</span>() <span class="hl-cmt">//get Watts</span></td></tr>
+<tr><td class="hl-num" data-line="194"></td><td>	cmds << zwave.meterV3.<span class="hl-en">meterGet</span>(<span class="hl-en">scale</span>: <span class="hl-c">4</span>).<span class="hl-en">format</span>() <span class="hl-cmt">//get Voltage</span></td></tr>
+<tr><td class="hl-num" data-line="195"></td><td>	cmds << zwave.multiChannelAssociationV2.<span class="hl-en">multiChannelAssociationGet</span>(<span class="hl-en">groupingIdentifier</span>: <span class="hl-c">1</span>).<span class="hl-en">format</span>() <span class="hl-cmt">//get channel association</span></td></tr>
+<tr><td class="hl-num" data-line="196"></td><td>	<span class="hl-en">sendHubCommand</span>(cmds, <span class="hl-c">1200</span>)</td></tr>
+<tr><td class="hl-num" data-line="197"></td><td>	<span class="hl-en">runIn</span>(<span class="hl-c">10</span>, <span class="hl-s">"checkParam"</span>)</td></tr>
+<tr><td class="hl-num" data-line="198"></td><td>}</td></tr>
+<tr><td class="hl-num" data-line="199"></td><td></td></tr>
+<tr><td class="hl-num" data-line="200"></td><td><span class="hl-k">def</span> <span class="hl-en">ping</span>() {</td></tr>
+<tr><td class="hl-num" data-line="201"></td><td>	<span class="hl-en">refresh</span>()</td></tr>
+<tr><td class="hl-num" data-line="202"></td><td>}</td></tr>
+<tr><td class="hl-num" data-line="203"></td><td></td></tr>
+<tr><td class="hl-num" data-line="204"></td><td><span class="hl-k">def</span> <span class="hl-en">resetEnergyMeter</span>() {</td></tr>
+<tr><td class="hl-num" data-line="205"></td><td>	<span class="hl-en">sendHubCommand</span>(zwave.meterV3.<span class="hl-en">meterReset</span>().<span class="hl-en">format</span>())</td></tr>
+<tr><td class="hl-num" data-line="206"></td><td>}</td></tr>
+<tr><td class="hl-num" data-line="207"></td><td></td></tr>
+<tr><td class="hl-num" data-line="208"></td><td><span class="hl-k">def</span> <span class="hl-en">on</span>() {</td></tr>
+<tr><td class="hl-num" data-line="209"></td><td>	<span class="hl-en">delayBetween</span>([</td></tr>
+<tr><td class="hl-num" data-line="210"></td><td>		zwave.basicV1.<span class="hl-en">basicSet</span>(<span class="hl-en">value</span>: <span class="hl-c">0xFF</span>).<span class="hl-en">format</span>(),</td></tr>
+<tr><td class="hl-num" data-line="211"></td><td>		zwave.switchBinaryV1.<span class="hl-en">switchBinaryGet</span>().<span class="hl-en">format</span>()</td></tr>
+<tr><td class="hl-num" data-line="212"></td><td>	])</td></tr>
+<tr><td class="hl-num" data-line="213"></td><td>}</td></tr>
+<tr><td class="hl-num" data-line="214"></td><td></td></tr>
+<tr><td class="hl-num" data-line="215"></td><td><span class="hl-k">def</span> <span class="hl-en">off</span>() {</td></tr>
+<tr><td class="hl-num" data-line="216"></td><td>	<span class="hl-en">delayBetween</span>([</td></tr>
+<tr><td class="hl-num" data-line="217"></td><td>		zwave.basicV1.<span class="hl-en">basicSet</span>(<span class="hl-en">value</span>: <span class="hl-c">0x00</span>).<span class="hl-en">format</span>(),</td></tr>
+<tr><td class="hl-num" data-line="218"></td><td>		zwave.switchBinaryV1.<span class="hl-en">switchBinaryGet</span>().<span class="hl-en">format</span>()</td></tr>
+<tr><td class="hl-num" data-line="219"></td><td>	])</td></tr>
+<tr><td class="hl-num" data-line="220"></td><td>}</td></tr>
+<tr><td class="hl-num" data-line="221"></td><td></td></tr>
+<tr><td class="hl-num" data-line="222"></td><td><span class="hl-k">def</span> <span class="hl-en">configure</span>() {</td></tr>
+<tr><td class="hl-num" data-line="223"></td><td>	<span class="hl-en">ping</span>()</td></tr>
+<tr><td class="hl-num" data-line="224"></td><td>}</td></tr>
+<tr><td class="hl-num" data-line="225"></td><td></td></tr>
+<tr><td class="hl-num" data-line="226"></td><td><span class="hl-k">private</span> <span class="hl-en">parameterMap</span>() {[</td></tr>
+<tr><td class="hl-num" data-line="227"></td><td>[<span class="hl-en">title</span>: <span class="hl-s">"External Input: Click Control Mode"</span>, <span class="hl-en">description</span>: <span class="hl-s">"This Parameter defines how the relay should react when clicking the button connected to the external input. The options are: Click is disabled, Toggle switch: relay inverts state (ON to OFF, OFF to ON), Only On: Relay switches to ON state only, Only Off: Relay switches to OFF state only, Timer: On &gt; Off: Relay output switches to ON state (contacts are closed) then after a specified time switches back to OFF state (contacts are open). The time is specified in 'Relay Timer Mode Duration' below, Timer: Off &gt; On: Relay output switches to OFF state (contacts are open) then after a specified time switches back to On state (contacts are closed). The time is specified in 'Relay Timer Mode Duration' below "</span>,</td></tr>
+<tr><td class="hl-num" data-line="228"></td><td> <span class="hl-en">name</span>: <span class="hl-s">"Selected Click Control Mode"</span>, <span class="hl-en">options</span>: [</td></tr>
+<tr><td class="hl-num" data-line="229"></td><td>			<span class="hl-c">0</span>: <span class="hl-s">"Click is disabled"</span>,</td></tr>
+<tr><td class="hl-num" data-line="230"></td><td>			<span class="hl-c">1</span>: <span class="hl-s">"Toggle Switch"</span>,</td></tr>
+<tr><td class="hl-num" data-line="231"></td><td>			<span class="hl-c">2</span>: <span class="hl-s">"Only On"</span>,</td></tr>
+<tr><td class="hl-num" data-line="232"></td><td>			<span class="hl-c">3</span>: <span class="hl-s">"Only Off"</span>,</td></tr>
+<tr><td class="hl-num" data-line="233"></td><td>			<span class="hl-c">4</span>: <span class="hl-s">"Timer: On &gt; Off"</span>,</td></tr>
+<tr><td class="hl-num" data-line="234"></td><td>			<span class="hl-c">5</span>: <span class="hl-s">"Timer: Off &gt; On"</span></td></tr>
+<tr><td class="hl-num" data-line="235"></td><td>	], <span class="hl-en">paramNum</span>: <span class="hl-c">51</span>, <span class="hl-en">size</span>: <span class="hl-c">1</span>, <span class="hl-k">default</span>: <span class="hl-s">"1"</span>, <span class="hl-en">type</span>: <span class="hl-s">"enum"</span>],</td></tr>
+<tr><td class="hl-num" data-line="236"></td><td></td></tr>
+<tr><td class="hl-num" data-line="237"></td><td>[<span class="hl-en">title</span>: <span class="hl-s">"Relay Timer Mode Duration"</span>, <span class="hl-en">description</span>: <span class="hl-s">"This parameters specify the duration in seconds for the Timer modes for Click Control Mode above. Press the button and the relay output goes to ON/OFF for the specified time then changes back to OFF/ON. If the value is set to “0” the relay output will operate as a short contact (duration is about 0.5 sec)"</span>,</td></tr>
+<tr><td class="hl-num" data-line="238"></td><td> <span class="hl-en">name</span>: <span class="hl-s">"Selected Timer Mode Duration in seconds"</span>, <span class="hl-en">paramNum</span>: <span class="hl-c">71</span>, <span class="hl-en">size</span>: <span class="hl-c">2</span>, <span class="hl-k">default</span>: <span class="hl-c">0</span>, <span class="hl-en">type</span>: <span class="hl-s">"number"</span>, <span class="hl-en">min</span>: <span class="hl-c">0</span> , <span class="hl-en">max</span>: <span class="hl-c">43200</span>, <span class="hl-en">unit</span>: <span class="hl-s">"s"</span>],</td></tr>
+<tr><td class="hl-num" data-line="239"></td><td></td></tr>
+<tr><td class="hl-num" data-line="240"></td><td>[<span class="hl-en">title</span>: <span class="hl-s">"Retore Relay State"</span>, <span class="hl-en">description</span>: <span class="hl-s">"This parameter determines if the last relay state should be restored after power failure or not. This parameter is available on firmware V1.5 or higher"</span>,</td></tr>
+<tr><td class="hl-num" data-line="241"></td><td> <span class="hl-en">name</span>: <span class="hl-s">"Selected Mode"</span>, <span class="hl-en">options</span>: [</td></tr>
+<tr><td class="hl-num" data-line="242"></td><td>			<span class="hl-c">0</span>: <span class="hl-s">"Relay Off After Power Failure"</span>,</td></tr>
+<tr><td class="hl-num" data-line="243"></td><td>			<span class="hl-c">1</span>: <span class="hl-s">"Restore Last State"</span></td></tr>
+<tr><td class="hl-num" data-line="244"></td><td>	], <span class="hl-en">paramNum</span>: <span class="hl-c">66</span>, <span class="hl-en">size</span>: <span class="hl-c">1</span>, <span class="hl-k">default</span>: <span class="hl-s">"0"</span>, <span class="hl-en">type</span>: <span class="hl-s">"enum"</span>],</td></tr>
+<tr><td class="hl-num" data-line="245"></td><td></td></tr>
+<tr><td class="hl-num" data-line="246"></td><td>[<span class="hl-en">title</span>: <span class="hl-s">"Energy Consumption Meter Consecutive Report Interval"</span>, <span class="hl-en">description</span>: <span class="hl-s">"When the device is connected to the gateway, it periodically sends reports from its energy consumption sensor even if there is no change in the value. This parameter defines the interval between consecutive reports of real time and cumulative energy consumption data to the gateway"</span>,</td></tr>
+<tr><td class="hl-num" data-line="247"></td><td> <span class="hl-en">name</span>: <span class="hl-s">"Selected Energy Report Interval in minutes"</span>, <span class="hl-en">paramNum</span>: <span class="hl-c">141</span>, <span class="hl-en">size</span>: <span class="hl-c">1</span>, <span class="hl-k">default</span>: <span class="hl-c">10</span>, <span class="hl-en">type</span>: <span class="hl-s">"number"</span>, <span class="hl-en">min</span>: <span class="hl-c">1</span> , <span class="hl-en">max</span>: <span class="hl-c">120</span>, <span class="hl-en">unit</span>: <span class="hl-s">"min"</span>],</td></tr>
+<tr><td class="hl-num" data-line="248"></td><td></td></tr>
+<tr><td class="hl-num" data-line="249"></td><td>[<span class="hl-en">title</span>: <span class="hl-s">"Energy Consumption Meter Report"</span>, <span class="hl-en">description</span>: <span class="hl-s">"This Parameter determines the change in the load power resulting in the consumption report being sent to the gateway. Use the value 0 if there is a need to stop sending the reports."</span>,</td></tr>
+<tr><td class="hl-num" data-line="250"></td><td> <span class="hl-en">name</span>: <span class="hl-s">"Selected Change Percentage"</span>, <span class="hl-en">paramNum</span>: <span class="hl-c">142</span>, <span class="hl-en">size</span>: <span class="hl-c">1</span>, <span class="hl-k">default</span>: <span class="hl-c">25</span>, <span class="hl-en">type</span>: <span class="hl-s">"number"</span>, <span class="hl-en">min</span>: <span class="hl-c">0</span> , <span class="hl-en">max</span>: <span class="hl-c">50</span>, <span class="hl-en">unit</span>: <span class="hl-s">"%"</span>],</td></tr>
+<tr><td class="hl-num" data-line="251"></td><td></td></tr>
+<tr><td class="hl-num" data-line="252"></td><td>]}</td></tr>
+</tbody>
+</table>

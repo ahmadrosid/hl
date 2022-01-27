@@ -1,7 +1,6 @@
 use clap::{arg, App, AppSettings};
 mod generator;
 use hl::render_html;
-use std::fs::read;
 
 fn main() {
     let matches = App::new("hl")
@@ -32,8 +31,8 @@ fn main() {
         }
         _ => {
             if let Some(file) = matches.value_of("FILE_PATH") {
-                let source = read(file).expect(&format!("Filed reading file {}", file));
-                input = source.iter().map(|c| *c as char).collect::<Vec<_>>();
+                let source = std::fs::read_to_string(file).expect(&format!("Filed reading file {}", file));
+                input = source.chars().collect::<Vec<_>>();
             }
             if let Some(language) = matches.value_of("lang") {
                 lang = language;
