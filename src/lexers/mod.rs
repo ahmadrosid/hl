@@ -20,5 +20,6 @@ pub mod php;
 pub mod python;
 pub mod raw;
 pub mod rust;
+pub mod toml;
 pub mod typescript;
 pub mod yaml;

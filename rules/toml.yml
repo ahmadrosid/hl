@@ -1,0 +1,13 @@
+hashtag_comment: true
+
+entity_suffix:
+  eq: "="
+
+condition:
+  ACCEPT_ESCAPED_STRING: true
+  ACCEPT_STRING_ONE_QUOTE: true
+  ACCEPT_STRING_DOUBLE_QUOTE: true
+  ACCEPT_CHAR_IDENTIFIER: "-"
+  ACCEPT_ENTITY_TAG_SUFFIX: "is_digit(self.ch)"
+  BREAK_ENTITY_TAG_SUFFIX: "!is_digit(self.ch) && !is_letter(self.ch)"
+  MARK_AS_KEYWORD_ON_CHARS: "[]"

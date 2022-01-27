@@ -22,6 +22,7 @@ const MARK_STRING_ENTITY_TAG: &str = "MARK_STRING_ENTITY_TAG";
 const PREFIX_ONE_LINE_COMMENT: &str = "PREFIX_ONE_LINE_COMMENT";
 const MARKUP_HEAD: &str = "MARKUP_HEAD";
 const IGNORE_INTEGER: &str = "IGNORE_INTEGER";
+const MARK_AS_KEYWORD_ON_CHARS: &str = "MARK_AS_KEYWORD_ON_CHARS";
 
 pub fn generate_render_html(h: &Hash, name: String) -> String {
     let mut html = StringBuilder::new();
@@ -89,7 +90,7 @@ pub fn generate_render_html(h: &Hash, name: String) -> String {
         write_token_constant(&mut html);
     }
 
-    if get_keyword(h).len() >= 1 {
+    if get_keyword(h).len() >= 1 || h.get_some_condition(MARK_AS_KEYWORD_ON_CHARS).is_some() {
         write_token_keyword(&mut html);
     }
 

@@ -171,6 +171,14 @@ fn test_rust() {
 }
 
 #[test]
+fn test_toml() {
+    let input = read_input("src/test/testdata/input/TOML.toml.stub");
+    let expected = read_file("src/test/testdata/output/TOML.html.stub");
+    let actual = toml::render::render_html(input);
+    assert_eq!(expected, actual);
+}
+
+#[test]
 fn test_typescript() {
     let input = read_input("src/test/testdata/input/typescript.ts.stub");
     let expected = read_file("src/test/testdata/output/typescript.html.stub");

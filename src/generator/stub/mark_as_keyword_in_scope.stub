@@ -1,0 +1,16 @@
+if self.position >= 1
+    && self.position < self.input.len()
+    && self.input[self.position - 1] == '{left}'
+    && self.ch != '{left}'
+    && is_letter(self.ch)
+{
+    let mut identifier: Vec<char> = vec![];
+    while self.position < self.input.len() {
+        if self.ch == '{right}' {
+            break;
+        }
+        identifier.push(self.ch);
+        self.read_char();
+    }
+    return token::Token::KEYWORD(identifier);
+}

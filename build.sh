@@ -25,6 +25,7 @@ array=(
   "rules/python.yml"
   "rules/raw.yml"
   "rules/rust.yml"
+  "rules/toml.yml"
   "rules/typescript.yml"
   "rules/yaml.yml"
 )
