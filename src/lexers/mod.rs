@@ -7,6 +7,7 @@ pub mod css;
 pub mod cuda;
 pub mod edn;
 pub mod go;
+pub mod groovy;
 pub mod haskell;
 pub mod html;
 pub mod java;

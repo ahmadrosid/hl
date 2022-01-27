@@ -15,6 +15,7 @@ pub fn render_html(input: Vec<char>, lang: &str) -> String {
         "cuda" => cuda::render::render_html(input),
         "edn" => edn::render::render_html(input),
         "go" => go::render::render_html(input),
+        "groovy" => groovy::render::render_html(input),
         "hs" | "haskell" => haskell::render::render_html(input),
         "html" => html::render::render_html(input),
         "rust" => rust::render::render_html(input),

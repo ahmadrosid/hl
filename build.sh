@@ -12,6 +12,7 @@ array=(
   "rules/cpp.yml"
   "rules/cs.yml"
   "rules/go.yml"
+  "rules/groovy.yml"
   "rules/haskell.yml"
   "rules/html.yml"
   "rules/java.yml"
