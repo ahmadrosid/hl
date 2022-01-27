@@ -651,7 +651,9 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
                 "while position < self.input.len() && is_white_space(ch) {",
             );
             module.push_tabln(8, "position = position + 1;");
-            module.push_tabln(8, "ch = self.input[position];");
+            module.push_tabln(8, "if position < self.input.len() {");
+            module.push_tabln(9, "ch = self.input[position];");
+            module.push_tabln(8, "}");
             module.push_tabln(7, "}");
             module.push_tabln(7, &format!("if ch == '{}' {{", ch.as_str().unwrap()));
             module.push_tabln(8, "self.position = position;");
