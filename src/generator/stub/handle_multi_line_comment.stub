@@ -1,7 +1,7 @@
-if self.ch == '=' {
-    let next_id = String::from("=begin").chars().collect::<Vec<_>>();
+if self.ch == '{prefix}' {
+    let next_id = String::from("{begin}").chars().collect::<Vec<_>>();
     let next_position = self.position + next_id.len();
-    let end_id = String::from("=end").chars().collect::<Vec<_>>();
+    let end_id = String::from("{end}").chars().collect::<Vec<_>>();
     if self.position + next_id.len() < self.input.len()
         && self.input[self.position..next_position] == next_id
     {
@@ -9,9 +9,13 @@ if self.ch == '=' {
         next_id.iter().for_each(|_| self.read_char());
         let start_position = self.position;
         while self.position < self.input.len() {
-            if self.ch == '=' {
-                if self.input[self.position..self.position + end_id.len()] == end_id {
+            if self.ch == '{suffix}' {
+                let end_position = self.position + end_id.len();
+                if end_position <= self.input.len()
+                    && self.input[self.position..end_position] == end_id
+                {
                     end_id.to_owned().iter().for_each(|_| self.read_char());
+                    break;
                 }
             }
             self.read_char();

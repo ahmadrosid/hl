@@ -1,6 +1,6 @@
 use crate::generator::{
-    begin_comment_enable, bracket_dash_comment_enable, get_double_keyword, get_entity_prefix,
-    get_entity_suffix, get_xml_entity_tag, hashtag_comment_enable, slash_star_comment_enable,
+    bracket_dash_comment_enable, get_double_keyword, get_entity_prefix, get_entity_suffix,
+    get_multi_line_comment, get_xml_entity_tag, hashtag_comment_enable, slash_star_comment_enable,
     string::StringBuilder, xml_comment_enable, ConditionExt,
 };
 use yaml_rust::yaml::Hash;
@@ -127,11 +127,27 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
     module.push_tabln(2, "let tok: token::Token;");
 
     if xml_comment_enable(h) {
-        module.push_str(include_str!("stub/handle_xml_comment.stub"));
+        module.push_str(
+            &include_str!("stub/handle_multi_line_comment.stub")
+                .to_string()
+                .replace("{prefix}", "<")
+                .replace("{begin}", "<!--")
+                .replace("{end}", "-->")
+                .replace("{suffix}", "-"),
+        );
     }
 
-    if begin_comment_enable(h) {
-        module.push_str(include_str!("stub/handle_begin_comment.stub"));
+    let line = get_multi_line_comment(h);
+    if line.len() > 1 {
+        let chars = line.split(",").collect::<Vec<_>>();
+        module.push_str(
+            &include_str!("stub/handle_multi_line_comment.stub")
+                .to_string()
+                .replace("{prefix}", chars[0])
+                .replace("{begin}", chars[1])
+                .replace("{end}", chars[2])
+                .replace("{suffix}", chars[3]),
+        );
     }
 
     if h.get_some_condition(ACCEPT_DOUBLE_BRACKET_STRING).is_some() {

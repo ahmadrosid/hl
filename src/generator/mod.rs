@@ -41,6 +41,17 @@ pub fn $name(h: &Hash) -> bool {
     );
 );
 
+macro_rules! get_str (
+    ($name:ident, $key:ident) => (
+pub fn $name(h: &Hash) -> String {
+    return match h.get(&Yaml::String(stringify!($key).to_string())) {
+        None => String::new(),
+        Some(val) => val.as_str().unwrap().to_string()
+    }
+}
+    );
+);
+
 get_hash!(get_constant, constant);
 get_hash!(get_var, var);
 get_hash!(get_keyword, keyword);
@@ -51,9 +62,10 @@ get_hash!(get_entity_suffix, entity_suffix);
 get_hash!(get_entity_tag, entity_tag);
 get_hash!(get_condition, condition);
 get_hash!(get_xml_entity_tag, xml_entity_tag);
+get_str!(get_multi_line_comment, multi_line_comment);
+
 get_bool!(slash_star_comment_enable, slash_star_comment);
 get_bool!(xml_comment_enable, xml_comment);
-get_bool!(begin_comment_enable, begin_comment);
 get_bool!(hashtag_comment_enable, hashtag_comment);
 get_bool!(bracket_dash_comment_enable, bracket_dash_comment);
 

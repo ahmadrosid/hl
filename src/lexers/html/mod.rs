@@ -70,32 +70,28 @@ impl Lexer {
 
         let tok: token::Token;
         if self.ch == '<' {
-            let next_ch = self.input[self.position + 1];
-            if self.position + 3 < self.input.len()
-                && next_ch == '!'
-                && self.input[self.position + 2] == '-'
-                && self.input[self.position + 3] == '-'
+            let next_id = String::from("<!--").chars().collect::<Vec<_>>();
+            let next_position = self.position + next_id.len();
+            let end_id = String::from("-->").chars().collect::<Vec<_>>();
+            if self.position + next_id.len() < self.input.len()
+                && self.input[self.position..next_position] == next_id
             {
-                let mut comment = vec!['&', 'l', 't', ';', '!', '-', '-'];
-                self.read_char();
-                self.read_char();
-                self.read_char();
-                self.read_char();
-                let last_position = self.position;
+                let mut comment = next_id.clone();
+                next_id.iter().for_each(|_| self.read_char());
+                let start_position = self.position;
                 while self.position < self.input.len() {
                     if self.ch == '-' {
-                        if self.input[self.position + 1] == '-' {
-                            if self.input[self.position + 2] == '>' {
-                                self.read_char();
-                                self.read_char();
-                                self.read_char();
-                                break;
-                            }
+                        let end_position = self.position + end_id.len();
+                        if end_position <= self.input.len()
+                            && self.input[self.position..end_position] == end_id
+                        {
+                            end_id.to_owned().iter().for_each(|_| self.read_char());
+                            break;
                         }
                     }
                     self.read_char();
                 }
-                comment.append(&mut self.input[last_position..self.position].to_vec());
+                comment.append(&mut self.input[start_position..self.position].to_vec());
                 return token::Token::COMMENT(comment);
             }
         }

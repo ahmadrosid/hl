@@ -90,8 +90,12 @@ impl Lexer {
                 let start_position = self.position;
                 while self.position < self.input.len() {
                     if self.ch == '=' {
-                        if self.input[self.position..self.position + end_id.len()] == end_id {
+                        let end_position = self.position + end_id.len();
+                        if end_position <= self.input.len()
+                            && self.input[self.position..end_position] == end_id
+                        {
                             end_id.to_owned().iter().for_each(|_| self.read_char());
+                            break;
                         }
                     }
                     self.read_char();
