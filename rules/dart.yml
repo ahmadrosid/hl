@@ -68,7 +68,7 @@ keyword:
   break: break
 
 constant_prefix:
-  dot: "\\n"
+  left: "("
 
 constant_suffix:
   dot: "."

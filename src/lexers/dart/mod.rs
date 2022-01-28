@@ -132,7 +132,7 @@ if self.read_position < self.input.len() && self.ch == '/'
                                 keyword_token
                             },
                             Err(_) => {
-                                if start_position > 0 && self.input[start_position - 1] == '\n' {
+                                if start_position > 0 && self.input[start_position - 1] == '(' {
                                     return token::Token::CONSTANT(identifier)
                                 }
 if self.ch == '(' {

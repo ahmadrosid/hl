@@ -81,6 +81,7 @@ pub fn get_keyword_token(identifier: &Vec<char>) -> Result<Token, String> {
         "implements" => Ok(Token::KEYWORD(identifier.to_vec())),
         "static" => Ok(Token::KEYWORD(identifier.to_vec())),
         "late" => Ok(Token::KEYWORD(identifier.to_vec())),
+        "break" => Ok(Token::KEYWORD(identifier.to_vec())),
         _ => Err(String::from("Not a keyword")),
     }
 }
