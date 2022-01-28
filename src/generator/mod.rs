@@ -57,6 +57,8 @@ get_hash!(get_var, var);
 get_hash!(get_keyword, keyword);
 get_hash!(get_double_keyword, double_keyword);
 get_hash!(get_entity, entity);
+get_hash!(get_constant_prefix, constant_prefix);
+get_hash!(get_constant_suffix, constant_suffix);
 get_hash!(get_entity_prefix, entity_prefix);
 get_hash!(get_entity_suffix, entity_suffix);
 get_hash!(get_entity_tag, entity_tag);

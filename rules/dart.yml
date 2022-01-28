@@ -1,0 +1,87 @@
+constant:
+  "null": "null"
+  "true": "true"
+  "false": "false"
+  String: String
+  Widget: Widget
+  Future: Future
+
+keyword:
+  abstract: abstract
+  else: else
+  import: import
+  super: super
+  as: as
+  enum: enum
+  in: in
+  switch: switch
+  assert: assert
+  export: export
+  interface: interface
+  sync: sync
+  async: async
+  extends: extends
+  is: is
+  this: this
+  await: await
+  extension: extension
+  library: library
+  throw: throw
+  external: external
+  mixin: mixin
+  case: case
+  factory: factory
+  new: new
+  try: try
+  class: class
+  final: final
+  catch: catch
+  typedef: typedef
+  on: on
+  var: var
+  const: const
+  finally: finally
+  operator: operator
+  void: void
+  continue: continue
+  for: for
+  part: part
+  while: while
+  covariant: covariant
+  Function: Function
+  rethrow: rethrow
+  with: with
+  default: default
+  get: get
+  return: return
+  yield: yield
+  deferred: deferred
+  hide: hide
+  set: set
+  do: do
+  if: if
+  show: show
+  dynamic: dynamic
+  implements: implements
+  static: static
+  late: late
+  break: break
+
+constant_prefix:
+  dot: "\\n"
+
+constant_suffix:
+  dot: "."
+
+entity_suffix:
+  left: "("
+
+condition:
+  ACCEPT_ESCAPED_STRING: true
+  ACCEPT_STRING_ONE_QUOTE: true
+  ACCEPT_STRING_DOUBLE_QUOTE: true
+  ACCEPT_ENTITY_TAG_SUFFIX: "is_digit(self.ch)"
+  BREAK_ENTITY_TAG_SUFFIX: "!is_digit(self.ch) && !is_letter(self.ch)"
+  ACCEPT_HEXADECIMAL_NUMBER: true
+  PREFIX_ONE_LINE_COMMENT: "//"
+  ACCEPT_PREFIX_KEYWORD: "@"

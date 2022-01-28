@@ -59,6 +59,7 @@ See the result in browser [here](https://play.tailwindcss.com/JevzqYGpuH).
 - [ ] Clojure ( 🚧 In Progress )
 - [x] CSS ( ✅ Done )
 - [x] CUDA ( ✅ Done )
+- [x] Dart ( ✅ Done )
 - [x] CPP ( ✅ Done )
 - [x] C# ( ✅ Done )
 - [ ] Go ( 🚧 In Progress )

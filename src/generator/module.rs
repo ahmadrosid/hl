@@ -1,8 +1,4 @@
-use crate::generator::{
-    bracket_dash_comment_enable, get_double_keyword, get_entity_prefix, get_entity_suffix,
-    get_multi_line_comment, get_multi_line_string, get_xml_entity_tag, string::StringBuilder,
-    ConditionExt,
-};
+use crate::generator::{bracket_dash_comment_enable, get_constant_suffix, get_double_keyword, get_entity_prefix, get_entity_suffix, get_multi_line_comment, get_multi_line_string, get_xml_entity_tag, string::StringBuilder, ConditionExt, get_constant_prefix};
 use yaml_rust::yaml::Hash;
 use yaml_rust::Yaml;
 
@@ -652,6 +648,14 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
         module.push_tabln(8, "}");
     }
 
+    for (_k, v) in get_constant_prefix(h) {
+        let ch = v.as_str().unwrap();
+        module.push_tab(8, "if start_position > 0 ");
+        module.push_strln(&format!("&& self.input[start_position - 1] == '{}' {{", ch));
+        module.push_tabln(9, "return token::Token::CONSTANT(identifier)");
+        module.push_tabln(8, "}");
+    }
+
     if let Some(ch) = h.get_some_condition(MARK_ENTITY_TAG_SUFFIX) {
         module.push_tabln(8, &format!("if self.ch == '{}' {{", ch.as_str().unwrap()));
         module.push_tabln(9, "return token::Token::ENTITYTAG(identifier)");
@@ -659,32 +663,26 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
     }
 
     for (_k, ch) in get_entity_suffix(h) {
-        module.push_tabln(8, &format!("if self.ch == '{}' {{", ch.as_str().unwrap()));
-        module.push_tabln(9, "return token::Token::ENTITY(identifier);");
-        module.push_tabln(8, "} else if is_white_space(self.ch) {");
-        module.push_tabln(9, "let start_position = self.position;");
-        module.push_tabln(9, "let mut position = self.position;");
-        module.push_tabln(9, "let mut ch = self.input[position];");
-        module.push_tabln(
-            9,
-            "while position < self.input.len() && is_white_space(ch) {",
+        let source = include_str!("stub/handle_identifier_suffix.stub").to_string();
+        module.push_str(
+            &source
+                .replace("{ch}", ch.as_str().unwrap())
+                .replace("{token}", "ENTITY"),
         );
-        module.push_tabln(10, "position = position + 1;");
-        module.push_tabln(10, "if position < self.input.len() {");
-        module.push_tabln(11, "ch = self.input[position];");
-        module.push_tabln(10, "}");
-        module.push_tabln(9, "}");
-        module.push_tabln(9, &format!("if ch == '{}' {{", ch.as_str().unwrap()));
-        module.push_tabln(10, "self.position = position - 1;");
-        module.push_tabln(10, "self.read_position = position;");
-        module.push_tabln(10, "let mut value = identifier;");
-        module.push_tabln(
-            10,
-            "value.append(&mut self.input[start_position..self.position].to_vec());",
+    }
+
+    for (_k, ch) in get_constant_suffix(h) {
+        let source = include_str!("stub/handle_identifier_suffix.stub").to_string();
+        module.push_str(
+            &source
+                .split("else")
+                .collect::<Vec<&str>>()
+                .first()
+                .unwrap()
+                .to_string()
+                .replace("{ch}", ch.as_str().unwrap())
+                .replace("{token}", "CONSTANT"),
         );
-        module.push_tabln(10, "return token::Token::ENTITY(value)");
-        module.push_tabln(9, "}");
-        module.push_tabln(8, "}");
     }
 
     module.push_tabln(8, "token::Token::IDENT(identifier)");
