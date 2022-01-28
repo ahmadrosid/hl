@@ -8,66 +8,71 @@
 <tr><td class="hl-num" data-line="6"></td><td>    <span class="hl-en">job</span>: <span class="hl-s">"Open source Developer"</span>,</td></tr>
 <tr><td class="hl-num" data-line="7"></td><td>    <span class="hl-en">age</span>: <span class="hl-c">27</span></td></tr>
 <tr><td class="hl-num" data-line="8"></td><td>}</td></tr>
-<tr><td class="hl-num" data-line="9"></td><td></td></tr>
-<tr><td class="hl-num" data-line="10"></td><td><span class="hl-cmt">/**</span></td></tr>
-<tr><td class="hl-num" data-line="11"></td><td><span class="hl-cmt"> * Slash start comment!</span></td></tr>
-<tr><td class="hl-num" data-line="12"></td><td><span class="hl-cmt"> */</span></td></tr>
-<tr><td class="hl-num" data-line="13"></td><td><span class="hl-k">const</span> values = [<span class="hl-c">true</span>,<span class="hl-c">false</span>,<span class="hl-c">null</span>,<span class="hl-k">void</span> <span class="hl-c">0</span>,<span class="hl-c">0</span>,<span class="hl-c">0</span>.<span class="hl-c">0</span>,-<span class="hl-c">0</span>,<span class="hl-s">""</span>,-<span class="hl-c">1</span>,-<span class="hl-c">1</span>.<span class="hl-c">25</span>,<span class="hl-c">1</span>,<span class="hl-c">1</span>.<span class="hl-c">25</span>,-<span class="hl-c">2147483648</span>,<span class="hl-c">2147483648</span>,<span class="hl-v">Infinity</span>,-<span class="hl-v">Infinity</span>,<span class="hl-v">NaN</span>];</td></tr>
-<tr><td class="hl-num" data-line="14"></td><td><span class="hl-k">var</span> expected = [</td></tr>
-<tr><td class="hl-num" data-line="15"></td><td>  [<span class="hl-v">NaN</span>,<span class="hl-v">NaN</span>,<span class="hl-v">NaN</span>,<span class="hl-v">NaN</span>,<span class="hl-v">NaN</span>,<span class="hl-v">NaN</span>,<span class="hl-v">NaN</span>,<span class="hl-v">NaN</span>,<span class="hl-v">NaN</span>,<span class="hl-v">NaN</span>,<span class="hl-v">NaN</span>,<span class="hl-v">NaN</span>,<span class="hl-v">NaN</span>,<span class="hl-v">NaN</span>,<span class="hl-v">NaN</span>,<span class="hl-v">NaN</span>,<span class="hl-v">NaN</span>],</td></tr>
-<tr><td class="hl-num" data-line="16"></td><td>  [<span class="hl-c">1</span>,<span class="hl-c">0</span>,<span class="hl-c">0</span>,<span class="hl-v">NaN</span>,<span class="hl-c">0</span>,<span class="hl-c">0</span>,<span class="hl-c">0</span>,<span class="hl-c">0</span>,<span class="hl-c">0</span>,<span class="hl-c">0</span>,<span class="hl-c">1</span>,<span class="hl-c">1</span>.<span class="hl-c">25</span>,<span class="hl-c">0</span>,<span class="hl-c">2147483648</span>,<span class="hl-v">Infinity</span>,<span class="hl-c">0</span>,<span class="hl-v">NaN</span>],</td></tr>
-<tr><td class="hl-num" data-line="17"></td><td>];</td></tr>
-<tr><td class="hl-num" data-line="18"></td><td><span class="hl-k">let</span> func = (<span class="hl-k">function</span> <span class="hl-en">max</span>(a,b) { <span class="hl-k">return</span> <span class="hl-v">Math</span>.<span class="hl-en">max</span>(a, b); });</td></tr>
-<tr><td class="hl-num" data-line="19"></td><td><span class="hl-k">var</span> left_funcs = [</td></tr>
-<tr><td class="hl-num" data-line="20"></td><td>  (<span class="hl-k">function</span> <span class="hl-en">max_L3</span>(b) { <span class="hl-k">return</span> <span class="hl-v">Math</span>.<span class="hl-en">max</span>(<span class="hl-k">void</span> <span class="hl-c">0</span>, b); }),</td></tr>
-<tr><td class="hl-num" data-line="21"></td><td>  (<span class="hl-k">function</span> <span class="hl-en">max_L12</span>(b) { <span class="hl-k">return</span> <span class="hl-v">Math</span>.<span class="hl-en">max</span>(-<span class="hl-c">2147483648</span>, b); }),</td></tr>
-<tr><td class="hl-num" data-line="22"></td><td>  (<span class="hl-k">function</span> <span class="hl-en">max_L13</span>(b) { <span class="hl-k">return</span> <span class="hl-v">Math</span>.<span class="hl-en">max</span>(<span class="hl-c">2147483648</span>, b); }),</td></tr>
-<tr><td class="hl-num" data-line="23"></td><td>  (<span class="hl-k">function</span> <span class="hl-en">max_L14</span>(b) { <span class="hl-k">return</span> <span class="hl-v">Math</span>.<span class="hl-en">max</span>(<span class="hl-v">Infinity</span>, b); }),</td></tr>
-<tr><td class="hl-num" data-line="24"></td><td>  (<span class="hl-k">function</span> <span class="hl-en">max_L15</span>(b) { <span class="hl-k">return</span> <span class="hl-v">Math</span>.<span class="hl-en">max</span>(-<span class="hl-v">Infinity</span>, b); }),</td></tr>
-<tr><td class="hl-num" data-line="25"></td><td>  (<span class="hl-k">function</span> <span class="hl-en">max_L16</span>(b) { <span class="hl-k">return</span> <span class="hl-v">Math</span>.<span class="hl-en">max</span>(<span class="hl-v">NaN</span>, b); })</td></tr>
-<tr><td class="hl-num" data-line="26"></td><td>];</td></tr>
-<tr><td class="hl-num" data-line="27"></td><td><span class="hl-k">var</span> right_funcs = [</td></tr>
-<tr><td class="hl-num" data-line="28"></td><td>  (<span class="hl-k">function</span> <span class="hl-en">max_R5</span>(a) { <span class="hl-k">return</span> <span class="hl-v">Math</span>.<span class="hl-en">max</span>(a, <span class="hl-s">'0.0'</span>); }),</td></tr>
-<tr><td class="hl-num" data-line="29"></td><td>  (<span class="hl-k">function</span> <span class="hl-en">max_R6</span>(a) { <span class="hl-k">return</span> <span class="hl-v">Math</span>.<span class="hl-en">max</span>(a, -<span class="hl-c">0</span>); }),</td></tr>
-<tr><td class="hl-num" data-line="30"></td><td>  (<span class="hl-k">function</span> <span class="hl-en">max_R7</span>(a) { <span class="hl-k">return</span> <span class="hl-v">Math</span>.<span class="hl-en">max</span>(a, <span class="hl-s">""</span>); }),</td></tr>
-<tr><td class="hl-num" data-line="31"></td><td>  (<span class="hl-k">function</span> <span class="hl-en">max_R12</span>(a) { <span class="hl-k">return</span> <span class="hl-v">Math</span>.<span class="hl-en">max</span>(a, -<span class="hl-c">2147483648</span>); }),</td></tr>
-<tr><td class="hl-num" data-line="32"></td><td>  (<span class="hl-k">function</span> <span class="hl-en">max_R13</span>(a) { <span class="hl-k">return</span> <span class="hl-v">Math</span>.<span class="hl-en">max</span>(a, <span class="hl-c">2147483648</span>); }),</td></tr>
-<tr><td class="hl-num" data-line="33"></td><td>  (<span class="hl-k">function</span> <span class="hl-en">max_R14</span>(a) { <span class="hl-k">return</span> <span class="hl-v">Math</span>.<span class="hl-en">max</span>(a, <span class="hl-v">Infinity</span>); }),</td></tr>
-<tr><td class="hl-num" data-line="34"></td><td>  (<span class="hl-k">function</span> <span class="hl-en">max_R15</span>(a) { <span class="hl-k">return</span> <span class="hl-v">Math</span>.<span class="hl-en">max</span>(a, -<span class="hl-v">Infinity</span>); }),</td></tr>
-<tr><td class="hl-num" data-line="35"></td><td>  (<span class="hl-k">function</span> <span class="hl-en">max_R16</span>(a) { <span class="hl-k">return</span> <span class="hl-v">Math</span>.<span class="hl-en">max</span>(a, <span class="hl-v">NaN</span>); })</td></tr>
-<tr><td class="hl-num" data-line="36"></td><td>];</td></tr>
-<tr><td class="hl-num" data-line="37"></td><td><span class="hl-k">function</span> <span class="hl-en">test</span>() {</td></tr>
-<tr><td class="hl-num" data-line="38"></td><td>  <span class="hl-k">for</span> (<span class="hl-k">var</span> i = <span class="hl-c">0</span>; i < values.<span class="hl-en">length</span>; i++) {</td></tr>
-<tr><td class="hl-num" data-line="39"></td><td>    <span class="hl-k">for</span> (<span class="hl-k">var</span> j = <span class="hl-c">0</span>; j < values.<span class="hl-en">length</span>; j++) {</td></tr>
-<tr><td class="hl-num" data-line="40"></td><td>      <span class="hl-k">var</span> a = values[i];</td></tr>
-<tr><td class="hl-num" data-line="41"></td><td>      <span class="hl-k">var</span> b = values[j];</td></tr>
-<tr><td class="hl-num" data-line="42"></td><td>      <span class="hl-k">var</span> x = expected[i][j];</td></tr>
-<tr><td class="hl-num" data-line="43"></td><td>      <span class="hl-en">assertEquals</span>(x, <span class="hl-en">func</span>(a,b));</td></tr>
-<tr><td class="hl-num" data-line="44"></td><td>      <span class="hl-en">assertEquals</span>(x, left_funcs[i](b));</td></tr>
-<tr><td class="hl-num" data-line="45"></td><td>      <span class="hl-en">assertEquals</span>(x, right_funcs[j](a));</td></tr>
-<tr><td class="hl-num" data-line="46"></td><td>    }</td></tr>
-<tr><td class="hl-num" data-line="47"></td><td>  }</td></tr>
-<tr><td class="hl-num" data-line="48"></td><td></td></tr>
-<tr><td class="hl-num" data-line="49"></td><td>  <span class="hl-k">var</span> result = <span class="hl-en">matrix</span>();</td></tr>
-<tr><td class="hl-num" data-line="50"></td><td>  <span class="hl-k">for</span> (<span class="hl-k">var</span> i = <span class="hl-c">0</span>; i < values.<span class="hl-en">length</span>; i++) {</td></tr>
-<tr><td class="hl-num" data-line="51"></td><td>    <span class="hl-k">for</span> (<span class="hl-k">var</span> j = <span class="hl-c">0</span>; j < values.<span class="hl-en">length</span>; j++) {</td></tr>
-<tr><td class="hl-num" data-line="52"></td><td>      <span class="hl-en">assertEquals</span>(expected[i][j], result[i][j]);</td></tr>
-<tr><td class="hl-num" data-line="53"></td><td>    }</td></tr>
-<tr><td class="hl-num" data-line="54"></td><td>  }</td></tr>
-<tr><td class="hl-num" data-line="55"></td><td>}</td></tr>
-<tr><td class="hl-num" data-line="56"></td><td><span class="hl-en">test</span>();</td></tr>
-<tr><td class="hl-num" data-line="57"></td><td></td></tr>
-<tr><td class="hl-num" data-line="58"></td><td><span class="hl-k">function</span> <span class="hl-en">mapSpecialUnicodeValues</span>(code) {</td></tr>
-<tr><td class="hl-num" data-line="59"></td><td>  <span class="hl-k">if</span> (code >= <span class="hl-c">0xfff0</span> && code <= <span class="hl-c">0xffff</span>) {</td></tr>
-<tr><td class="hl-num" data-line="60"></td><td>    <span class="hl-cmt">// Specials unicode block.</span></td></tr>
-<tr><td class="hl-num" data-line="61"></td><td>    <span class="hl-k">return</span> <span class="hl-c">0</span>;</td></tr>
-<tr><td class="hl-num" data-line="62"></td><td>  } <span class="hl-k">else</span> <span class="hl-k">if</span> (code >= <span class="hl-c">0xf600</span> && code <= <span class="hl-c">0xf8ff</span>) {</td></tr>
-<tr><td class="hl-num" data-line="63"></td><td>    <span class="hl-k">return</span> <span class="hl-en">getSpecialPUASymbols</span>()[code] || code;</td></tr>
-<tr><td class="hl-num" data-line="64"></td><td>  } <span class="hl-k">else</span> <span class="hl-k">if</span> (code === <span class="hl-cmt">/* softhyphen = */</span> <span class="hl-c">0x00ad</span>) {</td></tr>
-<tr><td class="hl-num" data-line="65"></td><td>    <span class="hl-k">return</span> <span class="hl-c">0x002d</span>; <span class="hl-cmt">// hyphen</span></td></tr>
-<tr><td class="hl-num" data-line="66"></td><td>  }</td></tr>
-<tr><td class="hl-num" data-line="67"></td><td>  <span class="hl-k">return</span> code;</td></tr>
-<tr><td class="hl-num" data-line="68"></td><td>}</td></tr>
-<tr><td class="hl-num" data-line="69"></td><td></td></tr>
+<tr><td class="hl-num" data-line="9"></td><td><span class="hl-k">let</span> template = <span class="hl-s">`</span></td></tr>
+<tr><td class="hl-num" data-line="10"></td><td><span class="hl-s">&lt;div&gt;</span></td></tr>
+<tr><td class="hl-num" data-line="11"></td><td><span class="hl-s">  &lt;test-async&gt;&lt;/test-async&gt;</span></td></tr>
+<tr><td class="hl-num" data-line="12"></td><td><span class="hl-s">&lt;/div&gt;</span></td></tr>
+<tr><td class="hl-num" data-line="13"></td><td><span class="hl-s">`</span>;</td></tr>
+<tr><td class="hl-num" data-line="14"></td><td></td></tr>
+<tr><td class="hl-num" data-line="15"></td><td><span class="hl-cmt">/**</span></td></tr>
+<tr><td class="hl-num" data-line="16"></td><td><span class="hl-cmt"> * Slash start comment!</span></td></tr>
+<tr><td class="hl-num" data-line="17"></td><td><span class="hl-cmt"> */</span></td></tr>
+<tr><td class="hl-num" data-line="18"></td><td><span class="hl-k">const</span> values = [<span class="hl-c">true</span>,<span class="hl-c">false</span>,<span class="hl-c">null</span>,<span class="hl-k">void</span> <span class="hl-c">0</span>,<span class="hl-c">0</span>,<span class="hl-c">0</span>.<span class="hl-c">0</span>,-<span class="hl-c">0</span>,<span class="hl-s">""</span>,-<span class="hl-c">1</span>,-<span class="hl-c">1</span>.<span class="hl-c">25</span>,<span class="hl-c">1</span>,<span class="hl-c">1</span>.<span class="hl-c">25</span>,-<span class="hl-c">2147483648</span>,<span class="hl-c">2147483648</span>,<span class="hl-v">Infinity</span>,-<span class="hl-v">Infinity</span>,<span class="hl-v">NaN</span>];</td></tr>
+<tr><td class="hl-num" data-line="19"></td><td><span class="hl-k">var</span> expected = [</td></tr>
+<tr><td class="hl-num" data-line="20"></td><td>  [<span class="hl-v">NaN</span>,<span class="hl-v">NaN</span>,<span class="hl-v">NaN</span>,<span class="hl-v">NaN</span>,<span class="hl-v">NaN</span>,<span class="hl-v">NaN</span>,<span class="hl-v">NaN</span>,<span class="hl-v">NaN</span>,<span class="hl-v">NaN</span>,<span class="hl-v">NaN</span>,<span class="hl-v">NaN</span>,<span class="hl-v">NaN</span>,<span class="hl-v">NaN</span>,<span class="hl-v">NaN</span>,<span class="hl-v">NaN</span>,<span class="hl-v">NaN</span>,<span class="hl-v">NaN</span>],</td></tr>
+<tr><td class="hl-num" data-line="21"></td><td>  [<span class="hl-c">1</span>,<span class="hl-c">0</span>,<span class="hl-c">0</span>,<span class="hl-v">NaN</span>,<span class="hl-c">0</span>,<span class="hl-c">0</span>,<span class="hl-c">0</span>,<span class="hl-c">0</span>,<span class="hl-c">0</span>,<span class="hl-c">0</span>,<span class="hl-c">1</span>,<span class="hl-c">1</span>.<span class="hl-c">25</span>,<span class="hl-c">0</span>,<span class="hl-c">2147483648</span>,<span class="hl-v">Infinity</span>,<span class="hl-c">0</span>,<span class="hl-v">NaN</span>],</td></tr>
+<tr><td class="hl-num" data-line="22"></td><td>];</td></tr>
+<tr><td class="hl-num" data-line="23"></td><td><span class="hl-k">let</span> func = (<span class="hl-k">function</span> <span class="hl-en">max</span>(a,b) { <span class="hl-k">return</span> <span class="hl-v">Math</span>.<span class="hl-en">max</span>(a, b); });</td></tr>
+<tr><td class="hl-num" data-line="24"></td><td><span class="hl-k">var</span> left_funcs = [</td></tr>
+<tr><td class="hl-num" data-line="25"></td><td>  (<span class="hl-k">function</span> <span class="hl-en">max_L3</span>(b) { <span class="hl-k">return</span> <span class="hl-v">Math</span>.<span class="hl-en">max</span>(<span class="hl-k">void</span> <span class="hl-c">0</span>, b); }),</td></tr>
+<tr><td class="hl-num" data-line="26"></td><td>  (<span class="hl-k">function</span> <span class="hl-en">max_L12</span>(b) { <span class="hl-k">return</span> <span class="hl-v">Math</span>.<span class="hl-en">max</span>(-<span class="hl-c">2147483648</span>, b); }),</td></tr>
+<tr><td class="hl-num" data-line="27"></td><td>  (<span class="hl-k">function</span> <span class="hl-en">max_L13</span>(b) { <span class="hl-k">return</span> <span class="hl-v">Math</span>.<span class="hl-en">max</span>(<span class="hl-c">2147483648</span>, b); }),</td></tr>
+<tr><td class="hl-num" data-line="28"></td><td>  (<span class="hl-k">function</span> <span class="hl-en">max_L14</span>(b) { <span class="hl-k">return</span> <span class="hl-v">Math</span>.<span class="hl-en">max</span>(<span class="hl-v">Infinity</span>, b); }),</td></tr>
+<tr><td class="hl-num" data-line="29"></td><td>  (<span class="hl-k">function</span> <span class="hl-en">max_L15</span>(b) { <span class="hl-k">return</span> <span class="hl-v">Math</span>.<span class="hl-en">max</span>(-<span class="hl-v">Infinity</span>, b); }),</td></tr>
+<tr><td class="hl-num" data-line="30"></td><td>  (<span class="hl-k">function</span> <span class="hl-en">max_L16</span>(b) { <span class="hl-k">return</span> <span class="hl-v">Math</span>.<span class="hl-en">max</span>(<span class="hl-v">NaN</span>, b); })</td></tr>
+<tr><td class="hl-num" data-line="31"></td><td>];</td></tr>
+<tr><td class="hl-num" data-line="32"></td><td><span class="hl-k">var</span> right_funcs = [</td></tr>
+<tr><td class="hl-num" data-line="33"></td><td>  (<span class="hl-k">function</span> <span class="hl-en">max_R5</span>(a) { <span class="hl-k">return</span> <span class="hl-v">Math</span>.<span class="hl-en">max</span>(a, <span class="hl-s">'0.0'</span>); }),</td></tr>
+<tr><td class="hl-num" data-line="34"></td><td>  (<span class="hl-k">function</span> <span class="hl-en">max_R6</span>(a) { <span class="hl-k">return</span> <span class="hl-v">Math</span>.<span class="hl-en">max</span>(a, -<span class="hl-c">0</span>); }),</td></tr>
+<tr><td class="hl-num" data-line="35"></td><td>  (<span class="hl-k">function</span> <span class="hl-en">max_R7</span>(a) { <span class="hl-k">return</span> <span class="hl-v">Math</span>.<span class="hl-en">max</span>(a, <span class="hl-s">""</span>); }),</td></tr>
+<tr><td class="hl-num" data-line="36"></td><td>  (<span class="hl-k">function</span> <span class="hl-en">max_R12</span>(a) { <span class="hl-k">return</span> <span class="hl-v">Math</span>.<span class="hl-en">max</span>(a, -<span class="hl-c">2147483648</span>); }),</td></tr>
+<tr><td class="hl-num" data-line="37"></td><td>  (<span class="hl-k">function</span> <span class="hl-en">max_R13</span>(a) { <span class="hl-k">return</span> <span class="hl-v">Math</span>.<span class="hl-en">max</span>(a, <span class="hl-c">2147483648</span>); }),</td></tr>
+<tr><td class="hl-num" data-line="38"></td><td>  (<span class="hl-k">function</span> <span class="hl-en">max_R14</span>(a) { <span class="hl-k">return</span> <span class="hl-v">Math</span>.<span class="hl-en">max</span>(a, <span class="hl-v">Infinity</span>); }),</td></tr>
+<tr><td class="hl-num" data-line="39"></td><td>  (<span class="hl-k">function</span> <span class="hl-en">max_R15</span>(a) { <span class="hl-k">return</span> <span class="hl-v">Math</span>.<span class="hl-en">max</span>(a, -<span class="hl-v">Infinity</span>); }),</td></tr>
+<tr><td class="hl-num" data-line="40"></td><td>  (<span class="hl-k">function</span> <span class="hl-en">max_R16</span>(a) { <span class="hl-k">return</span> <span class="hl-v">Math</span>.<span class="hl-en">max</span>(a, <span class="hl-v">NaN</span>); })</td></tr>
+<tr><td class="hl-num" data-line="41"></td><td>];</td></tr>
+<tr><td class="hl-num" data-line="42"></td><td><span class="hl-k">function</span> <span class="hl-en">test</span>() {</td></tr>
+<tr><td class="hl-num" data-line="43"></td><td>  <span class="hl-k">for</span> (<span class="hl-k">var</span> i = <span class="hl-c">0</span>; i < values.<span class="hl-en">length</span>; i++) {</td></tr>
+<tr><td class="hl-num" data-line="44"></td><td>    <span class="hl-k">for</span> (<span class="hl-k">var</span> j = <span class="hl-c">0</span>; j < values.<span class="hl-en">length</span>; j++) {</td></tr>
+<tr><td class="hl-num" data-line="45"></td><td>      <span class="hl-k">var</span> a = values[i];</td></tr>
+<tr><td class="hl-num" data-line="46"></td><td>      <span class="hl-k">var</span> b = values[j];</td></tr>
+<tr><td class="hl-num" data-line="47"></td><td>      <span class="hl-k">var</span> x = expected[i][j];</td></tr>
+<tr><td class="hl-num" data-line="48"></td><td>      <span class="hl-en">assertEquals</span>(x, <span class="hl-en">func</span>(a,b));</td></tr>
+<tr><td class="hl-num" data-line="49"></td><td>      <span class="hl-en">assertEquals</span>(x, left_funcs[i](b));</td></tr>
+<tr><td class="hl-num" data-line="50"></td><td>      <span class="hl-en">assertEquals</span>(x, right_funcs[j](a));</td></tr>
+<tr><td class="hl-num" data-line="51"></td><td>    }</td></tr>
+<tr><td class="hl-num" data-line="52"></td><td>  }</td></tr>
+<tr><td class="hl-num" data-line="53"></td><td></td></tr>
+<tr><td class="hl-num" data-line="54"></td><td>  <span class="hl-k">var</span> result = <span class="hl-en">matrix</span>();</td></tr>
+<tr><td class="hl-num" data-line="55"></td><td>  <span class="hl-k">for</span> (<span class="hl-k">var</span> i = <span class="hl-c">0</span>; i < values.<span class="hl-en">length</span>; i++) {</td></tr>
+<tr><td class="hl-num" data-line="56"></td><td>    <span class="hl-k">for</span> (<span class="hl-k">var</span> j = <span class="hl-c">0</span>; j < values.<span class="hl-en">length</span>; j++) {</td></tr>
+<tr><td class="hl-num" data-line="57"></td><td>      <span class="hl-en">assertEquals</span>(expected[i][j], result[i][j]);</td></tr>
+<tr><td class="hl-num" data-line="58"></td><td>    }</td></tr>
+<tr><td class="hl-num" data-line="59"></td><td>  }</td></tr>
+<tr><td class="hl-num" data-line="60"></td><td>}</td></tr>
+<tr><td class="hl-num" data-line="61"></td><td><span class="hl-en">test</span>();</td></tr>
+<tr><td class="hl-num" data-line="62"></td><td></td></tr>
+<tr><td class="hl-num" data-line="63"></td><td><span class="hl-k">function</span> <span class="hl-en">mapSpecialUnicodeValues</span>(code) {</td></tr>
+<tr><td class="hl-num" data-line="64"></td><td>  <span class="hl-k">if</span> (code >= <span class="hl-c">0xfff0</span> && code <= <span class="hl-c">0xffff</span>) {</td></tr>
+<tr><td class="hl-num" data-line="65"></td><td>    <span class="hl-cmt">// Specials unicode block.</span></td></tr>
+<tr><td class="hl-num" data-line="66"></td><td>    <span class="hl-k">return</span> <span class="hl-c">0</span>;</td></tr>
+<tr><td class="hl-num" data-line="67"></td><td>  } <span class="hl-k">else</span> <span class="hl-k">if</span> (code >= <span class="hl-c">0xf600</span> && code <= <span class="hl-c">0xf8ff</span>) {</td></tr>
+<tr><td class="hl-num" data-line="68"></td><td>    <span class="hl-k">return</span> <span class="hl-en">getSpecialPUASymbols</span>()[code] || code;</td></tr>
+<tr><td class="hl-num" data-line="69"></td><td>  } <span class="hl-k">else</span> <span class="hl-k">if</span> (code === <span class="hl-cmt">/* softhyphen = */</span> <span class="hl-c">0x00ad</span>) {</td></tr>
+<tr><td class="hl-num" data-line="70"></td><td>    <span class="hl-k">return</span> <span class="hl-c">0x002d</span>; <span class="hl-cmt">// hyphen</span></td></tr>
+<tr><td class="hl-num" data-line="71"></td><td>  }</td></tr>
+<tr><td class="hl-num" data-line="72"></td><td>  <span class="hl-k">return</span> code;</td></tr>
+<tr><td class="hl-num" data-line="73"></td><td>}</td></tr>
+<tr><td class="hl-num" data-line="74"></td><td></td></tr>
 </tbody>
 </table>

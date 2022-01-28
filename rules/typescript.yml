@@ -1,4 +1,5 @@
 multi_line_comment: "/*,*/"
+multi_line_string: "`,`"
 
 constant:
   TRUE: 'true'
@@ -74,6 +75,7 @@ condition:
   ACCEPT_ESCAPED_STRING: true
   ACCEPT_STRING_ONE_QUOTE: true
   ACCEPT_STRING_DOUBLE_QUOTE: true
+  RENDER_MULTI_LINE_STRING: true
   ACCEPT_CHAR_IDENTIFIER: "?"
   ACCEPT_ENTITY_SUFFIX: "is_digit(self.ch)"
   BREAK_ENTITY_SUFFIX: "self.ch == ' ' || self.ch == ':' || self.ch == ':' || self.ch == '(' || self.ch == '{' || self.ch == '\\n'"

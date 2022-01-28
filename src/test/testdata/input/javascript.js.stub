@@ -6,6 +6,11 @@ const obj = {
     job: "Open source Developer",
     age: 27
 }
+let template = `
+<div>
+  <test-async></test-async>
+</div>
+`;
 
 /**
  * Slash start comment!
