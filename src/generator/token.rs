@@ -1,7 +1,7 @@
 use crate::generator::{
     get_constant, get_entity, get_entity_prefix, get_entity_suffix, get_entity_tag, get_keyword,
-    get_var, get_xml_entity_tag, hashtag_comment_enable, slash_star_comment_enable,
-    string::StringBuilder, xml_comment_enable, ConditionExt,
+    get_multi_line_comment, get_var, get_xml_entity_tag, hashtag_comment_enable,
+    slash_star_comment_enable, string::StringBuilder, xml_comment_enable, ConditionExt,
 };
 use yaml_rust::yaml::Hash;
 
@@ -84,7 +84,7 @@ pub fn generate_token(h: &Hash) -> String {
     }
 
     if slash_star_comment_enable(h)
-        || xml_comment_enable(h)
+        || get_multi_line_comment(h).len() > 1
         || hashtag_comment_enable(h)
         || h.get_some_condition(PREFIX_ONE_LINE_COMMENT).is_some()
     {

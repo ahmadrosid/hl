@@ -126,17 +126,6 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
 
     module.push_tabln(2, "let tok: token::Token;");
 
-    if xml_comment_enable(h) {
-        module.push_str(
-            &include_str!("stub/handle_multi_line_comment.stub")
-                .to_string()
-                .replace("{prefix}", "<")
-                .replace("{begin}", "<!--")
-                .replace("{end}", "-->")
-                .replace("{suffix}", "-"),
-        );
-    }
-
     let line = get_multi_line_comment(h);
     if line.len() > 1 {
         let chars = line.split(",").collect::<Vec<_>>();
