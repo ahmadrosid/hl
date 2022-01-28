@@ -35,6 +35,7 @@ for i in "${array[@]}"
 do
 	./target/debug/hl generate $i;
 done
+
 cargo fmt
 cargo test
 git status

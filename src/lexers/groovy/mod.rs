@@ -83,7 +83,7 @@ impl Lexer {
             if self.position + next_id.len() < self.input.len()
                 && self.input[self.position..next_position] == next_id
             {
-                let mut comment = next_id.clone();
+                let mut identifier = next_id.clone();
                 next_id.iter().for_each(|_| self.read_char());
                 let start_position = self.position;
                 while self.position < self.input.len() {
@@ -98,8 +98,8 @@ impl Lexer {
                     }
                     self.read_char();
                 }
-                comment.append(&mut self.input[start_position..self.position].to_vec());
-                return token::Token::COMMENT(comment);
+                identifier.append(&mut self.input[start_position..self.position].to_vec());
+                return token::Token::COMMENT(identifier);
             }
         }
         if self.read_position < self.input.len()

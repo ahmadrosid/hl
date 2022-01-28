@@ -135,12 +135,13 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
         let prefix = chars[0].chars().next().unwrap();
         let suffix = chars[1].chars().next().unwrap();
         module.push_str(
-            &include_str!("stub/handle_multi_line_comment.stub")
+            &include_str!("stub/handle_multi_line_token.stub")
                 .to_string()
                 .replace("{prefix}", &prefix.to_string())
                 .replace("{begin}", chars[0])
                 .replace("{end}", chars[1])
-                .replace("{suffix}", &suffix.to_string()),
+                .replace("{suffix}", &suffix.to_string())
+                .replace("{token}", "COMMENT"),
         );
     }
 
