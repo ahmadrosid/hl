@@ -1,7 +1,7 @@
 use crate::generator::{
-    bracket_dash_comment_enable, get_double_keyword, get_entity_prefix, get_entity_suffix,
-    get_xml_entity_tag, hashtag_comment_enable, slash_star_comment_enable, string::StringBuilder,
-    xml_comment_enable, ConditionExt,
+    begin_comment_enable, bracket_dash_comment_enable, get_double_keyword, get_entity_prefix,
+    get_entity_suffix, get_xml_entity_tag, hashtag_comment_enable, slash_star_comment_enable,
+    string::StringBuilder, xml_comment_enable, ConditionExt,
 };
 use yaml_rust::yaml::Hash;
 use yaml_rust::Yaml;
@@ -128,6 +128,10 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
 
     if xml_comment_enable(h) {
         module.push_str(include_str!("stub/handle_xml_comment.stub"));
+    }
+
+    if begin_comment_enable(h) {
+        module.push_str(include_str!("stub/handle_begin_comment.stub"));
     }
 
     if h.get_some_condition(ACCEPT_DOUBLE_BRACKET_STRING).is_some() {

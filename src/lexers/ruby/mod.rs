@@ -78,6 +78,28 @@ impl Lexer {
         };
 
         let tok: token::Token;
+        if self.ch == '=' {
+            let next_id = String::from("=begin").chars().collect::<Vec<_>>();
+            let next_position = self.position + next_id.len();
+            let end_id = String::from("=end").chars().collect::<Vec<_>>();
+            if self.position + next_id.len() < self.input.len()
+                && self.input[self.position..next_position] == next_id
+            {
+                let mut comment = next_id.clone();
+                next_id.iter().for_each(|_| self.read_char());
+                let start_position = self.position;
+                while self.position < self.input.len() {
+                    if self.ch == '=' {
+                        if self.input[self.position..self.position + end_id.len()] == end_id {
+                            end_id.to_owned().iter().for_each(|_| self.read_char());
+                        }
+                    }
+                    self.read_char();
+                }
+                comment.append(&mut self.input[start_position..self.position].to_vec());
+                return token::Token::COMMENT(comment);
+            }
+        }
         if self.ch == '#' {
             let comment: Vec<char> = read_string(self, '\n');
             return token::Token::COMMENT(comment);

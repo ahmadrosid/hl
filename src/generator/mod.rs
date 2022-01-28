@@ -53,6 +53,7 @@ get_hash!(get_condition, condition);
 get_hash!(get_xml_entity_tag, xml_entity_tag);
 get_bool!(slash_star_comment_enable, slash_star_comment);
 get_bool!(xml_comment_enable, xml_comment);
+get_bool!(begin_comment_enable, begin_comment);
 get_bool!(hashtag_comment_enable, hashtag_comment);
 get_bool!(bracket_dash_comment_enable, bracket_dash_comment);
 
@@ -72,26 +73,6 @@ impl ConditionExt for Hash {
 pub fn parse(file_path: &str) -> String {
     let content = read_file(file_path);
     let docs = YamlLoader::load_from_str(&content).unwrap();
-    let required_key = vec![
-        "constant",
-        "single_constant",
-        "keyword",
-        "single_keyword",
-        "double_keyword",
-        "entity",
-        "entity_tag",
-        "xml_entity_tag",
-        "prefix",
-        "bracket_dash_comment",
-        "hashtag_comment",
-        "slash_star_comment",
-        "xml_comment",
-        "condition",
-        "var",
-        "entity_prefix",
-        "entity_suffix",
-        "raw",
-    ];
 
     let mut token_stub = String::new();
     let mut module_stub = String::new();
@@ -108,12 +89,6 @@ pub fn parse(file_path: &str) -> String {
 
     match *&docs[0] {
         Yaml::Hash(ref h) => {
-            for (k, _v) in h {
-                if !required_key.contains(&k.as_str().unwrap()) {
-                    println!("Invalid key: {}", k.as_str().unwrap());
-                    std::process::exit(0x01);
-                }
-            }
             token_stub.push_str(&token::generate_token(h));
             module_stub.push_str(&module::generate_module(h));
             render_stub.push_str(&render::generate_render_html(h, get_file_name(file_path)));

@@ -1,4 +1,5 @@
 hashtag_comment: true
+begin_comment: true
 
 constant:
   True: "true"

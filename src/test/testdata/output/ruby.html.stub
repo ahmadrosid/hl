@@ -1,46 +1,53 @@
 <table class="highlight-table">
 <tbody>
-<tr><td class="hl-num" data-line="1"></td><td><span class="hl-cmt"># frozen_string_literal: true</span></td></tr>
-<tr><td class="hl-num" data-line="2"></td><td></td></tr>
-<tr><td class="hl-num" data-line="3"></td><td><span class="hl-en">source</span> <span class="hl-s">'https://rubygems.org'</span></td></tr>
-<tr><td class="hl-num" data-line="4"></td><td></td></tr>
-<tr><td class="hl-num" data-line="5"></td><td><span class="hl-en">gem</span> <span class="hl-s">'jruby-openssl'</span>, platforms: :jruby</td></tr>
-<tr><td class="hl-num" data-line="6"></td><td><span class="hl-en">gem</span> <span class="hl-s">'rake'</span>, <span class="hl-s">'~&gt; 13.0'</span>, <span class="hl-s">'&gt;= 13.0.1'</span></td></tr>
+<tr><td class="hl-num" data-line="1"></td><td><span class="hl-cmt">=begin</span></td></tr>
+<tr><td class="hl-num" data-line="2"></td><td><span class="hl-cmt">My</span></td></tr>
+<tr><td class="hl-num" data-line="3"></td><td><span class="hl-cmt">multiline</span></td></tr>
+<tr><td class="hl-num" data-line="4"></td><td><span class="hl-cmt">comment</span></td></tr>
+<tr><td class="hl-num" data-line="5"></td><td><span class="hl-cmt">here</span></td></tr>
+<tr><td class="hl-num" data-line="6"></td><td><span class="hl-cmt">=end</span></td></tr>
 <tr><td class="hl-num" data-line="7"></td><td></td></tr>
-<tr><td class="hl-num" data-line="8"></td><td><span class="hl-cmt"># when stdlib items become gems, they need to be added</span></td></tr>
-<tr><td class="hl-num" data-line="9"></td><td><span class="hl-en">install_if</span> -> { RUBY_VERSION >= <span class="hl-s">'2.8'</span> } <span class="hl-k">do</span></td></tr>
-<tr><td class="hl-num" data-line="10"></td><td>  <span class="hl-en">gem</span> <span class="hl-s">'rss'</span>, <span class="hl-s">'&gt;= 0.2.9'</span></td></tr>
-<tr><td class="hl-num" data-line="11"></td><td><span class="hl-k">end</span></td></tr>
-<tr><td class="hl-num" data-line="12"></td><td></td></tr>
-<tr><td class="hl-num" data-line="13"></td><td><span class="hl-en">group</span> :development <span class="hl-k">do</span></td></tr>
-<tr><td class="hl-num" data-line="14"></td><td>  <span class="hl-en">gem</span> <span class="hl-s">'awesome_print'</span>, require: <span class="hl-s">'ap'</span></td></tr>
-<tr><td class="hl-num" data-line="15"></td><td>  <span class="hl-en">gem</span> <span class="hl-s">'yard'</span></td></tr>
-<tr><td class="hl-num" data-line="16"></td><td><span class="hl-k">end</span></td></tr>
-<tr><td class="hl-num" data-line="17"></td><td></td></tr>
-<tr><td class="hl-num" data-line="18"></td><td><span class="hl-en">group</span> :test <span class="hl-k">do</span></td></tr>
-<tr><td class="hl-num" data-line="19"></td><td>  install_if -> { RUBY_VERSION >= <span class="hl-s">'2.8'</span> } <span class="hl-k">do</span></td></tr>
-<tr><td class="hl-num" data-line="20"></td><td>    <span class="hl-en">gem</span> <span class="hl-s">'rexml'</span>, <span class="hl-s">'&gt;= 3.2.4'</span></td></tr>
-<tr><td class="hl-num" data-line="21"></td><td>  <span class="hl-k">end</span></td></tr>
-<tr><td class="hl-num" data-line="22"></td><td>  <span class="hl-en">gem</span> <span class="hl-s">'json'</span>, <span class="hl-s">'&gt;= 2.3.0'</span>, platforms: [:jruby]</td></tr>
-<tr><td class="hl-num" data-line="23"></td><td>  <span class="hl-en">gem</span> <span class="hl-s">'jwt'</span>, <span class="hl-s">'~&gt; 2.2'</span>, <span class="hl-s">'&gt;= 2.2.1'</span></td></tr>
-<tr><td class="hl-num" data-line="24"></td><td>  <span class="hl-en">gem</span> <span class="hl-s">'mime-types'</span>, <span class="hl-s">'~&gt; 3.3'</span>, <span class="hl-s">'&gt;= 3.3.1'</span></td></tr>
-<tr><td class="hl-num" data-line="25"></td><td>  <span class="hl-en">gem</span> <span class="hl-s">'multi_json'</span>, <span class="hl-s">'~&gt; 1.14'</span>, <span class="hl-s">'&gt;= 1.14.1'</span></td></tr>
-<tr><td class="hl-num" data-line="26"></td><td>  <span class="hl-en">gem</span> <span class="hl-s">'netrc'</span>, <span class="hl-s">'~&gt; 0.11.0'</span></td></tr>
-<tr><td class="hl-num" data-line="27"></td><td>  <span class="hl-en">gem</span> <span class="hl-s">'rb-fsevent'</span>, <span class="hl-s">'~&gt; 0.10.3'</span></td></tr>
-<tr><td class="hl-num" data-line="28"></td><td>  <span class="hl-en">gem</span> <span class="hl-s">'rbnacl'</span>, <span class="hl-s">'~&gt; 7.1.1'</span></td></tr>
-<tr><td class="hl-num" data-line="29"></td><td>  <span class="hl-en">gem</span> <span class="hl-s">'rspec'</span>, <span class="hl-s">'~&gt; 3.9'</span></td></tr>
-<tr><td class="hl-num" data-line="30"></td><td>  <span class="hl-en">gem</span> <span class="hl-s">'simplecov'</span>, require: <span class="hl-c">false</span></td></tr>
-<tr><td class="hl-num" data-line="31"></td><td>  <span class="hl-en">gem</span> <span class="hl-s">'vcr'</span>, <span class="hl-s">'~&gt; 5.1'</span></td></tr>
-<tr><td class="hl-num" data-line="32"></td><td>  <span class="hl-en">gem</span> <span class="hl-s">'webmock'</span>, <span class="hl-s">'~&gt; 3.8'</span>, <span class="hl-s">'&gt;= 3.8.2'</span></td></tr>
-<tr><td class="hl-num" data-line="33"></td><td><span class="hl-k">end</span></td></tr>
-<tr><td class="hl-num" data-line="34"></td><td></td></tr>
-<tr><td class="hl-num" data-line="35"></td><td><span class="hl-en">group</span> :test, :development <span class="hl-k">do</span></td></tr>
-<tr><td class="hl-num" data-line="36"></td><td>  <span class="hl-en">gem</span> <span class="hl-s">'pry-byebug'</span></td></tr>
-<tr><td class="hl-num" data-line="37"></td><td>  <span class="hl-en">gem</span> <span class="hl-s">'redcarpet'</span></td></tr>
-<tr><td class="hl-num" data-line="38"></td><td>  <span class="hl-en">gem</span> <span class="hl-s">'rubocop'</span></td></tr>
-<tr><td class="hl-num" data-line="39"></td><td><span class="hl-k">end</span></td></tr>
-<tr><td class="hl-num" data-line="40"></td><td></td></tr>
-<tr><td class="hl-num" data-line="41"></td><td><span class="hl-en">gemspec</span></td></tr>
-<tr><td class="hl-num" data-line="42"></td><td></td></tr>
+<tr><td class="hl-num" data-line="8"></td><td><span class="hl-cmt"># frozen_string_literal: true</span></td></tr>
+<tr><td class="hl-num" data-line="9"></td><td></td></tr>
+<tr><td class="hl-num" data-line="10"></td><td><span class="hl-cmt">source 'https://rubygems.org'</span></td></tr>
+<tr><td class="hl-num" data-line="11"></td><td></td></tr>
+<tr><td class="hl-num" data-line="12"></td><td><span class="hl-cmt">gem 'jruby-openssl', platforms: :jruby</span></td></tr>
+<tr><td class="hl-num" data-line="13"></td><td><span class="hl-cmt">gem 'rake', '~&gt; 13.0', '&gt;= 13.0.1'</span></td></tr>
+<tr><td class="hl-num" data-line="14"></td><td></td></tr>
+<tr><td class="hl-num" data-line="15"></td><td><span class="hl-cmt"># when stdlib items become gems, they need to be added</span></td></tr>
+<tr><td class="hl-num" data-line="16"></td><td><span class="hl-cmt">install_if -&gt; { RUBY_VERSION &gt;= '2.8' } do</span></td></tr>
+<tr><td class="hl-num" data-line="17"></td><td><span class="hl-cmt">  gem 'rss', '&gt;= 0.2.9'</span></td></tr>
+<tr><td class="hl-num" data-line="18"></td><td><span class="hl-cmt">end</span></td></tr>
+<tr><td class="hl-num" data-line="19"></td><td></td></tr>
+<tr><td class="hl-num" data-line="20"></td><td><span class="hl-cmt">group :development do</span></td></tr>
+<tr><td class="hl-num" data-line="21"></td><td><span class="hl-cmt">  gem 'awesome_print', require: 'ap'</span></td></tr>
+<tr><td class="hl-num" data-line="22"></td><td><span class="hl-cmt">  gem 'yard'</span></td></tr>
+<tr><td class="hl-num" data-line="23"></td><td><span class="hl-cmt">end</span></td></tr>
+<tr><td class="hl-num" data-line="24"></td><td></td></tr>
+<tr><td class="hl-num" data-line="25"></td><td><span class="hl-cmt">group :test do</span></td></tr>
+<tr><td class="hl-num" data-line="26"></td><td><span class="hl-cmt">  install_if -&gt; { RUBY_VERSION &gt;= '2.8' } do</span></td></tr>
+<tr><td class="hl-num" data-line="27"></td><td><span class="hl-cmt">    gem 'rexml', '&gt;= 3.2.4'</span></td></tr>
+<tr><td class="hl-num" data-line="28"></td><td><span class="hl-cmt">  end</span></td></tr>
+<tr><td class="hl-num" data-line="29"></td><td><span class="hl-cmt">  gem 'json', '&gt;= 2.3.0', platforms: [:jruby]</span></td></tr>
+<tr><td class="hl-num" data-line="30"></td><td><span class="hl-cmt">  gem 'jwt', '~&gt; 2.2', '&gt;= 2.2.1'</span></td></tr>
+<tr><td class="hl-num" data-line="31"></td><td><span class="hl-cmt">  gem 'mime-types', '~&gt; 3.3', '&gt;= 3.3.1'</span></td></tr>
+<tr><td class="hl-num" data-line="32"></td><td><span class="hl-cmt">  gem 'multi_json', '~&gt; 1.14', '&gt;= 1.14.1'</span></td></tr>
+<tr><td class="hl-num" data-line="33"></td><td><span class="hl-cmt">  gem 'netrc', '~&gt; 0.11.0'</span></td></tr>
+<tr><td class="hl-num" data-line="34"></td><td><span class="hl-cmt">  gem 'rb-fsevent', '~&gt; 0.10.3'</span></td></tr>
+<tr><td class="hl-num" data-line="35"></td><td><span class="hl-cmt">  gem 'rbnacl', '~&gt; 7.1.1'</span></td></tr>
+<tr><td class="hl-num" data-line="36"></td><td><span class="hl-cmt">  gem 'rspec', '~&gt; 3.9'</span></td></tr>
+<tr><td class="hl-num" data-line="37"></td><td><span class="hl-cmt">  gem 'simplecov', require: false</span></td></tr>
+<tr><td class="hl-num" data-line="38"></td><td><span class="hl-cmt">  gem 'vcr', '~&gt; 5.1'</span></td></tr>
+<tr><td class="hl-num" data-line="39"></td><td><span class="hl-cmt">  gem 'webmock', '~&gt; 3.8', '&gt;= 3.8.2'</span></td></tr>
+<tr><td class="hl-num" data-line="40"></td><td><span class="hl-cmt">end</span></td></tr>
+<tr><td class="hl-num" data-line="41"></td><td></td></tr>
+<tr><td class="hl-num" data-line="42"></td><td><span class="hl-cmt">group :test, :development do</span></td></tr>
+<tr><td class="hl-num" data-line="43"></td><td><span class="hl-cmt">  gem 'pry-byebug'</span></td></tr>
+<tr><td class="hl-num" data-line="44"></td><td><span class="hl-cmt">  gem 'redcarpet'</span></td></tr>
+<tr><td class="hl-num" data-line="45"></td><td><span class="hl-cmt">  gem 'rubocop'</span></td></tr>
+<tr><td class="hl-num" data-line="46"></td><td><span class="hl-cmt">end</span></td></tr>
+<tr><td class="hl-num" data-line="47"></td><td></td></tr>
+<tr><td class="hl-num" data-line="48"></td><td><span class="hl-cmt">gemspec</span></td></tr>
+<tr><td class="hl-num" data-line="49"></td><td></td></tr>
 </tbody>
 </table>
