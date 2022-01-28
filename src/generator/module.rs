@@ -233,6 +233,7 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
         } else {
             source = source
                 .replace("{first}", &chars[0].to_string())
+                .replace("self.read_position < self.input.len() &&", "")
                 .replace("&& self.input[self.read_position] == '{last}'", "")
         }
         module.push_str(&source);

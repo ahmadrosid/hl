@@ -1,5 +1,3 @@
-hashtag_comment: true
-
 entity_suffix:
   eq: "="
 
@@ -11,3 +9,4 @@ condition:
   ACCEPT_ENTITY_TAG_SUFFIX: "is_digit(self.ch)"
   BREAK_ENTITY_TAG_SUFFIX: "!is_digit(self.ch) && !is_letter(self.ch)"
   MARK_AS_KEYWORD_IN_SCOPE: "[]"
+  PREFIX_ONE_LINE_COMMENT: "#"
