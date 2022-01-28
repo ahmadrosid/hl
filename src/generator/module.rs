@@ -224,18 +224,18 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
     }
 
     if let Some(ch) = h.get_some_condition(PREFIX_ONE_LINE_COMMENT) {
-        let v = ch.as_str().unwrap();
-        let chars: Vec<char> = v.chars().collect();
-        let first = chars[0];
-        let last = chars[1];
-        module.push_tab(2, "if self.read_position < self.input.len() ");
-        module.push_str(&format!("&& self.ch == '{}' ", first));
-        module.push_strln(&format!(
-            "&& self.input[self.read_position] == '{}' {{",
-            last
-        ));
-        module.push_tabln(3, "return token::Token::COMMENT(read_string(self, '\\n'));");
-        module.push_tabln(2, "}\n");
+        let mut source = include_str!("stub/handle_singgle_line_comment.stub").to_string();
+        let chars: Vec<char> = ch.as_str().unwrap().chars().collect();
+        if chars.len() == 2 {
+            source = source
+                .replace("{first}", &chars[0].to_string())
+                .replace("{last}", &chars[1].to_string())
+        } else {
+            source = source
+                .replace("{first}", &chars[0].to_string())
+                .replace("&& self.input[self.read_position] == '{last}'", "")
+        }
+        module.push_str(&source);
     }
 
     for (_, val) in get_double_keyword(h) {

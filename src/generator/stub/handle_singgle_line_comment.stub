@@ -1,0 +1,7 @@
+if self.read_position < self.input.len()
+    && self.ch == '{first}'
+    && self.input[self.read_position] == '{last}'
+{
+    return token::Token::COMMENT(read_string(self, '\n'));
+}
+
