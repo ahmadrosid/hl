@@ -33,6 +33,7 @@ pub fn render_html(input: Vec<char>, lang: &str) -> String {
         "ts" | "typescript" => typescript::render::render_html(input),
         "yaml" | "yml" => yaml::render::render_html(input),
         "ruby" => ruby::render::render_html(input),
+        "actionscript" => actionscript::render::render_html(input),
         _ => raw::render::render_html(input),
     };
 }

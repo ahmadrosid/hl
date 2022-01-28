@@ -3,6 +3,7 @@ set -e
 cargo build -q
 
 array=(
+  "rules/actionscript.yml"
   "rules/bash.yml"
   "rules/c.yml"
   "rules/clojure.yml"

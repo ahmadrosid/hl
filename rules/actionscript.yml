@@ -1,0 +1,77 @@
+multi_line_comment: "/*,*/"
+
+constant:
+  "false": "false"
+  "null": "null"
+  "this": "this"
+  "true": "true"
+  Math: Math
+
+entity_suffix:
+  left: "("
+
+keyword:
+  break: break
+  case: case
+  continue: continue
+  default: default
+  do: do
+  else: else
+  for: for
+  if: if
+  in: in
+  import: import
+  label: label
+  return: return
+  super: super
+  switch: switch
+  throw: throw
+  try: try
+  while: while
+  with: with
+  dynamic: dynamic
+  final: final
+  internal: internal
+  native: native
+  override: override
+  private: private
+  protected: protected
+  public: public
+  static: static
+  class: class
+  const: const
+  extends: extends
+  function: function
+  get: get
+  implements: implements
+  interface: interface
+  namespace: namespace
+  package: package
+  set: set
+  var: var
+  new: new
+  void: void
+
+single_keyword:
+  - "&"
+  - "*"
+  - "<"
+  - ">"
+  - "-"
+  - "="
+  - "|"
+
+double_keyword:
+  comparison: "=="
+  double_arrow: "=>"
+  path_separator: "::"
+  logical_and: "&&"
+
+condition:
+  ACCEPT_ESCAPED_STRING: true
+  ACCEPT_STRING_ONE_QUOTE: true
+  ACCEPT_STRING_DOUBLE_QUOTE: true
+  ACCEPT_ENTITY_TAG_SUFFIX: "is_digit(self.ch)"
+  BREAK_ENTITY_TAG_SUFFIX: "!is_digit(self.ch) && !is_letter(self.ch)"
+  MARK_KEYWORD_AS_ENTITY_ON_PREFIX: "."
+  PREFIX_ONE_LINE_COMMENT: "//"

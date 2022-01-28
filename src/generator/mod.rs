@@ -111,16 +111,15 @@ pub fn parse(file_path: &str) -> String {
     write_file(&token_stub, &out_file_path, &"token.rs");
     write_file(&module_stub, &out_file_path, &"mod.rs");
     write_file(&render_stub, &out_file_path, &"render.rs");
+
     let name = get_file_name(file_path);
-    write_file(
-        &update_lexer_mod(&name),
-        &out_file_path.replace(&format!("/{}", name), ""),
-        &"mod.rs",
+    update_lexer_mod(
+        &name,
+        &out_file_path.replace(&format!("/{}", name), "/mod.rs"),
     );
-    write_file(
-        &update_lib_mod(&name),
-        &out_file_path.replace(&format!("lexers/{}", name), ""),
-        &"lib.rs",
+    update_lib_mod(
+        &name,
+        &out_file_path.replace(&format!("lexers/{}", name), "lib.rs"),
     );
 
     let mut message = String::new();
@@ -133,27 +132,34 @@ pub fn parse(file_path: &str) -> String {
     message
 }
 
-fn update_lexer_mod(name: &str) -> String {
+fn update_lexer_mod(name: &str, path: &str) {
+    let mut file = std::fs::OpenOptions::new().write(true).open(path).unwrap();
     let mut source = include_str!("../lexers/mod.rs").to_string();
-    if !source.contains(name) {
+    if !source.contains(&format!("pub mod {};", name)) {
         source.push_str(&format!("pub mod {};", name));
+        if let Err(e) = writeln!(file, "{}", source) {
+            eprintln!("Couldn't write to file: {}", e);
+        }
     }
-    source
 }
 
-fn update_lib_mod(name: &str) -> String {
-    let source = include_str!("../lib.rs").to_string();
-    if !source.contains(name) {
-        return source.replace(
-            &format!("_ => raw::render::render_html(input)"),
+fn update_lib_mod(name: &str, path: &str) {
+    let mut file = std::fs::OpenOptions::new().write(true).open(path).unwrap();
+    let mut source = include_str!("../lib.rs").to_string();
+    if !source.contains(&format!("{}::", name)) {
+        source = source.replace(
+            &format!("_ => raw::render::render_html(input),"),
             &format!(
                 r#""{}" => {}::render::render_html(input),
-                _ => raw::render::render_html(input)"#,
+                _ => raw::render::render_html(input),"#,
                 name, name
             ),
         );
+
+        if let Err(e) = writeln!(file, "{}", source) {
+            eprintln!("Couldn't write to file: {}", e);
+        }
     }
-    source
 }
 
 fn read_file(file_path: &str) -> String {

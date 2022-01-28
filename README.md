@@ -53,6 +53,7 @@ hl src/main.rs -l rust
 See the result in browser [here](https://play.tailwindcss.com/JevzqYGpuH).
 
 ## Lexers
+- [x] ActionScript ( ✅ Done )
 - [x] Bash ( ✅ Done )
 - [x] C ( ✅ Done )
 - [ ] Clojure ( 🚧 In Progress )
