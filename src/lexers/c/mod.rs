@@ -75,25 +75,33 @@ impl Lexer {
             l.input[position..l.position].to_vec()
         };
 
-        let read_slash_star_comment = |l: &mut Lexer| -> Vec<char> {
-            let position = l.position;
-            while l.position < l.input.len() {
-                if l.position == l.input.len() {
-                    break;
-                }
-                if l.input[l.position + 1] == '*' {
-                    if l.input[l.position + 2] == '/' {
-                        l.read_char();
-                        l.read_char();
-                        break;
-                    }
-                }
-                l.read_char();
-            }
-            l.input[position..l.position + 1].to_vec()
-        };
-
         let tok: token::Token;
+        if self.ch == '/' {
+            let next_id = String::from("/*").chars().collect::<Vec<_>>();
+            let next_position = self.position + next_id.len();
+            let end_id = String::from("*/").chars().collect::<Vec<_>>();
+            if self.position + next_id.len() < self.input.len()
+                && self.input[self.position..next_position] == next_id
+            {
+                let mut comment = next_id.clone();
+                next_id.iter().for_each(|_| self.read_char());
+                let start_position = self.position;
+                while self.position < self.input.len() {
+                    if self.ch == '*' {
+                        let end_position = self.position + end_id.len();
+                        if end_position <= self.input.len()
+                            && self.input[self.position..end_position] == end_id
+                        {
+                            end_id.to_owned().iter().for_each(|_| self.read_char());
+                            break;
+                        }
+                    }
+                    self.read_char();
+                }
+                comment.append(&mut self.input[start_position..self.position].to_vec());
+                return token::Token::COMMENT(comment);
+            }
+        }
         if self.read_position < self.input.len()
             && self.ch == '/'
             && self.input[self.read_position] == '/'
@@ -130,13 +138,6 @@ impl Lexer {
             }
             '>' => {
                 tok = token::Token::STRING(vec![self.ch]);
-            }
-            '/' => {
-                if self.input[self.position + 1] == '*' {
-                    tok = token::Token::COMMENT(read_slash_star_comment(self));
-                } else {
-                    tok = token::Token::IDENT(vec![self.ch]);
-                }
             }
             _ => {
                 return if is_letter(self.ch) {

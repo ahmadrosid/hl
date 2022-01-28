@@ -1,4 +1,4 @@
-slash_star_comment: true
+multi_line_comment: "/*,*/"
 
 constant:
   ARGS: "Args"

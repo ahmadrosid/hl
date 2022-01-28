@@ -129,6 +129,14 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
     let line = get_multi_line_comment(h);
     if line.len() > 1 {
         let chars = line.split(",").collect::<Vec<_>>();
+        assert!(
+            chars.len() == 2,
+            "{}",
+            format!(
+                "Scope multi line comment should be 2 split by comma found {}",
+                chars.len()
+            )
+        );
         let prefix = chars[0].chars().next().unwrap();
         let suffix = chars[1].chars().next().unwrap();
         module.push_str(
