@@ -224,7 +224,7 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
     }
 
     if let Some(ch) = h.get_some_condition(PREFIX_ONE_LINE_COMMENT) {
-        let mut source = include_str!("stub/handle_singgle_line_comment.stub").to_string();
+        let mut source = include_str!("stub/handle_single_line_comment.stub").to_string();
         let chars: Vec<char> = ch.as_str().unwrap().chars().collect();
         if chars.len() == 2 {
             source = source

@@ -104,11 +104,6 @@ impl Lexer {
                 return token::Token::COMMENT(comment);
             }
         }
-        if self.ch == '#' {
-            let comment: Vec<char> = read_string(self, '\n');
-            return token::Token::COMMENT(comment);
-        }
-
         if self.ch == '@'
             && self.read_position <= self.input.len()
             && is_letter(self.input[self.read_position])
@@ -118,6 +113,10 @@ impl Lexer {
             id.append(&mut read_identifier(self));
             return token::Token::CONSTANT(id);
         }
+        if self.ch == '#' {
+            return token::Token::COMMENT(read_string(self, '\n'));
+        }
+
         match self.ch {
             '\n' => {
                 tok = token::Token::ENDL(self.ch);

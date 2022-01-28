@@ -1,4 +1,3 @@
-hashtag_comment: true
 multi_line_comment: "=begin,=end"
 
 constant:
@@ -62,3 +61,4 @@ condition:
   ACCEPT_STRING_DOUBLE_QUOTE: true
   MARK_AS_CONSTANT_ON_PREFIX: "@"
   MARK_AS_ENTYTY_ON_FUNCTION_SCOPE: "def"
+  PREFIX_ONE_LINE_COMMENT: "#"
