@@ -1,7 +1,7 @@
 use crate::generator::{
     bracket_dash_comment_enable, get_double_keyword, get_entity_prefix, get_entity_suffix,
     get_multi_line_comment, get_xml_entity_tag, hashtag_comment_enable, slash_star_comment_enable,
-    string::StringBuilder, xml_comment_enable, ConditionExt,
+    string::StringBuilder, ConditionExt,
 };
 use yaml_rust::yaml::Hash;
 use yaml_rust::Yaml;

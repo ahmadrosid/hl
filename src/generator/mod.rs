@@ -65,7 +65,6 @@ get_hash!(get_xml_entity_tag, xml_entity_tag);
 get_str!(get_multi_line_comment, multi_line_comment);
 
 get_bool!(slash_star_comment_enable, slash_star_comment);
-get_bool!(xml_comment_enable, xml_comment);
 get_bool!(hashtag_comment_enable, hashtag_comment);
 get_bool!(bracket_dash_comment_enable, bracket_dash_comment);
 
