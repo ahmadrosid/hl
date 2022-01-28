@@ -65,6 +65,9 @@ impl Lexer {
             let position = l.position;
             l.read_char();
             while l.position < l.input.len() && l.ch != ch {
+                if l.ch == '\\' {
+                    l.read_char()
+                }
                 l.read_char();
             }
             l.read_char();

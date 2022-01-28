@@ -2,7 +2,7 @@ let read_string = |l: &mut Lexer, ch: char| -> Vec<char> {
     let position = l.position;
     l.read_char();
     while l.position < l.input.len() && l.ch != ch {
-        //read_escape_string
+        if l.ch == '\\' { l.read_char() }
         l.read_char();
     }
     l.read_char();

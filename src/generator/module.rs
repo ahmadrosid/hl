@@ -759,11 +759,8 @@ fn write_handle_markup_head(head: &str) -> String {
 
 fn write_handle_read_string(h: Hash) -> String {
     let read_string = include_str!("stub/handle_read_string.stub").to_string();
-    let mut read_escaped_string = String::new();
-    if h.get_some_condition(ACCEPT_ESCAPED_STRING).is_some() {
-        read_escaped_string.push_str("if l.ch == '\\\\' {");
-        read_escaped_string.push_str("l.read_char()");
-        read_escaped_string.push_str("}");
+    if !h.get_some_condition(ACCEPT_ESCAPED_STRING).is_some() {
+        return read_string.replace("if l.ch == '\\' { l.read_char() }", "");
     }
-    read_string.replace("//read_escape_string", &read_escaped_string)
+    read_string
 }
