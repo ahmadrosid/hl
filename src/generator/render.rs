@@ -1,7 +1,7 @@
 use crate::generator::{
     get_constant, get_entity, get_entity_prefix, get_entity_suffix, get_entity_tag, get_keyword,
     get_multi_line_comment, get_var, get_xml_entity_tag, hashtag_comment_enable,
-    slash_star_comment_enable, string::StringBuilder, ConditionExt,
+    string::StringBuilder, ConditionExt,
 };
 use yaml_rust::yaml::Hash;
 
@@ -70,8 +70,7 @@ pub fn generate_render_html(h: &Hash, name: String) -> String {
         write_token_string(&mut html, h);
     }
 
-    if slash_star_comment_enable(h)
-        || h.get_some_condition(ACCEPT_ENTITY_TAG_PREFIX).is_some()
+    if h.get_some_condition(ACCEPT_ENTITY_TAG_PREFIX).is_some()
         || h.get_some_condition(ENTITY_TAG_PREFIX_CHAR).is_some()
         || h.get_some_condition(ACCEPT_PREFIX_KEYWORD).is_some()
     {
@@ -110,8 +109,7 @@ pub fn generate_render_html(h: &Hash, name: String) -> String {
         write_token_head(&mut html);
     }
 
-    if slash_star_comment_enable(h)
-        || get_multi_line_comment(h).len() > 1
+    if get_multi_line_comment(h).len() > 1
         || hashtag_comment_enable(h)
         || h.get_some_condition(PREFIX_ONE_LINE_COMMENT).is_some()
     {

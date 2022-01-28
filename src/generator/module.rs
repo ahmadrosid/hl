@@ -1,7 +1,7 @@
 use crate::generator::{
     bracket_dash_comment_enable, get_double_keyword, get_entity_prefix, get_entity_suffix,
-    get_multi_line_comment, get_xml_entity_tag, hashtag_comment_enable, slash_star_comment_enable,
-    string::StringBuilder, ConditionExt,
+    get_multi_line_comment, get_xml_entity_tag, hashtag_comment_enable, string::StringBuilder,
+    ConditionExt,
 };
 use yaml_rust::yaml::Hash;
 use yaml_rust::Yaml;
@@ -119,10 +119,6 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
     module.push_tabln(3, "}");
     module.push_tabln(3, "l.input[position..l.position].to_vec()");
     module.push_tabln(2, "};\n");
-
-    if slash_star_comment_enable(h) {
-        module.push_str(include_str!("stub/handle_read_slash_star_comment.stub"))
-    }
 
     module.push_tabln(2, "let tok: token::Token;");
 
@@ -418,19 +414,6 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
         }
         module.push_tabln(4, "}");
         module.push_tabln(4, "tok = token::Token::CH(self.ch);");
-        module.push_tabln(3, "}");
-    }
-
-    if slash_star_comment_enable(h) {
-        module.push_tabln(3, "'/' => {");
-        module.push_tabln(4, "if self.input[self.position + 1] == '*' {");
-        module.push_tabln(
-            5,
-            "tok = token::Token::COMMENT(read_slash_star_comment(self));",
-        );
-        module.push_tabln(4, "} else {");
-        module.push_tabln(5, "tok = token::Token::IDENT(vec![self.ch]);");
-        module.push_tabln(4, "}");
         module.push_tabln(3, "}");
     }
 
