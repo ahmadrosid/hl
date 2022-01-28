@@ -1,6 +1,6 @@
 // ---- DON'T EDIT! THIS IS AUTO GENERATED CODE ---- //
-use crate::lexers::dart::Lexer;
 use crate::lexers::dart::token;
+use crate::lexers::dart::Lexer;
 
 pub fn render_html(input: Vec<char>) -> String {
     let mut l = Lexer::new(input);
@@ -23,12 +23,12 @@ pub fn render_html(input: Vec<char>) -> String {
         }
 
         match token {
-token::Token::INT(value) => {
-    html.push_str(&format!(
-        "<span class=\"hl-c\">{}</span>",
-        value.iter().collect::<String>()
-    ));
-}
+            token::Token::INT(value) => {
+                html.push_str(&format!(
+                    "<span class=\"hl-c\">{}</span>",
+                    value.iter().collect::<String>()
+                ));
+            }
             token::Token::IDENT(value) => {
                 html.push_str(&value.iter().collect::<String>());
             }
@@ -49,13 +49,22 @@ token::Token::INT(value) => {
                 html.push(value);
             }
             token::Token::ENTITY(value) => {
-                html.push_str(&format!("<span class=\"hl-en\">{}</span>", value.iter().collect::<String>()));
+                html.push_str(&format!(
+                    "<span class=\"hl-en\">{}</span>",
+                    value.iter().collect::<String>()
+                ));
             }
             token::Token::CONSTANT(value) => {
-                html.push_str(&format!("<span class=\"hl-c\">{}</span>", value.iter().collect::<String>()));
+                html.push_str(&format!(
+                    "<span class=\"hl-c\">{}</span>",
+                    value.iter().collect::<String>()
+                ));
             }
             token::Token::KEYWORD(value) => {
-                html.push_str(&format!("<span class=\"hl-k\">{}</span>", value.iter().collect::<String>()));
+                html.push_str(&format!(
+                    "<span class=\"hl-k\">{}</span>",
+                    value.iter().collect::<String>()
+                ));
             }
             token::Token::COMMENT(value) => {
                 let mut lines = String::new();
@@ -86,14 +95,14 @@ token::Token::INT(value) => {
                     }
                 }
             }
-token::Token::ENDL(_) => {
-    line = line + 1;
-    html.push_str("</td></tr>\n");
-    html.push_str(&format!(
-        "<tr><td class=\"hl-num\" data-line=\"{}\"></td><td>",
-        line
-    ));
-}
+            token::Token::ENDL(_) => {
+                line = line + 1;
+                html.push_str("</td></tr>\n");
+                html.push_str(&format!(
+                    "<tr><td class=\"hl-num\" data-line=\"{}\"></td><td>",
+                    line
+                ));
+            }
             _ => {
                 html.push(l.ch);
                 l.read_char();

@@ -1,4 +1,8 @@
-use crate::generator::{bracket_dash_comment_enable, get_constant_suffix, get_double_keyword, get_entity_prefix, get_entity_suffix, get_multi_line_comment, get_multi_line_string, get_xml_entity_tag, string::StringBuilder, ConditionExt, get_constant_prefix};
+use crate::generator::{
+    bracket_dash_comment_enable, get_constant_prefix, get_constant_suffix, get_double_keyword,
+    get_entity_prefix, get_entity_suffix, get_multi_line_comment, get_multi_line_string,
+    get_xml_entity_tag, string::StringBuilder, ConditionExt,
+};
 use yaml_rust::yaml::Hash;
 use yaml_rust::Yaml;
 

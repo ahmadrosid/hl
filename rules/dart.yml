@@ -5,6 +5,7 @@ constant:
   String: String
   Widget: Widget
   Future: Future
+  Object: Object
 
 keyword:
   abstract: abstract
