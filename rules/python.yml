@@ -1,3 +1,5 @@
+multi_line_string: "''','''"
+
 constant:
   True: "True"
   False: "False"

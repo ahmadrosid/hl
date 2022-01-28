@@ -1,6 +1,7 @@
 use crate::generator::{
     bracket_dash_comment_enable, get_double_keyword, get_entity_prefix, get_entity_suffix,
-    get_multi_line_comment, get_xml_entity_tag, string::StringBuilder, ConditionExt,
+    get_multi_line_comment, get_multi_line_string, get_xml_entity_tag, string::StringBuilder,
+    ConditionExt,
 };
 use yaml_rust::yaml::Hash;
 use yaml_rust::Yaml;
@@ -142,6 +143,30 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
                 .replace("{end}", chars[1])
                 .replace("{suffix}", &suffix.to_string())
                 .replace("{token}", "COMMENT"),
+        );
+    }
+
+    let line = get_multi_line_string(h);
+    if line.len() > 1 {
+        let chars = line.split(",").collect::<Vec<_>>();
+        assert!(
+            chars.len() == 2,
+            "{}",
+            format!(
+                "Scope multi line string should be 2 split by comma found {}",
+                chars.len()
+            )
+        );
+        let prefix = chars[0].chars().next().unwrap();
+        let suffix = chars[1].chars().next().unwrap();
+        module.push_str(
+            &include_str!("stub/handle_multi_line_token.stub")
+                .to_string()
+                .replace("{prefix}", &prefix.to_string().replace("'", "\\'"))
+                .replace("{begin}", chars[0])
+                .replace("{end}", chars[1])
+                .replace("{suffix}", &suffix.to_string().replace("'", "\\'"))
+                .replace("{token}", "STRING"),
         );
     }
 

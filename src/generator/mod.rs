@@ -63,6 +63,7 @@ get_hash!(get_entity_tag, entity_tag);
 get_hash!(get_condition, condition);
 get_hash!(get_xml_entity_tag, xml_entity_tag);
 get_str!(get_multi_line_comment, multi_line_comment);
+get_str!(get_multi_line_string, multi_line_string);
 get_bool!(bracket_dash_comment_enable, bracket_dash_comment);
 
 pub trait ConditionExt {
