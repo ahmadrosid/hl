@@ -14,6 +14,11 @@ pub struct msghdr {
     pub msg_name: *mut c_void,
 }
 fn main() {
+    let multi_line_str = r#"
+    This is
+    Multi line
+    String
+    "#
     let matches = App::new("hl")
         .version("0.1.0")
         .author("Ahmad Rosid <alahmadrosid@gmail.com>")

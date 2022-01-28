@@ -1,4 +1,5 @@
 multi_line_comment: "/*,*/"
+multi_line_string: 'r#","#'
 
 constant:
     TRUE: 'true'
@@ -105,6 +106,7 @@ condition:
     ACCEPT_HEXADECIMAL_NUMBER: true
     ACCEPT_STRING_DOUBLE_QUOTE: true
     ACCEPT_STRING_ONE_QUOTE: true
+    RENDER_MULTI_LINE_STRING: true
     ACCEPT_ENTITY_TAG_SUFFIX: "is_digit(self.ch)"
     BREAK_ENTITY_TAG_SUFFIX: "!is_digit(self.ch) && !is_letter(self.ch)"
     PREFIX_ONE_LINE_COMMENT: "//"

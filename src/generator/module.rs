@@ -163,8 +163,8 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
             &include_str!("stub/handle_multi_line_token.stub")
                 .to_string()
                 .replace("{prefix}", &prefix.to_string().replace("'", "\\'"))
-                .replace("{begin}", chars[0])
-                .replace("{end}", chars[1])
+                .replace("{begin}", &chars[0].to_string().replace("\"", "\\\""))
+                .replace("{end}", &chars[1].to_string().replace("\"", "\\\""))
                 .replace("{suffix}", &suffix.to_string().replace("'", "\\'"))
                 .replace("{token}", "STRING"),
         );
