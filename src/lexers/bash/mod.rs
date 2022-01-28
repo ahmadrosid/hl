@@ -79,11 +79,6 @@ impl Lexer {
         };
 
         let tok: token::Token;
-        if self.ch == '#' {
-            let comment: Vec<char> = read_string(self, '\n');
-            return token::Token::COMMENT(comment);
-        }
-
         if self.ch == '$' {
             let start_position = self.position;
             while self.position < self.input.len()
@@ -130,6 +125,10 @@ impl Lexer {
                 return token::Token::STRING(comment);
             }
         }
+        if self.ch == '#' {
+            return token::Token::COMMENT(read_string(self, '\n'));
+        }
+
         match self.ch {
             '\n' => {
                 tok = token::Token::ENDL(self.ch);
