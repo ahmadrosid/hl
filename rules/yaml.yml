@@ -1,5 +1,3 @@
-hashtag_comment: true
-
 constant:
   TRUE: 'true'
   FALSE: 'false'
@@ -13,3 +11,4 @@ condition:
   ACCEPT_CHAR_IDENTIFIER: "-"
   ACCEPT_ENTITY_TAG_SUFFIX: "is_digit(self.ch)"
   BREAK_ENTITY_TAG_SUFFIX: "!is_digit(self.ch) && !is_letter(self.ch)"
+  PREFIX_ONE_LINE_COMMENT: "#"
