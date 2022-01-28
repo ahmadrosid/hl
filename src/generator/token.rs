@@ -1,7 +1,6 @@
 use crate::generator::{
     get_constant, get_entity, get_entity_prefix, get_entity_suffix, get_entity_tag, get_keyword,
-    get_multi_line_comment, get_var, get_xml_entity_tag, hashtag_comment_enable,
-    string::StringBuilder, ConditionExt,
+    get_multi_line_comment, get_var, get_xml_entity_tag, string::StringBuilder, ConditionExt,
 };
 use yaml_rust::yaml::Hash;
 
@@ -83,7 +82,6 @@ pub fn generate_token(h: &Hash) -> String {
     }
 
     if get_multi_line_comment(h).len() > 1
-        || hashtag_comment_enable(h)
         || h.get_some_condition(PREFIX_ONE_LINE_COMMENT).is_some()
     {
         token.push_tabln(1, "COMMENT(Vec<char>),");

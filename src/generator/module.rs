@@ -1,7 +1,6 @@
 use crate::generator::{
     bracket_dash_comment_enable, get_double_keyword, get_entity_prefix, get_entity_suffix,
-    get_multi_line_comment, get_xml_entity_tag, hashtag_comment_enable, string::StringBuilder,
-    ConditionExt,
+    get_multi_line_comment, get_xml_entity_tag, string::StringBuilder, ConditionExt,
 };
 use yaml_rust::yaml::Hash;
 use yaml_rust::Yaml;
@@ -151,10 +150,6 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
 
     if bracket_dash_comment_enable(h) {
         module.push_str(include_str!("stub/handle_bracket_dash_comment.stub"));
-    }
-
-    if hashtag_comment_enable(h) {
-        module.push_str(include_str!("stub/handle_hashtag_comment.stub"));
     }
 
     if let Some(ch) = h.get_some_condition(MARK_AS_KEYWORD_ON_CHAR) {
