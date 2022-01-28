@@ -1,4 +1,4 @@
-multi_line_comment: "<,<!--,-->,-"
+multi_line_comment: "<!--,-->"
 
 xml_entity_tag:
   HTML: html

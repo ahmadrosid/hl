@@ -129,13 +129,15 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
     let line = get_multi_line_comment(h);
     if line.len() > 1 {
         let chars = line.split(",").collect::<Vec<_>>();
+        let prefix = chars[0].chars().next().unwrap();
+        let suffix = chars[1].chars().next().unwrap();
         module.push_str(
             &include_str!("stub/handle_multi_line_comment.stub")
                 .to_string()
-                .replace("{prefix}", chars[0])
-                .replace("{begin}", chars[1])
-                .replace("{end}", chars[2])
-                .replace("{suffix}", chars[3]),
+                .replace("{prefix}", &prefix.to_string())
+                .replace("{begin}", chars[0])
+                .replace("{end}", chars[1])
+                .replace("{suffix}", &suffix.to_string()),
         );
     }
 

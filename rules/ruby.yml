@@ -1,5 +1,5 @@
 hashtag_comment: true
-multi_line_comment: "=,=begin,=end,="
+multi_line_comment: "=begin,=end"
 
 constant:
   True: "true"
