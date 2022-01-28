@@ -32,36 +32,36 @@
 <tr><td class="hl-num" data-line="30"></td><td></td></tr>
 <tr><td class="hl-num" data-line="31"></td><td>	<span class="hl-k">public</span> <span class="hl-k">class</span> Webcam <span class="hl-k">extends</span> Sprite {</td></tr>
 <tr><td class="hl-num" data-line="32"></td><td>		<span class="hl-k">private</span> <span class="hl-k">var</span> video:Video;</td></tr>
-<tr><td class="hl-num" data-line="33"></td><td>		<span class="hl-k">private</span> <span class="hl-k">var</span> video_width:int;</td></tr>
-<tr><td class="hl-num" data-line="34"></td><td>		<span class="hl-k">private</span> <span class="hl-k">var</span> video_height:int;</td></tr>
-<tr><td class="hl-num" data-line="35"></td><td>		<span class="hl-k">private</span> <span class="hl-k">var</span> dest_width:int;</td></tr>
-<tr><td class="hl-num" data-line="36"></td><td>		<span class="hl-k">private</span> <span class="hl-k">var</span> dest_height:int;</td></tr>
+<tr><td class="hl-num" data-line="33"></td><td>		<span class="hl-k">private</span> <span class="hl-k">var</span> video_width:<span class="hl-k">int</span>;</td></tr>
+<tr><td class="hl-num" data-line="34"></td><td>		<span class="hl-k">private</span> <span class="hl-k">var</span> video_height:<span class="hl-k">int</span>;</td></tr>
+<tr><td class="hl-num" data-line="35"></td><td>		<span class="hl-k">private</span> <span class="hl-k">var</span> dest_width:<span class="hl-k">int</span>;</td></tr>
+<tr><td class="hl-num" data-line="36"></td><td>		<span class="hl-k">private</span> <span class="hl-k">var</span> dest_height:<span class="hl-k">int</span>;</td></tr>
 <tr><td class="hl-num" data-line="37"></td><td>		<span class="hl-k">private</span> <span class="hl-k">var</span> camera:Camera;</td></tr>
 <tr><td class="hl-num" data-line="38"></td><td>		<span class="hl-k">private</span> <span class="hl-k">var</span> bmpdata:BitmapData;</td></tr>
-<tr><td class="hl-num" data-line="39"></td><td>		<span class="hl-k">private</span> <span class="hl-k">var</span> jpeg_quality:int;</td></tr>
+<tr><td class="hl-num" data-line="39"></td><td>		<span class="hl-k">private</span> <span class="hl-k">var</span> jpeg_quality:<span class="hl-k">int</span>;</td></tr>
 <tr><td class="hl-num" data-line="40"></td><td>		<span class="hl-k">private</span> <span class="hl-k">var</span> image_format:String;</td></tr>
-<tr><td class="hl-num" data-line="41"></td><td>		<span class="hl-k">private</span> <span class="hl-k">var</span> fps:int;</td></tr>
+<tr><td class="hl-num" data-line="41"></td><td>		<span class="hl-k">private</span> <span class="hl-k">var</span> fps:<span class="hl-k">int</span>;</td></tr>
 <tr><td class="hl-num" data-line="42"></td><td>		<span class="hl-k">private</span> <span class="hl-k">var</span> flip_horiz:Boolean;</td></tr>
 <tr><td class="hl-num" data-line="43"></td><td></td></tr>
 <tr><td class="hl-num" data-line="44"></td><td>	    <span class="hl-k">public</span> <span class="hl-k">static</span> <span class="hl-k">function</span> <span class="hl-en">encode</span>(img:BitmapData):ByteArray {</td></tr>
 <tr><td class="hl-num" data-line="45"></td><td>	        <span class="hl-cmt">// Build IDAT chunk</span></td></tr>
 <tr><td class="hl-num" data-line="46"></td><td>	        <span class="hl-k">var</span> IDAT:ByteArray<span class="hl-k">=</span> <span class="hl-k">new</span> <span class="hl-en">ByteArray</span>();</td></tr>
-<tr><td class="hl-num" data-line="47"></td><td>	        <span class="hl-k">for</span>(<span class="hl-k">var</span> i:int<span class="hl-k">=</span><span class="hl-c">0</span>;i <span class="hl-k"><</span> img.height;i++) {</td></tr>
+<tr><td class="hl-num" data-line="47"></td><td>	        <span class="hl-k">for</span>(<span class="hl-k">var</span> i:<span class="hl-k">int</span><span class="hl-k">=</span><span class="hl-c">0</span>;i <span class="hl-k"><</span> img.height;i++) {</td></tr>
 <tr><td class="hl-num" data-line="48"></td><td>	            <span class="hl-cmt">// no filter</span></td></tr>
 <tr><td class="hl-num" data-line="49"></td><td>	            IDAT.<span class="hl-en">writeByte</span>(<span class="hl-c">0</span>);</td></tr>
-<tr><td class="hl-num" data-line="50"></td><td>	            <span class="hl-k">var</span> p:uint;</td></tr>
-<tr><td class="hl-num" data-line="51"></td><td>	            <span class="hl-k">var</span> j:int;</td></tr>
+<tr><td class="hl-num" data-line="50"></td><td>	            <span class="hl-k">var</span> p:<span class="hl-k">uint</span>;</td></tr>
+<tr><td class="hl-num" data-line="51"></td><td>	            <span class="hl-k">var</span> j:<span class="hl-k">int</span>;</td></tr>
 <tr><td class="hl-num" data-line="52"></td><td>	            <span class="hl-k">if</span> ( !img.transparent ) {</td></tr>
 <tr><td class="hl-num" data-line="53"></td><td>	                <span class="hl-k">for</span>(j<span class="hl-k">=</span><span class="hl-c">0</span>;j <span class="hl-k"><</span> img.width;j++) {</td></tr>
 <tr><td class="hl-num" data-line="54"></td><td>	                    p <span class="hl-k">=</span> img.<span class="hl-en">getPixel</span>(j,i);</td></tr>
 <tr><td class="hl-num" data-line="55"></td><td>	                    IDAT.<span class="hl-en">writeUnsignedInt</span>(</td></tr>
-<tr><td class="hl-num" data-line="56"></td><td>	                        <span class="hl-en">uint</span>(((p<span class="hl-k">&</span><span class="hl-c">0xFFFFFF</span>) <span class="hl-k"><</span><span class="hl-k"><</span> <span class="hl-c">8</span>)<span class="hl-k">|</span><span class="hl-c">0xFF</span>));</td></tr>
+<tr><td class="hl-num" data-line="56"></td><td>	                        <span class="hl-k">uint</span>(((p<span class="hl-k">&</span><span class="hl-c">0xFFFFFF</span>) <span class="hl-k"><</span><span class="hl-k"><</span> <span class="hl-c">8</span>)<span class="hl-k">|</span><span class="hl-c">0xFF</span>));</td></tr>
 <tr><td class="hl-num" data-line="57"></td><td>	                }</td></tr>
 <tr><td class="hl-num" data-line="58"></td><td>	            } <span class="hl-k">else</span> {</td></tr>
 <tr><td class="hl-num" data-line="59"></td><td>	                <span class="hl-k">for</span>(j<span class="hl-k">=</span><span class="hl-c">0</span>;j <span class="hl-k"><</span> img.width;j++) {</td></tr>
 <tr><td class="hl-num" data-line="60"></td><td>	                    p <span class="hl-k">=</span> img.<span class="hl-en">getPixel32</span>(j,i);</td></tr>
 <tr><td class="hl-num" data-line="61"></td><td>	                    IDAT.<span class="hl-en">writeUnsignedInt</span>(</td></tr>
-<tr><td class="hl-num" data-line="62"></td><td>	                        <span class="hl-en">uint</span>(((p<span class="hl-k">&</span><span class="hl-c">0xFFFFFF</span>) <span class="hl-k"><</span><span class="hl-k"><</span> <span class="hl-c">8</span>)<span class="hl-k">|</span></td></tr>
+<tr><td class="hl-num" data-line="62"></td><td>	                        <span class="hl-k">uint</span>(((p<span class="hl-k">&</span><span class="hl-c">0xFFFFFF</span>) <span class="hl-k"><</span><span class="hl-k"><</span> <span class="hl-c">8</span>)<span class="hl-k">|</span></td></tr>
 <tr><td class="hl-num" data-line="63"></td><td>	                        (p<span class="hl-k">></span><span class="hl-k">></span><span class="hl-k">></span><span class="hl-c">24</span>)));</td></tr>
 <tr><td class="hl-num" data-line="64"></td><td>	                }</td></tr>
 <tr><td class="hl-num" data-line="65"></td><td>	            }</td></tr>
@@ -96,7 +96,7 @@
 <tr><td class="hl-num" data-line="94"></td><td>			</td></tr>
 <tr><td class="hl-num" data-line="95"></td><td>			<span class="hl-cmt">// Hack to auto-select iSight camera on Mac (JPEGCam Issue #5, submitted by manuel.gonzalez.noriega)</span></td></tr>
 <tr><td class="hl-num" data-line="96"></td><td>			<span class="hl-cmt">// From: http://www.squidder.com/2009/03/09/trick-auto-select-mac-isight-in-flash/</span></td></tr>
-<tr><td class="hl-num" data-line="97"></td><td>			<span class="hl-k">var</span> cameraIdx:int <span class="hl-k">=</span> <span class="hl-k">-</span><span class="hl-c">1</span>;</td></tr>
+<tr><td class="hl-num" data-line="97"></td><td>			<span class="hl-k">var</span> cameraIdx:<span class="hl-k">int</span> <span class="hl-k">=</span> <span class="hl-k">-</span><span class="hl-c">1</span>;</td></tr>
 <tr><td class="hl-num" data-line="98"></td><td>			<span class="hl-k">for</span> (<span class="hl-k">var</span> idx <span class="hl-k">=</span> <span class="hl-c">0</span>, len <span class="hl-k">=</span> Camera.names.length; idx <span class="hl-k"><</span> len; idx++) {</td></tr>
 <tr><td class="hl-num" data-line="99"></td><td>				<span class="hl-k">if</span> (Camera.names[idx] <span class="hl-k">==</span> <span class="hl-s">"USB Video Class Video"</span>) {</td></tr>
 <tr><td class="hl-num" data-line="100"></td><td>					cameraIdx <span class="hl-k">=</span> idx;</td></tr>

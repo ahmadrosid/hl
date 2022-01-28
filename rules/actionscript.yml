@@ -11,6 +11,8 @@ entity_suffix:
   left: "("
 
 keyword:
+  uint: uint
+  int: int
   break: break
   case: case
   continue: continue
