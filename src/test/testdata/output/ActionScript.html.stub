@@ -1,0 +1,191 @@
+<table class="highlight-table">
+<tbody>
+<tr><td class="hl-num" data-line="1"></td><td><span class="hl-k">package</span> {</td></tr>
+<tr><td class="hl-num" data-line="2"></td><td>	<span class="hl-cmt">/* Webcam.js v1.0 */</span></td></tr>
+<tr><td class="hl-num" data-line="3"></td><td>	<span class="hl-cmt">/* Webcam library for capturing JPEG/PNG images and sending them to JavaScript */</span></td></tr>
+<tr><td class="hl-num" data-line="4"></td><td>	<span class="hl-cmt">/* Author: Joseph Huckaby &lt;jhuckaby@effectgames.com&gt; */</span></td></tr>
+<tr><td class="hl-num" data-line="5"></td><td>	<span class="hl-cmt">/* Based on JPEGCam: http://code.google.com/p/jpegcam/ */</span></td></tr>
+<tr><td class="hl-num" data-line="6"></td><td>	<span class="hl-cmt">/* Copyright (c) 2012 Joseph Huckaby */</span></td></tr>
+<tr><td class="hl-num" data-line="7"></td><td>	<span class="hl-cmt">/* Licensed under the MIT License */</span></td></tr>
+<tr><td class="hl-num" data-line="8"></td><td>	</td></tr>
+<tr><td class="hl-num" data-line="9"></td><td>	<span class="hl-k">import</span> flash.display.LoaderInfo;</td></tr>
+<tr><td class="hl-num" data-line="10"></td><td>	<span class="hl-k">import</span> flash.display.Sprite;</td></tr>
+<tr><td class="hl-num" data-line="11"></td><td>	<span class="hl-k">import</span> flash.display.StageAlign;</td></tr>
+<tr><td class="hl-num" data-line="12"></td><td>	<span class="hl-k">import</span> flash.display.StageScaleMode;</td></tr>
+<tr><td class="hl-num" data-line="13"></td><td>	<span class="hl-k">import</span> flash.display.Bitmap;</td></tr>
+<tr><td class="hl-num" data-line="14"></td><td>	<span class="hl-k">import</span> flash.display.BitmapData;</td></tr>
+<tr><td class="hl-num" data-line="15"></td><td>	<span class="hl-k">import</span> flash.events.<span class="hl-k">*</span>;</td></tr>
+<tr><td class="hl-num" data-line="16"></td><td>	<span class="hl-k">import</span> flash.utils.<span class="hl-k">*</span>;</td></tr>
+<tr><td class="hl-num" data-line="17"></td><td>	<span class="hl-k">import</span> flash.media.Camera;</td></tr>
+<tr><td class="hl-num" data-line="18"></td><td>	<span class="hl-k">import</span> flash.media.Video;</td></tr>
+<tr><td class="hl-num" data-line="19"></td><td>	<span class="hl-k">import</span> flash.external.ExternalInterface;</td></tr>
+<tr><td class="hl-num" data-line="20"></td><td>	<span class="hl-k">import</span> flash.net.<span class="hl-k">*</span>;</td></tr>
+<tr><td class="hl-num" data-line="21"></td><td>	<span class="hl-k">import</span> flash.system.Security;</td></tr>
+<tr><td class="hl-num" data-line="22"></td><td>	<span class="hl-k">import</span> flash.system.SecurityPanel;</td></tr>
+<tr><td class="hl-num" data-line="23"></td><td>	<span class="hl-k">import</span> flash.media.Sound;</td></tr>
+<tr><td class="hl-num" data-line="24"></td><td>	<span class="hl-k">import</span> flash.media.SoundChannel;</td></tr>
+<tr><td class="hl-num" data-line="25"></td><td>	<span class="hl-k">import</span> flash.geom.Matrix;</td></tr>
+<tr><td class="hl-num" data-line="26"></td><td>	<span class="hl-k">import</span> mx.utils.Base64Encoder;</td></tr>
+<tr><td class="hl-num" data-line="27"></td><td>	<span class="hl-k">import</span> com.adobe.images.BitString;</td></tr>
+<tr><td class="hl-num" data-line="28"></td><td>	<span class="hl-k">import</span> com.adobe.images.PNGEncoder;</td></tr>
+<tr><td class="hl-num" data-line="29"></td><td>	<span class="hl-k">import</span> com.adobe.images.JPGEncoder;</td></tr>
+<tr><td class="hl-num" data-line="30"></td><td></td></tr>
+<tr><td class="hl-num" data-line="31"></td><td>	<span class="hl-k">public</span> <span class="hl-k">class</span> Webcam <span class="hl-k">extends</span> Sprite {</td></tr>
+<tr><td class="hl-num" data-line="32"></td><td>		<span class="hl-k">private</span> <span class="hl-k">var</span> video:Video;</td></tr>
+<tr><td class="hl-num" data-line="33"></td><td>		<span class="hl-k">private</span> <span class="hl-k">var</span> video_width:int;</td></tr>
+<tr><td class="hl-num" data-line="34"></td><td>		<span class="hl-k">private</span> <span class="hl-k">var</span> video_height:int;</td></tr>
+<tr><td class="hl-num" data-line="35"></td><td>		<span class="hl-k">private</span> <span class="hl-k">var</span> dest_width:int;</td></tr>
+<tr><td class="hl-num" data-line="36"></td><td>		<span class="hl-k">private</span> <span class="hl-k">var</span> dest_height:int;</td></tr>
+<tr><td class="hl-num" data-line="37"></td><td>		<span class="hl-k">private</span> <span class="hl-k">var</span> camera:Camera;</td></tr>
+<tr><td class="hl-num" data-line="38"></td><td>		<span class="hl-k">private</span> <span class="hl-k">var</span> bmpdata:BitmapData;</td></tr>
+<tr><td class="hl-num" data-line="39"></td><td>		<span class="hl-k">private</span> <span class="hl-k">var</span> jpeg_quality:int;</td></tr>
+<tr><td class="hl-num" data-line="40"></td><td>		<span class="hl-k">private</span> <span class="hl-k">var</span> image_format:String;</td></tr>
+<tr><td class="hl-num" data-line="41"></td><td>		<span class="hl-k">private</span> <span class="hl-k">var</span> fps:int;</td></tr>
+<tr><td class="hl-num" data-line="42"></td><td>		<span class="hl-k">private</span> <span class="hl-k">var</span> flip_horiz:Boolean;</td></tr>
+<tr><td class="hl-num" data-line="43"></td><td></td></tr>
+<tr><td class="hl-num" data-line="44"></td><td>	    <span class="hl-k">public</span> <span class="hl-k">static</span> <span class="hl-k">function</span> <span class="hl-en">encode</span>(img:BitmapData):ByteArray {</td></tr>
+<tr><td class="hl-num" data-line="45"></td><td>	        <span class="hl-cmt">// Build IDAT chunk</span></td></tr>
+<tr><td class="hl-num" data-line="46"></td><td>	        <span class="hl-k">var</span> IDAT:ByteArray<span class="hl-k">=</span> <span class="hl-k">new</span> <span class="hl-en">ByteArray</span>();</td></tr>
+<tr><td class="hl-num" data-line="47"></td><td>	        <span class="hl-k">for</span>(<span class="hl-k">var</span> i:int<span class="hl-k">=</span><span class="hl-c">0</span>;i <span class="hl-k"><</span> img.height;i++) {</td></tr>
+<tr><td class="hl-num" data-line="48"></td><td>	            <span class="hl-cmt">// no filter</span></td></tr>
+<tr><td class="hl-num" data-line="49"></td><td>	            IDAT.<span class="hl-en">writeByte</span>(<span class="hl-c">0</span>);</td></tr>
+<tr><td class="hl-num" data-line="50"></td><td>	            <span class="hl-k">var</span> p:uint;</td></tr>
+<tr><td class="hl-num" data-line="51"></td><td>	            <span class="hl-k">var</span> j:int;</td></tr>
+<tr><td class="hl-num" data-line="52"></td><td>	            <span class="hl-k">if</span> ( !img.transparent ) {</td></tr>
+<tr><td class="hl-num" data-line="53"></td><td>	                <span class="hl-k">for</span>(j<span class="hl-k">=</span><span class="hl-c">0</span>;j <span class="hl-k"><</span> img.width;j++) {</td></tr>
+<tr><td class="hl-num" data-line="54"></td><td>	                    p <span class="hl-k">=</span> img.<span class="hl-en">getPixel</span>(j,i);</td></tr>
+<tr><td class="hl-num" data-line="55"></td><td>	                    IDAT.<span class="hl-en">writeUnsignedInt</span>(</td></tr>
+<tr><td class="hl-num" data-line="56"></td><td>	                        <span class="hl-en">uint</span>(((p<span class="hl-k">&</span><span class="hl-c">0xFFFFFF</span>) <span class="hl-k"><</span><span class="hl-k"><</span> <span class="hl-c">8</span>)<span class="hl-k">|</span><span class="hl-c">0xFF</span>));</td></tr>
+<tr><td class="hl-num" data-line="57"></td><td>	                }</td></tr>
+<tr><td class="hl-num" data-line="58"></td><td>	            } <span class="hl-k">else</span> {</td></tr>
+<tr><td class="hl-num" data-line="59"></td><td>	                <span class="hl-k">for</span>(j<span class="hl-k">=</span><span class="hl-c">0</span>;j <span class="hl-k"><</span> img.width;j++) {</td></tr>
+<tr><td class="hl-num" data-line="60"></td><td>	                    p <span class="hl-k">=</span> img.<span class="hl-en">getPixel32</span>(j,i);</td></tr>
+<tr><td class="hl-num" data-line="61"></td><td>	                    IDAT.<span class="hl-en">writeUnsignedInt</span>(</td></tr>
+<tr><td class="hl-num" data-line="62"></td><td>	                        <span class="hl-en">uint</span>(((p<span class="hl-k">&</span><span class="hl-c">0xFFFFFF</span>) <span class="hl-k"><</span><span class="hl-k"><</span> <span class="hl-c">8</span>)<span class="hl-k">|</span></td></tr>
+<tr><td class="hl-num" data-line="63"></td><td>	                        (p<span class="hl-k">></span><span class="hl-k">></span><span class="hl-k">></span><span class="hl-c">24</span>)));</td></tr>
+<tr><td class="hl-num" data-line="64"></td><td>	                }</td></tr>
+<tr><td class="hl-num" data-line="65"></td><td>	            }</td></tr>
+<tr><td class="hl-num" data-line="66"></td><td>	        }</td></tr>
+<tr><td class="hl-num" data-line="67"></td><td>	        IDAT.<span class="hl-en">compress</span>();</td></tr>
+<tr><td class="hl-num" data-line="68"></td><td>	        <span class="hl-en">writeChunk</span>(png,<span class="hl-c">0x49444154</span>,IDAT);</td></tr>
+<tr><td class="hl-num" data-line="69"></td><td>	        <span class="hl-cmt">// Build IEND chunk</span></td></tr>
+<tr><td class="hl-num" data-line="70"></td><td>	        <span class="hl-en">writeChunk</span>(png,<span class="hl-c">0x49454E44</span>,<span class="hl-c">null</span>);</td></tr>
+<tr><td class="hl-num" data-line="71"></td><td>	        <span class="hl-cmt">// return PNG</span></td></tr>
+<tr><td class="hl-num" data-line="72"></td><td>	        <span class="hl-k">return</span> png;</td></tr>
+<tr><td class="hl-num" data-line="73"></td><td>	    }</td></tr>
+<tr><td class="hl-num" data-line="74"></td><td></td></tr>
+<tr><td class="hl-num" data-line="75"></td><td>		<span class="hl-k">public</span> <span class="hl-k">function</span> <span class="hl-en">Webcam</span>() {</td></tr>
+<tr><td class="hl-num" data-line="76"></td><td>			<span class="hl-cmt">// class constructor</span></td></tr>
+<tr><td class="hl-num" data-line="77"></td><td>			flash.system.Security.<span class="hl-en">allowDomain</span>(<span class="hl-s">"*"</span>);</td></tr>
+<tr><td class="hl-num" data-line="78"></td><td>			<span class="hl-k">var</span> flashvars:Object <span class="hl-k">=</span> <span class="hl-en">LoaderInfo</span>(<span class="hl-c">this</span>.root.loaderInfo).parameters;</td></tr>
+<tr><td class="hl-num" data-line="79"></td><td>			</td></tr>
+<tr><td class="hl-num" data-line="80"></td><td>			video_width <span class="hl-k">=</span> <span class="hl-c">Math</span>.<span class="hl-en">floor</span>( flashvars.width );</td></tr>
+<tr><td class="hl-num" data-line="81"></td><td>			video_height <span class="hl-k">=</span> <span class="hl-c">Math</span>.<span class="hl-en">floor</span>( flashvars.height );</td></tr>
+<tr><td class="hl-num" data-line="82"></td><td>			jpeg_quality <span class="hl-k">=</span> <span class="hl-c">Math</span>.<span class="hl-en">floor</span>( flashvars.jpeg_quality );</td></tr>
+<tr><td class="hl-num" data-line="83"></td><td>			image_format <span class="hl-k">=</span> flashvars.image_format;</td></tr>
+<tr><td class="hl-num" data-line="84"></td><td>			fps <span class="hl-k">=</span> <span class="hl-c">Math</span>.<span class="hl-en">floor</span>( flashvars.fps );</td></tr>
+<tr><td class="hl-num" data-line="85"></td><td>			flip_horiz <span class="hl-k">=</span> flashvars.flip_horiz <span class="hl-k">==</span> <span class="hl-s">"true"</span>;</td></tr>
+<tr><td class="hl-num" data-line="86"></td><td></td></tr>
+<tr><td class="hl-num" data-line="87"></td><td>			stage.align <span class="hl-k">=</span> StageAlign.TOP_LEFT;</td></tr>
+<tr><td class="hl-num" data-line="88"></td><td>			stage.stageWidth <span class="hl-k">=</span> <span class="hl-c">Math</span>.<span class="hl-en">max</span>(video_width, dest_width);</td></tr>
+<tr><td class="hl-num" data-line="89"></td><td>			stage.stageHeight <span class="hl-k">=</span> <span class="hl-c">Math</span>.<span class="hl-en">max</span>(video_height, dest_height);</td></tr>
+<tr><td class="hl-num" data-line="90"></td><td>						</td></tr>
+<tr><td class="hl-num" data-line="91"></td><td>			<span class="hl-k">if</span> (flashvars.new_user) {</td></tr>
+<tr><td class="hl-num" data-line="92"></td><td>				Security.<span class="hl-en">showSettings</span>( SecurityPanel.PRIVACY );</td></tr>
+<tr><td class="hl-num" data-line="93"></td><td>			}</td></tr>
+<tr><td class="hl-num" data-line="94"></td><td>			</td></tr>
+<tr><td class="hl-num" data-line="95"></td><td>			<span class="hl-cmt">// Hack to auto-select iSight camera on Mac (JPEGCam Issue #5, submitted by manuel.gonzalez.noriega)</span></td></tr>
+<tr><td class="hl-num" data-line="96"></td><td>			<span class="hl-cmt">// From: http://www.squidder.com/2009/03/09/trick-auto-select-mac-isight-in-flash/</span></td></tr>
+<tr><td class="hl-num" data-line="97"></td><td>			<span class="hl-k">var</span> cameraIdx:int <span class="hl-k">=</span> <span class="hl-k">-</span><span class="hl-c">1</span>;</td></tr>
+<tr><td class="hl-num" data-line="98"></td><td>			<span class="hl-k">for</span> (<span class="hl-k">var</span> idx <span class="hl-k">=</span> <span class="hl-c">0</span>, len <span class="hl-k">=</span> Camera.names.length; idx <span class="hl-k"><</span> len; idx++) {</td></tr>
+<tr><td class="hl-num" data-line="99"></td><td>				<span class="hl-k">if</span> (Camera.names[idx] <span class="hl-k">==</span> <span class="hl-s">"USB Video Class Video"</span>) {</td></tr>
+<tr><td class="hl-num" data-line="100"></td><td>					cameraIdx <span class="hl-k">=</span> idx;</td></tr>
+<tr><td class="hl-num" data-line="101"></td><td>					idx <span class="hl-k">=</span> len;</td></tr>
+<tr><td class="hl-num" data-line="102"></td><td>				}</td></tr>
+<tr><td class="hl-num" data-line="103"></td><td>			}</td></tr>
+<tr><td class="hl-num" data-line="104"></td><td>			<span class="hl-k">if</span> (cameraIdx <span class="hl-k">></span> <span class="hl-k">-</span><span class="hl-c">1</span>) camera <span class="hl-k">=</span> Camera.<span class="hl-en">getCamera</span>( <span class="hl-en">String</span>(cameraIdx) );</td></tr>
+<tr><td class="hl-num" data-line="105"></td><td>			<span class="hl-k">else</span> camera <span class="hl-k">=</span> Camera.<span class="hl-en">getCamera</span>();</td></tr>
+<tr><td class="hl-num" data-line="106"></td><td></td></tr>
+<tr><td class="hl-num" data-line="107"></td><td>		}</td></tr>
+<tr><td class="hl-num" data-line="108"></td><td>		</td></tr>
+<tr><td class="hl-num" data-line="109"></td><td>		<span class="hl-k">public</span> <span class="hl-k">function</span> <span class="hl-en">configure</span>(panel:String <span class="hl-k">=</span> SecurityPanel.CAMERA) {</td></tr>
+<tr><td class="hl-num" data-line="110"></td><td>			<span class="hl-cmt">// show configure dialog inside flash movie</span></td></tr>
+<tr><td class="hl-num" data-line="111"></td><td>			Security.<span class="hl-en">showSettings</span>(panel);</td></tr>
+<tr><td class="hl-num" data-line="112"></td><td>		}</td></tr>
+<tr><td class="hl-num" data-line="113"></td><td></td></tr>
+<tr><td class="hl-num" data-line="114"></td><td>		<span class="hl-k">private</span> <span class="hl-k">function</span> <span class="hl-en">activityHandler</span>(event:ActivityEvent):<span class="hl-k">void</span> {</td></tr>
+<tr><td class="hl-num" data-line="115"></td><td>			<span class="hl-en">trace</span>(<span class="hl-s">"activityHandler: "</span> + event);</td></tr>
+<tr><td class="hl-num" data-line="116"></td><td>			ExternalInterface.<span class="hl-en">call</span>(<span class="hl-s">'Webcam.flashNotify'</span>, <span class="hl-s">'cameraLive'</span>, <span class="hl-c">true</span>);</td></tr>
+<tr><td class="hl-num" data-line="117"></td><td>			</td></tr>
+<tr><td class="hl-num" data-line="118"></td><td>			<span class="hl-cmt">// now disable motion detection (may help reduce CPU usage)</span></td></tr>
+<tr><td class="hl-num" data-line="119"></td><td>			camera.<span class="hl-en">setMotionLevel</span>( <span class="hl-c">100</span> );</td></tr>
+<tr><td class="hl-num" data-line="120"></td><td>		}</td></tr>
+<tr><td class="hl-num" data-line="121"></td><td>		</td></tr>
+<tr><td class="hl-num" data-line="122"></td><td>		<span class="hl-k">private</span> <span class="hl-k">function</span> <span class="hl-en">handleCameraStatus</span>(e:StatusEvent):<span class="hl-k">void</span> {</td></tr>
+<tr><td class="hl-num" data-line="123"></td><td>			<span class="hl-k">switch</span> (e.code) {</td></tr>
+<tr><td class="hl-num" data-line="124"></td><td>				<span class="hl-k">case</span> <span class="hl-s">'Camera.Muted'</span>: {</td></tr>
+<tr><td class="hl-num" data-line="125"></td><td>					<span class="hl-en">trace</span>(<span class="hl-s">"Camera not allowed"</span>);</td></tr>
+<tr><td class="hl-num" data-line="126"></td><td>					ExternalInterface.<span class="hl-en">call</span>(<span class="hl-s">'Webcam.flashNotify'</span>, <span class="hl-s">"error"</span>, <span class="hl-s">"Access to camera denied"</span>);</td></tr>
+<tr><td class="hl-num" data-line="127"></td><td>					<span class="hl-k">break</span>;</td></tr>
+<tr><td class="hl-num" data-line="128"></td><td>				}</td></tr>
+<tr><td class="hl-num" data-line="129"></td><td>				<span class="hl-k">case</span> <span class="hl-s">'Camera.Unmuted'</span>: {</td></tr>
+<tr><td class="hl-num" data-line="130"></td><td>					<span class="hl-en">trace</span>(<span class="hl-s">"Camera allowed"</span>);</td></tr>
+<tr><td class="hl-num" data-line="131"></td><td>					<span class="hl-k">break</span>;</td></tr>
+<tr><td class="hl-num" data-line="132"></td><td>				}</td></tr>
+<tr><td class="hl-num" data-line="133"></td><td>			}</td></tr>
+<tr><td class="hl-num" data-line="134"></td><td>		}</td></tr>
+<tr><td class="hl-num" data-line="135"></td><td>		</td></tr>
+<tr><td class="hl-num" data-line="136"></td><td>		<span class="hl-k">public</span> <span class="hl-k">function</span> <span class="hl-en">snap</span>() {</td></tr>
+<tr><td class="hl-num" data-line="137"></td><td>			<span class="hl-cmt">// take snapshot from camera, and upload if URL was provided</span></td></tr>
+<tr><td class="hl-num" data-line="138"></td><td>			<span class="hl-en">trace</span>(<span class="hl-s">"in snap(), drawing to bitmap"</span>);</td></tr>
+<tr><td class="hl-num" data-line="139"></td><td>			</td></tr>
+<tr><td class="hl-num" data-line="140"></td><td>			<span class="hl-cmt">// take snapshot, convert to jpeg, submit to server</span></td></tr>
+<tr><td class="hl-num" data-line="141"></td><td>			bmpdata <span class="hl-k">=</span> <span class="hl-k">new</span> <span class="hl-en">BitmapData</span>( <span class="hl-c">Math</span>.<span class="hl-en">max</span>(video_width, dest_width), <span class="hl-c">Math</span>.<span class="hl-en">max</span>(video_height, dest_height) );</td></tr>
+<tr><td class="hl-num" data-line="142"></td><td>			bmpdata.<span class="hl-en">draw</span>( video );</td></tr>
+<tr><td class="hl-num" data-line="143"></td><td>			</td></tr>
+<tr><td class="hl-num" data-line="144"></td><td>			<span class="hl-k">if</span> ((video_width <span class="hl-k">></span> dest_width) <span class="hl-k">&&</span> (video_height <span class="hl-k">></span> dest_height)) {</td></tr>
+<tr><td class="hl-num" data-line="145"></td><td>				<span class="hl-cmt">// resize image downward before submitting</span></td></tr>
+<tr><td class="hl-num" data-line="146"></td><td>				<span class="hl-k">var</span> tmpdata <span class="hl-k">=</span> <span class="hl-k">new</span> <span class="hl-en">BitmapData</span>(dest_width, dest_height);</td></tr>
+<tr><td class="hl-num" data-line="147"></td><td>				</td></tr>
+<tr><td class="hl-num" data-line="148"></td><td>				<span class="hl-k">var</span> matrix <span class="hl-k">=</span> <span class="hl-k">new</span> <span class="hl-en">Matrix</span>();</td></tr>
+<tr><td class="hl-num" data-line="149"></td><td>				matrix.<span class="hl-en">scale</span>( dest_width / video_width, dest_height / video_height );</td></tr>
+<tr><td class="hl-num" data-line="150"></td><td>				</td></tr>
+<tr><td class="hl-num" data-line="151"></td><td>				tmpdata.<span class="hl-en">draw</span>( bmpdata, matrix, <span class="hl-c">null</span>, <span class="hl-c">null</span>, <span class="hl-c">null</span>, <span class="hl-c">true</span> ); <span class="hl-cmt">// smoothing</span></td></tr>
+<tr><td class="hl-num" data-line="152"></td><td>				bmpdata <span class="hl-k">=</span> tmpdata;</td></tr>
+<tr><td class="hl-num" data-line="153"></td><td>			} <span class="hl-cmt">// need resize</span></td></tr>
+<tr><td class="hl-num" data-line="154"></td><td>			</td></tr>
+<tr><td class="hl-num" data-line="155"></td><td>			<span class="hl-en">trace</span>(<span class="hl-s">"converting to "</span> + image_format);</td></tr>
+<tr><td class="hl-num" data-line="156"></td><td>		</td></tr>
+<tr><td class="hl-num" data-line="157"></td><td>			<span class="hl-k">var</span> bytes:ByteArray;</td></tr>
+<tr><td class="hl-num" data-line="158"></td><td>			</td></tr>
+<tr><td class="hl-num" data-line="159"></td><td>			<span class="hl-k">if</span> (image_format <span class="hl-k">==</span> <span class="hl-s">'png'</span>) {</td></tr>
+<tr><td class="hl-num" data-line="160"></td><td>				bytes <span class="hl-k">=</span> PNGEncoder.<span class="hl-en">encode</span>( bmpdata );</td></tr>
+<tr><td class="hl-num" data-line="161"></td><td>			}</td></tr>
+<tr><td class="hl-num" data-line="162"></td><td>			<span class="hl-k">else</span> {</td></tr>
+<tr><td class="hl-num" data-line="163"></td><td>				<span class="hl-k">var</span> encoder:JPGEncoder;</td></tr>
+<tr><td class="hl-num" data-line="164"></td><td>				encoder <span class="hl-k">=</span> <span class="hl-k">new</span> <span class="hl-en">JPGEncoder</span>( jpeg_quality );</td></tr>
+<tr><td class="hl-num" data-line="165"></td><td>				bytes <span class="hl-k">=</span> encoder.<span class="hl-en">encode</span>( bmpdata );</td></tr>
+<tr><td class="hl-num" data-line="166"></td><td>			}</td></tr>
+<tr><td class="hl-num" data-line="167"></td><td>			</td></tr>
+<tr><td class="hl-num" data-line="168"></td><td>			<span class="hl-en">trace</span>(<span class="hl-s">"raw image length: "</span> + bytes.length);</td></tr>
+<tr><td class="hl-num" data-line="169"></td><td>		</td></tr>
+<tr><td class="hl-num" data-line="170"></td><td>			<span class="hl-k">var</span> be <span class="hl-k">=</span> <span class="hl-k">new</span> <span class="hl-en">Base64Encoder</span>();</td></tr>
+<tr><td class="hl-num" data-line="171"></td><td>			be.<span class="hl-en">encodeBytes</span>( bytes );</td></tr>
+<tr><td class="hl-num" data-line="172"></td><td>			</td></tr>
+<tr><td class="hl-num" data-line="173"></td><td>			<span class="hl-k">var</span> bstr <span class="hl-k">=</span> be.<span class="hl-en">toString</span>();</td></tr>
+<tr><td class="hl-num" data-line="174"></td><td>			<span class="hl-en">trace</span>(<span class="hl-s">"b64 string length: "</span> + bstr.length);</td></tr>
+<tr><td class="hl-num" data-line="175"></td><td>			</td></tr>
+<tr><td class="hl-num" data-line="176"></td><td>			<span class="hl-k">return</span> bstr;</td></tr>
+<tr><td class="hl-num" data-line="177"></td><td>		}</td></tr>
+<tr><td class="hl-num" data-line="178"></td><td></td></tr>
+<tr><td class="hl-num" data-line="179"></td><td>		<span class="hl-k">public</span> <span class="hl-k">function</span> <span class="hl-en">releaseCamera</span>() {</td></tr>
+<tr><td class="hl-num" data-line="180"></td><td>			<span class="hl-en">trace</span>(<span class="hl-s">"in releaseCamera(), turn off camera"</span>);</td></tr>
+<tr><td class="hl-num" data-line="181"></td><td>			video.<span class="hl-en">attachCamera</span>(<span class="hl-c">null</span>);</td></tr>
+<tr><td class="hl-num" data-line="182"></td><td>			video.<span class="hl-en">clear</span>();</td></tr>
+<tr><td class="hl-num" data-line="183"></td><td>			camera <span class="hl-k">=</span> <span class="hl-c">null</span>;</td></tr>
+<tr><td class="hl-num" data-line="184"></td><td>			<span class="hl-en">removeChild</span>(video);</td></tr>
+<tr><td class="hl-num" data-line="185"></td><td>		}</td></tr>
+<tr><td class="hl-num" data-line="186"></td><td>	}</td></tr>
+<tr><td class="hl-num" data-line="187"></td><td>}</td></tr>
+</tbody>
+</table>

@@ -11,6 +11,14 @@ fn read_file(path: &str) -> String {
 }
 
 #[test]
+fn test_action_script() {
+    let input = read_input("src/test/testdata/input/ActionScript.as.stub");
+    let expected = read_file("src/test/testdata/output/ActionScript.html.stub");
+    let actual = actionscript::render::render_html(input);
+    assert_eq!(expected, actual);
+}
+
+#[test]
 fn test_bash() {
     let input = read_input("src/test/testdata/input/bash.sh.stub");
     let expected = read_file("src/test/testdata/output/bash.html.stub");
