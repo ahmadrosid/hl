@@ -184,6 +184,10 @@ impl Lexer {
                 return token::Token::HEAD(start_mark);
             }
         }
+        if self.position > 0 && self.input[self.position - 1] == '\n' && self.ch == '>' {
+            return token::Token::COMMENT(read_string(self, '\n'));
+        }
+
         match self.ch {
             '\n' => {
                 tok = token::Token::ENDL(self.ch);

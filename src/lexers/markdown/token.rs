@@ -7,6 +7,7 @@ pub enum Token {
     IDENT(Vec<char>),
     HEAD(Vec<char>),
     STRING(Vec<char>),
+    COMMENT(Vec<char>),
 }
 
 pub fn get_keyword_token(identifier: &Vec<char>) -> Result<Token, String> {

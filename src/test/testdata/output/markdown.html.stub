@@ -51,39 +51,36 @@
 <tr><td class="hl-num" data-line="49"></td><td>- Ensure VPC flow logging is enabled in all VPC</td></tr>
 <tr><td class="hl-num" data-line="50"></td><td>- Ensure the default security group of every VPC restricts all traffic</td></tr>
 <tr><td class="hl-num" data-line="51"></td><td></td></tr>
-<tr><td class="hl-num" data-line="52"></td><td><span class="hl-mh">## Monitoring</span></td></tr>
-<tr><td class="hl-num" data-line="53"></td><td> - Ensure a log metric filter and alarm exist for unauthorized API calls</td></tr>
-<tr><td class="hl-num" data-line="54"></td><td> - Ensure a log metric filter and alarm exist for Management Consolesign-in without MFA</td></tr>
-<tr><td class="hl-num" data-line="55"></td><td> - Ensure a log metric filter and alarm exist for usage of <span class="hl-s">"root"</span> account</td></tr>
-<tr><td class="hl-num" data-line="56"></td><td> - Ensure a log metric filter and alarm exist for IAM policy changes</td></tr>
-<tr><td class="hl-num" data-line="57"></td><td> - Ensure a log metric filter and alarm exist for CloudTrail configuration changes</td></tr>
-<tr><td class="hl-num" data-line="58"></td><td> - Ensure a log metric filter and alarm exist for AWS Management Console authentication failures</td></tr>
-<tr><td class="hl-num" data-line="59"></td><td> - Ensure a log metric filter and alarm exist for disabling or scheduled deletion of customer created CMKs</td></tr>
-<tr><td class="hl-num" data-line="60"></td><td> - Ensure a log metric filter and alarm exist for S3 bucket policy changes</td></tr>
-<tr><td class="hl-num" data-line="61"></td><td> - Ensure a log metric filter and alarm exist for AWS Config configuration changes</td></tr>
-<tr><td class="hl-num" data-line="62"></td><td> - Ensure a log metric filter and alarm exist for security group changes</td></tr>
-<tr><td class="hl-num" data-line="63"></td><td> - Ensure a log metric filter and alarm exist for changes to NetworkAccess Control Lists (NACL)</td></tr>
-<tr><td class="hl-num" data-line="64"></td><td> - Ensure a log metric filter and alarm exist for changes to network gateways</td></tr>
-<tr><td class="hl-num" data-line="65"></td><td> - Ensure a log metric filter and alarm exist for route table changes</td></tr>
-<tr><td class="hl-num" data-line="66"></td><td> - Ensure a log metric filter and alarm exist for VPC changes</td></tr>
-<tr><td class="hl-num" data-line="67"></td><td></td></tr>
-<tr><td class="hl-num" data-line="68"></td><td><span class="hl-mh">### ChangeLog</span></td></tr>
-<tr><td class="hl-num" data-line="69"></td><td></td></tr>
-<tr><td class="hl-num" data-line="70"></td><td>Soon.</td></tr>
-<tr><td class="hl-num" data-line="71"></td><td></td></tr>
-<tr><td class="hl-num" data-line="72"></td><td><span class="hl-mh"># Requirements</span></td></tr>
-<tr><td class="hl-num" data-line="73"></td><td></td></tr>
-<tr><td class="hl-num" data-line="74"></td><td>Zeus has been written in bash script using AWS-CLI and it works in Linux/UNIX and OSX.</td></tr>
-<tr><td class="hl-num" data-line="75"></td><td></td></tr>
-<tr><td class="hl-num" data-line="76"></td><td>~~Make sure that the AWS-CLI tool is installed on the system and profile is configured (aws configure).~~</td></tr>
-<tr><td class="hl-num" data-line="77"></td><td></td></tr>
-<tr><td class="hl-num" data-line="78"></td><td><span class="hl-mh">### Update:</span></td></tr>
-<tr><td class="hl-num" data-line="79"></td><td></td></tr>
-<tr><td class="hl-num" data-line="80"></td><td>pip & aws-cli checking functions are added that based on operating system.</td></tr>
-<tr><td class="hl-num" data-line="81"></td><td></td></tr>
-<tr><td class="hl-num" data-line="82"></td><td><span class="hl-mh"># Usage</span></td></tr>
-<tr><td class="hl-num" data-line="83"></td><td></td></tr>
-<tr><td class="hl-num" data-line="84"></td><td>git clone https://github.com/DenizParlak/Zeus.git && cd Zeus && chmod +x zeus.sh && ./zeus.sh</td></tr>
-<tr><td class="hl-num" data-line="85"></td><td></td></tr>
+<tr><td class="hl-num" data-line="52"></td><td><span class="hl-mh"># git blame</span></td></tr>
+<tr><td class="hl-num" data-line="53"></td><td></td></tr>
+<tr><td class="hl-num" data-line="54"></td><td><span class="hl-cmt">&gt; Affiche le hash de commit et le dernier auteur de chaque ligne d un fichier.</span></td></tr>
+<tr><td class="hl-num" data-line="55"></td><td><span class="hl-cmt">&gt; Plus d'informations : &lt;https://git-scm.com/docs/git-blame&gt;.</span></td></tr>
+<tr><td class="hl-num" data-line="56"></td><td></td></tr>
+<tr><td class="hl-num" data-line="57"></td><td>- Affiche le hash de commit et le nom de l auteur en face de chaque ligne :</td></tr>
+<tr><td class="hl-num" data-line="58"></td><td></td></tr>
+<tr><td class="hl-num" data-line="59"></td><td>`git blame {{file}}`</td></tr>
+<tr><td class="hl-num" data-line="60"></td><td></td></tr>
+<tr><td class="hl-num" data-line="61"></td><td>- Affiche le hash de commit le nom et l email de l auteur en face de chaque ligne :</td></tr>
+<tr><td class="hl-num" data-line="62"></td><td></td></tr>
+<tr><td class="hl-num" data-line="63"></td><td>`git blame -e {{file}}`</td></tr>
+<tr><td class="hl-num" data-line="64"></td><td></td></tr>
+<tr><td class="hl-num" data-line="65"></td><td><span class="hl-mh">### ChangeLog</span></td></tr>
+<tr><td class="hl-num" data-line="66"></td><td></td></tr>
+<tr><td class="hl-num" data-line="67"></td><td>Soon.</td></tr>
+<tr><td class="hl-num" data-line="68"></td><td></td></tr>
+<tr><td class="hl-num" data-line="69"></td><td><span class="hl-mh"># Requirements</span></td></tr>
+<tr><td class="hl-num" data-line="70"></td><td></td></tr>
+<tr><td class="hl-num" data-line="71"></td><td>Zeus has been written in bash script using AWS-CLI and it works in Linux/UNIX and OSX.</td></tr>
+<tr><td class="hl-num" data-line="72"></td><td></td></tr>
+<tr><td class="hl-num" data-line="73"></td><td>~~Make sure that the AWS-CLI tool is installed on the system and profile is configured (aws configure).~~</td></tr>
+<tr><td class="hl-num" data-line="74"></td><td></td></tr>
+<tr><td class="hl-num" data-line="75"></td><td><span class="hl-mh">### Update:</span></td></tr>
+<tr><td class="hl-num" data-line="76"></td><td></td></tr>
+<tr><td class="hl-num" data-line="77"></td><td>pip & aws-cli checking functions are added that based on operating system.</td></tr>
+<tr><td class="hl-num" data-line="78"></td><td></td></tr>
+<tr><td class="hl-num" data-line="79"></td><td><span class="hl-mh"># Usage</span></td></tr>
+<tr><td class="hl-num" data-line="80"></td><td></td></tr>
+<tr><td class="hl-num" data-line="81"></td><td>git clone https://github.com/DenizParlak/Zeus.git && cd Zeus && chmod +x zeus.sh && ./zeus.sh</td></tr>
+<tr><td class="hl-num" data-line="82"></td><td></td></tr>
 </tbody>
 </table>

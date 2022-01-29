@@ -49,21 +49,18 @@ Zeus is a # powerful tool for AWS EC2 / S3 / CloudTrail / CloudWatch / KMS best 
 - Ensure VPC flow logging is enabled in all VPC
 - Ensure the default security group of every VPC restricts all traffic
 
-## Monitoring
- - Ensure a log metric filter and alarm exist for unauthorized API calls
- - Ensure a log metric filter and alarm exist for Management Consolesign-in without MFA
- - Ensure a log metric filter and alarm exist for usage of "root" account
- - Ensure a log metric filter and alarm exist for IAM policy changes
- - Ensure a log metric filter and alarm exist for CloudTrail configuration changes
- - Ensure a log metric filter and alarm exist for AWS Management Console authentication failures
- - Ensure a log metric filter and alarm exist for disabling or scheduled deletion of customer created CMKs
- - Ensure a log metric filter and alarm exist for S3 bucket policy changes
- - Ensure a log metric filter and alarm exist for AWS Config configuration changes
- - Ensure a log metric filter and alarm exist for security group changes
- - Ensure a log metric filter and alarm exist for changes to NetworkAccess Control Lists (NACL)
- - Ensure a log metric filter and alarm exist for changes to network gateways
- - Ensure a log metric filter and alarm exist for route table changes
- - Ensure a log metric filter and alarm exist for VPC changes
+# git blame
+
+> Affiche le hash de commit et le dernier auteur de chaque ligne d un fichier.
+> Plus d'informations : <https://git-scm.com/docs/git-blame>.
+
+- Affiche le hash de commit et le nom de l auteur en face de chaque ligne :
+
+`git blame {{file}}`
+
+- Affiche le hash de commit le nom et l email de l auteur en face de chaque ligne :
+
+`git blame -e {{file}}`
 
 ### ChangeLog
 

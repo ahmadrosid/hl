@@ -14,6 +14,7 @@ const ACCEPT_STRING_EOF: &str = "ACCEPT_STRING_EOF";
 const MARK_ENTITY_TAG_SUFFIX: &str = "MARK_ENTITY_TAG_SUFFIX";
 const MARK_STRING_ENTITY_TAG: &str = "MARK_STRING_ENTITY_TAG";
 const PREFIX_ONE_LINE_COMMENT: &str = "PREFIX_ONE_LINE_COMMENT";
+const PREFIX_ONE_LINE_COMMENT_BEFORE_NEWLINE: &str = "PREFIX_ONE_LINE_COMMENT_BEFORE_NEWLINE";
 const MARKUP_HEAD: &str = "MARKUP_HEAD";
 const IGNORE_INTEGER: &str = "IGNORE_INTEGER";
 const MARK_AS_KEYWORD_IN_SCOPE: &str = "MARK_AS_KEYWORD_IN_SCOPE";
@@ -83,6 +84,8 @@ pub fn generate_token(h: &Hash) -> String {
 
     if get_multi_line_comment(h).len() > 1
         || h.get_some_condition(PREFIX_ONE_LINE_COMMENT).is_some()
+        || h.get_some_condition(PREFIX_ONE_LINE_COMMENT_BEFORE_NEWLINE)
+            .is_some()
     {
         token.push_tabln(1, "COMMENT(Vec<char>),");
     }

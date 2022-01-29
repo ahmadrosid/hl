@@ -38,6 +38,7 @@ const ACCEPT_ENTITY_SUFFIX: &str = "ACCEPT_ENTITY_SUFFIX";
 const BREAK_ENTITY_SUFFIX: &str = "BREAK_ENTITY_SUFFIX";
 const ACCEPT_CHAR_IDENTIFIER: &str = "ACCEPT_CHAR_IDENTIFIER";
 const PREFIX_ONE_LINE_COMMENT: &str = "PREFIX_ONE_LINE_COMMENT";
+const PREFIX_ONE_LINE_COMMENT_BEFORE_NEWLINE: &str = "PREFIX_ONE_LINE_COMMENT_BEFORE_NEWLINE";
 const MARK_KEYWORD_AS_ENTITY_ON_PREFIX: &str = "MARK_KEYWORD_AS_ENTITY_ON_PREFIX";
 const MARK_AS_KEYWORD_ON_CHAR: &str = "MARK_AS_KEYWORD_ON_CHAR";
 const MARKUP_HEAD: &str = "MARKUP_HEAD";
@@ -258,6 +259,25 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
                 .replace("&& self.input[self.read_position] == '{last}'", "")
         }
         module.push_str(&source);
+    }
+
+    if let Some(ch) = h.get_some_condition(PREFIX_ONE_LINE_COMMENT_BEFORE_NEWLINE) {
+        let mut source = include_str!("stub/handle_single_line_comment.stub").to_string();
+        let chars: Vec<char> = ch.as_str().unwrap().chars().collect();
+        if chars.len() == 2 {
+            source = source
+                .replace("{first}", &chars[0].to_string())
+                .replace("{last}", &chars[1].to_string())
+        } else {
+            source = source
+                .replace("{first}", &chars[0].to_string())
+                .replace("self.read_position < self.input.len() &&", "")
+                .replace("&& self.input[self.read_position] == '{last}'", "")
+        }
+        module.push_str(&source.replace(
+            "self.ch",
+            "self.position > 0 && self.input[self.position - 1] == '\\n' && self.ch",
+        ));
     }
 
     for (_, val) in get_double_keyword(h) {
