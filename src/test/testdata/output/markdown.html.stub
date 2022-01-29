@@ -2,12 +2,12 @@
 <tbody>
 <tr><td class="hl-num" data-line="1"></td><td><span class="hl-mh"># Zeus</span></td></tr>
 <tr><td class="hl-num" data-line="2"></td><td></td></tr>
-<tr><td class="hl-num" data-line="3"></td><td>&lt;p align=<span class="hl-s">"center"</span>&gt;</td></tr>
-<tr><td class="hl-num" data-line="4"></td><td>&lt;img src=<span class="hl-s">"zeuslogo.png"</span> width=<span class="hl-s">"30%"</span>&gt;&lt;/img&gt;</td></tr>
+<tr><td class="hl-num" data-line="3"></td><td>&lt;p align="center"&gt;</td></tr>
+<tr><td class="hl-num" data-line="4"></td><td>&lt;img src="zeuslogo.png" width="30%"&gt;&lt;/img&gt;</td></tr>
 <tr><td class="hl-num" data-line="5"></td><td>&lt;/p&gt;</td></tr>
-<tr><td class="hl-num" data-line="6"></td><td>&lt;p align=<span class="hl-s">"center"</span>&gt;</td></tr>
-<tr><td class="hl-num" data-line="7"></td><td>&lt;a href=<span class="hl-s">"https://en.wikipedia.org/wiki/Shell_script"</span>&gt;&lt;img src=<span class="hl-s">"https://img.shields.io/badge/Shell%20Script-*nix-brightgreen.svg"</span>&gt;&lt;/a&gt;&lt;img src=<span class="hl-s">"https://img.shields.io/github/license/mashape/apistatus.svg"</span>&gt;&lt;img src=<span class="hl-s">"https://img.shields.io/badge/LSE%20tools-Zeus-red.svg"</span>&gt;</td></tr>
-<tr><td class="hl-num" data-line="8"></td><td>&lt;a href=<span class="hl-s">"https://www.blackhat.com"</span>&gt;&lt;img src=<span class="hl-s">"https://img.shields.io/badge/Black%20Hat%20Arsenal-Asia%202018-blue.svg"</span>&gt;&lt;/a&gt;&lt;/a&gt;</td></tr>
+<tr><td class="hl-num" data-line="6"></td><td>&lt;p align="center"&gt;</td></tr>
+<tr><td class="hl-num" data-line="7"></td><td>&lt;a href="https://en.wikipedia.org/wiki/Shell_script"&gt;&lt;img src="https://img.shields.io/badge/Shell%20Script-*nix-brightgreen.svg"&gt;&lt;/a&gt;&lt;img src="https://img.shields.io/github/license/mashape/apistatus.svg"&gt;&lt;img src="https://img.shields.io/badge/LSE%20tools-Zeus-red.svg"&gt;</td></tr>
+<tr><td class="hl-num" data-line="8"></td><td>&lt;a href="https://www.blackhat.com"&gt;&lt;img src="https://img.shields.io/badge/Black%20Hat%20Arsenal-Asia%202018-blue.svg"&gt;&lt;/a&gt;&lt;/a&gt;</td></tr>
 <tr><td class="hl-num" data-line="9"></td><td></td></tr>
 <tr><td class="hl-num" data-line="10"></td><td><span class="hl-mh"># Zeus</span></td></tr>
 <tr><td class="hl-num" data-line="11"></td><td>AWS Auditing &amp; Hardening Tool</td></tr>
@@ -17,7 +17,7 @@
 <tr><td class="hl-num" data-line="15"></td><td>~~Currently, it only includes the Logging mechanism.~~</td></tr>
 <tr><td class="hl-num" data-line="16"></td><td></td></tr>
 <tr><td class="hl-num" data-line="17"></td><td><span class="hl-mh">## Identity and Access Management</span></td></tr>
-<tr><td class="hl-num" data-line="18"></td><td>- Avoid the use of the <span class="hl-s">"root"</span> account</td></tr>
+<tr><td class="hl-num" data-line="18"></td><td>- Avoid the use of the "root" account</td></tr>
 <tr><td class="hl-num" data-line="19"></td><td>- Ensure multi-factor authentication (MFA) is enabled for all IAM users that have a console password</td></tr>
 <tr><td class="hl-num" data-line="20"></td><td>- Ensure credentials unused for 90 days or greater are disabled</td></tr>
 <tr><td class="hl-num" data-line="21"></td><td>- Ensure access keys are rotated every 90 days or less</td></tr>
@@ -27,7 +27,7 @@
 <tr><td class="hl-num" data-line="25"></td><td>- Ensure IAM password policy requires at least one number</td></tr>
 <tr><td class="hl-num" data-line="26"></td><td>- Ensure IAM password policy requires minimum length of 14 or greater</td></tr>
 <tr><td class="hl-num" data-line="27"></td><td>- Ensure no root account access key exists</td></tr>
-<tr><td class="hl-num" data-line="28"></td><td>- Ensure MFA is enabled for the <span class="hl-s">"root"</span> account</td></tr>
+<tr><td class="hl-num" data-line="28"></td><td>- Ensure MFA is enabled for the "root" account</td></tr>
 <tr><td class="hl-num" data-line="29"></td><td>- Ensure security questions are registered in the AWS account</td></tr>
 <tr><td class="hl-num" data-line="30"></td><td>- Ensure IAM policies are attached only to groups or role</td></tr>
 <tr><td class="hl-num" data-line="31"></td><td>- Enable detailed billing</td></tr>

@@ -109,6 +109,8 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
     if h.get_some_condition(ACCEPT_STRING_ONE_QUOTE).is_some()
         || h.get_some_condition(ACCEPT_STRING_DOUBLE_QUOTE).is_some()
         || h.get_some_condition(ACCEPT_STRING_EOF).is_some()
+        || h.get_some_condition(PREFIX_ONE_LINE_COMMENT_BEFORE_NEWLINE)
+            .is_some()
     {
         module.push_str(&write_handle_read_string(h.clone()));
     }
