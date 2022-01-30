@@ -106,25 +106,7 @@ pub fn render_html(input: Vec<char>) -> String {
                     }
                 }
             }
-            token::Token::VINFINITY(value) => {
-                html.push_str(&format!(
-                    "<span class=\"hl-v\">{}</span>",
-                    value.iter().collect::<String>()
-                ));
-            }
-            token::Token::VNAN(value) => {
-                html.push_str(&format!(
-                    "<span class=\"hl-v\">{}</span>",
-                    value.iter().collect::<String>()
-                ));
-            }
-            token::Token::MATH(value) => {
-                html.push_str(&format!(
-                    "<span class=\"hl-v\">{}</span>",
-                    value.iter().collect::<String>()
-                ));
-            }
-            token::Token::DATE(value) => {
+            token::Token::VAR(value) => {
                 html.push_str(&format!(
                     "<span class=\"hl-v\">{}</span>",
                     value.iter().collect::<String>()

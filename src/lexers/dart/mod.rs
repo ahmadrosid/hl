@@ -126,9 +126,6 @@ impl Lexer {
                     match token::get_keyword_token(&identifier) {
                         Ok(keyword_token) => keyword_token,
                         Err(_) => {
-                            if start_position > 0 && self.input[start_position - 1] == '(' {
-                                return token::Token::CONSTANT(identifier);
-                            }
                             if self.ch == '(' {
                                 return token::Token::ENTITY(identifier);
                             } else if self.ch.is_whitespace() {
@@ -151,8 +148,30 @@ impl Lexer {
                                     return token::Token::ENTITY(value);
                                 }
                             }
+                            if start_position > 0 && self.input[start_position - 1] == '(' {
+                                return token::Token::CONSTANT(identifier);
+                            }
                             if self.ch == '.' {
                                 return token::Token::CONSTANT(identifier);
+                            } else if self.ch.is_whitespace() {
+                                let start_position = self.position;
+                                let mut position = self.position;
+                                let mut ch = self.input[position];
+                                while position < self.input.len() && ch.is_whitespace() {
+                                    position = position + 1;
+                                    if position < self.input.len() {
+                                        ch = self.input[position];
+                                    }
+                                }
+                                if ch == '.' {
+                                    self.position = position - 1;
+                                    self.read_position = position;
+                                    let mut value = identifier;
+                                    value.append(
+                                        &mut self.input[start_position..self.position].to_vec(),
+                                    );
+                                    return token::Token::CONSTANT(value);
+                                }
                             }
                             token::Token::IDENT(identifier)
                         }

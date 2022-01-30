@@ -10,6 +10,7 @@ pub enum Token {
     STRING(Vec<char>),
     CONSTANT(Vec<char>),
     KEYWORD(Vec<char>),
+    VAR(Vec<char>),
     Rails(Vec<char>),
     COMMENT(Vec<char>),
 }
@@ -19,7 +20,7 @@ pub fn get_keyword_token(identifier: &Vec<char>) -> Result<Token, String> {
     match &id[..] {
         "true" => Ok(Token::CONSTANT(identifier.to_vec())),
         "false" => Ok(Token::CONSTANT(identifier.to_vec())),
-        "Rails" => Ok(Token::Rails(identifier.to_vec())),
+        "Rails" => Ok(Token::VAR(identifier.to_vec())),
         "alias" => Ok(Token::KEYWORD(identifier.to_vec())),
         "and" => Ok(Token::KEYWORD(identifier.to_vec())),
         "BEGIN" => Ok(Token::KEYWORD(identifier.to_vec())),

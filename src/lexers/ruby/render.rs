@@ -92,7 +92,7 @@ pub fn render_html(input: Vec<char>) -> String {
                     }
                 }
             }
-            token::Token::Rails(value) => {
+            token::Token::VAR(value) => {
                 html.push_str(&format!(
                     "<span class=\"hl-v\">{}</span>",
                     value.iter().collect::<String>()

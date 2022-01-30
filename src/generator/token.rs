@@ -1,6 +1,7 @@
 use crate::generator::{
-    get_constant, get_entity, get_entity_prefix, get_entity_suffix, get_entity_tag, get_keyword,
-    get_multi_line_comment, get_var, get_xml_entity_tag, string::StringBuilder, ConditionExt,
+    get_constant, get_constant_prefix, get_constant_suffix, get_entity, get_entity_prefix,
+    get_entity_suffix, get_entity_tag, get_keyword, get_multi_line_comment, get_var,
+    get_var_suffix, get_xml_entity_tag, string::StringBuilder, ConditionExt,
 };
 use yaml_rust::yaml::Hash;
 
@@ -58,7 +59,10 @@ pub fn generate_token(h: &Hash) -> String {
         token.push_tabln(1, "STRING(Vec<char>),");
     }
 
-    if get_constant(h).len() >= 1 {
+    if get_constant(h).len() >= 1
+        || get_constant_suffix(h).len() >= 1
+        || get_constant_prefix(h).len() >= 1
+    {
         token.push_tabln(1, "CONSTANT(Vec<char>),");
     }
 
@@ -74,7 +78,10 @@ pub fn generate_token(h: &Hash) -> String {
         token.push_tabln(1, "ENTITYTAG(Vec<char>),");
     }
 
-    if h.get_some_condition(ACCEPT_PREFIX_VAR).is_some() {
+    if h.get_some_condition(ACCEPT_PREFIX_VAR).is_some()
+        || get_var_suffix(h).len() >= 1
+        || get_var(h).len() >= 1
+    {
         token.push_tabln(1, "VAR(Vec<char>),");
     }
 
@@ -100,14 +107,9 @@ pub fn generate_token(h: &Hash) -> String {
         token.push_strln("Ok(Token::CONSTANT(identifier.to_vec())),");
     }
 
-    for (k, v) in get_var(h) {
-        if v.as_str().unwrap() != "" {
-            token.push_tab(2, &format!("\"{}\" => ", v.as_str().unwrap()));
-            token.push_strln(&format!(
-                "Ok(Token::{}(identifier.to_vec())),",
-                k.as_str().unwrap()
-            ));
-        }
+    for (_, v) in get_var(h) {
+        token.push_tab(2, &format!("\"{}\" => ", v.as_str().unwrap()));
+        token.push_strln("Ok(Token::VAR(identifier.to_vec())),");
     }
 
     for (_, v) in get_entity(h) {

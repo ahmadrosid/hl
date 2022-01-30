@@ -1,3 +1,10 @@
+constant:
+  "true": "true"
+  "false": "false"
+  "null": "null"
+  "undefined": "undefined"
+  "self": "self"
+
 keyword:
   const: const
   pub: pub
@@ -46,3 +53,69 @@ keyword:
   anyframe: anyframe
   noalias: noalias
   linksection: linksection
+  void: void
+  bool: bool
+  i64: i64
+  u32: u32
+  i32: i32
+  f32: f32
+  u8: u8
+  anyerror: anyerror
+  i8: i8
+  i16: i16
+  u16: u16
+  u64: u64
+  i128: i128
+  u128: u128
+  isize: isize
+  usize: usize
+  c_short: c_short
+  c_ushort: c_ushort
+  c_int: c_int
+  c_uint: c_uint
+  c_long: c_long
+  c_ulong: c_ulong
+  c_longlong: c_longlong
+  c_ulonglong: c_ulonglong
+  c_longdouble: c_longdouble
+  f16: f16
+  f64: f64
+  f128: f128
+  anyopaque: anyopaque
+  noreturn: noreturn
+  type: type
+  comptime_int: comptime_int
+  comptime_float: comptime_float
+  i7: i7
+  u21: u21
+  u4: u4
+  u3: u3
+  u2: u2
+  i386: i386
+  u0: u0
+  i0: i0
+  u29: u29
+  u1: u1
+  u24: u24
+
+constant_suffix:
+  colon: ":"
+
+var_suffix:
+  assign: "="
+
+entity_prefix:
+  dot: "."
+
+entity_suffix:
+  left_parent: "("
+
+condition:
+  ACCEPT_ESCAPED_STRING: true
+  ACCEPT_STRING_ONE_QUOTE: true
+  ACCEPT_STRING_DOUBLE_QUOTE: true
+  RENDER_MULTI_LINE_STRING: true
+  ACCEPT_ENTITY_TAG_SUFFIX: "self.ch.is_numeric()"
+  BREAK_ENTITY_TAG_SUFFIX: "!self.ch.is_numeric() && !is_letter(self.ch)"
+  PREFIX_ONE_LINE_COMMENT: "//"
+  ACCEPT_PREFIX_KEYWORD: "@"

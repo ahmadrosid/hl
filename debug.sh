@@ -4,3 +4,4 @@
 #cargo run generate rules/markdown.yml
 cargo run generate "rules/zig.yml"
 cargo run test-file -l zig > table.html
+cargo fmt
