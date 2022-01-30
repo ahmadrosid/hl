@@ -35,6 +35,7 @@ pub fn render_html(input: Vec<char>, lang: &str) -> String {
         "ruby" => ruby::render::render_html(input),
         "actionscript" => actionscript::render::render_html(input),
         "dart" => dart::render::render_html(input),
+        "zig" => zig::render::render_html(input),
         _ => raw::render::render_html(input),
     };
 }

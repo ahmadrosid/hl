@@ -31,6 +31,7 @@ array=(
   "rules/toml.yml"
   "rules/typescript.yml"
   "rules/yaml.yml"
+  "rules/zig.yml"
 )
 
 for i in "${array[@]}"

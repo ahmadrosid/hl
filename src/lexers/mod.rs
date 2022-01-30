@@ -26,3 +26,4 @@ pub mod rust;
 pub mod toml;
 pub mod typescript;
 pub mod yaml;
+pub mod zig;
