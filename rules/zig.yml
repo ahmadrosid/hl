@@ -98,11 +98,9 @@ keyword:
   u1: u1
   u24: u24
 
-constant_suffix:
-  colon: ":"
-
 var_suffix:
   assign: "="
+  colon: ":"
 
 entity_prefix:
   dot: "."
@@ -119,3 +117,4 @@ condition:
   BREAK_ENTITY_TAG_SUFFIX: "!self.ch.is_numeric() && !is_letter(self.ch)"
   PREFIX_ONE_LINE_COMMENT: "//"
   ACCEPT_PREFIX_KEYWORD: "@"
+  MARK_AS_VAR_IN_SCOPE: "||"

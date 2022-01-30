@@ -45,6 +45,7 @@ const MARKUP_HEAD: &str = "MARKUP_HEAD";
 const IGNORE_INTEGER: &str = "IGNORE_INTEGER";
 const MARK_AS_IDENT_ON_CHAR: &str = "MARK_AS_IDENT_ON_CHAR";
 const MARK_AS_KEYWORD_IN_SCOPE: &str = "MARK_AS_KEYWORD_IN_SCOPE";
+const MARK_AS_VAR_IN_SCOPE: &str = "MARK_AS_VAR_IN_SCOPE";
 const MARK_AS_CONSTANT_ON_PREFIX: &str = "MARK_AS_CONSTANT_ON_PREFIX";
 const MARK_AS_ENTYTY_ON_FUNCTION_SCOPE: &str = "MARK_AS_ENTYTY_ON_FUNCTION_SCOPE";
 
@@ -181,11 +182,25 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
 
     if let Some(ch) = h.get_some_condition(MARK_AS_KEYWORD_IN_SCOPE) {
         let c: Vec<char> = ch.as_str().unwrap().to_string().chars().collect();
+        assert!(c.len() == 2, "{}", "The scope must be two chars!");
         module.push_str(
             &include_str!("stub/mark_as_keyword_in_scope.stub")
                 .to_string()
                 .replace("{left}", &*c[0].to_string())
                 .replace("{right}", &*c[1].to_string()),
+        )
+    }
+
+    if let Some(ch) = h.get_some_condition(MARK_AS_VAR_IN_SCOPE) {
+        let c: Vec<char> = ch.as_str().unwrap().to_string().chars().collect();
+        assert!(c.len() == 2, "{}", "The scope must be two chars!");
+        module.push_str(
+            // TODO: refactor to "stub/mark_as_token_in_scope.stub"
+            &include_str!("stub/mark_as_keyword_in_scope.stub")
+                .to_string()
+                .replace("{left}", &*c[0].to_string())
+                .replace("{right}", &*c[1].to_string())
+                .replace("KEYWORD", "VAR"),
         )
     }
 

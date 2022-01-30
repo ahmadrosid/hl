@@ -67,6 +67,22 @@ impl Lexer {
         };
 
         let tok: token::Token;
+        if self.position >= 1
+            && self.position < self.input.len()
+            && self.input[self.position - 1] == '|'
+            && self.ch != '|'
+            && is_letter(self.ch)
+        {
+            let mut identifier: Vec<char> = vec![];
+            while self.position < self.input.len() {
+                if self.ch == '|' {
+                    break;
+                }
+                identifier.push(self.ch);
+                self.read_char();
+            }
+            return token::Token::VAR(identifier);
+        }
         if self.read_position < self.input.len()
             && self.ch == '/'
             && self.input[self.read_position] == '/'
@@ -134,28 +150,6 @@ impl Lexer {
                                     return token::Token::ENTITY(value);
                                 }
                             }
-                            if self.ch == ':' {
-                                return token::Token::CONSTANT(identifier);
-                            } else if self.ch.is_whitespace() {
-                                let start_position = self.position;
-                                let mut position = self.position;
-                                let mut ch = self.input[position];
-                                while position < self.input.len() && ch.is_whitespace() {
-                                    position = position + 1;
-                                    if position < self.input.len() {
-                                        ch = self.input[position];
-                                    }
-                                }
-                                if ch == ':' {
-                                    self.position = position - 1;
-                                    self.read_position = position;
-                                    let mut value = identifier;
-                                    value.append(
-                                        &mut self.input[start_position..self.position].to_vec(),
-                                    );
-                                    return token::Token::CONSTANT(value);
-                                }
-                            }
                             if self.ch == '=' {
                                 return token::Token::VAR(identifier);
                             } else if self.ch.is_whitespace() {
@@ -169,6 +163,28 @@ impl Lexer {
                                     }
                                 }
                                 if ch == '=' {
+                                    self.position = position - 1;
+                                    self.read_position = position;
+                                    let mut value = identifier;
+                                    value.append(
+                                        &mut self.input[start_position..self.position].to_vec(),
+                                    );
+                                    return token::Token::VAR(value);
+                                }
+                            }
+                            if self.ch == ':' {
+                                return token::Token::VAR(identifier);
+                            } else if self.ch.is_whitespace() {
+                                let start_position = self.position;
+                                let mut position = self.position;
+                                let mut ch = self.input[position];
+                                while position < self.input.len() && ch.is_whitespace() {
+                                    position = position + 1;
+                                    if position < self.input.len() {
+                                        ch = self.input[position];
+                                    }
+                                }
+                                if ch == ':' {
                                     self.position = position - 1;
                                     self.read_position = position;
                                     let mut value = identifier;
