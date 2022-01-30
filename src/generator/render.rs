@@ -86,7 +86,7 @@ pub fn generate_render_html(h: &Hash, name: String) -> String {
     }
 
     if get_constant(h).len() >= 1 {
-        write_token_constant(&mut html);
+        html.push_str(include_str!("stub/render_token_constant.stub"));
     }
 
     if get_keyword(h).len() >= 1 || h.get_some_condition(MARK_AS_KEYWORD_IN_SCOPE).is_some() {
@@ -242,16 +242,6 @@ fn write_token_keyword(html: &mut StringBuilder) {
     html.push_tabln(
         4,
         "html.push_str(&format!(\"<span class=\\\"hl-k\\\">{}</span>\", \
-        value.iter().collect::<String>()));",
-    );
-    html.push_tabln(3, "}");
-}
-
-fn write_token_constant(html: &mut StringBuilder) {
-    html.push_tabln(3, "token::Token::CONSTANT(value) => {");
-    html.push_tabln(
-        4,
-        "html.push_str(&format!(\"<span class=\\\"hl-c\\\">{}</span>\", \
         value.iter().collect::<String>()));",
     );
     html.push_tabln(3, "}");

@@ -1,0 +1,3 @@
+token::Token::CONSTANT(value) => {
+    html.push_str(&format!("<span class=\"hl-c\">{}</span>", value.iter().collect::<String>()));
+}
