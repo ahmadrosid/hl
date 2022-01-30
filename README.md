@@ -75,3 +75,4 @@ See the result in browser [here](https://play.tailwindcss.com/JevzqYGpuH).
 - [ ] Python ( 🚧 In Progress )
 - [x] Typescript ( ✅ Done )
 - [x] Yaml ( ✅ Done )
+- [x] Zig ( ✅ Done )
