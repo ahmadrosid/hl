@@ -12,11 +12,6 @@ pub struct Lexer {
 fn is_letter(ch: char) -> bool {
     'a' <= ch && ch <= 'z' || 'A' <= ch && ch <= 'Z' || ch == '_'
 }
-
-fn is_digit(ch: char) -> bool {
-    '0' <= ch && ch <= '9'
-}
-
 fn is_white_space(ch: char) -> bool {
     ch == ' ' || ch == '\t' || ch == '\t' || ch == '\n'
 }
@@ -69,7 +64,7 @@ impl Lexer {
 
         let read_number = |l: &mut Lexer| -> Vec<char> {
             let position = l.position;
-            while l.position < l.input.len() && is_digit(l.ch) {
+            while l.position < l.input.len() && l.ch.is_numeric() {
                 l.read_char();
             }
             l.input[position..l.position].to_vec()
@@ -220,7 +215,7 @@ impl Lexer {
                     self.read_char();
                     self.read_char();
                     while self.position < self.input.len()
-                        && (is_digit(self.ch) || is_letter(self.ch))
+                        && (self.ch.is_numeric() || is_letter(self.ch))
                     {
                         self.read_char()
                     }
@@ -258,10 +253,10 @@ impl Lexer {
                     let start_position = self.position;
                     #[allow(unused_mut)]
                     let mut identifier: Vec<char> = read_identifier(self);
-                    if is_digit(self.ch) {
+                    if self.ch.is_numeric() {
                         let position = self.position;
                         while self.position < self.input.len() {
-                            if !is_digit(self.ch) && !is_letter(self.ch) {
+                            if !self.ch.is_numeric() && !is_letter(self.ch) {
                                 break;
                             }
                             self.read_char();
@@ -321,7 +316,7 @@ impl Lexer {
                             token::Token::IDENT(identifier)
                         }
                     }
-                } else if is_digit(self.ch) {
+                } else if self.ch.is_numeric() {
                     let identifier: Vec<char> = read_number(self);
                     token::Token::INT(identifier)
                 } else if self.ch == '\'' {

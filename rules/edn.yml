@@ -3,7 +3,7 @@ entity_prefix:
 
 condition:
   ACCEPT_STRING_DOUBLE_QUOTE: true
-  ACCEPT_ENTITY_TAG_SUFFIX: "is_digit(self.ch)"
-  BREAK_ENTITY_TAG_SUFFIX: "!is_digit(self.ch) && !is_letter(self.ch)"
+  ACCEPT_ENTITY_TAG_SUFFIX: "self.ch.is_numeric()"
+  BREAK_ENTITY_TAG_SUFFIX: "!self.ch.is_numeric() && !is_letter(self.ch)"
   ACCEPT_CHAR_IDENTIFIER: "/"
   PREFIX_ONE_LINE_COMMENT: ";;"

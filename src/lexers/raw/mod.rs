@@ -12,11 +12,6 @@ pub struct Lexer {
 fn is_letter(ch: char) -> bool {
     'a' <= ch && ch <= 'z' || 'A' <= ch && ch <= 'Z' || ch == '_'
 }
-
-fn is_digit(ch: char) -> bool {
-    '0' <= ch && ch <= '9'
-}
-
 impl Lexer {
     pub fn new(input: Vec<char>) -> Self {
         Self {
@@ -48,7 +43,7 @@ impl Lexer {
 
         let read_number = |l: &mut Lexer| -> Vec<char> {
             let position = l.position;
-            while l.position < l.input.len() && is_digit(l.ch) {
+            while l.position < l.input.len() && l.ch.is_numeric() {
                 l.read_char();
             }
             l.input[position..l.position].to_vec()
@@ -72,7 +67,7 @@ impl Lexer {
                         Ok(keyword_token) => keyword_token,
                         Err(_) => token::Token::IDENT(identifier),
                     }
-                } else if is_digit(self.ch) {
+                } else if self.ch.is_numeric() {
                     let identifier: Vec<char> = read_number(self);
                     token::Token::IDENT(identifier)
                 } else {

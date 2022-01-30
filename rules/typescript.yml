@@ -77,7 +77,7 @@ condition:
   ACCEPT_STRING_DOUBLE_QUOTE: true
   RENDER_MULTI_LINE_STRING: true
   ACCEPT_CHAR_IDENTIFIER: "?"
-  ACCEPT_ENTITY_SUFFIX: "is_digit(self.ch)"
+  ACCEPT_ENTITY_SUFFIX: "self.ch.is_numeric()"
   BREAK_ENTITY_SUFFIX: "self.ch == ' ' || self.ch == ':' || self.ch == ':' || self.ch == '(' || self.ch == '{' || self.ch == '\\n'"
   MARK_KEYWORD_AS_ENTITY_ON_PREFIX: "."
   PREFIX_ONE_LINE_COMMENT: "//"

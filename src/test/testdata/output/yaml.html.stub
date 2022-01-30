@@ -25,8 +25,8 @@
 <tr><td class="hl-num" data-line="23"></td><td>  <span class="hl-ent">ACCEPT_STRING_DOUBLE_QUOTE</span>: <span class="hl-c">true</span></td></tr>
 <tr><td class="hl-num" data-line="24"></td><td>  <span class="hl-ent">ACCEPT_PREFIX_KEYWORD</span>: <span class="hl-s">'@'</span></td></tr>
 <tr><td class="hl-num" data-line="25"></td><td>  <span class="hl-ent">ACCEPT_SUFFIX_DIGIT</span>: <span class="hl-s">'f'</span></td></tr>
-<tr><td class="hl-num" data-line="26"></td><td>  <span class="hl-ent">ACCEPT_ENTITY_TAG_SUFFIX</span>: <span class="hl-s">"is_digit(self.ch)"</span></td></tr>
-<tr><td class="hl-num" data-line="27"></td><td>  <span class="hl-ent">BREAK_ENTITY_TAG_SUFFIX</span>: <span class="hl-s">"!is_digit(self.ch) && !is_letter(self.ch)"</span></td></tr>
+<tr><td class="hl-num" data-line="26"></td><td>  <span class="hl-ent">ACCEPT_ENTITY_TAG_SUFFIX</span>: <span class="hl-s">"self.ch.is_numeric()"</span></td></tr>
+<tr><td class="hl-num" data-line="27"></td><td>  <span class="hl-ent">BREAK_ENTITY_TAG_SUFFIX</span>: <span class="hl-s">"!self.ch.is_numeric() && !is_letter(self.ch)"</span></td></tr>
 <tr><td class="hl-num" data-line="28"></td><td></td></tr>
 <tr><td class="hl-num" data-line="29"></td><td><span class="hl-ent">"all love"</span>: <span class="hl-c">true</span></td></tr>
 <tr><td class="hl-num" data-line="30"></td><td></td></tr>

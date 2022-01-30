@@ -116,7 +116,7 @@ condition:
   ACCEPT_ESCAPED_STRING: true
   ACCEPT_STRING_DOUBLE_QUOTE: true
   ACCEPT_ENTITY_PREFIX: "start_position != 0 && self.input[start_position - 1] == '.'"
-  ACCEPT_ENTITY_TAG_SUFFIX: "is_digit(self.ch)"
+  ACCEPT_ENTITY_TAG_SUFFIX: "self.ch.is_numeric()"
   ACCEPT_IDENT_SUFFIX: "self.ch == '('"
   ACCEPT_ENTITY_SUFFIX: "self.ch == '-' || self.ch == ':'"
   BREAK_ENTITY_PREFIX: "self.ch == ' ' || self.ch == '{' || self.ch == ',' || self.ch == '\\n'"

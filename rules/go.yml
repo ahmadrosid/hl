@@ -69,7 +69,7 @@ condition:
   ACCEPT_ESCAPED_STRING: true
   ACCEPT_STRING_ONE_QUOTE: true
   ACCEPT_STRING_DOUBLE_QUOTE: true
-  ACCEPT_ENTITY_TAG_SUFFIX: "is_digit(self.ch)"
-  BREAK_ENTITY_TAG_SUFFIX: "!is_digit(self.ch) && !is_letter(self.ch)"
+  ACCEPT_ENTITY_TAG_SUFFIX: "self.ch.is_numeric()"
+  BREAK_ENTITY_TAG_SUFFIX: "!self.ch.is_numeric() && !is_letter(self.ch)"
   ACCEPT_HEXADECIMAL_NUMBER: true
   PREFIX_ONE_LINE_COMMENT: "//"

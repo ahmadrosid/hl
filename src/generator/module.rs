@@ -117,7 +117,7 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
 
     module.push_tabln(2, "let read_number = |l: &mut Lexer| -> Vec<char> {");
     module.push_tabln(3, "let position = l.position;");
-    module.push_tabln(3, "while l.position < l.input.len() && is_digit(l.ch) {");
+    module.push_tabln(3, "while l.position < l.input.len() && l.ch.is_numeric() {");
     module.push_tabln(4, "l.read_char();");
     module.push_tabln(3, "}");
     module.push_tabln(3, "l.input[position..l.position].to_vec()");
@@ -714,7 +714,7 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
     module.push_tabln(8, "token::Token::IDENT(identifier)");
     module.push_tabln(7, "}");
     module.push_tabln(6, "}");
-    module.push_tabln(5, "} else if is_digit(self.ch) {");
+    module.push_tabln(5, "} else if self.ch.is_numeric() {");
     if let Some(ch) = h.get_some_condition(ACCEPT_SUFFIX_DIGIT) {
         module.push_tabln(6, "let mut identifier: Vec<char> = read_number(self);");
         module.push_tabln(6, &format!("if self.ch == '{}' {{", ch.as_str().unwrap()));

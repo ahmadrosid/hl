@@ -2,7 +2,7 @@ if self.ch == '{ch}' {
     let start_position = self.position;
     while self.position < self.input.len()
         && !is_letter(self.ch)
-        && !is_digit(self.ch)
+        && !self.ch.is_numeric()
         && self.ch != '\n'
         && self.ch != ' '
     {
