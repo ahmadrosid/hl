@@ -9,6 +9,7 @@ array=(
   "rules/clojure.yml"
   "rules/css.yml"
   "rules/cuda.yml"
+  "rules/dart.yml"
   "rules/edn.yml"
   "rules/cpp.yml"
   "rules/cs.yml"

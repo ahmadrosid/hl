@@ -23,6 +23,7 @@ pub fn get_keyword_token(identifier: &Vec<char>) -> Result<Token, String> {
         "String" => Ok(Token::CONSTANT(identifier.to_vec())),
         "Widget" => Ok(Token::CONSTANT(identifier.to_vec())),
         "Future" => Ok(Token::CONSTANT(identifier.to_vec())),
+        "Object" => Ok(Token::CONSTANT(identifier.to_vec())),
         "abstract" => Ok(Token::KEYWORD(identifier.to_vec())),
         "else" => Ok(Token::KEYWORD(identifier.to_vec())),
         "import" => Ok(Token::KEYWORD(identifier.to_vec())),
