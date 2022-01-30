@@ -61,21 +61,9 @@ pub fn generate_module(h: &Hash) -> String {
     let mut module = StringBuilder::new();
     module.push_str(&initial_module);
 
-    if h.get_some_condition(MARK_STRING_ENTITY_TAG).is_some()
-        || h.get_some_condition(MARK_ENTITY_TAG_SUFFIX).is_some()
-        || get_entity_suffix(h).len() > 0
-    {
-        write_helper_is_white_space(&mut module);
-    }
     write_impl_lexer(&mut module, h);
 
     module.to_string()
-}
-
-fn write_helper_is_white_space(module: &mut StringBuilder) {
-    module.push_strln("fn is_white_space(ch: char) -> bool {");
-    module.push_tabln(1, r#"ch == ' ' || ch == '\t' || ch == '\t' || ch == '\n'"#);
-    module.push_strln("}\n");
 }
 
 fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
@@ -743,13 +731,13 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
         if let Some(ch) = h.get_some_condition(MARK_STRING_ENTITY_TAG) {
             module.push_tabln(6, &format!("if self.ch == '{}' {{", ch.as_str().unwrap()));
             module.push_tabln(7, "return token::Token::ENTITYTAG(str_value);");
-            module.push_tabln(6, "} else if is_white_space(self.ch) {");
+            module.push_tabln(6, "} else if self.ch.is_whitespace() {");
             module.push_tabln(7, "let start_position = self.position;");
             module.push_tabln(7, "let mut position = self.position;");
             module.push_tabln(7, "let mut ch = self.input[position];");
             module.push_tabln(
                 7,
-                "while position < self.input.len() && is_white_space(ch) {",
+                "while position < self.input.len() && ch.is_whitespace() {",
             );
             module.push_tabln(8, "position = position + 1;");
             module.push_tabln(8, "if position < self.input.len() {");

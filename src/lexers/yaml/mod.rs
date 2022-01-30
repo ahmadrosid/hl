@@ -12,10 +12,6 @@ pub struct Lexer {
 fn is_letter(ch: char) -> bool {
     'a' <= ch && ch <= 'z' || 'A' <= ch && ch <= 'Z' || ch == '_'
 }
-fn is_white_space(ch: char) -> bool {
-    ch == ' ' || ch == '\t' || ch == '\t' || ch == '\n'
-}
-
 impl Lexer {
     pub fn new(input: Vec<char>) -> Self {
         Self {
@@ -120,11 +116,11 @@ impl Lexer {
                     let str_value: Vec<char> = read_string(self, '"');
                     if self.ch == ':' {
                         return token::Token::ENTITYTAG(str_value);
-                    } else if is_white_space(self.ch) {
+                    } else if self.ch.is_whitespace() {
                         let start_position = self.position;
                         let mut position = self.position;
                         let mut ch = self.input[position];
-                        while position < self.input.len() && is_white_space(ch) {
+                        while position < self.input.len() && ch.is_whitespace() {
                             position = position + 1;
                             if position < self.input.len() {
                                 ch = self.input[position];

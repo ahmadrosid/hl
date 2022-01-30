@@ -1,10 +1,10 @@
 if self.ch == '{ch}' {
     return token::Token::{token}(identifier);
-} else if is_white_space(self.ch) {
+} else if self.ch.is_whitespace() {
     let start_position = self.position;
     let mut position = self.position;
     let mut ch = self.input[position];
-    while position < self.input.len() && is_white_space(ch) {
+    while position < self.input.len() && ch.is_whitespace() {
         position = position + 1;
         if position < self.input.len() {
             ch = self.input[position];
