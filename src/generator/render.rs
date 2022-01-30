@@ -98,7 +98,7 @@ pub fn generate_render_html(h: &Hash, name: String) -> String {
         || h.get_some_condition(MARK_ENTITY_TAG_SUFFIX).is_some()
         || h.get_some_condition(MARK_STRING_ENTITY_TAG).is_some()
     {
-        write_token_entity_tag(&mut html);
+        html.push_str(include_str!("stub/render_token_entity_tag.stub"));
     }
 
     if h.get_some_condition(ACCEPT_PREFIX_VAR).is_some() {
@@ -332,24 +332,5 @@ fn write_token_string(html: &mut StringBuilder, h: &Hash) {
         );
     }
 
-    html.push_tabln(3, "}");
-}
-
-fn write_token_entity_tag(html: &mut StringBuilder) {
-    html.push_tabln(3, "token::Token::ENTITYTAG(value) => {");
-    html.push_tabln(4, "let mut s = String::new();");
-    html.push_tabln(4, "for ch in value {");
-    html.push_tabln(5, "if ch == '<' {");
-    html.push_tabln(6, "s.push_str(\"&lt;\");");
-    html.push_tabln(5, "} else if ch == '>' {");
-    html.push_tabln(6, "s.push_str(\"&gt;\");");
-    html.push_tabln(5, "} else {");
-    html.push_tabln(6, "s.push(ch);");
-    html.push_tabln(5, "}");
-    html.push_tabln(4, "}");
-    html.push_tabln(
-        4,
-        "html.push_str(&format!(\"<span class=\\\"hl-ent\\\">{}</span>\", s));",
-    );
     html.push_tabln(3, "}");
 }
