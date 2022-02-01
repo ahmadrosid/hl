@@ -63,7 +63,7 @@
 <tr><td class="hl-num" data-line="61"></td><td><span class="hl-s">    }</span></td></tr>
 <tr><td class="hl-num" data-line="62"></td><td><span class="hl-s">  }</span></td></tr>
 <tr><td class="hl-num" data-line="63"></td><td><span class="hl-s">'</span></td></tr>
-<tr><td class="hl-num" data-line="64"></td><td>    awk <span class="hl-s">"$awk_strverscmp"</span> v<span class="hl-c">1</span>=<span class="hl-s">"$1"</span> v<span class="hl-c">2</span>=<span class="hl-s">"$2"</span> /dev/null</td></tr>
+<tr><td class="hl-num" data-line="64"></td><td>    awk <span class="hl-s">"$awk_strverscmp"</span> v1=<span class="hl-s">"$1"</span> v2=<span class="hl-s">"$2"</span> /dev/null</td></tr>
 <tr><td class="hl-num" data-line="65"></td><td>    <span class="hl-k">case</span> $? <span class="hl-k">in</span></td></tr>
 <tr><td class="hl-num" data-line="66"></td><td>      <span class="hl-c">1</span>)  <span class="hl-c">echo</span> <span class="hl-s">'&lt;'</span>;;</td></tr>
 <tr><td class="hl-num" data-line="67"></td><td>      <span class="hl-c">0</span>)  <span class="hl-c">echo</span> <span class="hl-s">'='</span>;;</td></tr>
@@ -159,7 +159,7 @@
 <tr><td class="hl-num" data-line="157"></td><td>    <span class="hl-c">echo</span> <span class="hl-s">"ERROR: expecting 2 parameters. Please see option --help"</span></td></tr>
 <tr><td class="hl-num" data-line="158"></td><td>    <span class="hl-c">exit</span> <span class="hl-c">1</span></td></tr>
 <tr><td class="hl-num" data-line="159"></td><td><span class="hl-k">fi</span></td></tr>
-<tr><td class="hl-num" data-line="160"></td><td><span class="hl-k">printf</span> <span class="hl-s">"Insmod $1 failed\n"</span></td></tr>
+<tr><td class="hl-num" data-line="160"></td><td><span class="hl-c">printf</span> <span class="hl-s">"Insmod $1 failed\n"</span></td></tr>
 <tr><td class="hl-num" data-line="161"></td><td>require_tool $@</td></tr>
 </tbody>
 </table>
