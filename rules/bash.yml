@@ -13,6 +13,7 @@ constant:
   unset: unset
   test: test
   true: "true"
+  printf: printf
 
 keyword:
   case: case
@@ -29,7 +30,6 @@ keyword:
   if: if
   in: in
   local: local
-  printf: printf
   return: return
   select: select
   then: then
@@ -58,3 +58,5 @@ condition:
   ACCEPT_PREFIX_KEYWORD_NEXT: "-"
   ACCEPT_CHAR_IDENTIFIER: "-"
   PREFIX_ONE_LINE_COMMENT: "#"
+  ACCEPT_ENTITY_TAG_SUFFIX: "self.ch.is_numeric()"
+  BREAK_ENTITY_TAG_SUFFIX: "!self.ch.is_numeric() && !is_letter(self.ch)"
