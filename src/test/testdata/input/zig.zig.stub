@@ -7,16 +7,31 @@ pub const Direction = enum {
     previous,
 };
 
+const Mode = union(enum) {
+    passthrough: void,
+    down: struct {
+        // Initial cursor position in layout coordinates
+        lx: f64,
+        ly: f64,
+        // Initial cursor position in surface-local coordinates
+        sx: f64,
+        sy: f64,
+    },
+};
+
+const Image = enum {
+    /// The current image of the cursor is unknown, perhaps because it was set by a client.
+    unknown,
+    left_ptr,
+    move,
+    @"se-resize",
+};
+
 pub const PhysicalDirection = enum {
     up,
     down,
     left,
     right,
-};
-
-pub const Orientation = enum {
-    horizontal,
-    vertical,
 };
 
 const hello_world_in_c =
@@ -39,50 +54,11 @@ const command_impls = std.ComptimeStringMap(
         .{ "border-color-urgent",       @import("command/config.zig").borderColorUrgent },
         .{ "border-width",              @import("command/config.zig").borderWidth },
         .{ "close",                     @import("command/close.zig").close },
-        .{ "csd-filter-add",            @import("command/filter.zig").csdFilterAdd },
-        .{ "csd-filter-remove",         @import("command/filter.zig").csdFilterRemove },
-        .{ "declare-mode",              @import("command/declare_mode.zig").declareMode },
-        .{ "default-layout",            @import("command/layout.zig").defaultLayout },
-        .{ "enter-mode",                @import("command/enter_mode.zig").enterMode },
-        .{ "exit",                      @import("command/exit.zig").exit },
-        .{ "float-filter-add",          @import("command/filter.zig").floatFilterAdd },
-        .{ "float-filter-remove",       @import("command/filter.zig").floatFilterRemove },
-        .{ "focus-follows-cursor",      @import("command/focus_follows_cursor.zig").focusFollowsCursor },
-        .{ "focus-output",              @import("command/output.zig").focusOutput },
-        .{ "focus-previous-tags",       @import("command/tags.zig").focusPreviousTags },
-        .{ "focus-view",                @import("command/focus_view.zig").focusView },
-        .{ "input",                     @import("command/input.zig").input },
-        .{ "list-input-configs",        @import("command/input.zig").listInputConfigs},
-        .{ "list-inputs",               @import("command/input.zig").listInputs },
-        .{ "map",                       @import("command/map.zig").map },
-        .{ "map-pointer",               @import("command/map.zig").mapPointer },
-        .{ "move",                      @import("command/move.zig").move },
-        .{ "output-layout",             @import("command/layout.zig").outputLayout },
-        .{ "resize",                    @import("command/move.zig").resize },
-        .{ "send-layout-cmd",           @import("command/layout.zig").sendLayoutCmd },
-        .{ "send-to-output",            @import("command/output.zig").sendToOutput },
-        .{ "send-to-previous-tags",     @import("command/tags.zig").sendToPreviousTags },
-        .{ "set-cursor-warp",           @import("command/config.zig").setCursorWarp },
-        .{ "set-focused-tags",          @import("command/tags.zig").setFocusedTags },
-        .{ "set-repeat",                @import("command/set_repeat.zig").setRepeat },
-        .{ "set-view-tags",             @import("command/tags.zig").setViewTags },
-        .{ "snap",                      @import("command/move.zig").snap },
-        .{ "spawn",                     @import("command/spawn.zig").spawn },
-        .{ "spawn-tagmask",             @import("command/tags.zig").spawnTagmask },
-        .{ "swap",                      @import("command/swap.zig").swap},
-        .{ "toggle-float",              @import("command/toggle_float.zig").toggleFloat },
-        .{ "toggle-focused-tags",       @import("command/tags.zig").toggleFocusedTags },
-        .{ "toggle-fullscreen",         @import("command/toggle_fullscreen.zig").toggleFullscreen },
-        .{ "toggle-view-tags",          @import("command/tags.zig").toggleViewTags },
-        .{ "unmap",                     @import("command/map.zig").unmap },
-        .{ "unmap-pointer",             @import("command/map.zig").unmapPointer },
-        .{ "xcursor-theme",             @import("command/xcursor_theme.zig").xcursorTheme },
-        .{ "zoom",                      @import("command/zoom.zig").zoom },
     },
 );
 // zig fmt: on
 
-pub const Error = error{
+pub const Error = error {
     NoCommand,
     UnknownCommand,
     NotEnoughArguments,

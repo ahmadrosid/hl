@@ -9,140 +9,116 @@
 <tr><td class="hl-num" data-line="7"></td><td>    previous,</td></tr>
 <tr><td class="hl-num" data-line="8"></td><td>};</td></tr>
 <tr><td class="hl-num" data-line="9"></td><td></td></tr>
-<tr><td class="hl-num" data-line="10"></td><td><span class="hl-k">pub</span> <span class="hl-k">const</span> <span class="hl-v">PhysicalDirection</span> = <span class="hl-k">enum</span> {</td></tr>
-<tr><td class="hl-num" data-line="11"></td><td>    up,</td></tr>
-<tr><td class="hl-num" data-line="12"></td><td>    down,</td></tr>
-<tr><td class="hl-num" data-line="13"></td><td>    left,</td></tr>
-<tr><td class="hl-num" data-line="14"></td><td>    right,</td></tr>
-<tr><td class="hl-num" data-line="15"></td><td>};</td></tr>
-<tr><td class="hl-num" data-line="16"></td><td></td></tr>
-<tr><td class="hl-num" data-line="17"></td><td><span class="hl-k">pub</span> <span class="hl-k">const</span> <span class="hl-v">Orientation</span> = <span class="hl-k">enum</span> {</td></tr>
-<tr><td class="hl-num" data-line="18"></td><td>    horizontal,</td></tr>
-<tr><td class="hl-num" data-line="19"></td><td>    vertical,</td></tr>
+<tr><td class="hl-num" data-line="10"></td><td><span class="hl-k">const</span> <span class="hl-v">Mode</span> = <span class="hl-k">union</span>(<span class="hl-k">enum</span>) {</td></tr>
+<tr><td class="hl-num" data-line="11"></td><td>    <span class="hl-v">passthrough</span>: <span class="hl-k">void</span>,</td></tr>
+<tr><td class="hl-num" data-line="12"></td><td>    <span class="hl-v">down</span>: <span class="hl-k">struct</span> {</td></tr>
+<tr><td class="hl-num" data-line="13"></td><td>        <span class="hl-cmt">// Initial cursor position in layout coordinates</span></td></tr>
+<tr><td class="hl-num" data-line="14"></td><td>        <span class="hl-v">lx</span>: <span class="hl-k">f64</span>,</td></tr>
+<tr><td class="hl-num" data-line="15"></td><td>        <span class="hl-v">ly</span>: <span class="hl-k">f64</span>,</td></tr>
+<tr><td class="hl-num" data-line="16"></td><td>        <span class="hl-cmt">// Initial cursor position in surface-local coordinates</span></td></tr>
+<tr><td class="hl-num" data-line="17"></td><td>        <span class="hl-v">sx</span>: <span class="hl-k">f64</span>,</td></tr>
+<tr><td class="hl-num" data-line="18"></td><td>        <span class="hl-v">sy</span>: <span class="hl-k">f64</span>,</td></tr>
+<tr><td class="hl-num" data-line="19"></td><td>    },</td></tr>
 <tr><td class="hl-num" data-line="20"></td><td>};</td></tr>
 <tr><td class="hl-num" data-line="21"></td><td></td></tr>
-<tr><td class="hl-num" data-line="22"></td><td><span class="hl-k">const</span> <span class="hl-v">hello_world_in_c</span> =</td></tr>
-<tr><td class="hl-num" data-line="23"></td><td>    <span class="hl-s">\\#include &lt;stdio.h&gt;</span></td></tr>
-<tr><td class="hl-num" data-line="24"></td><td><span class="hl-s"></span>    <span class="hl-s">\\</span></td></tr>
-<tr><td class="hl-num" data-line="25"></td><td><span class="hl-s">    \\int main(int argc, char **argv) {</span></td></tr>
-<tr><td class="hl-num" data-line="26"></td><td><span class="hl-s"></span>    <span class="hl-s">\\    printf("hello world\n");</span></td></tr>
-<tr><td class="hl-num" data-line="27"></td><td><span class="hl-s"></span>    <span class="hl-s">\\    return 0;</span></td></tr>
-<tr><td class="hl-num" data-line="28"></td><td><span class="hl-s"></span>    <span class="hl-s">\\}</span></td></tr>
-<tr><td class="hl-num" data-line="29"></td><td><span class="hl-s"></span>;</td></tr>
-<tr><td class="hl-num" data-line="30"></td><td></td></tr>
-<tr><td class="hl-num" data-line="31"></td><td><span class="hl-cmt">// zig fmt: off</span></td></tr>
-<tr><td class="hl-num" data-line="32"></td><td><span class="hl-k">const</span> <span class="hl-v">command_impls</span> = std.<span class="hl-en">ComptimeStringMap</span>(</td></tr>
-<tr><td class="hl-num" data-line="33"></td><td>    <span class="hl-k">fn</span> (std.<span class="hl-en">mem</span>.<span class="hl-en">Allocator</span>, *Seat, []<span class="hl-k">const</span> [:<span class="hl-c">0</span>]<span class="hl-k">const</span> <span class="hl-k">u8</span>, *?[]<span class="hl-k">const</span> <span class="hl-k">u8</span>) Error!<span class="hl-k">void</span>,</td></tr>
-<tr><td class="hl-num" data-line="34"></td><td>    .{</td></tr>
-<tr><td class="hl-num" data-line="35"></td><td>        .{ <span class="hl-s">"attach-mode"</span>,               <span class="hl-k">@import</span>(<span class="hl-s">"command/attach_mode.zig"</span>).<span class="hl-en">attachMode</span> },</td></tr>
-<tr><td class="hl-num" data-line="36"></td><td>        .{ <span class="hl-s">"background-color"</span>,          <span class="hl-k">@import</span>(<span class="hl-s">"command/config.zig"</span>).<span class="hl-en">backgroundColor</span> },</td></tr>
-<tr><td class="hl-num" data-line="37"></td><td>        .{ <span class="hl-s">"border-color-focused"</span>,      <span class="hl-k">@import</span>(<span class="hl-s">"command/config.zig"</span>).<span class="hl-en">borderColorFocused</span> },</td></tr>
-<tr><td class="hl-num" data-line="38"></td><td>        .{ <span class="hl-s">"border-color-unfocused"</span>,    <span class="hl-k">@import</span>(<span class="hl-s">"command/config.zig"</span>).<span class="hl-en">borderColorUnfocused</span> },</td></tr>
-<tr><td class="hl-num" data-line="39"></td><td>        .{ <span class="hl-s">"border-color-urgent"</span>,       <span class="hl-k">@import</span>(<span class="hl-s">"command/config.zig"</span>).<span class="hl-en">borderColorUrgent</span> },</td></tr>
-<tr><td class="hl-num" data-line="40"></td><td>        .{ <span class="hl-s">"border-width"</span>,              <span class="hl-k">@import</span>(<span class="hl-s">"command/config.zig"</span>).<span class="hl-en">borderWidth</span> },</td></tr>
-<tr><td class="hl-num" data-line="41"></td><td>        .{ <span class="hl-s">"close"</span>,                     <span class="hl-k">@import</span>(<span class="hl-s">"command/close.zig"</span>).<span class="hl-en">close</span> },</td></tr>
-<tr><td class="hl-num" data-line="42"></td><td>        .{ <span class="hl-s">"csd-filter-add"</span>,            <span class="hl-k">@import</span>(<span class="hl-s">"command/filter.zig"</span>).<span class="hl-en">csdFilterAdd</span> },</td></tr>
-<tr><td class="hl-num" data-line="43"></td><td>        .{ <span class="hl-s">"csd-filter-remove"</span>,         <span class="hl-k">@import</span>(<span class="hl-s">"command/filter.zig"</span>).<span class="hl-en">csdFilterRemove</span> },</td></tr>
-<tr><td class="hl-num" data-line="44"></td><td>        .{ <span class="hl-s">"declare-mode"</span>,              <span class="hl-k">@import</span>(<span class="hl-s">"command/declare_mode.zig"</span>).<span class="hl-en">declareMode</span> },</td></tr>
-<tr><td class="hl-num" data-line="45"></td><td>        .{ <span class="hl-s">"default-layout"</span>,            <span class="hl-k">@import</span>(<span class="hl-s">"command/layout.zig"</span>).<span class="hl-en">defaultLayout</span> },</td></tr>
-<tr><td class="hl-num" data-line="46"></td><td>        .{ <span class="hl-s">"enter-mode"</span>,                <span class="hl-k">@import</span>(<span class="hl-s">"command/enter_mode.zig"</span>).<span class="hl-en">enterMode</span> },</td></tr>
-<tr><td class="hl-num" data-line="47"></td><td>        .{ <span class="hl-s">"exit"</span>,                      <span class="hl-k">@import</span>(<span class="hl-s">"command/exit.zig"</span>).<span class="hl-en">exit</span> },</td></tr>
-<tr><td class="hl-num" data-line="48"></td><td>        .{ <span class="hl-s">"float-filter-add"</span>,          <span class="hl-k">@import</span>(<span class="hl-s">"command/filter.zig"</span>).<span class="hl-en">floatFilterAdd</span> },</td></tr>
-<tr><td class="hl-num" data-line="49"></td><td>        .{ <span class="hl-s">"float-filter-remove"</span>,       <span class="hl-k">@import</span>(<span class="hl-s">"command/filter.zig"</span>).<span class="hl-en">floatFilterRemove</span> },</td></tr>
-<tr><td class="hl-num" data-line="50"></td><td>        .{ <span class="hl-s">"focus-follows-cursor"</span>,      <span class="hl-k">@import</span>(<span class="hl-s">"command/focus_follows_cursor.zig"</span>).<span class="hl-en">focusFollowsCursor</span> },</td></tr>
-<tr><td class="hl-num" data-line="51"></td><td>        .{ <span class="hl-s">"focus-output"</span>,              <span class="hl-k">@import</span>(<span class="hl-s">"command/output.zig"</span>).<span class="hl-en">focusOutput</span> },</td></tr>
-<tr><td class="hl-num" data-line="52"></td><td>        .{ <span class="hl-s">"focus-previous-tags"</span>,       <span class="hl-k">@import</span>(<span class="hl-s">"command/tags.zig"</span>).<span class="hl-en">focusPreviousTags</span> },</td></tr>
-<tr><td class="hl-num" data-line="53"></td><td>        .{ <span class="hl-s">"focus-view"</span>,                <span class="hl-k">@import</span>(<span class="hl-s">"command/focus_view.zig"</span>).<span class="hl-en">focusView</span> },</td></tr>
-<tr><td class="hl-num" data-line="54"></td><td>        .{ <span class="hl-s">"input"</span>,                     <span class="hl-k">@import</span>(<span class="hl-s">"command/input.zig"</span>).<span class="hl-en">input</span> },</td></tr>
-<tr><td class="hl-num" data-line="55"></td><td>        .{ <span class="hl-s">"list-input-configs"</span>,        <span class="hl-k">@import</span>(<span class="hl-s">"command/input.zig"</span>).<span class="hl-en">listInputConfigs</span>},</td></tr>
-<tr><td class="hl-num" data-line="56"></td><td>        .{ <span class="hl-s">"list-inputs"</span>,               <span class="hl-k">@import</span>(<span class="hl-s">"command/input.zig"</span>).<span class="hl-en">listInputs</span> },</td></tr>
-<tr><td class="hl-num" data-line="57"></td><td>        .{ <span class="hl-s">"map"</span>,                       <span class="hl-k">@import</span>(<span class="hl-s">"command/map.zig"</span>).<span class="hl-en">map</span> },</td></tr>
-<tr><td class="hl-num" data-line="58"></td><td>        .{ <span class="hl-s">"map-pointer"</span>,               <span class="hl-k">@import</span>(<span class="hl-s">"command/map.zig"</span>).<span class="hl-en">mapPointer</span> },</td></tr>
-<tr><td class="hl-num" data-line="59"></td><td>        .{ <span class="hl-s">"move"</span>,                      <span class="hl-k">@import</span>(<span class="hl-s">"command/move.zig"</span>).<span class="hl-en">move</span> },</td></tr>
-<tr><td class="hl-num" data-line="60"></td><td>        .{ <span class="hl-s">"output-layout"</span>,             <span class="hl-k">@import</span>(<span class="hl-s">"command/layout.zig"</span>).<span class="hl-en">outputLayout</span> },</td></tr>
-<tr><td class="hl-num" data-line="61"></td><td>        .{ <span class="hl-s">"resize"</span>,                    <span class="hl-k">@import</span>(<span class="hl-s">"command/move.zig"</span>).<span class="hl-en">resize</span> },</td></tr>
-<tr><td class="hl-num" data-line="62"></td><td>        .{ <span class="hl-s">"send-layout-cmd"</span>,           <span class="hl-k">@import</span>(<span class="hl-s">"command/layout.zig"</span>).<span class="hl-en">sendLayoutCmd</span> },</td></tr>
-<tr><td class="hl-num" data-line="63"></td><td>        .{ <span class="hl-s">"send-to-output"</span>,            <span class="hl-k">@import</span>(<span class="hl-s">"command/output.zig"</span>).<span class="hl-en">sendToOutput</span> },</td></tr>
-<tr><td class="hl-num" data-line="64"></td><td>        .{ <span class="hl-s">"send-to-previous-tags"</span>,     <span class="hl-k">@import</span>(<span class="hl-s">"command/tags.zig"</span>).<span class="hl-en">sendToPreviousTags</span> },</td></tr>
-<tr><td class="hl-num" data-line="65"></td><td>        .{ <span class="hl-s">"set-cursor-warp"</span>,           <span class="hl-k">@import</span>(<span class="hl-s">"command/config.zig"</span>).<span class="hl-en">setCursorWarp</span> },</td></tr>
-<tr><td class="hl-num" data-line="66"></td><td>        .{ <span class="hl-s">"set-focused-tags"</span>,          <span class="hl-k">@import</span>(<span class="hl-s">"command/tags.zig"</span>).<span class="hl-en">setFocusedTags</span> },</td></tr>
-<tr><td class="hl-num" data-line="67"></td><td>        .{ <span class="hl-s">"set-repeat"</span>,                <span class="hl-k">@import</span>(<span class="hl-s">"command/set_repeat.zig"</span>).<span class="hl-en">setRepeat</span> },</td></tr>
-<tr><td class="hl-num" data-line="68"></td><td>        .{ <span class="hl-s">"set-view-tags"</span>,             <span class="hl-k">@import</span>(<span class="hl-s">"command/tags.zig"</span>).<span class="hl-en">setViewTags</span> },</td></tr>
-<tr><td class="hl-num" data-line="69"></td><td>        .{ <span class="hl-s">"snap"</span>,                      <span class="hl-k">@import</span>(<span class="hl-s">"command/move.zig"</span>).<span class="hl-en">snap</span> },</td></tr>
-<tr><td class="hl-num" data-line="70"></td><td>        .{ <span class="hl-s">"spawn"</span>,                     <span class="hl-k">@import</span>(<span class="hl-s">"command/spawn.zig"</span>).<span class="hl-en">spawn</span> },</td></tr>
-<tr><td class="hl-num" data-line="71"></td><td>        .{ <span class="hl-s">"spawn-tagmask"</span>,             <span class="hl-k">@import</span>(<span class="hl-s">"command/tags.zig"</span>).<span class="hl-en">spawnTagmask</span> },</td></tr>
-<tr><td class="hl-num" data-line="72"></td><td>        .{ <span class="hl-s">"swap"</span>,                      <span class="hl-k">@import</span>(<span class="hl-s">"command/swap.zig"</span>).<span class="hl-en">swap</span>},</td></tr>
-<tr><td class="hl-num" data-line="73"></td><td>        .{ <span class="hl-s">"toggle-float"</span>,              <span class="hl-k">@import</span>(<span class="hl-s">"command/toggle_float.zig"</span>).<span class="hl-en">toggleFloat</span> },</td></tr>
-<tr><td class="hl-num" data-line="74"></td><td>        .{ <span class="hl-s">"toggle-focused-tags"</span>,       <span class="hl-k">@import</span>(<span class="hl-s">"command/tags.zig"</span>).<span class="hl-en">toggleFocusedTags</span> },</td></tr>
-<tr><td class="hl-num" data-line="75"></td><td>        .{ <span class="hl-s">"toggle-fullscreen"</span>,         <span class="hl-k">@import</span>(<span class="hl-s">"command/toggle_fullscreen.zig"</span>).<span class="hl-en">toggleFullscreen</span> },</td></tr>
-<tr><td class="hl-num" data-line="76"></td><td>        .{ <span class="hl-s">"toggle-view-tags"</span>,          <span class="hl-k">@import</span>(<span class="hl-s">"command/tags.zig"</span>).<span class="hl-en">toggleViewTags</span> },</td></tr>
-<tr><td class="hl-num" data-line="77"></td><td>        .{ <span class="hl-s">"unmap"</span>,                     <span class="hl-k">@import</span>(<span class="hl-s">"command/map.zig"</span>).<span class="hl-en">unmap</span> },</td></tr>
-<tr><td class="hl-num" data-line="78"></td><td>        .{ <span class="hl-s">"unmap-pointer"</span>,             <span class="hl-k">@import</span>(<span class="hl-s">"command/map.zig"</span>).<span class="hl-en">unmapPointer</span> },</td></tr>
-<tr><td class="hl-num" data-line="79"></td><td>        .{ <span class="hl-s">"xcursor-theme"</span>,             <span class="hl-k">@import</span>(<span class="hl-s">"command/xcursor_theme.zig"</span>).<span class="hl-en">xcursorTheme</span> },</td></tr>
-<tr><td class="hl-num" data-line="80"></td><td>        .{ <span class="hl-s">"zoom"</span>,                      <span class="hl-k">@import</span>(<span class="hl-s">"command/zoom.zig"</span>).<span class="hl-en">zoom</span> },</td></tr>
-<tr><td class="hl-num" data-line="81"></td><td>    },</td></tr>
-<tr><td class="hl-num" data-line="82"></td><td>);</td></tr>
-<tr><td class="hl-num" data-line="83"></td><td><span class="hl-cmt">// zig fmt: on</span></td></tr>
-<tr><td class="hl-num" data-line="84"></td><td></td></tr>
-<tr><td class="hl-num" data-line="85"></td><td><span class="hl-k">pub</span> <span class="hl-k">const</span> <span class="hl-v">Error</span> = <span class="hl-k">error</span>{</td></tr>
-<tr><td class="hl-num" data-line="86"></td><td>    NoCommand,</td></tr>
-<tr><td class="hl-num" data-line="87"></td><td>    UnknownCommand,</td></tr>
-<tr><td class="hl-num" data-line="88"></td><td>    NotEnoughArguments,</td></tr>
-<tr><td class="hl-num" data-line="89"></td><td>    TooManyArguments,</td></tr>
-<tr><td class="hl-num" data-line="90"></td><td>    Overflow,</td></tr>
-<tr><td class="hl-num" data-line="91"></td><td>    InvalidButton,</td></tr>
-<tr><td class="hl-num" data-line="92"></td><td>    InvalidCharacter,</td></tr>
-<tr><td class="hl-num" data-line="93"></td><td>    InvalidDirection,</td></tr>
-<tr><td class="hl-num" data-line="94"></td><td>    InvalidPhysicalDirection,</td></tr>
-<tr><td class="hl-num" data-line="95"></td><td>    InvalidOrientation,</td></tr>
-<tr><td class="hl-num" data-line="96"></td><td>    InvalidRgba,</td></tr>
-<tr><td class="hl-num" data-line="97"></td><td>    InvalidValue,</td></tr>
-<tr><td class="hl-num" data-line="98"></td><td>    UnknownOption,</td></tr>
-<tr><td class="hl-num" data-line="99"></td><td>    ConflictingOptions,</td></tr>
-<tr><td class="hl-num" data-line="100"></td><td>    OutOfMemory,</td></tr>
-<tr><td class="hl-num" data-line="101"></td><td>    Other,</td></tr>
-<tr><td class="hl-num" data-line="102"></td><td>};</td></tr>
-<tr><td class="hl-num" data-line="103"></td><td></td></tr>
-<tr><td class="hl-num" data-line="104"></td><td><span class="hl-cmt">/// Run a command for the given Seat. The `args` parameter is similar to the</span></td></tr>
-<tr><td class="hl-num" data-line="105"></td><td><span class="hl-cmt">/// classic argv in that the command to be run is passed as the first argument.</span></td></tr>
-<tr><td class="hl-num" data-line="106"></td><td><span class="hl-cmt">/// The optional slice passed as the out parameter must initially be set to</span></td></tr>
-<tr><td class="hl-num" data-line="107"></td><td><span class="hl-cmt">/// null. If the command produces output or Error.Other is returned, the slice</span></td></tr>
-<tr><td class="hl-num" data-line="108"></td><td><span class="hl-cmt">/// will be set to the output of the command or a failure message, respectively.</span></td></tr>
-<tr><td class="hl-num" data-line="109"></td><td><span class="hl-cmt">/// The caller is then responsible for freeing that slice, which will be</span></td></tr>
-<tr><td class="hl-num" data-line="110"></td><td><span class="hl-cmt">/// allocated using the provided allocator.</span></td></tr>
-<tr><td class="hl-num" data-line="111"></td><td><span class="hl-k">pub</span> <span class="hl-k">fn</span> <span class="hl-en">run</span>(</td></tr>
-<tr><td class="hl-num" data-line="112"></td><td>    <span class="hl-v">allocator</span>: std.<span class="hl-en">mem</span>.<span class="hl-en">Allocator</span>,</td></tr>
-<tr><td class="hl-num" data-line="113"></td><td>    <span class="hl-v">seat</span>: *Seat,</td></tr>
-<tr><td class="hl-num" data-line="114"></td><td>    <span class="hl-v">args</span>: []<span class="hl-k">const</span> [:<span class="hl-c">0</span>]<span class="hl-k">const</span> <span class="hl-k">u8</span>,</td></tr>
-<tr><td class="hl-num" data-line="115"></td><td>    <span class="hl-v">out</span>: *?[]<span class="hl-k">const</span> <span class="hl-k">u8</span>,</td></tr>
-<tr><td class="hl-num" data-line="116"></td><td>) Error!<span class="hl-k">void</span> {</td></tr>
-<tr><td class="hl-num" data-line="117"></td><td>    std.<span class="hl-en">debug</span>.<span class="hl-en">assert</span>(out.* == <span class="hl-c">null</span>);</td></tr>
-<tr><td class="hl-num" data-line="118"></td><td>    <span class="hl-k">if</span> (args.<span class="hl-en">len</span> == <span class="hl-c">0</span>) <span class="hl-k">return</span> Error.<span class="hl-en">NoCommand</span>;</td></tr>
-<tr><td class="hl-num" data-line="119"></td><td>    <span class="hl-k">const</span> <span class="hl-v">impl_fn</span> = command_impls.<span class="hl-en">get</span>(args[<span class="hl-c">0</span>]) <span class="hl-k">orelse</span> <span class="hl-k">return</span> Error.<span class="hl-en">UnknownCommand</span>;</td></tr>
-<tr><td class="hl-num" data-line="120"></td><td>    <span class="hl-k">try</span> <span class="hl-en">impl_fn</span>(allocator, seat, args, out);</td></tr>
-<tr><td class="hl-num" data-line="121"></td><td>}</td></tr>
-<tr><td class="hl-num" data-line="122"></td><td></td></tr>
-<tr><td class="hl-num" data-line="123"></td><td><span class="hl-cmt">/// Return a short error message for the given error. Passing Error.Other is UB</span></td></tr>
-<tr><td class="hl-num" data-line="124"></td><td><span class="hl-k">pub</span> <span class="hl-k">fn</span> <span class="hl-en">errToMsg</span>(<span class="hl-v">err</span>: Error) [:<span class="hl-c">0</span>]<span class="hl-k">const</span> <span class="hl-k">u8</span> {</td></tr>
-<tr><td class="hl-num" data-line="125"></td><td>    <span class="hl-k">return</span> <span class="hl-k">switch</span> (err) {</td></tr>
-<tr><td class="hl-num" data-line="126"></td><td>        Error.<span class="hl-en">NoCommand</span> => <span class="hl-s">"no command given"</span>,</td></tr>
-<tr><td class="hl-num" data-line="127"></td><td>        Error.<span class="hl-en">UnknownCommand</span> => <span class="hl-s">"unknown command"</span>,</td></tr>
-<tr><td class="hl-num" data-line="128"></td><td>        Error.<span class="hl-en">UnknownOption</span> => <span class="hl-s">"unknown option"</span>,</td></tr>
-<tr><td class="hl-num" data-line="129"></td><td>        Error.<span class="hl-en">ConflictingOptions</span> => <span class="hl-s">"options conflict"</span>,</td></tr>
-<tr><td class="hl-num" data-line="130"></td><td>        Error.<span class="hl-en">NotEnoughArguments</span> => <span class="hl-s">"not enough arguments"</span>,</td></tr>
-<tr><td class="hl-num" data-line="131"></td><td>        Error.<span class="hl-en">TooManyArguments</span> => <span class="hl-s">"too many arguments"</span>,</td></tr>
-<tr><td class="hl-num" data-line="132"></td><td>        Error.<span class="hl-en">Overflow</span> => <span class="hl-s">"value out of bounds"</span>,</td></tr>
-<tr><td class="hl-num" data-line="133"></td><td>        Error.<span class="hl-en">InvalidButton</span> => <span class="hl-s">"invalid button"</span>,</td></tr>
-<tr><td class="hl-num" data-line="134"></td><td>        Error.<span class="hl-en">InvalidCharacter</span> => <span class="hl-s">"invalid character in argument"</span>,</td></tr>
-<tr><td class="hl-num" data-line="135"></td><td>        Error.<span class="hl-en">InvalidDirection</span> => <span class="hl-s">"invalid direction. Must be 'next' or 'previous'"</span>,</td></tr>
-<tr><td class="hl-num" data-line="136"></td><td>        Error.<span class="hl-en">InvalidPhysicalDirection</span> => <span class="hl-s">"invalid direction. Must be 'up', 'down', 'left' or 'right'"</span>,</td></tr>
-<tr><td class="hl-num" data-line="137"></td><td>        Error.<span class="hl-en">InvalidOrientation</span> => <span class="hl-s">"invalid orientation. Must be 'horizontal', or 'vertical'"</span>,</td></tr>
-<tr><td class="hl-num" data-line="138"></td><td>        Error.<span class="hl-en">InvalidRgba</span> => <span class="hl-s">"invalid color format, must be hexadecimal 0xRRGGBB or 0xRRGGBBAA"</span>,</td></tr>
-<tr><td class="hl-num" data-line="139"></td><td>        Error.<span class="hl-en">InvalidValue</span> => <span class="hl-s">"invalid value"</span>,</td></tr>
-<tr><td class="hl-num" data-line="140"></td><td>        Error.<span class="hl-en">OutOfMemory</span> => <span class="hl-s">"out of memory"</span>,</td></tr>
-<tr><td class="hl-num" data-line="141"></td><td>        Error.<span class="hl-en">Other</span> => <span class="hl-k">unreachable</span>,</td></tr>
-<tr><td class="hl-num" data-line="142"></td><td>    };</td></tr>
-<tr><td class="hl-num" data-line="143"></td><td>}</td></tr>
-<tr><td class="hl-num" data-line="144"></td><td></td></tr>
+<tr><td class="hl-num" data-line="22"></td><td><span class="hl-k">const</span> <span class="hl-v">Image</span> = <span class="hl-k">enum</span> {</td></tr>
+<tr><td class="hl-num" data-line="23"></td><td>    <span class="hl-cmt">/// The current image of the cursor is unknown, perhaps because it was set by a client.</span></td></tr>
+<tr><td class="hl-num" data-line="24"></td><td>    unknown,</td></tr>
+<tr><td class="hl-num" data-line="25"></td><td>    left_ptr,</td></tr>
+<tr><td class="hl-num" data-line="26"></td><td>    move,</td></tr>
+<tr><td class="hl-num" data-line="27"></td><td>    @<span class="hl-s">"se-resize"</span>,</td></tr>
+<tr><td class="hl-num" data-line="28"></td><td>};</td></tr>
+<tr><td class="hl-num" data-line="29"></td><td></td></tr>
+<tr><td class="hl-num" data-line="30"></td><td><span class="hl-k">pub</span> <span class="hl-k">const</span> <span class="hl-v">PhysicalDirection</span> = <span class="hl-k">enum</span> {</td></tr>
+<tr><td class="hl-num" data-line="31"></td><td>    up,</td></tr>
+<tr><td class="hl-num" data-line="32"></td><td>    down,</td></tr>
+<tr><td class="hl-num" data-line="33"></td><td>    left,</td></tr>
+<tr><td class="hl-num" data-line="34"></td><td>    right,</td></tr>
+<tr><td class="hl-num" data-line="35"></td><td>};</td></tr>
+<tr><td class="hl-num" data-line="36"></td><td></td></tr>
+<tr><td class="hl-num" data-line="37"></td><td><span class="hl-k">const</span> <span class="hl-v">hello_world_in_c</span> =</td></tr>
+<tr><td class="hl-num" data-line="38"></td><td>    <span class="hl-s">\\#include &lt;stdio.h&gt;</span></td></tr>
+<tr><td class="hl-num" data-line="39"></td><td><span class="hl-s"></span>    <span class="hl-s">\\</span></td></tr>
+<tr><td class="hl-num" data-line="40"></td><td><span class="hl-s">    \\int main(int argc, char **argv) {</span></td></tr>
+<tr><td class="hl-num" data-line="41"></td><td><span class="hl-s"></span>    <span class="hl-s">\\    printf("hello world\n");</span></td></tr>
+<tr><td class="hl-num" data-line="42"></td><td><span class="hl-s"></span>    <span class="hl-s">\\    return 0;</span></td></tr>
+<tr><td class="hl-num" data-line="43"></td><td><span class="hl-s"></span>    <span class="hl-s">\\}</span></td></tr>
+<tr><td class="hl-num" data-line="44"></td><td><span class="hl-s"></span>;</td></tr>
+<tr><td class="hl-num" data-line="45"></td><td></td></tr>
+<tr><td class="hl-num" data-line="46"></td><td><span class="hl-cmt">// zig fmt: off</span></td></tr>
+<tr><td class="hl-num" data-line="47"></td><td><span class="hl-k">const</span> <span class="hl-v">command_impls</span> = std.<span class="hl-en">ComptimeStringMap</span>(</td></tr>
+<tr><td class="hl-num" data-line="48"></td><td>    <span class="hl-k">fn</span> (std.<span class="hl-en">mem</span>.<span class="hl-en">Allocator</span>, *Seat, []<span class="hl-k">const</span> [:<span class="hl-c">0</span>]<span class="hl-k">const</span> <span class="hl-k">u8</span>, *?[]<span class="hl-k">const</span> <span class="hl-k">u8</span>) Error!<span class="hl-k">void</span>,</td></tr>
+<tr><td class="hl-num" data-line="49"></td><td>    .{</td></tr>
+<tr><td class="hl-num" data-line="50"></td><td>        .{ <span class="hl-s">"attach-mode"</span>,               <span class="hl-k">@import</span>(<span class="hl-s">"command/attach_mode.zig"</span>).<span class="hl-en">attachMode</span> },</td></tr>
+<tr><td class="hl-num" data-line="51"></td><td>        .{ <span class="hl-s">"background-color"</span>,          <span class="hl-k">@import</span>(<span class="hl-s">"command/config.zig"</span>).<span class="hl-en">backgroundColor</span> },</td></tr>
+<tr><td class="hl-num" data-line="52"></td><td>        .{ <span class="hl-s">"border-color-focused"</span>,      <span class="hl-k">@import</span>(<span class="hl-s">"command/config.zig"</span>).<span class="hl-en">borderColorFocused</span> },</td></tr>
+<tr><td class="hl-num" data-line="53"></td><td>        .{ <span class="hl-s">"border-color-unfocused"</span>,    <span class="hl-k">@import</span>(<span class="hl-s">"command/config.zig"</span>).<span class="hl-en">borderColorUnfocused</span> },</td></tr>
+<tr><td class="hl-num" data-line="54"></td><td>        .{ <span class="hl-s">"border-color-urgent"</span>,       <span class="hl-k">@import</span>(<span class="hl-s">"command/config.zig"</span>).<span class="hl-en">borderColorUrgent</span> },</td></tr>
+<tr><td class="hl-num" data-line="55"></td><td>        .{ <span class="hl-s">"border-width"</span>,              <span class="hl-k">@import</span>(<span class="hl-s">"command/config.zig"</span>).<span class="hl-en">borderWidth</span> },</td></tr>
+<tr><td class="hl-num" data-line="56"></td><td>        .{ <span class="hl-s">"close"</span>,                     <span class="hl-k">@import</span>(<span class="hl-s">"command/close.zig"</span>).<span class="hl-en">close</span> },</td></tr>
+<tr><td class="hl-num" data-line="57"></td><td>    },</td></tr>
+<tr><td class="hl-num" data-line="58"></td><td>);</td></tr>
+<tr><td class="hl-num" data-line="59"></td><td><span class="hl-cmt">// zig fmt: on</span></td></tr>
+<tr><td class="hl-num" data-line="60"></td><td></td></tr>
+<tr><td class="hl-num" data-line="61"></td><td><span class="hl-k">pub</span> <span class="hl-k">const</span> <span class="hl-v">Error</span> = <span class="hl-k">error</span> {</td></tr>
+<tr><td class="hl-num" data-line="62"></td><td>    NoCommand,</td></tr>
+<tr><td class="hl-num" data-line="63"></td><td>    UnknownCommand,</td></tr>
+<tr><td class="hl-num" data-line="64"></td><td>    NotEnoughArguments,</td></tr>
+<tr><td class="hl-num" data-line="65"></td><td>    TooManyArguments,</td></tr>
+<tr><td class="hl-num" data-line="66"></td><td>    Overflow,</td></tr>
+<tr><td class="hl-num" data-line="67"></td><td>    InvalidButton,</td></tr>
+<tr><td class="hl-num" data-line="68"></td><td>    InvalidCharacter,</td></tr>
+<tr><td class="hl-num" data-line="69"></td><td>    InvalidDirection,</td></tr>
+<tr><td class="hl-num" data-line="70"></td><td>    InvalidPhysicalDirection,</td></tr>
+<tr><td class="hl-num" data-line="71"></td><td>    InvalidOrientation,</td></tr>
+<tr><td class="hl-num" data-line="72"></td><td>    InvalidRgba,</td></tr>
+<tr><td class="hl-num" data-line="73"></td><td>    InvalidValue,</td></tr>
+<tr><td class="hl-num" data-line="74"></td><td>    UnknownOption,</td></tr>
+<tr><td class="hl-num" data-line="75"></td><td>    ConflictingOptions,</td></tr>
+<tr><td class="hl-num" data-line="76"></td><td>    OutOfMemory,</td></tr>
+<tr><td class="hl-num" data-line="77"></td><td>    Other,</td></tr>
+<tr><td class="hl-num" data-line="78"></td><td>};</td></tr>
+<tr><td class="hl-num" data-line="79"></td><td></td></tr>
+<tr><td class="hl-num" data-line="80"></td><td><span class="hl-cmt">/// Run a command for the given Seat. The `args` parameter is similar to the</span></td></tr>
+<tr><td class="hl-num" data-line="81"></td><td><span class="hl-cmt">/// classic argv in that the command to be run is passed as the first argument.</span></td></tr>
+<tr><td class="hl-num" data-line="82"></td><td><span class="hl-cmt">/// The optional slice passed as the out parameter must initially be set to</span></td></tr>
+<tr><td class="hl-num" data-line="83"></td><td><span class="hl-cmt">/// null. If the command produces output or Error.Other is returned, the slice</span></td></tr>
+<tr><td class="hl-num" data-line="84"></td><td><span class="hl-cmt">/// will be set to the output of the command or a failure message, respectively.</span></td></tr>
+<tr><td class="hl-num" data-line="85"></td><td><span class="hl-cmt">/// The caller is then responsible for freeing that slice, which will be</span></td></tr>
+<tr><td class="hl-num" data-line="86"></td><td><span class="hl-cmt">/// allocated using the provided allocator.</span></td></tr>
+<tr><td class="hl-num" data-line="87"></td><td><span class="hl-k">pub</span> <span class="hl-k">fn</span> <span class="hl-en">run</span>(</td></tr>
+<tr><td class="hl-num" data-line="88"></td><td>    <span class="hl-v">allocator</span>: std.<span class="hl-en">mem</span>.<span class="hl-en">Allocator</span>,</td></tr>
+<tr><td class="hl-num" data-line="89"></td><td>    <span class="hl-v">seat</span>: *Seat,</td></tr>
+<tr><td class="hl-num" data-line="90"></td><td>    <span class="hl-v">args</span>: []<span class="hl-k">const</span> [:<span class="hl-c">0</span>]<span class="hl-k">const</span> <span class="hl-k">u8</span>,</td></tr>
+<tr><td class="hl-num" data-line="91"></td><td>    <span class="hl-v">out</span>: *?[]<span class="hl-k">const</span> <span class="hl-k">u8</span>,</td></tr>
+<tr><td class="hl-num" data-line="92"></td><td>) Error!<span class="hl-k">void</span> {</td></tr>
+<tr><td class="hl-num" data-line="93"></td><td>    std.<span class="hl-en">debug</span>.<span class="hl-en">assert</span>(out.* == <span class="hl-c">null</span>);</td></tr>
+<tr><td class="hl-num" data-line="94"></td><td>    <span class="hl-k">if</span> (args.<span class="hl-en">len</span> == <span class="hl-c">0</span>) <span class="hl-k">return</span> Error.<span class="hl-en">NoCommand</span>;</td></tr>
+<tr><td class="hl-num" data-line="95"></td><td>    <span class="hl-k">const</span> <span class="hl-v">impl_fn</span> = command_impls.<span class="hl-en">get</span>(args[<span class="hl-c">0</span>]) <span class="hl-k">orelse</span> <span class="hl-k">return</span> Error.<span class="hl-en">UnknownCommand</span>;</td></tr>
+<tr><td class="hl-num" data-line="96"></td><td>    <span class="hl-k">try</span> <span class="hl-en">impl_fn</span>(allocator, seat, args, out);</td></tr>
+<tr><td class="hl-num" data-line="97"></td><td>}</td></tr>
+<tr><td class="hl-num" data-line="98"></td><td></td></tr>
+<tr><td class="hl-num" data-line="99"></td><td><span class="hl-cmt">/// Return a short error message for the given error. Passing Error.Other is UB</span></td></tr>
+<tr><td class="hl-num" data-line="100"></td><td><span class="hl-k">pub</span> <span class="hl-k">fn</span> <span class="hl-en">errToMsg</span>(<span class="hl-v">err</span>: Error) [:<span class="hl-c">0</span>]<span class="hl-k">const</span> <span class="hl-k">u8</span> {</td></tr>
+<tr><td class="hl-num" data-line="101"></td><td>    <span class="hl-k">return</span> <span class="hl-k">switch</span> (err) {</td></tr>
+<tr><td class="hl-num" data-line="102"></td><td>        Error.<span class="hl-en">NoCommand</span> => <span class="hl-s">"no command given"</span>,</td></tr>
+<tr><td class="hl-num" data-line="103"></td><td>        Error.<span class="hl-en">UnknownCommand</span> => <span class="hl-s">"unknown command"</span>,</td></tr>
+<tr><td class="hl-num" data-line="104"></td><td>        Error.<span class="hl-en">UnknownOption</span> => <span class="hl-s">"unknown option"</span>,</td></tr>
+<tr><td class="hl-num" data-line="105"></td><td>        Error.<span class="hl-en">ConflictingOptions</span> => <span class="hl-s">"options conflict"</span>,</td></tr>
+<tr><td class="hl-num" data-line="106"></td><td>        Error.<span class="hl-en">NotEnoughArguments</span> => <span class="hl-s">"not enough arguments"</span>,</td></tr>
+<tr><td class="hl-num" data-line="107"></td><td>        Error.<span class="hl-en">TooManyArguments</span> => <span class="hl-s">"too many arguments"</span>,</td></tr>
+<tr><td class="hl-num" data-line="108"></td><td>        Error.<span class="hl-en">Overflow</span> => <span class="hl-s">"value out of bounds"</span>,</td></tr>
+<tr><td class="hl-num" data-line="109"></td><td>        Error.<span class="hl-en">InvalidButton</span> => <span class="hl-s">"invalid button"</span>,</td></tr>
+<tr><td class="hl-num" data-line="110"></td><td>        Error.<span class="hl-en">InvalidCharacter</span> => <span class="hl-s">"invalid character in argument"</span>,</td></tr>
+<tr><td class="hl-num" data-line="111"></td><td>        Error.<span class="hl-en">InvalidDirection</span> => <span class="hl-s">"invalid direction. Must be 'next' or 'previous'"</span>,</td></tr>
+<tr><td class="hl-num" data-line="112"></td><td>        Error.<span class="hl-en">InvalidPhysicalDirection</span> => <span class="hl-s">"invalid direction. Must be 'up', 'down', 'left' or 'right'"</span>,</td></tr>
+<tr><td class="hl-num" data-line="113"></td><td>        Error.<span class="hl-en">InvalidOrientation</span> => <span class="hl-s">"invalid orientation. Must be 'horizontal', or 'vertical'"</span>,</td></tr>
+<tr><td class="hl-num" data-line="114"></td><td>        Error.<span class="hl-en">InvalidRgba</span> => <span class="hl-s">"invalid color format, must be hexadecimal 0xRRGGBB or 0xRRGGBBAA"</span>,</td></tr>
+<tr><td class="hl-num" data-line="115"></td><td>        Error.<span class="hl-en">InvalidValue</span> => <span class="hl-s">"invalid value"</span>,</td></tr>
+<tr><td class="hl-num" data-line="116"></td><td>        Error.<span class="hl-en">OutOfMemory</span> => <span class="hl-s">"out of memory"</span>,</td></tr>
+<tr><td class="hl-num" data-line="117"></td><td>        Error.<span class="hl-en">Other</span> => <span class="hl-k">unreachable</span>,</td></tr>
+<tr><td class="hl-num" data-line="118"></td><td>    };</td></tr>
+<tr><td class="hl-num" data-line="119"></td><td>}</td></tr>
+<tr><td class="hl-num" data-line="120"></td><td></td></tr>
 </tbody>
 </table>
