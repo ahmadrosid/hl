@@ -9,6 +9,8 @@ use yaml_rust::Yaml;
 #[path = "../color.rs"]
 mod color;
 
+use color::ColorExt;
+
 const ACCEPT_PREFIX_KEYWORD: &str = "ACCEPT_PREFIX_KEYWORD";
 const ACCEPT_PREFIX_KEYWORD_NEXT: &str = "ACCEPT_PREFIX_KEYWORD_NEXT";
 const ACCEPT_ENTITY_TAG_SUFFIX: &str = "ACCEPT_ENTITY_TAG_SUFFIX";
@@ -189,9 +191,9 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
         assert!(
             c.len() == 2,
             "{} {} {}",
-            color::bold_red("MARK_AS_KEYWORD_IN_SCOPE:"),
-            color::red("Scope is expected to be two characters,"),
-            color::bold_red(&format!("Found: {}", c.len()))
+            "MARK_AS_KEYWORD_IN_SCOPE:".bold_red(),
+            "Scope is expected to be two characters,".red(),
+            &format!("Found: {}", c.len()).bold_red()
         );
         module.push_str(
             // TODO: refactor to "stub/mark_as_token_in_scope.stub"
@@ -207,9 +209,9 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
         assert!(
             c.len() == 2,
             "{} {} {}",
-            color::bold_red("MARK_AS_VAR_IN_SCOPE:"),
-            color::red("Scope is expected to be two characters,"),
-            color::bold_red(&format!("Found: {}", c.len()))
+            "MARK_AS_VAR_IN_SCOPE:".bold_red(),
+            "Scope is expected to be two characters,".red(),
+            &format!("Found: {}", c.len()).bold_red()
         );
         module.push_str(
             // TODO: refactor to "stub/mark_as_token_in_scope.stub"
@@ -226,9 +228,9 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
         assert!(
             c.len() == 2,
             "{} {} {}",
-            color::bold_red("MARK_AS_STRING_ON_PREFIX:"),
-            color::red("Scope is expected to be two characters,"),
-            color::bold_red(&format!("Found: {}", c.len()))
+            "MARK_AS_STRING_ON_PREFIX:".bold_red(),
+            "Scope is expected to be two characters,".red(),
+            &format!("Found: {}", c.len()).bold_red()
         );
         module.push_str(
             // TODO: refactor to "stub/mark_as_token_in_scope.stub"

@@ -1,16 +1,17 @@
 extern crate yaml_rust;
 
-use std::fs;
-use std::io::Write;
-use std::path::Path;
-use yaml_rust::{yaml::Hash, Yaml, YamlLoader};
-
 #[path = "../color.rs"]
 mod color;
 mod module;
 mod render;
 mod string;
 mod token;
+
+use color::ColorExt;
+use std::fs;
+use std::io::Write;
+use std::path::Path;
+use yaml_rust::{yaml::Hash, Yaml, YamlLoader};
 
 macro_rules! get_hash (
     ($name:ident, $key:ident) => (
@@ -92,10 +93,7 @@ pub fn parse(file_path: &str) -> String {
 
     if docs.len() == 0 {
         let mut message = String::new();
-        message.push_str(&color::red(&format!(
-            "Failed processing {} file is empty!",
-            file_path
-        )));
+        message.push_str(&(&format!("Failed processing {} file is empty!", file_path).red()));
         return message;
     }
 
@@ -126,12 +124,12 @@ pub fn parse(file_path: &str) -> String {
     );
 
     let mut message = String::new();
-    message.push_str(&color::green("Success generate lexer for \""));
-    message.push_str(&color::bold_green(&get_file_name(file_path)));
-    message.push_str(&color::green("\" language!\n"));
-    message.push_str(&color::cyan(&format!("- {}/token.rs\n", out_file_path)));
-    message.push_str(&color::cyan(&format!("- {}/mod.rs\n", out_file_path)));
-    message.push_str(&color::cyan(&format!("- {}/render.rs\n", out_file_path)));
+    message.push_str(&"Success generate lexer for \"".green());
+    message.push_str(&(&get_file_name(file_path)).bold_green());
+    message.push_str(&"\" language!\n".green());
+    message.push_str(&(&format!("- {}/token.rs\n", out_file_path).cyan()));
+    message.push_str(&(&format!("- {}/mod.rs\n", out_file_path).cyan()));
+    message.push_str(&(&format!("- {}/render.rs\n", out_file_path).cyan()));
     message
 }
 
