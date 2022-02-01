@@ -209,3 +209,11 @@ fn test_yaml() {
     let actual = yaml::render::render_html(input);
     assert_eq!(expected, actual);
 }
+
+#[test]
+fn test_zig() {
+    let input = read_input("src/test/testdata/input/zig.zig.stub");
+    let expected = read_file("src/test/testdata/output/zig.html.stub");
+    let actual = zig::render::render_html(input);
+    assert_eq!(expected, actual);
+}
