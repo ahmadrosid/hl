@@ -84,6 +84,12 @@ impl Lexer {
             return token::Token::VAR(identifier);
         }
         if self.read_position < self.input.len()
+            && self.ch == '\\'
+            && self.input[self.read_position] == '\\'
+        {
+            return token::Token::STRING(read_string(self, '\n'));
+        }
+        if self.read_position < self.input.len()
             && self.ch == '/'
             && self.input[self.read_position] == '/'
         {

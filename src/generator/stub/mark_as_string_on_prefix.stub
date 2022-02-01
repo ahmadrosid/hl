@@ -1,0 +1,6 @@
+if self.read_position < self.input.len()
+    && self.ch == '{left}'
+    && self.input[self.read_position] == '{right}'
+{
+    return token::Token::STRING(read_string(self, '\n'));
+}

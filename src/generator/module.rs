@@ -6,6 +6,9 @@ use crate::generator::{
 use yaml_rust::yaml::Hash;
 use yaml_rust::Yaml;
 
+#[path = "../color.rs"]
+mod color;
+
 const ACCEPT_PREFIX_KEYWORD: &str = "ACCEPT_PREFIX_KEYWORD";
 const ACCEPT_PREFIX_KEYWORD_NEXT: &str = "ACCEPT_PREFIX_KEYWORD_NEXT";
 const ACCEPT_ENTITY_TAG_SUFFIX: &str = "ACCEPT_ENTITY_TAG_SUFFIX";
@@ -48,6 +51,7 @@ const MARK_AS_KEYWORD_IN_SCOPE: &str = "MARK_AS_KEYWORD_IN_SCOPE";
 const MARK_AS_VAR_IN_SCOPE: &str = "MARK_AS_VAR_IN_SCOPE";
 const MARK_AS_CONSTANT_ON_PREFIX: &str = "MARK_AS_CONSTANT_ON_PREFIX";
 const MARK_AS_ENTYTY_ON_FUNCTION_SCOPE: &str = "MARK_AS_ENTYTY_ON_FUNCTION_SCOPE";
+const MARK_AS_STRING_ON_PREFIX: &str = "MARK_AS_STRING_ON_PREFIX";
 
 pub fn generate_module(h: &Hash) -> String {
     let mut initial_module = include_str!("stub/initial_module.stub").to_string();
@@ -182,8 +186,15 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
 
     if let Some(ch) = h.get_some_condition(MARK_AS_KEYWORD_IN_SCOPE) {
         let c: Vec<char> = ch.as_str().unwrap().to_string().chars().collect();
-        assert!(c.len() == 2, "{}", "The scope must be two chars!");
+        assert!(
+            c.len() == 2,
+            "{} {} {}",
+            color::bold_red("MARK_AS_KEYWORD_IN_SCOPE:"),
+            color::red("Scope is expected to be two characters,"),
+            color::bold_red(&format!("Found: {}", c.len()))
+        );
         module.push_str(
+            // TODO: refactor to "stub/mark_as_token_in_scope.stub"
             &include_str!("stub/mark_as_keyword_in_scope.stub")
                 .to_string()
                 .replace("{left}", &*c[0].to_string())
@@ -193,7 +204,13 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
 
     if let Some(ch) = h.get_some_condition(MARK_AS_VAR_IN_SCOPE) {
         let c: Vec<char> = ch.as_str().unwrap().to_string().chars().collect();
-        assert!(c.len() == 2, "{}", "The scope must be two chars!");
+        assert!(
+            c.len() == 2,
+            "{} {} {}",
+            color::bold_red("MARK_AS_VAR_IN_SCOPE:"),
+            color::red("Scope is expected to be two characters,"),
+            color::bold_red(&format!("Found: {}", c.len()))
+        );
         module.push_str(
             // TODO: refactor to "stub/mark_as_token_in_scope.stub"
             &include_str!("stub/mark_as_keyword_in_scope.stub")
@@ -201,6 +218,24 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
                 .replace("{left}", &*c[0].to_string())
                 .replace("{right}", &*c[1].to_string())
                 .replace("KEYWORD", "VAR"),
+        )
+    }
+
+    if let Some(ch) = h.get_some_condition(MARK_AS_STRING_ON_PREFIX) {
+        let c: Vec<char> = ch.as_str().unwrap().to_string().chars().collect();
+        assert!(
+            c.len() == 2,
+            "{} {} {}",
+            color::bold_red("MARK_AS_STRING_ON_PREFIX:"),
+            color::red("Scope is expected to be two characters,"),
+            color::bold_red(&format!("Found: {}", c.len()))
+        );
+        module.push_str(
+            // TODO: refactor to "stub/mark_as_token_in_scope.stub"
+            &include_str!("stub/mark_as_string_on_prefix.stub")
+                .to_string()
+                .replace("{left}", &*c[0].to_string().replace("\\", "\\\\"))
+                .replace("{right}", &*c[1].to_string().replace("\\", "\\\\")),
         )
     }
 
