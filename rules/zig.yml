@@ -101,12 +101,15 @@ keyword:
 var_suffix:
   assign: "="
   colon: ":"
+  comma: ","
+  right_paren: ")"
+  dot: "."
 
 entity_prefix:
   dot: "."
 
 entity_suffix:
-  left_parent: "("
+  left_paren: "("
 
 condition:
   ACCEPT_ESCAPED_STRING: true
