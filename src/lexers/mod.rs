@@ -18,6 +18,7 @@ pub mod json;
 pub mod lua;
 pub mod makefile;
 pub mod markdown;
+pub mod nim;
 pub mod php;
 pub mod python;
 pub mod raw;

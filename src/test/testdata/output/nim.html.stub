@@ -1,0 +1,163 @@
+<table class="highlight-table">
+<tbody>
+<tr><td class="hl-num" data-line="1"></td><td><span class="hl-k">var</span> str: <span class="hl-k">string</span> = <span class="hl-s">"Hello!"</span></td></tr>
+<tr><td class="hl-num" data-line="2"></td><td><span class="hl-k">var</span> cstr: <span class="hl-k">cstring</span> = str</td></tr>
+<tr><td class="hl-num" data-line="3"></td><td><span class="hl-k">var</span> newstr: <span class="hl-k">string</span> = $cstr</td></tr>
+<tr><td class="hl-num" data-line="4"></td><td></td></tr>
+<tr><td class="hl-num" data-line="5"></td><td><span class="hl-k">type</span></td></tr>
+<tr><td class="hl-num" data-line="6"></td><td>  <span class="hl-c">MySeq</span> = <span class="hl-k">object</span></td></tr>
+<tr><td class="hl-num" data-line="7"></td><td>    len, cap: <span class="hl-k">int</span></td></tr>
+<tr><td class="hl-num" data-line="8"></td><td>    data: UncheckedArray[<span class="hl-k">int</span>]</td></tr>
+<tr><td class="hl-num" data-line="9"></td><td></td></tr>
+<tr><td class="hl-num" data-line="10"></td><td><span class="hl-k">if</span> runeValue <span class="hl-k">notin</span> <span class="hl-c">0</span>..<span class="hl-c">0x10FFFF</span>: <span class="hl-c">runeValue</span> = <span class="hl-c">0</span> <span class="hl-cmt"># only return legal values</span></td></tr>
+<tr><td class="hl-num" data-line="11"></td><td><span class="hl-k">return</span> <span class="hl-en">Rune</span>(runeValue)</td></tr>
+<tr><td class="hl-num" data-line="12"></td><td></td></tr>
+<tr><td class="hl-num" data-line="13"></td><td><span class="hl-k">const</span></td></tr>
+<tr><td class="hl-num" data-line="14"></td><td>  <span class="hl-c">NimbleStableCommit</span> = <span class="hl-s">"d13f3b8ce288b4dc8c34c219a4e050aaeaf43fc9"</span> <span class="hl-cmt"># master</span></td></tr>
+<tr><td class="hl-num" data-line="15"></td><td>  <span class="hl-cmt"># examples of possible values: #head, #ea82b54, 1.2.3</span></td></tr>
+<tr><td class="hl-num" data-line="16"></td><td>  <span class="hl-c">FusionStableHash</span> = <span class="hl-s">"#372ee4313827ef9f2ea388840f7d6b46c2b1b014"</span></td></tr>
+<tr><td class="hl-num" data-line="17"></td><td>  <span class="hl-c">HeadHash</span> = <span class="hl-s">"#head"</span></td></tr>
+<tr><td class="hl-num" data-line="18"></td><td><span class="hl-k">when</span> <span class="hl-k">not</span> <span class="hl-en">defined</span>(windows):</td></tr>
+<tr><td class="hl-num" data-line="19"></td><td>  <span class="hl-k">const</span></td></tr>
+<tr><td class="hl-num" data-line="20"></td><td>    <span class="hl-c">Z3StableCommit</span> = <span class="hl-s">"65de3f748a6812eecd7db7c478d5fc54424d368b"</span> <span class="hl-cmt"># the version of Z3 that DrNim uses</span></td></tr>
+<tr><td class="hl-num" data-line="21"></td><td></td></tr>
+<tr><td class="hl-num" data-line="22"></td><td><span class="hl-k">when</span> <span class="hl-en">defined</span>(gcc) <span class="hl-k">and</span> <span class="hl-en">defined</span>(windows):</td></tr>
+<tr><td class="hl-num" data-line="23"></td><td>  <span class="hl-k">when</span> <span class="hl-en">defined</span>(x86):</td></tr>
+<tr><td class="hl-num" data-line="24"></td><td>    {.link: <span class="hl-s">"icons/koch.res"</span>.}</td></tr>
+<tr><td class="hl-num" data-line="25"></td><td>  <span class="hl-k">else</span>:</td></tr>
+<tr><td class="hl-num" data-line="26"></td><td>    {.link: <span class="hl-s">"icons/koch_icon.o"</span>.}</td></tr>
+<tr><td class="hl-num" data-line="27"></td><td></td></tr>
+<tr><td class="hl-num" data-line="28"></td><td><span class="hl-k">when</span> <span class="hl-en">defined</span>(amd64) <span class="hl-k">and</span> <span class="hl-en">defined</span>(windows) <span class="hl-k">and</span> <span class="hl-en">defined</span>(vcc):</td></tr>
+<tr><td class="hl-num" data-line="29"></td><td>  {.link: <span class="hl-s">"icons/koch-amd64-windows-vcc.res"</span>.}</td></tr>
+<tr><td class="hl-num" data-line="30"></td><td><span class="hl-k">when</span> <span class="hl-en">defined</span>(i386) <span class="hl-k">and</span> <span class="hl-en">defined</span>(windows) <span class="hl-k">and</span> <span class="hl-en">defined</span>(vcc):</td></tr>
+<tr><td class="hl-num" data-line="31"></td><td>  {.link: <span class="hl-s">"icons/koch-i386-windows-vcc.res"</span>.}</td></tr>
+<tr><td class="hl-num" data-line="32"></td><td></td></tr>
+<tr><td class="hl-num" data-line="33"></td><td><span class="hl-k">import</span> std/[os, strutils, parseopt, osproc]</td></tr>
+<tr><td class="hl-num" data-line="34"></td><td>  <span class="hl-cmt"># Using `std/os` instead of `os` to fail early if config isn't set up properly.</span></td></tr>
+<tr><td class="hl-num" data-line="35"></td><td>  <span class="hl-cmt"># If this fails with: `Error: cannot open file: std/os`, see</span></td></tr>
+<tr><td class="hl-num" data-line="36"></td><td>  <span class="hl-cmt"># https://github.com/nim-lang/Nim/pull/14291 for explanation + how to fix.</span></td></tr>
+<tr><td class="hl-num" data-line="37"></td><td></td></tr>
+<tr><td class="hl-num" data-line="38"></td><td><span class="hl-k">import</span> tools / kochdocs</td></tr>
+<tr><td class="hl-num" data-line="39"></td><td><span class="hl-k">import</span> tools / deps</td></tr>
+<tr><td class="hl-num" data-line="40"></td><td></td></tr>
+<tr><td class="hl-num" data-line="41"></td><td><span class="hl-k">const</span> <span class="hl-c">VersionAsString</span> = system.NimVersion</td></tr>
+<tr><td class="hl-num" data-line="42"></td><td></td></tr>
+<tr><td class="hl-num" data-line="43"></td><td><span class="hl-k">const</span></td></tr>
+<tr><td class="hl-num" data-line="44"></td><td>  <span class="hl-c">HelpText</span> = <span class="hl-s">""</span><span class="hl-s">"</span></td></tr>
+<tr><td class="hl-num" data-line="45"></td><td><span class="hl-s">+-----------------------------------------------------------------+</span></td></tr>
+<tr><td class="hl-num" data-line="46"></td><td><span class="hl-s">|         Maintenance program for Nim                             |</span></td></tr>
+<tr><td class="hl-num" data-line="47"></td><td><span class="hl-s">|             Version $1|</span></td></tr>
+<tr><td class="hl-num" data-line="48"></td><td><span class="hl-s">|             (c) 2017 Andreas Rumpf                              |</span></td></tr>
+<tr><td class="hl-num" data-line="49"></td><td><span class="hl-s">+-----------------------------------------------------------------+</span></td></tr>
+<tr><td class="hl-num" data-line="50"></td><td><span class="hl-s">Build time: $2, $3</span></td></tr>
+<tr><td class="hl-num" data-line="51"></td><td><span class="hl-s">Usage:</span></td></tr>
+<tr><td class="hl-num" data-line="52"></td><td><span class="hl-s">  koch [options] command [options for command]</span></td></tr>
+<tr><td class="hl-num" data-line="53"></td><td><span class="hl-s">Web options:</span></td></tr>
+<tr><td class="hl-num" data-line="54"></td><td><span class="hl-s">  --googleAnalytics:UA-... add the given google analytics code to the docs. To</span></td></tr>
+<tr><td class="hl-num" data-line="55"></td><td><span class="hl-s">                           build the official docs, use UA-48159761-1</span></td></tr>
+<tr><td class="hl-num" data-line="56"></td><td><span class="hl-s">"</span><span class="hl-s">""</span></td></tr>
+<tr><td class="hl-num" data-line="57"></td><td></td></tr>
+<tr><td class="hl-num" data-line="58"></td><td><span class="hl-k">let</span> <span class="hl-c">kochExe*</span> = <span class="hl-k">when</span> isMainModule: os.<span class="hl-en">getAppFilename</span>() <span class="hl-cmt"># always correct when koch is main program, even if `koch` exe renamed e.g.: `nim c -o:koch_debug koch.nim`</span></td></tr>
+<tr><td class="hl-num" data-line="59"></td><td>               <span class="hl-k">else</span>: <span class="hl-en">getAppDir</span>() / <span class="hl-s">"koch"</span>.exe <span class="hl-cmt"># works for winrelease</span></td></tr>
+<tr><td class="hl-num" data-line="60"></td><td></td></tr>
+<tr><td class="hl-num" data-line="61"></td><td><span class="hl-k">proc</span> <span class="hl-en">kochExec*</span>(cmd: <span class="hl-k">string</span>) =</td></tr>
+<tr><td class="hl-num" data-line="62"></td><td>  exec kochExe.quoteShell & <span class="hl-s">" "</span> & cmd</td></tr>
+<tr><td class="hl-num" data-line="63"></td><td></td></tr>
+<tr><td class="hl-num" data-line="64"></td><td><span class="hl-k">proc</span> <span class="hl-en">kochExecFold*</span>(desc, cmd: <span class="hl-k">string</span>) =</td></tr>
+<tr><td class="hl-num" data-line="65"></td><td>  <span class="hl-en">execFold</span>(desc, kochExe.quoteShell & <span class="hl-s">" "</span> & cmd)</td></tr>
+<tr><td class="hl-num" data-line="66"></td><td></td></tr>
+<tr><td class="hl-num" data-line="67"></td><td><span class="hl-k">template</span> <span class="hl-en">withDir</span>(dir, body) =</td></tr>
+<tr><td class="hl-num" data-line="68"></td><td>  <span class="hl-k">let</span> <span class="hl-c">old</span> = <span class="hl-en">getCurrentDir</span>()</td></tr>
+<tr><td class="hl-num" data-line="69"></td><td>  <span class="hl-k">try</span>:</td></tr>
+<tr><td class="hl-num" data-line="70"></td><td>    <span class="hl-en">setCurrentDir</span>(dir)</td></tr>
+<tr><td class="hl-num" data-line="71"></td><td>    body</td></tr>
+<tr><td class="hl-num" data-line="72"></td><td>  <span class="hl-k">finally</span>:</td></tr>
+<tr><td class="hl-num" data-line="73"></td><td>    <span class="hl-en">setCurrentDir</span>(old)</td></tr>
+<tr><td class="hl-num" data-line="74"></td><td></td></tr>
+<tr><td class="hl-num" data-line="75"></td><td><span class="hl-k">let</span> <span class="hl-c">origDir</span> = <span class="hl-en">getCurrentDir</span>()</td></tr>
+<tr><td class="hl-num" data-line="76"></td><td><span class="hl-en">setCurrentDir</span>(<span class="hl-en">getAppDir</span>())</td></tr>
+<tr><td class="hl-num" data-line="77"></td><td></td></tr>
+<tr><td class="hl-num" data-line="78"></td><td><span class="hl-k">proc</span> <span class="hl-en">tryExec</span>(cmd: <span class="hl-k">string</span>): <span class="hl-k">bool</span> =</td></tr>
+<tr><td class="hl-num" data-line="79"></td><td>  <span class="hl-en">echo</span>(cmd)</td></tr>
+<tr><td class="hl-num" data-line="80"></td><td>  <span class="hl-c">result</span> = <span class="hl-en">execShellCmd</span>(cmd) == <span class="hl-c">0</span></td></tr>
+<tr><td class="hl-num" data-line="81"></td><td></td></tr>
+<tr><td class="hl-num" data-line="82"></td><td><span class="hl-k">proc</span> <span class="hl-en">safeRemove</span>(filename: <span class="hl-k">string</span>) =</td></tr>
+<tr><td class="hl-num" data-line="83"></td><td>  <span class="hl-k">if</span> <span class="hl-en">fileExists</span>(filename): <span class="hl-en">removeFile</span>(filename)</td></tr>
+<tr><td class="hl-num" data-line="84"></td><td></td></tr>
+<tr><td class="hl-num" data-line="85"></td><td><span class="hl-k">const</span></td></tr>
+<tr><td class="hl-num" data-line="86"></td><td>  <span class="hl-c">compileNimInst</span> = <span class="hl-s">"tools/niminst/niminst"</span></td></tr>
+<tr><td class="hl-num" data-line="87"></td><td>  <span class="hl-c">distDir</span> = <span class="hl-s">"dist"</span></td></tr>
+<tr><td class="hl-num" data-line="88"></td><td></td></tr>
+<tr><td class="hl-num" data-line="89"></td><td><span class="hl-k">proc</span> <span class="hl-en">csource</span>(args: <span class="hl-k">string</span>) =</td></tr>
+<tr><td class="hl-num" data-line="90"></td><td>  <span class="hl-en">nimexec</span>((<span class="hl-s">"cc $1 -r $3 --var:version=$2 --var:mingw=none csource "</span> &</td></tr>
+<tr><td class="hl-num" data-line="91"></td><td>           <span class="hl-s">"--main:compiler/nim.nim compiler/installer.ini $1"</span>) %</td></tr>
+<tr><td class="hl-num" data-line="92"></td><td>       [args, VersionAsString, compileNimInst])</td></tr>
+<tr><td class="hl-num" data-line="93"></td><td></td></tr>
+<tr><td class="hl-num" data-line="94"></td><td><span class="hl-k">proc</span> <span class="hl-en">bundleC2nim</span>(args: <span class="hl-k">string</span>) =</td></tr>
+<tr><td class="hl-num" data-line="95"></td><td>  <span class="hl-en">cloneDependency</span>(distDir, <span class="hl-s">"https://github.com/nim-lang/c2nim.git"</span>)</td></tr>
+<tr><td class="hl-num" data-line="96"></td><td>  <span class="hl-en">nimCompile</span>(<span class="hl-s">"dist/c2nim/c2nim"</span>,</td></tr>
+<tr><td class="hl-num" data-line="97"></td><td>             <span class="hl-c">options</span> = <span class="hl-s">"--noNimblePath --path:. "</span> & args)</td></tr>
+<tr><td class="hl-num" data-line="98"></td><td></td></tr>
+<tr><td class="hl-num" data-line="99"></td><td><span class="hl-k">proc</span> <span class="hl-en">buildVccTool</span>(args: <span class="hl-k">string</span>) =</td></tr>
+<tr><td class="hl-num" data-line="100"></td><td>  <span class="hl-k">let</span> <span class="hl-c">input</span> = <span class="hl-s">"tools/vccexe/vccexe.nim"</span></td></tr>
+<tr><td class="hl-num" data-line="101"></td><td>  <span class="hl-k">if</span> <span class="hl-en">contains</span>(args, <span class="hl-s">"--cc:vcc"</span>):</td></tr>
+<tr><td class="hl-num" data-line="102"></td><td>    <span class="hl-en">nimCompileFold</span>(<span class="hl-s">"Compile Vcc"</span>, input, <span class="hl-s">"build"</span>, <span class="hl-c">options</span> = args)</td></tr>
+<tr><td class="hl-num" data-line="103"></td><td>    <span class="hl-k">let</span> <span class="hl-c">fileName</span> = input.splitFile.name</td></tr>
+<tr><td class="hl-num" data-line="104"></td><td>    <span class="hl-en">moveFile</span>(<span class="hl-en">exe</span>(<span class="hl-s">"build"</span> / fileName), <span class="hl-en">exe</span>(<span class="hl-s">"bin"</span> / fileName))</td></tr>
+<tr><td class="hl-num" data-line="105"></td><td>  <span class="hl-k">else</span>:</td></tr>
+<tr><td class="hl-num" data-line="106"></td><td>    <span class="hl-en">nimCompileFold</span>(<span class="hl-s">"Compile Vcc"</span>, input, <span class="hl-c">options</span> = args)</td></tr>
+<tr><td class="hl-num" data-line="107"></td><td></td></tr>
+<tr><td class="hl-num" data-line="108"></td><td><span class="hl-k">proc</span> <span class="hl-en">bundleWinTools</span>(args: <span class="hl-k">string</span>) =</td></tr>
+<tr><td class="hl-num" data-line="109"></td><td>  <span class="hl-en">nimCompile</span>(<span class="hl-s">"tools/finish.nim"</span>, <span class="hl-c">outputDir</span> = <span class="hl-s">""</span>, <span class="hl-c">options</span> = args)</td></tr>
+<tr><td class="hl-num" data-line="110"></td><td></td></tr>
+<tr><td class="hl-num" data-line="111"></td><td>  <span class="hl-en">buildVccTool</span>(args)</td></tr>
+<tr><td class="hl-num" data-line="112"></td><td>  <span class="hl-en">nimCompile</span>(<span class="hl-s">"tools/nimgrab.nim"</span>, <span class="hl-c">options</span> = <span class="hl-s">"-d:ssl "</span> & args)</td></tr>
+<tr><td class="hl-num" data-line="113"></td><td>  <span class="hl-en">nimCompile</span>(<span class="hl-s">"tools/nimgrep.nim"</span>, <span class="hl-c">options</span> = args)</td></tr>
+<tr><td class="hl-num" data-line="114"></td><td>  <span class="hl-en">nimCompile</span>(<span class="hl-s">"testament/testament.nim"</span>, <span class="hl-c">options</span> = args)</td></tr>
+<tr><td class="hl-num" data-line="115"></td><td>  <span class="hl-k">when</span> <span class="hl-c">false</span>:</td></tr>
+<tr><td class="hl-num" data-line="116"></td><td>    <span class="hl-cmt"># not yet a tool worth including</span></td></tr>
+<tr><td class="hl-num" data-line="117"></td><td>    <span class="hl-en">nimCompile</span>(r<span class="hl-s">"tools\downloader.nim"</span>,</td></tr>
+<tr><td class="hl-num" data-line="118"></td><td>               <span class="hl-c">options</span> = r<span class="hl-s">"--cc:vcc --app:gui -d:ssl --noNimblePath --path:..\ui "</span> & args)</td></tr>
+<tr><td class="hl-num" data-line="119"></td><td></td></tr>
+<tr><td class="hl-num" data-line="120"></td><td><span class="hl-k">proc</span> <span class="hl-en">zip</span>(latest: <span class="hl-k">bool</span>; args: <span class="hl-k">string</span>) =</td></tr>
+<tr><td class="hl-num" data-line="121"></td><td>  <span class="hl-en">bundleNimbleExe</span>(latest, args)</td></tr>
+<tr><td class="hl-num" data-line="122"></td><td>  <span class="hl-en">bundleNimsuggest</span>(args)</td></tr>
+<tr><td class="hl-num" data-line="123"></td><td>  <span class="hl-en">bundleNimpretty</span>(args)</td></tr>
+<tr><td class="hl-num" data-line="124"></td><td>  <span class="hl-en">bundleWinTools</span>(args)</td></tr>
+<tr><td class="hl-num" data-line="125"></td><td>  <span class="hl-en">nimexec</span>(<span class="hl-s">"cc -r $2 --var:version=$1 --var:mingw=none --main:compiler/nim.nim scripts compiler/installer.ini"</span> %</td></tr>
+<tr><td class="hl-num" data-line="126"></td><td>       [VersionAsString, compileNimInst])</td></tr>
+<tr><td class="hl-num" data-line="127"></td><td>  <span class="hl-en">exec</span>(<span class="hl-s">"$# --var:version=$# --var:mingw=none --main:compiler/nim.nim zip compiler/installer.ini"</span> %</td></tr>
+<tr><td class="hl-num" data-line="128"></td><td>       [<span class="hl-s">"tools/niminst/niminst"</span>.exe, VersionAsString])</td></tr>
+<tr><td class="hl-num" data-line="129"></td><td></td></tr>
+<tr><td class="hl-num" data-line="130"></td><td><span class="hl-k">proc</span> <span class="hl-en">xz</span>(latest: <span class="hl-k">bool</span>; args: <span class="hl-k">string</span>) =</td></tr>
+<tr><td class="hl-num" data-line="131"></td><td>  <span class="hl-en">ensureCleanGit</span>()</td></tr>
+<tr><td class="hl-num" data-line="132"></td><td>  <span class="hl-en">nimexec</span>(<span class="hl-s">"cc -r $2 --var:version=$1 --var:mingw=none --main:compiler/nim.nim scripts compiler/installer.ini"</span> %</td></tr>
+<tr><td class="hl-num" data-line="133"></td><td>       [VersionAsString, compileNimInst])</td></tr>
+<tr><td class="hl-num" data-line="134"></td><td>  <span class="hl-en">exec</span>(<span class="hl-s">"$# --var:version=$# --var:mingw=none --main:compiler/nim.nim xz compiler/installer.ini"</span> %</td></tr>
+<tr><td class="hl-num" data-line="135"></td><td>       [<span class="hl-s">"tools"</span> / <span class="hl-s">"niminst"</span> / <span class="hl-s">"niminst"</span>.exe, VersionAsString])</td></tr>
+<tr><td class="hl-num" data-line="136"></td><td></td></tr>
+<tr><td class="hl-num" data-line="137"></td><td><span class="hl-k">proc</span> <span class="hl-en">buildTool</span>(toolname, args: <span class="hl-k">string</span>) =</td></tr>
+<tr><td class="hl-num" data-line="138"></td><td>  <span class="hl-en">nimexec</span>(<span class="hl-s">"cc $# $#"</span> % [args, toolname])</td></tr>
+<tr><td class="hl-num" data-line="139"></td><td>  <span class="hl-en">copyFile</span>(<span class="hl-c">dest</span>=<span class="hl-s">"bin"</span> / <span class="hl-en">splitFile</span>(toolname).name.exe, <span class="hl-c">source</span>=toolname.exe)</td></tr>
+<tr><td class="hl-num" data-line="140"></td><td></td></tr>
+<tr><td class="hl-num" data-line="141"></td><td><span class="hl-k">proc</span> <span class="hl-en">buildTools</span>(args: <span class="hl-k">string</span> = <span class="hl-s">""</span>) =</td></tr>
+<tr><td class="hl-num" data-line="142"></td><td>  <span class="hl-en">bundleNimsuggest</span>(args)</td></tr>
+<tr><td class="hl-num" data-line="143"></td><td>  <span class="hl-en">nimCompileFold</span>(<span class="hl-s">"Compile nimgrep"</span>, <span class="hl-s">"tools/nimgrep.nim"</span>,</td></tr>
+<tr><td class="hl-num" data-line="144"></td><td>                 <span class="hl-c">options</span> = <span class="hl-s">"-d:release "</span> & args)</td></tr>
+<tr><td class="hl-num" data-line="145"></td><td>  <span class="hl-k">when</span> <span class="hl-en">defined</span>(windows): <span class="hl-en">buildVccTool</span>(args)</td></tr>
+<tr><td class="hl-num" data-line="146"></td><td>  <span class="hl-en">bundleNimpretty</span>(args)</td></tr>
+<tr><td class="hl-num" data-line="147"></td><td>  <span class="hl-en">nimCompileFold</span>(<span class="hl-s">"Compile testament"</span>, <span class="hl-s">"testament/testament.nim"</span>, <span class="hl-c">options</span> = <span class="hl-s">"-d:release "</span> & args)</td></tr>
+<tr><td class="hl-num" data-line="148"></td><td></td></tr>
+<tr><td class="hl-num" data-line="149"></td><td>  <span class="hl-cmt"># pre-packages a debug version of nim which can help in many cases investigate issuses</span></td></tr>
+<tr><td class="hl-num" data-line="150"></td><td>  <span class="hl-cmt"># withouth having to rebuild compiler.</span></td></tr>
+<tr><td class="hl-num" data-line="151"></td><td>  <span class="hl-cmt"># `-d:nimDebugUtils` only makes sense when temporarily editing/debugging compiler</span></td></tr>
+<tr><td class="hl-num" data-line="152"></td><td>  <span class="hl-cmt"># `-d:debug` should be changed to a flag that doesn't require re-compiling nim</span></td></tr>
+<tr><td class="hl-num" data-line="153"></td><td>  <span class="hl-cmt"># `--opt:speed` is a sensible default even for a debug build, it doesn't affect nim stacktraces</span></td></tr>
+<tr><td class="hl-num" data-line="154"></td><td>  <span class="hl-en">nimCompileFold</span>(<span class="hl-s">"Compile nim_dbg"</span>, <span class="hl-s">"compiler/nim.nim"</span>, <span class="hl-c">options</span> =</td></tr>
+<tr><td class="hl-num" data-line="155"></td><td>      <span class="hl-s">"--opt:speed --stacktrace -d:debug --stacktraceMsgs -d:nimCompilerStacktraceHints "</span> & args,</td></tr>
+<tr><td class="hl-num" data-line="156"></td><td>      <span class="hl-c">outputName</span> = <span class="hl-s">"nim_dbg"</span>)</td></tr>
+<tr><td class="hl-num" data-line="157"></td><td></td></tr>
+<tr><td class="hl-num" data-line="158"></td><td>  <span class="hl-en">nimCompileFold</span>(<span class="hl-s">"Compile atlas"</span>, <span class="hl-s">"tools/atlas/atlas.nim"</span>, <span class="hl-c">options</span> = <span class="hl-s">"-d:release "</span> & args,</td></tr>
+<tr><td class="hl-num" data-line="159"></td><td>      <span class="hl-c">outputName</span> = <span class="hl-s">"atlas"</span>)</td></tr>
+</tbody>
+</table>

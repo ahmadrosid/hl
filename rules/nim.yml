@@ -1,0 +1,106 @@
+constant:
+  "nil": "nil"
+  "true": "true"
+  "false": "false"
+
+keyword:
+  addr: addr
+  and: and
+  as: as
+  asm: asm
+  bind: bind
+  block: block
+  break: break
+  case: case
+  cast: cast
+  concept: concept
+  const: const
+  continue: continue
+  converter: converter
+  defer: defer
+  discard: discard
+  distinct: distinct
+  div: div
+  do: do
+  elif: elif
+  else: else
+  end: end
+  enum: enum
+  except: except
+  export: export
+  finally: finally
+  for: for
+  from: from
+  func: func
+  if: if
+  import: import
+  in: in
+  include: include
+  interface: interface
+  is: is
+  isnot: isnot
+  iterator: iterator
+  let: let
+  macro: macro
+  method: method
+  mixin: mixin
+  mod: mod
+  not: not
+  notin: notin
+  object: object
+  of: of
+  or: or
+  out: out
+  proc: proc
+  ptr: ptr
+  raise: raise
+  ref: ref
+  return: return
+  shl: shl
+  shr: shr
+  static: static
+  template: template
+  try: try
+  tuple: tuple
+  type: type
+  using: using
+  var: var
+  when: when
+  while: while
+  yield: yield
+  xor: xor
+  int: int
+  int8: int8
+  int16: int16
+  int32: int32
+  int64: int64
+  uint: uint
+  uint8: uint8
+  uint16: uint16
+  uint32: uint32
+  uint64: uint64
+  float: float
+  float32: float32
+  float64: float64
+  char: char
+  string: string
+  cstring: cstring
+  bool: bool
+
+constant_suffix:
+  left_paren: "="
+
+entity_suffix:
+  left_paren: "("
+
+condition:
+  ACCEPT_ESCAPED_STRING: true
+  ACCEPT_STRING_ONE_QUOTE: true
+  ACCEPT_STRING_DOUBLE_QUOTE: true
+  RENDER_MULTI_LINE_STRING: true
+  PREFIX_ONE_LINE_COMMENT: "#"
+  ACCEPT_ENTITY_TAG_SUFFIX: "self.ch.is_numeric()"
+  BREAK_ENTITY_TAG_SUFFIX: "!self.ch.is_numeric() && !is_letter(self.ch)"
+  ACCEPT_HEXADECIMAL_NUMBER: true
+  ACCEPT_CHAR_IDENTIFIER: "*"
+

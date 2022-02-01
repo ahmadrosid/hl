@@ -1,0 +1,159 @@
+var str: string = "Hello!"
+var cstr: cstring = str
+var newstr: string = $cstr
+
+type
+  MySeq = object
+    len, cap: int
+    data: UncheckedArray[int]
+
+if runeValue notin 0..0x10FFFF: runeValue = 0 # only return legal values
+return Rune(runeValue)
+
+const
+  NimbleStableCommit = "d13f3b8ce288b4dc8c34c219a4e050aaeaf43fc9" # master
+  # examples of possible values: #head, #ea82b54, 1.2.3
+  FusionStableHash = "#372ee4313827ef9f2ea388840f7d6b46c2b1b014"
+  HeadHash = "#head"
+when not defined(windows):
+  const
+    Z3StableCommit = "65de3f748a6812eecd7db7c478d5fc54424d368b" # the version of Z3 that DrNim uses
+
+when defined(gcc) and defined(windows):
+  when defined(x86):
+    {.link: "icons/koch.res".}
+  else:
+    {.link: "icons/koch_icon.o".}
+
+when defined(amd64) and defined(windows) and defined(vcc):
+  {.link: "icons/koch-amd64-windows-vcc.res".}
+when defined(i386) and defined(windows) and defined(vcc):
+  {.link: "icons/koch-i386-windows-vcc.res".}
+
+import std/[os, strutils, parseopt, osproc]
+  # Using `std/os` instead of `os` to fail early if config isn't set up properly.
+  # If this fails with: `Error: cannot open file: std/os`, see
+  # https://github.com/nim-lang/Nim/pull/14291 for explanation + how to fix.
+
+import tools / kochdocs
+import tools / deps
+
+const VersionAsString = system.NimVersion
+
+const
+  HelpText = """
++-----------------------------------------------------------------+
+|         Maintenance program for Nim                             |
+|             Version $1|
+|             (c) 2017 Andreas Rumpf                              |
++-----------------------------------------------------------------+
+Build time: $2, $3
+Usage:
+  koch [options] command [options for command]
+Web options:
+  --googleAnalytics:UA-... add the given google analytics code to the docs. To
+                           build the official docs, use UA-48159761-1
+"""
+
+let kochExe* = when isMainModule: os.getAppFilename() # always correct when koch is main program, even if `koch` exe renamed e.g.: `nim c -o:koch_debug koch.nim`
+               else: getAppDir() / "koch".exe # works for winrelease
+
+proc kochExec*(cmd: string) =
+  exec kochExe.quoteShell & " " & cmd
+
+proc kochExecFold*(desc, cmd: string) =
+  execFold(desc, kochExe.quoteShell & " " & cmd)
+
+template withDir(dir, body) =
+  let old = getCurrentDir()
+  try:
+    setCurrentDir(dir)
+    body
+  finally:
+    setCurrentDir(old)
+
+let origDir = getCurrentDir()
+setCurrentDir(getAppDir())
+
+proc tryExec(cmd: string): bool =
+  echo(cmd)
+  result = execShellCmd(cmd) == 0
+
+proc safeRemove(filename: string) =
+  if fileExists(filename): removeFile(filename)
+
+const
+  compileNimInst = "tools/niminst/niminst"
+  distDir = "dist"
+
+proc csource(args: string) =
+  nimexec(("cc $1 -r $3 --var:version=$2 --var:mingw=none csource " &
+           "--main:compiler/nim.nim compiler/installer.ini $1") %
+       [args, VersionAsString, compileNimInst])
+
+proc bundleC2nim(args: string) =
+  cloneDependency(distDir, "https://github.com/nim-lang/c2nim.git")
+  nimCompile("dist/c2nim/c2nim",
+             options = "--noNimblePath --path:. " & args)
+
+proc buildVccTool(args: string) =
+  let input = "tools/vccexe/vccexe.nim"
+  if contains(args, "--cc:vcc"):
+    nimCompileFold("Compile Vcc", input, "build", options = args)
+    let fileName = input.splitFile.name
+    moveFile(exe("build" / fileName), exe("bin" / fileName))
+  else:
+    nimCompileFold("Compile Vcc", input, options = args)
+
+proc bundleWinTools(args: string) =
+  nimCompile("tools/finish.nim", outputDir = "", options = args)
+
+  buildVccTool(args)
+  nimCompile("tools/nimgrab.nim", options = "-d:ssl " & args)
+  nimCompile("tools/nimgrep.nim", options = args)
+  nimCompile("testament/testament.nim", options = args)
+  when false:
+    # not yet a tool worth including
+    nimCompile(r"tools\downloader.nim",
+               options = r"--cc:vcc --app:gui -d:ssl --noNimblePath --path:..\ui " & args)
+
+proc zip(latest: bool; args: string) =
+  bundleNimbleExe(latest, args)
+  bundleNimsuggest(args)
+  bundleNimpretty(args)
+  bundleWinTools(args)
+  nimexec("cc -r $2 --var:version=$1 --var:mingw=none --main:compiler/nim.nim scripts compiler/installer.ini" %
+       [VersionAsString, compileNimInst])
+  exec("$# --var:version=$# --var:mingw=none --main:compiler/nim.nim zip compiler/installer.ini" %
+       ["tools/niminst/niminst".exe, VersionAsString])
+
+proc xz(latest: bool; args: string) =
+  ensureCleanGit()
+  nimexec("cc -r $2 --var:version=$1 --var:mingw=none --main:compiler/nim.nim scripts compiler/installer.ini" %
+       [VersionAsString, compileNimInst])
+  exec("$# --var:version=$# --var:mingw=none --main:compiler/nim.nim xz compiler/installer.ini" %
+       ["tools" / "niminst" / "niminst".exe, VersionAsString])
+
+proc buildTool(toolname, args: string) =
+  nimexec("cc $# $#" % [args, toolname])
+  copyFile(dest="bin" / splitFile(toolname).name.exe, source=toolname.exe)
+
+proc buildTools(args: string = "") =
+  bundleNimsuggest(args)
+  nimCompileFold("Compile nimgrep", "tools/nimgrep.nim",
+                 options = "-d:release " & args)
+  when defined(windows): buildVccTool(args)
+  bundleNimpretty(args)
+  nimCompileFold("Compile testament", "testament/testament.nim", options = "-d:release " & args)
+
+  # pre-packages a debug version of nim which can help in many cases investigate issuses
+  # withouth having to rebuild compiler.
+  # `-d:nimDebugUtils` only makes sense when temporarily editing/debugging compiler
+  # `-d:debug` should be changed to a flag that doesn't require re-compiling nim
+  # `--opt:speed` is a sensible default even for a debug build, it doesn't affect nim stacktraces
+  nimCompileFold("Compile nim_dbg", "compiler/nim.nim", options =
+      "--opt:speed --stacktrace -d:debug --stacktraceMsgs -d:nimCompilerStacktraceHints " & args,
+      outputName = "nim_dbg")
+
+  nimCompileFold("Compile atlas", "tools/atlas/atlas.nim", options = "-d:release " & args,
+      outputName = "atlas")

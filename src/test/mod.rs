@@ -217,3 +217,11 @@ fn test_zig() {
     let actual = zig::render::render_html(input);
     assert_eq!(expected, actual);
 }
+
+#[test]
+fn test_nim() {
+    let input = read_input("src/test/testdata/input/nim.nim.stub");
+    let expected = read_file("src/test/testdata/output/nim.html.stub");
+    let actual = nim::render::render_html(input);
+    assert_eq!(expected, actual);
+}
