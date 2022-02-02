@@ -54,6 +54,7 @@ const MARK_AS_VAR_IN_SCOPE: &str = "MARK_AS_VAR_IN_SCOPE";
 const MARK_AS_CONSTANT_ON_PREFIX: &str = "MARK_AS_CONSTANT_ON_PREFIX";
 const MARK_AS_ENTYTY_ON_FUNCTION_SCOPE: &str = "MARK_AS_ENTYTY_ON_FUNCTION_SCOPE";
 const MARK_AS_STRING_ON_PREFIX: &str = "MARK_AS_STRING_ON_PREFIX";
+const SKIP_READ_ONE_QUOTE_STRING_ON_PREFIX: &str = "SKIP_READ_ONE_QUOTE_STRING_ON_PREFIX";
 
 pub fn generate_module(h: &Hash) -> String {
     let mut initial_module = include_str!("stub/initial_module.stub").to_string();
@@ -773,6 +774,12 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
 
     if h.get_some_condition(ACCEPT_STRING_ONE_QUOTE).is_some() {
         module.push_tabln(5, "} else if self.ch == '\\'' {");
+        if let Some(ch) = h.get_some_condition(SKIP_READ_ONE_QUOTE_STRING_ON_PREFIX) {
+            module.push_str(
+                &include_str!("stub/handle_skip_read_string.stub")
+                    .replace("{ch}", ch.as_str().unwrap()),
+            );
+        }
         module.push_tabln(6, "let str_value: Vec<char> = read_string(self, '\\'');");
         module.push_tabln(6, "token::Token::STRING(str_value)");
     }

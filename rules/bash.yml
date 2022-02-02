@@ -60,3 +60,4 @@ condition:
   PREFIX_ONE_LINE_COMMENT: "#"
   ACCEPT_ENTITY_TAG_SUFFIX: "self.ch.is_numeric()"
   BREAK_ENTITY_TAG_SUFFIX: "!self.ch.is_numeric() && !is_letter(self.ch)"
+  SKIP_READ_ONE_QUOTE_STRING_ON_PREFIX: "/"

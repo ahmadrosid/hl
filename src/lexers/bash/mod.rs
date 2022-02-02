@@ -201,6 +201,11 @@ impl Lexer {
                     let identifier: Vec<char> = read_number(self);
                     token::Token::INT(identifier)
                 } else if self.ch == '\'' {
+                    if self.position - 1 > 0 && self.input[self.position - 1] == '/' {
+                        tok = token::Token::CH(self.ch);
+                        self.read_char();
+                        return tok;
+                    }
                     let str_value: Vec<char> = read_string(self, '\'');
                     token::Token::STRING(str_value)
                 } else if self.ch == '"' {
