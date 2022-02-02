@@ -71,6 +71,7 @@ See the result in browser [here](https://play.tailwindcss.com/JevzqYGpuH).
 - [x] JSON ( ✅ Done )
 - [x] Lua ( ✅ Done )
 - [x] Markdown ( ✅ Done )
+- [x] Nim ( ✅ Done )
 - [x] PHP ( ✅ Done )
 - [ ] Python ( 🚧 In Progress )
 - [x] Typescript ( ✅ Done )
