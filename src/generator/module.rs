@@ -126,16 +126,16 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
         assert!(
             chars.len() == 2,
             "{}",
-            format!(
+            &format!(
                 "Scope multi line comment should be 2 split by comma found {}",
                 chars.len()
             )
+            .bold_red()
         );
         let prefix = chars[0].chars().next().unwrap();
         let suffix = chars[1].chars().next().unwrap();
         module.push_str(
             &include_str!("stub/handle_multi_line_token.stub")
-                .to_string()
                 .replace("{prefix}", &prefix.to_string())
                 .replace("{begin}", chars[0])
                 .replace("{end}", chars[1])
@@ -159,7 +159,6 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
         let suffix = chars[1].chars().next().unwrap();
         module.push_str(
             &include_str!("stub/handle_multi_line_token.stub")
-                .to_string()
                 .replace("{prefix}", &prefix.to_string().replace("'", "\\'"))
                 .replace("{begin}", &chars[0].to_string().replace("\"", "\\\""))
                 .replace("{end}", &chars[1].to_string().replace("\"", "\\\""))
@@ -198,7 +197,6 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
         module.push_str(
             // TODO: refactor to "stub/mark_as_token_in_scope.stub"
             &include_str!("stub/mark_as_keyword_in_scope.stub")
-                .to_string()
                 .replace("{left}", &*c[0].to_string())
                 .replace("{right}", &*c[1].to_string()),
         )
@@ -216,7 +214,6 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
         module.push_str(
             // TODO: refactor to "stub/mark_as_token_in_scope.stub"
             &include_str!("stub/mark_as_keyword_in_scope.stub")
-                .to_string()
                 .replace("{left}", &*c[0].to_string())
                 .replace("{right}", &*c[1].to_string())
                 .replace("KEYWORD", "VAR"),
@@ -235,7 +232,6 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
         module.push_str(
             // TODO: refactor to "stub/mark_as_token_in_scope.stub"
             &include_str!("stub/mark_as_string_on_prefix.stub")
-                .to_string()
                 .replace("{left}", &*c[0].to_string().replace("\\", "\\\\"))
                 .replace("{right}", &*c[1].to_string().replace("\\", "\\\\")),
         )
@@ -244,7 +240,6 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
     if let Some(ch) = h.get_some_condition(SKIP_NON_CHAR_LETTER_PREFIX) {
         module.push_str(
             &include_str!("stub/handle_skip_non_char_letter.stub")
-                .to_string()
                 .replace("{ch}", ch.as_str().unwrap()),
         );
     }
@@ -252,7 +247,6 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
     if let Some(ch) = h.get_some_condition(MARK_AS_CONSTANT_ON_PREFIX) {
         module.push_str(
             &include_str!("stub/mark_as_constant_in_prefix.stub")
-                .to_string()
                 .replace("{ch}", ch.as_str().unwrap()),
         );
     }
