@@ -4,6 +4,7 @@ constant:
   "null": "null"
   "true": "true"
   "false": "false"
+  Any: Any
   Array: Array
   Boolean: Boolean
   Double: Double
@@ -55,11 +56,8 @@ keyword:
 constant_prefix:
   colon: ":"
 
-entity_prefix:
-  dot: "."
 
 entity_suffix:
-  dot: "."
   left_brace: "("
 
 condition:
@@ -69,5 +67,6 @@ condition:
   RENDER_MULTI_LINE_STRING: true
   PREFIX_ONE_LINE_COMMENT: "//"
   ACCEPT_ENTITY_TAG_SUFFIX: "self.ch.is_numeric()"
-  BREAK_ENTITY_TAG_SUFFIX: "!self.ch.is_numeric() && !is_letter(self.ch)"
-  ACCEPT_CHAR_IDENTIFIER: "@"
+  BREAK_ENTITY_TAG_SUFFIX: "!self.ch.is_numeric() && !is_letter(self.ch) && self.ch != '.'"
+  ACCEPT_CHAR_IDENTIFIER: "."
+  MARK_AS_ENTYTY_ON_FUNCTION_SCOPE: "package"

@@ -4,6 +4,7 @@ pub mod token;
 
 pub struct Lexer {
     input: Vec<char>,
+    function_scope: bool,
     pub position: usize,
     pub read_position: usize,
     pub ch: char,
@@ -16,6 +17,7 @@ impl Lexer {
     pub fn new(input: Vec<char>) -> Self {
         Self {
             input,
+            function_scope: false,
             position: 0,
             read_position: 0,
             ch: '\0',
@@ -37,7 +39,7 @@ impl Lexer {
             let position = l.position;
             while l.position < l.input.len() && is_letter(l.ch) {
                 l.read_char();
-                if l.ch == '@' {
+                if l.ch == '.' {
                     l.read_char();
                 }
             }
@@ -119,7 +121,7 @@ impl Lexer {
                     if self.ch.is_numeric() {
                         let position = self.position;
                         while self.position < self.input.len() {
-                            if !self.ch.is_numeric() && !is_letter(self.ch) {
+                            if !self.ch.is_numeric() && !is_letter(self.ch) && self.ch != '.' {
                                 break;
                             }
                             self.read_char();
@@ -127,32 +129,17 @@ impl Lexer {
                         identifier.append(&mut self.input[position..self.position].to_vec());
                     }
                     match token::get_keyword_token(&identifier) {
-                        Ok(keyword_token) => keyword_token,
-                        Err(_) => {
-                            if start_position > 0 && self.input[start_position - 1] == '.' {
-                                return token::Token::ENTITY(identifier);
+                        Ok(keyword_token) => {
+                            let keyword: String = identifier.iter().collect();
+                            if keyword == "package" {
+                                self.function_scope = true;
                             }
-                            if self.ch == '.' {
+                            keyword_token
+                        }
+                        Err(_) => {
+                            if self.function_scope {
+                                self.function_scope = false;
                                 return token::Token::ENTITY(identifier);
-                            } else if self.ch.is_whitespace() {
-                                let start_position = self.position;
-                                let mut position = self.position;
-                                let mut ch = self.input[position];
-                                while position < self.input.len() && ch.is_whitespace() {
-                                    position = position + 1;
-                                    if position < self.input.len() {
-                                        ch = self.input[position];
-                                    }
-                                }
-                                if ch == '.' {
-                                    self.position = position - 1;
-                                    self.read_position = position;
-                                    let mut value = identifier;
-                                    value.append(
-                                        &mut self.input[start_position..self.position].to_vec(),
-                                    );
-                                    return token::Token::ENTITY(value);
-                                }
                             }
                             if self.ch == '(' {
                                 return token::Token::ENTITY(identifier);

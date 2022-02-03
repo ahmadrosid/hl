@@ -19,6 +19,7 @@ pub fn get_keyword_token(identifier: &Vec<char>) -> Result<Token, String> {
         "null" => Ok(Token::CONSTANT(identifier.to_vec())),
         "true" => Ok(Token::CONSTANT(identifier.to_vec())),
         "false" => Ok(Token::CONSTANT(identifier.to_vec())),
+        "Any" => Ok(Token::CONSTANT(identifier.to_vec())),
         "Array" => Ok(Token::CONSTANT(identifier.to_vec())),
         "Boolean" => Ok(Token::CONSTANT(identifier.to_vec())),
         "Double" => Ok(Token::CONSTANT(identifier.to_vec())),
