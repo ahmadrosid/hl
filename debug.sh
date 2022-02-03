@@ -7,5 +7,5 @@ cargo run test-file -l kotlin > table.html
 cargo fmt
 
 # Copy result
-# cp table.html src/test/testdata/output/nim.html.stub
-# cp test-file src/test/testdata/input/nim.nim.stub
+ cp table.html src/test/testdata/output/kotlin.html.stub
+ cp test-file src/test/testdata/input/kotlni.kt.stub

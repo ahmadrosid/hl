@@ -1,0 +1,161 @@
+<table class="highlight-table">
+<tbody>
+<tr><td class="hl-num" data-line="1"></td><td><span class="hl-cmt">/*</span></td></tr>
+<tr><td class="hl-num" data-line="2"></td><td><span class="hl-cmt">* Copyright 2014-2021 JetBrains s.r.o and contributors. Use of this source code is governed by the Apache 2.0 license.</span></td></tr>
+<tr><td class="hl-num" data-line="3"></td><td><span class="hl-cmt">*/</span></td></tr>
+<tr><td class="hl-num" data-line="4"></td><td><span class="hl-k">package</span> <span class="hl-en">org.w3c.dom</span></td></tr>
+<tr><td class="hl-num" data-line="5"></td><td></td></tr>
+<tr><td class="hl-num" data-line="6"></td><td><span class="hl-k">package</span> <span class="hl-en">io.ktor.util.date</span></td></tr>
+<tr><td class="hl-num" data-line="7"></td><td></td></tr>
+<tr><td class="hl-num" data-line="8"></td><td><span class="hl-k">import</span> kotlin.time.*</td></tr>
+<tr><td class="hl-num" data-line="9"></td><td></td></tr>
+<tr><td class="hl-num" data-line="10"></td><td><span class="hl-cmt">/**</span></td></tr>
+<tr><td class="hl-num" data-line="11"></td><td><span class="hl-cmt"> * According to:</span></td></tr>
+<tr><td class="hl-num" data-line="12"></td><td><span class="hl-cmt"> * http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/time.h.html</span></td></tr>
+<tr><td class="hl-num" data-line="13"></td><td><span class="hl-cmt"> */</span></td></tr>
+<tr><td class="hl-num" data-line="14"></td><td></td></tr>
+<tr><td class="hl-num" data-line="15"></td><td><span class="hl-cmt">/**</span></td></tr>
+<tr><td class="hl-num" data-line="16"></td><td><span class="hl-cmt"> * Day of week</span></td></tr>
+<tr><td class="hl-num" data-line="17"></td><td><span class="hl-cmt"> * [value] is 3 letter shortcut</span></td></tr>
+<tr><td class="hl-num" data-line="18"></td><td><span class="hl-cmt"> */</span></td></tr>
+<tr><td class="hl-num" data-line="19"></td><td>@<span class="hl-en">Suppress</span>(<span class="hl-s">"KDocMissingDocumentation"</span>)</td></tr>
+<tr><td class="hl-num" data-line="20"></td><td><span class="hl-k">public</span> <span class="hl-k">enum</span> <span class="hl-k">class</span> <span class="hl-en">WeekDay</span>(<span class="hl-k">public</span> <span class="hl-k">val</span> value: <span class="hl-c">String</span>) {</td></tr>
+<tr><td class="hl-num" data-line="21"></td><td>    <span class="hl-en">MONDAY</span>(<span class="hl-s">"Mon"</span>),</td></tr>
+<tr><td class="hl-num" data-line="22"></td><td>    <span class="hl-en">TUESDAY</span>(<span class="hl-s">"Tue"</span>),</td></tr>
+<tr><td class="hl-num" data-line="23"></td><td>    <span class="hl-en">WEDNESDAY</span>(<span class="hl-s">"Wed"</span>),</td></tr>
+<tr><td class="hl-num" data-line="24"></td><td>    <span class="hl-en">THURSDAY</span>(<span class="hl-s">"Thu"</span>),</td></tr>
+<tr><td class="hl-num" data-line="25"></td><td>    <span class="hl-en">FRIDAY</span>(<span class="hl-s">"Fri"</span>),</td></tr>
+<tr><td class="hl-num" data-line="26"></td><td>    <span class="hl-en">SATURDAY</span>(<span class="hl-s">"Sat"</span>),</td></tr>
+<tr><td class="hl-num" data-line="27"></td><td>    <span class="hl-en">SUNDAY</span>(<span class="hl-s">"Sun"</span>);</td></tr>
+<tr><td class="hl-num" data-line="28"></td><td></td></tr>
+<tr><td class="hl-num" data-line="29"></td><td>    <span class="hl-k">public</span> <span class="hl-k">companion</span> <span class="hl-k">object</span> {</td></tr>
+<tr><td class="hl-num" data-line="30"></td><td>        <span class="hl-cmt">/**</span></td></tr>
+<tr><td class="hl-num" data-line="31"></td><td><span class="hl-cmt">         * Lookup an instance by [ordinal]</span></td></tr>
+<tr><td class="hl-num" data-line="32"></td><td><span class="hl-cmt">         */</span></td></tr>
+<tr><td class="hl-num" data-line="33"></td><td>        <span class="hl-k">public</span> <span class="hl-k">fun</span> <span class="hl-en">from</span>(ordinal: <span class="hl-c">Int</span>): WeekDay = <span class="hl-en">values</span>()[ordinal]</td></tr>
+<tr><td class="hl-num" data-line="34"></td><td></td></tr>
+<tr><td class="hl-num" data-line="35"></td><td>        <span class="hl-cmt">/**</span></td></tr>
+<tr><td class="hl-num" data-line="36"></td><td><span class="hl-cmt">         * Lookup an instance by short week day name [WeekDay.value]</span></td></tr>
+<tr><td class="hl-num" data-line="37"></td><td><span class="hl-cmt">         */</span></td></tr>
+<tr><td class="hl-num" data-line="38"></td><td>        <span class="hl-k">public</span> <span class="hl-k">fun</span> <span class="hl-en">from</span>(value: <span class="hl-c">String</span>): WeekDay = <span class="hl-en">values</span>().find { it.value == value }</td></tr>
+<tr><td class="hl-num" data-line="39"></td><td>            ?: <span class="hl-en">error</span>(<span class="hl-s">"Invalid day of week: $value"</span>)</td></tr>
+<tr><td class="hl-num" data-line="40"></td><td>    }</td></tr>
+<tr><td class="hl-num" data-line="41"></td><td>}</td></tr>
+<tr><td class="hl-num" data-line="42"></td><td></td></tr>
+<tr><td class="hl-num" data-line="43"></td><td><span class="hl-cmt">/**</span></td></tr>
+<tr><td class="hl-num" data-line="44"></td><td><span class="hl-cmt"> * Month</span></td></tr>
+<tr><td class="hl-num" data-line="45"></td><td><span class="hl-cmt"> * [value] is 3 letter shortcut</span></td></tr>
+<tr><td class="hl-num" data-line="46"></td><td><span class="hl-cmt"> */</span></td></tr>
+<tr><td class="hl-num" data-line="47"></td><td>@<span class="hl-en">Suppress</span>(<span class="hl-s">"KDocMissingDocumentation"</span>)</td></tr>
+<tr><td class="hl-num" data-line="48"></td><td><span class="hl-k">public</span> <span class="hl-k">enum</span> <span class="hl-k">class</span> <span class="hl-en">Month</span>(<span class="hl-k">public</span> <span class="hl-k">val</span> value: <span class="hl-c">String</span>) {</td></tr>
+<tr><td class="hl-num" data-line="49"></td><td>    <span class="hl-en">JANUARY</span>(<span class="hl-s">"Jan"</span>),</td></tr>
+<tr><td class="hl-num" data-line="50"></td><td>    <span class="hl-en">FEBRUARY</span>(<span class="hl-s">"Feb"</span>),</td></tr>
+<tr><td class="hl-num" data-line="51"></td><td>    <span class="hl-en">MARCH</span>(<span class="hl-s">"Mar"</span>),</td></tr>
+<tr><td class="hl-num" data-line="52"></td><td>    <span class="hl-en">APRIL</span>(<span class="hl-s">"Apr"</span>),</td></tr>
+<tr><td class="hl-num" data-line="53"></td><td>    <span class="hl-en">MAY</span>(<span class="hl-s">"May"</span>),</td></tr>
+<tr><td class="hl-num" data-line="54"></td><td>    <span class="hl-en">JUNE</span>(<span class="hl-s">"Jun"</span>),</td></tr>
+<tr><td class="hl-num" data-line="55"></td><td>    <span class="hl-en">JULY</span>(<span class="hl-s">"Jul"</span>),</td></tr>
+<tr><td class="hl-num" data-line="56"></td><td>    <span class="hl-en">AUGUST</span>(<span class="hl-s">"Aug"</span>),</td></tr>
+<tr><td class="hl-num" data-line="57"></td><td>    <span class="hl-en">SEPTEMBER</span>(<span class="hl-s">"Sep"</span>),</td></tr>
+<tr><td class="hl-num" data-line="58"></td><td>    <span class="hl-en">OCTOBER</span>(<span class="hl-s">"Oct"</span>),</td></tr>
+<tr><td class="hl-num" data-line="59"></td><td>    <span class="hl-en">NOVEMBER</span>(<span class="hl-s">"Nov"</span>),</td></tr>
+<tr><td class="hl-num" data-line="60"></td><td>    <span class="hl-en">DECEMBER</span>(<span class="hl-s">"Dec"</span>);</td></tr>
+<tr><td class="hl-num" data-line="61"></td><td></td></tr>
+<tr><td class="hl-num" data-line="62"></td><td>    <span class="hl-k">public</span> <span class="hl-k">companion</span> <span class="hl-k">object</span> {</td></tr>
+<tr><td class="hl-num" data-line="63"></td><td>        <span class="hl-cmt">/**</span></td></tr>
+<tr><td class="hl-num" data-line="64"></td><td><span class="hl-cmt">         * Lookup an instance by [ordinal]</span></td></tr>
+<tr><td class="hl-num" data-line="65"></td><td><span class="hl-cmt">         */</span></td></tr>
+<tr><td class="hl-num" data-line="66"></td><td>        <span class="hl-k">public</span> <span class="hl-k">fun</span> <span class="hl-en">from</span>(ordinal: <span class="hl-c">Int</span>): Month = <span class="hl-en">values</span>()[ordinal]</td></tr>
+<tr><td class="hl-num" data-line="67"></td><td></td></tr>
+<tr><td class="hl-num" data-line="68"></td><td>        <span class="hl-cmt">/**</span></td></tr>
+<tr><td class="hl-num" data-line="69"></td><td><span class="hl-cmt">         * Lookup an instance by short month name [Month.value]</span></td></tr>
+<tr><td class="hl-num" data-line="70"></td><td><span class="hl-cmt">         */</span></td></tr>
+<tr><td class="hl-num" data-line="71"></td><td>        <span class="hl-k">public</span> <span class="hl-k">fun</span> <span class="hl-en">from</span>(value: <span class="hl-c">String</span>): Month = <span class="hl-en">values</span>().find { it.value == value }</td></tr>
+<tr><td class="hl-num" data-line="72"></td><td>            ?: <span class="hl-en">error</span>(<span class="hl-s">"Invalid month: $value"</span>)</td></tr>
+<tr><td class="hl-num" data-line="73"></td><td>    }</td></tr>
+<tr><td class="hl-num" data-line="74"></td><td>}</td></tr>
+<tr><td class="hl-num" data-line="75"></td><td></td></tr>
+<tr><td class="hl-num" data-line="76"></td><td><span class="hl-cmt">/**</span></td></tr>
+<tr><td class="hl-num" data-line="77"></td><td><span class="hl-cmt"> * Date in GMT timezone</span></td></tr>
+<tr><td class="hl-num" data-line="78"></td><td><span class="hl-cmt"> *</span></td></tr>
+<tr><td class="hl-num" data-line="79"></td><td><span class="hl-cmt"> * @property seconds: seconds from 0 to 60(last is for leap second)</span></td></tr>
+<tr><td class="hl-num" data-line="80"></td><td><span class="hl-cmt"> * @property minutes: minutes from 0 to 59</span></td></tr>
+<tr><td class="hl-num" data-line="81"></td><td><span class="hl-cmt"> * @property hours: hours from 0 to 23</span></td></tr>
+<tr><td class="hl-num" data-line="82"></td><td><span class="hl-cmt"> * @property dayOfWeek an instance of the corresponding day of week</span></td></tr>
+<tr><td class="hl-num" data-line="83"></td><td><span class="hl-cmt"> * @property dayOfMonth: day of month from 1 to 31</span></td></tr>
+<tr><td class="hl-num" data-line="84"></td><td><span class="hl-cmt"> * @property dayOfYear: day of year from 1 to 366</span></td></tr>
+<tr><td class="hl-num" data-line="85"></td><td><span class="hl-cmt"> * @property month an instance of the corresponding month</span></td></tr>
+<tr><td class="hl-num" data-line="86"></td><td><span class="hl-cmt"> * @property year: year in common era(CE: https://en.wikipedia.org/wiki/Common_Era)</span></td></tr>
+<tr><td class="hl-num" data-line="87"></td><td><span class="hl-cmt"> *</span></td></tr>
+<tr><td class="hl-num" data-line="88"></td><td><span class="hl-cmt"> * @property timestamp is a number of epoch milliseconds</span></td></tr>
+<tr><td class="hl-num" data-line="89"></td><td><span class="hl-cmt"> */</span></td></tr>
+<tr><td class="hl-num" data-line="90"></td><td><span class="hl-k">public</span> <span class="hl-k">data</span> <span class="hl-k">class</span> GMTDate <span class="hl-k">internal</span> <span class="hl-en">constructor</span>(</td></tr>
+<tr><td class="hl-num" data-line="91"></td><td>    <span class="hl-k">val</span> seconds: <span class="hl-c">Int</span>,</td></tr>
+<tr><td class="hl-num" data-line="92"></td><td>    <span class="hl-k">val</span> minutes: <span class="hl-c">Int</span>,</td></tr>
+<tr><td class="hl-num" data-line="93"></td><td>    <span class="hl-k">val</span> hours: <span class="hl-c">Int</span>,</td></tr>
+<tr><td class="hl-num" data-line="94"></td><td></td></tr>
+<tr><td class="hl-num" data-line="95"></td><td>    <span class="hl-k">val</span> dayOfWeek: WeekDay,</td></tr>
+<tr><td class="hl-num" data-line="96"></td><td>    <span class="hl-k">val</span> dayOfMonth: <span class="hl-c">Int</span>,</td></tr>
+<tr><td class="hl-num" data-line="97"></td><td>    <span class="hl-k">val</span> dayOfYear: <span class="hl-c">Int</span>,</td></tr>
+<tr><td class="hl-num" data-line="98"></td><td></td></tr>
+<tr><td class="hl-num" data-line="99"></td><td>    <span class="hl-k">val</span> month: Month,</td></tr>
+<tr><td class="hl-num" data-line="100"></td><td>    <span class="hl-k">val</span> year: <span class="hl-c">Int</span>,</td></tr>
+<tr><td class="hl-num" data-line="101"></td><td></td></tr>
+<tr><td class="hl-num" data-line="102"></td><td>    <span class="hl-k">val</span> timestamp: <span class="hl-c">Long</span></td></tr>
+<tr><td class="hl-num" data-line="103"></td><td>) : Comparable<GMTDate> {</td></tr>
+<tr><td class="hl-num" data-line="104"></td><td></td></tr>
+<tr><td class="hl-num" data-line="105"></td><td>    <span class="hl-k">override</span> <span class="hl-k">fun</span> <span class="hl-en">compareTo</span>(other: GMTDate): <span class="hl-c">Int</span> = <span class="hl-en">timestamp.compareTo</span>(other.timestamp)</td></tr>
+<tr><td class="hl-num" data-line="106"></td><td></td></tr>
+<tr><td class="hl-num" data-line="107"></td><td>    <span class="hl-k">public</span> <span class="hl-k">companion</span> <span class="hl-k">object</span> {</td></tr>
+<tr><td class="hl-num" data-line="108"></td><td>        <span class="hl-cmt">/**</span></td></tr>
+<tr><td class="hl-num" data-line="109"></td><td><span class="hl-cmt">         * An instance of [GMTDate] corresponding to the epoch beginning</span></td></tr>
+<tr><td class="hl-num" data-line="110"></td><td><span class="hl-cmt">         */</span></td></tr>
+<tr><td class="hl-num" data-line="111"></td><td>        <span class="hl-k">public</span> <span class="hl-k">val</span> START: GMTDate = <span class="hl-en">GMTDate</span>(<span class="hl-c">0</span>)</td></tr>
+<tr><td class="hl-num" data-line="112"></td><td>    }</td></tr>
+<tr><td class="hl-num" data-line="113"></td><td>}</td></tr>
+<tr><td class="hl-num" data-line="114"></td><td></td></tr>
+<tr><td class="hl-num" data-line="115"></td><td><span class="hl-cmt">/**</span></td></tr>
+<tr><td class="hl-num" data-line="116"></td><td><span class="hl-cmt"> * Create new gmt date from the [timestamp].</span></td></tr>
+<tr><td class="hl-num" data-line="117"></td><td><span class="hl-cmt"> * @param timestamp is a number of epoch milliseconds (it is `now` by default).</span></td></tr>
+<tr><td class="hl-num" data-line="118"></td><td><span class="hl-cmt"> */</span></td></tr>
+<tr><td class="hl-num" data-line="119"></td><td>@<span class="hl-en">Suppress</span>(<span class="hl-s">"FunctionName"</span>)</td></tr>
+<tr><td class="hl-num" data-line="120"></td><td><span class="hl-k">public</span> <span class="hl-k">expect</span> <span class="hl-k">fun</span> <span class="hl-en">GMTDate</span>(timestamp: <span class="hl-c">Long</span>? = <span class="hl-c">null</span>): GMTDate</td></tr>
+<tr><td class="hl-num" data-line="121"></td><td></td></tr>
+<tr><td class="hl-num" data-line="122"></td><td><span class="hl-cmt">/**</span></td></tr>
+<tr><td class="hl-num" data-line="123"></td><td><span class="hl-cmt"> * Create an instance of [GMTDate] from the specified date/time components</span></td></tr>
+<tr><td class="hl-num" data-line="124"></td><td><span class="hl-cmt"> */</span></td></tr>
+<tr><td class="hl-num" data-line="125"></td><td>@<span class="hl-en">Suppress</span>(<span class="hl-s">"FunctionName"</span>)</td></tr>
+<tr><td class="hl-num" data-line="126"></td><td><span class="hl-k">public</span> <span class="hl-k">expect</span> <span class="hl-k">fun</span> <span class="hl-en">GMTDate</span>(seconds: <span class="hl-c">Int</span>, minutes: <span class="hl-c">Int</span>, hours: <span class="hl-c">Int</span>, dayOfMonth: <span class="hl-c">Int</span>, month: Month, year: <span class="hl-c">Int</span>): GMTDate</td></tr>
+<tr><td class="hl-num" data-line="127"></td><td></td></tr>
+<tr><td class="hl-num" data-line="128"></td><td><span class="hl-cmt">/**</span></td></tr>
+<tr><td class="hl-num" data-line="129"></td><td><span class="hl-cmt"> * Adds the specified number of [milliseconds]</span></td></tr>
+<tr><td class="hl-num" data-line="130"></td><td><span class="hl-cmt"> */</span></td></tr>
+<tr><td class="hl-num" data-line="131"></td><td><span class="hl-k">public</span> <span class="hl-k">operator</span> <span class="hl-k">fun</span> <span class="hl-en">GMTDate.plus</span>(milliseconds: <span class="hl-c">Long</span>): GMTDate = <span class="hl-en">GMTDate</span>(timestamp + milliseconds)</td></tr>
+<tr><td class="hl-num" data-line="132"></td><td></td></tr>
+<tr><td class="hl-num" data-line="133"></td><td><span class="hl-cmt">/**</span></td></tr>
+<tr><td class="hl-num" data-line="134"></td><td><span class="hl-cmt"> * Subtracts the specified number of [milliseconds]</span></td></tr>
+<tr><td class="hl-num" data-line="135"></td><td><span class="hl-cmt"> */</span></td></tr>
+<tr><td class="hl-num" data-line="136"></td><td><span class="hl-k">public</span> <span class="hl-k">operator</span> <span class="hl-k">fun</span> <span class="hl-en">GMTDate.minus</span>(milliseconds: <span class="hl-c">Long</span>): GMTDate = <span class="hl-en">GMTDate</span>(timestamp - milliseconds)</td></tr>
+<tr><td class="hl-num" data-line="137"></td><td></td></tr>
+<tr><td class="hl-num" data-line="138"></td><td><span class="hl-cmt">/**</span></td></tr>
+<tr><td class="hl-num" data-line="139"></td><td><span class="hl-cmt"> * Adds the specified [duration]</span></td></tr>
+<tr><td class="hl-num" data-line="140"></td><td><span class="hl-cmt"> */</span></td></tr>
+<tr><td class="hl-num" data-line="141"></td><td><span class="hl-k">public</span> <span class="hl-k">operator</span> <span class="hl-k">fun</span> <span class="hl-en">GMTDate.plus</span>(duration: Duration): GMTDate = <span class="hl-en">GMTDate</span>(timestamp + duration.inWholeMilliseconds)</td></tr>
+<tr><td class="hl-num" data-line="142"></td><td></td></tr>
+<tr><td class="hl-num" data-line="143"></td><td><span class="hl-cmt">/**</span></td></tr>
+<tr><td class="hl-num" data-line="144"></td><td><span class="hl-cmt"> * Subtracts the specified [duration]</span></td></tr>
+<tr><td class="hl-num" data-line="145"></td><td><span class="hl-cmt"> */</span></td></tr>
+<tr><td class="hl-num" data-line="146"></td><td><span class="hl-k">public</span> <span class="hl-k">operator</span> <span class="hl-k">fun</span> <span class="hl-en">GMTDate.minus</span>(duration: Duration): GMTDate = <span class="hl-en">GMTDate</span>(timestamp - duration.inWholeMilliseconds)</td></tr>
+<tr><td class="hl-num" data-line="147"></td><td></td></tr>
+<tr><td class="hl-num" data-line="148"></td><td><span class="hl-cmt">/**</span></td></tr>
+<tr><td class="hl-num" data-line="149"></td><td><span class="hl-cmt"> * Truncate to seconds by discarding sub-second part</span></td></tr>
+<tr><td class="hl-num" data-line="150"></td><td><span class="hl-cmt"> */</span></td></tr>
+<tr><td class="hl-num" data-line="151"></td><td><span class="hl-k">public</span> <span class="hl-k">fun</span> <span class="hl-en">GMTDate.truncateToSeconds</span>(): GMTDate = <span class="hl-en">GMTDate</span>(seconds, minutes, hours, dayOfMonth, month, year)</td></tr>
+<tr><td class="hl-num" data-line="152"></td><td></td></tr>
+<tr><td class="hl-num" data-line="153"></td><td><span class="hl-cmt">/**</span></td></tr>
+<tr><td class="hl-num" data-line="154"></td><td><span class="hl-cmt"> * Gets current system time in milliseconds since certain moment in the past, only delta between two subsequent calls makes sense.</span></td></tr>
+<tr><td class="hl-num" data-line="155"></td><td><span class="hl-cmt"> */</span></td></tr>
+<tr><td class="hl-num" data-line="156"></td><td><span class="hl-k">public</span> <span class="hl-k">expect</span> <span class="hl-k">fun</span> <span class="hl-en">getTimeMillis</span>(): <span class="hl-c">Long</span></td></tr>
+<tr><td class="hl-num" data-line="157"></td><td></td></tr>
+</tbody>
+</table>
