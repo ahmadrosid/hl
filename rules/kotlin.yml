@@ -1,0 +1,73 @@
+multi_line_comment: "/*,*/"
+
+constant:
+  "null": "null"
+  "true": "true"
+  "false": "false"
+  Array: Array
+  Boolean: Boolean
+  Double: Double
+  Long: Long
+  Int: Int
+  String: String
+  Short: Short
+
+keyword:
+  as: as
+  abstract: abstract
+  break: break
+  class: class
+  continue: continue
+  companion: companion
+  data: data
+  do: do
+  else: else
+  enum: enum
+  external: external
+  expect: expect
+  for: for
+  fun: fun
+  if: if
+  in: in
+  internal: internal
+  import: import
+  interface: interface
+  inline: inline
+  is: is
+  object: object
+  open: open
+  operator: operator
+  override: override
+  package: package
+  public: public
+  return: return
+  super: super
+  this: this
+  throw: throw
+  try: try
+  typealias: typealias
+  typeof: typeof
+  val: val
+  var: var
+  when: when
+  while: while
+
+constant_prefix:
+  colon: ":"
+
+entity_prefix:
+  dot: "."
+
+entity_suffix:
+  dot: "."
+  left_brace: "("
+
+condition:
+  ACCEPT_ESCAPED_STRING: true
+  ACCEPT_STRING_ONE_QUOTE: true
+  ACCEPT_STRING_DOUBLE_QUOTE: true
+  RENDER_MULTI_LINE_STRING: true
+  PREFIX_ONE_LINE_COMMENT: "//"
+  ACCEPT_ENTITY_TAG_SUFFIX: "self.ch.is_numeric()"
+  BREAK_ENTITY_TAG_SUFFIX: "!self.ch.is_numeric() && !is_letter(self.ch)"
+  ACCEPT_CHAR_IDENTIFIER: "@"

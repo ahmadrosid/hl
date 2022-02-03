@@ -15,6 +15,7 @@ pub mod html;
 pub mod java;
 pub mod javascript;
 pub mod json;
+pub mod kotlin;
 pub mod lua;
 pub mod makefile;
 pub mod markdown;
