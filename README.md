@@ -69,6 +69,7 @@ See the result in browser [here](https://play.tailwindcss.com/JevzqYGpuH).
 - [x] Java ( ✅ Done )
 - [x] Javascript ( ✅ Done )
 - [x] JSON ( ✅ Done )
+- [x] Kotlin ( ✅ Done )
 - [x] Lua ( ✅ Done )
 - [x] Markdown ( ✅ Done )
 - [x] Nim ( ✅ Done )
