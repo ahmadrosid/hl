@@ -139,6 +139,14 @@ fn test_json() {
 }
 
 #[test]
+fn test_kotlin() {
+    let input = read_input("src/test/testdata/input/kotlin.kt.stub");
+    let expected = read_file("src/test/testdata/output/kotlin.html.stub");
+    let actual = kotlin::render::render_html(input);
+    assert_eq!(expected, actual);
+}
+
+#[test]
 fn test_lua() {
     let input = read_input("src/test/testdata/input/lua.lua.stub");
     let expected = read_file("src/test/testdata/output/lua.html.stub");

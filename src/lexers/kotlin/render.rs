@@ -59,6 +59,13 @@ pub fn render_html(input: Vec<char>) -> String {
                     }
                 }
             }
+            token::Token::CH(value) => {
+                if value == '<' {
+                    html.push_str("&lt;");
+                } else {
+                    html.push(value);
+                }
+            }
             token::Token::ENTITY(value) => {
                 html.push_str(&format!(
                     "<span class=\"hl-en\">{}</span>",
@@ -106,6 +113,12 @@ pub fn render_html(input: Vec<char>) -> String {
                     }
                 }
             }
+            token::Token::VAR(value) => {
+                html.push_str(&format!(
+                    "<span class=\"hl-v\">{}</span>",
+                    value.iter().collect::<String>()
+                ));
+            }
             token::Token::ENDL(_) => {
                 line = line + 1;
                 html.push_str("</td></tr>\n");
@@ -115,6 +128,11 @@ pub fn render_html(input: Vec<char>) -> String {
                 ));
             }
             _ => {
+                if l.ch == '<' {
+                    html.push_str("&lt;");
+                    l.read_char();
+                    continue;
+                }
                 html.push(l.ch);
                 l.read_char();
             }

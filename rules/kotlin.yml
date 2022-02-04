@@ -4,6 +4,7 @@ constant:
   "null": "null"
   "true": "true"
   "false": "false"
+  "this": "this"
   Any: Any
   Array: Array
   Boolean: Boolean
@@ -12,6 +13,8 @@ constant:
   Int: Int
   String: String
   Short: Short
+  Lazy: Lazy
+  List: List
 
 keyword:
   as: as
@@ -35,15 +38,18 @@ keyword:
   interface: interface
   inline: inline
   is: is
+  noinline: noinline
   object: object
   open: open
   operator: operator
   override: override
   package: package
   public: public
+  private: private
   return: return
   super: super
-  this: this
+  set: set
+  get: get
   throw: throw
   try: try
   typealias: typealias
@@ -53,12 +59,22 @@ keyword:
   when: when
   while: while
 
-constant_prefix:
+var_suffix:
   colon: ":"
+  equal: "="
 
+constant_prefix:
+  lt: "<"
+
+constant_suffix:
+  right_paren: ")"
+  left_brace: "{"
+  comma: ","
+  gt: ">"
+  option: "?"
 
 entity_suffix:
-  left_brace: "("
+  left_paren: "("
 
 condition:
   ACCEPT_ESCAPED_STRING: true
@@ -67,6 +83,7 @@ condition:
   RENDER_MULTI_LINE_STRING: true
   PREFIX_ONE_LINE_COMMENT: "//"
   ACCEPT_ENTITY_TAG_SUFFIX: "self.ch.is_numeric()"
-  BREAK_ENTITY_TAG_SUFFIX: "!self.ch.is_numeric() && !is_letter(self.ch) && self.ch != '.'"
-  ACCEPT_CHAR_IDENTIFIER: "."
-  MARK_AS_ENTYTY_ON_FUNCTION_SCOPE: "package"
+  BREAK_ENTITY_TAG_SUFFIX: "!self.ch.is_numeric() && !is_letter(self.ch)"
+  ENCODE_LT: "<"
+  ENCODE_LT_STRING: "&lt;"
+  ACCEPT_PREFIX_KEYWORD: "@"

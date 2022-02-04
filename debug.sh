@@ -8,4 +8,4 @@ cargo fmt
 
 # Copy result
  cp table.html src/test/testdata/output/kotlin.html.stub
- cp test-file src/test/testdata/input/kotlni.kt.stub
+ cp test-file src/test/testdata/input/kotlin.kt.stub
