@@ -23,6 +23,7 @@ array=(
   "rules/lua.yml"
   "rules/makefile.yml"
   "rules/markdown.yml"
+  "rules/nim.yml"
   "rules/php.yml"
   "rules/python.yml"
   "rules/raw.yml"

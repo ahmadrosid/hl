@@ -39,6 +39,7 @@ pub fn get_keyword_token(identifier: &Vec<char>) -> Result<Token, String> {
         "do" => Ok(Token::KEYWORD(identifier.to_vec())),
         "elif" => Ok(Token::KEYWORD(identifier.to_vec())),
         "else" => Ok(Token::KEYWORD(identifier.to_vec())),
+        "echo" => Ok(Token::KEYWORD(identifier.to_vec())),
         "end" => Ok(Token::KEYWORD(identifier.to_vec())),
         "enum" => Ok(Token::KEYWORD(identifier.to_vec())),
         "except" => Ok(Token::KEYWORD(identifier.to_vec())),

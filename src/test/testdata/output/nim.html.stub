@@ -78,7 +78,7 @@
 <tr><td class="hl-num" data-line="76"></td><td><span class="hl-en">setCurrentDir</span>(<span class="hl-en">getAppDir</span>())</td></tr>
 <tr><td class="hl-num" data-line="77"></td><td></td></tr>
 <tr><td class="hl-num" data-line="78"></td><td><span class="hl-k">proc</span> <span class="hl-en">tryExec</span>(cmd: <span class="hl-k">string</span>): <span class="hl-k">bool</span> =</td></tr>
-<tr><td class="hl-num" data-line="79"></td><td>  <span class="hl-en">echo</span>(cmd)</td></tr>
+<tr><td class="hl-num" data-line="79"></td><td>  <span class="hl-k">echo</span>(cmd)</td></tr>
 <tr><td class="hl-num" data-line="80"></td><td>  <span class="hl-c">result</span> = <span class="hl-en">execShellCmd</span>(cmd) == <span class="hl-c">0</span></td></tr>
 <tr><td class="hl-num" data-line="81"></td><td></td></tr>
 <tr><td class="hl-num" data-line="82"></td><td><span class="hl-k">proc</span> <span class="hl-en">safeRemove</span>(filename: <span class="hl-k">string</span>) =</td></tr>
