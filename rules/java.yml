@@ -6,7 +6,17 @@ constant:
   FALSE: "false"
   SUPER: "super"
   NULL: "null"
-  CSTRING: "String"
+  STRING: "String"
+  Long: Long
+  Object: Object
+  Boolean: Boolean
+  Array: Array
+  List: List
+  ArrayList: ArrayList
+  Arrays: Arrays
+  Map: Map
+  HashMap: HashMap
+  LinkedHashSet: LinkedHashSet
 
 entity_suffix:
   left_brace: "("
@@ -43,12 +53,7 @@ keyword:
   BOOLEAN: "boolean"
   ASSERT: "assert"
   CONTINUE: "continue"
-  LIST: "List"
-  ARRAYLIST: "ArrayList"
-  MAP: "Map"
   NATIVE: "native"
-  HASHMAP: "HashMap"
-  LINKEDHASHSET: "LinkedHashSet"
   SWITCH: "switch"
   SYNCHRONIZED: "synchronized"
   TRY: "try"
