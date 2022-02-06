@@ -4,7 +4,7 @@
 <tr><td class="hl-num" data-line="2"></td><td></td></tr>
 <tr><td class="hl-num" data-line="3"></td><td><span class="hl-k">import</span> java.io.IOException;</td></tr>
 <tr><td class="hl-num" data-line="4"></td><td><span class="hl-k">import</span> java.net.SocketException;</td></tr>
-<tr><td class="hl-num" data-line="5"></td><td><span class="hl-k">import</span> java.util.Arrays;</td></tr>
+<tr><td class="hl-num" data-line="5"></td><td><span class="hl-k">import</span> java.util.<span class="hl-c">Arrays</span>;</td></tr>
 <tr><td class="hl-num" data-line="6"></td><td></td></tr>
 <tr><td class="hl-num" data-line="7"></td><td><span class="hl-k">private</span> <span class="hl-k">static</span> <span class="hl-k">final</span> <span class="hl-k">char</span> EXTENSION_SEPARATOR <span class="hl-k">=</span> <span class="hl-s">'.'</span>;</td></tr>
 <tr><td class="hl-num" data-line="8"></td><td><span class="hl-k">private</span> <span class="hl-k">static</span> <span class="hl-k">final</span> <span class="hl-k">int</span> PERSPECTIVE_ARRAY_INVERTED_CAMERA_DISTANCE_INDEX <span class="hl-k">=</span> <span class="hl-c">2</span>;</td></tr>
@@ -40,14 +40,14 @@
 <tr><td class="hl-num" data-line="38"></td><td>    <span class="hl-cmt">//   made nullable is they all were nullable</span></td></tr>
 <tr><td class="hl-num" data-line="39"></td><td>    KotlinType nothingOrNullableNothing <span class="hl-k">=</span> <span class="hl-c">null</span>;</td></tr>
 <tr><td class="hl-num" data-line="40"></td><td>    <span class="hl-k">boolean</span> allNullable <span class="hl-k">=</span> <span class="hl-c">true</span>;</td></tr>
-<tr><td class="hl-num" data-line="41"></td><td>    <span class="hl-k">List</span><span class="hl-k"><</span>KotlinType<span class="hl-k">></span> nullabilityStripped <span class="hl-k">=</span> <span class="hl-k">new</span> <span class="hl-k">ArrayList</span><span class="hl-k"><</span><span class="hl-k">></span>(types.<span class="hl-en">size</span>());</td></tr>
+<tr><td class="hl-num" data-line="41"></td><td>    <span class="hl-c">List</span><span class="hl-k"><</span>KotlinType<span class="hl-k">></span> nullabilityStripped <span class="hl-k">=</span> <span class="hl-k">new</span> <span class="hl-c">ArrayList</span><span class="hl-k"><</span><span class="hl-k">></span>(types.<span class="hl-en">size</span>());</td></tr>
 <tr><td class="hl-num" data-line="42"></td><td>    <span class="hl-k">for</span> (KotlinType type : types) {</td></tr>
 <tr><td class="hl-num" data-line="43"></td><td>        <span class="hl-k">if</span> (KotlinTypeKt.<span class="hl-en">isError</span>(type)) <span class="hl-k">continue</span>;</td></tr>
 <tr><td class="hl-num" data-line="44"></td><td></td></tr>
 <tr><td class="hl-num" data-line="45"></td><td>        allNullable <span class="hl-k">&</span><span class="hl-k">=</span> type.<span class="hl-en">isMarkedNullable</span>();</td></tr>
 <tr><td class="hl-num" data-line="46"></td><td>        nullabilityStripped.<span class="hl-en">add</span>(TypeUtils.<span class="hl-en">makeNotNullable</span>(type));</td></tr>
 <tr><td class="hl-num" data-line="47"></td><td>    }</td></tr>
-<tr><td class="hl-num" data-line="48"></td><td>    <span class="hl-k">Map</span><span class="hl-k"><</span>TypeParameterDescriptor, Variance<span class="hl-k">></span> parameters <span class="hl-k">=</span> <span class="hl-k">new</span> <span class="hl-k">HashMap</span><span class="hl-k"><</span><span class="hl-k">></span>();</td></tr>
+<tr><td class="hl-num" data-line="48"></td><td>    <span class="hl-c">Map</span><span class="hl-k"><</span>TypeParameterDescriptor, Variance<span class="hl-k">></span> parameters <span class="hl-k">=</span> <span class="hl-k">new</span> <span class="hl-c">HashMap</span><span class="hl-k"><</span><span class="hl-k">></span>();</td></tr>
 <tr><td class="hl-num" data-line="49"></td><td>    Function1<span class="hl-k"><</span>TypeParameterUsage, Unit<span class="hl-k">></span> processor <span class="hl-k">=</span> parameterUsage <span class="hl-k">-</span><span class="hl-k">></span> {</td></tr>
 <tr><td class="hl-num" data-line="50"></td><td>        Variance howTheTypeIsUsedBefore <span class="hl-k">=</span> parameters.<span class="hl-en">get</span>(parameterUsage.typeParameterDescriptor);</td></tr>
 <tr><td class="hl-num" data-line="51"></td><td>        <span class="hl-k">if</span> (howTheTypeIsUsedBefore <span class="hl-k">==</span> <span class="hl-c">null</span>) {</td></tr>
@@ -58,7 +58,7 @@
 <tr><td class="hl-num" data-line="56"></td><td>        <span class="hl-k">return</span> Unit.INSTANCE;</td></tr>
 <tr><td class="hl-num" data-line="57"></td><td>    };</td></tr>
 <tr><td class="hl-num" data-line="58"></td><td></td></tr>
-<tr><td class="hl-num" data-line="59"></td><td>    <span class="hl-k">return</span> <span class="hl-en">intersectTypes</span>(<span class="hl-k">new</span> <span class="hl-k">LinkedHashSet</span><span class="hl-k"><</span><span class="hl-k">></span>(Arrays.<span class="hl-en">asList</span>(typeA, typeB))) <span class="hl-k">==</span> <span class="hl-c">null</span>;</td></tr>
+<tr><td class="hl-num" data-line="59"></td><td>    <span class="hl-k">return</span> <span class="hl-en">intersectTypes</span>(<span class="hl-k">new</span> <span class="hl-c">LinkedHashSet</span><span class="hl-k"><</span><span class="hl-k">></span>(<span class="hl-c">Arrays</span>.<span class="hl-en">asList</span>(typeA, typeB))) <span class="hl-k">==</span> <span class="hl-c">null</span>;</td></tr>
 <tr><td class="hl-num" data-line="60"></td><td>}</td></tr>
 <tr><td class="hl-num" data-line="61"></td><td></td></tr>
 <tr><td class="hl-num" data-line="62"></td><td><span class="hl-k">public</span> <span class="hl-k">interface</span> MeshPartBuilder {</td></tr>
@@ -108,7 +108,7 @@
 <tr><td class="hl-num" data-line="106"></td><td></td></tr>
 <tr><td class="hl-num" data-line="107"></td><td>    <span class="hl-k">private</span> <span class="hl-k">void</span> <span class="hl-en">readObject</span>(ObjectInputStream in) <span class="hl-k">throws</span> IOException) {</td></tr>
 <tr><td class="hl-num" data-line="108"></td><td>        in.<span class="hl-en">defaultReadObject</span>();</td></tr>
-<tr><td class="hl-num" data-line="109"></td><td>        handleOperTimecostHistogramMap <span class="hl-k">=</span> <span class="hl-k">new</span> <span class="hl-k">HashMap</span><span class="hl-k"><</span><span class="hl-k">></span>();</td></tr>
+<tr><td class="hl-num" data-line="109"></td><td>        handleOperTimecostHistogramMap <span class="hl-k">=</span> <span class="hl-k">new</span> <span class="hl-c">HashMap</span><span class="hl-k"><</span><span class="hl-k">></span>();</td></tr>
 <tr><td class="hl-num" data-line="110"></td><td>        <span class="hl-k">switch</span> (unit) {</td></tr>
 <tr><td class="hl-num" data-line="111"></td><td>          <span class="hl-k">case</span> POINT:</td></tr>
 <tr><td class="hl-num" data-line="112"></td><td>          <span class="hl-k">case</span> UNDEFINED:</td></tr>
@@ -130,7 +130,7 @@
 <tr><td class="hl-num" data-line="128"></td><td>        <span class="hl-k">return</span> <span class="hl-c">true</span>;</td></tr>
 <tr><td class="hl-num" data-line="129"></td><td>    }</td></tr>
 <tr><td class="hl-num" data-line="130"></td><td></td></tr>
-<tr><td class="hl-num" data-line="131"></td><td>    <span class="hl-k">public</span> <span class="hl-k">static</span> Long <span class="hl-en">fromBinary</span>(<span class="hl-c">String</span> binary) {</td></tr>
+<tr><td class="hl-num" data-line="131"></td><td>    <span class="hl-k">public</span> <span class="hl-k">static</span> <span class="hl-c">Long</span> <span class="hl-en">fromBinary</span>(<span class="hl-c">String</span> binary) {</td></tr>
 <tr><td class="hl-num" data-line="132"></td><td>        binary.<span class="hl-en">chars</span>().<span class="hl-en">filter</span>(c <span class="hl-k">-</span><span class="hl-k">></span> c <span class="hl-k">!=</span> <span class="hl-s">'0'</span> <span class="hl-k">&&</span> c <span class="hl-k">!=</span> <span class="hl-s">'1'</span>).<span class="hl-en">findFirst</span>().<span class="hl-en">ifPresent</span>(in <span class="hl-k">-</span><span class="hl-k">></span> {</td></tr>
 <tr><td class="hl-num" data-line="133"></td><td>          <span class="hl-k">throw</span> <span class="hl-k">new</span> <span class="hl-en">NumberFormatException</span>(</td></tr>
 <tr><td class="hl-num" data-line="134"></td><td>                  <span class="hl-s">"Binary string contains values other than '0' and '1'"</span>);</td></tr>
@@ -224,7 +224,7 @@
 <tr><td class="hl-num" data-line="222"></td><td>                    actualThrowable <span class="hl-k">=</span> throwable;</td></tr>
 <tr><td class="hl-num" data-line="223"></td><td>                }</td></tr>
 <tr><td class="hl-num" data-line="224"></td><td></td></tr>
-<tr><td class="hl-num" data-line="225"></td><td>                <span class="hl-k">final</span> <span class="hl-k">List</span><span class="hl-k"><</span>Throwable<span class="hl-k">></span> errors;</td></tr>
+<tr><td class="hl-num" data-line="225"></td><td>                <span class="hl-k">final</span> <span class="hl-c">List</span><span class="hl-k"><</span>Throwable<span class="hl-k">></span> errors;</td></tr>
 <tr><td class="hl-num" data-line="226"></td><td>                <span class="hl-k">if</span> (actualThrowable <span class="hl-k">instanceof</span> CompositeException) {</td></tr>
 <tr><td class="hl-num" data-line="227"></td><td>                    errors <span class="hl-k">=</span> ((CompositeException) actualThrowable).<span class="hl-en">getExceptions</span>();</td></tr>
 <tr><td class="hl-num" data-line="228"></td><td>                } <span class="hl-k">else</span> {</td></tr>
@@ -287,7 +287,7 @@
 <tr><td class="hl-num" data-line="285"></td><td>                .<span class="hl-en">build</span>();</td></tr>
 <tr><td class="hl-num" data-line="286"></td><td></td></tr>
 <tr><td class="hl-num" data-line="287"></td><td>        <span class="hl-k">final</span> NotificationManagerCompat notificationManager <span class="hl-k">=</span> NotificationManagerCompat.<span class="hl-en">from</span>(<span class="hl-c">this</span>);</td></tr>
-<tr><td class="hl-num" data-line="288"></td><td>        notificationManager.<span class="hl-en">createNotificationChannelsCompat</span>(Arrays.<span class="hl-en">asList</span>(mainChannel,</td></tr>
+<tr><td class="hl-num" data-line="288"></td><td>        notificationManager.<span class="hl-en">createNotificationChannelsCompat</span>(<span class="hl-c">Arrays</span>.<span class="hl-en">asList</span>(mainChannel,</td></tr>
 <tr><td class="hl-num" data-line="289"></td><td>                appUpdateChannel, hashChannel, errorReportChannel));</td></tr>
 <tr><td class="hl-num" data-line="290"></td><td>    }</td></tr>
 <tr><td class="hl-num" data-line="291"></td><td></td></tr>

@@ -24,6 +24,7 @@ keyword:
   do: do
   elif: elif
   else: else
+  echo: echo
   end: end
   enum: enum
   except: except
