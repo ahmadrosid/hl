@@ -7,5 +7,5 @@ cargo run test-file -l erlang > table.html
 cargo fmt
 
 # Copy result
-cp table.html src/test/testdata/output/erlang.html.stub
-cp test-file src/test/testdata/input/erlang.erl.stub
+#cp table.html src/test/testdata/output/erlang.html.stub
+#cp test-file src/test/testdata/input/erlang.erl.stub

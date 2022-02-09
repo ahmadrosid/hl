@@ -41,6 +41,9 @@ constant_suffix:
   assign: "="
   minus: "-"
 
+entity_prefix:
+  hashtag: "#"
+
 entity_suffix:
   left_parent: "("
 

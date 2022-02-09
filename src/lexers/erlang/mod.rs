@@ -129,6 +129,9 @@ impl Lexer {
                     match token::get_keyword_token(&identifier) {
                         Ok(keyword_token) => keyword_token,
                         Err(_) => {
+                            if start_position > 0 && self.input[start_position - 1] == '#' {
+                                return token::Token::ENTITY(identifier);
+                            }
                             if self.ch == '(' {
                                 return token::Token::ENTITY(identifier);
                             } else if self.ch.is_whitespace() {
