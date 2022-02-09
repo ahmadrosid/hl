@@ -1,0 +1,110 @@
+<table class="highlight-table">
+<tbody>
+<tr><td class="hl-num" data-line="1"></td><td><span class="hl-cmt">%% Copyright (c) 2011-2017, Loïc Hoguin &lt;essen@ninenines.eu&gt;</span></td></tr>
+<tr><td class="hl-num" data-line="2"></td><td><span class="hl-cmt">%%</span></td></tr>
+<tr><td class="hl-num" data-line="3"></td><td><span class="hl-cmt">%% Permission to use, copy, modify, and/or distribute this software for any</span></td></tr>
+<tr><td class="hl-num" data-line="4"></td><td><span class="hl-cmt">%% purpose with or without fee is hereby granted, provided that the above</span></td></tr>
+<tr><td class="hl-num" data-line="5"></td><td><span class="hl-cmt">%% copyright notice and this permission notice appear in all copies.</span></td></tr>
+<tr><td class="hl-num" data-line="6"></td><td><span class="hl-cmt">%%</span></td></tr>
+<tr><td class="hl-num" data-line="7"></td><td><span class="hl-cmt">%% THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES</span></td></tr>
+<tr><td class="hl-num" data-line="8"></td><td><span class="hl-cmt">%% WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF</span></td></tr>
+<tr><td class="hl-num" data-line="9"></td><td><span class="hl-cmt">%% MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR</span></td></tr>
+<tr><td class="hl-num" data-line="10"></td><td><span class="hl-cmt">%% ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES</span></td></tr>
+<tr><td class="hl-num" data-line="11"></td><td><span class="hl-cmt">%% WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN</span></td></tr>
+<tr><td class="hl-num" data-line="12"></td><td><span class="hl-cmt">%% ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF</span></td></tr>
+<tr><td class="hl-num" data-line="13"></td><td><span class="hl-cmt">%% OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.</span></td></tr>
+<tr><td class="hl-num" data-line="14"></td><td></td></tr>
+<tr><td class="hl-num" data-line="15"></td><td><span class="hl-k">-module</span>(<span class="hl-v">cowboy</span>).</td></tr>
+<tr><td class="hl-num" data-line="16"></td><td></td></tr>
+<tr><td class="hl-num" data-line="17"></td><td><span class="hl-k">-export</span>([<span class="hl-v">start_clear</span>/<span class="hl-c">3</span>]).</td></tr>
+<tr><td class="hl-num" data-line="18"></td><td><span class="hl-k">-export</span>([<span class="hl-v">start_tls</span>/<span class="hl-c">3</span>]).</td></tr>
+<tr><td class="hl-num" data-line="19"></td><td><span class="hl-k">-export</span>([<span class="hl-v">stop_listener</span>/<span class="hl-c">1</span>]).</td></tr>
+<tr><td class="hl-num" data-line="20"></td><td><span class="hl-k">-export</span>([<span class="hl-v">set_env</span>/<span class="hl-c">3</span>]).</td></tr>
+<tr><td class="hl-num" data-line="21"></td><td></td></tr>
+<tr><td class="hl-num" data-line="22"></td><td><span class="hl-cmt">%% Internal.</span></td></tr>
+<tr><td class="hl-num" data-line="23"></td><td><span class="hl-k">-export</span>([<span class="hl-v">log</span>/<span class="hl-c">2</span>]).</td></tr>
+<tr><td class="hl-num" data-line="24"></td><td><span class="hl-k">-export</span>([<span class="hl-v">log</span>/<span class="hl-c">4</span>]).</td></tr>
+<tr><td class="hl-num" data-line="25"></td><td></td></tr>
+<tr><td class="hl-num" data-line="26"></td><td><span class="hl-k">-type</span> <span class="hl-en">opts</span>() :: <span class="hl-en">cowboy_http:opts</span>() | cowboy_http2:<span class="hl-en">opts</span>().</td></tr>
+<tr><td class="hl-num" data-line="27"></td><td><span class="hl-k">-export_type</span>([<span class="hl-v">opts</span>/<span class="hl-c">0</span>]).</td></tr>
+<tr><td class="hl-num" data-line="28"></td><td></td></tr>
+<tr><td class="hl-num" data-line="29"></td><td><span class="hl-k">-type</span> <span class="hl-en">fields</span>() :: [<span class="hl-en">atom</span>()</td></tr>
+<tr><td class="hl-num" data-line="30"></td><td>	| {<span class="hl-en">atom</span>(), <span class="hl-en">cowboy_constraints:constraint</span>() | [<span class="hl-en">cowboy_constraints:constraint</span>()]}</td></tr>
+<tr><td class="hl-num" data-line="31"></td><td>	| {<span class="hl-en">atom</span>(), <span class="hl-en">cowboy_constraints:constraint</span>() | [<span class="hl-en">cowboy_constraints:constraint</span>()], <span class="hl-en">any</span>()}].</td></tr>
+<tr><td class="hl-num" data-line="32"></td><td><span class="hl-k">-export_type</span>([<span class="hl-v">fields</span>/<span class="hl-c">0</span>]).</td></tr>
+<tr><td class="hl-num" data-line="33"></td><td></td></tr>
+<tr><td class="hl-num" data-line="34"></td><td><span class="hl-k">-type</span> <span class="hl-en">http_headers</span>() :: #{<span class="hl-en">binary</span>() => <span class="hl-en">iodata</span>()}.</td></tr>
+<tr><td class="hl-num" data-line="35"></td><td><span class="hl-k">-export_type</span>([<span class="hl-v">http_headers</span>/<span class="hl-c">0</span>]).</td></tr>
+<tr><td class="hl-num" data-line="36"></td><td></td></tr>
+<tr><td class="hl-num" data-line="37"></td><td><span class="hl-k">-type</span> <span class="hl-en">http_status</span>() :: <span class="hl-en">non_neg_integer</span>() | <span class="hl-en">binary</span>().</td></tr>
+<tr><td class="hl-num" data-line="38"></td><td><span class="hl-k">-export_type</span>([<span class="hl-v">http_status</span>/<span class="hl-c">0</span>]).</td></tr>
+<tr><td class="hl-num" data-line="39"></td><td></td></tr>
+<tr><td class="hl-num" data-line="40"></td><td><span class="hl-k">-type</span> <span class="hl-en">http_version</span>() :: <span class="hl-s">'HTTP/2'</span> | <span class="hl-s">'HTTP/1.1'</span> | <span class="hl-s">'HTTP/1.0'</span>.</td></tr>
+<tr><td class="hl-num" data-line="41"></td><td><span class="hl-k">-export_type</span>([<span class="hl-v">http_version</span>/<span class="hl-c">0</span>]).</td></tr>
+<tr><td class="hl-num" data-line="42"></td><td></td></tr>
+<tr><td class="hl-num" data-line="43"></td><td><span class="hl-k">-spec</span> <span class="hl-en">start_clear</span>(<span class="hl-en">ranch:ref</span>(), <span class="hl-en">ranch:opts</span>(), <span class="hl-en">opts</span>())</td></tr>
+<tr><td class="hl-num" data-line="44"></td><td>	-> {<span class="hl-v">ok</span>, <span class="hl-en">pid</span>()} | {<span class="hl-v">error</span>, <span class="hl-en">any</span>()}.</td></tr>
+<tr><td class="hl-num" data-line="45"></td><td><span class="hl-en">start_clear</span>(<span class="hl-v">Ref</span>, <span class="hl-v">TransOpts0</span>, <span class="hl-v">ProtoOpts0</span>) -></td></tr>
+<tr><td class="hl-num" data-line="46"></td><td>	<span class="hl-c">TransOpts1</span> = <span class="hl-en">ranch:normalize_opts</span>(<span class="hl-v">TransOpts0</span>),</td></tr>
+<tr><td class="hl-num" data-line="47"></td><td>	{<span class="hl-v">TransOpts</span>, <span class="hl-v">ConnectionType</span>} = <span class="hl-en">ensure_connection_type</span>(<span class="hl-v">TransOpts1</span>),</td></tr>
+<tr><td class="hl-num" data-line="48"></td><td>	<span class="hl-c">ProtoOpts</span> = ProtoOpts0#{<span class="hl-v">connection_type</span> => <span class="hl-v">ConnectionType</span>},</td></tr>
+<tr><td class="hl-num" data-line="49"></td><td>	<span class="hl-en">ranch:start_listener</span>(<span class="hl-v">Ref</span>, <span class="hl-v">ranch_tcp</span>, <span class="hl-v">TransOpts</span>, <span class="hl-v">cowboy_clear</span>, <span class="hl-v">ProtoOpts</span>).</td></tr>
+<tr><td class="hl-num" data-line="50"></td><td></td></tr>
+<tr><td class="hl-num" data-line="51"></td><td><span class="hl-k">-spec</span> <span class="hl-en">start_tls</span>(<span class="hl-en">ranch:ref</span>(), <span class="hl-en">ranch:opts</span>(), <span class="hl-en">opts</span>())</td></tr>
+<tr><td class="hl-num" data-line="52"></td><td>	-> {<span class="hl-v">ok</span>, <span class="hl-en">pid</span>()} | {<span class="hl-v">error</span>, <span class="hl-en">any</span>()}.</td></tr>
+<tr><td class="hl-num" data-line="53"></td><td><span class="hl-en">start_tls</span>(<span class="hl-v">Ref</span>, <span class="hl-v">TransOpts0</span>, <span class="hl-v">ProtoOpts0</span>) -></td></tr>
+<tr><td class="hl-num" data-line="54"></td><td>	<span class="hl-c">TransOpts1</span> = <span class="hl-en">ranch:normalize_opts</span>(<span class="hl-v">TransOpts0</span>),</td></tr>
+<tr><td class="hl-num" data-line="55"></td><td>	<span class="hl-c">SocketOpts</span> = <span class="hl-en">maps:get</span>(<span class="hl-v">socket_opts</span>, <span class="hl-v">TransOpts1</span>, []),</td></tr>
+<tr><td class="hl-num" data-line="56"></td><td>	<span class="hl-c">TransOpts2</span> = TransOpts1#{<span class="hl-v">socket_opts</span> => [</td></tr>
+<tr><td class="hl-num" data-line="57"></td><td>		{<span class="hl-v">next_protocols_advertised</span>, [<<<span class="hl-s">"h2"</span>>>, <<<span class="hl-s">"http/1.1"</span>>>]},</td></tr>
+<tr><td class="hl-num" data-line="58"></td><td>		{<span class="hl-v">alpn_preferred_protocols</span>, [<<<span class="hl-s">"h2"</span>>>, <<<span class="hl-s">"http/1.1"</span>>>]}</td></tr>
+<tr><td class="hl-num" data-line="59"></td><td>	|SocketOpts]},</td></tr>
+<tr><td class="hl-num" data-line="60"></td><td>	{<span class="hl-v">TransOpts</span>, <span class="hl-v">ConnectionType</span>} = <span class="hl-en">ensure_connection_type</span>(<span class="hl-v">TransOpts2</span>),</td></tr>
+<tr><td class="hl-num" data-line="61"></td><td>	<span class="hl-c">ProtoOpts</span> = ProtoOpts0#{<span class="hl-v">connection_type</span> => <span class="hl-v">ConnectionType</span>},</td></tr>
+<tr><td class="hl-num" data-line="62"></td><td>	<span class="hl-en">ranch:start_listener</span>(<span class="hl-v">Ref</span>, <span class="hl-v">ranch_ssl</span>, <span class="hl-v">TransOpts</span>, <span class="hl-v">cowboy_tls</span>, <span class="hl-v">ProtoOpts</span>).</td></tr>
+<tr><td class="hl-num" data-line="63"></td><td></td></tr>
+<tr><td class="hl-num" data-line="64"></td><td><span class="hl-en">ensure_connection_type</span>(<span class="hl-v">TransOpts</span>=#{<span class="hl-v">connection_type</span> := <span class="hl-v">ConnectionType</span>}) -></td></tr>
+<tr><td class="hl-num" data-line="65"></td><td>	{<span class="hl-v">TransOpts</span>, <span class="hl-v">ConnectionType</span>};</td></tr>
+<tr><td class="hl-num" data-line="66"></td><td><span class="hl-en">ensure_connection_type</span>(<span class="hl-v">TransOpts</span>) -></td></tr>
+<tr><td class="hl-num" data-line="67"></td><td>	{<span class="hl-v">TransOpts</span>#{<span class="hl-v">connection_type</span> => <span class="hl-v">supervisor</span>}, <span class="hl-v">supervisor</span>}.</td></tr>
+<tr><td class="hl-num" data-line="68"></td><td></td></tr>
+<tr><td class="hl-num" data-line="69"></td><td><span class="hl-k">-spec</span> <span class="hl-en">stop_listener</span>(<span class="hl-en">ranch:ref</span>()) -> ok | {<span class="hl-v">error</span>, <span class="hl-v">not_found</span>}.</td></tr>
+<tr><td class="hl-num" data-line="70"></td><td><span class="hl-en">stop_listener</span>(<span class="hl-v">Ref</span>) -></td></tr>
+<tr><td class="hl-num" data-line="71"></td><td>	<span class="hl-en">ranch:stop_listener</span>(<span class="hl-v">Ref</span>).</td></tr>
+<tr><td class="hl-num" data-line="72"></td><td></td></tr>
+<tr><td class="hl-num" data-line="73"></td><td><span class="hl-k">-spec</span> <span class="hl-en">set_env</span>(<span class="hl-en">ranch:ref</span>(), <span class="hl-en">atom</span>(), <span class="hl-en">any</span>()) -> ok.</td></tr>
+<tr><td class="hl-num" data-line="74"></td><td><span class="hl-en">set_env</span>(<span class="hl-v">Ref</span>, <span class="hl-v">Name</span>, <span class="hl-v">Value</span>) -></td></tr>
+<tr><td class="hl-num" data-line="75"></td><td>	<span class="hl-c">Opts</span> = <span class="hl-en">ranch:get_protocol_options</span>(<span class="hl-v">Ref</span>),</td></tr>
+<tr><td class="hl-num" data-line="76"></td><td>	<span class="hl-c">Env</span> = <span class="hl-en">maps:get</span>(<span class="hl-v">env</span>, <span class="hl-v">Opts</span>, #{}),</td></tr>
+<tr><td class="hl-num" data-line="77"></td><td>	<span class="hl-c">Opts2</span> = <span class="hl-en">maps:put</span>(<span class="hl-v">env</span>, <span class="hl-en">maps:put</span>(<span class="hl-v">Name</span>, <span class="hl-v">Value</span>, <span class="hl-v">Env</span>), <span class="hl-v">Opts</span>),</td></tr>
+<tr><td class="hl-num" data-line="78"></td><td>	<span class="hl-c">ok</span> = <span class="hl-en">ranch:set_protocol_options</span>(<span class="hl-v">Ref</span>, <span class="hl-v">Opts2</span>).</td></tr>
+<tr><td class="hl-num" data-line="79"></td><td></td></tr>
+<tr><td class="hl-num" data-line="80"></td><td><span class="hl-cmt">%% Internal.</span></td></tr>
+<tr><td class="hl-num" data-line="81"></td><td></td></tr>
+<tr><td class="hl-num" data-line="82"></td><td><span class="hl-k">-spec</span> <span class="hl-en">log</span>({<span class="hl-v">log</span>, <span class="hl-en">logger:level</span>(), <span class="hl-en">io:format</span>(), <span class="hl-en">list</span>()}, <span class="hl-en">opts</span>()) -> ok.</td></tr>
+<tr><td class="hl-num" data-line="83"></td><td><span class="hl-en">log</span>({<span class="hl-v">log</span>, <span class="hl-v">Level</span>, <span class="hl-v">Format</span>, <span class="hl-v">Args</span>}, <span class="hl-v">Opts</span>) -></td></tr>
+<tr><td class="hl-num" data-line="84"></td><td>	<span class="hl-en">log</span>(<span class="hl-v">Level</span>, <span class="hl-v">Format</span>, <span class="hl-v">Args</span>, <span class="hl-v">Opts</span>).</td></tr>
+<tr><td class="hl-num" data-line="85"></td><td></td></tr>
+<tr><td class="hl-num" data-line="86"></td><td><span class="hl-k">-spec</span> <span class="hl-en">log</span>(<span class="hl-en">logger:level</span>(), <span class="hl-en">io:format</span>(), <span class="hl-en">list</span>(), <span class="hl-en">opts</span>()) -> ok.</td></tr>
+<tr><td class="hl-num" data-line="87"></td><td><span class="hl-en">log</span>(<span class="hl-v">Level</span>, <span class="hl-v">Format</span>, <span class="hl-v">Args</span>, #{<span class="hl-v">logger</span> := <span class="hl-v">Logger</span>})</td></tr>
+<tr><td class="hl-num" data-line="88"></td><td>		<span class="hl-k">when</span> <span class="hl-c">Logger</span> =/= <span class="hl-c">error_logger</span> -></td></tr>
+<tr><td class="hl-num" data-line="89"></td><td>	<span class="hl-c">_</span> = <span class="hl-en">Logger:Level</span>(<span class="hl-v">Format</span>, <span class="hl-v">Args</span>),</td></tr>
+<tr><td class="hl-num" data-line="90"></td><td>	ok;</td></tr>
+<tr><td class="hl-num" data-line="91"></td><td><span class="hl-cmt">%% We use error_logger by default. Because error_logger does</span></td></tr>
+<tr><td class="hl-num" data-line="92"></td><td><span class="hl-cmt">%% not have all the levels we accept we have to do some</span></td></tr>
+<tr><td class="hl-num" data-line="93"></td><td><span class="hl-cmt">%% mapping to error_logger functions.</span></td></tr>
+<tr><td class="hl-num" data-line="94"></td><td><span class="hl-en">log</span>(<span class="hl-v">Level</span>, <span class="hl-v">Format</span>, <span class="hl-v">Args</span>, <span class="hl-v">_</span>) -></td></tr>
+<tr><td class="hl-num" data-line="95"></td><td>	<span class="hl-c">Function</span> = <span class="hl-k">case</span> Level <span class="hl-k">of</span></td></tr>
+<tr><td class="hl-num" data-line="96"></td><td>		<span class="hl-c">emergency</span> -> error_msg;</td></tr>
+<tr><td class="hl-num" data-line="97"></td><td>		<span class="hl-c">alert</span> -> error_msg;</td></tr>
+<tr><td class="hl-num" data-line="98"></td><td>		<span class="hl-c">critical</span> -> error_msg;</td></tr>
+<tr><td class="hl-num" data-line="99"></td><td>		<span class="hl-c">error</span> -> error_msg;</td></tr>
+<tr><td class="hl-num" data-line="100"></td><td>		<span class="hl-c">warning</span> -> warning_msg;</td></tr>
+<tr><td class="hl-num" data-line="101"></td><td>		<span class="hl-c">notice</span> -> warning_msg;</td></tr>
+<tr><td class="hl-num" data-line="102"></td><td>		<span class="hl-c">info</span> -> info_msg;</td></tr>
+<tr><td class="hl-num" data-line="103"></td><td>		<span class="hl-c">debug</span> -> info_msg</td></tr>
+<tr><td class="hl-num" data-line="104"></td><td>	<span class="hl-k">end</span>,</td></tr>
+<tr><td class="hl-num" data-line="105"></td><td>	<span class="hl-en">error_logger:Function</span>(<span class="hl-v">Format</span>, <span class="hl-v">Args</span>).</td></tr>
+<tr><td class="hl-num" data-line="106"></td><td></td></tr>
+</tbody>
+</table>

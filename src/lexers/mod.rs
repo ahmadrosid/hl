@@ -8,6 +8,7 @@ pub mod css;
 pub mod cuda;
 pub mod dart;
 pub mod edn;
+pub mod erlang;
 pub mod go;
 pub mod groovy;
 pub mod haskell;

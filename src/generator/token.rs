@@ -1,7 +1,7 @@
 use crate::generator::{
     get_constant, get_constant_prefix, get_constant_suffix, get_entity, get_entity_prefix,
     get_entity_suffix, get_entity_tag, get_keyword, get_multi_line_comment, get_var,
-    get_var_suffix, get_xml_entity_tag, string::StringBuilder, ConditionExt,
+    get_var_prefix, get_var_suffix, get_xml_entity_tag, string::StringBuilder, ConditionExt,
 };
 use yaml_rust::yaml::Hash;
 
@@ -79,6 +79,7 @@ pub fn generate_token(h: &Hash) -> String {
     }
 
     if h.get_some_condition(ACCEPT_PREFIX_VAR).is_some()
+        || get_var_prefix(h).len() >= 1
         || get_var_suffix(h).len() >= 1
         || get_var(h).len() >= 1
     {

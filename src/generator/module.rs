@@ -1,7 +1,7 @@
 use crate::generator::{
     bracket_dash_comment_enable, get_constant_prefix, get_constant_suffix, get_double_keyword,
     get_entity_prefix, get_entity_suffix, get_multi_line_comment, get_multi_line_string,
-    get_var_suffix, get_xml_entity_tag, string::StringBuilder, ConditionExt,
+    get_var_prefix, get_var_suffix, get_xml_entity_tag, string::StringBuilder, ConditionExt,
 };
 use yaml_rust::yaml::Hash;
 use yaml_rust::Yaml;
@@ -729,6 +729,14 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
         module.push_tab(8, "if start_position > 0 ");
         module.push_strln(&format!("&& self.input[start_position - 1] == '{}' {{", ch));
         module.push_tabln(9, "return token::Token::CONSTANT(identifier)");
+        module.push_tabln(8, "}");
+    }
+
+    for (_k, v) in get_var_prefix(h) {
+        let ch = v.as_str().unwrap();
+        module.push_tab(8, "if start_position > 0 ");
+        module.push_strln(&format!("&& self.input[start_position - 1] == '{}' {{", ch));
+        module.push_tabln(9, "return token::Token::VAR(identifier)");
         module.push_tabln(8, "}");
     }
 

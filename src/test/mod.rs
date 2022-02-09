@@ -83,6 +83,14 @@ fn test_edn() {
 }
 
 #[test]
+fn test_erlang() {
+    let input = read_input("src/test/testdata/input/erlang.erl.stub");
+    let expected = read_file("src/test/testdata/output/erlang.html.stub");
+    let actual = erlang::render::render_html(input);
+    assert_eq!(expected, actual);
+}
+
+#[test]
 fn test_golang() {
     let input = read_input("src/test/testdata/input/golang.go.stub");
     let expected = read_file("src/test/testdata/output/golang.html.stub");

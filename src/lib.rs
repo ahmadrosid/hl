@@ -38,6 +38,7 @@ pub fn render_html(input: Vec<char>, lang: &str) -> String {
         "zig" => zig::render::render_html(input),
         "nim" => nim::render::render_html(input),
         "kotlin" => kotlin::render::render_html(input),
+        "erlang" => erlang::render::render_html(input),
         _ => raw::render::render_html(input),
     };
 }

@@ -11,6 +11,7 @@ array=(
   "rules/cuda.yml"
   "rules/dart.yml"
   "rules/edn.yml"
+  "rules/erlang.yml"
   "rules/cpp.yml"
   "rules/cs.yml"
   "rules/go.yml"
