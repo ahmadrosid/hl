@@ -2,7 +2,7 @@
 pub mod render;
 mod token;
 
-use crate::Token;
+use crate::lexers::Token;
 use token::get_keyword_token;
 
 pub struct Lexer {

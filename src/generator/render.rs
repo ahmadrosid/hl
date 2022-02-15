@@ -29,7 +29,7 @@ pub fn generate_render_html(h: &Hash, name: String) -> String {
     let mut html = StringBuilder::new();
     html.push_strln("// ---- DON'T EDIT! THIS IS AUTO GENERATED CODE ---- //");
     html.push_strln(&format!("use crate::lexers::{}::Lexer;", name));
-    html.push_strln(&format!("use crate::lexers::{}::token;\n", name));
+    html.push_strln("use crate::lexers::Token;\n");
 
     html.push_strln("pub fn render_html(input: Vec<char>) -> String {");
     html.push_tabln(1, "let mut l = Lexer::new(input);");
@@ -52,7 +52,7 @@ pub fn generate_render_html(h: &Hash, name: String) -> String {
 
     html.push_tabln(1, "loop {");
     html.push_tabln(2, "let token = l.next_token();");
-    html.push_tabln(2, "if token == token::Token::EOF {");
+    html.push_tabln(2, "if token == Token::EOF {");
     html.push_tabln(3, "html.push_str(\"</td></tr>\\n\");");
     html.push_tabln(3, "break;");
     html.push_tabln(2, "}\n");
@@ -122,7 +122,7 @@ pub fn generate_render_html(h: &Hash, name: String) -> String {
     }
 
     if get_var(h).len() >= 1 || get_var_suffix(h).len() >= 1 || get_var_prefix(h).len() >= 1 {
-        html.push_tabln(3, "token::Token::VAR(value) => {");
+        html.push_tabln(3, "Token::VAR(value) => {");
         html.push_tabln(
             4,
             "html.push_str(&format!(\"<span class=\\\"hl-v\\\">{}</span>\", \
@@ -172,7 +172,7 @@ pub fn generate_render_html(h: &Hash, name: String) -> String {
 }
 
 fn write_token_head(html: &mut StringBuilder) {
-    html.push_tabln(3, "token::Token::HEAD(value) => {");
+    html.push_tabln(3, "Token::HEAD(value) => {");
     html.push_tabln(
         4,
         "html.push_str(&format!(\"<span class=\\\"hl-mh\\\">{}</span>\", \
@@ -182,7 +182,7 @@ fn write_token_head(html: &mut StringBuilder) {
 }
 
 fn write_token_comment(html: &mut StringBuilder) {
-    html.push_tabln(3, "token::Token::COMMENT(value) => {");
+    html.push_tabln(3, "Token::COMMENT(value) => {");
     html.push_tabln(4, "let mut lines = String::new();");
     html.push_tabln(4, "for ch in value {");
     html.push_tabln(5, "if ch == '<' {");
@@ -223,13 +223,13 @@ fn write_token_comment(html: &mut StringBuilder) {
 }
 
 fn write_token_identifier(html: &mut StringBuilder) {
-    html.push_tabln(3, "token::Token::IDENT(value) => {");
+    html.push_tabln(3, "Token::IDENT(value) => {");
     html.push_tabln(4, "html.push_str(&value.iter().collect::<String>());");
     html.push_tabln(3, "}");
 }
 
 fn write_token_entity(html: &mut StringBuilder) {
-    html.push_tabln(3, "token::Token::ENTITY(value) => {");
+    html.push_tabln(3, "Token::ENTITY(value) => {");
     html.push_tabln(
         4,
         "html.push_str(&format!(\"<span class=\\\"hl-en\\\">{}</span>\", \
@@ -239,7 +239,7 @@ fn write_token_entity(html: &mut StringBuilder) {
 }
 
 fn write_token_keyword(html: &mut StringBuilder) {
-    html.push_tabln(3, "token::Token::KEYWORD(value) => {");
+    html.push_tabln(3, "Token::KEYWORD(value) => {");
     html.push_tabln(
         4,
         "html.push_str(&format!(\"<span class=\\\"hl-k\\\">{}</span>\", \
@@ -249,7 +249,7 @@ fn write_token_keyword(html: &mut StringBuilder) {
 }
 
 fn write_token_ch(html: &mut StringBuilder, h: &Hash) {
-    html.push_tabln(3, "token::Token::CH(value) => {");
+    html.push_tabln(3, "Token::CH(value) => {");
     if let Some(prefix) = h.get_some_condition(ENCODE_LT) {
         if let Some(encode) = h.get_some_condition(ENCODE_LT_STRING) {
             html.push_tabln(4, &format!("if value == '{}' {{", prefix.as_str().unwrap()));
@@ -270,7 +270,7 @@ fn write_token_ch(html: &mut StringBuilder, h: &Hash) {
 }
 
 fn write_token_string(html: &mut StringBuilder, h: &Hash) {
-    html.push_tabln(3, "token::Token::STRING(value) => {");
+    html.push_tabln(3, "Token::STRING(value) => {");
     html.push_tabln(4, "let mut s = String::new();");
     html.push_tabln(4, "for ch in value {");
     html.push_tabln(5, "if ch == '<' {");

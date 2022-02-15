@@ -9,6 +9,6 @@ if self.ch == '{ch}' {
         self.read_char();
     }
     let identifier = self.input[start_position..self.position].to_vec();
-    return token::Token::IDENT(identifier)
+    return Token::IDENT(identifier)
 }
 

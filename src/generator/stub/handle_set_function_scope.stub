@@ -5,5 +5,5 @@ if keyword == "{scope}" {
 -
 if self.function_scope {
     self.function_scope = false;
-    return token::Token::ENTITY(identifier);
+    return Token::ENTITY(identifier);
 }

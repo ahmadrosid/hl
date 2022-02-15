@@ -16,6 +16,6 @@ if self.ch == '[' {
             self.read_char();
         }
         str_value.append(&mut self.input[last_position..self.position].to_vec());
-        return token::Token::STRING(str_value);
+        return Token::STRING(str_value);
     }
 }

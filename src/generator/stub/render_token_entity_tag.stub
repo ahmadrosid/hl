@@ -1,4 +1,4 @@
-token::Token::ENTITYTAG(value) => {
+Token::ENTITYTAG(value) => {
     let mut s = String::new();
     for ch in value {
         if ch == '<' {

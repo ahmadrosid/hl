@@ -1,6 +1,9 @@
 // ---- DON'T EDIT! THIS IS AUTO GENERATED CODE ---- //
-pub mod token;
+mod token;
 pub mod render;
+
+use crate::lexers::Token;
+use token::get_keyword_token;
 
 pub struct Lexer {
     input: Vec<char>,
@@ -12,3 +15,4 @@ pub struct Lexer {
 fn is_letter(ch: char) -> bool {
     'a' <= ch && ch <= 'z' || 'A' <= ch && ch <= 'Z' || ch == '_'
 }
+

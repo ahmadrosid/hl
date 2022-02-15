@@ -28,5 +28,16 @@ pub mod ruby;
 pub mod rust;
 pub mod toml;
 pub mod typescript;
+pub mod vue;
 pub mod yaml;
 pub mod zig;
+
+#[derive(PartialEq, Debug)]
+pub enum Token {
+    ILLEGAL,
+    EOF,
+    ENDL(char),
+    IDENT(Vec<char>),
+    STRING(Vec<char>),
+    ENTITYTAG(Vec<char>),
+}

@@ -22,6 +22,6 @@ if self.ch == '<' {
             self.read_char();
         }
         comment.append(&mut self.input[last_position..self.position].to_vec());
-        return token::Token::STRING(comment);
+        return Token::STRING(comment);
     }
 }

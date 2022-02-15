@@ -1,4 +1,4 @@
-token::Token::ENDL(_) => {
+Token::ENDL(_) => {
     line = line + 1;
     html.push_str("</td></tr>\n");
     html.push_str(&format!(

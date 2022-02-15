@@ -1,0 +1,14 @@
+raw: true
+
+xml_entity_tag:
+  template: template
+  script: script
+
+condition:
+  ACCEPT_STRING_ONE_QUOTE: true
+  ACCEPT_STRING_DOUBLE_QUOTE: true
+  ENCODE_LT: "<"
+  ENCODE_LT_STRING: "&lt;"
+  ENCODE_GT: ">"
+  ENCODE_GT_STRING: "&gt;"
+  IGNORE_INTEGER: true

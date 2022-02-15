@@ -12,5 +12,5 @@ if self.position >= 1
         identifier.push(self.ch);
         self.read_char();
     }
-    return token::Token::KEYWORD(identifier);
+    return Token::KEYWORD(identifier);
 }

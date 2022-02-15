@@ -86,7 +86,7 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
         module.push_str(include_str!("stub/initial_impl_lexer.stub"));
     }
 
-    module.push_tabln(1, "pub fn next_token(&mut self) -> token::Token {");
+    module.push_tabln(1, "pub fn next_token(&mut self) -> Token {");
     module.push_tabln(2, "let read_identifier = |l: &mut Lexer| -> Vec<char> {");
     module.push_tabln(3, "let position = l.position;");
     module.push_tabln(3, "while l.position < l.input.len() && is_letter(l.ch) {");
@@ -119,7 +119,7 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
     module.push_tabln(3, "l.input[position..l.position].to_vec()");
     module.push_tabln(2, "};\n");
 
-    module.push_tabln(2, "let tok: token::Token;");
+    module.push_tabln(2, "let tok: Token;");
 
     let line = get_multi_line_comment(h);
     if line.len() > 1 {
@@ -181,7 +181,7 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
         module.push_tabln(2, &format!("if self.ch == '{}' {{", c));
         module.push_tabln(
             3,
-            &format!("return token::Token::KEYWORD(read_string(self, '{}'));", c),
+            &format!("return Token::KEYWORD(read_string(self, '{}'));", c),
         );
         module.push_tabln(2, "}");
     }
@@ -274,10 +274,7 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
         module.push_tabln(3, "self.read_char();");
         module.push_tabln(
             3,
-            &format!(
-                "return token::Token::KEYWORD(vec!['{}', '{}']);",
-                first, last
-            ),
+            &format!("return Token::KEYWORD(vec!['{}', '{}']);", first, last),
         );
         module.push_tabln(2, "}\n");
     }
@@ -331,21 +328,18 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
         module.push_tabln(3, "self.read_char();");
         module.push_tabln(
             3,
-            &format!(
-                "return token::Token::KEYWORD(vec!['{}', '{}']);",
-                first, last
-            ),
+            &format!("return Token::KEYWORD(vec!['{}', '{}']);", first, last),
         );
         module.push_tabln(2, "}\n");
     }
 
     module.push_tabln(2, "match self.ch {");
     module.push_tabln(3, "'\\n' => {");
-    module.push_tabln(4, "tok = token::Token::ENDL(self.ch);");
+    module.push_tabln(4, "tok = Token::ENDL(self.ch);");
     module.push_tabln(3, "}");
 
     module.push_tabln(3, "'\\0' => {");
-    module.push_tabln(4, "tok = token::Token::EOF;");
+    module.push_tabln(4, "tok = Token::EOF;");
     module.push_tabln(3, "}");
 
     if h.get_some_condition(ACCEPT_HEXADECIMAL_NUMBER).is_some() {
@@ -373,9 +367,9 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
             module.push_tabln(5, "self.read_char();");
             module.push_tabln(5, "self.read_char();");
             module.push_tabln(5, "entity.append(&mut read_identifier(self));");
-            module.push_tabln(5, "return token::Token::ENTITYTAG(entity);");
+            module.push_tabln(5, "return Token::ENTITYTAG(entity);");
             module.push_tabln(4, "} else {");
-            module.push_tabln(5, "tok = token::Token::CH(self.ch);");
+            module.push_tabln(5, "tok = Token::CH(self.ch);");
             module.push_tabln(4, "}");
             module.push_tabln(3, "}");
         }
@@ -401,9 +395,9 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
             );
             module.push_tabln(5, "self.read_char();");
             module.push_tabln(5, "self.read_char();");
-            module.push_tabln(5, "return token::Token::ENTITYTAG(entity);");
+            module.push_tabln(5, "return Token::ENTITYTAG(entity);");
             module.push_tabln(4, "} else {");
-            module.push_tabln(5, "tok = token::Token::CH(self.ch);");
+            module.push_tabln(5, "tok = Token::CH(self.ch);");
             module.push_tabln(4, "}");
             module.push_tabln(3, "}");
         }
@@ -413,7 +407,7 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
         if let Some(list) = val.as_vec() {
             for v in list {
                 module.push_tabln(3, &format!("'{}' => {{", v.as_str().unwrap()));
-                module.push_tabln(4, "tok = token::Token::KEYWORD(vec![self.ch]);");
+                module.push_tabln(4, "tok = Token::KEYWORD(vec![self.ch]);");
                 module.push_tabln(3, "}");
             }
         }
@@ -423,7 +417,7 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
         if let Some(list) = val.as_vec() {
             for v in list {
                 module.push_tabln(3, &format!("'{}' => {{", v.as_str().unwrap()));
-                module.push_tabln(4, "tok = token::Token::STRING(vec![self.ch]);");
+                module.push_tabln(4, "tok = Token::STRING(vec![self.ch]);");
                 module.push_tabln(3, "}");
             }
         }
@@ -454,9 +448,9 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
         }
 
         module.push_tabln(5, "identifier.append(&mut read_identifier(self));");
-        module.push_tabln(5, "return token::Token::KEYWORD(identifier);");
+        module.push_tabln(5, "return Token::KEYWORD(identifier);");
         module.push_tabln(4, "}");
-        module.push_tabln(4, "tok = token::Token::CH(self.ch);");
+        module.push_tabln(4, "tok = Token::CH(self.ch);");
         module.push_tabln(3, "}");
     }
 
@@ -478,9 +472,9 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
                     pref.as_str().unwrap()
                 ),
             );
-            module.push_tabln(6, "return token::Token::CONSTANT(identifier);");
+            module.push_tabln(6, "return Token::CONSTANT(identifier);");
             module.push_tabln(5, "} else {");
-            module.push_tabln(6, "return token::Token::VAR(identifier);");
+            module.push_tabln(6, "return Token::VAR(identifier);");
             module.push_tabln(5, "}");
         } else {
             module.push_tabln(5, "self.read_char();");
@@ -489,10 +483,10 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
                 &format!("let mut identifier = vec!['{}'];", v.as_str().unwrap()),
             );
             module.push_tabln(5, "identifier.append(&mut read_identifier(self));");
-            module.push_tabln(5, "return token::Token::VAR(identifier);");
+            module.push_tabln(5, "return Token::VAR(identifier);");
         }
         module.push_tabln(4, "}");
-        module.push_tabln(4, "tok = token::Token::CH(self.ch);");
+        module.push_tabln(4, "tok = Token::CH(self.ch);");
         module.push_tabln(3, "}");
     }
 
@@ -525,7 +519,7 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
         }
     }
 
-    module.push_tabln(5, "match token::get_keyword_token(&identifier) {");
+    module.push_tabln(5, "match get_keyword_token(&identifier) {");
     module.push_tabln(7, "Ok(keyword_token) => {");
 
     if let Some(ch) = h.get_some_condition(MARK_AS_ENTYTY_ON_FUNCTION_SCOPE) {
@@ -562,7 +556,7 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
                         value.as_str().unwrap(),
                     ),
                 );
-                module.push_tabln(9, "return token::Token::CONSTANT(identifier);");
+                module.push_tabln(9, "return Token::CONSTANT(identifier);");
                 module.push_tabln(8, "}");
             }
         }
@@ -574,7 +568,7 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
             "if start_position >= 1 && self.input[start_position - 1] ==",
         );
         module.push_strln(&format!("'{}' {{", ch.as_str().unwrap()));
-        module.push_tabln(9, "return token::Token::ENTITY(identifier)");
+        module.push_tabln(9, "return Token::ENTITY(identifier)");
         module.push_tabln(8, "}");
     }
 
@@ -585,7 +579,7 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
         module.push_tabln(9, "|| self.ch == '>' {");
         module.push_tabln(9, "return keyword_token");
         module.push_tabln(8, "}");
-        module.push_tabln(8, "return token::Token::IDENT(identifier);");
+        module.push_tabln(8, "return Token::IDENT(identifier);");
     } else {
         module.push_tabln(8, "keyword_token");
     }
@@ -623,7 +617,7 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
                 9,
                 "identifier.append(&mut self.input[position..self.position].to_vec());",
             );
-            module.push_tabln(9, "return token::Token::ENTITY(identifier)");
+            module.push_tabln(9, "return Token::ENTITY(identifier)");
             module.push_tabln(8, "}")
         }
     }
@@ -646,7 +640,7 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
                 9,
                 "identifier.append(&mut self.input[position..self.position].to_vec());",
             );
-            module.push_tabln(9, "return token::Token::IDENT(identifier)");
+            module.push_tabln(9, "return Token::IDENT(identifier)");
             module.push_tabln(8, "}")
         }
     }
@@ -669,7 +663,7 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
                 9,
                 "identifier.append(&mut self.input[position..self.position].to_vec());",
             );
-            module.push_tabln(9, "return token::Token::ENTITY(identifier)");
+            module.push_tabln(9, "return Token::ENTITY(identifier)");
             module.push_tabln(8, "}")
         }
     }
@@ -696,7 +690,7 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
 
         if let Some(ch) = h.get_some_condition(CONSTANT_SUFFIX_CHAR) {
             module.push_tabln(8, &format!("if self.ch == '{}' {{", ch.as_str().unwrap()));
-            module.push_tabln(9, "return token::Token::CONSTANT(identifier);");
+            module.push_tabln(9, "return Token::CONSTANT(identifier);");
             module.push_tabln(8, "}");
         }
     }
@@ -705,7 +699,7 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
         let ch = v.as_str().unwrap();
         module.push_tab(8, "if start_position > 0 ");
         module.push_strln(&format!("&& self.input[start_position - 1] == '{}' {{", ch));
-        module.push_tabln(9, "return token::Token::ENTITY(identifier)");
+        module.push_tabln(9, "return Token::ENTITY(identifier)");
         module.push_tabln(8, "}");
     }
 
@@ -720,7 +714,7 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
 
     if let Some(ch) = h.get_some_condition(MARK_ENTITY_TAG_SUFFIX) {
         module.push_tabln(8, &format!("if self.ch == '{}' {{", ch.as_str().unwrap()));
-        module.push_tabln(9, "return token::Token::ENTITYTAG(identifier)");
+        module.push_tabln(9, "return Token::ENTITYTAG(identifier)");
         module.push_tabln(8, "}");
     }
 
@@ -728,7 +722,7 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
         let ch = v.as_str().unwrap();
         module.push_tab(8, "if start_position > 0 ");
         module.push_strln(&format!("&& self.input[start_position - 1] == '{}' {{", ch));
-        module.push_tabln(9, "return token::Token::CONSTANT(identifier)");
+        module.push_tabln(9, "return Token::CONSTANT(identifier)");
         module.push_tabln(8, "}");
     }
 
@@ -736,7 +730,7 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
         let ch = v.as_str().unwrap();
         module.push_tab(8, "if start_position > 0 ");
         module.push_strln(&format!("&& self.input[start_position - 1] == '{}' {{", ch));
-        module.push_tabln(9, "return token::Token::VAR(identifier)");
+        module.push_tabln(9, "return Token::VAR(identifier)");
         module.push_tabln(8, "}");
     }
 
@@ -760,7 +754,7 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
         );
     }
 
-    module.push_tabln(8, "token::Token::IDENT(identifier)");
+    module.push_tabln(8, "Token::IDENT(identifier)");
     module.push_tabln(7, "}");
     module.push_tabln(6, "}");
     module.push_tabln(5, "} else if self.ch.is_numeric() {");
@@ -775,9 +769,9 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
     }
 
     if h.get_some_condition(IGNORE_INTEGER).is_some() {
-        module.push_tabln(6, "token::Token::IDENT(identifier)");
+        module.push_tabln(6, "Token::IDENT(identifier)");
     } else {
-        module.push_tabln(6, "token::Token::INT(identifier)");
+        module.push_tabln(6, "Token::INT(identifier)");
     }
 
     if h.get_some_condition(ACCEPT_STRING_ONE_QUOTE).is_some() {
@@ -789,7 +783,7 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
             );
         }
         module.push_tabln(6, "let str_value: Vec<char> = read_string(self, '\\'');");
-        module.push_tabln(6, "token::Token::STRING(str_value)");
+        module.push_tabln(6, "Token::STRING(str_value)");
     }
 
     if h.get_some_condition(ACCEPT_STRING_DOUBLE_QUOTE).is_some() {
@@ -797,7 +791,7 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
         module.push_tabln(6, "let str_value: Vec<char> = read_string(self, '\"');");
         if let Some(ch) = h.get_some_condition(MARK_STRING_ENTITY_TAG) {
             module.push_tabln(6, &format!("if self.ch == '{}' {{", ch.as_str().unwrap()));
-            module.push_tabln(7, "return token::Token::ENTITYTAG(str_value);");
+            module.push_tabln(7, "return Token::ENTITYTAG(str_value);");
             module.push_tabln(6, "} else if self.ch.is_whitespace() {");
             module.push_tabln(7, "let start_position = self.position;");
             module.push_tabln(7, "let mut position = self.position;");
@@ -819,15 +813,15 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
                 8,
                 "value.append(&mut self.input[start_position..self.read_position].to_vec());",
             );
-            module.push_tabln(8, "return token::Token::ENTITYTAG(value)");
+            module.push_tabln(8, "return Token::ENTITYTAG(value)");
             module.push_tabln(7, "}");
             module.push_tabln(6, "}");
         }
-        module.push_tabln(6, "token::Token::STRING(str_value)");
+        module.push_tabln(6, "Token::STRING(str_value)");
     }
 
     module.push_tabln(5, "} else {");
-    module.push_tabln(6, "token::Token::ILLEGAL");
+    module.push_tabln(6, "Token::ILLEGAL");
     module.push_tabln(5, "}");
     module.push_tabln(4, "}");
 

@@ -14,5 +14,5 @@ if self.position + {index} < self.input.len()
             break;
         }
     }
-    return token::Token::HEAD(start_mark);
+    return Token::HEAD(start_mark);
 }

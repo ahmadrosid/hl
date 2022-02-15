@@ -21,6 +21,6 @@ if self.ch == '{prefix}' {
             self.read_char();
         }
         identifier.append(&mut self.input[start_position..self.position].to_vec());
-        return token::Token::{token}(identifier);
+        return Token::{token}(identifier);
     }
 }
