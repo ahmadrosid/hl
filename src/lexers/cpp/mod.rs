@@ -1,6 +1,9 @@
 // ---- DON'T EDIT! THIS IS AUTO GENERATED CODE ---- //
 pub mod render;
-pub mod token;
+mod token;
+
+use crate::lexers::Token;
+use token::get_keyword_token;
 
 pub struct Lexer {
     input: Vec<char>,
@@ -12,6 +15,7 @@ pub struct Lexer {
 fn is_letter(ch: char) -> bool {
     'a' <= ch && ch <= 'z' || 'A' <= ch && ch <= 'Z' || ch == '_'
 }
+
 impl Lexer {
     pub fn new(input: Vec<char>) -> Self {
         Self {
@@ -32,7 +36,7 @@ impl Lexer {
         self.read_position = self.read_position + 1;
     }
 
-    pub fn next_token(&mut self) -> token::Token {
+    pub fn next_token(&mut self) -> Token {
         let read_identifier = |l: &mut Lexer| -> Vec<char> {
             let position = l.position;
             while l.position < l.input.len() && is_letter(l.ch) {
@@ -66,7 +70,7 @@ impl Lexer {
             l.input[position..l.position].to_vec()
         };
 
-        let tok: token::Token;
+        let tok: Token;
         if self.ch == '/' {
             let next_id = String::from("/*").chars().collect::<Vec<_>>();
             let next_position = self.position + next_id.len();
@@ -90,22 +94,22 @@ impl Lexer {
                     self.read_char();
                 }
                 identifier.append(&mut self.input[start_position..self.position].to_vec());
-                return token::Token::COMMENT(identifier);
+                return Token::COMMENT(identifier);
             }
         }
         if self.read_position < self.input.len()
             && self.ch == '/'
             && self.input[self.read_position] == '/'
         {
-            return token::Token::COMMENT(read_string(self, '\n'));
+            return Token::COMMENT(read_string(self, '\n'));
         }
 
         match self.ch {
             '\n' => {
-                tok = token::Token::ENDL(self.ch);
+                tok = Token::ENDL(self.ch);
             }
             '\0' => {
-                tok = token::Token::EOF;
+                tok = Token::EOF;
             }
             '0' => {
                 return if self.input[self.read_position] == 'x' {
@@ -118,17 +122,17 @@ impl Lexer {
                         self.read_char()
                     }
                     let hexadecimal = &self.input[start_position..self.position];
-                    token::Token::INT(hexadecimal.to_vec())
+                    Token::INT(hexadecimal.to_vec())
                 } else {
                     let number = read_number(self);
-                    token::Token::INT(number)
+                    Token::INT(number)
                 }
             }
             '<' => {
-                tok = token::Token::STRING(vec![self.ch]);
+                tok = Token::STRING(vec![self.ch]);
             }
             '>' => {
-                tok = token::Token::STRING(vec![self.ch]);
+                tok = Token::STRING(vec![self.ch]);
             }
             _ => {
                 return if is_letter(self.ch) {
@@ -146,11 +150,11 @@ impl Lexer {
                         }
                         identifier.append(&mut self.input[position..self.position].to_vec());
                     }
-                    match token::get_keyword_token(&identifier) {
+                    match get_keyword_token(&identifier) {
                         Ok(keyword_token) => keyword_token,
                         Err(_) => {
                             if self.ch == '(' {
-                                return token::Token::ENTITY(identifier);
+                                return Token::ENTITY(identifier);
                             } else if self.ch.is_whitespace() {
                                 let start_position = self.position;
                                 let mut position = self.position;
@@ -168,23 +172,23 @@ impl Lexer {
                                     value.append(
                                         &mut self.input[start_position..self.position].to_vec(),
                                     );
-                                    return token::Token::ENTITY(value);
+                                    return Token::ENTITY(value);
                                 }
                             }
-                            token::Token::IDENT(identifier)
+                            Token::IDENT(identifier)
                         }
                     }
                 } else if self.ch.is_numeric() {
                     let identifier: Vec<char> = read_number(self);
-                    token::Token::INT(identifier)
+                    Token::INT(identifier)
                 } else if self.ch == '\'' {
                     let str_value: Vec<char> = read_string(self, '\'');
-                    token::Token::STRING(str_value)
+                    Token::STRING(str_value)
                 } else if self.ch == '"' {
                     let str_value: Vec<char> = read_string(self, '"');
-                    token::Token::STRING(str_value)
+                    Token::STRING(str_value)
                 } else {
-                    token::Token::ILLEGAL
+                    Token::ILLEGAL
                 }
             }
         }

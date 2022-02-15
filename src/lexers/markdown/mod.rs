@@ -1,6 +1,9 @@
 // ---- DON'T EDIT! THIS IS AUTO GENERATED CODE ---- //
 pub mod render;
-pub mod token;
+mod token;
+
+use crate::lexers::Token;
+use token::get_keyword_token;
 
 pub struct Lexer {
     input: Vec<char>,
@@ -12,6 +15,7 @@ pub struct Lexer {
 fn is_letter(ch: char) -> bool {
     'a' <= ch && ch <= 'z' || 'A' <= ch && ch <= 'Z' || ch == '_'
 }
+
 impl Lexer {
     pub fn new(input: Vec<char>) -> Self {
         Self {
@@ -32,7 +36,7 @@ impl Lexer {
         self.read_position = self.read_position + 1;
     }
 
-    pub fn next_token(&mut self) -> token::Token {
+    pub fn next_token(&mut self) -> Token {
         let read_identifier = |l: &mut Lexer| -> Vec<char> {
             let position = l.position;
             while l.position < l.input.len() && is_letter(l.ch) {
@@ -66,7 +70,7 @@ impl Lexer {
             l.input[position..l.position].to_vec()
         };
 
-        let tok: token::Token;
+        let tok: Token;
 
         if self.position > 1
             && self.position < self.input.len()
@@ -89,7 +93,7 @@ impl Lexer {
                         break;
                     }
                 }
-                return token::Token::HEAD(start_mark);
+                return Token::HEAD(start_mark);
             }
             if self.position + 3 < self.input.len()
                 && self.input[self.position..self.position + 3] == vec!['#', '#', ' ']
@@ -106,7 +110,7 @@ impl Lexer {
                         break;
                     }
                 }
-                return token::Token::HEAD(start_mark);
+                return Token::HEAD(start_mark);
             }
             if self.position + 4 < self.input.len()
                 && self.input[self.position..self.position + 4] == vec!['#', '#', '#', ' ']
@@ -123,7 +127,7 @@ impl Lexer {
                         break;
                     }
                 }
-                return token::Token::HEAD(start_mark);
+                return Token::HEAD(start_mark);
             }
             if self.position + 5 < self.input.len()
                 && self.input[self.position..self.position + 5] == vec!['#', '#', '#', '#', ' ']
@@ -140,7 +144,7 @@ impl Lexer {
                         break;
                     }
                 }
-                return token::Token::HEAD(start_mark);
+                return Token::HEAD(start_mark);
             }
             if self.position + 6 < self.input.len()
                 && self.input[self.position..self.position + 6]
@@ -158,7 +162,7 @@ impl Lexer {
                         break;
                     }
                 }
-                return token::Token::HEAD(start_mark);
+                return Token::HEAD(start_mark);
             }
             if self.position + 7 < self.input.len()
                 && self.input[self.position..self.position + 7]
@@ -176,19 +180,19 @@ impl Lexer {
                         break;
                     }
                 }
-                return token::Token::HEAD(start_mark);
+                return Token::HEAD(start_mark);
             }
         }
         if self.position > 0 && self.input[self.position - 1] == '\n' && self.ch == '>' {
-            return token::Token::COMMENT(read_string(self, '\n'));
+            return Token::COMMENT(read_string(self, '\n'));
         }
 
         match self.ch {
             '\n' => {
-                tok = token::Token::ENDL(self.ch);
+                tok = Token::ENDL(self.ch);
             }
             '\0' => {
-                tok = token::Token::EOF;
+                tok = Token::EOF;
             }
             _ => {
                 return if is_letter(self.ch) {
@@ -196,15 +200,15 @@ impl Lexer {
                     let start_position = self.position;
                     #[allow(unused_mut)]
                     let mut identifier: Vec<char> = read_identifier(self);
-                    match token::get_keyword_token(&identifier) {
+                    match get_keyword_token(&identifier) {
                         Ok(keyword_token) => keyword_token,
-                        Err(_) => token::Token::IDENT(identifier),
+                        Err(_) => Token::IDENT(identifier),
                     }
                 } else if self.ch.is_numeric() {
                     let identifier: Vec<char> = read_number(self);
-                    token::Token::IDENT(identifier)
+                    Token::IDENT(identifier)
                 } else {
-                    token::Token::ILLEGAL
+                    Token::ILLEGAL
                 }
             }
         }

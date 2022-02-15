@@ -1,6 +1,6 @@
 // ---- DON'T EDIT! THIS IS AUTO GENERATED CODE ---- //
-use crate::lexers::markdown::token;
 use crate::lexers::markdown::Lexer;
+use crate::lexers::Token;
 
 pub fn render_html(input: Vec<char>) -> String {
     let mut l = Lexer::new(input);
@@ -17,22 +17,22 @@ pub fn render_html(input: Vec<char>) -> String {
 
     loop {
         let token = l.next_token();
-        if token == token::Token::EOF {
+        if token == Token::EOF {
             html.push_str("</td></tr>\n");
             break;
         }
 
         match token {
-            token::Token::IDENT(value) => {
+            Token::IDENT(value) => {
                 html.push_str(&value.iter().collect::<String>());
             }
-            token::Token::HEAD(value) => {
+            Token::HEAD(value) => {
                 html.push_str(&format!(
                     "<span class=\"hl-mh\">{}</span>",
                     value.iter().collect::<String>()
                 ));
             }
-            token::Token::COMMENT(value) => {
+            Token::COMMENT(value) => {
                 let mut lines = String::new();
                 for ch in value {
                     if ch == '<' {
@@ -61,7 +61,7 @@ pub fn render_html(input: Vec<char>) -> String {
                     }
                 }
             }
-            token::Token::ENDL(_) => {
+            Token::ENDL(_) => {
                 line = line + 1;
                 html.push_str("</td></tr>\n");
                 html.push_str(&format!(

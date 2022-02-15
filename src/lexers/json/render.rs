@@ -1,6 +1,6 @@
 // ---- DON'T EDIT! THIS IS AUTO GENERATED CODE ---- //
-use crate::lexers::json::token;
 use crate::lexers::json::Lexer;
+use crate::lexers::Token;
 
 pub fn render_html(input: Vec<char>) -> String {
     let mut l = Lexer::new(input);
@@ -17,22 +17,22 @@ pub fn render_html(input: Vec<char>) -> String {
 
     loop {
         let token = l.next_token();
-        if token == token::Token::EOF {
+        if token == Token::EOF {
             html.push_str("</td></tr>\n");
             break;
         }
 
         match token {
-            token::Token::INT(value) => {
+            Token::INT(value) => {
                 html.push_str(&format!(
                     "<span class=\"hl-c\">{}</span>",
                     value.iter().collect::<String>()
                 ));
             }
-            token::Token::IDENT(value) => {
+            Token::IDENT(value) => {
                 html.push_str(&value.iter().collect::<String>());
             }
-            token::Token::STRING(value) => {
+            Token::STRING(value) => {
                 let mut s = String::new();
                 for ch in value {
                     if ch == '<' {
@@ -45,13 +45,13 @@ pub fn render_html(input: Vec<char>) -> String {
                 }
                 html.push_str(&format!("<span class=\"hl-s\">{}</span>", s));
             }
-            token::Token::CONSTANT(value) => {
+            Token::CONSTANT(value) => {
                 html.push_str(&format!(
                     "<span class=\"hl-c\">{}</span>",
                     value.iter().collect::<String>()
                 ));
             }
-            token::Token::ENTITYTAG(value) => {
+            Token::ENTITYTAG(value) => {
                 let mut s = String::new();
                 for ch in value {
                     if ch == '<' {
@@ -64,7 +64,7 @@ pub fn render_html(input: Vec<char>) -> String {
                 }
                 html.push_str(&format!("<span class=\"hl-ent\">{}</span>", s));
             }
-            token::Token::ENDL(_) => {
+            Token::ENDL(_) => {
                 line = line + 1;
                 html.push_str("</td></tr>\n");
                 html.push_str(&format!(
