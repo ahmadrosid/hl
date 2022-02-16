@@ -32,6 +32,7 @@ array=(
   "rules/rust.yml"
   "rules/toml.yml"
   "rules/typescript.yml"
+  "rules/vue.yml"
   "rules/yaml.yml"
   "rules/zig.yml"
 )

@@ -12,6 +12,7 @@ pub fn get_keyword_token(identifier: &Vec<char>) -> Result<Token, String> {
         "NaN" => Ok(Token::VAR(identifier.to_vec())),
         "Math" => Ok(Token::VAR(identifier.to_vec())),
         "Date" => Ok(Token::VAR(identifier.to_vec())),
+        "async" => Ok(Token::KEYWORD(identifier.to_vec())),
         "await" => Ok(Token::KEYWORD(identifier.to_vec())),
         "break" => Ok(Token::KEYWORD(identifier.to_vec())),
         "case" => Ok(Token::KEYWORD(identifier.to_vec())),

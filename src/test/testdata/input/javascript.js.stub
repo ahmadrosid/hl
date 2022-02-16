@@ -71,3 +71,8 @@ function mapSpecialUnicodeValues(code) {
   }
   return code;
 }
+
+
+async function main() {
+    await fetch("https://example.com")
+}

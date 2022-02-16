@@ -74,5 +74,10 @@
 <tr><td class="hl-num" data-line="72"></td><td>  <span class="hl-k">return</span> code;</td></tr>
 <tr><td class="hl-num" data-line="73"></td><td>}</td></tr>
 <tr><td class="hl-num" data-line="74"></td><td></td></tr>
+<tr><td class="hl-num" data-line="75"></td><td></td></tr>
+<tr><td class="hl-num" data-line="76"></td><td><span class="hl-k">async</span> <span class="hl-k">function</span> <span class="hl-en">main</span>() {</td></tr>
+<tr><td class="hl-num" data-line="77"></td><td>    <span class="hl-k">await</span> <span class="hl-en">fetch</span>(<span class="hl-s">"https://example.com"</span>)</td></tr>
+<tr><td class="hl-num" data-line="78"></td><td>}</td></tr>
+<tr><td class="hl-num" data-line="79"></td><td></td></tr>
 </tbody>
 </table>

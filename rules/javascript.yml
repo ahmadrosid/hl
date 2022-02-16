@@ -21,6 +21,7 @@ entity_suffix:
   colon: ':'
 
 keyword:
+  async: async
   await: await
   break: break
   case: case
