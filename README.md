@@ -3,26 +3,7 @@ Syntax highlighting written in Rust. The project is designed to generate html sy
 
 This software is inspired by github syntax highlighter.
 
-## 🚀 Usage
-```bash
-USAGE:
-    hl [OPTIONS] [FILE_PATH] [SUBCOMMAND]
-
-ARGS:
-    <FILE_PATH>    File path to parse.
-
-OPTIONS:
-    -h, --help          Print help information
-    -l <LANG>...        Language.
-    -V, --version       Print version information
-
-SUBCOMMANDS:
-    -g, --generate, generate    Generate lexer, this is for development only.
-    help                        Print this message or the help of the given subcommand(s)
-
-```
-
-### 💡 Example Command
+### 💡 Example
 ```bash
 cargo run --package hl --example html examples/html.rs
 ```
