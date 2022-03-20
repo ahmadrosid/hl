@@ -1,15 +1,13 @@
-use crate::generator::{
+use crate::parser::{
     bracket_dash_comment_enable, get_constant_prefix, get_constant_suffix, get_double_keyword,
     get_entity_prefix, get_entity_suffix, get_multi_line_comment, get_multi_line_string,
-    get_var_prefix, get_var_suffix, get_xml_entity_tag, string::StringBuilder, ConditionExt,
+    get_var_prefix, get_var_suffix, get_xml_entity_tag, ConditionExt,
 };
+use crate::string::StringBuilder;
 use yaml_rust::yaml::Hash;
 use yaml_rust::Yaml;
 
-#[path = "../color.rs"]
-mod color;
-
-use color::ColorExt;
+use crate::color::ColorExt;
 
 const ACCEPT_PREFIX_KEYWORD: &str = "ACCEPT_PREFIX_KEYWORD";
 const ACCEPT_PREFIX_KEYWORD_NEXT: &str = "ACCEPT_PREFIX_KEYWORD_NEXT";

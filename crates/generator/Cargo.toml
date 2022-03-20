@@ -1,0 +1,24 @@
+[package]
+name = "generator"
+version = "0.1.0"
+authors = ["Ahmad Rosid <alahmadrosid@gmail.com>"]
+description = """
+Generate lexer for develop hl syntaxt highlight.
+"""
+homepage = "https://github.com/ahmadrosid/hl/tree/master/crates/generator"
+repository = "https://github.com/ahmadrosid/hl/tree/master/crates/generator"
+readme = "README.md"
+license = "Unlicense/MIT"
+edition = "2021"
+
+[lib]
+name = "generator"
+bench = false
+
+[[bin]]
+name = "hl-gen"
+path = "src/main.rs"
+
+[dependencies]
+clap = { version = "3.0.0-rc.7" }
+yaml-rust = "0.4"

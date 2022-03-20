@@ -1,0 +1,20 @@
+[package]
+name = "hl_core"
+version = "0.1.0"
+authors = ["Ahmad Rosid <alahmadrosid@gmail.com>"]
+description = """
+Syntax highlighting in Rust
+"""
+homepage = "https://github.com/ahmadrosid/hl/tree/master/crates/core"
+repository = "https://github.com/ahmadrosid/hl/tree/master/crates/core"
+readme = "README.md"
+license = "MIT"
+edition = "2021"
+
+[lib]
+name = "hl_core"
+bench = false
+
+[dependencies]
+clap = { version = "3.0.0-rc.7" }
+yaml-rust = "0.4"

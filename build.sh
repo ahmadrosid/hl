@@ -1,6 +1,6 @@
 #!/bin/bash
 set -e
-cargo build -q
+cargo build -q --workspace -p generator
 
 array=(
   "rules/actionscript.yml"
@@ -21,6 +21,7 @@ array=(
   "rules/java.yml"
   "rules/javascript.yml"
   "rules/json.yml"
+  "rules/kotlin.yml"
   "rules/lua.yml"
   "rules/makefile.yml"
   "rules/markdown.yml"
@@ -39,9 +40,9 @@ array=(
 
 for i in "${array[@]}"
 do
-	./target/debug/hl generate $i;
+	./target/debug/hl-gen -i $i -o crates/core;
 done
 
 cargo fmt
-cargo test
+cargo test --workspace -p hl_tests
 git status

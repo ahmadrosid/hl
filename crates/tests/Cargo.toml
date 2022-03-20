@@ -1,0 +1,19 @@
+[package]
+name = "hl_tests"
+version = "0.1.0"
+authors = ["Ahmad Rosid <alahmadrosid@gmail.com>"]
+description = """
+Syntax highlighting in Rust
+"""
+homepage = "https://github.com/ahmadrosid/hl/tree/master/crates/tests"
+repository = "https://github.com/ahmadrosid/hl/tree/master/crates/tests"
+readme = "README.md"
+license = "MIT"
+edition = "2021"
+
+[lib]
+name = "hl_tests"
+bench = false
+
+[dependencies]
+hl_core = { path = "../core" }

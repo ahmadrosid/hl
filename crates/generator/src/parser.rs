@@ -1,15 +1,11 @@
 extern crate yaml_rust;
+use crate::color::ColorExt;
+use crate::module;
+use crate::render;
+use crate::token;
 
-#[path = "../color.rs"]
-mod color;
-mod module;
-mod render;
-mod string;
-mod token;
-
-use color::ColorExt;
-use std::fs;
-use std::io::Write;
+use std::fs::{create_dir_all, read, File, OpenOptions};
+use std::io::{Read, Write};
 use std::path::Path;
 use yaml_rust::{yaml::Hash, Yaml, YamlLoader};
 
@@ -84,7 +80,7 @@ impl ConditionExt for Hash {
     }
 }
 
-pub fn parse(file_path: &str) -> String {
+pub fn parse(file_path: &str, output_path: &str) -> String {
     let content = read_file(file_path);
     let docs = YamlLoader::load_from_str(&content).unwrap();
 
@@ -109,7 +105,7 @@ pub fn parse(file_path: &str) -> String {
         }
     }
 
-    let out_file_path = prepare_path(file_path);
+    let out_file_path = prepare_path(file_path, output_path);
     write_file(&token_stub, &out_file_path, &"token.rs");
     write_file(&module_stub, &out_file_path, &"mod.rs");
     write_file(&render_stub, &out_file_path, &"render.rs");
@@ -135,56 +131,76 @@ pub fn parse(file_path: &str) -> String {
 }
 
 fn update_lexer_mod(name: &str, path: &str) {
-    let mut file = std::fs::OpenOptions::new().write(true).open(path).unwrap();
-    let mut source = include_str!("../lexers/mod.rs").to_string();
+    let dir_path = path.replace("/mod.rs", "").to_owned();
+    let file_name = "mod.rs";
+    if !Path::new(&path).exists() {
+        create_dir_all(&dir_path).unwrap();
+        write_file(
+            &include_str!("stub/base_lexer_mod.stub").replace("raw", name),
+            &dir_path,
+            &file_name,
+        );
+        return;
+    }
+
+    let mut file = OpenOptions::new().read(true).open(path).unwrap();
+    let mut source = String::new();
+    file.read_to_string(&mut source).unwrap();
     if !source.contains(&format!("pub mod {};", name)) {
-        source.push_str(&format!("pub mod {};", name));
-        if let Err(e) = writeln!(file, "{}", source) {
-            eprintln!("Couldn't write to file: {}", e);
-        }
+        let mut content = format!("pub mod {};\n", name);
+        content.push_str(&source);
+        write_file(&content, &dir_path, &file_name);
     }
 }
 
 fn update_lib_mod(name: &str, path: &str) {
-    let mut file = std::fs::OpenOptions::new().write(true).open(path).unwrap();
-    let mut source = include_str!("../lib.rs").to_string();
+    let dir_path = path.replace("/lib.rs", "").to_owned();
+    let file_name = "lib.rs";
+    if !Path::new(path).exists() {
+        create_dir_all(&dir_path).unwrap();
+        write_file(
+            &include_str!("stub/base_lib_mod.stub").replace("name", name),
+            &dir_path,
+            &file_name,
+        );
+        return;
+    }
+
+    let mut file = OpenOptions::new().read(true).open(path).unwrap();
+
+    let mut source = String::new();
+    file.read_to_string(&mut source).unwrap();
     if !source.contains(&format!("{}::", name)) {
         source = source.replace(
-            &format!("_ => raw::render::render_html(input),"),
+            "_ => String::new(),",
             &format!(
                 r#""{}" => {}::render::render_html(input),
-                _ => raw::render::render_html(input),"#,
+                _ => String::new(),"#,
                 name, name
             ),
         );
 
-        if let Err(e) = writeln!(file, "{}", source) {
-            eprintln!("Couldn't write to file: {}", e);
-        }
+        write_file(&source, &dir_path, &file_name);
     }
 }
 
 fn read_file(file_path: &str) -> String {
-    let file = fs::read(file_path).expect(&format!("Can not read file path: {}", file_path));
+    let file = read(file_path).expect(&format!("Can not read file path: {}", file_path));
     let content = file.iter().map(|c| *c as char).collect::<Vec<_>>();
     String::from_iter(content)
 }
 
-fn prepare_path(file_path: &str) -> String {
+fn prepare_path(file_path: &str, output_path: &str) -> String {
     let file_name = get_file_name(file_path);
-    let cwd = std::env::current_dir().unwrap();
-    let out_file_path = format!("{}/src/lexers/{}", cwd.to_str().unwrap(), file_name);
-
-    let create_dir = fs::create_dir_all(&out_file_path);
-    if !create_dir.is_ok() {
-        println!("Failed to create directory for : {}", out_file_path)
-    }
+    let out_file_path = format!("{}/src/lexers/{}", output_path, file_name);
+    create_dir_all(Path::new(&out_file_path)).unwrap();
 
     out_file_path
 }
 
 fn write_file(content: &String, path: &String, file_name: &str) {
-    let mut file = fs::File::create(format!("{}/{}", path, file_name)).unwrap();
+    let path = format!("{}/{}", path, file_name);
+    let mut file = File::create(path).unwrap();
     write!(&mut file, "{}", content).unwrap();
 }
 

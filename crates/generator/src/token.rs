@@ -1,8 +1,8 @@
-use crate::generator::{
+use crate::parser::{
     get_constant, get_entity, get_entity_tag, get_keyword, get_var, get_xml_entity_tag,
-    string::StringBuilder,
 };
 
+use crate::string::StringBuilder;
 use yaml_rust::yaml::Hash;
 
 pub fn generate_token(h: &Hash) -> String {
