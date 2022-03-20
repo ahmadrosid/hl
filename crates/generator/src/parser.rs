@@ -113,7 +113,7 @@ pub fn parse(file_path: &str, output_path: &str) -> String {
     let name = get_file_name(file_path);
     update_lexer_mod(
         &name,
-        &out_file_path.replace(&format!("/{}", name), "/mod.rs"),
+        &out_file_path.replace(&format!("lexers/{}", name), "lexers/mod.rs"),
     );
     update_lib_mod(
         &name,
@@ -131,7 +131,7 @@ pub fn parse(file_path: &str, output_path: &str) -> String {
 }
 
 fn update_lexer_mod(name: &str, path: &str) {
-    let dir_path = path.replace("/mod.rs", "").to_owned();
+    let dir_path = path.clone().replace("/mod.rs", "").to_owned();
     let file_name = "mod.rs";
     if !Path::new(&path).exists() {
         create_dir_all(&dir_path).unwrap();
@@ -154,7 +154,7 @@ fn update_lexer_mod(name: &str, path: &str) {
 }
 
 fn update_lib_mod(name: &str, path: &str) {
-    let dir_path = path.replace("/lib.rs", "").to_owned();
+    let dir_path = path.clone().replace("/lib.rs", "").to_owned();
     let file_name = "lib.rs";
     if !Path::new(path).exists() {
         create_dir_all(&dir_path).unwrap();
