@@ -13,6 +13,7 @@ members = [
   "crates/generator",
   "crates/core",
   "crates/tests",
+  "crates/test-server",
 ]
 
 [lib]

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Highlight</title>
+  <style>
+    .highlight-table {
+      font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+      color: #24292f;
+      font-size: 12px;
+      word-wrap: normal;
+      white-space: pre-wrap;
+      word-wrap: break-all;
+    }
+
+    .hl-num {
+      color: #6e7781;
+      line-height: 20px;
+      text-align: right;
+      padding-right: 10px;
+      padding-left: 10px;
+    }
+
+    .hl-num::before {
+      content: attr(data-line);
+    }
+
+    /* Markup Heading */
+    .hl-mh {
+      color: #0550ae
+    }
+
+    /* String */
+    .hl-s {
+      color: #0a3069
+    }
+
+    /* Identifier */
+    .hl-id {
+      color: #b465e2
+    }
+
+    /* Keyword */
+    .hl-k {
+      color: #cf222e
+    }
+
+    /* Constant */
+    .hl-c {
+      color: #0550ae
+    }
+
+    .hl-cmt {
+      color: #6e7781
+    }
+
+    /* Entity */
+    .hl-en {
+      color: #8250df
+    }
+
+    /* Entity tag */
+    .hl-ent {
+      color: #116329
+    }
+
+    /* Var */
+    .hl-v {
+      color: #953800
+    }
+
+    .hl-vid {
+      color: #404040
+    }
+
+    .hl-mh {
+      color: #0550ae
+    }
+  </style>
+</head>
+
+<body>
+  {content}
+</body>
+
+<script>
+  let socket = new WebSocket("ws://localhost:8080/ws");
+
+  socket.onopen = function(e) {
+    console.log("[open] Connection established");
+    console.log("Sending to server");
+    socket.send("start_connection");
+  };
+
+  socket.onmessage = function(event) {
+    console.log(`[message] Data received from server: ${event.data}`);
+    if (event.data == "file_changed") {
+      window.location.reload();
+    }
+  };
+
+  socket.onclose = function(event) {
+    if (event.wasClean) {
+      console.log(`[close] Connection closed cleanly, code=${event.code} reason=${event.reason}`);
+    } else {
+      console.log('[close] Connection died');
+    }
+  };
+
+  socket.onerror = function(error) {
+    console.log(error)
+  };
+
+</script>
+</html>
