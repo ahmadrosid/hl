@@ -8,12 +8,12 @@ const HEARTBEAT_INTERVAL: Duration = Duration::from_secs(1);
 const CLIENT_TIMEOUT: Duration = Duration::from_secs(10);
 const FILE_PATH: &'static str = "table.html";
 
-pub struct MyWebSocket {
+pub struct FileWatcherWebsocket {
     hb: Instant,
     modified: SystemTime,
 }
 
-impl MyWebSocket {
+impl FileWatcherWebsocket {
     pub fn new() -> Self {
         let metadata = fs::metadata(FILE_PATH).unwrap();
         let modified = metadata.modified().unwrap();
@@ -46,7 +46,7 @@ impl MyWebSocket {
     }
 }
 
-impl Actor for MyWebSocket {
+impl Actor for FileWatcherWebsocket {
     type Context = ws::WebsocketContext<Self>;
 
     fn started(&mut self, ctx: &mut Self::Context) {
@@ -54,7 +54,7 @@ impl Actor for MyWebSocket {
     }
 }
 
-impl StreamHandler<Result<ws::Message, ws::ProtocolError>> for MyWebSocket {
+impl StreamHandler<Result<ws::Message, ws::ProtocolError>> for FileWatcherWebsocket {
     fn handle(&mut self, msg: Result<ws::Message, ws::ProtocolError>, ctx: &mut Self::Context) {
         match msg {
             Ok(ws::Message::Ping(msg)) => {

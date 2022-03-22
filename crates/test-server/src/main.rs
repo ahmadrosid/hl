@@ -4,10 +4,10 @@ use actix_web::http::StatusCode;
 use actix_web::{get, web, App, Error, HttpRequest, HttpResponse, HttpServer, Result};
 use actix_web_actors::ws;
 
-use websocket::MyWebSocket;
+use websocket::FileWatcherWebsocket;
 
 async fn echo_ws(req: HttpRequest, stream: web::Payload) -> Result<HttpResponse, Error> {
-    ws::start(MyWebSocket::new(), &req, stream)
+    ws::start(FileWatcherWebsocket::new(), &req, stream)
 }
 
 #[get("/")]
