@@ -1,6 +1,6 @@
 ## Test Server
 
-This is test server for development, the server will be use to debug html render so every time we generate html highlight we do not need to reload page.
+We use this server to debug HTML rendering so every time we generate a html highlight we won't have to reload the page.
 
 Start server:
 ```bash
@@ -11,3 +11,5 @@ Generate debug html:
 ```bash
 cargo run --package hl --example html examples/html.rs -l raw > table.html
 ```
+
+Open webserver at [localhost](http://localhost:8080)
