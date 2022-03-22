@@ -18,7 +18,10 @@ impl MyWebSocket {
         let metadata = fs::metadata(FILE_PATH).unwrap();
         let modified = metadata.modified().unwrap();
 
-        Self { hb: Instant::now(), modified }
+        Self {
+            hb: Instant::now(),
+            modified,
+        }
     }
 
     fn hb(&self, ctx: &mut <Self as Actor>::Context) {
