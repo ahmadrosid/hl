@@ -12,4 +12,4 @@ Generate debug html:
 cargo run --package hl --example html examples/html.rs -l raw > table.html
 ```
 
-Open webserver at [localhost](http://localhost:8080)
+Open webserver at [http://localhost:8080](http://localhost:8080)
