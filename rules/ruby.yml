@@ -1,9 +1,5 @@
 multi_line_comment: "=begin,=end"
-
-constant:
-  True: "true"
-  False: "false"
-
+constant: "true,false"
 entity_prefix:
   dot: "."
   new_line: '\n'

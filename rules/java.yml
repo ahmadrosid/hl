@@ -1,23 +1,5 @@
 multi_line_comment: "/*,*/"
-
-constant:
-  THIS: "this"
-  TRUE: "true"
-  FALSE: "false"
-  SUPER: "super"
-  NULL: "null"
-  STRING: "String"
-  Long: Long
-  Object: Object
-  Boolean: Boolean
-  Array: Array
-  List: List
-  ArrayList: ArrayList
-  Arrays: Arrays
-  Map: Map
-  HashMap: HashMap
-  LinkedHashSet: LinkedHashSet
-
+constant: "this,true,false,super,null,String,Long,Object,Boolean,Array,List,ArrayList,Arrays,Map,HashMap,LinkedHashSet"
 entity_suffix:
   left_brace: "("
 

@@ -1,32 +1,5 @@
 multi_line_comment: "/*,*/"
-
-constant:
-  ARGS: "Args"
-  TRUE: "true"
-  FALSE: "false"
-  NIL: "nil"
-  BOOL: "bool"
-  CINT: "int"
-  UINT: "uint"
-  BYTE: "byte"
-  string: "string"
-  rune: "rune"
-  uintptr: "uintptr"
-  float: "float"
-  float32: float32
-  float64: float64
-  int8: int8
-  int16: int16
-  int32: int32
-  int64: int64
-  uint8: uint8
-  uint16: uint16
-  uint32: uint32
-  uint64: uint64
-  complex: complex
-  complex64: complex64
-  complex128: complex128
-
+constant: "Args,true,false,nil,bool,int,uint,byte,string,rune,uintptr,float,float32,float64,int8,int16,int32,int64,uint8,uint16,uint32,uint64,complex,complex64,complex128"
 single_constant:
   - "&"
 

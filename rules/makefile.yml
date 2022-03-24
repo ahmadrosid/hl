@@ -1,13 +1,4 @@
-constant:
-  PHONY: PHONY
-  call: call
-  cd: cd
-  command: command
-  test: test
-  echo: echo
-  shell: shell
-  MAKE: MAKE
-
+constant: "PHONY,call,cd,command,test,echo,shell,MAKE"
 entity_suffix:
   colon: ":"
 

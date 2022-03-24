@@ -1,11 +1,5 @@
 multi_line_comment: "/*,*/"
-
-constant:
-  ROOT: "root"
-  RGB: "rgb"
-  RGBA: "rgba"
-  CLAC: "calc"
-  MEDIA: "media"
+constant: "root,rgb,rgba,calc,media"
 
 entity:
   AFTER: "after"

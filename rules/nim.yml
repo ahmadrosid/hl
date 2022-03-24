@@ -1,8 +1,4 @@
-constant:
-  "nil": "nil"
-  "true": "true"
-  "false": "false"
-
+constant: "nil,true,false"
 keyword:
   addr: addr
   and: and

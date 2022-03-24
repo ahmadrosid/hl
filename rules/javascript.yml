@@ -1,12 +1,6 @@
 multi_line_comment: "/*,*/"
 multi_line_string: "`,`"
-
-constant:
-  TRUE: 'true'
-  FALSE: 'false'
-  UNDEFINED: 'undefined'
-  NULL: 'null'
-
+constant: "true,false,undefined,null"
 var:
   VINFINITY: 'Infinity'
   VNAN: 'NaN'

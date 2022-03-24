@@ -1,21 +1,5 @@
 multi_line_comment: "/*,*/"
-
-constant:
-  "null": "null"
-  "true": "true"
-  "false": "false"
-  "this": "this"
-  Any: Any
-  Array: Array
-  Boolean: Boolean
-  Double: Double
-  Long: Long
-  Int: Int
-  String: String
-  Short: Short
-  Lazy: Lazy
-  List: List
-
+constant: "null,true,false,this,Any,Array,Boolean,Double,Long,Int,String,Short,Lazy,List"
 keyword:
   as: as
   abstract: abstract

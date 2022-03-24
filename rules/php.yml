@@ -1,12 +1,5 @@
 multi_line_comment: "/*,*/"
-
-constant:
-  TRUE: 'true'
-  FALSE: 'false'
-  NULL: 'null'
-  CSTRING: 'string'
-  ARRAY: 'array'
-
+constant: "true,false,null,string,array"
 entity_tag:
   HTML: html
   BODY: body

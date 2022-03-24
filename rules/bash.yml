@@ -1,20 +1,4 @@
-constant:
-  builtin: builtin
-  command: command
-  compgen: compgen
-  echo: echo
-  eval: eval
-  exit: exit
-  false: "false"
-  hash: hash
-  kill: kill
-  read: read
-  source: source
-  unset: unset
-  test: test
-  true: "true"
-  printf: printf
-
+constant: "builtin,command,compgen,echo,eval,exit,false,hash,kill,read,source,unset,test,true,printf"
 keyword:
   case: case
   continue: continue

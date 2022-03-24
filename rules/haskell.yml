@@ -1,37 +1,5 @@
 bracket_dash_comment: true
-
-constant:
-  TRUE: "True"
-  FALSE: "False"
-  return: return
-  mempty: mempty
-  not: not
-  foldr: foldr
-  Map: Map
-  lookup: lookup
-  Left: Left
-  Right: Right
-  Walk: Walk
-  Char: Char
-  Bool: Bool
-  Maybe: Maybe
-  Int: Int
-  Prelude: Prelude
-  any: any
-  filter: filter
-  map: map
-  init: init
-  null: "null"
-  last: last
-  unwords: unwords
-  otherwise: otherwise
-  either: either
-  const: const
-  fmap: fmap
-  take: take
-  max: max
-  putStrLn: putStrLn
-
+constant: "True,False,return,mempty,not,foldr,Map,lookup,Left,Right,Walk,Char,Bool,Maybe,Int,Prelude,any,filter,map,init,null,last,unwords,otherwise,either,const,fmap,take,max,putStrLn"
 entity_prefix:
   colon: ":"
 

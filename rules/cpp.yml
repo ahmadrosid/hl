@@ -1,15 +1,5 @@
 multi_line_comment: "/*,*/"
-
-constant:
-  TRUE: "true"
-  FALSE: "false"
-  THIS: "this"
-  NULLPTR: "nullptr"
-  NULL: "NULL"
-  SizeT: "size_t"
-  int64_t: "int64_t"
-  uint32_t: "uint32_t"
-
+constant: "true,false,this,nullptr,NULL,size_t,int64_t,uint32_t"
 single_constant:
   - "<"
   - ">"

@@ -1,12 +1,4 @@
-constant:
-  "null": "null"
-  "true": "true"
-  "false": "false"
-  String: String
-  Widget: Widget
-  Future: Future
-  Object: Object
-
+constant: "null,true,false,String,Widget,Future,Object"
 keyword:
   abstract: abstract
   else: else

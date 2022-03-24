@@ -1,7 +1,4 @@
-constant:
-  nil: nil
-  full: full
-
+constant: "nil,full"
 entity_prefix:
   colon: ":"
   left_parent: "("

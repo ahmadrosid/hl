@@ -1,12 +1,5 @@
 multi_line_comment: "/*,*/"
-
-constant:
-  "false": "false"
-  "null": "null"
-  "this": "this"
-  "true": "true"
-  Math: Math
-
+constant: "false,null,this,true,Math"
 entity_suffix:
   left: "("
 

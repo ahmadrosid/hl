@@ -1,11 +1,6 @@
 multi_line_comment: "/*,*/"
 multi_line_string: 'r#","#'
-
-constant:
-    TRUE: 'true'
-    FALSE: 'false'
-    NONE: 'None'
-
+constant: "true,false,None"
 entity_prefix:
     ENTITY_DOT: '.'
 

@@ -1,7 +1,4 @@
-constant:
-  TRUE: 'true'
-  FALSE: 'false'
-
+constant: "true,false"
 condition:
   ACCEPT_ESCAPED_STRING: true
   ACCEPT_STRING_ONE_QUOTE: true

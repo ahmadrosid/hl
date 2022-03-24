@@ -1,9 +1,5 @@
 multi_line_comment: "/*,*/"
-
-constant:
-  "false": "false"
-  "null": "null"
-  "true": "true"
+constant: "false,null,true"
 
 entity_suffix:
   left_brace: "("

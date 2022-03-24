@@ -1,8 +1,4 @@
-constant:
-  true: "true"
-  false: "false"
-  nil: "nil"
-
+constant: "true,false,nil"
 entity_suffix:
   left_brace: "("
 

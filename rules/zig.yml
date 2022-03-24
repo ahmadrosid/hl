@@ -1,10 +1,4 @@
-constant:
-  "true": "true"
-  "false": "false"
-  "null": "null"
-  "undefined": "undefined"
-  "self": "self"
-
+constant: "true,false,null,undefined,self"
 keyword:
   const: const
   pub: pub

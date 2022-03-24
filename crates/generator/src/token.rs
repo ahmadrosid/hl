@@ -13,8 +13,8 @@ pub fn generate_token(h: &Hash) -> String {
     token.push_tabln(1, "let id: String = identifier.into_iter().collect();");
     token.push_tabln(1, "match &id[..] {");
 
-    for (_, v) in get_constant(h) {
-        token.push_tab(2, &format!("\"{}\" => ", v.as_str().unwrap()));
+    for v in get_constant(h) {
+        token.push_tab(2, &format!("\"{}\" => ", v));
         token.push_strln("Ok(Token::CONSTANT(identifier.to_vec())),");
     }
 

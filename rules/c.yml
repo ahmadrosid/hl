@@ -1,11 +1,5 @@
 multi_line_comment: "/*,*/"
-
-constant:
-  TRUE: "true"
-  FALSE: "false"
-  NULL: "NULL"
-  SizeT: "size_t"
-
+constant: "true,false,NULL,size_t"
 single_constant:
   - "<"
   - ">"

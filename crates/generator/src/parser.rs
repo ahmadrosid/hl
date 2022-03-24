@@ -67,7 +67,7 @@ pub fn $name(h: &Hash) -> String {
     );
 );
 
-get_hash!(get_constant, constant);
+get_string!(get_constant, constant);
 get_hash!(get_var, var);
 get_hash!(get_keyword, keyword);
 get_hash!(get_double_keyword, double_keyword);
@@ -98,6 +98,24 @@ impl ConditionExt for Hash {
     }
 }
 
+fn debug_val(data: &Hash) {
+    let xml_tag = data
+        .get(&Yaml::String("constant".to_string()))
+        .unwrap()
+        .as_hash()
+        .unwrap()
+        .values()
+        .collect::<Vec<_>>();
+
+    let mut values = vec![];
+    for tag in xml_tag.iter() {
+        values.push(tag.as_str().unwrap());
+    }
+    println!("\nconstant: \"{}\"\n", values.join(","));
+
+    panic!("Stop!");
+}
+
 pub fn parse(file_path: &str, output_path: &str) -> String {
     let content = read_file(file_path);
     let docs = YamlLoader::load_from_str(&content).unwrap();
@@ -105,26 +123,6 @@ pub fn parse(file_path: &str, output_path: &str) -> String {
     let mut token_stub = String::new();
     let mut module_stub = String::new();
     let mut render_stub = String::new();
-
-    // let xml_tag = docs
-    //     .get(0)
-    //     .unwrap()
-    //     .as_hash()
-    //     .unwrap()
-    //     .get(&Yaml::String("xml_entity_tag".to_string()))
-    //     .unwrap()
-    //     .as_hash()
-    //     .unwrap()
-    //     .values()
-    //     .collect::<Vec<_>>();
-
-    // let mut values = vec![];
-    // for tag in xml_tag.iter() {
-    //     values.push(tag.as_str().unwrap());
-    // }
-    // println!("\nxml_entity_tag: \"{}\"\n", values.join(","));
-
-    // panic!("Stop!");
 
     if docs.len() == 0 {
         let mut message = String::new();
@@ -134,6 +132,7 @@ pub fn parse(file_path: &str, output_path: &str) -> String {
 
     match *&docs[0] {
         Yaml::Hash(ref h) => {
+            debug_val(h);
             token_stub.push_str(&token::generate_token(h));
             module_stub.push_str(&module::generate_module(h));
             render_stub.push_str(&render::generate_render_html(h, get_file_name(file_path)));
