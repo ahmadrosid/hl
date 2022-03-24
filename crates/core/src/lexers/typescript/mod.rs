@@ -148,7 +148,12 @@ impl Lexer {
                     let mut identifier: Vec<char> = read_identifier(self);
                     match get_keyword_token(&identifier) {
                         Ok(keyword_token) => {
-                            if start_position >= 1 && self.input[start_position - 1] == '.' {
+                            let position = if start_position == 0 {
+                                0
+                            } else {
+                                start_position - 1
+                            };
+                            if self.input[position] == '.' {
                                 return Token::ENTITY(identifier);
                             }
                             keyword_token
