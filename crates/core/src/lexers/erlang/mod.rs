@@ -143,7 +143,7 @@ impl Lexer {
                                 let mut position = self.position;
                                 let mut ch = self.input[position];
                                 while position < self.input.len() && ch.is_whitespace() {
-                                    position = position + 1;
+                                    position += 1;
                                     if position < self.input.len() {
                                         ch = self.input[position];
                                     }
@@ -174,7 +174,7 @@ impl Lexer {
                                 let mut position = self.position;
                                 let mut ch = self.input[position];
                                 while position < self.input.len() && ch.is_whitespace() {
-                                    position = position + 1;
+                                    position += 1;
                                     if position < self.input.len() {
                                         ch = self.input[position];
                                     }
@@ -196,7 +196,7 @@ impl Lexer {
                                 let mut position = self.position;
                                 let mut ch = self.input[position];
                                 while position < self.input.len() && ch.is_whitespace() {
-                                    position = position + 1;
+                                    position += 1;
                                     if position < self.input.len() {
                                         ch = self.input[position];
                                     }
@@ -218,7 +218,7 @@ impl Lexer {
                                 let mut position = self.position;
                                 let mut ch = self.input[position];
                                 while position < self.input.len() && ch.is_whitespace() {
-                                    position = position + 1;
+                                    position += 1;
                                     if position < self.input.len() {
                                         ch = self.input[position];
                                     }
@@ -240,7 +240,7 @@ impl Lexer {
                                 let mut position = self.position;
                                 let mut ch = self.input[position];
                                 while position < self.input.len() && ch.is_whitespace() {
-                                    position = position + 1;
+                                    position += 1;
                                     if position < self.input.len() {
                                         ch = self.input[position];
                                     }
@@ -262,7 +262,7 @@ impl Lexer {
                                 let mut position = self.position;
                                 let mut ch = self.input[position];
                                 while position < self.input.len() && ch.is_whitespace() {
-                                    position = position + 1;
+                                    position += 1;
                                     if position < self.input.len() {
                                         ch = self.input[position];
                                     }

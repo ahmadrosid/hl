@@ -798,7 +798,7 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
                 7,
                 "while position < self.input.len() && ch.is_whitespace() {",
             );
-            module.push_tabln(8, "position = position + 1;");
+            module.push_tabln(8, "position += 1;");
             module.push_tabln(8, "if position < self.input.len() {");
             module.push_tabln(9, "ch = self.input[position];");
             module.push_tabln(8, "}");

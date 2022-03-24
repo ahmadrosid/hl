@@ -1,8 +1,9 @@
 pub mod lexers;
 use crate::lexers::*;
 
+#[must_use]
 pub fn render_html(input: Vec<char>, lang: &str) -> String {
-    return match lang {
+    match lang {
         "actionscript" => actionscript::render::html(input),
         "bash" => bash::render::html(input),
         "c" => c::render::html(input),
@@ -37,5 +38,5 @@ pub fn render_html(input: Vec<char>, lang: &str) -> String {
         "zig" => zig::render::html(input),
         "kotlin" => kotlin::render::html(input),
         _ => String::new(),
-    };
+    }
 }
