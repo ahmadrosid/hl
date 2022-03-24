@@ -1,6 +1,6 @@
 #!/bin/bash
 set -e
-cargo build -q --workspace -p generator
+# cargo build -q --workspace -p generator
 
 array=(
   "rules/actionscript.yml"

@@ -98,9 +98,10 @@ impl ConditionExt for Hash {
     }
 }
 
-fn debug_val(data: &Hash) {
+#[allow(dead_code)]
+fn debug_val(data: &Hash, key: &str) {
     let xml_tag = data
-        .get(&Yaml::String("constant".to_string()))
+        .get(&Yaml::String(key.to_string()))
         .unwrap()
         .as_hash()
         .unwrap()
@@ -211,7 +212,7 @@ fn update_lib_mod(name: &str, path: &str) {
         source = source.replace(
             "_ => String::new(),",
             &format!(
-                r#""{}" => {}::render::render_html(input),
+                r#""{}" => {}::render::html(input),
                 _ => String::new(),"#,
                 name, name
             ),

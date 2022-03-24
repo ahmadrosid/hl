@@ -32,7 +32,7 @@ pub fn generate_render_html(h: &Hash, name: String) -> String {
     html.push_strln(&format!("use crate::lexers::{}::Lexer;", name));
     html.push_strln("use crate::lexers::Token;\n");
 
-    html.push_strln("pub fn render_html(input: Vec<char>) -> String {");
+    html.push_strln("pub fn html(input: Vec<char>) -> String {");
     html.push_tabln(1, "let mut l = Lexer::new(input);");
     html.push_tabln(1, "l.read_char();");
     html.push_tabln(1, "let mut html = String::new();");

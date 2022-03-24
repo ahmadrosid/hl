@@ -2,7 +2,7 @@
 use crate::lexers::bash::Lexer;
 use crate::lexers::Token;
 
-pub fn render_html(input: Vec<char>) -> String {
+pub fn html(input: Vec<char>) -> String {
     let mut l = Lexer::new(input);
     l.read_char();
     let mut html = String::new();
