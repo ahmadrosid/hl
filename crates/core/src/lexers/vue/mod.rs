@@ -86,7 +86,7 @@ impl Lexer {
                     let mut identifier: Vec<char> = read_identifier(self);
                     match get_keyword_token(&identifier) {
                         Ok(keyword_token) => {
-                            if start_position - 1 != 0 && self.input[start_position - 1] == '<'
+                            if self.input[start_position - 1] == '<'
                                 || self.input[start_position - 1] == '/'
                                 || self.ch == '>'
                             {

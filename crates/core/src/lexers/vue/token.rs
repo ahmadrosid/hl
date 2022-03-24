@@ -6,6 +6,7 @@ pub fn get_keyword_token(identifier: &Vec<char>) -> Result<Token, String> {
     match &id[..] {
         "template" => Ok(Token::ENTITYTAG(identifier.to_vec())),
         "script" => Ok(Token::ENTITYTAG(identifier.to_vec())),
+        "style" => Ok(Token::ENTITYTAG(identifier.to_vec())),
         _ => Err(String::from("Not a keyword")),
     }
 }

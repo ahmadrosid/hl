@@ -563,16 +563,16 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
     if let Some(ch) = h.get_some_condition(MARK_KEYWORD_AS_ENTITY_ON_PREFIX) {
         module.push_tabln(
             8,
-            "if start_position >= 1 && self.input[start_position - 1] ==",
+            "let position = if start_position == 0 { 0 } else { start_position - 1 }",
         );
+        module.push_tabln(8, "if self.input[start_position - 1] ==");
         module.push_strln(&format!("'{}' {{", ch.as_str().unwrap()));
         module.push_tabln(9, "return Token::ENTITY(identifier)");
         module.push_tabln(8, "}");
     }
 
     if get_xml_entity_tag(h).len() >= 1 {
-        module.push_tabln(8, "if start_position - 1 != 0");
-        module.push_tabln(9, "&& self.input[start_position-1] == '<'");
+        module.push_tabln(9, "if self.input[start_position-1] == '<'");
         module.push_tabln(9, "|| self.input[start_position-1] == '/'");
         module.push_tabln(9, "|| self.ch == '>' {");
         module.push_tabln(9, "return keyword_token");

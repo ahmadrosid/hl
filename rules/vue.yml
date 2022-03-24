@@ -3,6 +3,7 @@ raw: true
 xml_entity_tag:
   template: template
   script: script
+  style: style
 
 condition:
   ACCEPT_STRING_ONE_QUOTE: true
