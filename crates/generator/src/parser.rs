@@ -132,7 +132,7 @@ pub fn parse(file_path: &str, output_path: &str) -> String {
 
     match *&docs[0] {
         Yaml::Hash(ref h) => {
-            debug_val(h);
+            // debug_val(h);
             token_stub.push_str(&token::generate_token(h));
             module_stub.push_str(&module::generate_module(h));
             render_stub.push_str(&render::generate_render_html(h, get_file_name(file_path)));
