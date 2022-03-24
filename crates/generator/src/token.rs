@@ -33,8 +33,8 @@ pub fn generate_token(h: &Hash) -> String {
         token.push_strln("Ok(Token::ENTITYTAG(identifier.to_vec())),");
     }
 
-    for (_, v) in get_xml_entity_tag(h) {
-        token.push_tab(2, &format!("\"{}\" => ", v.as_str().unwrap()));
+    for v in get_xml_entity_tag(h) {
+        token.push_tab(2, &format!("\"{}\" => ", v));
         token.push_strln("Ok(Token::ENTITYTAG(identifier.to_vec())),");
     }
 
