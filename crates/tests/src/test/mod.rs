@@ -6,7 +6,7 @@ fn test_action_script() {
         .chars()
         .collect::<Vec<char>>();
     let expected = include_str!("testdata/output/ActionScript.html.stub");
-    let actual = actionscript::render::render_html(input);
+    let actual = actionscript::render::html(input);
     assert_eq!(expected, actual);
 }
 
@@ -16,7 +16,7 @@ fn test_bash() {
         .chars()
         .collect::<Vec<char>>();
     let expected = include_str!("testdata/output/bash.html.stub");
-    let actual = bash::render::render_html(input);
+    let actual = bash::render::html(input);
     assert_eq!(expected, actual);
 }
 
@@ -26,7 +26,7 @@ fn test_c() {
         .chars()
         .collect::<Vec<char>>();
     let expected = include_str!("testdata/output/c.html.stub");
-    let actual = c::render::render_html(input);
+    let actual = c::render::html(input);
     assert_eq!(expected, actual);
 }
 
@@ -36,7 +36,7 @@ fn test_clojure() {
         .chars()
         .collect::<Vec<char>>();
     let expected = include_str!("testdata/output/clojure.html.stub");
-    let actual = clojure::render::render_html(input);
+    let actual = clojure::render::html(input);
     assert_eq!(expected, actual);
 }
 
@@ -46,7 +46,7 @@ fn test_css() {
         .chars()
         .collect::<Vec<char>>();
     let expected = include_str!("testdata/output/css.html.stub");
-    let actual = css::render::render_html(input);
+    let actual = css::render::html(input);
     assert_eq!(expected, actual);
 }
 
@@ -56,7 +56,7 @@ fn test_cuda() {
         .chars()
         .collect::<Vec<char>>();
     let expected = include_str!("testdata/output/cuda.html.stub");
-    let actual = cuda::render::render_html(input);
+    let actual = cuda::render::html(input);
     assert_eq!(expected, actual);
 }
 
@@ -66,7 +66,7 @@ fn test_cpp() {
         .chars()
         .collect::<Vec<char>>();
     let expected = include_str!("testdata/output/cpp.html.stub");
-    let actual = cpp::render::render_html(input);
+    let actual = cpp::render::html(input);
     assert_eq!(expected, actual);
 }
 
@@ -76,7 +76,7 @@ fn test_cs() {
         .chars()
         .collect::<Vec<char>>();
     let expected = include_str!("testdata/output/cs.html.stub");
-    let actual = cs::render::render_html(input);
+    let actual = cs::render::html(input);
     assert_eq!(expected, actual);
 }
 
@@ -86,7 +86,7 @@ fn test_edn() {
         .chars()
         .collect::<Vec<char>>();
     let expected = include_str!("testdata/output/edn.html.stub");
-    let actual = edn::render::render_html(input);
+    let actual = edn::render::html(input);
     assert_eq!(expected, actual);
 }
 
@@ -96,7 +96,7 @@ fn test_erlang() {
         .chars()
         .collect::<Vec<char>>();
     let expected = include_str!("testdata/output/erlang.html.stub");
-    let actual = erlang::render::render_html(input);
+    let actual = erlang::render::html(input);
     assert_eq!(expected, actual);
 }
 
@@ -106,7 +106,7 @@ fn test_golang() {
         .chars()
         .collect::<Vec<char>>();
     let expected = include_str!("testdata/output/golang.html.stub");
-    let actual = go::render::render_html(input);
+    let actual = go::render::html(input);
     assert_eq!(expected, actual);
 }
 
@@ -116,7 +116,7 @@ fn test_groovy() {
         .chars()
         .collect::<Vec<char>>();
     let expected = include_str!("testdata/output/Groovy.html.stub");
-    let actual = groovy::render::render_html(input);
+    let actual = groovy::render::html(input);
     assert_eq!(expected, actual);
 }
 
@@ -126,7 +126,7 @@ fn test_haskell() {
         .chars()
         .collect::<Vec<char>>();
     let expected = include_str!("testdata/output/haskell.html.stub");
-    let actual = haskell::render::render_html(input);
+    let actual = haskell::render::html(input);
     assert_eq!(expected, actual);
 }
 
@@ -136,7 +136,7 @@ fn test_html() {
         .chars()
         .collect::<Vec<char>>();
     let expected = include_str!("testdata/output/html.html.stub");
-    let actual = html::render::render_html(input);
+    let actual = html::render::html(input);
     assert_eq!(expected, actual);
 }
 
@@ -146,7 +146,7 @@ fn test_java() {
         .chars()
         .collect::<Vec<char>>();
     let expected = include_str!("testdata/output/java.html.stub");
-    let actual = java::render::render_html(input);
+    let actual = java::render::html(input);
     assert_eq!(expected, actual);
 }
 
@@ -156,7 +156,7 @@ fn test_javascript() {
         .chars()
         .collect::<Vec<char>>();
     let expected = include_str!("testdata/output/javascript.html.stub");
-    let actual = javascript::render::render_html(input);
+    let actual = javascript::render::html(input);
     assert_eq!(expected, actual);
 }
 
@@ -166,7 +166,7 @@ fn test_json() {
         .chars()
         .collect::<Vec<char>>();
     let expected = include_str!("testdata/output/json.html.stub");
-    let actual = json::render::render_html(input);
+    let actual = json::render::html(input);
     assert_eq!(expected, actual);
 }
 
@@ -176,7 +176,7 @@ fn test_kotlin() {
         .chars()
         .collect::<Vec<char>>();
     let expected = include_str!("testdata/output/kotlin.html.stub");
-    let actual = kotlin::render::render_html(input);
+    let actual = kotlin::render::html(input);
     assert_eq!(expected, actual);
 }
 
@@ -186,7 +186,7 @@ fn test_lua() {
         .chars()
         .collect::<Vec<char>>();
     let expected = include_str!("testdata/output/lua.html.stub");
-    let actual = lua::render::render_html(input);
+    let actual = lua::render::html(input);
     assert_eq!(expected, actual);
 }
 
@@ -196,7 +196,7 @@ fn test_markdown() {
         .chars()
         .collect::<Vec<char>>();
     let expected = include_str!("testdata/output/markdown.html.stub");
-    let actual = markdown::render::render_html(input);
+    let actual = markdown::render::html(input);
     assert_eq!(expected, actual);
 }
 
@@ -206,7 +206,7 @@ fn test_php() {
         .chars()
         .collect::<Vec<char>>();
     let expected = include_str!("testdata/output/php.html.stub");
-    let actual = php::render::render_html(input);
+    let actual = php::render::html(input);
     assert_eq!(expected, actual);
 }
 
@@ -216,7 +216,7 @@ fn test_python() {
         .chars()
         .collect::<Vec<char>>();
     let expected = include_str!("testdata/output/python.html.stub");
-    let actual = python::render::render_html(input);
+    let actual = python::render::html(input);
     assert_eq!(expected, actual);
 }
 
@@ -226,7 +226,7 @@ fn test_ruby() {
         .chars()
         .collect::<Vec<char>>();
     let expected = include_str!("testdata/output/ruby.html.stub");
-    let actual = ruby::render::render_html(input);
+    let actual = ruby::render::html(input);
     assert_eq!(expected, actual);
 }
 
@@ -236,7 +236,7 @@ fn test_rust() {
         .chars()
         .collect::<Vec<char>>();
     let expected = include_str!("testdata/output/rust.html.stub");
-    let actual = rust::render::render_html(input);
+    let actual = rust::render::html(input);
     assert_eq!(expected, actual);
 }
 
@@ -246,7 +246,7 @@ fn test_toml() {
         .chars()
         .collect::<Vec<char>>();
     let expected = include_str!("testdata/output/TOML.html.stub");
-    let actual = toml::render::render_html(input);
+    let actual = toml::render::html(input);
     assert_eq!(expected, actual);
 }
 
@@ -256,7 +256,7 @@ fn test_typescript() {
         .chars()
         .collect::<Vec<char>>();
     let expected = include_str!("testdata/output/typescript.html.stub");
-    let actual = typescript::render::render_html(input);
+    let actual = typescript::render::html(input);
     assert_eq!(expected, actual);
 }
 
@@ -266,7 +266,7 @@ fn test_yaml() {
         .chars()
         .collect::<Vec<char>>();
     let expected = include_str!("testdata/output/yaml.html.stub");
-    let actual = yaml::render::render_html(input);
+    let actual = yaml::render::html(input);
     assert_eq!(expected, actual);
 }
 
@@ -276,7 +276,7 @@ fn test_zig() {
         .chars()
         .collect::<Vec<char>>();
     let expected = include_str!("testdata/output/zig.html.stub");
-    let actual = zig::render::render_html(input);
+    let actual = zig::render::html(input);
     assert_eq!(expected, actual);
 }
 
@@ -286,6 +286,6 @@ fn test_nim() {
         .chars()
         .collect::<Vec<char>>();
     let expected = include_str!("testdata/output/nim.html.stub");
-    let actual = nim::render::render_html(input);
+    let actual = nim::render::html(input);
     assert_eq!(expected, actual);
 }
