@@ -161,7 +161,9 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
     }
 
     if h.check_condition(ACCEPT_DOUBLE_BRACKET_STRING).is_some() {
-        module.push_str(include_str!("stub/module/handle_double_bracket_string.stub"));
+        module.push_str(include_str!(
+            "stub/module/handle_double_bracket_string.stub"
+        ));
     }
 
     if bracket_dash_comment_enable(h) {
@@ -252,7 +254,7 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
         module.push_str(&write_handle_markup_head(ch.as_str().unwrap()));
     }
 
-    for (_, val) in get_double_keyword(h) {
+    for val in get_double_keyword(h).values() {
         let v: Vec<char> = val.as_str().unwrap().chars().collect();
         let first = v[0];
         let last = v[1];
@@ -306,7 +308,7 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
         ));
     }
 
-    for (_, val) in get_double_keyword(h) {
+    for val in get_double_keyword(h).values() {
         let v: Vec<char> = val.as_str().unwrap().chars().collect();
         let first = v[0];
         let last = v[1];
@@ -685,7 +687,7 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
         }
     }
 
-    for (_k, v) in get_entity_prefix(h) {
+    for v in get_entity_prefix(h).values() {
         let ch = v.as_str().unwrap();
         module.push_tab(8, "if start_position > 0 ");
         module.push_strln(&format!("&& self.input[start_position - 1] == '{}' {{", ch));
@@ -693,7 +695,7 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
         module.push_tabln(8, "}");
     }
 
-    for (_k, ch) in get_entity_suffix(h) {
+    for ch in get_entity_suffix(h).values() {
         let source = include_str!("stub/module/handle_identifier_suffix.stub").to_string();
         module.push_str(
             &source
@@ -716,7 +718,7 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
         module.push_tabln(8, "}");
     }
 
-    for (_k, v) in get_var_prefix(h) {
+    for v in get_var_prefix(h).values() {
         let ch = v.as_str().unwrap();
         module.push_tab(8, "if start_position > 0 ");
         module.push_strln(&format!("&& self.input[start_position - 1] == '{}' {{", ch));
@@ -724,7 +726,7 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
         module.push_tabln(8, "}");
     }
 
-    for (_k, ch) in get_constant_suffix(h) {
+    for ch in get_constant_suffix(h).values() {
         let source = include_str!("stub/module/handle_identifier_suffix.stub").to_string();
         module.push_str(
             &source
@@ -734,7 +736,7 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
         );
     }
 
-    for (_k, ch) in get_var_suffix(h) {
+    for ch in get_var_suffix(h).values() {
         let source = include_str!("stub/module/handle_identifier_suffix.stub").to_string();
         module.push_str(
             &source
