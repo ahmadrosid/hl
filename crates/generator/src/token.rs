@@ -2,16 +2,15 @@ use crate::parser::{
     get_constant, get_entity, get_entity_tag, get_keyword, get_var, get_xml_entity_tag,
 };
 
-use crate::string::StringBuilder;
 use yaml_rust::yaml::Hash;
 
 pub fn generate_token(h: &Hash) -> String {
-    let mut token = StringBuilder::new();
-    token.push_strln("// ---- DON'T EDIT! THIS IS AUTO GENERATED CODE ---- //");
-    token.push_strln("use crate::lexers::Token;\n");
-    token.push_strln("pub fn get_keyword_token(identifier: &Vec<char>) -> Result<Token, String> {");
-    token.push_tabln(1, "let id: String = identifier.into_iter().collect();");
-    token.push_tabln(1, "match &id[..] {");
+    let mut token = String::new();
+    token.push_str("// ---- DON'T EDIT! THIS IS AUTO GENERATED CODE ---- //\n");
+    token.push_str("use crate::lexers::Token;");
+    token.push_str("pub fn get_keyword_token(identifier: &Vec<char>) -> Result<Token, String> {");
+    token.push_str("let id: String = identifier.into_iter().collect();");
+    token.push_str("match &id[..] {\n");
 
     write(&get_constant(h), &mut token, "CONSTANT");
     write(&get_var(h), &mut token, "VAR");
@@ -22,14 +21,14 @@ pub fn generate_token(h: &Hash) -> String {
     entity_tag.extend(get_xml_entity_tag(h));
     write(&entity_tag, &mut token, "ENTITYTAG");
 
-    token.push_tabln(2, "_ => Err(String::from(\"Not a keyword\")),");
-    token.push_tabln(1, "}");
-    token.push_strln("}");
+    token.push_str("_ => Err(String::from(\"Not a keyword\")),");
+    token.push_str("}");
+    token.push_str("}");
 
     token.to_string()
 }
 
-fn write(data: &Vec<&str>, token: &mut StringBuilder, key: &str) {
+fn write(data: &Vec<&str>, token: &mut String, key: &str) {
     if !data.is_empty() {
         for (i, v) in data.iter().enumerate() {
             token.push_str(&format!("\"{}\"", v));
@@ -37,6 +36,6 @@ fn write(data: &Vec<&str>, token: &mut StringBuilder, key: &str) {
                 token.push_str("|");
             }
         }
-        token.push_strln(&" => Ok(Token::{}(identifier.clone())),".replace("{}", key));
+        token.push_str(&" => Ok(Token::{}(identifier.clone())),".replace("{}", key));
     }
 }
