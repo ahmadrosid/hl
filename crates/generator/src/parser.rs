@@ -174,9 +174,9 @@ pub fn parse(file_path: &str, output_path: &str) -> String {
     message.push_str(&"Success generate lexer for \"".green());
     message.push_str(&get_file_name(file_path).bold_green());
     message.push_str(&"\" language!\n".green());
-    message.push_str(&format!("- {}/token.rs\n", out_file_path).cyan());
-    message.push_str(&format!("- {}/mod.rs\n", out_file_path).cyan());
-    message.push_str(&format!("- {}/render.rs\n", out_file_path).cyan());
+    message.push_str(&format!("- {}token.rs\n", out_file_path).cyan());
+    message.push_str(&format!("- {}mod.rs\n", out_file_path).cyan());
+    message.push_str(&format!("- {}render.rs\n", out_file_path).cyan());
     message
 }
 
