@@ -23,8 +23,8 @@ pub fn generate_token(h: &Hash) -> String {
         token.push_strln("Ok(Token::VAR(identifier.clone())),");
     }
 
-    for (_, v) in get_entity(h) {
-        token.push_tab(2, &format!("\"{}\" => ", v.as_str().unwrap()));
+    for v in get_entity(h) {
+        token.push_tab(2, &format!("\"{}\" => ", v));
         token.push_strln("Ok(Token::ENTITY(identifier.clone())),");
     }
 

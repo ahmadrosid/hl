@@ -1,15 +1,5 @@
 multi_line_comment: "/*,*/"
 constant: "root,rgb,rgba,calc,media"
-entity:
-  AFTER: after
-  BEFORE: before
-  HOVER: hover
-  NOT: not
-  FOCUS: focus
-  ACTIVE: active
-  SELECTION: selection
-  PX: px
-  REM: rem
 entity_tag:
   HTML: html
   BODY: body
@@ -112,3 +102,4 @@ condition:
   BREAK_IDENT_SUFFIX: "self.ch == ' ' || self.ch == ':' || self.ch == ';' || self.ch == '}' || self.ch == '\\n'"
   PREFIX_ONE_LINE_COMMENT: //
 keyword: important
+entity: "after,before,hover,not,focus,active,selection,px,rem"

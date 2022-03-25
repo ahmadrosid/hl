@@ -71,7 +71,7 @@ get_string!(get_constant, constant);
 get_hash!(get_var, var);
 get_string!(get_keyword, keyword);
 get_hash!(get_double_keyword, double_keyword);
-get_hash!(get_entity, entity);
+get_string!(get_entity, entity);
 get_hash!(get_constant_prefix, constant_prefix);
 get_hash!(get_constant_suffix, constant_suffix);
 get_hash!(get_var_prefix, var_prefix);
@@ -100,6 +100,10 @@ impl ConditionExt for Hash {
 
 #[allow(dead_code)]
 fn debug_val(data: &Hash, key: &Yaml) -> String {
+    if data.get(key).is_none() {
+        std::process::exit(0);
+    }
+
     let xml_tag = data
         .get(key)
         .unwrap()
@@ -118,7 +122,7 @@ fn debug_val(data: &Hash, key: &Yaml) -> String {
 
 #[allow(dead_code)]
 fn refactor_yaml(h: &Hash, file_path: &str) {
-    let k = Yaml::String("keyword".to_string());
+    let k = Yaml::String("entity".to_string());
     let keyword = debug_val(h, &k);
     let mut out_str = String::new();
     let mut emitter = yaml_rust::YamlEmitter::new(&mut out_str);
@@ -149,7 +153,7 @@ pub fn parse(file_path: &str, output_path: &str) -> String {
 
     match *&docs[0] {
         Yaml::Hash(ref h) => {
-            // refactor_yaml(h, file_path);
+            refactor_yaml(h, file_path);
             token_stub.push_str(&token::generate_token(h));
             module_stub.push_str(&module::generate_module(h));
             render_stub.push_str(&render::generate_html(h, get_file_name(file_path)));
