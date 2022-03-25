@@ -86,11 +86,11 @@ get_str!(get_multi_line_string, multi_line_string);
 get_bool!(bracket_dash_comment_enable, bracket_dash_comment);
 
 pub trait ConditionExt {
-    fn get_some_condition(&self, key: &str) -> Option<Yaml>;
+    fn check_condition(&self, key: &str) -> Option<Yaml>;
 }
 
 impl ConditionExt for Hash {
-    fn get_some_condition(&self, key: &str) -> Option<Yaml> {
+    fn check_condition(&self, key: &str) -> Option<Yaml> {
         return match get_condition(self).get(&Yaml::String(key.to_string())) {
             None => None,
             Some(val) => Some(val.clone()),

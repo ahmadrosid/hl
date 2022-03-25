@@ -60,21 +60,22 @@ pub fn generate_render_html(h: &Hash, name: String) -> String {
 
     html.push_tabln(2, "match token {");
 
-    if !h.get_some_condition(IGNORE_INTEGER).is_some() {
+    if h.check_condition(IGNORE_INTEGER).is_none() {
         html.push_str(include_str!("stub/render_token_int.stub"));
     }
+
     write_token_identifier(&mut html);
 
-    if h.get_some_condition(ACCEPT_STRING_ONE_QUOTE).is_some()
-        || h.get_some_condition(ACCEPT_STRING_DOUBLE_QUOTE).is_some()
-        || h.get_some_condition(ACCEPT_STRING_EOF).is_some()
+    if h.check_condition(ACCEPT_STRING_ONE_QUOTE).is_some()
+        || h.check_condition(ACCEPT_STRING_DOUBLE_QUOTE).is_some()
+        || h.check_condition(ACCEPT_STRING_EOF).is_some()
     {
         write_token_string(&mut html, h);
     }
 
-    if h.get_some_condition(ACCEPT_ENTITY_TAG_PREFIX).is_some()
-        || h.get_some_condition(ENTITY_TAG_PREFIX_CHAR).is_some()
-        || h.get_some_condition(ACCEPT_PREFIX_KEYWORD).is_some()
+    if h.check_condition(ACCEPT_ENTITY_TAG_PREFIX).is_some()
+        || h.check_condition(ENTITY_TAG_PREFIX_CHAR).is_some()
+        || h.check_condition(ACCEPT_PREFIX_KEYWORD).is_some()
     {
         write_token_ch(&mut html, h);
     }
@@ -94,29 +95,29 @@ pub fn generate_render_html(h: &Hash, name: String) -> String {
         html.push_str(include_str!("stub/render_token_constant.stub"));
     }
 
-    if get_keyword(h).len() >= 1 || h.get_some_condition(MARK_AS_KEYWORD_IN_SCOPE).is_some() {
+    if get_keyword(h).len() >= 1 || h.check_condition(MARK_AS_KEYWORD_IN_SCOPE).is_some() {
         write_token_keyword(&mut html);
     }
 
     if get_entity_tag(h).len() >= 1
         || get_xml_entity_tag(h).len() >= 1
-        || h.get_some_condition(MARK_ENTITY_TAG_SUFFIX).is_some()
-        || h.get_some_condition(MARK_STRING_ENTITY_TAG).is_some()
+        || h.check_condition(MARK_ENTITY_TAG_SUFFIX).is_some()
+        || h.check_condition(MARK_STRING_ENTITY_TAG).is_some()
     {
         html.push_str(include_str!("stub/render_token_entity_tag.stub"));
     }
 
-    if h.get_some_condition(ACCEPT_PREFIX_VAR).is_some() {
+    if h.check_condition(ACCEPT_PREFIX_VAR).is_some() {
         html.push_str(include_str!("stub/render_token_var.stub"));
     }
 
-    if h.get_some_condition(MARKUP_HEAD).is_some() {
+    if h.check_condition(MARKUP_HEAD).is_some() {
         write_token_head(&mut html);
     }
 
     if get_multi_line_comment(h).len() > 1
-        || h.get_some_condition(PREFIX_ONE_LINE_COMMENT).is_some()
-        || h.get_some_condition(PREFIX_ONE_LINE_COMMENT_BEFORE_NEWLINE)
+        || h.check_condition(PREFIX_ONE_LINE_COMMENT).is_some()
+        || h.check_condition(PREFIX_ONE_LINE_COMMENT_BEFORE_NEWLINE)
             .is_some()
     {
         write_token_comment(&mut html);
@@ -135,8 +136,8 @@ pub fn generate_render_html(h: &Hash, name: String) -> String {
     html.push_str(include_str!("stub/render_token_endl.stub"));
 
     html.push_tabln(3, "_ => {");
-    if let Some(prefix) = h.get_some_condition(ENCODE_LT) {
-        if let Some(encode) = h.get_some_condition(ENCODE_LT_STRING) {
+    if let Some(prefix) = h.check_condition(ENCODE_LT) {
+        if let Some(encode) = h.check_condition(ENCODE_LT_STRING) {
             html.push_tabln(4, &format!("if l.ch == '{}' {{", prefix.as_str().unwrap()));
             html.push_tabln(
                 5,
@@ -147,8 +148,8 @@ pub fn generate_render_html(h: &Hash, name: String) -> String {
             html.push_tabln(4, "}");
         }
     }
-    if let Some(prefix) = h.get_some_condition(ENCODE_GT) {
-        if let Some(encode) = h.get_some_condition(ENCODE_GT_STRING) {
+    if let Some(prefix) = h.check_condition(ENCODE_GT) {
+        if let Some(encode) = h.check_condition(ENCODE_GT_STRING) {
             html.push_tabln(4, &format!("if l.ch == '{}' {{", prefix.as_str().unwrap()));
             html.push_tabln(
                 5,
@@ -251,8 +252,8 @@ fn write_token_keyword(html: &mut StringBuilder) {
 
 fn write_token_ch(html: &mut StringBuilder, h: &Hash) {
     html.push_tabln(3, "Token::CH(value) => {");
-    if let Some(prefix) = h.get_some_condition(ENCODE_LT) {
-        if let Some(encode) = h.get_some_condition(ENCODE_LT_STRING) {
+    if let Some(prefix) = h.check_condition(ENCODE_LT) {
+        if let Some(encode) = h.check_condition(ENCODE_LT_STRING) {
             html.push_tabln(4, &format!("if value == '{}' {{", prefix.as_str().unwrap()));
             html.push_tabln(
                 5,
@@ -282,7 +283,7 @@ fn write_token_string(html: &mut StringBuilder, h: &Hash) {
     html.push_tabln(6, "s.push(ch);");
     html.push_tabln(5, "}");
     html.push_tabln(4, "}");
-    if h.get_some_condition(ACCEPT_STRING_EOF).is_some() {
+    if h.check_condition(ACCEPT_STRING_EOF).is_some() {
         html.push_tabln(
             4,
             r#"s = s.replace("&lt;&lt;","<span class=\"hl-k\">&lt;&lt;</span>");"#,
@@ -292,7 +293,7 @@ fn write_token_string(html: &mut StringBuilder, h: &Hash) {
             r#"s = s.replace("EOF","<span class=\"hl-k\">EOF</span>");"#,
         );
     }
-    if h.get_some_condition(RENDER_MULTI_LINE_STRING).is_some() {
+    if h.check_condition(RENDER_MULTI_LINE_STRING).is_some() {
         html.push_tabln(4, r#"let split = s.split("\n");"#);
         html.push_tabln(
             4,

@@ -56,7 +56,7 @@ const SKIP_READ_ONE_QUOTE_STRING_ON_PREFIX: &str = "SKIP_READ_ONE_QUOTE_STRING_O
 
 pub fn generate_module(h: &Hash) -> String {
     let mut initial_module = include_str!("stub/initial_module.stub").to_string();
-    if h.get_some_condition(MARK_AS_ENTYTY_ON_FUNCTION_SCOPE)
+    if h.check_condition(MARK_AS_ENTYTY_ON_FUNCTION_SCOPE)
         .is_some()
     {
         initial_module = initial_module.replace(
@@ -73,7 +73,7 @@ pub fn generate_module(h: &Hash) -> String {
 }
 
 fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
-    if h.get_some_condition(MARK_AS_ENTYTY_ON_FUNCTION_SCOPE)
+    if h.check_condition(MARK_AS_ENTYTY_ON_FUNCTION_SCOPE)
         .is_some()
     {
         module.push_str(
@@ -89,7 +89,7 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
     module.push_tabln(3, "let position = l.position;");
     module.push_tabln(3, "while l.position < l.input.len() && is_letter(l.ch) {");
     module.push_tabln(4, "l.read_char();");
-    if let Some(val) = h.get_some_condition(ACCEPT_CHAR_IDENTIFIER) {
+    if let Some(val) = h.check_condition(ACCEPT_CHAR_IDENTIFIER) {
         for ch in val.as_str().unwrap().chars() {
             module.push_tabln(4, &format!("if l.ch == '{}' {{", ch));
             module.push_tabln(5, "l.read_char();");
@@ -100,10 +100,10 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
     module.push_tabln(3, "l.input[position..l.position].to_vec()");
     module.push_tabln(2, "};\n");
 
-    if h.get_some_condition(ACCEPT_STRING_ONE_QUOTE).is_some()
-        || h.get_some_condition(ACCEPT_STRING_DOUBLE_QUOTE).is_some()
-        || h.get_some_condition(ACCEPT_STRING_EOF).is_some()
-        || h.get_some_condition(PREFIX_ONE_LINE_COMMENT_BEFORE_NEWLINE)
+    if h.check_condition(ACCEPT_STRING_ONE_QUOTE).is_some()
+        || h.check_condition(ACCEPT_STRING_DOUBLE_QUOTE).is_some()
+        || h.check_condition(ACCEPT_STRING_EOF).is_some()
+        || h.check_condition(PREFIX_ONE_LINE_COMMENT_BEFORE_NEWLINE)
             .is_some()
     {
         module.push_str(&write_handle_read_string(h.clone()));
@@ -166,7 +166,7 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
         );
     }
 
-    if h.get_some_condition(ACCEPT_DOUBLE_BRACKET_STRING).is_some() {
+    if h.check_condition(ACCEPT_DOUBLE_BRACKET_STRING).is_some() {
         module.push_str(include_str!("stub/handle_double_bracket_string.stub"));
     }
 
@@ -174,7 +174,7 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
         module.push_str(include_str!("stub/handle_bracket_dash_comment.stub"));
     }
 
-    if let Some(ch) = h.get_some_condition(MARK_AS_KEYWORD_ON_CHAR) {
+    if let Some(ch) = h.check_condition(MARK_AS_KEYWORD_ON_CHAR) {
         let c = ch.as_str().unwrap();
         module.push_tabln(2, &format!("if self.ch == '{}' {{", c));
         module.push_tabln(
@@ -184,7 +184,7 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
         module.push_tabln(2, "}");
     }
 
-    if let Some(ch) = h.get_some_condition(MARK_AS_KEYWORD_IN_SCOPE) {
+    if let Some(ch) = h.check_condition(MARK_AS_KEYWORD_IN_SCOPE) {
         let c: Vec<char> = ch.as_str().unwrap().to_string().chars().collect();
         assert!(
             c.len() == 2,
@@ -201,7 +201,7 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
         )
     }
 
-    if let Some(ch) = h.get_some_condition(MARK_AS_VAR_IN_SCOPE) {
+    if let Some(ch) = h.check_condition(MARK_AS_VAR_IN_SCOPE) {
         let c: Vec<char> = ch.as_str().unwrap().to_string().chars().collect();
         assert!(
             c.len() == 2,
@@ -219,7 +219,7 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
         )
     }
 
-    if let Some(ch) = h.get_some_condition(MARK_AS_STRING_ON_PREFIX) {
+    if let Some(ch) = h.check_condition(MARK_AS_STRING_ON_PREFIX) {
         let c: Vec<char> = ch.as_str().unwrap().to_string().chars().collect();
         assert!(
             c.len() == 2,
@@ -236,25 +236,25 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
         )
     }
 
-    if let Some(ch) = h.get_some_condition(SKIP_NON_CHAR_LETTER_PREFIX) {
+    if let Some(ch) = h.check_condition(SKIP_NON_CHAR_LETTER_PREFIX) {
         module.push_str(
             &include_str!("stub/handle_skip_non_char_letter.stub")
                 .replace("{ch}", ch.as_str().unwrap()),
         );
     }
 
-    if let Some(ch) = h.get_some_condition(MARK_AS_CONSTANT_ON_PREFIX) {
+    if let Some(ch) = h.check_condition(MARK_AS_CONSTANT_ON_PREFIX) {
         module.push_str(
             &include_str!("stub/mark_as_constant_in_prefix.stub")
                 .replace("{ch}", ch.as_str().unwrap()),
         );
     }
 
-    if h.get_some_condition(ACCEPT_STRING_EOF).is_some() {
+    if h.check_condition(ACCEPT_STRING_EOF).is_some() {
         module.push_str(include_str!("stub/handle_eof_string.stub"));
     }
 
-    if let Some(ch) = h.get_some_condition(MARKUP_HEAD) {
+    if let Some(ch) = h.check_condition(MARKUP_HEAD) {
         module.push_str(&write_handle_markup_head(ch.as_str().unwrap()));
     }
 
@@ -277,7 +277,7 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
         module.push_tabln(2, "}\n");
     }
 
-    if let Some(ch) = h.get_some_condition(PREFIX_ONE_LINE_COMMENT) {
+    if let Some(ch) = h.check_condition(PREFIX_ONE_LINE_COMMENT) {
         let mut source = include_str!("stub/handle_single_line_comment.stub").to_string();
         let chars: Vec<char> = ch.as_str().unwrap().chars().collect();
         if chars.len() == 2 {
@@ -293,7 +293,7 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
         module.push_str(&source);
     }
 
-    if let Some(ch) = h.get_some_condition(PREFIX_ONE_LINE_COMMENT_BEFORE_NEWLINE) {
+    if let Some(ch) = h.check_condition(PREFIX_ONE_LINE_COMMENT_BEFORE_NEWLINE) {
         let mut source = include_str!("stub/handle_single_line_comment.stub").to_string();
         let chars: Vec<char> = ch.as_str().unwrap().chars().collect();
         if chars.len() == 2 {
@@ -340,12 +340,12 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
     module.push_tabln(4, "tok = Token::EOF;");
     module.push_tabln(3, "}");
 
-    if h.get_some_condition(ACCEPT_HEXADECIMAL_NUMBER).is_some() {
+    if h.check_condition(ACCEPT_HEXADECIMAL_NUMBER).is_some() {
         module.push_str(include_str!("stub/handle_hexadecimal.stub"));
     }
 
-    if let Some(prefix) = h.get_some_condition(ACCEPT_ENTITY_TAG_PREFIX) {
-        if let Some(ch) = h.get_some_condition(ENTITY_TAG_PREFIX_CHAR) {
+    if let Some(prefix) = h.check_condition(ACCEPT_ENTITY_TAG_PREFIX) {
+        if let Some(ch) = h.check_condition(ENTITY_TAG_PREFIX_CHAR) {
             module.push_tabln(3, &format!("'{}' => {{", prefix.as_str().unwrap()));
             module.push_tabln(
                 4,
@@ -373,8 +373,8 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
         }
     }
 
-    if let Some(prefix) = h.get_some_condition(ENTITY_TAG_PREFIX_CHAR) {
-        if let Some(ch) = h.get_some_condition(ENTITY_CLOSE_TAG_SUFFIX_CHAR) {
+    if let Some(prefix) = h.check_condition(ENTITY_TAG_PREFIX_CHAR) {
+        if let Some(ch) = h.check_condition(ENTITY_CLOSE_TAG_SUFFIX_CHAR) {
             module.push_tabln(3, &format!("'{}' => {{", prefix.as_str().unwrap()));
             module.push_tabln(
                 4,
@@ -421,9 +421,9 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
         }
     }
 
-    if let Some(v) = h.get_some_condition(ACCEPT_PREFIX_KEYWORD) {
+    if let Some(v) = h.check_condition(ACCEPT_PREFIX_KEYWORD) {
         module.push_tabln(3, &format!("'{}' => {{", v.as_str().unwrap()));
-        if let Some(ch) = h.get_some_condition(ACCEPT_PREFIX_KEYWORD_NEXT) {
+        if let Some(ch) = h.check_condition(ACCEPT_PREFIX_KEYWORD_NEXT) {
             module.push_tabln(4, "let next_ch = self.input[self.position + 1];");
             module.push_tab(4, "if is_letter(next_ch) ");
             module.push_strln(&format!("|| next_ch == '{}' {{", ch.as_str().unwrap()));
@@ -452,10 +452,10 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
         module.push_tabln(3, "}");
     }
 
-    if let Some(v) = h.get_some_condition(ACCEPT_PREFIX_VAR) {
+    if let Some(v) = h.check_condition(ACCEPT_PREFIX_VAR) {
         module.push_tabln(3, &format!("'{}' => {{", v.as_str().unwrap()));
         module.push_tabln(4, "if is_letter(self.input[self.position + 1]) {");
-        if let Some(pref) = h.get_some_condition(VAR_CONSTANT_PREFIX) {
+        if let Some(pref) = h.check_condition(VAR_CONSTANT_PREFIX) {
             module.push_tabln(5, "let position = self.position;");
             module.push_tabln(5, "self.read_char();");
             module.push_tabln(
@@ -495,9 +495,9 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
     module.push_tabln(5, "#[allow(unused_mut)]");
     module.push_tabln(5, "let mut identifier: Vec<char> = read_identifier(self);");
 
-    if let Some(val_prefix) = h.get_some_condition(ACCEPT_ENTITY_TAG_SUFFIX) {
+    if let Some(val_prefix) = h.check_condition(ACCEPT_ENTITY_TAG_SUFFIX) {
         let val_condition = val_prefix.as_str().unwrap();
-        if let Some(val) = h.get_some_condition(BREAK_ENTITY_TAG_SUFFIX) {
+        if let Some(val) = h.check_condition(BREAK_ENTITY_TAG_SUFFIX) {
             let val_break = val.as_str().unwrap();
             module.push_tab(5, &format!("if {} ", val_condition));
             module.push_strln("{");
@@ -520,7 +520,7 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
     module.push_tabln(5, "match get_keyword_token(&identifier) {");
     module.push_tabln(7, "Ok(keyword_token) => {");
 
-    if let Some(ch) = h.get_some_condition(MARK_AS_ENTYTY_ON_FUNCTION_SCOPE) {
+    if let Some(ch) = h.check_condition(MARK_AS_ENTYTY_ON_FUNCTION_SCOPE) {
         module.push_str(
             &include_str!("stub/handle_set_function_scope.stub")
                 .to_string()
@@ -533,7 +533,7 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
         )
     }
 
-    if let Some(ch) = h.get_some_condition(MARK_AS_IDENT_ON_CHAR) {
+    if let Some(ch) = h.check_condition(MARK_AS_IDENT_ON_CHAR) {
         module.push_str(
             &include_str!("stub/mark_as_ident_on_char.stub")
                 .to_string()
@@ -541,11 +541,9 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
         )
     }
 
-    if h.get_some_condition(ACCEPT_CONSTANT_SUFFIX_KEYWORD)
-        .is_some()
-    {
-        if let Some(suffix) = h.get_some_condition(CONSTANT_SUFFIX_CHAR) {
-            if let Some(value) = h.get_some_condition(CONSTANT_SUFFIX_KEYWORD) {
+    if h.check_condition(ACCEPT_CONSTANT_SUFFIX_KEYWORD).is_some() {
+        if let Some(suffix) = h.check_condition(CONSTANT_SUFFIX_CHAR) {
+            if let Some(value) = h.check_condition(CONSTANT_SUFFIX_KEYWORD) {
                 module.push_tabln(
                     8,
                     &format!(
@@ -560,7 +558,7 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
         }
     }
 
-    if let Some(ch) = h.get_some_condition(MARK_KEYWORD_AS_ENTITY_ON_PREFIX) {
+    if let Some(ch) = h.check_condition(MARK_KEYWORD_AS_ENTITY_ON_PREFIX) {
         module.push_tabln(
             8,
             "let position = if start_position == 0 { 0 } else { start_position - 1 };",
@@ -584,7 +582,7 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
     module.push_tabln(7, "},");
     module.push_tabln(7, "Err(_) => {");
 
-    if h.get_some_condition(MARK_AS_ENTYTY_ON_FUNCTION_SCOPE)
+    if h.check_condition(MARK_AS_ENTYTY_ON_FUNCTION_SCOPE)
         .is_some()
     {
         module.push_str(
@@ -597,9 +595,9 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
         )
     }
 
-    if let Some(val_prefix) = h.get_some_condition(ACCEPT_ENTITY_PREFIX) {
+    if let Some(val_prefix) = h.check_condition(ACCEPT_ENTITY_PREFIX) {
         let val_condition = val_prefix.as_str().unwrap();
-        if let Some(val) = h.get_some_condition(BREAK_ENTITY_PREFIX) {
+        if let Some(val) = h.check_condition(BREAK_ENTITY_PREFIX) {
             let val_break = val.as_str().unwrap();
             module.push_tab(8, &format!("if {} ", val_condition));
             module.push_strln("{");
@@ -620,9 +618,9 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
         }
     }
 
-    if let Some(val_prefix) = h.get_some_condition(ACCEPT_IDENT_SUFFIX) {
+    if let Some(val_prefix) = h.check_condition(ACCEPT_IDENT_SUFFIX) {
         let val_condition = val_prefix.as_str().unwrap();
-        if let Some(val) = h.get_some_condition(BREAK_IDENT_SUFFIX) {
+        if let Some(val) = h.check_condition(BREAK_IDENT_SUFFIX) {
             let val_break = val.as_str().unwrap();
             module.push_tab(8, &format!("if {} ", val_condition));
             module.push_strln("{");
@@ -643,9 +641,9 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
         }
     }
 
-    if let Some(val_prefix) = h.get_some_condition(ACCEPT_ENTITY_SUFFIX) {
+    if let Some(val_prefix) = h.check_condition(ACCEPT_ENTITY_SUFFIX) {
         let val_condition = val_prefix.as_str().unwrap();
-        if let Some(val) = h.get_some_condition(BREAK_ENTITY_SUFFIX) {
+        if let Some(val) = h.check_condition(BREAK_ENTITY_SUFFIX) {
             let val_break = val.as_str().unwrap();
             module.push_tab(8, &format!("if {} ", val_condition));
             module.push_strln("{");
@@ -666,10 +664,10 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
         }
     }
 
-    if h.get_some_condition(ACCEPT_CONSTANT_SUFFIX_IDENTIFIER)
+    if h.check_condition(ACCEPT_CONSTANT_SUFFIX_IDENTIFIER)
         .is_some()
     {
-        if let Some(ch) = h.get_some_condition(ACCEPT_DASH_IDENTIFIER) {
+        if let Some(ch) = h.check_condition(ACCEPT_DASH_IDENTIFIER) {
             module.push_tabln(8, &format!("if self.ch == '{}' {{", ch.as_str().unwrap()));
             module.push_tabln(9, "let last_position = self.position;");
             module.push_tabln(9, "self.read_char();");
@@ -686,7 +684,7 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
             module.push_tabln(8, "}");
         }
 
-        if let Some(ch) = h.get_some_condition(CONSTANT_SUFFIX_CHAR) {
+        if let Some(ch) = h.check_condition(CONSTANT_SUFFIX_CHAR) {
             module.push_tabln(8, &format!("if self.ch == '{}' {{", ch.as_str().unwrap()));
             module.push_tabln(9, "return Token::CONSTANT(identifier);");
             module.push_tabln(8, "}");
@@ -710,7 +708,7 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
         );
     }
 
-    if let Some(ch) = h.get_some_condition(MARK_ENTITY_TAG_SUFFIX) {
+    if let Some(ch) = h.check_condition(MARK_ENTITY_TAG_SUFFIX) {
         module.push_tabln(8, &format!("if self.ch == '{}' {{", ch.as_str().unwrap()));
         module.push_tabln(9, "return Token::ENTITYTAG(identifier)");
         module.push_tabln(8, "}");
@@ -756,7 +754,7 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
     module.push_tabln(7, "}");
     module.push_tabln(6, "}");
     module.push_tabln(5, "} else if self.ch.is_numeric() {");
-    if let Some(ch) = h.get_some_condition(ACCEPT_SUFFIX_DIGIT) {
+    if let Some(ch) = h.check_condition(ACCEPT_SUFFIX_DIGIT) {
         module.push_tabln(6, "let mut identifier: Vec<char> = read_number(self);");
         module.push_tabln(6, &format!("if self.ch == '{}' {{", ch.as_str().unwrap()));
         module.push_tabln(7, "identifier.append(&mut vec![self.ch]);");
@@ -766,15 +764,15 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
         module.push_tabln(6, "let identifier: Vec<char> = read_number(self);");
     }
 
-    if h.get_some_condition(IGNORE_INTEGER).is_some() {
+    if h.check_condition(IGNORE_INTEGER).is_some() {
         module.push_tabln(6, "Token::IDENT(identifier)");
     } else {
         module.push_tabln(6, "Token::INT(identifier)");
     }
 
-    if h.get_some_condition(ACCEPT_STRING_ONE_QUOTE).is_some() {
+    if h.check_condition(ACCEPT_STRING_ONE_QUOTE).is_some() {
         module.push_tabln(5, "} else if self.ch == '\\'' {");
-        if let Some(ch) = h.get_some_condition(SKIP_READ_ONE_QUOTE_STRING_ON_PREFIX) {
+        if let Some(ch) = h.check_condition(SKIP_READ_ONE_QUOTE_STRING_ON_PREFIX) {
             module.push_str(
                 &include_str!("stub/handle_skip_read_string.stub")
                     .replace("{ch}", ch.as_str().unwrap()),
@@ -784,10 +782,10 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
         module.push_tabln(6, "Token::STRING(str_value)");
     }
 
-    if h.get_some_condition(ACCEPT_STRING_DOUBLE_QUOTE).is_some() {
+    if h.check_condition(ACCEPT_STRING_DOUBLE_QUOTE).is_some() {
         module.push_tabln(5, "} else if self.ch == '\"' {");
         module.push_tabln(6, "let str_value: Vec<char> = read_string(self, '\"');");
-        if let Some(ch) = h.get_some_condition(MARK_STRING_ENTITY_TAG) {
+        if let Some(ch) = h.check_condition(MARK_STRING_ENTITY_TAG) {
             module.push_tabln(6, &format!("if self.ch == '{}' {{", ch.as_str().unwrap()));
             module.push_tabln(7, "return Token::ENTITYTAG(str_value);");
             module.push_tabln(6, "} else if self.ch.is_whitespace() {");
@@ -851,7 +849,7 @@ fn write_handle_markup_head(head: &str) -> String {
 
 fn write_handle_read_string(h: Hash) -> String {
     let read_string = include_str!("stub/handle_read_string.stub").to_string();
-    if h.get_some_condition(ACCEPT_ESCAPED_STRING).is_none() {
+    if h.check_condition(ACCEPT_ESCAPED_STRING).is_none() {
         return read_string.replace("if l.ch == '\\' { l.read_char() }", "");
     }
     read_string
