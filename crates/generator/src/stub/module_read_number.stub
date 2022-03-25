@@ -1,0 +1,8 @@
+let read_number = |l: &mut Lexer| -> Vec<char> {
+    let position = l.position;
+    while l.position < l.input.len() && l.ch.is_numeric() {
+        l.read_char();
+    }
+    l.input[position..l.position].to_vec()
+};
+

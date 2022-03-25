@@ -77,11 +77,11 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
         .is_some()
     {
         module.push_str(
-            &include_str!("stub/initial_impl_lexer.stub")
+            &include_str!("stub/module_impl_lexer.stub")
                 .replace("input,", "input,function_scope: false,"),
         );
     } else {
-        module.push_str(include_str!("stub/initial_impl_lexer.stub"));
+        module.push_str(include_str!("stub/module_impl_lexer.stub"));
     }
 
     module.push_tabln(1, "pub fn next_token(&mut self) -> Token {");
@@ -109,13 +109,7 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
         module.push_str(&write_handle_read_string(h.clone()));
     }
 
-    module.push_tabln(2, "let read_number = |l: &mut Lexer| -> Vec<char> {");
-    module.push_tabln(3, "let position = l.position;");
-    module.push_tabln(3, "while l.position < l.input.len() && l.ch.is_numeric() {");
-    module.push_tabln(4, "l.read_char();");
-    module.push_tabln(3, "}");
-    module.push_tabln(3, "l.input[position..l.position].to_vec()");
-    module.push_tabln(2, "};\n");
+    module.push_str(include_str!("stub/module_read_number.stub"));
 
     module.push_tabln(2, "let tok: Token;");
 
