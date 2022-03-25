@@ -56,7 +56,7 @@ pub fn $name(h: &Hash) -> bool {
     );
 );
 
-macro_rules! get_str (
+macro_rules! get_string (
     ($name:ident, $key:ident) => (
 pub fn $name(h: &Hash) -> String {
     return match h.get(&Yaml::String(stringify!($key).to_string())) {
@@ -83,8 +83,8 @@ get_hash!(get_entity_prefix, entity_prefix);
 get_hash!(get_entity_suffix, entity_suffix);
 get_hash!(get_condition, condition);
 
-get_str!(get_multi_line_comment, multi_line_comment);
-get_str!(get_multi_line_string, multi_line_string);
+get_string!(get_multi_line_comment, multi_line_comment);
+get_string!(get_multi_line_string, multi_line_string);
 get_bool!(bracket_dash_comment_enable, bracket_dash_comment);
 
 pub trait ConditionExt {
