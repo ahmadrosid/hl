@@ -4,11 +4,7 @@ use crate::lexers::Token;
 pub fn get_keyword_token(identifier: &Vec<char>) -> Result<Token, String> {
     let id: String = identifier.into_iter().collect();
     match &id[..] {
-        "root" => Ok(Token::CONSTANT(identifier.clone())),
-        "rgb" => Ok(Token::CONSTANT(identifier.clone())),
-        "rgba" => Ok(Token::CONSTANT(identifier.clone())),
-        "calc" => Ok(Token::CONSTANT(identifier.clone())),
-        "media" => Ok(Token::CONSTANT(identifier.clone())),
+        "root" | "rgb" | "rgba" | "calc" | "media" => Ok(Token::CONSTANT(identifier.clone())),
         "after" | "before" | "hover" | "not" | "focus" | "active" | "selection" | "px" | "rem" => {
             Ok(Token::ENTITY(identifier.clone()))
         }

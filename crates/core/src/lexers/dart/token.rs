@@ -4,13 +4,9 @@ use crate::lexers::Token;
 pub fn get_keyword_token(identifier: &Vec<char>) -> Result<Token, String> {
     let id: String = identifier.into_iter().collect();
     match &id[..] {
-        "null" => Ok(Token::CONSTANT(identifier.clone())),
-        "true" => Ok(Token::CONSTANT(identifier.clone())),
-        "false" => Ok(Token::CONSTANT(identifier.clone())),
-        "String" => Ok(Token::CONSTANT(identifier.clone())),
-        "Widget" => Ok(Token::CONSTANT(identifier.clone())),
-        "Future" => Ok(Token::CONSTANT(identifier.clone())),
-        "Object" => Ok(Token::CONSTANT(identifier.clone())),
+        "null" | "true" | "false" | "String" | "Widget" | "Future" | "Object" => {
+            Ok(Token::CONSTANT(identifier.clone()))
+        }
         "abstract" | "else" | "import" | "super" | "as" | "enum" | "in" | "switch" | "assert"
         | "export" | "interface" | "sync" | "async" | "extends" | "is" | "this" | "await"
         | "extension" | "library" | "throw" | "external" | "mixin" | "case" | "factory" | "new"
