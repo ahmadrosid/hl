@@ -257,7 +257,6 @@ fn prepare_path(file_path: &str, output_path: &str) -> String {
     let file_name = get_file_name(file_path);
     let out_file_path = format!("{}/src/lexers/{}", output_path, file_name);
     create_dir_all(Path::new(&out_file_path)).unwrap();
-
     out_file_path
 }
 
