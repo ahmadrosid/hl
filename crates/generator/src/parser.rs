@@ -101,8 +101,7 @@ impl ConditionExt for Hash {
     }
 }
 
-#[allow(dead_code)]
-fn debug_val(data: &Hash, key: &Yaml) -> String {
+fn get_val(data: &Hash, key: &Yaml) -> String {
     if data.get(key).is_none() {
         std::process::exit(0);
     }
@@ -126,7 +125,7 @@ fn debug_val(data: &Hash, key: &Yaml) -> String {
 #[allow(dead_code)]
 fn refactor_yaml(h: &Hash, file_path: &str) {
     let k = Yaml::String("var".to_string());
-    let keyword = debug_val(h, &k);
+    let keyword = get_val(h, &k);
     let mut out_str = String::new();
     let mut emitter = yaml_rust::YamlEmitter::new(&mut out_str);
     let mut dh = h.clone();
