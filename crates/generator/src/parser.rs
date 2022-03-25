@@ -123,7 +123,7 @@ fn get_val(data: &Hash, key: &Yaml) -> String {
 }
 
 #[allow(dead_code)]
-fn refactor_yaml(h: &Hash, file_path: &str) {
+fn rewrite_yaml(h: &Hash, file_path: &str) {
     let k = Yaml::String("var".to_string());
     let keyword = get_val(h, &k);
     let mut out_str = String::new();
