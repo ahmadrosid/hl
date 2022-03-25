@@ -1,11 +1,6 @@
 multi_line_comment: "/*,*/"
 multi_line_string: "`,`"
 constant: "true,false,undefined,null"
-var:
-  VINFINITY: "Infinity"
-  VNAN: "NaN"
-  MATH: Math
-  DATE: Date
 entity_prefix:
   ENTITY_DOT: "."
 entity_suffix:
@@ -21,3 +16,4 @@ condition:
   ACCEPT_HEXADECIMAL_NUMBER: true
   PREFIX_ONE_LINE_COMMENT: //
 keyword: "async,await,break,case,catch,class,const,continue,debugger,default,delete,do,else,enum,export,extends,finally,for,function,if,implements,import,in,instanceof,interface,let,new,package,private,protected,public,return,super,switch,static,this,throw,try,typeof,var,void,while,with,yield"
+var: "Infinity,NaN,Math,Date"

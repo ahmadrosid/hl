@@ -7,8 +7,6 @@ entity_suffix:
   left_parent: (
   left_brace: "{"
   quote: "\\'"
-var:
-  Rails: Rails
 condition:
   ACCEPT_ESCAPED_STRING: true
   ACCEPT_STRING_ONE_QUOTE: true
@@ -17,3 +15,4 @@ condition:
   MARK_AS_ENTITY_ON_FUNCTION_SCOPE: def
   PREFIX_ONE_LINE_COMMENT: "#"
 keyword: "alias,and,BEGIN,begin,break,case,class,def,defined?,do,else,elsif,END,end,ensure,for,if,in,module,next,nil,not,or,private,redo,rescue,retry,return,self,super,then,undef,unless,until,when,while,yield"
+var: Rails

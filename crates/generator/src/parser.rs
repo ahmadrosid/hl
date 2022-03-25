@@ -72,8 +72,8 @@ get_string!(get_entity, entity);
 get_string!(get_entity_tag, entity_tag);
 get_string!(get_keyword, keyword);
 get_string!(get_xml_entity_tag, xml_entity_tag);
+get_string!(get_var, var);
 
-get_hash!(get_var, var);
 get_hash!(get_double_keyword, double_keyword);
 get_hash!(get_constant_prefix, constant_prefix);
 get_hash!(get_constant_suffix, constant_suffix);
@@ -123,7 +123,7 @@ fn debug_val(data: &Hash, key: &Yaml) -> String {
 
 #[allow(dead_code)]
 fn refactor_yaml(h: &Hash, file_path: &str) {
-    let k = Yaml::String("entity_tag".to_string());
+    let k = Yaml::String("var".to_string());
     let keyword = debug_val(h, &k);
     let mut out_str = String::new();
     let mut emitter = yaml_rust::YamlEmitter::new(&mut out_str);
@@ -154,7 +154,6 @@ pub fn parse(file_path: &str, output_path: &str) -> String {
 
     match *&docs[0] {
         Yaml::Hash(ref h) => {
-            // refactor_yaml(h, file_path);
             token_stub.push_str(&token::generate_token(h));
             module_stub.push_str(&module::generate_module(h));
             render_stub.push_str(&render::generate_html(h, get_file_name(file_path)));

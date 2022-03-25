@@ -2,7 +2,7 @@
 # set -e
 clear
 #source ./build.sh
-cargo run -p generator -- -i rules/php.yml -o crates/core
+cargo run -p generator -- -i rules/javascript.yml -o crates/core
 #cargo run --package hl --example html test-file -l vue > table.html
 #cargo run --package hl --example html test-file -l vue
 cargo fmt

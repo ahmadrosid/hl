@@ -1,11 +1,6 @@
 multi_line_comment: "/*,*/"
 multi_line_string: "`,`"
 constant: "true,false,undefined,null,number,string,boolean,type"
-var:
-  VINFINITY: "Infinity"
-  VNAN: "NaN"
-  MATH: Math
-  DATE: Date
 entity_prefix:
   ENTITY_DOT: "."
 entity_suffix:
@@ -22,3 +17,4 @@ condition:
   MARK_KEYWORD_AS_ENTITY_ON_PREFIX: "."
   PREFIX_ONE_LINE_COMMENT: //
 keyword: "async,await,break,as,switch,case,if,throw,else,var,get,module,instanceof,import,from,typeof,public,private,enum,export,finally,for,while,void,super,this,in,return,any,extends,static,let,package,implements,interface,function,new,try,yield,const,continue,do,catch,default,class"
+var: "Infinity,NaN,Math,Date"
