@@ -41,6 +41,6 @@ pub fn render_html(input: Vec<char>, lang: &str) -> String {
         "vue" => vue::render::html(input),
         "yaml" => yaml::render::html(input),
         "zig" => zig::render::html(input),
-        _ => String::new(),
+        _ => raw::render::html(input),
     }
 }

@@ -213,10 +213,10 @@ fn update_lib_mod(name: &str, path: &str) {
     if !source.contains(&format!("{}::", name)) {
         source = source
             .replace(
-                "_ => String::new(),",
+                "_ => raw::render::html(input),",
                 &format!(
                     r#""{}" => {}::render::html(input),
-                _ => String::new(),"#,
+                _ => raw::render::html(input),"#,
                     name, name
                 ),
             )

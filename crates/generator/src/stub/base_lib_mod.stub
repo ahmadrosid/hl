@@ -1,11 +1,11 @@
 pub mod lexers;
-use crate::lexers::{};
+use crate::lexers::{raw};
 
 #[must_use]
 pub fn render_html(input: Vec<char>, lang: &str) -> String {
     match lang {
         "name" => name::render::html(input),
-        _ => String::new(),
+        _ => raw::render::html(input),
     }
 }
 
