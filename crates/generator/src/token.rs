@@ -15,32 +15,32 @@ pub fn generate_token(h: &Hash) -> String {
 
     for v in get_constant(h) {
         token.push_tab(2, &format!("\"{}\" => ", v));
-        token.push_strln("Ok(Token::CONSTANT(identifier.to_vec())),");
+        token.push_strln("Ok(Token::CONSTANT(identifier.clone())),");
     }
 
     for (_, v) in get_var(h) {
         token.push_tab(2, &format!("\"{}\" => ", v.as_str().unwrap()));
-        token.push_strln("Ok(Token::VAR(identifier.to_vec())),");
+        token.push_strln("Ok(Token::VAR(identifier.clone())),");
     }
 
     for (_, v) in get_entity(h) {
         token.push_tab(2, &format!("\"{}\" => ", v.as_str().unwrap()));
-        token.push_strln("Ok(Token::ENTITY(identifier.to_vec())),");
+        token.push_strln("Ok(Token::ENTITY(identifier.clone())),");
     }
 
     for (_, v) in get_entity_tag(h) {
         token.push_tab(2, &format!("\"{}\" => ", v.as_str().unwrap()));
-        token.push_strln("Ok(Token::ENTITYTAG(identifier.to_vec())),");
+        token.push_strln("Ok(Token::ENTITYTAG(identifier.clone())),");
     }
 
     for v in get_xml_entity_tag(h) {
         token.push_tab(2, &format!("\"{}\" => ", v));
-        token.push_strln("Ok(Token::ENTITYTAG(identifier.to_vec())),");
+        token.push_strln("Ok(Token::ENTITYTAG(identifier.clone())),");
     }
 
     for (_, v) in get_keyword(h) {
         token.push_tab(2, &format!("\"{}\" => ", v.as_str().unwrap()));
-        token.push_strln("Ok(Token::KEYWORD(identifier.to_vec())),");
+        token.push_strln("Ok(Token::KEYWORD(identifier.clone())),");
     }
 
     token.push_tabln(2, "_ => Err(String::from(\"Not a keyword\")),");

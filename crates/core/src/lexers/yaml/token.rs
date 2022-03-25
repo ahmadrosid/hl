@@ -4,8 +4,8 @@ use crate::lexers::Token;
 pub fn get_keyword_token(identifier: &Vec<char>) -> Result<Token, String> {
     let id: String = identifier.into_iter().collect();
     match &id[..] {
-        "true" => Ok(Token::CONSTANT(identifier.to_vec())),
-        "false" => Ok(Token::CONSTANT(identifier.to_vec())),
+        "true" => Ok(Token::CONSTANT(identifier.clone())),
+        "false" => Ok(Token::CONSTANT(identifier.clone())),
         _ => Err(String::from("Not a keyword")),
     }
 }
