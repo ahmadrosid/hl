@@ -39,8 +39,8 @@ pub fn generate_token(h: &Hash) -> String {
     }
 
     for v in get_keyword(h).values() {
-        token.push_tab(2, &format!("\"{}\" => ", v.as_str().unwrap()));
-        token.push_strln("Ok(Token::KEYWORD(identifier.clone())),");
+        token.push_tab(2, &format!("\"{}\"", v.as_str().unwrap()));
+        token.push_strln(" => Ok(Token::KEYWORD(identifier.clone())),");
     }
 
     token.push_tabln(2, "_ => Err(String::from(\"Not a keyword\")),");
