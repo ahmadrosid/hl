@@ -4,16 +4,6 @@ entity_prefix:
   colon: ":"
 entity_suffix:
   colon: ":"
-entity_tag:
-  Bibtex: Bibtex
-  Biblatex: Biblatex
-  Nothing: Nothing
-  Just: Just
-  Str: Str
-  Space: Space
-  FancyVal: FancyVal
-  BibState: BibState
-  Many: Many
 condition:
   ACCEPT_STRING_DOUBLE_QUOTE: true
   ACCEPT_ENTITY_TAG_SUFFIX: self.ch.is_numeric()
@@ -21,3 +11,4 @@ condition:
   PREFIX_ONE_LINE_COMMENT: "--"
   MARK_AS_KEYWORD_ON_CHAR: "`"
 keyword: "as,import,type,case,do,of,if,then,else,let,in,module,qualified,where,LANGUAGE,OPTIONS_GHC,hiding,data,deriving"
+entity_tag: "Bibtex,Biblatex,Nothing,Just,Str,Space,FancyVal,BibState,Many"
