@@ -1,5 +1,9 @@
 pub mod lexers;
-use crate::lexers::*;
+use crate::lexers::{
+    actionscript, bash, c, clojure, cpp, cs, css, cuda, dart, edn, erlang, go, groovy, haskell,
+    html, java, javascript, json, kotlin, lua, makefile, markdown, nim, php, python, raw, ruby,
+    rust, toml, typescript, vue, yaml, zig,
+};
 
 #[must_use]
 pub fn render_html(input: Vec<char>, lang: &str) -> String {
@@ -22,6 +26,7 @@ pub fn render_html(input: Vec<char>, lang: &str) -> String {
         "java" => java::render::html(input),
         "javascript" => javascript::render::html(input),
         "json" => json::render::html(input),
+        "kotlin" => kotlin::render::html(input),
         "lua" => lua::render::html(input),
         "makefile" => makefile::render::html(input),
         "markdown" => markdown::render::html(input),
@@ -36,7 +41,6 @@ pub fn render_html(input: Vec<char>, lang: &str) -> String {
         "vue" => vue::render::html(input),
         "yaml" => yaml::render::html(input),
         "zig" => zig::render::html(input),
-        "kotlin" => kotlin::render::html(input),
         _ => String::new(),
     }
 }

@@ -197,7 +197,9 @@ fn update_lib_mod(name: &str, path: &str) {
     if !Path::new(path).exists() {
         create_dir_all(&dir_path).unwrap();
         write_file(
-            &include_str!("stub/base_lib_mod.stub").replace("name", name),
+            &include_str!("stub/base_lib_mod.stub")
+                .replace("::{", &format!("{},", name))
+                .replace("name", name),
             &dir_path,
             &file_name,
         );
@@ -209,14 +211,16 @@ fn update_lib_mod(name: &str, path: &str) {
     let mut source = String::new();
     file.read_to_string(&mut source).unwrap();
     if !source.contains(&format!("{}::", name)) {
-        source = source.replace(
-            "_ => String::new(),",
-            &format!(
-                r#""{}" => {}::render::html(input),
+        source = source
+            .replace(
+                "_ => String::new(),",
+                &format!(
+                    r#""{}" => {}::render::html(input),
                 _ => String::new(),"#,
-                name, name
-            ),
-        );
+                    name, name
+                ),
+            )
+            .replace("::{", &format!("::{{ {},", name));
 
         write_file(&source, &dir_path, &file_name);
     }
