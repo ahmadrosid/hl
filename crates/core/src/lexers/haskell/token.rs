@@ -34,15 +34,8 @@ pub fn get_keyword_token(identifier: &Vec<char>) -> Result<Token, String> {
         "take" => Ok(Token::CONSTANT(identifier.clone())),
         "max" => Ok(Token::CONSTANT(identifier.clone())),
         "putStrLn" => Ok(Token::CONSTANT(identifier.clone())),
-        "Bibtex" => Ok(Token::ENTITYTAG(identifier.clone())),
-        "Biblatex" => Ok(Token::ENTITYTAG(identifier.clone())),
-        "Nothing" => Ok(Token::ENTITYTAG(identifier.clone())),
-        "Just" => Ok(Token::ENTITYTAG(identifier.clone())),
-        "Str" => Ok(Token::ENTITYTAG(identifier.clone())),
-        "Space" => Ok(Token::ENTITYTAG(identifier.clone())),
-        "FancyVal" => Ok(Token::ENTITYTAG(identifier.clone())),
-        "BibState" => Ok(Token::ENTITYTAG(identifier.clone())),
-        "Many" => Ok(Token::ENTITYTAG(identifier.clone())),
+        "Bibtex" | "Biblatex" | "Nothing" | "Just" | "Str" | "Space" | "FancyVal" | "BibState"
+        | "Many" => Ok(Token::ENTITYTAG(identifier.clone())),
         "as" | "import" | "type" | "case" | "do" | "of" | "if" | "then" | "else" | "let" | "in"
         | "module" | "qualified" | "where" | "LANGUAGE" | "OPTIONS_GHC" | "hiding" | "data"
         | "deriving" => Ok(Token::KEYWORD(identifier.clone())),

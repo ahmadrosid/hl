@@ -28,9 +28,15 @@ pub fn generate_token(h: &Hash) -> String {
         token.push_strln("Ok(Token::ENTITY(identifier.clone())),");
     }
 
-    for v in get_entity_tag(h) {
-        token.push_tab(2, &format!("\"{}\" => ", v));
-        token.push_strln("Ok(Token::ENTITYTAG(identifier.clone())),");
+    let entity = get_entity_tag(h);
+    if !entity.is_empty() {
+        for (i, v) in entity.iter().enumerate() {
+            token.push_str(&format!("\"{}\"", v));
+            if i < entity.len() - 1 {
+                token.push_str("|");
+            }
+        }
+        token.push_strln(" => Ok(Token::ENTITYTAG(identifier.clone())),");
     }
 
     for v in get_xml_entity_tag(h) {
