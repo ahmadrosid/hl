@@ -26,7 +26,7 @@ const MARKUP_HEAD: &str = "MARKUP_HEAD";
 const IGNORE_INTEGER: &str = "IGNORE_INTEGER";
 const MARK_AS_KEYWORD_IN_SCOPE: &str = "MARK_AS_KEYWORD_IN_SCOPE";
 
-pub fn generate_render_html(h: &Hash, name: String) -> String {
+pub fn generate_html(h: &Hash, name: String) -> String {
     let mut html = StringBuilder::new();
     html.push_strln("// ---- DON'T EDIT! THIS IS AUTO GENERATED CODE ---- //");
     html.push_strln(&format!("use crate::lexers::{}::Lexer;", name));
@@ -120,7 +120,7 @@ pub fn generate_render_html(h: &Hash, name: String) -> String {
         || h.check_condition(PREFIX_ONE_LINE_COMMENT_BEFORE_NEWLINE)
             .is_some()
     {
-        write_token_comment(&mut html);
+        html.push_str(include_str!("stub/render_token_comment.stub"));
     }
 
     if get_var(h).len() >= 1 || get_var_suffix(h).len() >= 1 || get_var_prefix(h).len() >= 1 {
@@ -180,47 +180,6 @@ fn write_token_head(html: &mut StringBuilder) {
         "html.push_str(&format!(\"<span class=\\\"hl-mh\\\">{}</span>\", \
         value.iter().collect::<String>()));",
     );
-    html.push_tabln(3, "}");
-}
-
-fn write_token_comment(html: &mut StringBuilder) {
-    html.push_tabln(3, "Token::COMMENT(value) => {");
-    html.push_tabln(4, "let mut lines = String::new();");
-    html.push_tabln(4, "for ch in value {");
-    html.push_tabln(5, "if ch == '<' {");
-    html.push_tabln(6, "lines.push_str(\"&lt;\");");
-    html.push_tabln(5, "} else if ch == '>' {");
-    html.push_tabln(6, "lines.push_str(\"&gt;\");");
-    html.push_tabln(5, "} else {");
-    html.push_tabln(6, "lines.push(ch);");
-    html.push_tabln(5, "}");
-    html.push_tabln(4, "}");
-    html.push_tabln(4, r#"let split = lines.split("\n");"#);
-    html.push_tabln(
-        4,
-        "let split_len = split.clone().collect::<Vec<&str>>().len();",
-    );
-    html.push_tabln(4, "let mut index = 0;");
-    html.push_tabln(4, "for val in split {");
-    html.push_tabln(5, "if val.len() > 1 {");
-    html.push_tabln(
-        6,
-        r#"html.push_str(&format!("<span class=\"hl-cmt\">{}</span>", val));"#,
-    );
-    html.push_tabln(5, "}");
-    html.push_tabln(5, "index = index + 1;");
-    html.push_tabln(5, "if index != split_len {");
-    html.push_tabln(6, "line = line + 1;");
-    html.push_tabln(6, "html.push_str(\"</td></tr>\\n\");");
-    html.push_tabln(6, "html.push_str(&format!(");
-    html.push_tabln(
-        7,
-        r#""<tr><td class=\"hl-num\" data-line=\"{}\"></td><td>","#,
-    );
-    html.push_tabln(7, "line");
-    html.push_tabln(6, "));");
-    html.push_tabln(5, "}");
-    html.push_tabln(4, "}");
     html.push_tabln(3, "}");
 }
 

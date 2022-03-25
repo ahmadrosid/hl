@@ -136,7 +136,7 @@ pub fn parse(file_path: &str, output_path: &str) -> String {
             // debug_val(h);
             token_stub.push_str(&token::generate_token(h));
             module_stub.push_str(&module::generate_module(h));
-            render_stub.push_str(&render::generate_render_html(h, get_file_name(file_path)));
+            render_stub.push_str(&render::generate_html(h, get_file_name(file_path)));
         }
         _ => {
             println!("{:?}", &docs[0]);
