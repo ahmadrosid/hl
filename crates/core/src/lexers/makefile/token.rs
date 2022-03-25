@@ -12,8 +12,7 @@ pub fn get_keyword_token(identifier: &Vec<char>) -> Result<Token, String> {
         "echo" => Ok(Token::CONSTANT(identifier.clone())),
         "shell" => Ok(Token::CONSTANT(identifier.clone())),
         "MAKE" => Ok(Token::CONSTANT(identifier.clone())),
-        "export" => Ok(Token::KEYWORD(identifier.clone())),
-        "include" => Ok(Token::KEYWORD(identifier.clone())),
+        "export" | "include" => Ok(Token::KEYWORD(identifier.clone())),
         _ => Err(String::from("Not a keyword")),
     }
 }

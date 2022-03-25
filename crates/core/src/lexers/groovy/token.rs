@@ -7,45 +7,13 @@ pub fn get_keyword_token(identifier: &Vec<char>) -> Result<Token, String> {
         "false" => Ok(Token::CONSTANT(identifier.clone())),
         "null" => Ok(Token::CONSTANT(identifier.clone())),
         "true" => Ok(Token::CONSTANT(identifier.clone())),
-        "as" => Ok(Token::KEYWORD(identifier.clone())),
-        "assert" => Ok(Token::KEYWORD(identifier.clone())),
-        "break" => Ok(Token::KEYWORD(identifier.clone())),
-        "case" => Ok(Token::KEYWORD(identifier.clone())),
-        "catch" => Ok(Token::KEYWORD(identifier.clone())),
-        "class" => Ok(Token::KEYWORD(identifier.clone())),
-        "const" => Ok(Token::KEYWORD(identifier.clone())),
-        "continue" => Ok(Token::KEYWORD(identifier.clone())),
-        "def" => Ok(Token::KEYWORD(identifier.clone())),
-        "default" => Ok(Token::KEYWORD(identifier.clone())),
-        "do" => Ok(Token::KEYWORD(identifier.clone())),
-        "else" => Ok(Token::KEYWORD(identifier.clone())),
-        "enum" => Ok(Token::KEYWORD(identifier.clone())),
-        "extends" => Ok(Token::KEYWORD(identifier.clone())),
-        "final" => Ok(Token::KEYWORD(identifier.clone())),
-        "finally" => Ok(Token::KEYWORD(identifier.clone())),
-        "for" => Ok(Token::KEYWORD(identifier.clone())),
-        "goto" => Ok(Token::KEYWORD(identifier.clone())),
-        "if" => Ok(Token::KEYWORD(identifier.clone())),
-        "implements" => Ok(Token::KEYWORD(identifier.clone())),
-        "import" => Ok(Token::KEYWORD(identifier.clone())),
-        "in" => Ok(Token::KEYWORD(identifier.clone())),
-        "instanceof" => Ok(Token::KEYWORD(identifier.clone())),
-        "interface" => Ok(Token::KEYWORD(identifier.clone())),
-        "new" => Ok(Token::KEYWORD(identifier.clone())),
-        "package" => Ok(Token::KEYWORD(identifier.clone())),
-        "private" => Ok(Token::KEYWORD(identifier.clone())),
-        "public" => Ok(Token::KEYWORD(identifier.clone())),
-        "return" => Ok(Token::KEYWORD(identifier.clone())),
-        "super" => Ok(Token::KEYWORD(identifier.clone())),
-        "static" => Ok(Token::KEYWORD(identifier.clone())),
-        "switch" => Ok(Token::KEYWORD(identifier.clone())),
-        "this" => Ok(Token::KEYWORD(identifier.clone())),
-        "throw" => Ok(Token::KEYWORD(identifier.clone())),
-        "throws" => Ok(Token::KEYWORD(identifier.clone())),
-        "trait" => Ok(Token::KEYWORD(identifier.clone())),
-        "try" => Ok(Token::KEYWORD(identifier.clone())),
-        "var" => Ok(Token::KEYWORD(identifier.clone())),
-        "while" => Ok(Token::KEYWORD(identifier.clone())),
+        "as" | "assert" | "break" | "case" | "catch" | "class" | "const" | "continue" | "def"
+        | "default" | "do" | "else" | "enum" | "extends" | "final" | "finally" | "for" | "goto"
+        | "if" | "implements" | "import" | "in" | "instanceof" | "interface" | "new"
+        | "package" | "private" | "public" | "return" | "super" | "static" | "switch" | "this"
+        | "throw" | "throws" | "trait" | "try" | "var" | "while" => {
+            Ok(Token::KEYWORD(identifier.clone()))
+        }
         _ => Err(String::from("Not a keyword")),
     }
 }

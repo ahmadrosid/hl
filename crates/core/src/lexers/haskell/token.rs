@@ -43,25 +43,9 @@ pub fn get_keyword_token(identifier: &Vec<char>) -> Result<Token, String> {
         "FancyVal" => Ok(Token::ENTITYTAG(identifier.clone())),
         "BibState" => Ok(Token::ENTITYTAG(identifier.clone())),
         "Many" => Ok(Token::ENTITYTAG(identifier.clone())),
-        "as" => Ok(Token::KEYWORD(identifier.clone())),
-        "import" => Ok(Token::KEYWORD(identifier.clone())),
-        "type" => Ok(Token::KEYWORD(identifier.clone())),
-        "case" => Ok(Token::KEYWORD(identifier.clone())),
-        "do" => Ok(Token::KEYWORD(identifier.clone())),
-        "of" => Ok(Token::KEYWORD(identifier.clone())),
-        "if" => Ok(Token::KEYWORD(identifier.clone())),
-        "then" => Ok(Token::KEYWORD(identifier.clone())),
-        "else" => Ok(Token::KEYWORD(identifier.clone())),
-        "let" => Ok(Token::KEYWORD(identifier.clone())),
-        "in" => Ok(Token::KEYWORD(identifier.clone())),
-        "module" => Ok(Token::KEYWORD(identifier.clone())),
-        "qualified" => Ok(Token::KEYWORD(identifier.clone())),
-        "where" => Ok(Token::KEYWORD(identifier.clone())),
-        "LANGUAGE" => Ok(Token::KEYWORD(identifier.clone())),
-        "OPTIONS_GHC" => Ok(Token::KEYWORD(identifier.clone())),
-        "hiding" => Ok(Token::KEYWORD(identifier.clone())),
-        "data" => Ok(Token::KEYWORD(identifier.clone())),
-        "deriving" => Ok(Token::KEYWORD(identifier.clone())),
+        "as" | "import" | "type" | "case" | "do" | "of" | "if" | "then" | "else" | "let" | "in"
+        | "module" | "qualified" | "where" | "LANGUAGE" | "OPTIONS_GHC" | "hiding" | "data"
+        | "deriving" => Ok(Token::KEYWORD(identifier.clone())),
         _ => Err(String::from("Not a keyword")),
     }
 }

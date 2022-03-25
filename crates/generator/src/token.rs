@@ -38,8 +38,14 @@ pub fn generate_token(h: &Hash) -> String {
         token.push_strln("Ok(Token::ENTITYTAG(identifier.clone())),");
     }
 
-    for v in get_keyword(h).values() {
-        token.push_tab(2, &format!("\"{}\"", v.as_str().unwrap()));
+    let keyword = get_keyword(h);
+    if !keyword.is_empty() {
+        for (i, v) in keyword.values().enumerate() {
+            token.push_str(&format!("\"{}\"", v.as_str().unwrap()));
+            if i < keyword.len() - 1 {
+                token.push_str("|");
+            }
+        }
         token.push_strln(" => Ok(Token::KEYWORD(identifier.clone())),");
     }
 
