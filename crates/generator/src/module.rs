@@ -189,7 +189,7 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
         );
         module.push_str(
             // TODO: refactor to "stub/mark_as_token_in_scope.stub"
-            &include_str!("stub/mark_as_keyword_in_scope.stub")
+            &include_str!("stub/module/mark_as_keyword_in_scope.stub")
                 .replace("{left}", &*c[0].to_string())
                 .replace("{right}", &*c[1].to_string()),
         )
@@ -206,7 +206,7 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
         );
         module.push_str(
             // TODO: refactor to "stub/mark_as_token_in_scope.stub"
-            &include_str!("stub/mark_as_keyword_in_scope.stub")
+            &include_str!("stub/module/mark_as_keyword_in_scope.stub")
                 .replace("{left}", &*c[0].to_string())
                 .replace("{right}", &*c[1].to_string())
                 .replace("KEYWORD", "VAR"),
@@ -239,13 +239,13 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
 
     if let Some(ch) = h.check_condition(MARK_AS_CONSTANT_ON_PREFIX) {
         module.push_str(
-            &include_str!("stub/mark_as_constant_in_prefix.stub")
+            &include_str!("stub/module/mark_as_constant_in_prefix.stub")
                 .replace("{ch}", ch.as_str().unwrap()),
         );
     }
 
     if h.check_condition(ACCEPT_STRING_EOF).is_some() {
-        module.push_str(include_str!("stub/handle_eof_string.stub"));
+        module.push_str(include_str!("stub/module/handle_eof_string.stub"));
     }
 
     if let Some(ch) = h.check_condition(MARKUP_HEAD) {
@@ -272,7 +272,7 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
     }
 
     if let Some(ch) = h.check_condition(PREFIX_ONE_LINE_COMMENT) {
-        let mut source = include_str!("stub/handle_single_line_comment.stub").to_string();
+        let mut source = include_str!("stub/module/handle_single_line_comment.stub").to_string();
         let chars: Vec<char> = ch.as_str().unwrap().chars().collect();
         if chars.len() == 2 {
             source = source
@@ -288,7 +288,7 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
     }
 
     if let Some(ch) = h.check_condition(PREFIX_ONE_LINE_COMMENT_BEFORE_NEWLINE) {
-        let mut source = include_str!("stub/handle_single_line_comment.stub").to_string();
+        let mut source = include_str!("stub/module/handle_single_line_comment.stub").to_string();
         let chars: Vec<char> = ch.as_str().unwrap().chars().collect();
         if chars.len() == 2 {
             source = source
@@ -335,7 +335,7 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
     module.push_tabln(3, "}");
 
     if h.check_condition(ACCEPT_HEXADECIMAL_NUMBER).is_some() {
-        module.push_str(include_str!("stub/handle_hexadecimal.stub"));
+        module.push_str(include_str!("stub/module/handle_hexadecimal.stub"));
     }
 
     if let Some(prefix) = h.check_condition(ACCEPT_ENTITY_TAG_PREFIX) {
@@ -516,7 +516,7 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
 
     if let Some(ch) = h.check_condition(MARK_AS_ENTYTY_ON_FUNCTION_SCOPE) {
         module.push_str(
-            &include_str!("stub/handle_set_function_scope.stub")
+            &include_str!("stub/module/handle_set_function_scope.stub")
                 .to_string()
                 .split("-")
                 .collect::<Vec<&str>>()
@@ -529,7 +529,7 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
 
     if let Some(ch) = h.check_condition(MARK_AS_IDENT_ON_CHAR) {
         module.push_str(
-            &include_str!("stub/mark_as_ident_on_char.stub")
+            &include_str!("stub/module/mark_as_ident_on_char.stub")
                 .to_string()
                 .replace("{ch}", ch.as_str().unwrap()),
         )
@@ -580,7 +580,7 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
         .is_some()
     {
         module.push_str(
-            include_str!("stub/handle_set_function_scope.stub")
+            include_str!("stub/module/handle_set_function_scope.stub")
                 .to_string()
                 .split("-")
                 .collect::<Vec<&str>>()
@@ -694,7 +694,7 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
     }
 
     for (_k, ch) in get_entity_suffix(h) {
-        let source = include_str!("stub/handle_identifier_suffix.stub").to_string();
+        let source = include_str!("stub/module/handle_identifier_suffix.stub").to_string();
         module.push_str(
             &source
                 .replace("{ch}", ch.as_str().unwrap())
@@ -725,7 +725,7 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
     }
 
     for (_k, ch) in get_constant_suffix(h) {
-        let source = include_str!("stub/handle_identifier_suffix.stub").to_string();
+        let source = include_str!("stub/module/handle_identifier_suffix.stub").to_string();
         module.push_str(
             &source
                 .to_string()
@@ -735,7 +735,7 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
     }
 
     for (_k, ch) in get_var_suffix(h) {
-        let source = include_str!("stub/handle_identifier_suffix.stub").to_string();
+        let source = include_str!("stub/module/handle_identifier_suffix.stub").to_string();
         module.push_str(
             &source
                 .to_string()
@@ -768,7 +768,7 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
         module.push_tabln(5, "} else if self.ch == '\\'' {");
         if let Some(ch) = h.check_condition(SKIP_READ_ONE_QUOTE_STRING_ON_PREFIX) {
             module.push_str(
-                &include_str!("stub/handle_skip_read_string.stub")
+                &include_str!("stub/module/handle_skip_read_string.stub")
                     .replace("{ch}", ch.as_str().unwrap()),
             );
         }
