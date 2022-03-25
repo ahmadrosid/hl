@@ -207,7 +207,6 @@ fn update_lib_mod(name: &str, path: &str) {
     }
 
     let mut file = OpenOptions::new().read(true).open(path).unwrap();
-
     let mut source = String::new();
     file.read_to_string(&mut source).unwrap();
     if !source.contains(&format!("{}::", name)) {
