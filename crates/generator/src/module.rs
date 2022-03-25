@@ -50,13 +50,13 @@ const MARK_AS_IDENT_ON_CHAR: &str = "MARK_AS_IDENT_ON_CHAR";
 const MARK_AS_KEYWORD_IN_SCOPE: &str = "MARK_AS_KEYWORD_IN_SCOPE";
 const MARK_AS_VAR_IN_SCOPE: &str = "MARK_AS_VAR_IN_SCOPE";
 const MARK_AS_CONSTANT_ON_PREFIX: &str = "MARK_AS_CONSTANT_ON_PREFIX";
-const MARK_AS_ENTYTY_ON_FUNCTION_SCOPE: &str = "MARK_AS_ENTYTY_ON_FUNCTION_SCOPE";
+const MARK_AS_ENTITY_ON_FUNCTION_SCOPE: &str = "MARK_AS_ENTITY_ON_FUNCTION_SCOPE";
 const MARK_AS_STRING_ON_PREFIX: &str = "MARK_AS_STRING_ON_PREFIX";
 const SKIP_READ_ONE_QUOTE_STRING_ON_PREFIX: &str = "SKIP_READ_ONE_QUOTE_STRING_ON_PREFIX";
 
 pub fn generate_module(h: &Hash) -> String {
     let mut initial_module = include_str!("stub/module/initial_module.stub").to_string();
-    if h.check_condition(MARK_AS_ENTYTY_ON_FUNCTION_SCOPE)
+    if h.check_condition(MARK_AS_ENTITY_ON_FUNCTION_SCOPE)
         .is_some()
     {
         initial_module = initial_module.replace(
@@ -73,7 +73,7 @@ pub fn generate_module(h: &Hash) -> String {
 }
 
 fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
-    if h.check_condition(MARK_AS_ENTYTY_ON_FUNCTION_SCOPE)
+    if h.check_condition(MARK_AS_ENTITY_ON_FUNCTION_SCOPE)
         .is_some()
     {
         module.push_str(
@@ -516,7 +516,7 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
     module.push_tabln(5, "match get_keyword_token(&identifier) {");
     module.push_tabln(7, "Ok(keyword_token) => {");
 
-    if let Some(ch) = h.check_condition(MARK_AS_ENTYTY_ON_FUNCTION_SCOPE) {
+    if let Some(ch) = h.check_condition(MARK_AS_ENTITY_ON_FUNCTION_SCOPE) {
         module.push_str(
             &include_str!("stub/module/handle_set_function_scope.stub")
                 .to_string()
@@ -578,7 +578,7 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
     module.push_tabln(7, "},");
     module.push_tabln(7, "Err(_) => {");
 
-    if h.check_condition(MARK_AS_ENTYTY_ON_FUNCTION_SCOPE)
+    if h.check_condition(MARK_AS_ENTITY_ON_FUNCTION_SCOPE)
         .is_some()
     {
         module.push_str(
