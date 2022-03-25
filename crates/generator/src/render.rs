@@ -61,7 +61,7 @@ pub fn generate_html(h: &Hash, name: String) -> String {
     html.push_tabln(2, "match token {");
 
     if h.check_condition(IGNORE_INTEGER).is_none() {
-        html.push_str(include_str!("stub/render_token_int.stub"));
+        html.push_str(include_str!("stub/render/html_token_int.stub"));
     }
 
     write_token_identifier(&mut html);
@@ -92,7 +92,7 @@ pub fn generate_html(h: &Hash, name: String) -> String {
         || get_constant_suffix(h).len() >= 1
         || get_constant_prefix(h).len() >= 1
     {
-        html.push_str(include_str!("stub/render_token_constant.stub"));
+        html.push_str(include_str!("stub/render/html_token_constant.stub"));
     }
 
     if get_keyword(h).len() >= 1 || h.check_condition(MARK_AS_KEYWORD_IN_SCOPE).is_some() {
@@ -104,11 +104,11 @@ pub fn generate_html(h: &Hash, name: String) -> String {
         || h.check_condition(MARK_ENTITY_TAG_SUFFIX).is_some()
         || h.check_condition(MARK_STRING_ENTITY_TAG).is_some()
     {
-        html.push_str(include_str!("stub/render_token_entity_tag.stub"));
+        html.push_str(include_str!("stub/render/html_token_entity_tag.stub"));
     }
 
     if h.check_condition(ACCEPT_PREFIX_VAR).is_some() {
-        html.push_str(include_str!("stub/render_token_var.stub"));
+        html.push_str(include_str!("stub/render/html_token_var.stub"));
     }
 
     if h.check_condition(MARKUP_HEAD).is_some() {
@@ -120,7 +120,7 @@ pub fn generate_html(h: &Hash, name: String) -> String {
         || h.check_condition(PREFIX_ONE_LINE_COMMENT_BEFORE_NEWLINE)
             .is_some()
     {
-        html.push_str(include_str!("stub/render_token_comment.stub"));
+        html.push_str(include_str!("stub/render/html_token_comment.stub"));
     }
 
     if get_var(h).len() >= 1 || get_var_suffix(h).len() >= 1 || get_var_prefix(h).len() >= 1 {
@@ -133,7 +133,7 @@ pub fn generate_html(h: &Hash, name: String) -> String {
         html.push_tabln(3, "}");
     }
 
-    html.push_str(include_str!("stub/render_token_endl.stub"));
+    html.push_str(include_str!("stub/render/html_token_endl.stub"));
 
     html.push_tabln(3, "_ => {");
     if let Some(prefix) = h.check_condition(ENCODE_LT) {
