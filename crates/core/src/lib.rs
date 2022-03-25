@@ -33,7 +33,6 @@ pub fn render_html(input: Vec<char>, lang: &str) -> String {
         "nim" => nim::render::html(input),
         "php" => php::render::html(input),
         "python" => python::render::html(input),
-        "raw" => raw::render::html(input),
         "ruby" => ruby::render::html(input),
         "rust" => rust::render::html(input),
         "toml" => toml::render::html(input),
