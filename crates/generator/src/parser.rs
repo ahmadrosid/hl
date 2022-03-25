@@ -27,7 +27,7 @@ pub fn $name(h: &Hash) -> Hash {
     );
 );
 
-macro_rules! get_string (
+macro_rules! get_string_vec (
     ($name:ident, $key:ident) => (
 pub fn $name(h: &Hash) -> Vec<&str> {
     let constant = h.get(&Yaml::String(stringify!($key).to_string()));
@@ -67,12 +67,12 @@ pub fn $name(h: &Hash) -> String {
     );
 );
 
-get_string!(get_constant, constant);
-get_string!(get_entity, entity);
-get_string!(get_entity_tag, entity_tag);
-get_string!(get_keyword, keyword);
-get_string!(get_xml_entity_tag, xml_entity_tag);
-get_string!(get_var, var);
+get_string_vec!(get_constant, constant);
+get_string_vec!(get_entity, entity);
+get_string_vec!(get_entity_tag, entity_tag);
+get_string_vec!(get_keyword, keyword);
+get_string_vec!(get_xml_entity_tag, xml_entity_tag);
+get_string_vec!(get_var, var);
 
 get_hash!(get_double_keyword, double_keyword);
 get_hash!(get_constant_prefix, constant_prefix);
