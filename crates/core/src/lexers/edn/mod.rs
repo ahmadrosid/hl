@@ -1,9 +1,7 @@
 // ---- DON'T EDIT! THIS IS AUTO GENERATED CODE ---- //
 pub mod render;
-mod token;
 
 use crate::lexers::Token;
-use token::get_keyword_token;
 
 pub struct Lexer {
     input: Vec<char>,
@@ -126,5 +124,12 @@ impl Lexer {
         }
         self.read_char();
         tok
+    }
+}
+
+pub fn get_keyword_token(identifier: &Vec<char>) -> Result<Token, String> {
+    let id: String = identifier.into_iter().collect();
+    match &id[..] {
+        _ => Err(String::from("Not a keyword")),
     }
 }

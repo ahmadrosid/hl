@@ -6,9 +6,7 @@ use yaml_rust::yaml::Hash;
 
 pub fn generate_token(h: &Hash) -> String {
     let mut token = String::new();
-    token.push_str("// ---- DON'T EDIT! THIS IS AUTO GENERATED CODE ---- //\n");
-    token.push_str("use crate::lexers::Token;");
-    token.push_str("pub fn get_keyword_token(identifier: &Vec<char>) -> Result<Token, String> {");
+    token.push_str("\npub fn get_keyword_token(identifier: &Vec<char>) -> Result<Token, String> {");
     token.push_str("let id: String = identifier.into_iter().collect();");
     token.push_str("match &id[..] {\n");
 

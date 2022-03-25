@@ -165,7 +165,8 @@ pub fn parse(file_path: &str, output_path: &str) -> String {
     }
 
     let out_file_path = prepare_path(file_path, output_path);
-    write_file(&token_stub, &out_file_path, &"token.rs");
+    module_stub.push_str(&token_stub);
+
     write_file(&module_stub, &out_file_path, &"mod.rs");
     write_file(&render_stub, &out_file_path, &"render.rs");
 

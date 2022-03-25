@@ -1,9 +1,7 @@
 // ---- DON'T EDIT! THIS IS AUTO GENERATED CODE ---- //
-mod token;
 pub mod render;
 
 use crate::lexers::Token;
-use token::get_keyword_token;
 
 pub struct Lexer {
     input: Vec<char>,

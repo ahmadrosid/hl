@@ -1,9 +1,7 @@
 // ---- DON'T EDIT! THIS IS AUTO GENERATED CODE ---- //
 pub mod render;
-mod token;
 
 use crate::lexers::Token;
-use token::get_keyword_token;
 
 pub struct Lexer {
     input: Vec<char>,
@@ -291,5 +289,19 @@ impl Lexer {
         }
         self.read_char();
         tok
+    }
+}
+
+pub fn get_keyword_token(identifier: &Vec<char>) -> Result<Token, String> {
+    let id: String = identifier.into_iter().collect();
+    match &id[..] {
+        "false" | "null" | "this" | "true" | "Math" => Ok(Token::CONSTANT(identifier.clone())),
+        "uint" | "int" | "break" | "case" | "continue" | "default" | "do" | "else" | "for"
+        | "if" | "in" | "import" | "label" | "return" | "super" | "switch" | "throw" | "try"
+        | "while" | "with" | "dynamic" | "final" | "internal" | "native" | "override"
+        | "private" | "protected" | "public" | "static" | "class" | "const" | "extends"
+        | "function" | "get" | "implements" | "interface" | "namespace" | "package" | "set"
+        | "var" | "new" | "void" => Ok(Token::KEYWORD(identifier.clone())),
+        _ => Err(String::from("Not a keyword")),
     }
 }
