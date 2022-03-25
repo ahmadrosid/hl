@@ -191,7 +191,7 @@ impl Lexer {
                     while self.position < self.input.len()
                         && (self.ch.is_numeric() || is_letter(self.ch))
                     {
-                        self.read_char()
+                        self.read_char();
                     }
                     let hexadecimal = &self.input[start_position..self.position];
                     Token::INT(hexadecimal.to_vec())
