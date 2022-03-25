@@ -710,7 +710,7 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
         module.push_tabln(8, "}");
     }
 
-    for (_k, v) in get_constant_prefix(h) {
+    for v in get_constant_prefix(h).values() {
         let ch = v.as_str().unwrap();
         module.push_tab(8, "if start_position > 0 ");
         module.push_strln(&format!("&& self.input[start_position - 1] == '{}' {{", ch));
