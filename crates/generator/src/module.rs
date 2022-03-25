@@ -55,7 +55,7 @@ const MARK_AS_STRING_ON_PREFIX: &str = "MARK_AS_STRING_ON_PREFIX";
 const SKIP_READ_ONE_QUOTE_STRING_ON_PREFIX: &str = "SKIP_READ_ONE_QUOTE_STRING_ON_PREFIX";
 
 pub fn generate_module(h: &Hash) -> String {
-    let mut initial_module = include_str!("stub/initial_module.stub").to_string();
+    let mut initial_module = include_str!("stub/module/initial_module.stub").to_string();
     if h.check_condition(MARK_AS_ENTYTY_ON_FUNCTION_SCOPE)
         .is_some()
     {
@@ -128,7 +128,7 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
         let prefix = chars[0].chars().next().unwrap();
         let suffix = chars[1].chars().next().unwrap();
         module.push_str(
-            &include_str!("stub/handle_multi_line_token.stub")
+            &include_str!("stub/module/handle_multi_line_token.stub")
                 .replace("{prefix}", &prefix.to_string())
                 .replace("{begin}", chars[0])
                 .replace("{end}", chars[1])
@@ -151,7 +151,7 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
         let prefix = chars[0].chars().next().unwrap();
         let suffix = chars[1].chars().next().unwrap();
         module.push_str(
-            &include_str!("stub/handle_multi_line_token.stub")
+            &include_str!("stub/module/handle_multi_line_token.stub")
                 .replace("{prefix}", &prefix.to_string().replace("'", "\\'"))
                 .replace("{begin}", &chars[0].to_string().replace("\"", "\\\""))
                 .replace("{end}", &chars[1].to_string().replace("\"", "\\\""))
@@ -161,11 +161,11 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
     }
 
     if h.check_condition(ACCEPT_DOUBLE_BRACKET_STRING).is_some() {
-        module.push_str(include_str!("stub/handle_double_bracket_string.stub"));
+        module.push_str(include_str!("stub/module/handle_double_bracket_string.stub"));
     }
 
     if bracket_dash_comment_enable(h) {
-        module.push_str(include_str!("stub/handle_bracket_dash_comment.stub"));
+        module.push_str(include_str!("stub/module/handle_bracket_dash_comment.stub"));
     }
 
     if let Some(ch) = h.check_condition(MARK_AS_KEYWORD_ON_CHAR) {
@@ -224,7 +224,7 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
         );
         module.push_str(
             // TODO: refactor to "stub/mark_as_token_in_scope.stub"
-            &include_str!("stub/mark_as_string_on_prefix.stub")
+            &include_str!("stub/module/mark_as_string_on_prefix.stub")
                 .replace("{left}", &*c[0].to_string().replace("\\", "\\\\"))
                 .replace("{right}", &*c[1].to_string().replace("\\", "\\\\")),
         )
@@ -232,7 +232,7 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
 
     if let Some(ch) = h.check_condition(SKIP_NON_CHAR_LETTER_PREFIX) {
         module.push_str(
-            &include_str!("stub/handle_skip_non_char_letter.stub")
+            &include_str!("stub/module/handle_skip_non_char_letter.stub")
                 .replace("{ch}", ch.as_str().unwrap()),
         );
     }
@@ -824,8 +824,8 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
 
 fn write_handle_markup_head(head: &str) -> String {
     let heads: Vec<char> = head.to_string().chars().collect();
-    let scope = include_str!("stub/markup_head_scope.stub").to_string();
-    let template = include_str!("stub/markup_head.stub").to_string();
+    let scope = include_str!("stub/module/markup_head_scope.stub").to_string();
+    let template = include_str!("stub/module/markup_head.stub").to_string();
     let mut code = String::new();
     for index in 0..heads.len() {
         let next_position = index + 2;
@@ -842,7 +842,7 @@ fn write_handle_markup_head(head: &str) -> String {
 }
 
 fn write_handle_read_string(h: Hash) -> String {
-    let read_string = include_str!("stub/handle_read_string.stub").to_string();
+    let read_string = include_str!("stub/module/handle_read_string.stub").to_string();
     if h.check_condition(ACCEPT_ESCAPED_STRING).is_none() {
         return read_string.replace("if l.ch == '\\' { l.read_char() }", "");
     }
