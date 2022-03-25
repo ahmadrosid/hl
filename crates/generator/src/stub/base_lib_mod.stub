@@ -4,8 +4,8 @@ use crate::lexers::{raw};
 #[must_use]
 pub fn render_html(input: Vec<char>, lang: &str) -> String {
     match lang {
-        "name" => name::render::html(input),
-        _ => raw::render::html(input),
+        "name" => name::render_html(input),
+        _ => raw::render_html(input),
     }
 }
 

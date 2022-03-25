@@ -26,13 +26,10 @@ const MARKUP_HEAD: &str = "MARKUP_HEAD";
 const IGNORE_INTEGER: &str = "IGNORE_INTEGER";
 const MARK_AS_KEYWORD_IN_SCOPE: &str = "MARK_AS_KEYWORD_IN_SCOPE";
 
-pub fn generate_html(h: &Hash, name: String) -> String {
+pub fn generate_html(h: &Hash) -> String {
     let mut html = StringBuilder::new();
-    html.push_strln("// ---- DON'T EDIT! THIS IS AUTO GENERATED CODE ---- //");
-    html.push_strln(&format!("use crate::lexers::{}::Lexer;", name));
-    html.push_strln("use crate::lexers::Token;\n");
-
-    html.push_strln("pub fn html(input: Vec<char>) -> String {");
+    html.push_strln("\n");
+    html.push_strln("pub fn render_html(input: Vec<char>) -> String {");
     html.push_tabln(1, "let mut l = Lexer::new(input);");
     html.push_tabln(1, "l.read_char();");
     html.push_tabln(1, "let mut html = String::new();");

@@ -142,43 +142,33 @@ fn refactor_yaml(h: &Hash, file_path: &str) {
 pub fn parse(file_path: &str, output_path: &str) -> String {
     let content = read_file(file_path);
     let docs = YamlLoader::load_from_str(&content).unwrap();
-
-    let mut token_stub = String::new();
     let mut module_stub = String::new();
-    let mut render_stub = String::new();
 
     if docs.len() == 0 {
-        let mut message = String::new();
-        message.push_str(&format!("Failed processing {} file is empty!", file_path).red());
-        return message;
+        return format!("Failed processing {} file is empty!", file_path).red();
     }
 
     match *&docs[0] {
         Yaml::Hash(ref h) => {
-            token_stub.push_str(&token::generate_token(h));
             module_stub.push_str(&module::generate_module(h));
-            render_stub.push_str(&render::generate_html(h, get_file_name(file_path)));
+            module_stub.push_str(&token::generate_token(h));
+            module_stub.push_str(&render::generate_html(h));
         }
         _ => {
             println!("{:?}", &docs[0]);
         }
     }
 
-    let out_file_path = prepare_path(file_path, output_path);
-    module_stub.push_str(&token_stub);
-
-    write_file(&module_stub, &out_file_path, &"mod.rs");
-    write_file(&render_stub, &out_file_path, &"render.rs");
-
+    let out_file_path = prepare_path(output_path);
     let name = get_file_name(file_path);
+
+    write_file(&module_stub, &out_file_path, &format!("{}.rs", name));
+
     update_lexer_mod(
         &name,
-        &out_file_path.replace(&format!("lexers/{}", name), "lexers/mod.rs"),
+        &out_file_path.replace(&format!("lexers/"), "lexers/mod.rs"),
     );
-    update_lib_mod(
-        &name,
-        &out_file_path.replace(&format!("lexers/{}", name), "lib.rs"),
-    );
+    update_lib_mod(&name, &out_file_path.replace(&format!("lexers/"), "lib.rs"));
 
     let mut message = String::new();
     message.push_str(&"Success generate lexer for \"".green());
@@ -220,7 +210,7 @@ fn update_lib_mod(name: &str, path: &str) {
         create_dir_all(&dir_path).unwrap();
         write_file(
             &include_str!("stub/base_lib_mod.stub")
-                .replace("::{", &format!("{},", name))
+                .replace("::{", &format!("::{{ {},", name))
                 .replace("name", name),
             &dir_path,
             &file_name,
@@ -234,11 +224,11 @@ fn update_lib_mod(name: &str, path: &str) {
     if !source.contains(&format!("{}::", name)) {
         source = source
             .replace(
-                "_ => raw::render::html(input),",
+                "_ => raw::render_html(input),",
                 &format!(
-                    r#""{}" => {}::render::html(input),
-                _ => raw::render::html(input),"#,
-                    name, name
+                    r#""{name}" => {name}::render_html(input),
+                _ => raw::render_html(input),"#,
+                    name = name
                 ),
             )
             .replace("::{", &format!("::{{ {},", name));
@@ -253,9 +243,8 @@ fn read_file(file_path: &str) -> String {
     String::from_iter(content)
 }
 
-fn prepare_path(file_path: &str, output_path: &str) -> String {
-    let file_name = get_file_name(file_path);
-    let out_file_path = format!("{}/src/lexers/{}", output_path, file_name);
+fn prepare_path(output_path: &str) -> String {
+    let out_file_path = format!("{}/src/lexers/", output_path);
     create_dir_all(Path::new(&out_file_path)).unwrap();
     out_file_path
 }

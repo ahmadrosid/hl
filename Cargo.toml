@@ -11,7 +11,6 @@ yaml-rust = "0.4"
 [workspace]
 members = [
   "crates/generator",
-  "crates/core",
   "crates/tests",
   "crates/test-server",
 ]
