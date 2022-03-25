@@ -82,6 +82,7 @@ get_hash!(get_var_suffix, var_suffix);
 get_hash!(get_entity_prefix, entity_prefix);
 get_hash!(get_entity_suffix, entity_suffix);
 get_hash!(get_condition, condition);
+
 get_str!(get_multi_line_comment, multi_line_comment);
 get_str!(get_multi_line_string, multi_line_string);
 get_bool!(bracket_dash_comment_enable, bracket_dash_comment);
