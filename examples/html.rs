@@ -16,7 +16,7 @@ fn main() {
     }
 
     if language_flag.is_empty() {
-        println!("Language flag is required! Example: -l javascript");
+        println!("Language flag is required! e.g -l javascript");
         std::process::exit(1);
     }
 
