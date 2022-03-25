@@ -35,7 +35,7 @@ impl Lexer {
             self.ch = self.input[self.read_position];
         }
         self.position = self.read_position;
-        self.read_position = self.read_position + 1;
+        self.read_position += 1;
     }
 
     pub fn next_token(&mut self) -> Token {

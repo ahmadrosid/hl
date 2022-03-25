@@ -38,7 +38,7 @@ pub fn generate_token(h: &Hash) -> String {
         token.push_strln("Ok(Token::ENTITYTAG(identifier.clone())),");
     }
 
-    for (_, v) in get_keyword(h) {
+    for v in get_keyword(h).values() {
         token.push_tab(2, &format!("\"{}\" => ", v.as_str().unwrap()));
         token.push_strln("Ok(Token::KEYWORD(identifier.clone())),");
     }
