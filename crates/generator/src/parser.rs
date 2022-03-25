@@ -4,7 +4,6 @@ use crate::module;
 use crate::render;
 use crate::token;
 
-use core::panic;
 use std::fs::{create_dir_all, read, File, OpenOptions};
 use std::io::{Read, Write};
 use std::path::Path;
@@ -117,6 +116,7 @@ fn debug_val(data: &Hash, key: &Yaml) -> String {
     return values.join(",");
 }
 
+#[allow(dead_code)]
 fn refactor_yaml(h: &Hash, file_path: &str) {
     let k = Yaml::String("keyword".to_string());
     let keyword = debug_val(h, &k);
