@@ -1,17 +1,13 @@
 constant: "PHONY,call,cd,command,test,echo,shell,MAKE"
 entity_suffix:
   colon: ":"
-
-keyword:
-  "export": "export"
-  "include": "include"
-
 condition:
   ACCEPT_ESCAPED_STRING: true
   ACCEPT_STRING_ONE_QUOTE: true
   ACCEPT_STRING_DOUBLE_QUOTE: true
   ACCEPT_CHAR_IDENTIFIER: "-.@"
-  ACCEPT_ENTITY_TAG_SUFFIX: "self.ch.is_numeric()"
+  ACCEPT_ENTITY_TAG_SUFFIX: self.ch.is_numeric()
   BREAK_ENTITY_TAG_SUFFIX: "!self.ch.is_numeric() && !is_letter(self.ch)"
   MARK_AS_IDENT_ON_CHAR: "@"
   PREFIX_ONE_LINE_COMMENT: "#"
+keyword: "export,include"

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -e
+# set -e
 clear
 #source ./build.sh
 cargo run -p generator -- -i rules/rust.yml -o crates/core

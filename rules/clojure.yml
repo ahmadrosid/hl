@@ -1,38 +1,11 @@
 constant: "nil,full"
 entity_prefix:
   colon: ":"
-  left_parent: "("
-
-keyword:
-  binding: binding
-  case: case
-  catch: catch
-  cond: cond
-  do: do
-  ns: ns
-  def: def
-  defonce: defonce
-  defmulti: defmulti
-  defmethod: defmethod
-  defn: defn
-  if: if
-  fn: fn
-  require: require
-  when: when
-  try: try
-  throw: throw
-  for: for
-  let: let
-  "defn-": "defn-"
-  "in-ns": "in-ns"
-  "if-let": "if-let"
-  "s/defn": "s/defn"
-  "if-not": "if-not"
-  "when-not": "when-not"
-
+  left_parent: (
 condition:
   ACCEPT_STRING_DOUBLE_QUOTE: true
-  ACCEPT_ENTITY_TAG_SUFFIX: "self.ch.is_numeric()"
+  ACCEPT_ENTITY_TAG_SUFFIX: self.ch.is_numeric()
   BREAK_ENTITY_TAG_SUFFIX: "!self.ch.is_numeric() && !is_letter(self.ch)"
   ACCEPT_CHAR_IDENTIFIER: "./-!?"
-  PREFIX_ONE_LINE_COMMENT: ";;"
+  PREFIX_ONE_LINE_COMMENT: ;;
+keyword: "binding,case,catch,cond,do,ns,def,defonce,defmulti,defmethod,defn,if,fn,require,when,try,throw,for,let,defn-,in-ns,if-let,s/defn,if-not,when-not"

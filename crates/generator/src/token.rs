@@ -40,8 +40,8 @@ pub fn generate_token(h: &Hash) -> String {
 
     let keyword = get_keyword(h);
     if !keyword.is_empty() {
-        for (i, v) in keyword.values().enumerate() {
-            token.push_str(&format!("\"{}\"", v.as_str().unwrap()));
+        for (i, v) in keyword.iter().enumerate() {
+            token.push_str(&format!("\"{}\"", v));
             if i < keyword.len() - 1 {
                 token.push_str("|");
             }

@@ -1,17 +1,15 @@
 multi_line_comment: "/*,*/"
 constant: "root,rgb,rgba,calc,media"
-
 entity:
-  AFTER: "after"
-  BEFORE: "before"
-  HOVER: "hover"
-  NOT: "not"
-  FOCUS: "focus"
-  ACTIVE: "active"
-  SELECTION: "selection"
-  PX: "px"
-  REM: "rem"
-
+  AFTER: after
+  BEFORE: before
+  HOVER: hover
+  NOT: not
+  FOCUS: focus
+  ACTIVE: active
+  SELECTION: selection
+  PX: px
+  REM: rem
 entity_tag:
   HTML: html
   BODY: body
@@ -99,22 +97,18 @@ entity_tag:
   VIDEO: video
   TEXTAREA: textarea
   INPUT: input
-
 entity_suffix:
-  left_brace: "("
-
-keyword:
-  IMPORTANT: important
-
+  left_brace: (
 condition:
   ACCEPT_ESCAPED_STRING: true
   ACCEPT_STRING_DOUBLE_QUOTE: true
   ACCEPT_ENTITY_PREFIX: "start_position != 0 && self.input[start_position - 1] == '.'"
-  ACCEPT_ENTITY_TAG_SUFFIX: "self.ch.is_numeric()"
+  ACCEPT_ENTITY_TAG_SUFFIX: self.ch.is_numeric()
   ACCEPT_IDENT_SUFFIX: "self.ch == '('"
   ACCEPT_ENTITY_SUFFIX: "self.ch == '-' || self.ch == ':'"
   BREAK_ENTITY_PREFIX: "self.ch == ' ' || self.ch == '{' || self.ch == ',' || self.ch == '\\n'"
   BREAK_ENTITY_SUFFIX: "self.ch == ' ' || self.ch == ':' || self.ch == '}' || self.ch == '\\n'"
   BREAK_ENTITY_TAG_SUFFIX: "self.ch == ' ' || self.ch == ':' ||  self.ch == ',' || self.ch == '{' || self.ch == '\\n'"
   BREAK_IDENT_SUFFIX: "self.ch == ' ' || self.ch == ':' || self.ch == ';' || self.ch == '}' || self.ch == '\\n'"
-  PREFIX_ONE_LINE_COMMENT: "//"
+  PREFIX_ONE_LINE_COMMENT: //
+keyword: important

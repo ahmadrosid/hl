@@ -2,72 +2,23 @@ multi_line_comment: "/*,*/"
 multi_line_string: "`,`"
 constant: "true,false,undefined,null,number,string,boolean,type"
 var:
-  VINFINITY: 'Infinity'
-  VNAN: 'NaN'
-  MATH: 'Math'
-  DATE: 'Date'
-
+  VINFINITY: "Infinity"
+  VNAN: "NaN"
+  MATH: Math
+  DATE: Date
 entity_prefix:
-  ENTITY_DOT: '.'
-
+  ENTITY_DOT: "."
 entity_suffix:
-  left_brace: "("
-  colon: ':'
-
-keyword:
-  async: async
-  await: await
-  break: break
-  as: as
-  switch: switch
-  case: case
-  if: if
-  throw: throw
-  else: else
-  var: var
-  get: get
-  module: module
-  instanceof: instanceof
-  import: import
-  from: from
-  typeof: typeof
-  public: public
-  private: private
-  enum: enum
-  export: export
-  finally: finally
-  for: for
-  while: while
-  void: void
-  super: super
-  this: this
-  in: in
-  return: return
-  any: any
-  extends: extends
-  static: static
-  let: let
-  package: package
-  implements: implements
-  interface: interface
-  function: function
-  new: new
-  try: try
-  yield: yield
-  const: const
-  continue: continue
-  do: do
-  catch: catch
-  default: default
-  class: class
-
+  left_brace: (
+  colon: ":"
 condition:
   ACCEPT_ESCAPED_STRING: true
   ACCEPT_STRING_ONE_QUOTE: true
   ACCEPT_STRING_DOUBLE_QUOTE: true
   RENDER_MULTI_LINE_STRING: true
   ACCEPT_CHAR_IDENTIFIER: "?"
-  ACCEPT_ENTITY_SUFFIX: "self.ch.is_numeric()"
+  ACCEPT_ENTITY_SUFFIX: self.ch.is_numeric()
   BREAK_ENTITY_SUFFIX: "self.ch == ' ' || self.ch == ':' || self.ch == ':' || self.ch == '(' || self.ch == '{' || self.ch == '\\n'"
   MARK_KEYWORD_AS_ENTITY_ON_PREFIX: "."
-  PREFIX_ONE_LINE_COMMENT: "//"
+  PREFIX_ONE_LINE_COMMENT: //
+keyword: "async,await,break,as,switch,case,if,throw,else,var,get,module,instanceof,import,from,typeof,public,private,enum,export,finally,for,while,void,super,this,in,return,any,extends,static,let,package,implements,interface,function,new,try,yield,const,continue,do,catch,default,class"

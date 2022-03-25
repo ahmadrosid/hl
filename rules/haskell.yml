@@ -2,10 +2,8 @@ bracket_dash_comment: true
 constant: "True,False,return,mempty,not,foldr,Map,lookup,Left,Right,Walk,Char,Bool,Maybe,Int,Prelude,any,filter,map,init,null,last,unwords,otherwise,either,const,fmap,take,max,putStrLn"
 entity_prefix:
   colon: ":"
-
 entity_suffix:
   colon: ":"
-
 entity_tag:
   Bibtex: Bibtex
   Biblatex: Biblatex
@@ -16,31 +14,10 @@ entity_tag:
   FancyVal: FancyVal
   BibState: BibState
   Many: Many
-
-keyword:
-  as: as
-  import: import
-  type: type
-  case: case
-  do: do
-  of: of
-  if: if
-  then: then
-  else: else
-  let: let
-  in: in
-  module: module
-  qualified: qualified
-  where: where
-  LANGUAGE: LANGUAGE
-  OPTIONS_GHC: OPTIONS_GHC
-  hiding: hiding
-  data: data
-  deriving: deriving
-
 condition:
   ACCEPT_STRING_DOUBLE_QUOTE: true
-  ACCEPT_ENTITY_TAG_SUFFIX: "self.ch.is_numeric()"
+  ACCEPT_ENTITY_TAG_SUFFIX: self.ch.is_numeric()
   BREAK_ENTITY_TAG_SUFFIX: "!self.ch.is_numeric() && !is_letter(self.ch)"
   PREFIX_ONE_LINE_COMMENT: "--"
   MARK_AS_KEYWORD_ON_CHAR: "`"
+keyword: "as,import,type,case,do,of,if,then,else,let,in,module,qualified,where,LANGUAGE,OPTIONS_GHC,hiding,data,deriving"

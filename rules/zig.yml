@@ -1,119 +1,24 @@
 constant: "true,false,null,undefined,self"
-keyword:
-  const: const
-  pub: pub
-  fn: fn
-  try: try
-  struct: struct
-  return: return
-  and: and
-  or: or
-  var: var
-  error: error
-  break: break
-  continue: continue
-  unreachable: unreachable
-  while: while
-  test: test
-  enum: enum
-  union: union
-  async: async
-  await: await
-  suspend: suspend
-  resume: resume
-  nosuspend: nosuspend
-  comptime: comptime
-  extern: extern
-  export: export
-  threadlocal: threadlocal
-  if: if
-  orelse: orelse
-  catch: catch
-  for: for
-  anytype: anytype
-  volatile: volatile
-  align: align
-  allowzero: allowzero
-  packed: packed
-  switch: switch
-  inline: inline
-  else: else
-  opaque: opaque
-  callconv: callconv
-  defer: defer
-  errdefer: errdefer
-  usingnamespace: usingnamespace
-  asm: asm
-  anyframe: anyframe
-  noalias: noalias
-  linksection: linksection
-  void: void
-  bool: bool
-  i64: i64
-  u32: u32
-  i32: i32
-  f32: f32
-  u8: u8
-  anyerror: anyerror
-  i8: i8
-  i16: i16
-  u16: u16
-  u64: u64
-  i128: i128
-  u128: u128
-  isize: isize
-  usize: usize
-  c_short: c_short
-  c_ushort: c_ushort
-  c_int: c_int
-  c_uint: c_uint
-  c_long: c_long
-  c_ulong: c_ulong
-  c_longlong: c_longlong
-  c_ulonglong: c_ulonglong
-  c_longdouble: c_longdouble
-  f16: f16
-  f64: f64
-  f128: f128
-  anyopaque: anyopaque
-  noreturn: noreturn
-  type: type
-  comptime_int: comptime_int
-  comptime_float: comptime_float
-  i7: i7
-  u21: u21
-  u4: u4
-  u3: u3
-  u2: u2
-  i386: i386
-  u0: u0
-  i0: i0
-  u29: u29
-  u1: u1
-  u24: u24
-
 var_suffix:
   assign: "="
   colon: ":"
   comma: ","
-  right_paren: ")"
+  right_paren: )
   dot: "."
-
 entity_prefix:
   dot: "."
-
 entity_suffix:
-  left_paren: "("
-
+  left_paren: (
 condition:
   ACCEPT_ESCAPED_STRING: true
   ACCEPT_STRING_ONE_QUOTE: true
   ACCEPT_STRING_DOUBLE_QUOTE: true
   RENDER_MULTI_LINE_STRING: true
-  ACCEPT_ENTITY_TAG_SUFFIX: "self.ch.is_numeric()"
+  ACCEPT_ENTITY_TAG_SUFFIX: self.ch.is_numeric()
   BREAK_ENTITY_TAG_SUFFIX: "!self.ch.is_numeric() && !is_letter(self.ch)"
-  PREFIX_ONE_LINE_COMMENT: "//"
+  PREFIX_ONE_LINE_COMMENT: //
   ACCEPT_PREFIX_KEYWORD: "@"
   MARK_AS_VAR_IN_SCOPE: "||"
-  MARK_AS_STRING_ON_PREFIX: '\\'
+  MARK_AS_STRING_ON_PREFIX: "\\\\"
   ACCEPT_HEXADECIMAL_NUMBER: true
+keyword: "const,pub,fn,try,struct,return,and,or,var,error,break,continue,unreachable,while,test,enum,union,async,await,suspend,resume,nosuspend,comptime,extern,export,threadlocal,if,orelse,catch,for,anytype,volatile,align,allowzero,packed,switch,inline,else,opaque,callconv,defer,errdefer,usingnamespace,asm,anyframe,noalias,linksection,void,bool,i64,u32,i32,f32,u8,anyerror,i8,i16,u16,u64,i128,u128,isize,usize,c_short,c_ushort,c_int,c_uint,c_long,c_ulong,c_longlong,c_ulonglong,c_longdouble,f16,f64,f128,anyopaque,noreturn,type,comptime_int,comptime_float,i7,u21,u4,u3,u2,i386,u0,i0,u29,u1,u24"

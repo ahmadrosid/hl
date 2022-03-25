@@ -1,47 +1,23 @@
 constant: "builtin,command,compgen,echo,eval,exit,false,hash,kill,read,source,unset,test,true,printf"
-keyword:
-  case: case
-  continue: continue
-  do: do
-  done: done
-  elif: elif
-  else: else
-  esac: esac
-  export: export
-  fi: fi
-  for: for
-  function: function
-  if: if
-  in: in
-  local: local
-  return: return
-  select: select
-  then: then
-  time: time
-  until: until
-  while: while
-  EOF: EOF
-
 single_keyword:
   - "!"
   - "["
   - "]"
   - "|"
-
 entity_suffix:
-  left_brace: "("
-
+  left_brace: (
 condition:
   ACCEPT_ESCAPED_STRING: true
   ACCEPT_STRING_ONE_QUOTE: true
   ACCEPT_STRING_DOUBLE_QUOTE: true
   ACCEPT_STRING_EOF: true
   RENDER_MULTI_LINE_STRING: true
-  SKIP_NON_CHAR_LETTER_PREFIX: "$"
+  SKIP_NON_CHAR_LETTER_PREFIX: $
   ACCEPT_PREFIX_KEYWORD: "-"
   ACCEPT_PREFIX_KEYWORD_NEXT: "-"
   ACCEPT_CHAR_IDENTIFIER: "-"
   PREFIX_ONE_LINE_COMMENT: "#"
-  ACCEPT_ENTITY_TAG_SUFFIX: "self.ch.is_numeric()"
+  ACCEPT_ENTITY_TAG_SUFFIX: self.ch.is_numeric()
   BREAK_ENTITY_TAG_SUFFIX: "!self.ch.is_numeric() && !is_letter(self.ch)"
-  SKIP_READ_ONE_QUOTE_STRING_ON_PREFIX: "/"
+  SKIP_READ_ONE_QUOTE_STRING_ON_PREFIX: /
+keyword: "case,continue,do,done,elif,else,esac,export,fi,for,function,if,in,local,return,select,then,time,until,while,EOF"

@@ -1,56 +1,14 @@
 multi_line_comment: "/*,*/"
 constant: "false,null,true"
-
 entity_suffix:
-  left_brace: "("
+  left_brace: (
   colon: ":"
-
-keyword:
-  as: as
-  assert: assert
-  break: break
-  case: case
-  catch: catch
-  class: class
-  const: const
-  continue: continue
-  def: def
-  default: default
-  do: do
-  else: else
-  enum: enum
-  extends: extends
-  final: final
-  finally: finally
-  for: for
-  goto: goto
-  if: if
-  implements: implements
-  import: import
-  in: in
-  instanceof: instanceof
-  interface: interface
-  new: new
-  package: package
-  private: private
-  public: public
-  return: return
-  super: super
-  static: static
-  switch: switch
-  this: this
-  throw: throw
-  throws: throws
-  trait: trait
-  try: try
-  var: var
-  while: while
-
 condition:
   ACCEPT_ESCAPED_STRING: true
   ACCEPT_STRING_ONE_QUOTE: true
   ACCEPT_STRING_DOUBLE_QUOTE: true
-  ACCEPT_ENTITY_TAG_SUFFIX: "self.ch.is_numeric()"
+  ACCEPT_ENTITY_TAG_SUFFIX: self.ch.is_numeric()
   BREAK_ENTITY_TAG_SUFFIX: "!self.ch.is_numeric() && !is_letter(self.ch)"
   ACCEPT_HEXADECIMAL_NUMBER: true
-  PREFIX_ONE_LINE_COMMENT: "//"
+  PREFIX_ONE_LINE_COMMENT: //
+keyword: "as,assert,break,case,catch,class,const,continue,def,default,do,else,enum,extends,final,finally,for,goto,if,implements,import,in,instanceof,interface,new,package,private,public,return,super,static,switch,this,throw,throws,trait,try,var,while"

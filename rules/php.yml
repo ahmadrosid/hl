@@ -89,88 +89,27 @@ entity_tag:
   TEXTAREA: textarea
   INPUT: input
   HR: hr
-
 entity_prefix:
-  ENTITY_DOT: '>'
-
+  ENTITY_DOT: ">"
 entity_suffix:
-  left_brace: "("
-
-keyword:
-  abstract: "abstract"
-  as: "as"
-  break: "break"
-  and: "and"
-  callable: "callable"
-  case: "case"
-  catch: "catch"
-  clone: "clone"
-  const: "const"
-  continue: "continue"
-  declare: "declare"
-  do: "do"
-  echo: "echo"
-  else: "else"
-  enddeclare: "enddeclare"
-  endfor: "endfor"
-  endforeach: "endforeach"
-  endswitch: "endswitch"
-  endwhile: "endwhile"
-  eval: "eval"
-  finally: "finally"
-  for: "for"
-  foreach: "foreach"
-  global: "global"
-  goto: "goto"
-  if: "if"
-  implements: "implements"
-  include_once: "include_once"
-  instanceof: "instanceof"
-  insteadof: "insteadof"
-  interface: "interface"
-  namespace: "namespace"
-  new: "new"
-  or: "or"
-  private: "private"
-  protected: "protected"
-  public: "public"
-  require: "require"
-  require_once: "require_once"
-  return: "return"
-  static: "static"
-  switch: "switch"
-  throw: "throw"
-  try: "try"
-  use: "use"
-  class: "class"
-  default: "default"
-  elseif: "elseif"
-  endif: "endif"
-  extends: "extends"
-  function: "function"
-  include: "include"
-  print: "print"
-  trait: "trait"
-  while: "while"
-  xor: "xor"
-  yield: "yield"
-
+  left_brace: (
 condition:
   ACCEPT_ESCAPED_STRING: true
   ACCEPT_STRING_ONE_QUOTE: true
   ACCEPT_STRING_DOUBLE_QUOTE: true
-  ACCEPT_ENTITY_TAG_SUFFIX: "self.ch.is_numeric()"
+  ACCEPT_ENTITY_TAG_SUFFIX: self.ch.is_numeric()
   BREAK_ENTITY_TAG_SUFFIX: "!self.ch.is_numeric() && !is_letter(self.ch)"
   ACCEPT_ENTITY_TAG_PREFIX: "<"
   ENTITY_TAG_PREFIX_CHAR: "?"
   ENTITY_CLOSE_TAG_SUFFIX_CHAR: ">"
-  ACCEPT_PREFIX_VAR: "$"
+  ACCEPT_PREFIX_VAR: $
   VAR_CONSTANT_PREFIX: "["
   ENCODE_LT: "<"
   ENCODE_LT_STRING: "&lt;"
   CONSTANT_SUFFIX_CHAR: "="
   ACCEPT_CONSTANT_SUFFIX_KEYWORD: true
   ACCEPT_CONSTANT_SUFFIX_IDENTIFIER: true
-  CONSTANT_SUFFIX_KEYWORD: "class"
+  CONSTANT_SUFFIX_KEYWORD: class
   ACCEPT_DASH_IDENTIFIER: "-"
-  PREFIX_ONE_LINE_COMMENT: "//"
+  PREFIX_ONE_LINE_COMMENT: //
+keyword: "abstract,as,break,and,callable,case,catch,clone,const,continue,declare,do,echo,else,enddeclare,endfor,endforeach,endswitch,endwhile,eval,finally,for,foreach,global,goto,if,implements,include_once,instanceof,insteadof,interface,namespace,new,or,private,protected,public,require,require_once,return,static,switch,throw,try,use,class,default,elseif,endif,extends,function,include,print,trait,while,xor,yield"

@@ -3,59 +3,14 @@ constant: "true,false,NULL,size_t"
 single_constant:
   - "<"
   - ">"
-
 entity_suffix:
-  left_brace: "("
-
-keyword:
-  asm: "asm"
-  const: "const"
-  char: "char"
-  case: "case"
-  catch: "catch"
-  continue: "continue"
-  do: "do"
-  default: "default"
-  define: "define"
-  delete: "delete"
-  double: "double"
-  else: "else"
-  extern: "extern"
-  enum: "enum"
-  float: "float"
-  goto: "goto"
-  for: "for"
-  if: "if"
-  ifdef: "ifdef"
-  ifndef: "ifndef"
-  endif: "endif"
-  long: "long"
-  return: "return"
-  int: "int"
-  include: "include"
-  inline : "inline"
-  unsigned: "unsigned"
-  union: "union"
-  break: "break"
-  void: "void"
-  volatile: "volatile"
-  register: "register"
-  signed: "signed"
-  static: "static"
-  struct: "struct"
-  sizeof: "sizeof"
-  short: "short"
-  switch: "switch"
-  typedef: "typedef"
-  try: "try"
-  throw: "throw"
-  while: "while"
-
+  left_brace: (
 condition:
   ACCEPT_ESCAPED_STRING: true
   ACCEPT_STRING_ONE_QUOTE: true
   ACCEPT_STRING_DOUBLE_QUOTE: true
-  ACCEPT_ENTITY_TAG_SUFFIX: "self.ch.is_numeric()"
+  ACCEPT_ENTITY_TAG_SUFFIX: self.ch.is_numeric()
   BREAK_ENTITY_TAG_SUFFIX: "!self.ch.is_numeric() && !is_letter(self.ch)"
   ACCEPT_HEXADECIMAL_NUMBER: true
-  PREFIX_ONE_LINE_COMMENT: "//"
+  PREFIX_ONE_LINE_COMMENT: //
+keyword: "asm,const,char,case,catch,continue,do,default,define,delete,double,else,extern,enum,float,goto,for,if,ifdef,ifndef,endif,long,return,int,include,inline,unsigned,union,break,void,volatile,register,signed,static,struct,sizeof,short,switch,typedef,try,throw,while"

@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e
+# set -e
 cargo build -q --workspace -p generator
 
 array=(

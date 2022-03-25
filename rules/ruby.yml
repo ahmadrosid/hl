@@ -2,59 +2,18 @@ multi_line_comment: "=begin,=end"
 constant: "true,false"
 entity_prefix:
   dot: "."
-  new_line: '\n'
-
+  new_line: "\\n"
 entity_suffix:
-  left_parent: "("
+  left_parent: (
   left_brace: "{"
   quote: "\\'"
-
-keyword:
-  alias: alias
-  and: and
-  BEGIN: BEGIN
-  begin: begin
-  break: break
-  case: case
-  class: class
-  def: def
-  defined: defined?
-  do: do
-  else: else
-  elsif: elsif
-  END: END
-  end: end
-  ensure: ensure
-  for: for
-  if: if
-  in: in
-  module: module
-  next: next
-  nil: nil
-  not: not
-  or: or
-  private: private
-  redo: redo
-  rescue: rescue
-  retry: retry
-  return: return
-  self: self
-  super: super
-  then: then
-  undef: undef
-  unless: unless
-  until: until
-  when: when
-  while: while
-  yield: yield
-
 var:
   Rails: Rails
-
 condition:
   ACCEPT_ESCAPED_STRING: true
   ACCEPT_STRING_ONE_QUOTE: true
   ACCEPT_STRING_DOUBLE_QUOTE: true
   MARK_AS_CONSTANT_ON_PREFIX: "@"
-  MARK_AS_ENTITY_ON_FUNCTION_SCOPE: "def"
+  MARK_AS_ENTITY_ON_FUNCTION_SCOPE: def
   PREFIX_ONE_LINE_COMMENT: "#"
+keyword: "alias,and,BEGIN,begin,break,case,class,def,defined?,do,else,elsif,END,end,ensure,for,if,in,module,next,nil,not,or,private,redo,rescue,retry,return,self,super,then,undef,unless,until,when,while,yield"

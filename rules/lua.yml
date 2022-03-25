@@ -1,31 +1,9 @@
 constant: "true,false,nil"
 entity_suffix:
-  left_brace: "("
-
-keyword:
-  and: and
-  break: break
-  do: do
-  else: else
-  elseif: elseif
-  end: end
-  for: for
-  function: function
-  if: if
-  in: in
-  local: local
-  not: not
-  or: or
-  repeat: repeat
-  return: return
-  then: then
-  while: while
-  until: until
-
+  left_brace: (
 single_keyword:
-  - '='
-  - '#'
-
+  - "="
+  - "#"
 condition:
   ACCEPT_ESCAPED_STRING: true
   ACCEPT_STRING_ONE_QUOTE: true
@@ -33,3 +11,4 @@ condition:
   ACCEPT_DOUBLE_BRACKET_STRING: true
   RENDER_MULTI_LINE_STRING: true
   PREFIX_ONE_LINE_COMMENT: "--"
+keyword: "and,break,do,else,elseif,end,for,function,if,in,local,not,or,repeat,return,then,while,until"

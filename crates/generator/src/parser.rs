@@ -4,6 +4,7 @@ use crate::module;
 use crate::render;
 use crate::token;
 
+use core::panic;
 use std::fs::{create_dir_all, read, File, OpenOptions};
 use std::io::{Read, Write};
 use std::path::Path;
@@ -69,7 +70,7 @@ pub fn $name(h: &Hash) -> String {
 
 get_string!(get_constant, constant);
 get_hash!(get_var, var);
-get_hash!(get_keyword, keyword);
+get_string!(get_keyword, keyword);
 get_hash!(get_double_keyword, double_keyword);
 get_hash!(get_entity, entity);
 get_hash!(get_constant_prefix, constant_prefix);
@@ -99,9 +100,9 @@ impl ConditionExt for Hash {
 }
 
 #[allow(dead_code)]
-fn debug_val(data: &Hash, key: &str) {
+fn debug_val(data: &Hash, key: &Yaml) -> String {
     let xml_tag = data
-        .get(&Yaml::String(key.to_string()))
+        .get(key)
         .unwrap()
         .as_hash()
         .unwrap()
@@ -113,8 +114,23 @@ fn debug_val(data: &Hash, key: &str) {
         values.push(tag.as_str().unwrap());
     }
     println!("\nconstant: \"{}\"\n", values.join(","));
+    return values.join(",");
+}
 
-    panic!("Stop!");
+fn refactor_yaml(h: &Hash, file_path: &str) {
+    let k = Yaml::String("keyword".to_string());
+    let keyword = debug_val(h, &k);
+    let mut out_str = String::new();
+    let mut emitter = yaml_rust::YamlEmitter::new(&mut out_str);
+    let mut dh = h.clone();
+    dh.remove(&k).unwrap();
+    dh.insert(k, Yaml::String(keyword));
+    emitter.dump(&Yaml::Hash(dh)).unwrap();
+    let name = Path::new(file_path).file_name().unwrap().to_str().unwrap();
+    out_str = out_str.replace("---\n", "");
+    write_file(&out_str, &"rules".to_string(), name);
+    println!("{}\n", out_str);
+    std::process::exit(0)
 }
 
 pub fn parse(file_path: &str, output_path: &str) -> String {
@@ -133,7 +149,7 @@ pub fn parse(file_path: &str, output_path: &str) -> String {
 
     match *&docs[0] {
         Yaml::Hash(ref h) => {
-            // debug_val(h);
+            // refactor_yaml(h, file_path);
             token_stub.push_str(&token::generate_token(h));
             module_stub.push_str(&module::generate_module(h));
             render_stub.push_str(&render::generate_html(h, get_file_name(file_path)));

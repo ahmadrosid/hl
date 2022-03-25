@@ -1,59 +1,26 @@
-keyword:
-  after: after
-  and: and
-  andalso: andalso
-  band: band
-  begin: begin
-  bnot: bnot
-  bor: bor
-  bsl: bsl
-  bsr: bsr
-  bxor: bxor
-  case: case
-  catch: catch
-  cond: cond
-  div: div
-  end: end
-  fun: fun
-  if: if
-  let: let
-  not: not
-  of: of
-  or: or
-  orelse: orelse
-  receive: receive
-  rem: rem
-  try: try
-  when: when
-  xor: xor
-
 var_prefix:
   left_bracket: "["
   left_brace: "{"
-  left_paren: "("
-
+  left_paren: (
 var_suffix:
   right_brace: "}"
-  right_paren: ")"
+  right_paren: )
   comma: ","
-
 constant_suffix:
   assign: "="
   minus: "-"
-
 entity_prefix:
   hashtag: "#"
-
 entity_suffix:
-  left_parent: "("
-
+  left_parent: (
 condition:
   ACCEPT_ESCAPED_STRING: true
   ACCEPT_STRING_ONE_QUOTE: true
   ACCEPT_STRING_DOUBLE_QUOTE: true
-  ACCEPT_ENTITY_TAG_SUFFIX: "self.ch.is_numeric()"
+  ACCEPT_ENTITY_TAG_SUFFIX: self.ch.is_numeric()
   BREAK_ENTITY_TAG_SUFFIX: "!self.ch.is_numeric() && !is_letter(self.ch)"
   ACCEPT_HEXADECIMAL_NUMBER: true
   PREFIX_ONE_LINE_COMMENT: "%%"
   ACCEPT_PREFIX_KEYWORD: "-"
   ACCEPT_CHAR_IDENTIFIER: ":"
+keyword: "after,and,andalso,band,begin,bnot,bor,bsl,bsr,bxor,case,catch,cond,div,end,fun,if,let,not,of,or,orelse,receive,rem,try,when,xor"

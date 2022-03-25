@@ -1,56 +1,7 @@
 multi_line_comment: "/*,*/"
 constant: "this,true,false,super,null,String,Long,Object,Boolean,Array,List,ArrayList,Arrays,Map,HashMap,LinkedHashSet"
 entity_suffix:
-  left_brace: "("
-
-keyword:
-  ABSTRACT: "abstract"
-  BYTE: "byte"
-  BREAK: "break"
-  CLASS: "class"
-  DOUBLE: "double"
-  FLOAT: "float"
-  FINAL: "final"
-  INT: "int"
-  INTERFACE: "interface"
-  CHAR: "char"
-  CASE: "case"
-  DEFAULT: "default"
-  SHORT: "short"
-  FOR: "for"
-  PACKAGE: "package"
-  IMPORT: "import"
-  PUBLIC: "public"
-  PRIVATE: "private"
-  PROTECTED: "protected"
-  EXTENDS: "extends"
-  STATIC: "static"
-  VOID: "void"
-  RETURN: "return"
-  NEW: "new"
-  IF: "if"
-  ELSE: "else"
-  ENUM: "enum"
-  INSTANCEOF: "instanceof"
-  BOOLEAN: "boolean"
-  ASSERT: "assert"
-  CONTINUE: "continue"
-  NATIVE: "native"
-  SWITCH: "switch"
-  SYNCHRONIZED: "synchronized"
-  TRY: "try"
-  THROW: "throw"
-  CATCH: "catch"
-  VOLATILE: "volatile"
-  WHILE: "while"
-  THROWS: "throws"
-  FINALLY: "finally"
-  LONG: "long"
-  DO: "do"
-  TRANSIENT: "transient"
-  STRICTFP: "strictfp"
-  VAR: "var"
-
+  left_brace: (
 single_keyword:
   - "&"
   - "-"
@@ -62,21 +13,20 @@ single_keyword:
   - "*"
   - "%"
   - "?"
-
 double_keyword:
   comparison: "=="
   double_arrow: "=>"
   logical_and: "&&"
   nullish_coalescing_operator: "??"
   inequality: "!="
-
 condition:
   ACCEPT_ESCAPED_STRING: true
   ACCEPT_STRING_ONE_QUOTE: true
   ACCEPT_STRING_DOUBLE_QUOTE: true
   ACCEPT_PREFIX_KEYWORD: "@"
-  ACCEPT_SUFFIX_DIGIT: "f"
-  ACCEPT_ENTITY_TAG_SUFFIX: "self.ch.is_numeric()"
+  ACCEPT_SUFFIX_DIGIT: f
+  ACCEPT_ENTITY_TAG_SUFFIX: self.ch.is_numeric()
   BREAK_ENTITY_TAG_SUFFIX: "!self.ch.is_numeric() && !is_letter(self.ch)"
   ACCEPT_HEXADECIMAL_NUMBER: true
-  PREFIX_ONE_LINE_COMMENT: "//"
+  PREFIX_ONE_LINE_COMMENT: //
+keyword: "abstract,byte,break,class,double,float,final,int,interface,char,case,default,short,for,package,import,public,private,protected,extends,static,void,return,new,if,else,enum,instanceof,boolean,assert,continue,native,switch,synchronized,try,throw,catch,volatile,while,throws,finally,long,do,transient,strictfp,var"
