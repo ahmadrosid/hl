@@ -34,11 +34,11 @@ pub fn get_keyword_token(identifier: &Vec<char>) -> Result<Token, String> {
         "take" => Ok(Token::CONSTANT(identifier.clone())),
         "max" => Ok(Token::CONSTANT(identifier.clone())),
         "putStrLn" => Ok(Token::CONSTANT(identifier.clone())),
-        "Bibtex" | "Biblatex" | "Nothing" | "Just" | "Str" | "Space" | "FancyVal" | "BibState"
-        | "Many" => Ok(Token::ENTITYTAG(identifier.clone())),
         "as" | "import" | "type" | "case" | "do" | "of" | "if" | "then" | "else" | "let" | "in"
         | "module" | "qualified" | "where" | "LANGUAGE" | "OPTIONS_GHC" | "hiding" | "data"
         | "deriving" => Ok(Token::KEYWORD(identifier.clone())),
+        "Bibtex" | "Biblatex" | "Nothing" | "Just" | "Str" | "Space" | "FancyVal" | "BibState"
+        | "Many" => Ok(Token::ENTITYTAG(identifier.clone())),
         _ => Err(String::from("Not a keyword")),
     }
 }

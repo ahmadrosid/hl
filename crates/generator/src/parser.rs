@@ -68,19 +68,20 @@ pub fn $name(h: &Hash) -> String {
 );
 
 get_string!(get_constant, constant);
-get_hash!(get_var, var);
-get_string!(get_keyword, keyword);
-get_hash!(get_double_keyword, double_keyword);
 get_string!(get_entity, entity);
+get_string!(get_entity_tag, entity_tag);
+get_string!(get_keyword, keyword);
+get_string!(get_xml_entity_tag, xml_entity_tag);
+
+get_hash!(get_var, var);
+get_hash!(get_double_keyword, double_keyword);
 get_hash!(get_constant_prefix, constant_prefix);
 get_hash!(get_constant_suffix, constant_suffix);
 get_hash!(get_var_prefix, var_prefix);
 get_hash!(get_var_suffix, var_suffix);
 get_hash!(get_entity_prefix, entity_prefix);
 get_hash!(get_entity_suffix, entity_suffix);
-get_string!(get_entity_tag, entity_tag);
 get_hash!(get_condition, condition);
-get_string!(get_xml_entity_tag, xml_entity_tag);
 get_str!(get_multi_line_comment, multi_line_comment);
 get_str!(get_multi_line_string, multi_line_string);
 get_bool!(bracket_dash_comment_enable, bracket_dash_comment);

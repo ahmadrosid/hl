@@ -9,6 +9,14 @@ pub fn get_keyword_token(identifier: &Vec<char>) -> Result<Token, String> {
         "null" => Ok(Token::CONSTANT(identifier.clone())),
         "string" => Ok(Token::CONSTANT(identifier.clone())),
         "array" => Ok(Token::CONSTANT(identifier.clone())),
+        "abstract" | "as" | "break" | "and" | "callable" | "case" | "catch" | "clone" | "const"
+        | "continue" | "declare" | "do" | "echo" | "else" | "enddeclare" | "endfor"
+        | "endforeach" | "endswitch" | "endwhile" | "eval" | "finally" | "for" | "foreach"
+        | "global" | "goto" | "if" | "implements" | "include_once" | "instanceof" | "insteadof"
+        | "interface" | "namespace" | "new" | "or" | "private" | "protected" | "public"
+        | "require" | "require_once" | "return" | "static" | "switch" | "throw" | "try" | "use"
+        | "class" | "default" | "elseif" | "endif" | "extends" | "function" | "include"
+        | "print" | "trait" | "while" | "xor" | "yield" => Ok(Token::KEYWORD(identifier.clone())),
         "html" | "body" | "div" | "span" | "applet" | "object" | "iframe" | "h1" | "h2" | "h3"
         | "h4" | "h5" | "h6" | "p" | "blockquote" | "button" | "pre" | "a" | "abbr" | "acronym"
         | "address" | "big" | "cite" | "code" | "del" | "dfn" | "em" | "img" | "ins" | "kbd"
@@ -21,14 +29,6 @@ pub fn get_keyword_token(identifier: &Vec<char>) -> Result<Token, String> {
         | "section" | "video" | "textarea" | "input" | "hr" => {
             Ok(Token::ENTITYTAG(identifier.clone()))
         }
-        "abstract" | "as" | "break" | "and" | "callable" | "case" | "catch" | "clone" | "const"
-        | "continue" | "declare" | "do" | "echo" | "else" | "enddeclare" | "endfor"
-        | "endforeach" | "endswitch" | "endwhile" | "eval" | "finally" | "for" | "foreach"
-        | "global" | "goto" | "if" | "implements" | "include_once" | "instanceof" | "insteadof"
-        | "interface" | "namespace" | "new" | "or" | "private" | "protected" | "public"
-        | "require" | "require_once" | "return" | "static" | "switch" | "throw" | "try" | "use"
-        | "class" | "default" | "elseif" | "endif" | "extends" | "function" | "include"
-        | "print" | "trait" | "while" | "xor" | "yield" => Ok(Token::KEYWORD(identifier.clone())),
         _ => Err(String::from("Not a keyword")),
     }
 }

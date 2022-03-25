@@ -23,41 +23,28 @@ pub fn generate_token(h: &Hash) -> String {
         token.push_strln("Ok(Token::VAR(identifier.clone())),");
     }
 
-    for v in get_entity(h) {
-        token.push_tab(2, &format!("\"{}\" => ", v));
-        token.push_strln("Ok(Token::ENTITY(identifier.clone())),");
-    }
+    write(&get_entity(h), &mut token, "ENTITY");
+    write(&get_keyword(h), &mut token, "KEYWORD");
 
-    let entity = get_entity_tag(h);
-    if !entity.is_empty() {
-        for (i, v) in entity.iter().enumerate() {
-            token.push_str(&format!("\"{}\"", v));
-            if i < entity.len() - 1 {
-                token.push_str("|");
-            }
-        }
-        token.push_strln(" => Ok(Token::ENTITYTAG(identifier.clone())),");
-    }
-
-    for v in get_xml_entity_tag(h) {
-        token.push_tab(2, &format!("\"{}\" => ", v));
-        token.push_strln("Ok(Token::ENTITYTAG(identifier.clone())),");
-    }
-
-    let keyword = get_keyword(h);
-    if !keyword.is_empty() {
-        for (i, v) in keyword.iter().enumerate() {
-            token.push_str(&format!("\"{}\"", v));
-            if i < keyword.len() - 1 {
-                token.push_str("|");
-            }
-        }
-        token.push_strln(" => Ok(Token::KEYWORD(identifier.clone())),");
-    }
+    let mut entity_tag = get_entity_tag(h);
+    entity_tag.extend(get_xml_entity_tag(h));
+    write(&entity_tag, &mut token, "ENTITYTAG");
 
     token.push_tabln(2, "_ => Err(String::from(\"Not a keyword\")),");
     token.push_tabln(1, "}");
     token.push_strln("}");
 
     token.to_string()
+}
+
+fn write(data: &Vec<&str>, token: &mut StringBuilder, key: &str) {
+    if !data.is_empty() {
+        for (i, v) in data.iter().enumerate() {
+            token.push_str(&format!("\"{}\"", v));
+            if i < data.len() - 1 {
+                token.push_str("|");
+            }
+        }
+        token.push_strln(&" => Ok(Token::{}(identifier.clone())),".replace("{}", key));
+    }
 }
