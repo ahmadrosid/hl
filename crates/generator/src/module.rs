@@ -851,7 +851,7 @@ fn write_handle_markup_head(head: &str) -> String {
 
 fn write_handle_read_string(h: Hash) -> String {
     let read_string = include_str!("stub/handle_read_string.stub").to_string();
-    if !h.get_some_condition(ACCEPT_ESCAPED_STRING).is_some() {
+    if h.get_some_condition(ACCEPT_ESCAPED_STRING).is_none() {
         return read_string.replace("if l.ch == '\\' { l.read_char() }", "");
     }
     read_string
