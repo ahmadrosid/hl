@@ -5,7 +5,6 @@ use crate::lexers::{
     rust, toml, typescript, vue, yaml, zig,
 };
 
-#[must_use]
 pub fn render_html(input: Vec<char>, lang: &str) -> String {
     match lang {
         "python" => python::render_html(input),
