@@ -60,3 +60,9 @@ See the result in browser [here](https://play.tailwindcss.com/JevzqYGpuH).
 22. [ ] Vue ( 🚧 In Progress )
 24. [x] Yaml ( ✅ Done )
 25. [x] Zig ( ✅ Done )
+26. [x] Toml ( ✅ Done )
+27. [x] Lua ( ✅ Done )
+28. [x] Groovy ( ✅ Done )
+29. [x] Makefile ( ✅ Done )
+30. [x] Erlang ( ✅ Done )
+
