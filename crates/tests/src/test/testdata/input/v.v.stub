@@ -71,3 +71,12 @@ fn (a Vec) + (b Vec) Vec {
 fn (a Vec) - (b Vec) Vec {
 	return Vec{a.x - b.x, a.y - b.y}
 }
+
+mut nums := [1, 2, 3]
+println(nums) // `[1, 2, 3]`
+println(nums[0]) // `1`
+println(nums[1]) // `2`
+nums[1] = 5
+println(nums) // `[1, 5, 3]`
+mut a := []int{len: 10000, cap: 30000, init: 3}
+mut square := []int{len: 6, init: it * it}

@@ -74,5 +74,14 @@
 <tr><td class="hl-num" data-line="72"></td><td>	<span class="hl-k">return</span> Vec{a.x <span class="hl-k">-</span> b.x, a.y <span class="hl-k">-</span> b.y}</td></tr>
 <tr><td class="hl-num" data-line="73"></td><td>}</td></tr>
 <tr><td class="hl-num" data-line="74"></td><td></td></tr>
+<tr><td class="hl-num" data-line="75"></td><td><span class="hl-k">mut</span> nums <span class="hl-k">:=</span> [<span class="hl-c">1</span>, <span class="hl-c">2</span>, <span class="hl-c">3</span>]</td></tr>
+<tr><td class="hl-num" data-line="76"></td><td><span class="hl-en">println</span>(nums) <span class="hl-cmt">// `[1, 2, 3]`</span></td></tr>
+<tr><td class="hl-num" data-line="77"></td><td><span class="hl-en">println</span>(nums[<span class="hl-c">0</span>]) <span class="hl-cmt">// `1`</span></td></tr>
+<tr><td class="hl-num" data-line="78"></td><td><span class="hl-en">println</span>(nums[<span class="hl-c">1</span>]) <span class="hl-cmt">// `2`</span></td></tr>
+<tr><td class="hl-num" data-line="79"></td><td>nums[<span class="hl-c">1</span>] <span class="hl-k">=</span> <span class="hl-c">5</span></td></tr>
+<tr><td class="hl-num" data-line="80"></td><td><span class="hl-en">println</span>(nums) <span class="hl-cmt">// `[1, 5, 3]`</span></td></tr>
+<tr><td class="hl-num" data-line="81"></td><td><span class="hl-k">mut</span> a <span class="hl-k">:=</span> []<span class="hl-k">int</span>{len: <span class="hl-c">10000</span>, cap: <span class="hl-c">30000</span>, init: <span class="hl-c">3</span>}</td></tr>
+<tr><td class="hl-num" data-line="82"></td><td><span class="hl-k">mut</span> square <span class="hl-k">:=</span> []<span class="hl-k">int</span>{len: <span class="hl-c">6</span>, init: <span class="hl-k">it</span> <span class="hl-k">*</span> <span class="hl-k">it</span>}</td></tr>
+<tr><td class="hl-num" data-line="83"></td><td></td></tr>
 </tbody>
 </table>
