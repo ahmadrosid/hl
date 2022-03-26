@@ -1,4 +1,5 @@
 pub mod actionscript;
+pub mod ada;
 pub mod bash;
 pub mod c;
 pub mod clojure;

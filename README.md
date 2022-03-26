@@ -33,6 +33,7 @@ See the result in browser [here](https://play.tailwindcss.com/JevzqYGpuH).
 
 ## Lexers
 - [x] ActionScript ( ✅ Done )
+- [x] Ada ( ✅ Done )
 - [x] Bash ( ✅ Done )
 - [x] C ( ✅ Done )
 - [ ] Clojure ( 🚧 In Progress )

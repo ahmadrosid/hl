@@ -1,7 +1,6 @@
 if self.ch == '{ch}' {
     return Token::{token}(identifier);
 } else if self.ch.is_whitespace() {
-    let start_position = self.position;
     let mut position = self.position;
     let mut ch = self.input[position];
     while position < self.input.len() && ch.is_whitespace() {
@@ -11,10 +10,6 @@ if self.ch == '{ch}' {
         }
     }
     if ch == '{ch}' {
-        self.position = position - 1;
-        self.read_position = position;
-        let mut value = identifier;
-        value.append(&mut self.input[start_position..self.position].to_vec());
-        return Token::{token}(value)
+        return Token::{token}(identifier)
     }
 }

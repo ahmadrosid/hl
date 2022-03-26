@@ -154,7 +154,6 @@ impl Lexer {
                             if self.ch == '(' {
                                 return Token::ENTITY(identifier);
                             } else if self.ch.is_whitespace() {
-                                let start_position = self.position;
                                 let mut position = self.position;
                                 let mut ch = self.input[position];
                                 while position < self.input.len() && ch.is_whitespace() {
@@ -164,19 +163,12 @@ impl Lexer {
                                     }
                                 }
                                 if ch == '(' {
-                                    self.position = position - 1;
-                                    self.read_position = position;
-                                    let mut value = identifier;
-                                    value.append(
-                                        &mut self.input[start_position..self.position].to_vec(),
-                                    );
-                                    return Token::ENTITY(value);
+                                    return Token::ENTITY(identifier);
                                 }
                             }
                             if self.ch == '=' {
                                 return Token::VAR(identifier);
                             } else if self.ch.is_whitespace() {
-                                let start_position = self.position;
                                 let mut position = self.position;
                                 let mut ch = self.input[position];
                                 while position < self.input.len() && ch.is_whitespace() {
@@ -186,19 +178,12 @@ impl Lexer {
                                     }
                                 }
                                 if ch == '=' {
-                                    self.position = position - 1;
-                                    self.read_position = position;
-                                    let mut value = identifier;
-                                    value.append(
-                                        &mut self.input[start_position..self.position].to_vec(),
-                                    );
-                                    return Token::VAR(value);
+                                    return Token::VAR(identifier);
                                 }
                             }
                             if self.ch == ':' {
                                 return Token::VAR(identifier);
                             } else if self.ch.is_whitespace() {
-                                let start_position = self.position;
                                 let mut position = self.position;
                                 let mut ch = self.input[position];
                                 while position < self.input.len() && ch.is_whitespace() {
@@ -208,19 +193,12 @@ impl Lexer {
                                     }
                                 }
                                 if ch == ':' {
-                                    self.position = position - 1;
-                                    self.read_position = position;
-                                    let mut value = identifier;
-                                    value.append(
-                                        &mut self.input[start_position..self.position].to_vec(),
-                                    );
-                                    return Token::VAR(value);
+                                    return Token::VAR(identifier);
                                 }
                             }
                             if self.ch == ',' {
                                 return Token::VAR(identifier);
                             } else if self.ch.is_whitespace() {
-                                let start_position = self.position;
                                 let mut position = self.position;
                                 let mut ch = self.input[position];
                                 while position < self.input.len() && ch.is_whitespace() {
@@ -230,19 +208,12 @@ impl Lexer {
                                     }
                                 }
                                 if ch == ',' {
-                                    self.position = position - 1;
-                                    self.read_position = position;
-                                    let mut value = identifier;
-                                    value.append(
-                                        &mut self.input[start_position..self.position].to_vec(),
-                                    );
-                                    return Token::VAR(value);
+                                    return Token::VAR(identifier);
                                 }
                             }
                             if self.ch == ')' {
                                 return Token::VAR(identifier);
                             } else if self.ch.is_whitespace() {
-                                let start_position = self.position;
                                 let mut position = self.position;
                                 let mut ch = self.input[position];
                                 while position < self.input.len() && ch.is_whitespace() {
@@ -252,19 +223,12 @@ impl Lexer {
                                     }
                                 }
                                 if ch == ')' {
-                                    self.position = position - 1;
-                                    self.read_position = position;
-                                    let mut value = identifier;
-                                    value.append(
-                                        &mut self.input[start_position..self.position].to_vec(),
-                                    );
-                                    return Token::VAR(value);
+                                    return Token::VAR(identifier);
                                 }
                             }
                             if self.ch == '.' {
                                 return Token::VAR(identifier);
                             } else if self.ch.is_whitespace() {
-                                let start_position = self.position;
                                 let mut position = self.position;
                                 let mut ch = self.input[position];
                                 while position < self.input.len() && ch.is_whitespace() {
@@ -274,13 +238,7 @@ impl Lexer {
                                     }
                                 }
                                 if ch == '.' {
-                                    self.position = position - 1;
-                                    self.read_position = position;
-                                    let mut value = identifier;
-                                    value.append(
-                                        &mut self.input[start_position..self.position].to_vec(),
-                                    );
-                                    return Token::VAR(value);
+                                    return Token::VAR(identifier);
                                 }
                             }
                             Token::IDENT(identifier)

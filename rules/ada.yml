@@ -1,0 +1,10 @@
+keyword: "abort,abs,abstract,accept,access,aliased,all,and,array,at,begin,body,case,constant,declare,delay,delta,digits,do,else,elsif,end,entry,exception,exit,for,function,generic,goto,if,in,interface,is,limited,loop,mod,new,not,null,of,or,others,out,overriding,package,pragma,private,procedure,protected,raise,range,record,rem,renames,return,requeue,reverse,select,separate,some,subtype,synchronized,tagged,task,terminate,then,type,until,use,when,while,with,xor"
+constant: "True,False"
+entity_suffix:
+  left_parent: (
+double_keyword:
+  assign: ":="
+condition:
+  ACCEPT_ESCAPED_STRING: true
+  ACCEPT_STRING_DOUBLE_QUOTE: true
+  PREFIX_ONE_LINE_COMMENT: "--"
