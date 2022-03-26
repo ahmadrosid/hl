@@ -261,6 +261,16 @@ fn test_typescript() {
 }
 
 #[test]
+fn test_v() {
+    let input = include_str!("testdata/input/v.v.stub")
+        .chars()
+        .collect::<Vec<char>>();
+    let expected = include_str!("testdata/output/v.html.stub");
+    let actual = v::render_html(input);
+    assert_eq!(expected, actual);
+}
+
+#[test]
 fn test_yaml() {
     let input = include_str!("testdata/input/yaml.yml.stub")
         .chars()

@@ -65,4 +65,4 @@ See the result in browser [here](https://play.tailwindcss.com/JevzqYGpuH).
 28. [x] Groovy ( ✅ Done )
 29. [x] Makefile ( ✅ Done )
 30. [x] Erlang ( ✅ Done )
-
+31. [x] Vlang ( ✅ Done )

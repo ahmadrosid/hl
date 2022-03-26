@@ -2,7 +2,7 @@ pub mod lexers;
 use crate::lexers::{
     actionscript, bash, c, clojure, cpp, cs, css, cuda, dart, edn, erlang, go, groovy, haskell,
     html, java, javascript, json, kotlin, lua, makefile, markdown, nim, php, python, raw, ruby,
-    rust, toml, typescript, vue, yaml, zig,
+    rust, toml, typescript, v, vue, yaml, zig,
 };
 
 pub fn render_html(input: Vec<char>, lang: &str) -> String {
@@ -39,6 +39,7 @@ pub fn render_html(input: Vec<char>, lang: &str) -> String {
         "vue" => vue::render_html(input),
         "dart" => dart::render_html(input),
         "rust" => rust::render_html(input),
+        "v" => v::render_html(input),
         _ => raw::render_html(input),
     }
 }

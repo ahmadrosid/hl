@@ -28,6 +28,7 @@ pub mod ruby;
 pub mod rust;
 pub mod toml;
 pub mod typescript;
+pub mod v;
 pub mod vue;
 pub mod yaml;
 pub mod zig;

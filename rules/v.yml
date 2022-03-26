@@ -1,0 +1,28 @@
+multi_line_comment: "/*,*/"
+constant: "true,false,None"
+entity_suffix:
+  left_brace: (
+  bang: "]"
+single_keyword:
+  - "&"
+  - "*"
+  - "<"
+  - ">"
+  - "-"
+  - "="
+  - "|"
+double_keyword:
+  comparison: "=="
+  double_arrow: ">>"
+  logical_and: "&&"
+  logical_and: "<<"
+  logical_and: ":="
+condition:
+  ACCEPT_ESCAPED_STRING: true
+  ACCEPT_HEXADECIMAL_NUMBER: true
+  ACCEPT_STRING_DOUBLE_QUOTE: true
+  ACCEPT_STRING_ONE_QUOTE: true
+  ACCEPT_ENTITY_TAG_SUFFIX: self.ch.is_numeric()
+  BREAK_ENTITY_TAG_SUFFIX: "!self.ch.is_numeric() && !is_letter(self.ch)"
+  PREFIX_ONE_LINE_COMMENT: //
+keyword: "fn,import,return,pub,mut,bool,string,i8,i16,int,i64,byte,u16,u32,u64,rune,f32,f64,isize,usize,voidptr,any,assert,struct,type,in,it,if,else,typeof,map,as,is,match,enum,defer,for,continue,break,unsafe,const,module,interface,or,go,chan,select,share,lock,rlock,heap,__offsetof,union,asm,goto,static,embed"

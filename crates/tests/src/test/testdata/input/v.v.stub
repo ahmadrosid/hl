@@ -1,0 +1,73 @@
+[flag]
+enum BitField {
+	read
+	write
+	other
+}
+
+fn main() {
+	assert 1 == int(BitField.read)
+	assert 2 == int(BitField.write)
+	mut bf := BitField.read
+	assert bf.has(.read | .other) // test if *at least one* of the flags is set
+	assert !bf.all(.read | .other) // test if *all* of the flags is set
+	bf.set(.write | .other)
+	assert bf.has(.read | .write | .other)
+	assert bf.all(.read | .write | .other)
+	bf.toggle(.other)
+	assert bf == BitField.read | .write
+	assert bf.all(.read | .write)
+	assert !bf.has(.other)
+}
+
+module main
+
+import time
+
+[live]
+fn print_message() {
+	println('Hello! Modify this message while the program is running.')
+}
+
+fn main() {
+	for {
+		print_message()
+		time.sleep(500 * time.millisecond)
+	}
+}
+
+a := 100
+b := 20
+mut c := 0
+asm amd64 {
+    mov eax, a
+    add eax, b
+    mov c, eax
+    ; =r (c) as c // output
+    ; r (a) as a // input
+      r (b) as b
+}
+println('a: $a') // 100
+println('b: $b') // 20
+println('c: $c') // 120
+
+import v.vmod
+vm := vmod.decode( @VMOD_FILE ) or { panic(err.msg) }
+eprintln('$vm.name $vm.version\n $vm.description')
+
+struct Vec {
+	x int
+	y int
+}
+
+fn (a Vec) str() string {
+	return '{$a.x, $a.y}'
+}
+
+fn (a Vec) + (b Vec) Vec {
+	return Vec{a.x + b.x, a.y + b.y}
+}
+
+fn (a Vec) - (b Vec) Vec {
+	return Vec{a.x - b.x, a.y - b.y}
+}
