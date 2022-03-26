@@ -1,87 +1,92 @@
 <table class="highlight-table">
 <tbody>
-<tr><td class="hl-num" data-line="1"></td><td>[<span class="hl-en">flag</span>]</td></tr>
-<tr><td class="hl-num" data-line="2"></td><td><span class="hl-k">enum</span> BitField {</td></tr>
-<tr><td class="hl-num" data-line="3"></td><td>	read</td></tr>
-<tr><td class="hl-num" data-line="4"></td><td>	write</td></tr>
-<tr><td class="hl-num" data-line="5"></td><td>	other</td></tr>
-<tr><td class="hl-num" data-line="6"></td><td>}</td></tr>
-<tr><td class="hl-num" data-line="7"></td><td></td></tr>
-<tr><td class="hl-num" data-line="8"></td><td><span class="hl-k">fn</span> <span class="hl-en">main</span>() {</td></tr>
-<tr><td class="hl-num" data-line="9"></td><td>	<span class="hl-k">assert</span> <span class="hl-c">1</span> <span class="hl-k">==</span> <span class="hl-k">int</span>(BitField.read)</td></tr>
-<tr><td class="hl-num" data-line="10"></td><td>	<span class="hl-k">assert</span> <span class="hl-c">2</span> <span class="hl-k">==</span> <span class="hl-k">int</span>(BitField.write)</td></tr>
-<tr><td class="hl-num" data-line="11"></td><td>	<span class="hl-k">mut</span> bf <span class="hl-k">:=</span> BitField.read</td></tr>
-<tr><td class="hl-num" data-line="12"></td><td>	<span class="hl-k">assert</span> bf.<span class="hl-en">has</span>(.read <span class="hl-k">|</span> .other) <span class="hl-cmt">// test if *at least one* of the flags is set</span></td></tr>
-<tr><td class="hl-num" data-line="13"></td><td>	<span class="hl-k">assert</span> !bf.<span class="hl-en">all</span>(.read <span class="hl-k">|</span> .other) <span class="hl-cmt">// test if *all* of the flags is set</span></td></tr>
-<tr><td class="hl-num" data-line="14"></td><td>	bf.<span class="hl-en">set</span>(.write <span class="hl-k">|</span> .other)</td></tr>
-<tr><td class="hl-num" data-line="15"></td><td>	<span class="hl-k">assert</span> bf.<span class="hl-en">has</span>(.read <span class="hl-k">|</span> .write <span class="hl-k">|</span> .other)</td></tr>
-<tr><td class="hl-num" data-line="16"></td><td>	<span class="hl-k">assert</span> bf.<span class="hl-en">all</span>(.read <span class="hl-k">|</span> .write <span class="hl-k">|</span> .other)</td></tr>
-<tr><td class="hl-num" data-line="17"></td><td>	bf.<span class="hl-en">toggle</span>(.other)</td></tr>
-<tr><td class="hl-num" data-line="18"></td><td>	<span class="hl-k">assert</span> bf <span class="hl-k">==</span> BitField.read <span class="hl-k">|</span> .write</td></tr>
-<tr><td class="hl-num" data-line="19"></td><td>	<span class="hl-k">assert</span> bf.<span class="hl-en">all</span>(.read <span class="hl-k">|</span> .write)</td></tr>
-<tr><td class="hl-num" data-line="20"></td><td>	<span class="hl-k">assert</span> !bf.<span class="hl-en">has</span>(.other)</td></tr>
-<tr><td class="hl-num" data-line="21"></td><td>}</td></tr>
-<tr><td class="hl-num" data-line="22"></td><td></td></tr>
-<tr><td class="hl-num" data-line="23"></td><td><span class="hl-k">module</span> main</td></tr>
-<tr><td class="hl-num" data-line="24"></td><td></td></tr>
-<tr><td class="hl-num" data-line="25"></td><td><span class="hl-k">import</span> time</td></tr>
-<tr><td class="hl-num" data-line="26"></td><td></td></tr>
-<tr><td class="hl-num" data-line="27"></td><td>[<span class="hl-en">live</span>]</td></tr>
-<tr><td class="hl-num" data-line="28"></td><td><span class="hl-k">fn</span> <span class="hl-en">print_message</span>() {</td></tr>
-<tr><td class="hl-num" data-line="29"></td><td>	<span class="hl-en">println</span>(<span class="hl-s">'Hello! Modify this message while the program is running.'</span>)</td></tr>
-<tr><td class="hl-num" data-line="30"></td><td>}</td></tr>
+<tr><td class="hl-num" data-line="1"></td><td><span class="hl-cmt">// This is a single line comment.</span></td></tr>
+<tr><td class="hl-num" data-line="2"></td><td><span class="hl-cmt">/*</span></td></tr>
+<tr><td class="hl-num" data-line="3"></td><td><span class="hl-cmt">  This is a multiline comment.</span></td></tr>
+<tr><td class="hl-num" data-line="4"></td><td><span class="hl-cmt">*/</span></td></tr>
+<tr><td class="hl-num" data-line="5"></td><td></td></tr>
+<tr><td class="hl-num" data-line="6"></td><td>[<span class="hl-en">flag</span>]</td></tr>
+<tr><td class="hl-num" data-line="7"></td><td><span class="hl-k">enum</span> BitField {</td></tr>
+<tr><td class="hl-num" data-line="8"></td><td>	read</td></tr>
+<tr><td class="hl-num" data-line="9"></td><td>	write</td></tr>
+<tr><td class="hl-num" data-line="10"></td><td>	other</td></tr>
+<tr><td class="hl-num" data-line="11"></td><td>}</td></tr>
+<tr><td class="hl-num" data-line="12"></td><td></td></tr>
+<tr><td class="hl-num" data-line="13"></td><td><span class="hl-k">fn</span> <span class="hl-en">main</span>() {</td></tr>
+<tr><td class="hl-num" data-line="14"></td><td>	<span class="hl-k">assert</span> <span class="hl-c">1</span> <span class="hl-k">==</span> <span class="hl-k">int</span>(BitField.read)</td></tr>
+<tr><td class="hl-num" data-line="15"></td><td>	<span class="hl-k">assert</span> <span class="hl-c">2</span> <span class="hl-k">==</span> <span class="hl-k">int</span>(BitField.write)</td></tr>
+<tr><td class="hl-num" data-line="16"></td><td>	<span class="hl-k">mut</span> bf <span class="hl-k">:=</span> BitField.read</td></tr>
+<tr><td class="hl-num" data-line="17"></td><td>	<span class="hl-k">assert</span> bf.<span class="hl-en">has</span>(.read <span class="hl-k">|</span> .other) <span class="hl-cmt">// test if *at least one* of the flags is set</span></td></tr>
+<tr><td class="hl-num" data-line="18"></td><td>	<span class="hl-k">assert</span> !bf.<span class="hl-en">all</span>(.read <span class="hl-k">|</span> .other) <span class="hl-cmt">// test if *all* of the flags is set</span></td></tr>
+<tr><td class="hl-num" data-line="19"></td><td>	bf.<span class="hl-en">set</span>(.write <span class="hl-k">|</span> .other)</td></tr>
+<tr><td class="hl-num" data-line="20"></td><td>	<span class="hl-k">assert</span> bf.<span class="hl-en">has</span>(.read <span class="hl-k">|</span> .write <span class="hl-k">|</span> .other)</td></tr>
+<tr><td class="hl-num" data-line="21"></td><td>	<span class="hl-k">assert</span> bf.<span class="hl-en">all</span>(.read <span class="hl-k">|</span> .write <span class="hl-k">|</span> .other)</td></tr>
+<tr><td class="hl-num" data-line="22"></td><td>	bf.<span class="hl-en">toggle</span>(.other)</td></tr>
+<tr><td class="hl-num" data-line="23"></td><td>	<span class="hl-k">assert</span> bf <span class="hl-k">==</span> BitField.read <span class="hl-k">|</span> .write</td></tr>
+<tr><td class="hl-num" data-line="24"></td><td>	<span class="hl-k">assert</span> bf.<span class="hl-en">all</span>(.read <span class="hl-k">|</span> .write)</td></tr>
+<tr><td class="hl-num" data-line="25"></td><td>	<span class="hl-k">assert</span> !bf.<span class="hl-en">has</span>(.other)</td></tr>
+<tr><td class="hl-num" data-line="26"></td><td>}</td></tr>
+<tr><td class="hl-num" data-line="27"></td><td></td></tr>
+<tr><td class="hl-num" data-line="28"></td><td><span class="hl-k">module</span> main</td></tr>
+<tr><td class="hl-num" data-line="29"></td><td></td></tr>
+<tr><td class="hl-num" data-line="30"></td><td><span class="hl-k">import</span> time</td></tr>
 <tr><td class="hl-num" data-line="31"></td><td></td></tr>
-<tr><td class="hl-num" data-line="32"></td><td><span class="hl-k">fn</span> <span class="hl-en">main</span>() {</td></tr>
-<tr><td class="hl-num" data-line="33"></td><td>	<span class="hl-k">for</span> {</td></tr>
-<tr><td class="hl-num" data-line="34"></td><td>		<span class="hl-en">print_message</span>()</td></tr>
-<tr><td class="hl-num" data-line="35"></td><td>		time.<span class="hl-en">sleep</span>(<span class="hl-c">500</span> <span class="hl-k">*</span> time.millisecond)</td></tr>
-<tr><td class="hl-num" data-line="36"></td><td>	}</td></tr>
-<tr><td class="hl-num" data-line="37"></td><td>}</td></tr>
-<tr><td class="hl-num" data-line="38"></td><td></td></tr>
-<tr><td class="hl-num" data-line="39"></td><td>a <span class="hl-k">:=</span> <span class="hl-c">100</span></td></tr>
-<tr><td class="hl-num" data-line="40"></td><td>b <span class="hl-k">:=</span> <span class="hl-c">20</span></td></tr>
-<tr><td class="hl-num" data-line="41"></td><td><span class="hl-k">mut</span> c <span class="hl-k">:=</span> <span class="hl-c">0</span></td></tr>
-<tr><td class="hl-num" data-line="42"></td><td><span class="hl-k">asm</span> amd64 {</td></tr>
-<tr><td class="hl-num" data-line="43"></td><td>    mov eax, a</td></tr>
-<tr><td class="hl-num" data-line="44"></td><td>    add eax, b</td></tr>
-<tr><td class="hl-num" data-line="45"></td><td>    mov c, eax</td></tr>
-<tr><td class="hl-num" data-line="46"></td><td>    ; <span class="hl-k">=</span><span class="hl-en">r</span> (c) <span class="hl-k">as</span> c <span class="hl-cmt">// output</span></td></tr>
-<tr><td class="hl-num" data-line="47"></td><td>    ; <span class="hl-en">r</span> (a) <span class="hl-k">as</span> a <span class="hl-cmt">// input</span></td></tr>
-<tr><td class="hl-num" data-line="48"></td><td>      <span class="hl-en">r</span> (b) <span class="hl-k">as</span> b</td></tr>
-<tr><td class="hl-num" data-line="49"></td><td>}</td></tr>
-<tr><td class="hl-num" data-line="50"></td><td><span class="hl-en">println</span>(<span class="hl-s">'a: $a'</span>) <span class="hl-cmt">// 100</span></td></tr>
-<tr><td class="hl-num" data-line="51"></td><td><span class="hl-en">println</span>(<span class="hl-s">'b: $b'</span>) <span class="hl-cmt">// 20</span></td></tr>
-<tr><td class="hl-num" data-line="52"></td><td><span class="hl-en">println</span>(<span class="hl-s">'c: $c'</span>) <span class="hl-cmt">// 120</span></td></tr>
-<tr><td class="hl-num" data-line="53"></td><td></td></tr>
-<tr><td class="hl-num" data-line="54"></td><td><span class="hl-k">import</span> v.vmod</td></tr>
-<tr><td class="hl-num" data-line="55"></td><td>vm <span class="hl-k">:=</span> vmod.<span class="hl-en">decode</span>( @VMOD_FILE ) <span class="hl-k">or</span> { <span class="hl-en">panic</span>(err.msg) }</td></tr>
-<tr><td class="hl-num" data-line="56"></td><td><span class="hl-en">eprintln</span>(<span class="hl-s">'$vm.name $vm.version\n $vm.description'</span>)</td></tr>
-<tr><td class="hl-num" data-line="57"></td><td></td></tr>
-<tr><td class="hl-num" data-line="58"></td><td><span class="hl-k">struct</span> Vec {</td></tr>
-<tr><td class="hl-num" data-line="59"></td><td>	x <span class="hl-k">int</span></td></tr>
-<tr><td class="hl-num" data-line="60"></td><td>	y <span class="hl-k">int</span></td></tr>
-<tr><td class="hl-num" data-line="61"></td><td>}</td></tr>
+<tr><td class="hl-num" data-line="32"></td><td>[<span class="hl-en">live</span>]</td></tr>
+<tr><td class="hl-num" data-line="33"></td><td><span class="hl-k">fn</span> <span class="hl-en">print_message</span>() {</td></tr>
+<tr><td class="hl-num" data-line="34"></td><td>	<span class="hl-en">println</span>(<span class="hl-s">'Hello! Modify this message while the program is running.'</span>)</td></tr>
+<tr><td class="hl-num" data-line="35"></td><td>}</td></tr>
+<tr><td class="hl-num" data-line="36"></td><td></td></tr>
+<tr><td class="hl-num" data-line="37"></td><td><span class="hl-k">fn</span> <span class="hl-en">main</span>() {</td></tr>
+<tr><td class="hl-num" data-line="38"></td><td>	<span class="hl-k">for</span> {</td></tr>
+<tr><td class="hl-num" data-line="39"></td><td>		<span class="hl-en">print_message</span>()</td></tr>
+<tr><td class="hl-num" data-line="40"></td><td>		time.<span class="hl-en">sleep</span>(<span class="hl-c">500</span> <span class="hl-k">*</span> time.millisecond)</td></tr>
+<tr><td class="hl-num" data-line="41"></td><td>	}</td></tr>
+<tr><td class="hl-num" data-line="42"></td><td>}</td></tr>
+<tr><td class="hl-num" data-line="43"></td><td></td></tr>
+<tr><td class="hl-num" data-line="44"></td><td>a <span class="hl-k">:=</span> <span class="hl-c">100</span></td></tr>
+<tr><td class="hl-num" data-line="45"></td><td>b <span class="hl-k">:=</span> <span class="hl-c">20</span></td></tr>
+<tr><td class="hl-num" data-line="46"></td><td><span class="hl-k">mut</span> c <span class="hl-k">:=</span> <span class="hl-c">0</span></td></tr>
+<tr><td class="hl-num" data-line="47"></td><td><span class="hl-k">asm</span> amd64 {</td></tr>
+<tr><td class="hl-num" data-line="48"></td><td>    mov eax, a</td></tr>
+<tr><td class="hl-num" data-line="49"></td><td>    add eax, b</td></tr>
+<tr><td class="hl-num" data-line="50"></td><td>    mov c, eax</td></tr>
+<tr><td class="hl-num" data-line="51"></td><td>    ; <span class="hl-k">=</span><span class="hl-en">r</span> (c) <span class="hl-k">as</span> c <span class="hl-cmt">// output</span></td></tr>
+<tr><td class="hl-num" data-line="52"></td><td>    ; <span class="hl-en">r</span> (a) <span class="hl-k">as</span> a <span class="hl-cmt">// input</span></td></tr>
+<tr><td class="hl-num" data-line="53"></td><td>      <span class="hl-en">r</span> (b) <span class="hl-k">as</span> b</td></tr>
+<tr><td class="hl-num" data-line="54"></td><td>}</td></tr>
+<tr><td class="hl-num" data-line="55"></td><td><span class="hl-en">println</span>(<span class="hl-s">'a: $a'</span>) <span class="hl-cmt">// 100</span></td></tr>
+<tr><td class="hl-num" data-line="56"></td><td><span class="hl-en">println</span>(<span class="hl-s">'b: $b'</span>) <span class="hl-cmt">// 20</span></td></tr>
+<tr><td class="hl-num" data-line="57"></td><td><span class="hl-en">println</span>(<span class="hl-s">'c: $c'</span>) <span class="hl-cmt">// 120</span></td></tr>
+<tr><td class="hl-num" data-line="58"></td><td></td></tr>
+<tr><td class="hl-num" data-line="59"></td><td><span class="hl-k">import</span> v.vmod</td></tr>
+<tr><td class="hl-num" data-line="60"></td><td>vm <span class="hl-k">:=</span> vmod.<span class="hl-en">decode</span>( @VMOD_FILE ) <span class="hl-k">or</span> { <span class="hl-en">panic</span>(err.msg) }</td></tr>
+<tr><td class="hl-num" data-line="61"></td><td><span class="hl-en">eprintln</span>(<span class="hl-s">'$vm.name $vm.version\n $vm.description'</span>)</td></tr>
 <tr><td class="hl-num" data-line="62"></td><td></td></tr>
-<tr><td class="hl-num" data-line="63"></td><td><span class="hl-k">fn</span> (a Vec) <span class="hl-en">str</span>() <span class="hl-k">string</span> {</td></tr>
-<tr><td class="hl-num" data-line="64"></td><td>	<span class="hl-k">return</span> <span class="hl-s">'{$a.x, $a.y}'</span></td></tr>
-<tr><td class="hl-num" data-line="65"></td><td>}</td></tr>
-<tr><td class="hl-num" data-line="66"></td><td></td></tr>
-<tr><td class="hl-num" data-line="67"></td><td><span class="hl-k">fn</span> (a Vec) + (b Vec) Vec {</td></tr>
-<tr><td class="hl-num" data-line="68"></td><td>	<span class="hl-k">return</span> Vec{a.x + b.x, a.y + b.y}</td></tr>
-<tr><td class="hl-num" data-line="69"></td><td>}</td></tr>
-<tr><td class="hl-num" data-line="70"></td><td></td></tr>
-<tr><td class="hl-num" data-line="71"></td><td><span class="hl-k">fn</span> (a Vec) <span class="hl-k">-</span> (b Vec) Vec {</td></tr>
-<tr><td class="hl-num" data-line="72"></td><td>	<span class="hl-k">return</span> Vec{a.x <span class="hl-k">-</span> b.x, a.y <span class="hl-k">-</span> b.y}</td></tr>
-<tr><td class="hl-num" data-line="73"></td><td>}</td></tr>
-<tr><td class="hl-num" data-line="74"></td><td></td></tr>
-<tr><td class="hl-num" data-line="75"></td><td><span class="hl-k">mut</span> nums <span class="hl-k">:=</span> [<span class="hl-c">1</span>, <span class="hl-c">2</span>, <span class="hl-c">3</span>]</td></tr>
-<tr><td class="hl-num" data-line="76"></td><td><span class="hl-en">println</span>(nums) <span class="hl-cmt">// `[1, 2, 3]`</span></td></tr>
-<tr><td class="hl-num" data-line="77"></td><td><span class="hl-en">println</span>(nums[<span class="hl-c">0</span>]) <span class="hl-cmt">// `1`</span></td></tr>
-<tr><td class="hl-num" data-line="78"></td><td><span class="hl-en">println</span>(nums[<span class="hl-c">1</span>]) <span class="hl-cmt">// `2`</span></td></tr>
-<tr><td class="hl-num" data-line="79"></td><td>nums[<span class="hl-c">1</span>] <span class="hl-k">=</span> <span class="hl-c">5</span></td></tr>
-<tr><td class="hl-num" data-line="80"></td><td><span class="hl-en">println</span>(nums) <span class="hl-cmt">// `[1, 5, 3]`</span></td></tr>
-<tr><td class="hl-num" data-line="81"></td><td><span class="hl-k">mut</span> a <span class="hl-k">:=</span> []<span class="hl-k">int</span>{len: <span class="hl-c">10000</span>, cap: <span class="hl-c">30000</span>, init: <span class="hl-c">3</span>}</td></tr>
-<tr><td class="hl-num" data-line="82"></td><td><span class="hl-k">mut</span> square <span class="hl-k">:=</span> []<span class="hl-k">int</span>{len: <span class="hl-c">6</span>, init: <span class="hl-k">it</span> <span class="hl-k">*</span> <span class="hl-k">it</span>}</td></tr>
-<tr><td class="hl-num" data-line="83"></td><td></td></tr>
+<tr><td class="hl-num" data-line="63"></td><td><span class="hl-k">struct</span> Vec {</td></tr>
+<tr><td class="hl-num" data-line="64"></td><td>	x <span class="hl-k">int</span></td></tr>
+<tr><td class="hl-num" data-line="65"></td><td>	y <span class="hl-k">int</span></td></tr>
+<tr><td class="hl-num" data-line="66"></td><td>}</td></tr>
+<tr><td class="hl-num" data-line="67"></td><td></td></tr>
+<tr><td class="hl-num" data-line="68"></td><td><span class="hl-k">fn</span> (a Vec) <span class="hl-en">str</span>() <span class="hl-k">string</span> {</td></tr>
+<tr><td class="hl-num" data-line="69"></td><td>	<span class="hl-k">return</span> <span class="hl-s">'{$a.x, $a.y}'</span></td></tr>
+<tr><td class="hl-num" data-line="70"></td><td>}</td></tr>
+<tr><td class="hl-num" data-line="71"></td><td></td></tr>
+<tr><td class="hl-num" data-line="72"></td><td><span class="hl-k">fn</span> (a Vec) <span class="hl-k">+</span> (b Vec) Vec {</td></tr>
+<tr><td class="hl-num" data-line="73"></td><td>	<span class="hl-k">return</span> Vec{a.x <span class="hl-k">+</span> b.x, a.y <span class="hl-k">+</span> b.y}</td></tr>
+<tr><td class="hl-num" data-line="74"></td><td>}</td></tr>
+<tr><td class="hl-num" data-line="75"></td><td></td></tr>
+<tr><td class="hl-num" data-line="76"></td><td><span class="hl-k">fn</span> (a Vec) <span class="hl-k">-</span> (b Vec) Vec {</td></tr>
+<tr><td class="hl-num" data-line="77"></td><td>	<span class="hl-k">return</span> Vec{a.x <span class="hl-k">-</span> b.x, a.y <span class="hl-k">-</span> b.y}</td></tr>
+<tr><td class="hl-num" data-line="78"></td><td>}</td></tr>
+<tr><td class="hl-num" data-line="79"></td><td></td></tr>
+<tr><td class="hl-num" data-line="80"></td><td><span class="hl-k">mut</span> nums <span class="hl-k">:=</span> [<span class="hl-c">1</span>, <span class="hl-c">2</span>, <span class="hl-c">3</span>]</td></tr>
+<tr><td class="hl-num" data-line="81"></td><td><span class="hl-en">println</span>(nums) <span class="hl-cmt">// `[1, 2, 3]`</span></td></tr>
+<tr><td class="hl-num" data-line="82"></td><td><span class="hl-en">println</span>(nums[<span class="hl-c">0</span>]) <span class="hl-cmt">// `1`</span></td></tr>
+<tr><td class="hl-num" data-line="83"></td><td><span class="hl-en">println</span>(nums[<span class="hl-c">1</span>]) <span class="hl-cmt">// `2`</span></td></tr>
+<tr><td class="hl-num" data-line="84"></td><td>nums[<span class="hl-c">1</span>] <span class="hl-k">=</span> <span class="hl-c">5</span></td></tr>
+<tr><td class="hl-num" data-line="85"></td><td><span class="hl-en">println</span>(nums) <span class="hl-cmt">// `[1, 5, 3]`</span></td></tr>
+<tr><td class="hl-num" data-line="86"></td><td><span class="hl-k">mut</span> a <span class="hl-k">:=</span> []<span class="hl-k">int</span>{len: <span class="hl-c">10000</span>, cap: <span class="hl-c">30000</span>, init: <span class="hl-c">3</span>}</td></tr>
+<tr><td class="hl-num" data-line="87"></td><td><span class="hl-k">mut</span> square <span class="hl-k">:=</span> []<span class="hl-k">int</span>{len: <span class="hl-c">6</span>, init: <span class="hl-k">it</span> <span class="hl-k">*</span> <span class="hl-k">it</span>}</td></tr>
+<tr><td class="hl-num" data-line="88"></td><td></td></tr>
 </tbody>
 </table>

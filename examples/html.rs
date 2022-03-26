@@ -22,5 +22,5 @@ fn main() {
 
     let input = read_to_string(path).unwrap().chars().collect::<Vec<_>>();
     let result = render_html(input, &lang);
-    println!("{}", result)
+    print!("{}", result)
 }

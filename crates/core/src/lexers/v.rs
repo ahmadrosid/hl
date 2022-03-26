@@ -199,6 +199,9 @@ impl Lexer {
             '|' => {
                 tok = Token::KEYWORD(vec![self.ch]);
             }
+            '+' => {
+                tok = Token::KEYWORD(vec![self.ch]);
+            }
             _ => {
                 return if is_letter(self.ch) {
                     #[allow(unused_variables)]

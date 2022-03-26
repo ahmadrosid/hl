@@ -11,6 +11,7 @@ single_keyword:
   - "-"
   - "="
   - "|"
+  - "+"
 double_keyword:
   comparison: "=="
   double_arrow: ">>"
