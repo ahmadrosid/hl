@@ -5,7 +5,7 @@ This software is inspired by github syntax highlighter.
 
 ### 💡 Example
 ```bash
-cargo run --package hl --example html examples/html.rs
+cargo run --package hl --example html examples/html.rs -l rust
 ```
 
 ### 💡 Example Result
