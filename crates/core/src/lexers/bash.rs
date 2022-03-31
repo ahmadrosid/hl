@@ -221,9 +221,11 @@ pub fn get_keyword_token(identifier: &Vec<char>) -> Result<Token, String> {
         | "kill" | "read" | "source" | "unset" | "test" | "true" | "printf" => {
             Ok(Token::CONSTANT(identifier.clone()))
         }
-        "case" | "continue" | "do" | "done" | "elif" | "else" | "esac" | "export" | "fi"
-        | "for" | "function" | "if" | "in" | "local" | "return" | "select" | "then" | "time"
-        | "until" | "while" | "EOF" => Ok(Token::KEYWORD(identifier.clone())),
+        "alias" | "bg" | "bind" | "break" | "caller" | "case" | "cd" | "complete" | "compopt"
+        | "continue" | "coproc" | "declare" | "dirs" | "disown" | "enable" | "exec" | "export"
+        | "fc" | "fg" | "for" | "function" | "getopts" | "help" => {
+            Ok(Token::KEYWORD(identifier.clone()))
+        }
         _ => Err(String::from("Not a keyword")),
     }
 }

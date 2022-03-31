@@ -64,11 +64,11 @@
 <tr><td class="hl-num" data-line="62"></td><td><span class="hl-s">  }</span></td></tr>
 <tr><td class="hl-num" data-line="63"></td><td><span class="hl-s">'</span></td></tr>
 <tr><td class="hl-num" data-line="64"></td><td>    awk <span class="hl-s">"$awk_strverscmp"</span> v1=<span class="hl-s">"$1"</span> v2=<span class="hl-s">"$2"</span> /dev/null</td></tr>
-<tr><td class="hl-num" data-line="65"></td><td>    <span class="hl-k">case</span> $? <span class="hl-k">in</span></td></tr>
+<tr><td class="hl-num" data-line="65"></td><td>    <span class="hl-k">case</span> $? in</td></tr>
 <tr><td class="hl-num" data-line="66"></td><td>      <span class="hl-c">1</span>)  <span class="hl-c">echo</span> <span class="hl-s">'&lt;'</span>;;</td></tr>
 <tr><td class="hl-num" data-line="67"></td><td>      <span class="hl-c">0</span>)  <span class="hl-c">echo</span> <span class="hl-s">'='</span>;;</td></tr>
 <tr><td class="hl-num" data-line="68"></td><td>      <span class="hl-c">2</span>)  <span class="hl-c">echo</span> <span class="hl-s">'&gt;'</span>;;</td></tr>
-<tr><td class="hl-num" data-line="69"></td><td>    <span class="hl-k">esac</span></td></tr>
+<tr><td class="hl-num" data-line="69"></td><td>    esac</td></tr>
 <tr><td class="hl-num" data-line="70"></td><td>  )</td></tr>
 <tr><td class="hl-num" data-line="71"></td><td>}</td></tr>
 <tr><td class="hl-num" data-line="72"></td><td></td></tr>
@@ -76,7 +76,7 @@
 <tr><td class="hl-num" data-line="74"></td><td><span class="hl-en">__require_tool_fatal</span> ()</td></tr>
 <tr><td class="hl-num" data-line="75"></td><td>{</td></tr>
 <tr><td class="hl-num" data-line="76"></td><td>    <span class="hl-c">echo</span> $@ >/dev/stderr</td></tr>
-<tr><td class="hl-num" data-line="77"></td><td>    <span class="hl-k">return</span> <span class="hl-c">1</span></td></tr>
+<tr><td class="hl-num" data-line="77"></td><td>    return <span class="hl-c">1</span></td></tr>
 <tr><td class="hl-num" data-line="78"></td><td>}</td></tr>
 <tr><td class="hl-num" data-line="79"></td><td></td></tr>
 <tr><td class="hl-num" data-line="80"></td><td><span class="hl-cmt"># Usage: require_tool program version</span></td></tr>
@@ -90,18 +90,18 @@
 <tr><td class="hl-num" data-line="88"></td><td>{</td></tr>
 <tr><td class="hl-num" data-line="89"></td><td>  envvar_name=$(<span class="hl-c">echo</span> $<span class="hl-c">1</span> <span class="hl-k">|</span> tr <span class="hl-s">'[:lower:]'</span> <span class="hl-s">'[:upper:]'</span>)</td></tr>
 <tr><td class="hl-num" data-line="90"></td><td>  tool=$(printenv $envvar_name <span class="hl-k">|</span><span class="hl-k">|</span> <span class="hl-c">echo</span> $<span class="hl-c">1</span>)</td></tr>
-<tr><td class="hl-num" data-line="91"></td><td>  <span class="hl-k">local</span> version=$($tool <span class="hl-k">-</span><span class="hl-k">-version</span> <span class="hl-c">2</span>>/dev/null<span class="hl-k">|</span> \</td></tr>
+<tr><td class="hl-num" data-line="91"></td><td>  local version=$($tool <span class="hl-k">-</span><span class="hl-k">-version</span> <span class="hl-c">2</span>>/dev/null<span class="hl-k">|</span> \</td></tr>
 <tr><td class="hl-num" data-line="92"></td><td>    sed <span class="hl-k">-n</span> <span class="hl-s">'s/.*[^0-9.]\([0-9]*\.[0-9.]*\).*/\1/p;q'</span>)</td></tr>
-<tr><td class="hl-num" data-line="93"></td><td>  <span class="hl-k">if</span> <span class="hl-c">test</span> x<span class="hl-s">"$version"</span> = x ; <span class="hl-k">then</span></td></tr>
+<tr><td class="hl-num" data-line="93"></td><td>  if <span class="hl-c">test</span> x<span class="hl-s">"$version"</span> = x ; then</td></tr>
 <tr><td class="hl-num" data-line="94"></td><td>      <span class="hl-c">echo</span> <span class="hl-s">"$tool is required"</span> >/dev/stderr</td></tr>
-<tr><td class="hl-num" data-line="95"></td><td>      <span class="hl-k">return</span> <span class="hl-c">1</span></td></tr>
-<tr><td class="hl-num" data-line="96"></td><td>  <span class="hl-k">fi</span></td></tr>
-<tr><td class="hl-num" data-line="97"></td><td>  <span class="hl-k">case</span> $(__require_tool_version_compare <span class="hl-s">"$2"</span> <span class="hl-s">"$version"</span>) <span class="hl-k">in</span></td></tr>
+<tr><td class="hl-num" data-line="95"></td><td>      return <span class="hl-c">1</span></td></tr>
+<tr><td class="hl-num" data-line="96"></td><td>  fi</td></tr>
+<tr><td class="hl-num" data-line="97"></td><td>  <span class="hl-k">case</span> $(__require_tool_version_compare <span class="hl-s">"$2"</span> <span class="hl-s">"$version"</span>) in</td></tr>
 <tr><td class="hl-num" data-line="98"></td><td>    <span class="hl-s">'&gt;'</span>)</td></tr>
 <tr><td class="hl-num" data-line="99"></td><td>	  <span class="hl-c">echo</span> <span class="hl-s">"$1 $2 or better is required: this is $tool $version"</span> >/dev/stderr</td></tr>
-<tr><td class="hl-num" data-line="100"></td><td>	  <span class="hl-k">return</span> <span class="hl-c">1</span></td></tr>
+<tr><td class="hl-num" data-line="100"></td><td>	  return <span class="hl-c">1</span></td></tr>
 <tr><td class="hl-num" data-line="101"></td><td>	  ;;</td></tr>
-<tr><td class="hl-num" data-line="102"></td><td>  <span class="hl-k">esac</span></td></tr>
+<tr><td class="hl-num" data-line="102"></td><td>  esac</td></tr>
 <tr><td class="hl-num" data-line="103"></td><td>}</td></tr>
 <tr><td class="hl-num" data-line="104"></td><td></td></tr>
 <tr><td class="hl-num" data-line="105"></td><td><span class="hl-en">usage</span>() {</td></tr>
@@ -147,18 +147,18 @@
 <tr><td class="hl-num" data-line="145"></td><td><span class="hl-s"><span class="hl-k">EOF</span></span></td></tr>
 <tr><td class="hl-num" data-line="146"></td><td>}</td></tr>
 <tr><td class="hl-num" data-line="147"></td><td></td></tr>
-<tr><td class="hl-num" data-line="148"></td><td><span class="hl-k">for</span> arg <span class="hl-k">in</span> $@; <span class="hl-k">do</span></td></tr>
-<tr><td class="hl-num" data-line="149"></td><td>    <span class="hl-k">case</span> $arg <span class="hl-k">in</span></td></tr>
+<tr><td class="hl-num" data-line="148"></td><td><span class="hl-k">for</span> arg in $@; do</td></tr>
+<tr><td class="hl-num" data-line="149"></td><td>    <span class="hl-k">case</span> $arg in</td></tr>
 <tr><td class="hl-num" data-line="150"></td><td>        <span class="hl-k">-h</span><span class="hl-k">|</span><span class="hl-k">-</span><span class="hl-k">-help</span>)</td></tr>
 <tr><td class="hl-num" data-line="151"></td><td>            usage</td></tr>
 <tr><td class="hl-num" data-line="152"></td><td>            <span class="hl-c">exit</span> <span class="hl-c">0</span></td></tr>
 <tr><td class="hl-num" data-line="153"></td><td>            ;;</td></tr>
-<tr><td class="hl-num" data-line="154"></td><td>    <span class="hl-k">esac</span></td></tr>
-<tr><td class="hl-num" data-line="155"></td><td><span class="hl-k">done</span></td></tr>
-<tr><td class="hl-num" data-line="156"></td><td><span class="hl-k">if</span> <span class="hl-k">[</span> $# <span class="hl-k">-gt</span> <span class="hl-c">2</span> <span class="hl-k">]</span> ; <span class="hl-k">then</span></td></tr>
+<tr><td class="hl-num" data-line="154"></td><td>    esac</td></tr>
+<tr><td class="hl-num" data-line="155"></td><td>done</td></tr>
+<tr><td class="hl-num" data-line="156"></td><td>if <span class="hl-k">[</span> $# <span class="hl-k">-gt</span> <span class="hl-c">2</span> <span class="hl-k">]</span> ; then</td></tr>
 <tr><td class="hl-num" data-line="157"></td><td>    <span class="hl-c">echo</span> <span class="hl-s">"ERROR: expecting 2 parameters. Please see option --help"</span></td></tr>
 <tr><td class="hl-num" data-line="158"></td><td>    <span class="hl-c">exit</span> <span class="hl-c">1</span></td></tr>
-<tr><td class="hl-num" data-line="159"></td><td><span class="hl-k">fi</span></td></tr>
+<tr><td class="hl-num" data-line="159"></td><td>fi</td></tr>
 <tr><td class="hl-num" data-line="160"></td><td><span class="hl-c">printf</span> <span class="hl-s">"Insmod $1 failed\n"</span></td></tr>
 <tr><td class="hl-num" data-line="161"></td><td>require_tool $@</td></tr>
 </tbody>
