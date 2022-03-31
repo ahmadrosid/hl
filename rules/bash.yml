@@ -20,5 +20,4 @@ condition:
   ACCEPT_ENTITY_TAG_SUFFIX: self.ch.is_numeric()
   BREAK_ENTITY_TAG_SUFFIX: "!self.ch.is_numeric() && !is_letter(self.ch)"
   SKIP_READ_ONE_QUOTE_STRING_ON_PREFIX: /
-# keyword: "case,continue,do,done,elif,else,esac,export,fi,for,function,if,in,local,return,select,then,time,until,while,EOF"
 keyword: "alias,bg,bind,break,caller,case,cd,complete,compopt,continue,coproc,declare,dirs,disown,enable,exec,export,fc,fg,for,function,getopts,help"
