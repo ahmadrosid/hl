@@ -3,6 +3,7 @@ pub mod ada;
 pub mod bash;
 pub mod c;
 pub mod clojure;
+pub mod coffescript;
 pub mod cpp;
 pub mod cs;
 pub mod css;

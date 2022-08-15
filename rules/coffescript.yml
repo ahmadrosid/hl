@@ -1,0 +1,19 @@
+constant: "true,false,yes,no,on,off"
+multi_line_string: '""","""'
+entity_prefix:
+  colon: ":"
+  left_parent: '('
+  ENTITY_DOT: "."
+entity_suffix:
+  dot: '.'
+  right_parent: ')'
+  eq: '='
+condition:
+  ACCEPT_STRING_DOUBLE_QUOTE: true
+  RENDER_MULTI_LINE_STRING: true
+  ACCEPT_ENTITY_TAG_SUFFIX: self.ch.is_numeric()
+  BREAK_ENTITY_TAG_SUFFIX: "!self.ch.is_numeric() && !is_letter(self.ch)"
+  ACCEPT_CHAR_IDENTIFIER: "./-!?"
+  PREFIX_ONE_LINE_COMMENT: '#'
+  MARK_ENTITY_TAG_SUFFIX: "="
+keyword: "await,when,catch,continue,debugger,default,by,until,delete,do,else,export,finally,for,class,extends,while,then,get,if,import,from,in,instanceof,new,reject,resolve,return,set,super,switch,this,throw,try,typeof,with,yield,unless"
