@@ -1,6 +1,6 @@
 # hl_core
 
-Github like Syntax highlighter in rust.
+Github like Syntax highlighter in rust. See the result in browser [here](https://play.tailwindcss.com/JevzqYGpuH).
 
 ## Example
 
