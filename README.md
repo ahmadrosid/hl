@@ -65,4 +65,4 @@ See the result in browser [here](https://play.tailwindcss.com/JevzqYGpuH).
 - [x] Makefile ( ✅ Done )
 - [x] Erlang ( ✅ Done )
 - [x] Vlang ( ✅ Done )
-- [x] coffescript ( ✅ Done )
+- [x] Coffescript ( ✅ Done )
