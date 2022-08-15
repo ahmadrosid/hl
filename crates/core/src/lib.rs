@@ -1,5 +1,5 @@
 pub mod lexers;
-use crate::lexers::{
+pub use crate::lexers::{
     actionscript, ada, bash, c, clojure, coffescript, cpp, cs, css, cuda, dart, edn, erlang, go,
     groovy, haskell, html, java, javascript, json, kotlin, lua, makefile, markdown, nim, php,
     python, raw, ruby, rust, toml, typescript, v, vue, yaml, zig,

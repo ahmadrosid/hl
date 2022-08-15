@@ -1,6 +1,6 @@
 [package]
 name = "hl_core"
-version = "0.1.0"
+version = "0.1.1"
 authors = ["Ahmad Rosid <alahmadrosid@gmail.com>"]
 description = """
 Syntax highlighting in Rust
