@@ -16,4 +16,3 @@ name = "hl_core"
 bench = false
 
 [dependencies]
-yaml-rust = "0.4"
