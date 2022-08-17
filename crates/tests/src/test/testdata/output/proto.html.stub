@@ -1,0 +1,223 @@
+<table class="highlight-table">
+<tbody>
+<tr><td class="hl-num" data-line="1"></td><td><span class="hl-k">syntax</span> = <span class="hl-s">"proto3"</span>;</td></tr>
+<tr><td class="hl-num" data-line="2"></td><td></td></tr>
+<tr><td class="hl-num" data-line="3"></td><td><span class="hl-k">package</span> rubelcontentforumcms;</td></tr>
+<tr><td class="hl-num" data-line="4"></td><td></td></tr>
+<tr><td class="hl-num" data-line="5"></td><td><span class="hl-k">import</span> <span class="hl-s">"google/api/annotations.proto"</span>;</td></tr>
+<tr><td class="hl-num" data-line="6"></td><td><span class="hl-k">import</span> <span class="hl-s">"google/protobuf/empty.proto"</span>;</td></tr>
+<tr><td class="hl-num" data-line="7"></td><td><span class="hl-k">import</span> <span class="hl-s">"extension/rg/rg.proto"</span>;</td></tr>
+<tr><td class="hl-num" data-line="8"></td><td><span class="hl-k">import</span> <span class="hl-s">"extension/validation/validation.proto"</span>;</td></tr>
+<tr><td class="hl-num" data-line="9"></td><td></td></tr>
+<tr><td class="hl-num" data-line="10"></td><td><span class="hl-k">service</span> <span class="hl-en">cms</span> {</td></tr>
+<tr><td class="hl-num" data-line="11"></td><td>    <span class="hl-k">rpc</span> <span class="hl-en">GetCurrentUserRole</span>(google.protobuf.Empty) <span class="hl-k">returns</span> (GetCurrentUserRoleResponse) {</td></tr>
+<tr><td class="hl-num" data-line="12"></td><td>        <span class="hl-k">option</span> (google.api.http) = {</td></tr>
+<tr><td class="hl-num" data-line="13"></td><td>            get: <span class="hl-s">"/content-forum/cms/user-role"</span></td></tr>
+<tr><td class="hl-num" data-line="14"></td><td>        };</td></tr>
+<tr><td class="hl-num" data-line="15"></td><td></td></tr>
+<tr><td class="hl-num" data-line="16"></td><td>        <span class="hl-k">option</span> (rg.auth) = {enabled: <span class="hl-c">true</span>, roles: <span class="hl-s">"admin,student,teacher,employee"</span>};</td></tr>
+<tr><td class="hl-num" data-line="17"></td><td>        <span class="hl-k">option</span> (rg.gateway_url) = <span class="hl-s">"/api/v3/content-forum/cms/user-role"</span>;</td></tr>
+<tr><td class="hl-num" data-line="18"></td><td></td></tr>
+<tr><td class="hl-num" data-line="19"></td><td>        <span class="hl-k">option</span> (rg.errors) = {name: <span class="hl-s">"GENERAL_INTERNAL_ERROR"</span>, http_status:INTERNAL_SERVER_ERROR, code:<span class="hl-c">29201</span>, <span class="hl-k">message</span>:<span class="hl-s">"internal error"</span>};</td></tr>
+<tr><td class="hl-num" data-line="20"></td><td>        <span class="hl-k">option</span> (rg.errors) = {name: <span class="hl-s">"GENERAL_CONTEXT_ERROR"</span>, http_status:INTERNAL_SERVER_ERROR, code:<span class="hl-c">29202</span>, <span class="hl-k">message</span>:<span class="hl-s">"internal context error"</span>};</td></tr>
+<tr><td class="hl-num" data-line="21"></td><td>        <span class="hl-k">option</span> (rg.errors) = {name: <span class="hl-s">"GENERAL_DB_ERROR"</span>, http_status:INTERNAL_SERVER_ERROR, code:<span class="hl-c">29203</span>, <span class="hl-k">message</span>:<span class="hl-s">"db error"</span>};</td></tr>
+<tr><td class="hl-num" data-line="22"></td><td>        <span class="hl-k">option</span> (rg.errors) = {name: <span class="hl-s">"GENERAL_NOT_FOUND_ERROR"</span>, http_status:NOT_FOUND, code:<span class="hl-c">29104</span>, <span class="hl-k">message</span>:<span class="hl-s">"not found"</span>};</td></tr>
+<tr><td class="hl-num" data-line="23"></td><td>    }</td></tr>
+<tr><td class="hl-num" data-line="24"></td><td></td></tr>
+<tr><td class="hl-num" data-line="25"></td><td>    <span class="hl-k">rpc</span> <span class="hl-en">GetThreadList</span>(GetThreadListRequest) <span class="hl-k">returns</span> (GetThreadListResponse) {</td></tr>
+<tr><td class="hl-num" data-line="26"></td><td>        <span class="hl-k">option</span> (google.api.http) = {</td></tr>
+<tr><td class="hl-num" data-line="27"></td><td>            get: <span class="hl-s">"/content-forum/cms/threads"</span></td></tr>
+<tr><td class="hl-num" data-line="28"></td><td>        };</td></tr>
+<tr><td class="hl-num" data-line="29"></td><td></td></tr>
+<tr><td class="hl-num" data-line="30"></td><td>        <span class="hl-k">option</span> (rg.auth) = {enabled: <span class="hl-c">true</span>, roles: <span class="hl-s">"admin,student,teacher,employee"</span>};</td></tr>
+<tr><td class="hl-num" data-line="31"></td><td>        <span class="hl-k">option</span> (rg.gateway_url) = <span class="hl-s">"/api/v3/content-forum/cms/threads"</span>;</td></tr>
+<tr><td class="hl-num" data-line="32"></td><td></td></tr>
+<tr><td class="hl-num" data-line="33"></td><td>        <span class="hl-k">option</span> (rg.errors) = {name: <span class="hl-s">"GENERAL_INTERNAL_ERROR"</span>, http_status:INTERNAL_SERVER_ERROR, code:<span class="hl-c">29205</span>, <span class="hl-k">message</span>:<span class="hl-s">"internal error"</span>};</td></tr>
+<tr><td class="hl-num" data-line="34"></td><td>        <span class="hl-k">option</span> (rg.errors) = {name: <span class="hl-s">"GENERAL_CONTEXT_ERROR"</span>, http_status:INTERNAL_SERVER_ERROR, code:<span class="hl-c">29206</span>, <span class="hl-k">message</span>:<span class="hl-s">"internal context error"</span>};</td></tr>
+<tr><td class="hl-num" data-line="35"></td><td>        <span class="hl-k">option</span> (rg.errors) = {name: <span class="hl-s">"GENERAL_DB_ERROR"</span>, http_status:INTERNAL_SERVER_ERROR, code:<span class="hl-c">29207</span>, <span class="hl-k">message</span>:<span class="hl-s">"db error"</span>};</td></tr>
+<tr><td class="hl-num" data-line="36"></td><td>        <span class="hl-k">option</span> (rg.errors) = {name: <span class="hl-s">"GENERAL_UPSTREAM_ERROR"</span>, http_status:INTERNAL_SERVER_ERROR, code:<span class="hl-c">29208</span>, <span class="hl-k">message</span>:<span class="hl-s">"upstream error"</span>};</td></tr>
+<tr><td class="hl-num" data-line="37"></td><td>    }</td></tr>
+<tr><td class="hl-num" data-line="38"></td><td></td></tr>
+<tr><td class="hl-num" data-line="39"></td><td>    <span class="hl-k">rpc</span> <span class="hl-en">GetThreadDetail</span>(GetThreadDetailRequest) <span class="hl-k">returns</span> (GetThreadDetailResponse) {</td></tr>
+<tr><td class="hl-num" data-line="40"></td><td>        <span class="hl-k">option</span> (google.api.http) = {</td></tr>
+<tr><td class="hl-num" data-line="41"></td><td>            get: <span class="hl-s">"/content-forum/cms/thread/detail"</span></td></tr>
+<tr><td class="hl-num" data-line="42"></td><td>        };</td></tr>
+<tr><td class="hl-num" data-line="43"></td><td></td></tr>
+<tr><td class="hl-num" data-line="44"></td><td>        <span class="hl-k">option</span> (rg.auth) = {enabled: <span class="hl-c">true</span>, roles: <span class="hl-s">"admin,student,teacher,employee"</span>};</td></tr>
+<tr><td class="hl-num" data-line="45"></td><td>        <span class="hl-k">option</span> (rg.gateway_url) = <span class="hl-s">"/api/v3/content-forum/cms/thread/detail"</span>;</td></tr>
+<tr><td class="hl-num" data-line="46"></td><td></td></tr>
+<tr><td class="hl-num" data-line="47"></td><td>        <span class="hl-k">option</span> (rg.errors) = {name: <span class="hl-s">"GENERAL_INTERNAL_ERROR"</span>, http_status:INTERNAL_SERVER_ERROR, code:<span class="hl-c">29209</span>, <span class="hl-k">message</span>:<span class="hl-s">"internal error"</span>};</td></tr>
+<tr><td class="hl-num" data-line="48"></td><td>        <span class="hl-k">option</span> (rg.errors) = {name: <span class="hl-s">"GENERAL_CONTEXT_ERROR"</span>, http_status:INTERNAL_SERVER_ERROR, code:<span class="hl-c">29210</span>, <span class="hl-k">message</span>:<span class="hl-s">"internal context error"</span>};</td></tr>
+<tr><td class="hl-num" data-line="49"></td><td>        <span class="hl-k">option</span> (rg.errors) = {name: <span class="hl-s">"GENERAL_DB_ERROR"</span>, http_status:INTERNAL_SERVER_ERROR, code:<span class="hl-c">29211</span>, <span class="hl-k">message</span>:<span class="hl-s">"db error"</span>};</td></tr>
+<tr><td class="hl-num" data-line="50"></td><td>        <span class="hl-k">option</span> (rg.errors) = {name: <span class="hl-s">"GENERAL_UPSTREAM_ERROR"</span>, http_status:INTERNAL_SERVER_ERROR, code:<span class="hl-c">29212</span>, <span class="hl-k">message</span>:<span class="hl-s">"upstream error"</span>};</td></tr>
+<tr><td class="hl-num" data-line="51"></td><td>        <span class="hl-k">option</span> (rg.errors) = {name: <span class="hl-s">"GENERAL_NOT_FOUND_ERROR"</span>, http_status:NOT_FOUND, code:<span class="hl-c">29104</span>, <span class="hl-k">message</span>:<span class="hl-s">"not found"</span>};</td></tr>
+<tr><td class="hl-num" data-line="52"></td><td>    }</td></tr>
+<tr><td class="hl-num" data-line="53"></td><td></td></tr>
+<tr><td class="hl-num" data-line="54"></td><td>    <span class="hl-k">rpc</span> <span class="hl-en">GetDiscussionList</span>(GetDiscussionListRequest) <span class="hl-k">returns</span> (GetDiscussionListResponse) {</td></tr>
+<tr><td class="hl-num" data-line="55"></td><td>        <span class="hl-k">option</span> (google.api.http) = {</td></tr>
+<tr><td class="hl-num" data-line="56"></td><td>            get: <span class="hl-s">"/content-forum/cms/discussions"</span></td></tr>
+<tr><td class="hl-num" data-line="57"></td><td>        };</td></tr>
+<tr><td class="hl-num" data-line="58"></td><td></td></tr>
+<tr><td class="hl-num" data-line="59"></td><td>        <span class="hl-k">option</span> (rg.auth) = {enabled: <span class="hl-c">true</span>, roles: <span class="hl-s">"admin,student,teacher,employee"</span>};</td></tr>
+<tr><td class="hl-num" data-line="60"></td><td>        <span class="hl-k">option</span> (rg.gateway_url) = <span class="hl-s">"/api/v3/content-forum/cms/discussions"</span>;</td></tr>
+<tr><td class="hl-num" data-line="61"></td><td></td></tr>
+<tr><td class="hl-num" data-line="62"></td><td>        <span class="hl-k">option</span> (rg.errors) = {name: <span class="hl-s">"GENERAL_INTERNAL_ERROR"</span>, http_status:INTERNAL_SERVER_ERROR, code:<span class="hl-c">29213</span>, <span class="hl-k">message</span>:<span class="hl-s">"internal error"</span>};</td></tr>
+<tr><td class="hl-num" data-line="63"></td><td>        <span class="hl-k">option</span> (rg.errors) = {name: <span class="hl-s">"GENERAL_CONTEXT_ERROR"</span>, http_status:INTERNAL_SERVER_ERROR, code:<span class="hl-c">29214</span>, <span class="hl-k">message</span>:<span class="hl-s">"internal context error"</span>};</td></tr>
+<tr><td class="hl-num" data-line="64"></td><td>        <span class="hl-k">option</span> (rg.errors) = {name: <span class="hl-s">"GENERAL_DB_ERROR"</span>, http_status:INTERNAL_SERVER_ERROR, code:<span class="hl-c">29215</span>, <span class="hl-k">message</span>:<span class="hl-s">"db error"</span>};</td></tr>
+<tr><td class="hl-num" data-line="65"></td><td>        <span class="hl-k">option</span> (rg.errors) = {name: <span class="hl-s">"GENERAL_UPSTREAM_ERROR"</span>, http_status:INTERNAL_SERVER_ERROR, code:<span class="hl-c">29216</span>, <span class="hl-k">message</span>:<span class="hl-s">"upstream error"</span>};</td></tr>
+<tr><td class="hl-num" data-line="66"></td><td>    }</td></tr>
+<tr><td class="hl-num" data-line="67"></td><td></td></tr>
+<tr><td class="hl-num" data-line="68"></td><td>    <span class="hl-k">rpc</span> <span class="hl-en">CreateThread</span>(CreateThreadRequest) <span class="hl-k">returns</span> (google.protobuf.Empty){</td></tr>
+<tr><td class="hl-num" data-line="69"></td><td>        <span class="hl-k">option</span> (google.api.http) = {</td></tr>
+<tr><td class="hl-num" data-line="70"></td><td>            post: <span class="hl-s">"/content-forum/cms/thread"</span>,</td></tr>
+<tr><td class="hl-num" data-line="71"></td><td>            body: <span class="hl-s">"*"</span>,</td></tr>
+<tr><td class="hl-num" data-line="72"></td><td>        };</td></tr>
+<tr><td class="hl-num" data-line="73"></td><td>        <span class="hl-k">option</span> (rg.auth) = {enabled: <span class="hl-c">true</span>, roles: <span class="hl-s">"admin,student,teacher,employee"</span>};</td></tr>
+<tr><td class="hl-num" data-line="74"></td><td>        <span class="hl-k">option</span> (rg.gateway_url) = <span class="hl-s">'/api/v3/content-forum/cms/thread'</span>;</td></tr>
+<tr><td class="hl-num" data-line="75"></td><td>        <span class="hl-k">option</span> (rg.errors) = {name: <span class="hl-s">"GENERAL_INTERNAL_ERROR"</span>, http_status:INTERNAL_SERVER_ERROR, code:<span class="hl-c">29117</span>, <span class="hl-k">message</span>:<span class="hl-s">"internal error"</span>};</td></tr>
+<tr><td class="hl-num" data-line="76"></td><td>        <span class="hl-k">option</span> (rg.errors) = {name: <span class="hl-s">"GENERAL_BAD_REQUEST_ERROR"</span>, http_status:BAD_REQUEST, code:<span class="hl-c">29118</span>, <span class="hl-k">message</span>:<span class="hl-s">"bad request error"</span>};</td></tr>
+<tr><td class="hl-num" data-line="77"></td><td>        <span class="hl-k">option</span> (rg.errors) = {name: <span class="hl-s">"GENERAL_DB_ERROR"</span>, http_status:INTERNAL_SERVER_ERROR, code:<span class="hl-c">29119</span>, <span class="hl-k">message</span>:<span class="hl-s">"db error"</span>};</td></tr>
+<tr><td class="hl-num" data-line="78"></td><td>        <span class="hl-k">option</span> (rg.errors) = {name: <span class="hl-s">"GENERAL_CONTEXT_ERROR"</span>, http_status:INTERNAL_SERVER_ERROR, code:<span class="hl-c">29220</span>, <span class="hl-k">message</span>:<span class="hl-s">"context error"</span>};</td></tr>
+<tr><td class="hl-num" data-line="79"></td><td>        <span class="hl-k">option</span> (rg.errors) = {name: <span class="hl-s">"GENERAL_UPSTREAM_ERROR"</span>, http_status:INTERNAL_SERVER_ERROR, code:<span class="hl-c">29121</span>, <span class="hl-k">message</span>:<span class="hl-s">"upstream error"</span>};</td></tr>
+<tr><td class="hl-num" data-line="80"></td><td>        <span class="hl-k">option</span> (rg.errors) = {name: <span class="hl-s">"GENERAL_NOT_FOUND_ERROR"</span>, http_status:NOT_FOUND, code:<span class="hl-c">291021</span>, <span class="hl-k">message</span>:<span class="hl-s">"not found"</span>};</td></tr>
+<tr><td class="hl-num" data-line="81"></td><td>    }</td></tr>
+<tr><td class="hl-num" data-line="82"></td><td></td></tr>
+<tr><td class="hl-num" data-line="83"></td><td>    <span class="hl-k">rpc</span> <span class="hl-en">CreateDiscussion</span>(CreateDiscussionRequest) <span class="hl-k">returns</span> (google.protobuf.Empty){</td></tr>
+<tr><td class="hl-num" data-line="84"></td><td>        <span class="hl-k">option</span> (google.api.http) = {</td></tr>
+<tr><td class="hl-num" data-line="85"></td><td>            post: <span class="hl-s">"/content-forum/cms/discussion"</span>,</td></tr>
+<tr><td class="hl-num" data-line="86"></td><td>            body: <span class="hl-s">"*"</span>,</td></tr>
+<tr><td class="hl-num" data-line="87"></td><td>        };</td></tr>
+<tr><td class="hl-num" data-line="88"></td><td>        <span class="hl-k">option</span> (rg.auth) = {enabled: <span class="hl-c">true</span>, roles: <span class="hl-s">"admin,student,teacher,employee"</span>};</td></tr>
+<tr><td class="hl-num" data-line="89"></td><td>        <span class="hl-k">option</span> (rg.gateway_url) = <span class="hl-s">'/api/v3/content-forum/cms/discussion'</span>;</td></tr>
+<tr><td class="hl-num" data-line="90"></td><td>        <span class="hl-k">option</span> (rg.errors) = {name: <span class="hl-s">"GENERAL_INTERNAL_ERROR"</span>, http_status:INTERNAL_SERVER_ERROR, code:<span class="hl-c">29122</span>, <span class="hl-k">message</span>:<span class="hl-s">"internal error"</span>};</td></tr>
+<tr><td class="hl-num" data-line="91"></td><td>        <span class="hl-k">option</span> (rg.errors) = {name: <span class="hl-s">"GENERAL_BAD_REQUEST_ERROR"</span>, http_status:BAD_REQUEST, code:<span class="hl-c">29123</span>, <span class="hl-k">message</span>:<span class="hl-s">"bad request error"</span>};</td></tr>
+<tr><td class="hl-num" data-line="92"></td><td>        <span class="hl-k">option</span> (rg.errors) = {name: <span class="hl-s">"GENERAL_DB_ERROR"</span>, http_status:INTERNAL_SERVER_ERROR, code:<span class="hl-c">29124</span>, <span class="hl-k">message</span>:<span class="hl-s">"db error"</span>};</td></tr>
+<tr><td class="hl-num" data-line="93"></td><td>        <span class="hl-k">option</span> (rg.errors) = {name: <span class="hl-s">"GENERAL_CONTEXT_ERROR"</span>, http_status:INTERNAL_SERVER_ERROR, code:<span class="hl-c">29225</span>, <span class="hl-k">message</span>:<span class="hl-s">"context error"</span>};</td></tr>
+<tr><td class="hl-num" data-line="94"></td><td>        <span class="hl-k">option</span> (rg.errors) = {name: <span class="hl-s">"GENERAL_UPSTREAM_ERROR"</span>, http_status:INTERNAL_SERVER_ERROR, code:<span class="hl-c">29226</span>, <span class="hl-k">message</span>:<span class="hl-s">"upstream error"</span>};</td></tr>
+<tr><td class="hl-num" data-line="95"></td><td>        <span class="hl-k">option</span> (rg.errors) = {name: <span class="hl-s">"GENERAL_NOT_FOUND_ERROR"</span>, http_status:NOT_FOUND, code:<span class="hl-c">291027</span>, <span class="hl-k">message</span>:<span class="hl-s">"not found"</span>};</td></tr>
+<tr><td class="hl-num" data-line="96"></td><td>    }</td></tr>
+<tr><td class="hl-num" data-line="97"></td><td></td></tr>
+<tr><td class="hl-num" data-line="98"></td><td>    <span class="hl-k">rpc</span> <span class="hl-en">ApproveThread</span>(ApproveThreadRequest) <span class="hl-k">returns</span> (google.protobuf.Empty){</td></tr>
+<tr><td class="hl-num" data-line="99"></td><td>        <span class="hl-k">option</span> (google.api.http) = {</td></tr>
+<tr><td class="hl-num" data-line="100"></td><td>            post: <span class="hl-s">"/content-forum/cms/thread/approve"</span>,</td></tr>
+<tr><td class="hl-num" data-line="101"></td><td>            body: <span class="hl-s">"*"</span>,</td></tr>
+<tr><td class="hl-num" data-line="102"></td><td>        };</td></tr>
+<tr><td class="hl-num" data-line="103"></td><td>        <span class="hl-k">option</span> (rg.auth) = {enabled: <span class="hl-c">true</span>, roles: <span class="hl-s">"admin,student,teacher,employee"</span>};</td></tr>
+<tr><td class="hl-num" data-line="104"></td><td>        <span class="hl-k">option</span> (rg.gateway_url) = <span class="hl-s">'/api/v3/content-forum/cms/thread/approve'</span>;</td></tr>
+<tr><td class="hl-num" data-line="105"></td><td>        <span class="hl-k">option</span> (rg.errors) = {name: <span class="hl-s">"GENERAL_INTERNAL_ERROR"</span>, http_status:INTERNAL_SERVER_ERROR, code:<span class="hl-c">29128</span>, <span class="hl-k">message</span>:<span class="hl-s">"internal error"</span>};</td></tr>
+<tr><td class="hl-num" data-line="106"></td><td>        <span class="hl-k">option</span> (rg.errors) = {name: <span class="hl-s">"GENERAL_DB_ERROR"</span>, http_status:INTERNAL_SERVER_ERROR, code:<span class="hl-c">29129</span>, <span class="hl-k">message</span>:<span class="hl-s">"db error"</span>};</td></tr>
+<tr><td class="hl-num" data-line="107"></td><td>        <span class="hl-k">option</span> (rg.errors) = {name: <span class="hl-s">"UNAUTHORIZED"</span>, http_status:UNAUTHORIZED, code:<span class="hl-c">29230</span>, <span class="hl-k">message</span>:<span class="hl-s">"unauthorize"</span>};</td></tr>
+<tr><td class="hl-num" data-line="108"></td><td>        <span class="hl-k">option</span> (rg.errors) = {name: <span class="hl-s">"GENERAL_NOT_FOUND_ERROR"</span>, http_status:NOT_FOUND, code:<span class="hl-c">291031</span>, <span class="hl-k">message</span>:<span class="hl-s">"not found"</span>};</td></tr>
+<tr><td class="hl-num" data-line="109"></td><td>        <span class="hl-k">option</span> (rg.errors) = {name: <span class="hl-s">"GENERAL_CONTEXT_ERROR"</span>, http_status:INTERNAL_SERVER_ERROR, code:<span class="hl-c">29232</span>, <span class="hl-k">message</span>:<span class="hl-s">"context error"</span>};</td></tr>
+<tr><td class="hl-num" data-line="110"></td><td>    }</td></tr>
+<tr><td class="hl-num" data-line="111"></td><td>}</td></tr>
+<tr><td class="hl-num" data-line="112"></td><td></td></tr>
+<tr><td class="hl-num" data-line="113"></td><td><span class="hl-k">enum</span> <span class="hl-en">ContainerState</span> {</td></tr>
+<tr><td class="hl-num" data-line="114"></td><td>    CONTAINER_CREATED = <span class="hl-c">0</span>;</td></tr>
+<tr><td class="hl-num" data-line="115"></td><td>    CONTAINER_RUNNING = <span class="hl-c">1</span>;</td></tr>
+<tr><td class="hl-num" data-line="116"></td><td>    CONTAINER_EXITED  = <span class="hl-c">2</span>;</td></tr>
+<tr><td class="hl-num" data-line="117"></td><td>    CONTAINER_UNKNOWN = <span class="hl-c">3</span>;</td></tr>
+<tr><td class="hl-num" data-line="118"></td><td>}</td></tr>
+<tr><td class="hl-num" data-line="119"></td><td></td></tr>
+<tr><td class="hl-num" data-line="120"></td><td><span class="hl-k">message</span> <span class="hl-en">ListContainersRequest</span> {</td></tr>
+<tr><td class="hl-num" data-line="121"></td><td>    ContainerFilter filter = <span class="hl-c">1</span>;</td></tr>
+<tr><td class="hl-num" data-line="122"></td><td>    <span class="hl-k">map</span><<span class="hl-k">string</span>, <span class="hl-k">string</span>> label_selector = <span class="hl-c">4</span>;</td></tr>
+<tr><td class="hl-num" data-line="123"></td><td>    uint64  size = <span class="hl-c">4</span></td></tr>
+<tr><td class="hl-num" data-line="124"></td><td>}</td></tr>
+<tr><td class="hl-num" data-line="125"></td><td></td></tr>
+<tr><td class="hl-num" data-line="126"></td><td><span class="hl-k">message</span> <span class="hl-en">GetCurrentUserRoleResponse</span> {</td></tr>
+<tr><td class="hl-num" data-line="127"></td><td>	<span class="hl-k">string</span> role = <span class="hl-c">1</span>;</td></tr>
+<tr><td class="hl-num" data-line="128"></td><td>}</td></tr>
+<tr><td class="hl-num" data-line="129"></td><td></td></tr>
+<tr><td class="hl-num" data-line="130"></td><td><span class="hl-k">message</span> <span class="hl-en">GetThreadListRequest</span> {</td></tr>
+<tr><td class="hl-num" data-line="131"></td><td>	<span class="hl-k">string</span> gradeSerial = <span class="hl-c">1</span>;</td></tr>
+<tr><td class="hl-num" data-line="132"></td><td>	<span class="hl-k">string</span> curriculumSerial = <span class="hl-c">2</span>;</td></tr>
+<tr><td class="hl-num" data-line="133"></td><td>	<span class="hl-k">string</span> courseSerial = <span class="hl-c">3</span>;</td></tr>
+<tr><td class="hl-num" data-line="134"></td><td>	<span class="hl-k">string</span> topicSerial = <span class="hl-c">4</span>;</td></tr>
+<tr><td class="hl-num" data-line="135"></td><td>	<span class="hl-k">string</span> subtopicSerial = <span class="hl-c">5</span>;</td></tr>
+<tr><td class="hl-num" data-line="136"></td><td>	<span class="hl-k">string</span> missionSerial = <span class="hl-c">6</span>;</td></tr>
+<tr><td class="hl-num" data-line="137"></td><td>	<span class="hl-k">string</span> status = <span class="hl-c">7</span>;</td></tr>
+<tr><td class="hl-num" data-line="138"></td><td>    <span class="hl-k">int32</span> page = <span class="hl-c">8</span>;</td></tr>
+<tr><td class="hl-num" data-line="139"></td><td>    <span class="hl-k">int32</span> pageSize = <span class="hl-c">9</span>;</td></tr>
+<tr><td class="hl-num" data-line="140"></td><td>}</td></tr>
+<tr><td class="hl-num" data-line="141"></td><td></td></tr>
+<tr><td class="hl-num" data-line="142"></td><td><span class="hl-k">message</span> <span class="hl-en">MetaGetThreadList</span> {</td></tr>
+<tr><td class="hl-num" data-line="143"></td><td>    <span class="hl-k">int32</span> page = <span class="hl-c">1</span>;</td></tr>
+<tr><td class="hl-num" data-line="144"></td><td>    <span class="hl-k">int32</span> pageSize = <span class="hl-c">2</span>;</td></tr>
+<tr><td class="hl-num" data-line="145"></td><td>    <span class="hl-k">int32</span> totalPage = <span class="hl-c">3</span>;</td></tr>
+<tr><td class="hl-num" data-line="146"></td><td>    <span class="hl-k">int32</span> totalItem = <span class="hl-c">4</span>;</td></tr>
+<tr><td class="hl-num" data-line="147"></td><td>}</td></tr>
+<tr><td class="hl-num" data-line="148"></td><td></td></tr>
+<tr><td class="hl-num" data-line="149"></td><td><span class="hl-k">message</span> <span class="hl-en">User</span> {</td></tr>
+<tr><td class="hl-num" data-line="150"></td><td>    <span class="hl-k">string</span> name = <span class="hl-c">1</span>;</td></tr>
+<tr><td class="hl-num" data-line="151"></td><td>    <span class="hl-k">string</span> profilePicture = <span class="hl-c">2</span>;</td></tr>
+<tr><td class="hl-num" data-line="152"></td><td>    <span class="hl-k">string</span> serial = <span class="hl-c">3</span>;</td></tr>
+<tr><td class="hl-num" data-line="153"></td><td>}</td></tr>
+<tr><td class="hl-num" data-line="154"></td><td></td></tr>
+<tr><td class="hl-num" data-line="155"></td><td><span class="hl-k">message</span> <span class="hl-en">Thread</span> {</td></tr>
+<tr><td class="hl-num" data-line="156"></td><td>    <span class="hl-k">string</span> forumSerial = <span class="hl-c">1</span>;</td></tr>
+<tr><td class="hl-num" data-line="157"></td><td>    <span class="hl-k">string</span> serial = <span class="hl-c">2</span>;</td></tr>
+<tr><td class="hl-num" data-line="158"></td><td>    <span class="hl-k">string</span> content = <span class="hl-c">3</span>;</td></tr>
+<tr><td class="hl-num" data-line="159"></td><td>    <span class="hl-k">string</span> createdAt = <span class="hl-c">4</span>;</td></tr>
+<tr><td class="hl-num" data-line="160"></td><td>    <span class="hl-k">int32</span> likeCount = <span class="hl-c">5</span>;</td></tr>
+<tr><td class="hl-num" data-line="161"></td><td>    <span class="hl-k">int32</span> replyCount = <span class="hl-c">6</span>;</td></tr>
+<tr><td class="hl-num" data-line="162"></td><td>    <span class="hl-k">string</span> publishStatus = <span class="hl-c">7</span>;</td></tr>
+<tr><td class="hl-num" data-line="163"></td><td>    <span class="hl-k">bool</span> isVerified = <span class="hl-c">8</span>;</td></tr>
+<tr><td class="hl-num" data-line="164"></td><td>    <span class="hl-k">bool</span> isAnsweredByMT = <span class="hl-c">9</span>;</td></tr>
+<tr><td class="hl-num" data-line="165"></td><td>    User user = <span class="hl-c">10</span>;</td></tr>
+<tr><td class="hl-num" data-line="166"></td><td>    <span class="hl-k">string</span> missionSerial = <span class="hl-c">11</span>;</td></tr>
+<tr><td class="hl-num" data-line="167"></td><td>    <span class="hl-k">bool</span> isBookmarked = <span class="hl-c">12</span>;</td></tr>
+<tr><td class="hl-num" data-line="168"></td><td>}</td></tr>
+<tr><td class="hl-num" data-line="169"></td><td></td></tr>
+<tr><td class="hl-num" data-line="170"></td><td><span class="hl-k">message</span> <span class="hl-en">GetThreadListResponse</span> {</td></tr>
+<tr><td class="hl-num" data-line="171"></td><td>	<span class="hl-k">repeated</span> Thread threads = <span class="hl-c">1</span>;</td></tr>
+<tr><td class="hl-num" data-line="172"></td><td>	MetaGetThreadList meta = <span class="hl-c">2</span>;</td></tr>
+<tr><td class="hl-num" data-line="173"></td><td>}</td></tr>
+<tr><td class="hl-num" data-line="174"></td><td></td></tr>
+<tr><td class="hl-num" data-line="175"></td><td><span class="hl-k">message</span> <span class="hl-en">GetThreadDetailRequest</span> {</td></tr>
+<tr><td class="hl-num" data-line="176"></td><td>    <span class="hl-k">string</span> serial = <span class="hl-c">1</span> [(validation.rules)=<span class="hl-s">"required"</span>];</td></tr>
+<tr><td class="hl-num" data-line="177"></td><td>}</td></tr>
+<tr><td class="hl-num" data-line="178"></td><td></td></tr>
+<tr><td class="hl-num" data-line="179"></td><td><span class="hl-k">message</span> <span class="hl-en">Discussion</span> {</td></tr>
+<tr><td class="hl-num" data-line="180"></td><td>    <span class="hl-k">string</span> forumThreadSerial = <span class="hl-c">1</span>;</td></tr>
+<tr><td class="hl-num" data-line="181"></td><td>    <span class="hl-k">string</span> serial = <span class="hl-c">2</span>;</td></tr>
+<tr><td class="hl-num" data-line="182"></td><td>    <span class="hl-k">string</span> content = <span class="hl-c">3</span>;</td></tr>
+<tr><td class="hl-num" data-line="183"></td><td>    <span class="hl-k">string</span> createdAt = <span class="hl-c">4</span>;</td></tr>
+<tr><td class="hl-num" data-line="184"></td><td>    <span class="hl-k">int32</span> likeCount = <span class="hl-c">5</span>;</td></tr>
+<tr><td class="hl-num" data-line="185"></td><td>    <span class="hl-k">string</span> publishStatus = <span class="hl-c">6</span>;</td></tr>
+<tr><td class="hl-num" data-line="186"></td><td>    <span class="hl-k">bool</span> isVerified = <span class="hl-c">7</span>;</td></tr>
+<tr><td class="hl-num" data-line="187"></td><td>    User user = <span class="hl-c">8</span>;</td></tr>
+<tr><td class="hl-num" data-line="188"></td><td>    <span class="hl-k">repeated</span> Attachment attachments = <span class="hl-c">9</span>;</td></tr>
+<tr><td class="hl-num" data-line="189"></td><td>}</td></tr>
+<tr><td class="hl-num" data-line="190"></td><td></td></tr>
+<tr><td class="hl-num" data-line="191"></td><td><span class="hl-k">message</span> <span class="hl-en">MetaGetDiscussionList</span> {</td></tr>
+<tr><td class="hl-num" data-line="192"></td><td>    <span class="hl-k">int32</span> page = <span class="hl-c">1</span>;</td></tr>
+<tr><td class="hl-num" data-line="193"></td><td>    <span class="hl-k">int32</span> pageSize = <span class="hl-c">2</span>;</td></tr>
+<tr><td class="hl-num" data-line="194"></td><td>    <span class="hl-k">int32</span> totalPage = <span class="hl-c">3</span>;</td></tr>
+<tr><td class="hl-num" data-line="195"></td><td>    <span class="hl-k">int32</span> totalItem = <span class="hl-c">4</span>;</td></tr>
+<tr><td class="hl-num" data-line="196"></td><td>}</td></tr>
+<tr><td class="hl-num" data-line="197"></td><td></td></tr>
+<tr><td class="hl-num" data-line="198"></td><td><span class="hl-k">message</span> <span class="hl-en">GetDiscussionListResponse</span> {</td></tr>
+<tr><td class="hl-num" data-line="199"></td><td>    <span class="hl-k">repeated</span> Discussion discussions = <span class="hl-c">1</span>;</td></tr>
+<tr><td class="hl-num" data-line="200"></td><td>    MetaGetDiscussionList meta = <span class="hl-c">2</span>;</td></tr>
+<tr><td class="hl-num" data-line="201"></td><td>}</td></tr>
+<tr><td class="hl-num" data-line="202"></td><td></td></tr>
+<tr><td class="hl-num" data-line="203"></td><td><span class="hl-k">message</span> <span class="hl-en">CreateThreadRequest</span>{</td></tr>
+<tr><td class="hl-num" data-line="204"></td><td>    <span class="hl-k">string</span> missionSerial = <span class="hl-c">1</span> [(validation.rules)=<span class="hl-s">"required"</span>];</td></tr>
+<tr><td class="hl-num" data-line="205"></td><td>    <span class="hl-k">string</span> content = <span class="hl-c">2</span> [(validation.rules)=<span class="hl-s">"required"</span>];</td></tr>
+<tr><td class="hl-num" data-line="206"></td><td>}</td></tr>
+<tr><td class="hl-num" data-line="207"></td><td></td></tr>
+<tr><td class="hl-num" data-line="208"></td><td><span class="hl-k">message</span> <span class="hl-en">CreateDiscussionRequest</span>{</td></tr>
+<tr><td class="hl-num" data-line="209"></td><td>    <span class="hl-k">string</span> forumThreadSerial = <span class="hl-c">1</span> [(validation.rules)=<span class="hl-s">"required"</span>];</td></tr>
+<tr><td class="hl-num" data-line="210"></td><td>    <span class="hl-k">string</span> content = <span class="hl-c">2</span> [(validation.rules)=<span class="hl-s">"required"</span>];</td></tr>
+<tr><td class="hl-num" data-line="211"></td><td>    <span class="hl-k">repeated</span> Attachment attachments = <span class="hl-c">3</span>;</td></tr>
+<tr><td class="hl-num" data-line="212"></td><td>}</td></tr>
+<tr><td class="hl-num" data-line="213"></td><td></td></tr>
+<tr><td class="hl-num" data-line="214"></td><td><span class="hl-k">message</span> <span class="hl-en">GetDiscussionPageListRequest</span> {</td></tr>
+<tr><td class="hl-num" data-line="215"></td><td>    <span class="hl-k">int32</span> page = <span class="hl-c">1</span>;</td></tr>
+<tr><td class="hl-num" data-line="216"></td><td>    <span class="hl-k">int32</span> pageSize = <span class="hl-c">2</span>;</td></tr>
+<tr><td class="hl-num" data-line="217"></td><td>    <span class="hl-k">string</span> status = <span class="hl-c">3</span>;</td></tr>
+<tr><td class="hl-num" data-line="218"></td><td>}</td></tr>
+<tr><td class="hl-num" data-line="219"></td><td></td></tr>
+</tbody>
+</table>

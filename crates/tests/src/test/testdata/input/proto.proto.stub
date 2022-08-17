@@ -1,0 +1,218 @@
+syntax = "proto3";
+
+package rubelcontentforumcms;
+
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+import "extension/rg/rg.proto";
+import "extension/validation/validation.proto";
+
+service cms {
+    rpc GetCurrentUserRole(google.protobuf.Empty) returns (GetCurrentUserRoleResponse) {
+        option (google.api.http) = {
+            get: "/content-forum/cms/user-role"
+        };
+
+        option (rg.auth) = {enabled: true, roles: "admin,student,teacher,employee"};
+        option (rg.gateway_url) = "/api/v3/content-forum/cms/user-role";
+
+        option (rg.errors) = {name: "GENERAL_INTERNAL_ERROR", http_status:INTERNAL_SERVER_ERROR, code:29201, message:"internal error"};
+        option (rg.errors) = {name: "GENERAL_CONTEXT_ERROR", http_status:INTERNAL_SERVER_ERROR, code:29202, message:"internal context error"};
+        option (rg.errors) = {name: "GENERAL_DB_ERROR", http_status:INTERNAL_SERVER_ERROR, code:29203, message:"db error"};
+        option (rg.errors) = {name: "GENERAL_NOT_FOUND_ERROR", http_status:NOT_FOUND, code:29104, message:"not found"};
+    }
+
+    rpc GetThreadList(GetThreadListRequest) returns (GetThreadListResponse) {
+        option (google.api.http) = {
+            get: "/content-forum/cms/threads"
+        };
+
+        option (rg.auth) = {enabled: true, roles: "admin,student,teacher,employee"};
+        option (rg.gateway_url) = "/api/v3/content-forum/cms/threads";
+
+        option (rg.errors) = {name: "GENERAL_INTERNAL_ERROR", http_status:INTERNAL_SERVER_ERROR, code:29205, message:"internal error"};
+        option (rg.errors) = {name: "GENERAL_CONTEXT_ERROR", http_status:INTERNAL_SERVER_ERROR, code:29206, message:"internal context error"};
+        option (rg.errors) = {name: "GENERAL_DB_ERROR", http_status:INTERNAL_SERVER_ERROR, code:29207, message:"db error"};
+        option (rg.errors) = {name: "GENERAL_UPSTREAM_ERROR", http_status:INTERNAL_SERVER_ERROR, code:29208, message:"upstream error"};
+    }
+
+    rpc GetThreadDetail(GetThreadDetailRequest) returns (GetThreadDetailResponse) {
+        option (google.api.http) = {
+            get: "/content-forum/cms/thread/detail"
+        };
+
+        option (rg.auth) = {enabled: true, roles: "admin,student,teacher,employee"};
+        option (rg.gateway_url) = "/api/v3/content-forum/cms/thread/detail";
+
+        option (rg.errors) = {name: "GENERAL_INTERNAL_ERROR", http_status:INTERNAL_SERVER_ERROR, code:29209, message:"internal error"};
+        option (rg.errors) = {name: "GENERAL_CONTEXT_ERROR", http_status:INTERNAL_SERVER_ERROR, code:29210, message:"internal context error"};
+        option (rg.errors) = {name: "GENERAL_DB_ERROR", http_status:INTERNAL_SERVER_ERROR, code:29211, message:"db error"};
+        option (rg.errors) = {name: "GENERAL_UPSTREAM_ERROR", http_status:INTERNAL_SERVER_ERROR, code:29212, message:"upstream error"};
+        option (rg.errors) = {name: "GENERAL_NOT_FOUND_ERROR", http_status:NOT_FOUND, code:29104, message:"not found"};
+    }
+
+    rpc GetDiscussionList(GetDiscussionListRequest) returns (GetDiscussionListResponse) {
+        option (google.api.http) = {
+            get: "/content-forum/cms/discussions"
+        };
+
+        option (rg.auth) = {enabled: true, roles: "admin,student,teacher,employee"};
+        option (rg.gateway_url) = "/api/v3/content-forum/cms/discussions";
+
+        option (rg.errors) = {name: "GENERAL_INTERNAL_ERROR", http_status:INTERNAL_SERVER_ERROR, code:29213, message:"internal error"};
+        option (rg.errors) = {name: "GENERAL_CONTEXT_ERROR", http_status:INTERNAL_SERVER_ERROR, code:29214, message:"internal context error"};
+        option (rg.errors) = {name: "GENERAL_DB_ERROR", http_status:INTERNAL_SERVER_ERROR, code:29215, message:"db error"};
+        option (rg.errors) = {name: "GENERAL_UPSTREAM_ERROR", http_status:INTERNAL_SERVER_ERROR, code:29216, message:"upstream error"};
+    }
+
+    rpc CreateThread(CreateThreadRequest) returns (google.protobuf.Empty){
+        option (google.api.http) = {
+            post: "/content-forum/cms/thread",
+            body: "*",
+        };
+        option (rg.auth) = {enabled: true, roles: "admin,student,teacher,employee"};
+        option (rg.gateway_url) = '/api/v3/content-forum/cms/thread';
+        option (rg.errors) = {name: "GENERAL_INTERNAL_ERROR", http_status:INTERNAL_SERVER_ERROR, code:29117, message:"internal error"};
+        option (rg.errors) = {name: "GENERAL_BAD_REQUEST_ERROR", http_status:BAD_REQUEST, code:29118, message:"bad request error"};
+        option (rg.errors) = {name: "GENERAL_DB_ERROR", http_status:INTERNAL_SERVER_ERROR, code:29119, message:"db error"};
+        option (rg.errors) = {name: "GENERAL_CONTEXT_ERROR", http_status:INTERNAL_SERVER_ERROR, code:29220, message:"context error"};
+        option (rg.errors) = {name: "GENERAL_UPSTREAM_ERROR", http_status:INTERNAL_SERVER_ERROR, code:29121, message:"upstream error"};
+        option (rg.errors) = {name: "GENERAL_NOT_FOUND_ERROR", http_status:NOT_FOUND, code:291021, message:"not found"};
+    }
+
+    rpc CreateDiscussion(CreateDiscussionRequest) returns (google.protobuf.Empty){
+        option (google.api.http) = {
+            post: "/content-forum/cms/discussion",
+            body: "*",
+        };
+        option (rg.auth) = {enabled: true, roles: "admin,student,teacher,employee"};
+        option (rg.gateway_url) = '/api/v3/content-forum/cms/discussion';
+        option (rg.errors) = {name: "GENERAL_INTERNAL_ERROR", http_status:INTERNAL_SERVER_ERROR, code:29122, message:"internal error"};
+        option (rg.errors) = {name: "GENERAL_BAD_REQUEST_ERROR", http_status:BAD_REQUEST, code:29123, message:"bad request error"};
+        option (rg.errors) = {name: "GENERAL_DB_ERROR", http_status:INTERNAL_SERVER_ERROR, code:29124, message:"db error"};
+        option (rg.errors) = {name: "GENERAL_CONTEXT_ERROR", http_status:INTERNAL_SERVER_ERROR, code:29225, message:"context error"};
+        option (rg.errors) = {name: "GENERAL_UPSTREAM_ERROR", http_status:INTERNAL_SERVER_ERROR, code:29226, message:"upstream error"};
+        option (rg.errors) = {name: "GENERAL_NOT_FOUND_ERROR", http_status:NOT_FOUND, code:291027, message:"not found"};
+    }
+
+    rpc ApproveThread(ApproveThreadRequest) returns (google.protobuf.Empty){
+        option (google.api.http) = {
+            post: "/content-forum/cms/thread/approve",
+            body: "*",
+        };
+        option (rg.auth) = {enabled: true, roles: "admin,student,teacher,employee"};
+        option (rg.gateway_url) = '/api/v3/content-forum/cms/thread/approve';
+        option (rg.errors) = {name: "GENERAL_INTERNAL_ERROR", http_status:INTERNAL_SERVER_ERROR, code:29128, message:"internal error"};
+        option (rg.errors) = {name: "GENERAL_DB_ERROR", http_status:INTERNAL_SERVER_ERROR, code:29129, message:"db error"};
+        option (rg.errors) = {name: "UNAUTHORIZED", http_status:UNAUTHORIZED, code:29230, message:"unauthorize"};
+        option (rg.errors) = {name: "GENERAL_NOT_FOUND_ERROR", http_status:NOT_FOUND, code:291031, message:"not found"};
+        option (rg.errors) = {name: "GENERAL_CONTEXT_ERROR", http_status:INTERNAL_SERVER_ERROR, code:29232, message:"context error"};
+    }
+}
+
+enum ContainerState {
+    CONTAINER_CREATED = 0;
+    CONTAINER_RUNNING = 1;
+    CONTAINER_EXITED  = 2;
+    CONTAINER_UNKNOWN = 3;
+}
+
+message ListContainersRequest {
+    ContainerFilter filter = 1;
+    map<string, string> label_selector = 4;
+    uint64  size = 4
+}
+
+message GetCurrentUserRoleResponse {
+	string role = 1;
+}
+
+message GetThreadListRequest {
+	string gradeSerial = 1;
+	string curriculumSerial = 2;
+	string courseSerial = 3;
+	string topicSerial = 4;
+	string subtopicSerial = 5;
+	string missionSerial = 6;
+	string status = 7;
+    int32 page = 8;
+    int32 pageSize = 9;
+}
+
+message MetaGetThreadList {
+    int32 page = 1;
+    int32 pageSize = 2;
+    int32 totalPage = 3;
+    int32 totalItem = 4;
+}
+
+message User {
+    string name = 1;
+    string profilePicture = 2;
+    string serial = 3;
+}
+
+message Thread {
+    string forumSerial = 1;
+    string serial = 2;
+    string content = 3;
+    string createdAt = 4;
+    int32 likeCount = 5;
+    int32 replyCount = 6;
+    string publishStatus = 7;
+    bool isVerified = 8;
+    bool isAnsweredByMT = 9;
+    User user = 10;
+    string missionSerial = 11;
+    bool isBookmarked = 12;
+}
+
+message GetThreadListResponse {
+	repeated Thread threads = 1;
+	MetaGetThreadList meta = 2;
+}
+
+message GetThreadDetailRequest {
+    string serial = 1 [(validation.rules)="required"];
+}
+
+message Discussion {
+    string forumThreadSerial = 1;
+    string serial = 2;
+    string content = 3;
+    string createdAt = 4;
+    int32 likeCount = 5;
+    string publishStatus = 6;
+    bool isVerified = 7;
+    User user = 8;
+    repeated Attachment attachments = 9;
+}
+
+message MetaGetDiscussionList {
+    int32 page = 1;
+    int32 pageSize = 2;
+    int32 totalPage = 3;
+    int32 totalItem = 4;
+}
+
+message GetDiscussionListResponse {
+    repeated Discussion discussions = 1;
+    MetaGetDiscussionList meta = 2;
+}
+
+message CreateThreadRequest{
+    string missionSerial = 1 [(validation.rules)="required"];
+    string content = 2 [(validation.rules)="required"];
+}
+
+message CreateDiscussionRequest{
+    string forumThreadSerial = 1 [(validation.rules)="required"];
+    string content = 2 [(validation.rules)="required"];
+    repeated Attachment attachments = 3;
+}
+
+message GetDiscussionPageListRequest {
+    int32 page = 1;
+    int32 pageSize = 2;
+    string status = 3;
+}

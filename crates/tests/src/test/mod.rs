@@ -299,3 +299,13 @@ fn test_nim() {
     let actual = nim::render_html(input);
     assert_eq!(expected, actual);
 }
+
+#[test]
+fn test_proto() {
+    let input = include_str!("testdata/input/proto.proto.stub")
+        .chars()
+        .collect::<Vec<char>>();
+    let expected = include_str!("testdata/output/proto.html.stub");
+    let actual = proto::render_html(input);
+    assert_eq!(expected, actual);
+}

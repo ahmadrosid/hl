@@ -66,3 +66,4 @@ See the result in browser [here](https://play.tailwindcss.com/JevzqYGpuH).
 - [x] Erlang ( ✅ Done )
 - [x] Vlang ( ✅ Done )
 - [x] Coffescript ( ✅ Done )
+- [x] Protocol Buffer ( ✅ Done )

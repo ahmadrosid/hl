@@ -24,6 +24,7 @@ pub mod makefile;
 pub mod markdown;
 pub mod nim;
 pub mod php;
+pub mod proto;
 pub mod python;
 pub mod raw;
 pub mod ruby;

@@ -1,0 +1,14 @@
+multi_line_comment: "/*,*/"
+constant: "true,false"
+entity_suffix:
+  left_paren: "("
+  right_brace: "{"
+condition:
+  ACCEPT_ESCAPED_STRING: true
+  ACCEPT_STRING_ONE_QUOTE: true
+  ACCEPT_STRING_DOUBLE_QUOTE: true
+  ACCEPT_ENTITY_TAG_SUFFIX: self.ch.is_numeric()
+  BREAK_ENTITY_TAG_SUFFIX: "!self.ch.is_numeric() && !is_letter(self.ch)"
+  ACCEPT_HEXADECIMAL_NUMBER: true
+  PREFIX_ONE_LINE_COMMENT: //
+keyword: "package,import,rpc,returns,option,string,int32,bool,int,repeated,message,service,int64,enum,map,syntax,extensions,to,bytes,required,oneof,union"
