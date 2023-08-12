@@ -29,7 +29,7 @@ async fn main() -> std::io::Result<()> {
             .service(index)
             .service(web::resource("/ws").route(web::get().to(echo_ws)))
     })
-    .bind(("127.0.0.1", 8080))?
+    .bind(("0.0.0.0", 8080))?
     .run()
     .await
 }
