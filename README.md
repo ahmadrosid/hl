@@ -7,6 +7,11 @@ cargo run --package hl --example html examples/html.rs -l rust
 ```
 
 ### 💡 Example Result
+
+![demo](/demo.png)
+
+It will produce html code like this:
+
 ```html
 <table class="highlight-table">
 <tbody>
