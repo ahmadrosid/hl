@@ -43,5 +43,14 @@
     {{template}}
     text
 
+    <script>
+    function test() {
+        return 1;
+    }
+
+    document.addEventListener('click', function() {
+        test();
+    });
+    </script>
 </body>
 </html>

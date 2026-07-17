@@ -718,6 +718,15 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
             module.push_tabln(8, "|| self.ch == '>') {");
             module.push_tabln(9, "return keyword_token;");
             module.push_tabln(8, "}");
+            // Keywords like `class`/`for` must still become attributes via var_suffix.
+            for ch in get_var_suffix(h).values() {
+                let source = include_str!("stub/module/handle_identifier_suffix.stub").to_string();
+                module.push_str(
+                    &source
+                        .replace("{ch}", ch.as_str().unwrap())
+                        .replace("{token}", "VAR"),
+                );
+            }
             module.push_tabln(8, "return Token::IDENT(identifier);");
         } else {
             module.push_tabln(9, "if self.input[start_position-1] == '<'");

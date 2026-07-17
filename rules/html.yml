@@ -2,8 +2,20 @@ multi_line_comment: "<!--,-->"
 
 xml_entity_tag: "html,head,title,meta,link,base,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,button,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,select,small,strike,strong,sub,sup,script,style,tt,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,canvas,embed,output,ruby,summary,time,mark,audio,video,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section,main,template,textarea,input,hr,br,wbr,noscript,picture,source,svg,path,slot,dialog,area,map,param,progress,meter,datalist,optgroup,option,col,colgroup,track"
 
+constant: "true,false,undefined,null"
+
+keyword: "async,await,break,case,catch,class,const,continue,debugger,default,delete,do,else,enum,export,extends,finally,for,function,if,implements,import,in,instanceof,interface,let,new,package,private,protected,public,return,super,switch,static,this,throw,try,typeof,var,void,while,with,yield"
+
+var: "Infinity,NaN,Math,Date"
+
 var_suffix:
   eq: "="
+
+entity_prefix:
+  ENTITY_DOT: "."
+
+entity_suffix:
+  left_brace: (
 
 condition:
   ACCEPT_ESCAPED_STRING: true
@@ -13,3 +25,5 @@ condition:
   ENCODE_LT_STRING: "&lt;"
   ENCODE_GT: ">"
   ENCODE_GT_STRING: "&gt;"
+  PREFIX_ONE_LINE_COMMENT: //
+  MARK_HTML_EMBEDDED_SECTIONS: true

@@ -6,6 +6,8 @@ pub struct Lexer {
     pub position: usize,
     pub read_position: usize,
     pub ch: char,
+    in_script: bool,
+    in_style: bool,
 }
 
 fn is_letter(ch: char) -> bool {
@@ -19,6 +21,8 @@ impl Lexer {
             position: 0,
             read_position: 0,
             ch: '\0',
+            in_script: false,
+            in_style: false,
         }
     }
 
@@ -90,7 +94,15 @@ if self.ch == '<' {
         identifier.append(&mut self.input[start_position..self.position].to_vec());
         return Token::COMMENT(identifier);
     }
-}        match self.ch {
+}        if self.in_script {
+if self.read_position < self.input.len() && self.ch == '/'
+    && self.input[self.read_position] == '/'
+{
+    return Token::COMMENT(read_string(self, '\n'));
+}
+
+        }
+        match self.ch {
             '\n' => {
                 tok = Token::ENDL(self.ch);
             }
@@ -105,14 +117,75 @@ if self.ch == '<' {
                     let mut identifier: Vec<char> = read_identifier(self);
                     match get_keyword_token(&identifier) {
                             Ok(keyword_token) => {
-                                    if self.input[start_position-1] == '<'
-                                    || self.input[start_position-1] == '/'
-                                    || self.ch == '>' {
-                                    return keyword_token
+                                if start_position > 0 {
+                                    let prev = self.input[start_position - 1];
+                                    let embedded_tag: String = identifier.iter().collect();
+                                    if prev == '<' {
+                                        if embedded_tag == "script" {
+                                            self.in_script = true;
+                                        } else if embedded_tag == "style" {
+                                            self.in_style = true;
+                                        }
+                                    } else if prev == '/' {
+                                        if embedded_tag == "script" {
+                                            self.in_script = false;
+                                        } else if embedded_tag == "style" {
+                                            self.in_style = false;
+                                        }
+                                    }
                                 }
+                                if self.in_script || self.in_style {
+                                    if let Token::ENTITYTAG(_) = keyword_token {
+                                        if start_position > 0
+                                        && (self.input[start_position - 1] == '<'
+                                        || self.input[start_position - 1] == '/') {
+                                            return keyword_token;
+                                        }
+                                        return Token::IDENT(identifier);
+                                    }
+                                    return keyword_token;
+                                } else if start_position > 0
+                                && (self.input[start_position - 1] == '<'
+                                || self.input[start_position - 1] == '/'
+                                || self.ch == '>') {
+                                    return keyword_token;
+                                }
+if self.ch == '=' {
+    return Token::VAR(identifier);
+} else if self.ch.is_whitespace() {
+    let mut position = self.position;
+    let mut ch = self.input[position];
+    while position < self.input.len() && ch.is_whitespace() {
+        position += 1;
+        if position < self.input.len() {
+            ch = self.input[position];
+        }
+    }
+    if ch == '=' {
+        return Token::VAR(identifier)
+    }
+}
                                 return Token::IDENT(identifier);
                             },
                             Err(_) => {
+                                if start_position > 0 && self.input[start_position - 1] == '.' {
+                                    return Token::ENTITY(identifier)
+                                }
+if self.ch == '(' {
+    return Token::ENTITY(identifier);
+} else if self.ch.is_whitespace() {
+    let mut position = self.position;
+    let mut ch = self.input[position];
+    while position < self.input.len() && ch.is_whitespace() {
+        position += 1;
+        if position < self.input.len() {
+            ch = self.input[position];
+        }
+    }
+    if ch == '(' {
+        return Token::ENTITY(identifier)
+    }
+}
 if self.ch == '=' {
     return Token::VAR(identifier);
 } else if self.ch.is_whitespace() {
@@ -151,7 +224,7 @@ if self.ch == '=' {
 }
 
 pub fn get_keyword_token(identifier: &Vec<char>) -> Result<Token, String> {let id: String = identifier.into_iter().collect();match &id[..] {
-"html"|"head"|"title"|"meta"|"link"|"base"|"body"|"div"|"span"|"applet"|"object"|"iframe"|"h1"|"h2"|"h3"|"h4"|"h5"|"h6"|"p"|"blockquote"|"button"|"pre"|"a"|"abbr"|"acronym"|"address"|"big"|"cite"|"code"|"del"|"dfn"|"em"|"img"|"ins"|"kbd"|"q"|"s"|"samp"|"select"|"small"|"strike"|"strong"|"sub"|"sup"|"script"|"style"|"tt"|"b"|"u"|"i"|"center"|"dl"|"dt"|"dd"|"ol"|"ul"|"li"|"fieldset"|"form"|"label"|"legend"|"table"|"caption"|"tbody"|"tfoot"|"thead"|"tr"|"th"|"td"|"article"|"canvas"|"embed"|"output"|"ruby"|"summary"|"time"|"mark"|"audio"|"video"|"aside"|"details"|"figcaption"|"figure"|"footer"|"header"|"hgroup"|"menu"|"nav"|"section"|"main"|"template"|"textarea"|"input"|"hr"|"br"|"wbr"|"noscript"|"picture"|"source"|"svg"|"path"|"slot"|"dialog"|"area"|"map"|"param"|"progress"|"meter"|"datalist"|"optgroup"|"option"|"col"|"colgroup"|"track" => Ok(Token::ENTITYTAG(identifier.clone())),_ => Err(String::from("Not a keyword")),}}
+"true"|"false"|"undefined"|"null" => Ok(Token::CONSTANT(identifier.clone())),"Infinity"|"NaN"|"Math"|"Date" => Ok(Token::VAR(identifier.clone())),"async"|"await"|"break"|"case"|"catch"|"class"|"const"|"continue"|"debugger"|"default"|"delete"|"do"|"else"|"enum"|"export"|"extends"|"finally"|"for"|"function"|"if"|"implements"|"import"|"in"|"instanceof"|"interface"|"let"|"new"|"package"|"private"|"protected"|"public"|"return"|"super"|"switch"|"static"|"this"|"throw"|"try"|"typeof"|"var"|"void"|"while"|"with"|"yield" => Ok(Token::KEYWORD(identifier.clone())),"html"|"head"|"title"|"meta"|"link"|"base"|"body"|"div"|"span"|"applet"|"object"|"iframe"|"h1"|"h2"|"h3"|"h4"|"h5"|"h6"|"p"|"blockquote"|"button"|"pre"|"a"|"abbr"|"acronym"|"address"|"big"|"cite"|"code"|"del"|"dfn"|"em"|"img"|"ins"|"kbd"|"q"|"s"|"samp"|"select"|"small"|"strike"|"strong"|"sub"|"sup"|"script"|"style"|"tt"|"b"|"u"|"i"|"center"|"dl"|"dt"|"dd"|"ol"|"ul"|"li"|"fieldset"|"form"|"label"|"legend"|"table"|"caption"|"tbody"|"tfoot"|"thead"|"tr"|"th"|"td"|"article"|"canvas"|"embed"|"output"|"ruby"|"summary"|"time"|"mark"|"audio"|"video"|"aside"|"details"|"figcaption"|"figure"|"footer"|"header"|"hgroup"|"menu"|"nav"|"section"|"main"|"template"|"textarea"|"input"|"hr"|"br"|"wbr"|"noscript"|"picture"|"source"|"svg"|"path"|"slot"|"dialog"|"area"|"map"|"param"|"progress"|"meter"|"datalist"|"optgroup"|"option"|"col"|"colgroup"|"track" => Ok(Token::ENTITYTAG(identifier.clone())),_ => Err(String::from("Not a keyword")),}}
 
 pub fn render_html(input: Vec<char>) -> String {
     let mut l = Lexer::new(input);
@@ -195,6 +268,15 @@ Token::INT(value) => {
                     }
                 }
                 html.push_str(&format!("<span class=\"hl-s\">{}</span>", s));
+            }
+            Token::ENTITY(value) => {
+                html.push_str(&format!("<span class=\"hl-en\">{}</span>", value.iter().collect::<String>()));
+            }
+Token::CONSTANT(value) => {
+    html.push_str(&format!("<span class=\"hl-c\">{}</span>", value.iter().collect::<String>()));
+}
+            Token::KEYWORD(value) => {
+                html.push_str(&format!("<span class=\"hl-k\">{}</span>", value.iter().collect::<String>()));
             }
 Token::ENTITYTAG(value) => {
     let mut s = String::new();

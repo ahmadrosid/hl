@@ -45,8 +45,17 @@
 <tr><td class="hl-num" data-line="43"></td><td>    {{template}}</td></tr>
 <tr><td class="hl-num" data-line="44"></td><td>    text</td></tr>
 <tr><td class="hl-num" data-line="45"></td><td></td></tr>
-<tr><td class="hl-num" data-line="46"></td><td>&lt;/<span class="hl-ent">body</span>&gt;</td></tr>
-<tr><td class="hl-num" data-line="47"></td><td>&lt;/<span class="hl-ent">html</span>&gt;</td></tr>
-<tr><td class="hl-num" data-line="48"></td><td></td></tr>
+<tr><td class="hl-num" data-line="46"></td><td>    &lt;<span class="hl-ent">script</span>&gt;</td></tr>
+<tr><td class="hl-num" data-line="47"></td><td>    <span class="hl-k">function</span> <span class="hl-en">test</span>() {</td></tr>
+<tr><td class="hl-num" data-line="48"></td><td>        <span class="hl-k">return</span> <span class="hl-c">1</span>;</td></tr>
+<tr><td class="hl-num" data-line="49"></td><td>    }</td></tr>
+<tr><td class="hl-num" data-line="50"></td><td></td></tr>
+<tr><td class="hl-num" data-line="51"></td><td>    document.<span class="hl-en">addEventListener</span>(<span class="hl-s">'click'</span>, <span class="hl-k">function</span>() {</td></tr>
+<tr><td class="hl-num" data-line="52"></td><td>        <span class="hl-en">test</span>();</td></tr>
+<tr><td class="hl-num" data-line="53"></td><td>    });</td></tr>
+<tr><td class="hl-num" data-line="54"></td><td>    &lt;/<span class="hl-ent">script</span>&gt;</td></tr>
+<tr><td class="hl-num" data-line="55"></td><td>&lt;/<span class="hl-ent">body</span>&gt;</td></tr>
+<tr><td class="hl-num" data-line="56"></td><td>&lt;/<span class="hl-ent">html</span>&gt;</td></tr>
+<tr><td class="hl-num" data-line="57"></td><td></td></tr>
 </tbody>
 </table>
