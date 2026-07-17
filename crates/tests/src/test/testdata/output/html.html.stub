@@ -1,41 +1,52 @@
 <table class="highlight-table">
 <tbody>
-<tr><td class="hl-num" data-line="1"></td><td>&lt;?xml version=<span class="hl-s">"1.0"</span> encoding=<span class="hl-s">"utf-8"</span>?></td></tr>
-<tr><td class="hl-num" data-line="2"></td><td>&lt;!DOCTYPE <span class="hl-ent">html</span>></td></tr>
-<tr><td class="hl-num" data-line="3"></td><td>&lt;<span class="hl-ent">html</span>></td></tr>
-<tr><td class="hl-num" data-line="4"></td><td>&lt;<span class="hl-ent">head</span>></td></tr>
-<tr><td class="hl-num" data-line="5"></td><td>    &lt;<span class="hl-ent">meta</span> charset=<span class="hl-s">"utf-8"</span> /></td></tr>
-<tr><td class="hl-num" data-line="6"></td><td>    &lt;<span class="hl-ent">title</span>>Page Title Here&lt;/<span class="hl-ent">title</span>></td></tr>
+<tr><td class="hl-num" data-line="1"></td><td>&lt;?xml <span class="hl-v">version</span>=<span class="hl-s">"1.0"</span> <span class="hl-v">encoding</span>=<span class="hl-s">"utf-8"</span>?&gt;</td></tr>
+<tr><td class="hl-num" data-line="2"></td><td>&lt;!DOCTYPE <span class="hl-ent">html</span>&gt;</td></tr>
+<tr><td class="hl-num" data-line="3"></td><td>&lt;<span class="hl-ent">html</span>&gt;</td></tr>
+<tr><td class="hl-num" data-line="4"></td><td>&lt;<span class="hl-ent">head</span>&gt;</td></tr>
+<tr><td class="hl-num" data-line="5"></td><td>    &lt;<span class="hl-ent">meta</span> <span class="hl-v">charset</span>=<span class="hl-s">"utf-8"</span> /&gt;</td></tr>
+<tr><td class="hl-num" data-line="6"></td><td>    &lt;<span class="hl-ent">title</span>&gt;Page Title Here&lt;/<span class="hl-ent">title</span>&gt;</td></tr>
 <tr><td class="hl-num" data-line="7"></td><td>    <span class="hl-cmt">&lt;!-- this comment's</span></td></tr>
 <tr><td class="hl-num" data-line="8"></td><td><span class="hl-cmt">        indentation should</span></td></tr>
 <tr><td class="hl-num" data-line="9"></td><td><span class="hl-cmt">        be unchanged</span></td></tr>
 <tr><td class="hl-num" data-line="10"></td><td><span class="hl-cmt">    --&gt;</span></td></tr>
-<tr><td class="hl-num" data-line="11"></td><td>&lt;/<span class="hl-ent">head</span>></td></tr>
-<tr><td class="hl-num" data-line="12"></td><td>&lt;<span class="hl-ent">body</span>></td></tr>
-<tr><td class="hl-num" data-line="13"></td><td>    &lt;<span class="hl-ent">div</span>>The script should not be highlighted! An a as well!&lt;/<span class="hl-ent">div</span>></td></tr>
-<tr><td class="hl-num" data-line="14"></td><td>    &lt;<span class="hl-ent">div</span> class=<span class="hl-s">"main"</span>></td></tr>
-<tr><td class="hl-num" data-line="15"></td><td>        &lt;<span class="hl-ent">span</span> class=<span class="hl-s">"something"</span>>Blah&lt;/<span class="hl-ent">span</span>></td></tr>
-<tr><td class="hl-num" data-line="16"></td><td>        &lt;<span class="hl-ent">span</span> class=<span class="hl-s">"something"</span>></td></tr>
+<tr><td class="hl-num" data-line="11"></td><td>&lt;/<span class="hl-ent">head</span>&gt;</td></tr>
+<tr><td class="hl-num" data-line="12"></td><td>&lt;<span class="hl-ent">body</span>&gt;</td></tr>
+<tr><td class="hl-num" data-line="13"></td><td>    &lt;<span class="hl-ent">div</span>&gt;The script should not be highlighted! An a as well!&lt;/<span class="hl-ent">div</span>&gt;</td></tr>
+<tr><td class="hl-num" data-line="14"></td><td>    &lt;<span class="hl-ent">div</span> <span class="hl-v">class</span>=<span class="hl-s">"main"</span>&gt;</td></tr>
+<tr><td class="hl-num" data-line="15"></td><td>        &lt;<span class="hl-ent">span</span> <span class="hl-v">class</span>=<span class="hl-s">"something"</span>&gt;Blah&lt;/<span class="hl-ent">span</span>&gt;</td></tr>
+<tr><td class="hl-num" data-line="16"></td><td>        &lt;<span class="hl-ent">span</span> <span class="hl-v">class</span>=<span class="hl-s">"something"</span>&gt;</td></tr>
 <tr><td class="hl-num" data-line="17"></td><td>            Foobar</td></tr>
-<tr><td class="hl-num" data-line="18"></td><td>        &lt;/<span class="hl-ent">span</span>></td></tr>
-<tr><td class="hl-num" data-line="19"></td><td>    &lt;/<span class="hl-ent">div</span>></td></tr>
+<tr><td class="hl-num" data-line="18"></td><td>        &lt;/<span class="hl-ent">span</span>&gt;</td></tr>
+<tr><td class="hl-num" data-line="19"></td><td>    &lt;/<span class="hl-ent">div</span>&gt;</td></tr>
 <tr><td class="hl-num" data-line="20"></td><td></td></tr>
-<tr><td class="hl-num" data-line="21"></td><td>    &lt;<span class="hl-ent">script</span> type=<span class="hl-s">"text/javascript"</span> src=<span class="hl-s">"/some_script.js"</span>>&lt;/<span class="hl-ent">script</span>></td></tr>
+<tr><td class="hl-num" data-line="21"></td><td>    &lt;<span class="hl-ent">script</span> <span class="hl-v">type</span>=<span class="hl-s">"text/javascript"</span> <span class="hl-v">src</span>=<span class="hl-s">"/some_script.js"</span>&gt;&lt;/<span class="hl-ent">script</span>&gt;</td></tr>
 <tr><td class="hl-num" data-line="22"></td><td></td></tr>
-<tr><td class="hl-num" data-line="23"></td><td>    <span class="hl-cmt">&lt;!-- Curly braces --&gt;</span></td></tr>
-<tr><td class="hl-num" data-line="24"></td><td>    foo {</td></tr>
-<tr><td class="hl-num" data-line="25"></td><td>        bar { <span class="hl-cmt">&lt;!-- comment --&gt;</span></td></tr>
-<tr><td class="hl-num" data-line="26"></td><td>            baz</td></tr>
-<tr><td class="hl-num" data-line="27"></td><td>        }</td></tr>
-<tr><td class="hl-num" data-line="28"></td><td>    }</td></tr>
-<tr><td class="hl-num" data-line="29"></td><td>    text</td></tr>
-<tr><td class="hl-num" data-line="30"></td><td>    { &lt;<span class="hl-ent">p</span>>&lt;/<span class="hl-ent">p</span>> }</td></tr>
-<tr><td class="hl-num" data-line="31"></td><td>    text</td></tr>
-<tr><td class="hl-num" data-line="32"></td><td>    {{template}}</td></tr>
-<tr><td class="hl-num" data-line="33"></td><td>    text</td></tr>
-<tr><td class="hl-num" data-line="34"></td><td></td></tr>
-<tr><td class="hl-num" data-line="35"></td><td>&lt;/<span class="hl-ent">body</span>></td></tr>
-<tr><td class="hl-num" data-line="36"></td><td>&lt;/<span class="hl-ent">html</span>></td></tr>
-<tr><td class="hl-num" data-line="37"></td><td></td></tr>
+<tr><td class="hl-num" data-line="23"></td><td>    &lt;<span class="hl-ent">main</span> <span class="hl-v">id</span>=<span class="hl-s">"content"</span> data-<span class="hl-v">role</span>=<span class="hl-s">"page"</span>&gt;</td></tr>
+<tr><td class="hl-num" data-line="24"></td><td>        &lt;<span class="hl-ent">picture</span>&gt;</td></tr>
+<tr><td class="hl-num" data-line="25"></td><td>            &lt;<span class="hl-ent">source</span> <span class="hl-v">srcset</span>=<span class="hl-s">"img.webp"</span> <span class="hl-v">type</span>=<span class="hl-s">"image/webp"</span> /&gt;</td></tr>
+<tr><td class="hl-num" data-line="26"></td><td>            &lt;<span class="hl-ent">img</span> <span class="hl-v">src</span>=<span class="hl-s">"img.png"</span> <span class="hl-v">alt</span>=<span class="hl-s">"Example"</span> /&gt;</td></tr>
+<tr><td class="hl-num" data-line="27"></td><td>        &lt;/<span class="hl-ent">picture</span>&gt;</td></tr>
+<tr><td class="hl-num" data-line="28"></td><td>        &lt;<span class="hl-ent">svg</span> <span class="hl-v">width</span>=<span class="hl-s">"10"</span> <span class="hl-v">height</span>=<span class="hl-s">"10"</span>&gt;&lt;<span class="hl-ent">path</span> <span class="hl-v">d</span>=<span class="hl-s">"M0 0"</span> /&gt;&lt;/<span class="hl-ent">svg</span>&gt;</td></tr>
+<tr><td class="hl-num" data-line="29"></td><td>    &lt;/<span class="hl-ent">main</span>&gt;</td></tr>
+<tr><td class="hl-num" data-line="30"></td><td></td></tr>
+<tr><td class="hl-num" data-line="31"></td><td>    &lt;<span class="hl-ent">noscript</span>&gt;Enable JavaScript&lt;/<span class="hl-ent">noscript</span>&gt;</td></tr>
+<tr><td class="hl-num" data-line="32"></td><td>    &lt;<span class="hl-ent">template</span> <span class="hl-v">id</span>=<span class="hl-s">"tpl"</span>&gt;&lt;<span class="hl-ent">p</span>&gt;Template&lt;/<span class="hl-ent">p</span>&gt;&lt;/<span class="hl-ent">template</span>&gt;</td></tr>
+<tr><td class="hl-num" data-line="33"></td><td></td></tr>
+<tr><td class="hl-num" data-line="34"></td><td>    <span class="hl-cmt">&lt;!-- Curly braces --&gt;</span></td></tr>
+<tr><td class="hl-num" data-line="35"></td><td>    foo {</td></tr>
+<tr><td class="hl-num" data-line="36"></td><td>        bar { <span class="hl-cmt">&lt;!-- comment --&gt;</span></td></tr>
+<tr><td class="hl-num" data-line="37"></td><td>            baz</td></tr>
+<tr><td class="hl-num" data-line="38"></td><td>        }</td></tr>
+<tr><td class="hl-num" data-line="39"></td><td>    }</td></tr>
+<tr><td class="hl-num" data-line="40"></td><td>    text</td></tr>
+<tr><td class="hl-num" data-line="41"></td><td>    { &lt;<span class="hl-ent">p</span>&gt;&lt;/<span class="hl-ent">p</span>&gt; }</td></tr>
+<tr><td class="hl-num" data-line="42"></td><td>    text</td></tr>
+<tr><td class="hl-num" data-line="43"></td><td>    {{template}}</td></tr>
+<tr><td class="hl-num" data-line="44"></td><td>    text</td></tr>
+<tr><td class="hl-num" data-line="45"></td><td></td></tr>
+<tr><td class="hl-num" data-line="46"></td><td>&lt;/<span class="hl-ent">body</span>&gt;</td></tr>
+<tr><td class="hl-num" data-line="47"></td><td>&lt;/<span class="hl-ent">html</span>&gt;</td></tr>
+<tr><td class="hl-num" data-line="48"></td><td></td></tr>
 </tbody>
 </table>

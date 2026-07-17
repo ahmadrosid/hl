@@ -20,6 +20,17 @@
 
     <script type="text/javascript" src="/some_script.js"></script>
 
+    <main id="content" data-role="page">
+        <picture>
+            <source srcset="img.webp" type="image/webp" />
+            <img src="img.png" alt="Example" />
+        </picture>
+        <svg width="10" height="10"><path d="M0 0" /></svg>
+    </main>
+
+    <noscript>Enable JavaScript</noscript>
+    <template id="tpl"><p>Template</p></template>
+
     <!-- Curly braces -->
     foo {
         bar { <!-- comment -->
