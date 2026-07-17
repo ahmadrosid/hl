@@ -59,7 +59,7 @@ See the result in browser [here](https://play.tailwindcss.com/JevzqYGpuH).
 - [x] Markdown ( ✅ Done )
 - [x] Nim ( ✅ Done )
 - [x] PHP ( ✅ Done )
-- [ ] Python ( 🚧 In Progress )
+- [x] Python ( ✅ Done )
 - [x] Typescript ( ✅ Done )
 - [x] Vue ( ✅ Done )
 - [x] Yaml ( ✅ Done )

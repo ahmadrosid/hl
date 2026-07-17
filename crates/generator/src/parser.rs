@@ -86,6 +86,24 @@ get_hash!(get_condition, condition);
 get_string!(get_multi_line_comment, multi_line_comment);
 get_string!(get_multi_line_string, multi_line_string);
 
+pub fn get_multi_line_strings(h: &Hash) -> Vec<String> {
+    match h.get(&Yaml::String("multi_line_string".to_string())) {
+        None => Vec::new(),
+        Some(Yaml::Array(items)) => items
+            .iter()
+            .filter_map(|item| item.as_str().map(|s| s.to_string()))
+            .collect(),
+        Some(val) => {
+            let line = val.as_str().unwrap_or("").to_string();
+            if line.is_empty() {
+                Vec::new()
+            } else {
+                vec![line]
+            }
+        }
+    }
+}
+
 get_bool!(bracket_dash_comment_enable, bracket_dash_comment);
 
 pub trait ConditionExt {

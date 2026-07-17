@@ -95,3 +95,27 @@ class SphinxGalleryOrcaRenderer(ExternalRenderer):
                 "orca and psutil are required to use the `sphinx-gallery-orca` renderer. "
                 "See https://plotly.com/python/static-image-export/ for instructions on "
             )
+
+def compare(a: int, b: int) -> bool:
+    if a == b or a != b:
+        return a <= b and b >= a
+    total = 2 ** 10 // 4
+    if (n := total) >= 256:
+        return n != 0
+    return False
+
+def handle(value):
+    score = 0
+    match value:
+        case 1:
+            score += 1
+        case _:
+            score -= 1
+            flags = 0
+            flags |= 1
+            flags <<= 2
+            score //= 2
+    return score
+
+alias = '''triple single
+quoted block'''

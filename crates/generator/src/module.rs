@@ -1,6 +1,6 @@
 use crate::parser::{
     bracket_dash_comment_enable, get_constant_prefix, get_constant_suffix, get_double_keyword,
-    get_entity_prefix, get_entity_suffix, get_multi_line_comment, get_multi_line_string,
+    get_entity_prefix, get_entity_suffix, get_multi_line_comment, get_multi_line_strings,
     get_var_prefix, get_var_suffix, get_xml_entity_tag, ConditionExt,
 };
 use crate::string::StringBuilder;
@@ -123,6 +123,69 @@ pub fn generate_module(h: &Hash) -> String {
     module.to_string()
 }
 
+fn write_multi_line_string_handlers(module: &mut StringBuilder, h: &Hash) {
+    for line in get_multi_line_strings(h) {
+        if line.len() <= 1 {
+            continue;
+        }
+        let chars: Vec<&str> = line.split(",").collect();
+        assert!(
+            chars.len() == 2,
+            "{}",
+            format!(
+                "Scope multi line string should be 2 split by comma found {}",
+                chars.len()
+            )
+        );
+        let prefix = chars[0].chars().next().unwrap();
+        let suffix = chars[1].chars().next().unwrap();
+        module.push_str(
+            &include_str!("stub/module/handle_multi_line_token.stub")
+                .replace("{prefix}", &prefix.to_string().replace('\'', "\\'"))
+                .replace("{begin}", &chars[0].to_string().replace('\"', "\\\""))
+                .replace("{end}", &chars[1].to_string().replace('\"', "\\\""))
+                .replace("{suffix}", &suffix.to_string().replace('\'', "\\'"))
+                .replace("{token}", "STRING"),
+        );
+    }
+}
+
+fn write_multi_char_keywords(module: &mut StringBuilder, h: &Hash) {
+    let mut keywords: Vec<Vec<char>> = get_double_keyword(h)
+        .values()
+        .map(|val| -> Vec<char> { val.as_str().unwrap().chars().collect() })
+        .filter(|v: &Vec<char>| v.len() >= 2)
+        .collect();
+    keywords.sort_by(|a, b| b.len().cmp(&a.len()));
+
+    for v in keywords {
+        let extra = v.len() - 2;
+        module.push_tab(
+            2,
+            &format!("if self.read_position + {} < self.input.len() ", extra),
+        );
+        module.push_str(&format!("&& self.ch == '{}' ", v[0]));
+        for i in 1..v.len() {
+            module.push_str(&format!(
+                "&& self.input[self.read_position + {}] == '{}' ",
+                i - 1,
+                v[i]
+            ));
+        }
+        module.push_strln("{");
+        for _ in 0..v.len() {
+            module.push_tabln(3, "self.read_char();");
+        }
+        let vec_str = v
+            .iter()
+            .map(|c| format!("'{}'", c))
+            .collect::<Vec<_>>()
+            .join(", ");
+        module.push_tabln(3, &format!("return Token::KEYWORD(vec![{}]);", vec_str));
+        module.push_tabln(2, "}\n");
+    }
+}
+
 fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
     if h.check_condition(MARK_AS_ENTITY_ON_FUNCTION_SCOPE)
         .is_some()
@@ -195,28 +258,7 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
         );
     }
 
-    let line = get_multi_line_string(h);
-    if line.len() > 1 {
-        let chars = line.split(",").collect::<Vec<_>>();
-        assert!(
-            chars.len() == 2,
-            "{}",
-            format!(
-                "Scope multi line string should be 2 split by comma found {}",
-                chars.len()
-            )
-        );
-        let prefix = chars[0].chars().next().unwrap();
-        let suffix = chars[1].chars().next().unwrap();
-        module.push_str(
-            &include_str!("stub/module/handle_multi_line_token.stub")
-                .replace("{prefix}", &prefix.to_string().replace("'", "\\'"))
-                .replace("{begin}", &chars[0].to_string().replace("\"", "\\\""))
-                .replace("{end}", &chars[1].to_string().replace("\"", "\\\""))
-                .replace("{suffix}", &suffix.to_string().replace("'", "\\'"))
-                .replace("{token}", "STRING"),
-        );
-    }
+    write_multi_line_string_handlers(module, h);
 
     if h.check_condition(ACCEPT_DOUBLE_BRACKET_STRING).is_some() {
         module.push_str(include_str!(
@@ -312,24 +354,7 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
         module.push_str(&write_handle_markup_head(ch.as_str().unwrap()));
     }
 
-    for val in get_double_keyword(h).values() {
-        let v: Vec<char> = val.as_str().unwrap().chars().collect();
-        let first = v[0];
-        let last = v[1];
-        module.push_tab(2, "if self.read_position < self.input.len() ");
-        module.push_str(&format!("&& self.ch == '{}' ", first));
-        module.push_strln(&format!(
-            "&& self.input[self.read_position] == '{}' {{",
-            last
-        ));
-        module.push_tabln(3, "self.read_char();");
-        module.push_tabln(3, "self.read_char();");
-        module.push_tabln(
-            3,
-            &format!("return Token::KEYWORD(vec!['{}', '{}']);", first, last),
-        );
-        module.push_tabln(2, "}\n");
-    }
+    write_multi_char_keywords(module, h);
 
     if let Some(ch) = h.check_condition(PREFIX_ONE_LINE_COMMENT) {
         let mut source = include_str!("stub/module/handle_single_line_comment.stub").to_string();
@@ -364,25 +389,6 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
             "self.ch",
             "self.position > 0 && self.input[self.position - 1] == '\\n' && self.ch",
         ));
-    }
-
-    for val in get_double_keyword(h).values() {
-        let v: Vec<char> = val.as_str().unwrap().chars().collect();
-        let first = v[0];
-        let last = v[1];
-        module.push_tab(2, "if self.read_position < self.input.len() ");
-        module.push_str(&format!("&& self.ch == '{}' ", first));
-        module.push_strln(&format!(
-            "&& self.input[self.read_position] == '{}' {{",
-            last
-        ));
-        module.push_tabln(3, "self.read_char();");
-        module.push_tabln(3, "self.read_char();");
-        module.push_tabln(
-            3,
-            &format!("return Token::KEYWORD(vec!['{}', '{}']);", first, last),
-        );
-        module.push_tabln(2, "}\n");
     }
 
     module.push_tabln(2, "match self.ch {");

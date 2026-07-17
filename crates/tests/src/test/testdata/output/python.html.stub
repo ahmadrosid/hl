@@ -10,66 +10,66 @@
 <tr><td class="hl-num" data-line="8"></td><td><span class="hl-k">import</span> base64</td></tr>
 <tr><td class="hl-num" data-line="9"></td><td><span class="hl-k">import</span> inspect</td></tr>
 <tr><td class="hl-num" data-line="10"></td><td><span class="hl-k">import</span> os</td></tr>
-<tr><td class="hl-num" data-line="11"></td><td><span class="hl-k">from</span> os.path <span class="hl-k">import</span> isdir</td></tr>
+<tr><td class="hl-num" data-line="11"></td><td><span class="hl-k">from</span> os.<span class="hl-en">path</span> <span class="hl-k">import</span> isdir</td></tr>
 <tr><td class="hl-num" data-line="12"></td><td></td></tr>
 <tr><td class="hl-num" data-line="13"></td><td><span class="hl-k">import</span> six</td></tr>
 <tr><td class="hl-num" data-line="14"></td><td><span class="hl-k">from</span> plotly <span class="hl-k">import</span> utils, optional_imports</td></tr>
-<tr><td class="hl-num" data-line="15"></td><td><span class="hl-k">from</span> plotly.io <span class="hl-k">import</span> to_json, to_image, write_image, write_html</td></tr>
+<tr><td class="hl-num" data-line="15"></td><td><span class="hl-k">from</span> plotly.<span class="hl-en">io</span> <span class="hl-k">import</span> to_json, to_image, write_image, write_html</td></tr>
 <tr><td class="hl-num" data-line="16"></td><td></td></tr>
-<tr><td class="hl-num" data-line="17"></td><td>ipython_display = optional_imports.<span class="hl-en">get_module</span>(<span class="hl-s">"IPython.display"</span>)</td></tr>
-<tr><td class="hl-num" data-line="18"></td><td>IPython = optional_imports.<span class="hl-en">get_module</span>(<span class="hl-s">"IPython"</span>)</td></tr>
+<tr><td class="hl-num" data-line="17"></td><td>ipython_display <span class="hl-k">=</span> optional_imports.<span class="hl-en">get_module</span>(<span class="hl-s">"IPython.display"</span>)</td></tr>
+<tr><td class="hl-num" data-line="18"></td><td>IPython <span class="hl-k">=</span> optional_imports.<span class="hl-en">get_module</span>(<span class="hl-s">"IPython"</span>)</td></tr>
 <tr><td class="hl-num" data-line="19"></td><td></td></tr>
-<tr><td class="hl-num" data-line="20"></td><td>ERROR_MESSAGES = {</td></tr>
+<tr><td class="hl-num" data-line="20"></td><td>ERROR_MESSAGES <span class="hl-k">=</span> {</td></tr>
 <tr><td class="hl-num" data-line="21"></td><td>    <span class="hl-c">0x80004002</span>: (<span class="hl-s">"MAPI_E_INTERFACE_NO_SUPPORT"</span>),</td></tr>
 <tr><td class="hl-num" data-line="22"></td><td>    <span class="hl-c">0x80004005</span>: (<span class="hl-s">"MAPI_E_CALL_FAILED"</span>),</td></tr>
 <tr><td class="hl-num" data-line="23"></td><td>}</td></tr>
 <tr><td class="hl-num" data-line="24"></td><td></td></tr>
 <tr><td class="hl-num" data-line="25"></td><td><span class="hl-k">try</span>:</td></tr>
-<tr><td class="hl-num" data-line="26"></td><td>    <span class="hl-k">from</span> http.server <span class="hl-k">import</span> BaseHTTPRequestHandler, HTTPServer</td></tr>
+<tr><td class="hl-num" data-line="26"></td><td>    <span class="hl-k">from</span> http.<span class="hl-en">server</span> <span class="hl-k">import</span> BaseHTTPRequestHandler, HTTPServer</td></tr>
 <tr><td class="hl-num" data-line="27"></td><td><span class="hl-k">except</span> ImportError:</td></tr>
 <tr><td class="hl-num" data-line="28"></td><td>    <span class="hl-cmt"># Python 2.7</span></td></tr>
 <tr><td class="hl-num" data-line="29"></td><td>    <span class="hl-k">from</span> BaseHTTPServer <span class="hl-k">import</span> BaseHTTPRequestHandler, HTTPServer</td></tr>
 <tr><td class="hl-num" data-line="30"></td><td></td></tr>
 <tr><td class="hl-num" data-line="31"></td><td><span class="hl-k">class</span> <span class="hl-en">BaseRenderer</span>(object):</td></tr>
-<tr><td class="hl-num" data-line="32"></td><td>    <span class="hl-s">""</span><span class="hl-s">"</span></td></tr>
+<tr><td class="hl-num" data-line="32"></td><td>    <span class="hl-s">"""</span></td></tr>
 <tr><td class="hl-num" data-line="33"></td><td><span class="hl-s">    Base class for all renderers</span></td></tr>
-<tr><td class="hl-num" data-line="34"></td><td><span class="hl-s">    "</span><span class="hl-s">""</span></td></tr>
+<tr><td class="hl-num" data-line="34"></td><td><span class="hl-s">    """</span></td></tr>
 <tr><td class="hl-num" data-line="35"></td><td></td></tr>
 <tr><td class="hl-num" data-line="36"></td><td>    <span class="hl-k">def</span> <span class="hl-en">activate</span>(<span class="hl-c">self</span>):</td></tr>
 <tr><td class="hl-num" data-line="37"></td><td>        <span class="hl-k">pass</span></td></tr>
 <tr><td class="hl-num" data-line="38"></td><td></td></tr>
 <tr><td class="hl-num" data-line="39"></td><td>    <span class="hl-k">def</span> <span class="hl-en">__repr__</span>(<span class="hl-c">self</span>):</td></tr>
 <tr><td class="hl-num" data-line="40"></td><td>        <span class="hl-k">try</span>:</td></tr>
-<tr><td class="hl-num" data-line="41"></td><td>            init_sig = inspect.<span class="hl-en">signature</span>(<span class="hl-c">self</span>.__init__)</td></tr>
-<tr><td class="hl-num" data-line="42"></td><td>            init_args = <span class="hl-en">list</span>(init_sig.parameters.<span class="hl-en">keys</span>())</td></tr>
+<tr><td class="hl-num" data-line="41"></td><td>            init_sig <span class="hl-k">=</span> inspect.<span class="hl-en">signature</span>(<span class="hl-c">self</span>.<span class="hl-en">__init__</span>)</td></tr>
+<tr><td class="hl-num" data-line="42"></td><td>            init_args <span class="hl-k">=</span> <span class="hl-en">list</span>(init_sig.<span class="hl-en">parameters</span>.<span class="hl-en">keys</span>())</td></tr>
 <tr><td class="hl-num" data-line="43"></td><td>        <span class="hl-k">except</span> AttributeError:</td></tr>
 <tr><td class="hl-num" data-line="44"></td><td>            <span class="hl-cmt"># Python 2.7</span></td></tr>
-<tr><td class="hl-num" data-line="45"></td><td>            argspec = inspect.<span class="hl-en">getargspec</span>(<span class="hl-c">self</span>.__init__)</td></tr>
-<tr><td class="hl-num" data-line="46"></td><td>            init_args = [a <span class="hl-k">for</span> a <span class="hl-c">in</span> argspec.args <span class="hl-k">if</span> a != <span class="hl-s">"self"</span>]</td></tr>
+<tr><td class="hl-num" data-line="45"></td><td>            argspec <span class="hl-k">=</span> inspect.<span class="hl-en">getargspec</span>(<span class="hl-c">self</span>.<span class="hl-en">__init__</span>)</td></tr>
+<tr><td class="hl-num" data-line="46"></td><td>            init_args <span class="hl-k">=</span> [a <span class="hl-k">for</span> a <span class="hl-c">in</span> argspec.<span class="hl-en">args</span> <span class="hl-k">if</span> a <span class="hl-k">!=</span> <span class="hl-s">"self"</span>]</td></tr>
 <tr><td class="hl-num" data-line="47"></td><td></td></tr>
 <tr><td class="hl-num" data-line="48"></td><td>        <span class="hl-k">return</span> <span class="hl-s">"{cls}({attrs})\n{doc}"</span>.<span class="hl-en">format</span>(</td></tr>
-<tr><td class="hl-num" data-line="49"></td><td>            cls=<span class="hl-c">self</span>.__class__.__name__,</td></tr>
-<tr><td class="hl-num" data-line="50"></td><td>            attrs=<span class="hl-s">", "</span>.<span class="hl-en">join</span>(<span class="hl-s">"{}={!r}"</span>.<span class="hl-en">format</span>(k, <span class="hl-c">self</span>.__dict__[k]) <span class="hl-k">for</span> k <span class="hl-c">in</span> init_args),</td></tr>
-<tr><td class="hl-num" data-line="51"></td><td>            doc=<span class="hl-c">self</span>.__doc__,</td></tr>
+<tr><td class="hl-num" data-line="49"></td><td>            cls<span class="hl-k">=</span><span class="hl-c">self</span>.<span class="hl-en">__class__</span>.<span class="hl-en">__name__</span>,</td></tr>
+<tr><td class="hl-num" data-line="50"></td><td>            attrs<span class="hl-k">=</span><span class="hl-s">", "</span>.<span class="hl-en">join</span>(<span class="hl-s">"{}={!r}"</span>.<span class="hl-en">format</span>(k, <span class="hl-c">self</span>.<span class="hl-en">__dict__</span>[k]) <span class="hl-k">for</span> k <span class="hl-c">in</span> init_args),</td></tr>
+<tr><td class="hl-num" data-line="51"></td><td>            doc<span class="hl-k">=</span><span class="hl-c">self</span>.<span class="hl-en">__doc__</span>,</td></tr>
 <tr><td class="hl-num" data-line="52"></td><td>        )</td></tr>
 <tr><td class="hl-num" data-line="53"></td><td></td></tr>
 <tr><td class="hl-num" data-line="54"></td><td>    <span class="hl-k">def</span> <span class="hl-en">activate</span>(<span class="hl-c">self</span>):</td></tr>
-<tr><td class="hl-num" data-line="55"></td><td>        <span class="hl-k">if</span> <span class="hl-c">self</span>.global_init:</td></tr>
+<tr><td class="hl-num" data-line="55"></td><td>        <span class="hl-k">if</span> <span class="hl-c">self</span>.<span class="hl-en">global_init</span>:</td></tr>
 <tr><td class="hl-num" data-line="56"></td><td>            <span class="hl-k">if</span> <span class="hl-c">not</span> ipython_display:</td></tr>
 <tr><td class="hl-num" data-line="57"></td><td>                <span class="hl-k">raise</span> <span class="hl-en">ValueError</span>(</td></tr>
 <tr><td class="hl-num" data-line="58"></td><td>                    <span class="hl-s">"The {cls} class requires ipython but it is not installed"</span>.<span class="hl-en">format</span>(</td></tr>
-<tr><td class="hl-num" data-line="59"></td><td>                        cls=<span class="hl-c">self</span>.__class__.__name__</td></tr>
+<tr><td class="hl-num" data-line="59"></td><td>                        cls<span class="hl-k">=</span><span class="hl-c">self</span>.<span class="hl-en">__class__</span>.<span class="hl-en">__name__</span></td></tr>
 <tr><td class="hl-num" data-line="60"></td><td>                    )</td></tr>
 <tr><td class="hl-num" data-line="61"></td><td>                )</td></tr>
 <tr><td class="hl-num" data-line="62"></td><td></td></tr>
-<tr><td class="hl-num" data-line="63"></td><td>            <span class="hl-k">if</span> <span class="hl-c">not</span> <span class="hl-c">self</span>.requirejs:</td></tr>
+<tr><td class="hl-num" data-line="63"></td><td>            <span class="hl-k">if</span> <span class="hl-c">not</span> <span class="hl-c">self</span>.<span class="hl-en">requirejs</span>:</td></tr>
 <tr><td class="hl-num" data-line="64"></td><td>                <span class="hl-k">raise</span> <span class="hl-en">ValueError</span>(<span class="hl-s">"global_init is only supported with requirejs=True"</span>)</td></tr>
 <tr><td class="hl-num" data-line="65"></td><td></td></tr>
-<tr><td class="hl-num" data-line="66"></td><td>            bufferSize = <span class="hl-c">1024</span> * <span class="hl-c">1024</span></td></tr>
+<tr><td class="hl-num" data-line="66"></td><td>            bufferSize <span class="hl-k">=</span> <span class="hl-c">1024</span> <span class="hl-k">*</span> <span class="hl-c">1024</span></td></tr>
 <tr><td class="hl-num" data-line="67"></td><td>            <span class="hl-k">for</span> i <span class="hl-c">in</span> <span class="hl-en">range</span>(<span class="hl-c">0</span>, <span class="hl-en">len</span>(html), bufferSize):</td></tr>
-<tr><td class="hl-num" data-line="68"></td><td>                <span class="hl-c">self</span>.wfile.<span class="hl-en">write</span>(html[i : i + bufferSize])</td></tr>
+<tr><td class="hl-num" data-line="68"></td><td>                <span class="hl-c">self</span>.<span class="hl-en">wfile</span>.<span class="hl-en">write</span>(html[i : i <span class="hl-k">+</span> bufferSize])</td></tr>
 <tr><td class="hl-num" data-line="69"></td><td></td></tr>
-<tr><td class="hl-num" data-line="70"></td><td>    <span class="hl-k">def</span> <span class="hl-en">log_message</span>(<span class="hl-c">self</span>, format, *args):</td></tr>
+<tr><td class="hl-num" data-line="70"></td><td>    <span class="hl-k">def</span> <span class="hl-en">log_message</span>(<span class="hl-c">self</span>, format, <span class="hl-k">*</span>args):</td></tr>
 <tr><td class="hl-num" data-line="71"></td><td>        <span class="hl-cmt"># Silence stderr logging</span></td></tr>
 <tr><td class="hl-num" data-line="72"></td><td>        <span class="hl-k">pass</span></td></tr>
 <tr><td class="hl-num" data-line="73"></td><td></td></tr>
@@ -79,17 +79,17 @@
 <tr><td class="hl-num" data-line="77"></td><td></td></tr>
 <tr><td class="hl-num" data-line="78"></td><td><span class="hl-k">class</span> <span class="hl-en">SphinxGalleryOrcaRenderer</span>(ExternalRenderer):</td></tr>
 <tr><td class="hl-num" data-line="79"></td><td>    <span class="hl-k">def</span> <span class="hl-en">render</span>(<span class="hl-c">self</span>, fig_dict):</td></tr>
-<tr><td class="hl-num" data-line="80"></td><td>        stack = inspect.<span class="hl-en">stack</span>()</td></tr>
+<tr><td class="hl-num" data-line="80"></td><td>        stack <span class="hl-k">=</span> inspect.<span class="hl-en">stack</span>()</td></tr>
 <tr><td class="hl-num" data-line="81"></td><td>        <span class="hl-cmt"># Name of script from which plot function was called is retrieved</span></td></tr>
 <tr><td class="hl-num" data-line="82"></td><td>        <span class="hl-k">try</span>:</td></tr>
-<tr><td class="hl-num" data-line="83"></td><td>            filename = stack[<span class="hl-c">3</span>].filename  <span class="hl-cmt"># let's hope this is robust...</span></td></tr>
+<tr><td class="hl-num" data-line="83"></td><td>            filename <span class="hl-k">=</span> stack[<span class="hl-c">3</span>].<span class="hl-en">filename</span>  <span class="hl-cmt"># let's hope this is robust...</span></td></tr>
 <tr><td class="hl-num" data-line="84"></td><td>        <span class="hl-k">except</span>:  <span class="hl-cmt"># python 2</span></td></tr>
-<tr><td class="hl-num" data-line="85"></td><td>            filename = stack[<span class="hl-c">3</span>][<span class="hl-c">1</span>]</td></tr>
-<tr><td class="hl-num" data-line="86"></td><td>        filename_root, _ = os.path.<span class="hl-en">splitext</span>(filename)</td></tr>
-<tr><td class="hl-num" data-line="87"></td><td>        filename_html = filename_root + <span class="hl-s">"\".html"</span></td></tr>
-<tr><td class="hl-num" data-line="88"></td><td>        filename_png = filename_root + <span class="hl-s">".png"</span></td></tr>
-<tr><td class="hl-num" data-line="89"></td><td>        figure = <span class="hl-en">return_figure_from_figure_or_data</span>(fig_dict, <span class="hl-c">True</span>)</td></tr>
-<tr><td class="hl-num" data-line="90"></td><td>        _ = <span class="hl-en">write_html</span>(fig_dict, file=filename_html, include_plotlyjs=<span class="hl-s">"cdn"</span>)</td></tr>
+<tr><td class="hl-num" data-line="85"></td><td>            filename <span class="hl-k">=</span> stack[<span class="hl-c">3</span>][<span class="hl-c">1</span>]</td></tr>
+<tr><td class="hl-num" data-line="86"></td><td>        filename_root, _ <span class="hl-k">=</span> os.<span class="hl-en">path</span>.<span class="hl-en">splitext</span>(filename)</td></tr>
+<tr><td class="hl-num" data-line="87"></td><td>        filename_html <span class="hl-k">=</span> filename_root <span class="hl-k">+</span> <span class="hl-s">"\".html"</span></td></tr>
+<tr><td class="hl-num" data-line="88"></td><td>        filename_png <span class="hl-k">=</span> filename_root <span class="hl-k">+</span> <span class="hl-s">".png"</span></td></tr>
+<tr><td class="hl-num" data-line="89"></td><td>        figure <span class="hl-k">=</span> <span class="hl-en">return_figure_from_figure_or_data</span>(fig_dict, <span class="hl-c">True</span>)</td></tr>
+<tr><td class="hl-num" data-line="90"></td><td>        _ <span class="hl-k">=</span> <span class="hl-en">write_html</span>(fig_dict, file<span class="hl-k">=</span>filename_html, include_plotlyjs<span class="hl-k">=</span><span class="hl-s">"cdn"</span>)</td></tr>
 <tr><td class="hl-num" data-line="91"></td><td>        <span class="hl-k">try</span>:</td></tr>
 <tr><td class="hl-num" data-line="92"></td><td>            <span class="hl-en">write_image</span>(figure, filename_png)</td></tr>
 <tr><td class="hl-num" data-line="93"></td><td>        <span class="hl-k">except</span> (ValueError, ImportError):</td></tr>
@@ -98,5 +98,29 @@
 <tr><td class="hl-num" data-line="96"></td><td>                <span class="hl-s">"See https://plotly.com/python/static-image-export/ for instructions on "</span></td></tr>
 <tr><td class="hl-num" data-line="97"></td><td>            )</td></tr>
 <tr><td class="hl-num" data-line="98"></td><td></td></tr>
+<tr><td class="hl-num" data-line="99"></td><td><span class="hl-k">def</span> <span class="hl-en">compare</span>(a: int, b: int) <span class="hl-k">-></span> bool:</td></tr>
+<tr><td class="hl-num" data-line="100"></td><td>    <span class="hl-k">if</span> a <span class="hl-k">==</span> b <span class="hl-k">or</span> a <span class="hl-k">!=</span> b:</td></tr>
+<tr><td class="hl-num" data-line="101"></td><td>        <span class="hl-k">return</span> a <span class="hl-k"><=</span> b <span class="hl-k">and</span> b <span class="hl-k">>=</span> a</td></tr>
+<tr><td class="hl-num" data-line="102"></td><td>    total <span class="hl-k">=</span> <span class="hl-c">2</span> <span class="hl-k">**</span> <span class="hl-c">10</span> <span class="hl-k">//</span> <span class="hl-c">4</span></td></tr>
+<tr><td class="hl-num" data-line="103"></td><td>    <span class="hl-k">if</span> (n <span class="hl-k">:=</span> total) <span class="hl-k">>=</span> <span class="hl-c">256</span>:</td></tr>
+<tr><td class="hl-num" data-line="104"></td><td>        <span class="hl-k">return</span> n <span class="hl-k">!=</span> <span class="hl-c">0</span></td></tr>
+<tr><td class="hl-num" data-line="105"></td><td>    <span class="hl-k">return</span> <span class="hl-c">False</span></td></tr>
+<tr><td class="hl-num" data-line="106"></td><td></td></tr>
+<tr><td class="hl-num" data-line="107"></td><td><span class="hl-k">def</span> <span class="hl-en">handle</span>(value):</td></tr>
+<tr><td class="hl-num" data-line="108"></td><td>    score <span class="hl-k">=</span> <span class="hl-c">0</span></td></tr>
+<tr><td class="hl-num" data-line="109"></td><td>    <span class="hl-k">match</span> value:</td></tr>
+<tr><td class="hl-num" data-line="110"></td><td>        <span class="hl-k">case</span> <span class="hl-c">1</span>:</td></tr>
+<tr><td class="hl-num" data-line="111"></td><td>            score <span class="hl-k">+=</span> <span class="hl-c">1</span></td></tr>
+<tr><td class="hl-num" data-line="112"></td><td>        <span class="hl-k">case</span> _:</td></tr>
+<tr><td class="hl-num" data-line="113"></td><td>            score <span class="hl-k">-=</span> <span class="hl-c">1</span></td></tr>
+<tr><td class="hl-num" data-line="114"></td><td>            flags <span class="hl-k">=</span> <span class="hl-c">0</span></td></tr>
+<tr><td class="hl-num" data-line="115"></td><td>            flags <span class="hl-k">|=</span> <span class="hl-c">1</span></td></tr>
+<tr><td class="hl-num" data-line="116"></td><td>            flags <span class="hl-k"><<=</span> <span class="hl-c">2</span></td></tr>
+<tr><td class="hl-num" data-line="117"></td><td>            score <span class="hl-k">//=</span> <span class="hl-c">2</span></td></tr>
+<tr><td class="hl-num" data-line="118"></td><td>    <span class="hl-k">return</span> score</td></tr>
+<tr><td class="hl-num" data-line="119"></td><td></td></tr>
+<tr><td class="hl-num" data-line="120"></td><td>alias <span class="hl-k">=</span> <span class="hl-s">'''triple single</span></td></tr>
+<tr><td class="hl-num" data-line="121"></td><td><span class="hl-s">quoted block'''</span></td></tr>
+<tr><td class="hl-num" data-line="122"></td><td></td></tr>
 </tbody>
 </table>

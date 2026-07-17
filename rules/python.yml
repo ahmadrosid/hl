@@ -1,14 +1,53 @@
-multi_line_string: "''','''"
+multi_line_string:
+  - '""","""'
+  - "''','''"
 constant: "True,False,None,not,in,self"
+entity_prefix:
+  ENTITY_DOT: "."
 entity_suffix:
   left_brace: (
+single_keyword:
+  - "+"
+  - "-"
+  - "*"
+  - "/"
+  - "%"
+  - "<"
+  - ">"
+  - "="
+  - "!"
+double_keyword:
+  power_assign: "**="
+  floor_div_assign: "//="
+  comparison: "=="
+  not_equal: "!="
+  less_equal: "<="
+  greater_equal: ">="
+  floor_div: "//"
+  power: "**"
+  arrow: "->"
+  walrus: ":="
+  add_assign: "+="
+  sub_assign: "-="
+  mul_assign: "*="
+  div_assign: "/="
+  mod_assign: "%="
+  or_assign: "|="
+  and_assign: "&="
+  xor_assign: "^="
+  matmul_assign: "@="
+  lshift_assign: "<<="
+  rshift_assign: ">>="
+  lshift: "<<"
+  rshift: ">>"
 condition:
   ACCEPT_ESCAPED_STRING: true
   ACCEPT_STRING_ONE_QUOTE: true
   ACCEPT_STRING_DOUBLE_QUOTE: true
   RENDER_MULTI_LINE_STRING: true
+  ACCEPT_PREFIX_KEYWORD: "@"
   ACCEPT_ENTITY_TAG_SUFFIX: self.ch.is_numeric()
   BREAK_ENTITY_TAG_SUFFIX: "!self.ch.is_numeric() && !is_letter(self.ch)"
   ACCEPT_HEXADECIMAL_NUMBER: true
   PREFIX_ONE_LINE_COMMENT: "#"
-keyword: "as,and,assert,async,await,break,class,continue,else,elif,except,def,del,finally,for,from,global,if,is,import,lambda,nonlocal,pass,print,raise,return,try,with,while,yield"
+keyword: "as,and,assert,async,await,break,case,class,continue,else,elif,except,def,del,finally,for,from,global,if,is,import,lambda,match,nonlocal,or,pass,print,raise,return,try,type,with,while,yield"
