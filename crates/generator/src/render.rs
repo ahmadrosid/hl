@@ -188,20 +188,38 @@ fn write_token_identifier(html: &mut StringBuilder) {
 
 fn write_token_entity(html: &mut StringBuilder) {
     html.push_tabln(3, "Token::ENTITY(value) => {");
+    html.push_tabln(4, "let mut s = String::new();");
+    html.push_tabln(4, "for ch in value {");
+    html.push_tabln(5, "if ch == '<' {");
+    html.push_tabln(6, "s.push_str(\"&lt;\");");
+    html.push_tabln(5, "} else if ch == '>' {");
+    html.push_tabln(6, "s.push_str(\"&gt;\");");
+    html.push_tabln(5, "} else {");
+    html.push_tabln(6, "s.push(ch);");
+    html.push_tabln(5, "}");
+    html.push_tabln(4, "}");
     html.push_tabln(
         4,
-        "html.push_str(&format!(\"<span class=\\\"hl-en\\\">{}</span>\", \
-        value.iter().collect::<String>()));",
+        "html.push_str(&format!(\"<span class=\\\"hl-en\\\">{}</span>\", s));",
     );
     html.push_tabln(3, "}");
 }
 
 fn write_token_keyword(html: &mut StringBuilder) {
     html.push_tabln(3, "Token::KEYWORD(value) => {");
+    html.push_tabln(4, "let mut s = String::new();");
+    html.push_tabln(4, "for ch in value {");
+    html.push_tabln(5, "if ch == '<' {");
+    html.push_tabln(6, "s.push_str(\"&lt;\");");
+    html.push_tabln(5, "} else if ch == '>' {");
+    html.push_tabln(6, "s.push_str(\"&gt;\");");
+    html.push_tabln(5, "} else {");
+    html.push_tabln(6, "s.push(ch);");
+    html.push_tabln(5, "}");
+    html.push_tabln(4, "}");
     html.push_tabln(
         4,
-        "html.push_str(&format!(\"<span class=\\\"hl-k\\\">{}</span>\", \
-        value.iter().collect::<String>()));",
+        "html.push_str(&format!(\"<span class=\\\"hl-k\\\">{}</span>\", s));",
     );
     html.push_tabln(3, "}");
 }

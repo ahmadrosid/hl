@@ -66,3 +66,27 @@
 (defn -main
   [& _args]
   (start))
+
+;; Extra coverage for special forms and threading
+(defn transform
+  [xs enabled?]
+  (let [base (->> xs
+                  (filter some?)
+                  (map inc))]
+    (if-not enabled?
+      base
+      (cond-> base
+        true (conj 0)
+        false identity))))
+
+(defmacro unless
+  [pred & body]
+  `(if (not ~pred)
+     (do ~@body)))
+
+(try
+  (assert true "ok")
+  (catch Exception e
+    (throw e))
+  (finally
+    (comment "done")))

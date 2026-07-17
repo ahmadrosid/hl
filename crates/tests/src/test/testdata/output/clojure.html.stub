@@ -33,7 +33,7 @@
 <tr><td class="hl-num" data-line="31"></td><td>       {:<span class="hl-en">cron</span> #app/cron <span class="hl-s">"0 0 0 * * ?"</span> <span class="hl-cmt">;; daily</span></td></tr>
 <tr><td class="hl-num" data-line="32"></td><td>        :<span class="hl-en">task</span> :<span class="hl-en">audit-log-gc</span>})</td></tr>
 <tr><td class="hl-num" data-line="33"></td><td></td></tr>
-<tr><td class="hl-num" data-line="34"></td><td>     (<span class="hl-k">when</span> (<span class="hl-en">or</span> (<span class="hl-en">contains?</span> cf/flags :<span class="hl-en">telemetry</span>)</td></tr>
+<tr><td class="hl-num" data-line="34"></td><td>     (<span class="hl-k">when</span> (<span class="hl-k">or</span> (<span class="hl-en">contains?</span> cf/flags :<span class="hl-en">telemetry</span>)</td></tr>
 <tr><td class="hl-num" data-line="35"></td><td>               (<span class="hl-en">cf/get</span> :<span class="hl-en">telemetry-enabled</span>))</td></tr>
 <tr><td class="hl-num" data-line="36"></td><td>       {:<span class="hl-en">cron</span> #app/cron <span class="hl-s">"0 0 */6 * * ?"</span> <span class="hl-cmt">;; every 6h</span></td></tr>
 <tr><td class="hl-num" data-line="37"></td><td>        :<span class="hl-en">task</span> :<span class="hl-en">telemetry</span>})]})</td></tr>
@@ -53,11 +53,11 @@
 <tr><td class="hl-num" data-line="51"></td><td>  (<span class="hl-en">ig/load-namespaces</span> system-config)</td></tr>
 <tr><td class="hl-num" data-line="52"></td><td>  (<span class="hl-en">alter-var-root</span> #'system (<span class="hl-k">fn</span> [sys]</td></tr>
 <tr><td class="hl-num" data-line="53"></td><td>                             (<span class="hl-k">when</span> sys (<span class="hl-en">ig/halt!</span> sys))</td></tr>
-<tr><td class="hl-num" data-line="54"></td><td>                             (-> system-config</td></tr>
+<tr><td class="hl-num" data-line="54"></td><td>                             (<span class="hl-k">-&gt;</span> system-config</td></tr>
 <tr><td class="hl-num" data-line="55"></td><td>                                 (<span class="hl-en">ig/prep</span>)</td></tr>
 <tr><td class="hl-num" data-line="56"></td><td>                                 (<span class="hl-en">ig/init</span>))))</td></tr>
 <tr><td class="hl-num" data-line="57"></td><td>  (<span class="hl-en">l/info</span> :<span class="hl-en">msg</span> <span class="hl-s">"welcome to penpot"</span></td></tr>
-<tr><td class="hl-num" data-line="58"></td><td>          :<span class="hl-en">version</span> (:<span class="hl-c">full</span> cf/version)))</td></tr>
+<tr><td class="hl-num" data-line="58"></td><td>          :<span class="hl-en">version</span> (:<span class="hl-en">full</span> cf/version)))</td></tr>
 <tr><td class="hl-num" data-line="59"></td><td></td></tr>
 <tr><td class="hl-num" data-line="60"></td><td>(<span class="hl-k">defn</span> stop</td></tr>
 <tr><td class="hl-num" data-line="61"></td><td>  []</td></tr>
@@ -69,5 +69,29 @@
 <tr><td class="hl-num" data-line="67"></td><td>  [& _args]</td></tr>
 <tr><td class="hl-num" data-line="68"></td><td>  (<span class="hl-en">start</span>))</td></tr>
 <tr><td class="hl-num" data-line="69"></td><td></td></tr>
+<tr><td class="hl-num" data-line="70"></td><td><span class="hl-cmt">;; Extra coverage for special forms and threading</span></td></tr>
+<tr><td class="hl-num" data-line="71"></td><td>(<span class="hl-k">defn</span> transform</td></tr>
+<tr><td class="hl-num" data-line="72"></td><td>  [xs enabled?]</td></tr>
+<tr><td class="hl-num" data-line="73"></td><td>  (<span class="hl-k">let</span> [base (<span class="hl-k">-&gt;&gt;</span> xs</td></tr>
+<tr><td class="hl-num" data-line="74"></td><td>                  (<span class="hl-en">filter</span> some?)</td></tr>
+<tr><td class="hl-num" data-line="75"></td><td>                  (<span class="hl-en">map</span> inc))]</td></tr>
+<tr><td class="hl-num" data-line="76"></td><td>    (<span class="hl-k">if-not</span> enabled?</td></tr>
+<tr><td class="hl-num" data-line="77"></td><td>      base</td></tr>
+<tr><td class="hl-num" data-line="78"></td><td>      (<span class="hl-k">cond-&gt;</span> base</td></tr>
+<tr><td class="hl-num" data-line="79"></td><td>        <span class="hl-c">true</span> (<span class="hl-en">conj</span> <span class="hl-c">0</span>)</td></tr>
+<tr><td class="hl-num" data-line="80"></td><td>        <span class="hl-c">false</span> identity))))</td></tr>
+<tr><td class="hl-num" data-line="81"></td><td></td></tr>
+<tr><td class="hl-num" data-line="82"></td><td>(<span class="hl-k">defmacro</span> unless</td></tr>
+<tr><td class="hl-num" data-line="83"></td><td>  [pred & body]</td></tr>
+<tr><td class="hl-num" data-line="84"></td><td>  `(<span class="hl-k">if</span> (<span class="hl-k">not</span> ~pred)</td></tr>
+<tr><td class="hl-num" data-line="85"></td><td>     (<span class="hl-k">do</span> ~@body)))</td></tr>
+<tr><td class="hl-num" data-line="86"></td><td></td></tr>
+<tr><td class="hl-num" data-line="87"></td><td>(<span class="hl-k">try</span></td></tr>
+<tr><td class="hl-num" data-line="88"></td><td>  (<span class="hl-k">assert</span> <span class="hl-c">true</span> <span class="hl-s">"ok"</span>)</td></tr>
+<tr><td class="hl-num" data-line="89"></td><td>  (<span class="hl-k">catch</span> Exception e</td></tr>
+<tr><td class="hl-num" data-line="90"></td><td>    (<span class="hl-k">throw</span> e))</td></tr>
+<tr><td class="hl-num" data-line="91"></td><td>  (<span class="hl-k">finally</span></td></tr>
+<tr><td class="hl-num" data-line="92"></td><td>    (<span class="hl-k">comment</span> <span class="hl-s">"done"</span>)))</td></tr>
+<tr><td class="hl-num" data-line="93"></td><td></td></tr>
 </tbody>
 </table>

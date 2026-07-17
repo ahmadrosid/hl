@@ -41,7 +41,7 @@ See the result in browser [here](https://play.tailwindcss.com/JevzqYGpuH).
 - [x] Ada ( ✅ Done )
 - [x] Bash ( ✅ Done )
 - [x] C ( ✅ Done )
-- [ ] Clojure ( 🚧 In Progress )
+- [x] Clojure ( ✅ Done )
 - [x] CSS ( ✅ Done )
 - [x] CUDA ( ✅ Done )
 - [x] Dart ( ✅ Done )

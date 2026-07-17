@@ -1,11 +1,19 @@
-constant: "nil,full"
+constant: "nil,true,false"
+
 entity_prefix:
   colon: ":"
   left_parent: (
+
+double_keyword:
+  thread_last: "->>"
+  thread_first: "->"
+
 condition:
+  ACCEPT_ESCAPED_STRING: true
   ACCEPT_STRING_DOUBLE_QUOTE: true
   ACCEPT_ENTITY_TAG_SUFFIX: self.ch.is_numeric()
   BREAK_ENTITY_TAG_SUFFIX: "!self.ch.is_numeric() && !is_letter(self.ch)"
-  ACCEPT_CHAR_IDENTIFIER: "./-!?"
+  ACCEPT_CHAR_IDENTIFIER: "./-!?*+_'<>="
   PREFIX_ONE_LINE_COMMENT: ;;
-keyword: "binding,case,catch,cond,do,ns,def,defonce,defmulti,defmethod,defn,if,fn,require,when,try,throw,for,let,defn-,in-ns,if-let,s/defn,if-not,when-not"
+
+keyword: "binding,case,catch,cond,condp,cond->,cond->>,as->,some->,some->>,do,ns,in-ns,def,defonce,defmulti,defmethod,defn,defn-,defmacro,defprotocol,defrecord,deftype,declare,if,if-not,if-let,if-some,fn,fn*,require,refer,use,import,quote,var,when,when-not,when-let,when-some,when-first,try,throw,finally,for,doseq,dotimes,while,let,letfn,loop,recur,and,or,not,doto,new,set!,assert,comment,s/defn"

@@ -52,42 +52,73 @@ impl Lexer {
                 if l.ch == '?' {
                     l.read_char();
                 }
-            }
-            l.input[position..l.position].to_vec()
-        };
-
-        let read_string = |l: &mut Lexer, ch: char| -> Vec<char> {
-            let position = l.position;
-            l.read_char();
-            while l.position < l.input.len() && l.ch != ch {
-                if l.ch == '\\' {
+                if l.ch == '*' {
                     l.read_char();
                 }
-                l.read_char();
-            }
-            l.read_char();
-            if l.position > l.input.len() {
-                l.position -= 1;
-                l.read_position -= 1;
+                if l.ch == '+' {
+                    l.read_char();
+                }
+                if l.ch == '_' {
+                    l.read_char();
+                }
+                if l.ch == '\'' {
+                    l.read_char();
+                }
+                if l.ch == '<' {
+                    l.read_char();
+                }
+                if l.ch == '>' {
+                    l.read_char();
+                }
+                if l.ch == '=' {
+                    l.read_char();
+                }
             }
             l.input[position..l.position].to_vec()
         };
 
-        let read_number = |l: &mut Lexer| -> Vec<char> {
-            let position = l.position;
-            while l.position < l.input.len() && l.ch.is_numeric() {
-                l.read_char();
-            }
-            l.input[position..l.position].to_vec()
-        };
+let read_string = |l: &mut Lexer, ch: char| -> Vec<char> {
+    let position = l.position;
+    l.read_char();
+    while l.position < l.input.len() && l.ch != ch {
+        if l.ch == '\\' { l.read_char(); }
+        l.read_char();
+    }
+    l.read_char();
+    if l.position > l.input.len() {
+        l.position -= 1;
+        l.read_position -= 1;
+    }
+    l.input[position..l.position].to_vec()
+};
+
+let read_number = |l: &mut Lexer| -> Vec<char> {
+    let position = l.position;
+    while l.position < l.input.len() && l.ch.is_numeric() {
+        l.read_char();
+    }
+    l.input[position..l.position].to_vec()
+};
 
         let tok: Token;
-        if self.read_position < self.input.len()
-            && self.ch == ';'
-            && self.input[self.read_position] == ';'
-        {
-            return Token::COMMENT(read_string(self, '\n'));
+        if self.read_position + 1 < self.input.len() && self.ch == '-' && self.input[self.read_position + 0] == '>' && self.input[self.read_position + 1] == '>' {
+            self.read_char();
+            self.read_char();
+            self.read_char();
+            return Token::KEYWORD(vec!['-', '>', '>']);
         }
+
+        if self.read_position + 0 < self.input.len() && self.ch == '-' && self.input[self.read_position + 0] == '>' {
+            self.read_char();
+            self.read_char();
+            return Token::KEYWORD(vec!['-', '>']);
+        }
+
+if self.read_position < self.input.len() && self.ch == ';'
+    && self.input[self.read_position] == ';'
+{
+    return Token::COMMENT(read_string(self, '\n'));
+}
 
         match self.ch {
             '\n' => {
@@ -113,45 +144,37 @@ impl Lexer {
                         identifier.append(&mut self.input[position..self.position].to_vec());
                     }
                     match get_keyword_token(&identifier) {
-                        Ok(keyword_token) => keyword_token,
-                        Err(_) => {
-                            if start_position > 0 && self.input[start_position - 1] == ':' {
-                                return Token::ENTITY(identifier);
+                            Ok(keyword_token) => {
+                                keyword_token
+                            },
+                            Err(_) => {
+                                if start_position > 0 && self.input[start_position - 1] == ':' {
+                                    return Token::ENTITY(identifier)
+                                }
+                                if start_position > 0 && self.input[start_position - 1] == '(' {
+                                    return Token::ENTITY(identifier)
+                                }
+                                Token::IDENT(identifier)
                             }
-                            if start_position > 0 && self.input[start_position - 1] == '(' {
-                                return Token::ENTITY(identifier);
-                            }
-                            Token::IDENT(identifier)
                         }
+                    } else if self.ch.is_numeric() {
+                        let identifier: Vec<char> = read_number(self);
+                        Token::INT(identifier)
+                    } else if self.ch == '"' {
+                        let str_value: Vec<char> = read_string(self, '"');
+                        Token::STRING(str_value)
+                    } else {
+                        Token::ILLEGAL
                     }
-                } else if self.ch.is_numeric() {
-                    let identifier: Vec<char> = read_number(self);
-                    Token::INT(identifier)
-                } else if self.ch == '"' {
-                    let str_value: Vec<char> = read_string(self, '"');
-                    Token::STRING(str_value)
-                } else {
-                    Token::ILLEGAL
                 }
             }
-        }
         self.read_char();
         tok
     }
 }
 
-pub fn get_keyword_token(identifier: &Vec<char>) -> Result<Token, String> {
-    let id: String = identifier.into_iter().collect();
-    match &id[..] {
-        "nil" | "full" => Ok(Token::CONSTANT(identifier.clone())),
-        "binding" | "case" | "catch" | "cond" | "do" | "ns" | "def" | "defonce" | "defmulti"
-        | "defmethod" | "defn" | "if" | "fn" | "require" | "when" | "try" | "throw" | "for"
-        | "let" | "defn-" | "in-ns" | "if-let" | "s/defn" | "if-not" | "when-not" => {
-            Ok(Token::KEYWORD(identifier.clone()))
-        }
-        _ => Err(String::from("Not a keyword")),
-    }
-}
+pub fn get_keyword_token(identifier: &Vec<char>) -> Result<Token, String> {let id: String = identifier.into_iter().collect();match &id[..] {
+"nil"|"true"|"false" => Ok(Token::CONSTANT(identifier.clone())),"binding"|"case"|"catch"|"cond"|"condp"|"cond->"|"cond->>"|"as->"|"some->"|"some->>"|"do"|"ns"|"in-ns"|"def"|"defonce"|"defmulti"|"defmethod"|"defn"|"defn-"|"defmacro"|"defprotocol"|"defrecord"|"deftype"|"declare"|"if"|"if-not"|"if-let"|"if-some"|"fn"|"fn*"|"require"|"refer"|"use"|"import"|"quote"|"var"|"when"|"when-not"|"when-let"|"when-some"|"when-first"|"try"|"throw"|"finally"|"for"|"doseq"|"dotimes"|"while"|"let"|"letfn"|"loop"|"recur"|"and"|"or"|"not"|"doto"|"new"|"set!"|"assert"|"comment"|"s/defn" => Ok(Token::KEYWORD(identifier.clone())),_ => Err(String::from("Not a keyword")),}}
 
 pub fn render_html(input: Vec<char>) -> String {
     let mut l = Lexer::new(input);
@@ -174,12 +197,12 @@ pub fn render_html(input: Vec<char>) -> String {
         }
 
         match token {
-            Token::INT(value) => {
-                html.push_str(&format!(
-                    "<span class=\"hl-c\">{}</span>",
-                    value.iter().collect::<String>()
-                ));
-            }
+Token::INT(value) => {
+    html.push_str(&format!(
+        "<span class=\"hl-c\">{}</span>",
+        value.iter().collect::<String>()
+    ));
+}
             Token::IDENT(value) => {
                 html.push_str(&value.iter().collect::<String>());
             }
@@ -197,60 +220,71 @@ pub fn render_html(input: Vec<char>) -> String {
                 html.push_str(&format!("<span class=\"hl-s\">{}</span>", s));
             }
             Token::ENTITY(value) => {
-                html.push_str(&format!(
-                    "<span class=\"hl-en\">{}</span>",
-                    value.iter().collect::<String>()
-                ));
-            }
-            Token::CONSTANT(value) => {
-                html.push_str(&format!(
-                    "<span class=\"hl-c\">{}</span>",
-                    value.iter().collect::<String>()
-                ));
-            }
-            Token::KEYWORD(value) => {
-                html.push_str(&format!(
-                    "<span class=\"hl-k\">{}</span>",
-                    value.iter().collect::<String>()
-                ));
-            }
-            Token::COMMENT(value) => {
-                let mut lines = String::new();
+                let mut s = String::new();
                 for ch in value {
                     if ch == '<' {
-                        lines.push_str("&lt;");
+                        s.push_str("&lt;");
                     } else if ch == '>' {
-                        lines.push_str("&gt;");
+                        s.push_str("&gt;");
                     } else {
-                        lines.push(ch);
+                        s.push(ch);
                     }
                 }
-                let split = lines.split("\n");
-                let split_len = split.clone().collect::<Vec<&str>>().len();
-                let mut index = 0;
-                for val in split {
-                    if val.len() > 1 {
-                        html.push_str(&format!("<span class=\"hl-cmt\">{}</span>", val));
-                    }
-                    index = index + 1;
-                    if index != split_len {
-                        line = line + 1;
-                        html.push_str("</td></tr>\n");
-                        html.push_str(&format!(
-                            "<tr><td class=\"hl-num\" data-line=\"{}\"></td><td>",
-                            line
-                        ));
+                html.push_str(&format!("<span class=\"hl-en\">{}</span>", s));
+            }
+Token::CONSTANT(value) => {
+    html.push_str(&format!("<span class=\"hl-c\">{}</span>", value.iter().collect::<String>()));
+}
+            Token::KEYWORD(value) => {
+                let mut s = String::new();
+                for ch in value {
+                    if ch == '<' {
+                        s.push_str("&lt;");
+                    } else if ch == '>' {
+                        s.push_str("&gt;");
+                    } else {
+                        s.push(ch);
                     }
                 }
+                html.push_str(&format!("<span class=\"hl-k\">{}</span>", s));
             }
-            Token::ENDL(_) => {
-                line = line + 1;
-                html.push_str("</td></tr>\n");
-                html.push_str(&format!(
-                    "<tr><td class=\"hl-num\" data-line=\"{}\"></td><td>",
-                    line
-                ));
-            }
+Token::COMMENT(value) => {
+    let mut lines = String::new();
+    for ch in value {
+        if ch == '<' {
+            lines.push_str("&lt;");
+        } else if ch == '>' {
+            lines.push_str("&gt;");
+        } else {
+            lines.push(ch);
+        }
+    }
+    let split = lines.split("\n");
+    let split_len = split.clone().collect::<Vec<&str>>().len();
+    let mut index = 0;
+    for val in split {
+        if val.len() > 1 {
+            html.push_str(&format!("<span class=\"hl-cmt\">{}</span>", val));
+        }
+        index = index + 1;
+        if index != split_len {
+            line = line + 1;
+            html.push_str("</td></tr>\n");
+            html.push_str(&format!(
+                "<tr><td class=\"hl-num\" data-line=\"{}\"></td><td>",
+                line
+            ));
+        }
+    }
+}
+Token::ENDL(_) => {
+    line = line + 1;
+    html.push_str("</td></tr>\n");
+    html.push_str(&format!(
+        "<tr><td class=\"hl-num\" data-line=\"{}\"></td><td>",
+        line
+    ));
+}
             _ => {
                 html.push(l.ch);
                 l.read_char();

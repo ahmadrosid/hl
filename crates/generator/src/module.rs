@@ -219,6 +219,17 @@ fn write_multi_line_string_handlers(module: &mut StringBuilder, h: &Hash) {
     }
 }
 
+fn rust_char_lit(ch: char) -> String {
+    match ch {
+        '\'' => "'\\''".to_string(),
+        '\\' => "'\\\\'".to_string(),
+        '\n' => "'\\n'".to_string(),
+        '\r' => "'\\r'".to_string(),
+        '\t' => "'\\t'".to_string(),
+        _ => format!("'{}'", ch),
+    }
+}
+
 fn write_multi_char_keywords(module: &mut StringBuilder, h: &Hash) {
     let mut keywords: Vec<Vec<char>> = get_double_keyword(h)
         .values()
@@ -247,7 +258,8 @@ fn write_multi_char_keywords(module: &mut StringBuilder, h: &Hash) {
         }
         let vec_str = v
             .iter()
-            .map(|c| format!("'{}'", c))
+            .copied()
+            .map(rust_char_lit)
             .collect::<Vec<_>>()
             .join(", ");
         module.push_tabln(3, &format!("return Token::KEYWORD(vec![{}]);", vec_str));
@@ -288,7 +300,7 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
     module.push_tabln(4, "l.read_char();");
     if let Some(val) = h.check_condition(ACCEPT_CHAR_IDENTIFIER) {
         for ch in val.as_str().unwrap().chars() {
-            module.push_tabln(4, &format!("if l.ch == '{}' {{", ch));
+            module.push_tabln(4, &format!("if l.ch == {} {{", rust_char_lit(ch)));
             module.push_tabln(5, "l.read_char();");
             module.push_tabln(4, "}");
         }
