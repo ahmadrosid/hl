@@ -48,7 +48,7 @@ See the result in browser [here](https://play.tailwindcss.com/JevzqYGpuH).
 - [x] CPP ( ✅ Done )
 - [x] C# ( ✅ Done )
 - [x] Go ( ✅ Done )
-- [ ] HTML ( 🚧 In Progress )
+- [x] HTML ( ✅ Done )
 - [x] Ruby ( ✅ Done )
 - [x] Rust ( ✅ Done )
 - [x] Java ( ✅ Done )

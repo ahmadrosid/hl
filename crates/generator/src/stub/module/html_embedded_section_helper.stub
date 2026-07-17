@@ -1,0 +1,21 @@
+
+fn push_html_embedded_track_section(l: &mut Lexer, start_position: usize, identifier: &Vec<char>) {
+    if start_position == 0 {
+        return;
+    }
+    let prev = l.input[start_position - 1];
+    let tag: String = identifier.iter().collect();
+    if prev == '<' {
+        if tag == "script" {
+            l.in_script = true;
+        } else if tag == "style" {
+            l.in_style = true;
+        }
+    } else if prev == '/' {
+        if tag == "script" {
+            l.in_script = false;
+        } else if tag == "style" {
+            l.in_style = false;
+        }
+    }
+}

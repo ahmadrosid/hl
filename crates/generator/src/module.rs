@@ -1,6 +1,6 @@
 use crate::parser::{
     bracket_dash_comment_enable, get_constant_prefix, get_constant_suffix, get_double_keyword,
-    get_entity_prefix, get_entity_suffix, get_multi_line_comment, get_multi_line_strings,
+    get_entity_prefix, get_entity_suffix, get_multi_line_comments, get_multi_line_strings,
     get_var_prefix, get_var_suffix, get_xml_entity_tag, ConditionExt,
 };
 use crate::string::StringBuilder;
@@ -55,6 +55,37 @@ const MARK_AS_STRING_ON_PREFIX: &str = "MARK_AS_STRING_ON_PREFIX";
 const SKIP_READ_ONE_QUOTE_STRING_ON_PREFIX: &str = "SKIP_READ_ONE_QUOTE_STRING_ON_PREFIX";
 const MARK_PASCALCASE_ENTITYTAG_IN_TAG: &str = "MARK_PASCALCASE_ENTITYTAG_IN_TAG";
 const MARK_VUE_SFC_SECTIONS: &str = "MARK_VUE_SFC_SECTIONS";
+const MARK_HTML_EMBEDDED_SECTIONS: &str = "MARK_HTML_EMBEDDED_SECTIONS";
+
+fn html_embedded_enabled(h: &Hash) -> bool {
+    h.check_condition(MARK_HTML_EMBEDDED_SECTIONS).is_some()
+}
+
+fn push_html_embedded_track_section(module: &mut StringBuilder, h: &Hash, indent: usize) {
+    if !html_embedded_enabled(h) {
+        return;
+    }
+    module.push_tabln(indent, "if start_position > 0 {");
+    module.push_tabln(indent + 1, "let prev = self.input[start_position - 1];");
+    module.push_tabln(
+        indent + 1,
+        "let embedded_tag: String = identifier.iter().collect();",
+    );
+    module.push_tabln(indent + 1, "if prev == '<' {");
+    module.push_tabln(indent + 2, "if embedded_tag == \"script\" {");
+    module.push_tabln(indent + 3, "self.in_script = true;");
+    module.push_tabln(indent + 2, "} else if embedded_tag == \"style\" {");
+    module.push_tabln(indent + 3, "self.in_style = true;");
+    module.push_tabln(indent + 2, "}");
+    module.push_tabln(indent + 1, "} else if prev == '/' {");
+    module.push_tabln(indent + 2, "if embedded_tag == \"script\" {");
+    module.push_tabln(indent + 3, "self.in_script = false;");
+    module.push_tabln(indent + 2, "} else if embedded_tag == \"style\" {");
+    module.push_tabln(indent + 3, "self.in_style = false;");
+    module.push_tabln(indent + 2, "}");
+    module.push_tabln(indent + 1, "}");
+    module.push_tabln(indent, "}");
+}
 
 fn push_vue_plain_text_suppress(module: &mut StringBuilder, h: &Hash, indent: usize) {
     if h.check_condition(MARK_VUE_SFC_SECTIONS).is_none() {
@@ -115,12 +146,50 @@ pub fn generate_module(h: &Hash) -> String {
         );
         initial_module.push_str(include_str!("stub/module/vue_sfc_plain_text_helper.stub"));
     }
+    if html_embedded_enabled(h) {
+        initial_module = initial_module.replace(
+            "ch: char,",
+            "ch: char,\n    in_script: bool,\n    in_style: bool,",
+        );
+    }
     let mut module = StringBuilder::new();
     module.push_str(&initial_module);
 
     write_impl_lexer(&mut module, h);
 
     module.to_string()
+}
+
+fn write_multi_line_comment_handlers(module: &mut StringBuilder, h: &Hash) {
+    for line in get_multi_line_comments(h) {
+        if line.len() <= 1 {
+            continue;
+        }
+        let chars: Vec<&str> = line.split(",").collect();
+        assert!(
+            chars.len() == 2,
+            "{}",
+            format!(
+                "Scope multi line comment should be 2 split by comma found {}",
+                chars.len()
+            )
+        );
+        let prefix = chars[0].chars().next().unwrap();
+        let suffix = chars[1].chars().next().unwrap();
+        let handler = include_str!("stub/module/handle_multi_line_token.stub")
+            .replace("{prefix}", &prefix.to_string())
+            .replace("{begin}", chars[0])
+            .replace("{end}", chars[1])
+            .replace("{suffix}", &suffix.to_string())
+            .replace("{token}", "COMMENT");
+        if html_embedded_enabled(h) && chars[0].starts_with("/*") {
+            module.push_tabln(2, "if self.in_style {");
+            module.push_str(&handler);
+            module.push_tabln(2, "}");
+        } else {
+            module.push_str(&handler);
+        }
+    }
 }
 
 fn write_multi_line_string_handlers(module: &mut StringBuilder, h: &Hash) {
@@ -201,6 +270,13 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
                 "ch: '\\0',\n            template_depth: 0,\n            in_script: false,\n            in_style: false,",
             ),
         );
+    } else if html_embedded_enabled(h) {
+        module.push_str(
+            &include_str!("stub/module/impl_lexer.stub").replace(
+                "ch: '\\0',",
+                "ch: '\\0',\n            in_script: false,\n            in_style: false,",
+            ),
+        );
     } else {
         module.push_str(include_str!("stub/module/impl_lexer.stub"));
     }
@@ -234,29 +310,7 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
 
     module.push_tabln(2, "let tok: Token;");
 
-    let line = get_multi_line_comment(h);
-    if line.len() > 1 {
-        let chars = line.split(",").collect::<Vec<_>>();
-        assert!(
-            chars.len() == 2,
-            "{}",
-            &format!(
-                "Scope multi line comment should be 2 split by comma found {}",
-                chars.len()
-            )
-            .bold_red()
-        );
-        let prefix = chars[0].chars().next().unwrap();
-        let suffix = chars[1].chars().next().unwrap();
-        module.push_str(
-            &include_str!("stub/module/handle_multi_line_token.stub")
-                .replace("{prefix}", &prefix.to_string())
-                .replace("{begin}", chars[0])
-                .replace("{end}", chars[1])
-                .replace("{suffix}", &suffix.to_string())
-                .replace("{token}", "COMMENT"),
-        );
-    }
+    write_multi_line_comment_handlers(module, h);
 
     write_multi_line_string_handlers(module, h);
 
@@ -369,7 +423,13 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
                 .replace("self.read_position < self.input.len() &&", "")
                 .replace("&& self.input[self.read_position] == '{last}'", "")
         }
+        if html_embedded_enabled(h) {
+            module.push_tabln(2, "if self.in_script {");
+        }
         module.push_str(&source);
+        if html_embedded_enabled(h) {
+            module.push_tabln(2, "}");
+        }
     }
 
     if let Some(ch) = h.check_condition(PREFIX_ONE_LINE_COMMENT_BEFORE_NEWLINE) {
@@ -631,12 +691,42 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
     }
 
     if get_xml_entity_tag(h).len() >= 1 {
-        module.push_tabln(9, "if self.input[start_position-1] == '<'");
-        module.push_tabln(9, "|| self.input[start_position-1] == '/'");
-        module.push_tabln(9, "|| self.ch == '>' {");
-        module.push_tabln(9, "return keyword_token");
-        module.push_tabln(8, "}");
-        module.push_tabln(8, "return Token::IDENT(identifier);");
+        push_html_embedded_track_section(module, h, 8);
+        if html_embedded_enabled(h) {
+            module.push_tabln(8, "if self.in_script || self.in_style {");
+            module.push_tabln(9, "if let Token::ENTITYTAG(_) = keyword_token {");
+            module.push_tabln(10, "if start_position > 0");
+            module.push_tabln(
+                10,
+                "&& (self.input[start_position - 1] == '<'",
+            );
+            module.push_tabln(
+                10,
+                "|| self.input[start_position - 1] == '/') {",
+            );
+            module.push_tabln(11, "return keyword_token;");
+            module.push_tabln(10, "}");
+            module.push_tabln(10, "return Token::IDENT(identifier);");
+            module.push_tabln(9, "}");
+            module.push_tabln(9, "return keyword_token;");
+            module.push_tabln(8, "} else if start_position > 0");
+            module.push_tabln(
+                8,
+                "&& (self.input[start_position - 1] == '<'",
+            );
+            module.push_tabln(8, "|| self.input[start_position - 1] == '/'");
+            module.push_tabln(8, "|| self.ch == '>') {");
+            module.push_tabln(9, "return keyword_token;");
+            module.push_tabln(8, "}");
+            module.push_tabln(8, "return Token::IDENT(identifier);");
+        } else {
+            module.push_tabln(9, "if self.input[start_position-1] == '<'");
+            module.push_tabln(9, "|| self.input[start_position-1] == '/'");
+            module.push_tabln(9, "|| self.ch == '>' {");
+            module.push_tabln(9, "return keyword_token");
+            module.push_tabln(8, "}");
+            module.push_tabln(8, "return Token::IDENT(identifier);");
+        }
     } else {
         push_vue_sfc_track_section(module, h, 8);
         push_vue_plain_text_suppress(module, h, 8);
