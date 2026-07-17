@@ -2,3 +2,5 @@
 .idea
 table.html
 test-file*
+docs/
+.DS_Store/

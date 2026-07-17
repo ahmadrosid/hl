@@ -61,7 +61,7 @@ See the result in browser [here](https://play.tailwindcss.com/JevzqYGpuH).
 - [x] PHP ( ✅ Done )
 - [ ] Python ( 🚧 In Progress )
 - [x] Typescript ( ✅ Done )
-- [ ] Vue ( 🚧 In Progress )
+- [x] Vue ( ✅ Done )
 - [x] Yaml ( ✅ Done )
 - [x] Zig ( ✅ Done )
 - [x] Toml ( ✅ Done )

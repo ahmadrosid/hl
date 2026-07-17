@@ -1,0 +1,16 @@
+
+fn vue_template_plain_text(l: &Lexer, start_position: usize) -> bool {
+    l.template_depth > 0
+        && !l.in_script
+        && !l.in_style
+        && (start_position == 0
+            || {
+                let prev = l.input[start_position - 1];
+                prev != '<'
+                    && prev != '/'
+                    && prev != ':'
+                    && prev != '#'
+                    && prev != '@'
+                    && prev != '.'
+            })
+}

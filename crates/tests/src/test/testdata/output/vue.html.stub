@@ -1,0 +1,99 @@
+<table class="highlight-table">
+<tbody>
+<tr><td class="hl-num" data-line="1"></td><td>&lt;<span class="hl-ent">script</span> setup lang=<span class="hl-s">"ts"</span>&gt;</td></tr>
+<tr><td class="hl-num" data-line="2"></td><td><span class="hl-k">import</span> WelcomeItem <span class="hl-k">from</span> <span class="hl-s">'./WelcomeItem.vue'</span></td></tr>
+<tr><td class="hl-num" data-line="3"></td><td><span class="hl-k">import</span> DocumentationIcon <span class="hl-k">from</span> <span class="hl-s">'./icons/IconDocumentation.vue'</span></td></tr>
+<tr><td class="hl-num" data-line="4"></td><td><span class="hl-k">import</span> ToolingIcon <span class="hl-k">from</span> <span class="hl-s">'./icons/IconTooling.vue'</span></td></tr>
+<tr><td class="hl-num" data-line="5"></td><td><span class="hl-k">import</span> EcosystemIcon <span class="hl-k">from</span> <span class="hl-s">'./icons/IconEcosystem.vue'</span></td></tr>
+<tr><td class="hl-num" data-line="6"></td><td><span class="hl-k">import</span> CommunityIcon <span class="hl-k">from</span> <span class="hl-s">'./icons/IconCommunity.vue'</span></td></tr>
+<tr><td class="hl-num" data-line="7"></td><td><span class="hl-k">import</span> SupportIcon <span class="hl-k">from</span> <span class="hl-s">'./icons/IconSupport.vue'</span></td></tr>
+<tr><td class="hl-num" data-line="8"></td><td></td></tr>
+<tr><td class="hl-num" data-line="9"></td><td><span class="hl-k">const</span> openReadmeInEditor = () =&gt; <span class="hl-en">fetch</span>(<span class="hl-s">'/__open-in-editor?file=README.md'</span>)</td></tr>
+<tr><td class="hl-num" data-line="10"></td><td>&lt;/<span class="hl-ent">script</span>&gt;</td></tr>
+<tr><td class="hl-num" data-line="11"></td><td></td></tr>
+<tr><td class="hl-num" data-line="12"></td><td>&lt;<span class="hl-ent">template</span>&gt;</td></tr>
+<tr><td class="hl-num" data-line="13"></td><td>  &lt;<span class="hl-ent">WelcomeItem</span>&gt;</td></tr>
+<tr><td class="hl-num" data-line="14"></td><td>    &lt;<span class="hl-ent">template</span> <span class="hl-k">#icon</span>&gt;</td></tr>
+<tr><td class="hl-num" data-line="15"></td><td>      &lt;<span class="hl-ent">DocumentationIcon</span> /&gt;</td></tr>
+<tr><td class="hl-num" data-line="16"></td><td>    &lt;/<span class="hl-ent">template</span>&gt;</td></tr>
+<tr><td class="hl-num" data-line="17"></td><td>    &lt;<span class="hl-ent">template</span> <span class="hl-k">#heading</span>&gt;Documentation&lt;/<span class="hl-ent">template</span>&gt;</td></tr>
+<tr><td class="hl-num" data-line="18"></td><td></td></tr>
+<tr><td class="hl-num" data-line="19"></td><td>    Vue’s</td></tr>
+<tr><td class="hl-num" data-line="20"></td><td>    &lt;<span class="hl-ent">a</span> href=<span class="hl-s">"https://vuejs.org/"</span> target=<span class="hl-s">"_blank"</span> rel=<span class="hl-s">"noopener"</span>&gt;official documentation&lt;/<span class="hl-ent">a</span>&gt;</td></tr>
+<tr><td class="hl-num" data-line="21"></td><td>    provides you with all information you need to get started.</td></tr>
+<tr><td class="hl-num" data-line="22"></td><td>  &lt;/<span class="hl-ent">WelcomeItem</span>&gt;</td></tr>
+<tr><td class="hl-num" data-line="23"></td><td></td></tr>
+<tr><td class="hl-num" data-line="24"></td><td>  &lt;<span class="hl-ent">WelcomeItem</span>&gt;</td></tr>
+<tr><td class="hl-num" data-line="25"></td><td>    &lt;<span class="hl-ent">template</span> <span class="hl-k">#icon</span>&gt;</td></tr>
+<tr><td class="hl-num" data-line="26"></td><td>      &lt;<span class="hl-ent">ToolingIcon</span> /&gt;</td></tr>
+<tr><td class="hl-num" data-line="27"></td><td>    &lt;/<span class="hl-ent">template</span>&gt;</td></tr>
+<tr><td class="hl-num" data-line="28"></td><td>    &lt;<span class="hl-ent">template</span> <span class="hl-k">#heading</span>&gt;Tooling&lt;/<span class="hl-ent">template</span>&gt;</td></tr>
+<tr><td class="hl-num" data-line="29"></td><td></td></tr>
+<tr><td class="hl-num" data-line="30"></td><td>    This project is served and bundled with</td></tr>
+<tr><td class="hl-num" data-line="31"></td><td>    &lt;<span class="hl-ent">a</span> href=<span class="hl-s">"https://vite.dev/guide/features.html"</span> target=<span class="hl-s">"_blank"</span> rel=<span class="hl-s">"noopener"</span>&gt;Vite&lt;/<span class="hl-ent">a</span>&gt;. The</td></tr>
+<tr><td class="hl-num" data-line="32"></td><td>    recommended IDE setup is</td></tr>
+<tr><td class="hl-num" data-line="33"></td><td>    &lt;<span class="hl-ent">a</span> href=<span class="hl-s">"https://code.visualstudio.com/"</span> target=<span class="hl-s">"_blank"</span> rel=<span class="hl-s">"noopener"</span>&gt;VSCode&lt;/<span class="hl-ent">a</span>&gt;</td></tr>
+<tr><td class="hl-num" data-line="34"></td><td>    +</td></tr>
+<tr><td class="hl-num" data-line="35"></td><td>    &lt;<span class="hl-ent">a</span> href=<span class="hl-s">"https://github.com/vuejs/language-tools"</span> target=<span class="hl-s">"_blank"</span> rel=<span class="hl-s">"noopener"</span></td></tr>
+<tr><td class="hl-num" data-line="36"></td><td>      &gt;Vue - Official&lt;/<span class="hl-ent">a</span></td></tr>
+<tr><td class="hl-num" data-line="37"></td><td>    &gt;. If you need to test your components and web pages, check out</td></tr>
+<tr><td class="hl-num" data-line="38"></td><td>    &lt;<span class="hl-ent">a</span> href=<span class="hl-s">"https://vitest.dev/"</span> target=<span class="hl-s">"_blank"</span> rel=<span class="hl-s">"noopener"</span>&gt;Vitest&lt;/<span class="hl-ent">a</span>&gt;</td></tr>
+<tr><td class="hl-num" data-line="39"></td><td>    and</td></tr>
+<tr><td class="hl-num" data-line="40"></td><td>    &lt;<span class="hl-ent">a</span> href=<span class="hl-s">"https://www.cypress.io/"</span> target=<span class="hl-s">"_blank"</span> rel=<span class="hl-s">"noopener"</span>&gt;Cypress&lt;/<span class="hl-ent">a</span>&gt;</td></tr>
+<tr><td class="hl-num" data-line="41"></td><td>    /</td></tr>
+<tr><td class="hl-num" data-line="42"></td><td>    &lt;<span class="hl-ent">a</span> href=<span class="hl-s">"https://playwright.dev/"</span> target=<span class="hl-s">"_blank"</span> rel=<span class="hl-s">"noopener"</span>&gt;Playwright&lt;/<span class="hl-ent">a</span>&gt;.</td></tr>
+<tr><td class="hl-num" data-line="43"></td><td></td></tr>
+<tr><td class="hl-num" data-line="44"></td><td>    &lt;br /&gt;</td></tr>
+<tr><td class="hl-num" data-line="45"></td><td></td></tr>
+<tr><td class="hl-num" data-line="46"></td><td>    More instructions are available in</td></tr>
+<tr><td class="hl-num" data-line="47"></td><td>    &lt;<span class="hl-ent">a</span> href=<span class="hl-s">"javascript:void(0)"</span> @click=<span class="hl-s">"openReadmeInEditor"</span>&gt;&lt;<span class="hl-ent">code</span>&gt;README.<span class="hl-en">md</span>&lt;/<span class="hl-ent">code</span>&gt;&lt;/<span class="hl-ent">a</span></td></tr>
+<tr><td class="hl-num" data-line="48"></td><td>    &gt;.</td></tr>
+<tr><td class="hl-num" data-line="49"></td><td>  &lt;/<span class="hl-ent">WelcomeItem</span>&gt;</td></tr>
+<tr><td class="hl-num" data-line="50"></td><td></td></tr>
+<tr><td class="hl-num" data-line="51"></td><td>  &lt;<span class="hl-ent">WelcomeItem</span>&gt;</td></tr>
+<tr><td class="hl-num" data-line="52"></td><td>    &lt;<span class="hl-ent">template</span> <span class="hl-k">#icon</span>&gt;</td></tr>
+<tr><td class="hl-num" data-line="53"></td><td>      &lt;<span class="hl-ent">EcosystemIcon</span> /&gt;</td></tr>
+<tr><td class="hl-num" data-line="54"></td><td>    &lt;/<span class="hl-ent">template</span>&gt;</td></tr>
+<tr><td class="hl-num" data-line="55"></td><td>    &lt;<span class="hl-ent">template</span> <span class="hl-k">#heading</span>&gt;Ecosystem&lt;/<span class="hl-ent">template</span>&gt;</td></tr>
+<tr><td class="hl-num" data-line="56"></td><td></td></tr>
+<tr><td class="hl-num" data-line="57"></td><td>    Get official tools and libraries for your project:</td></tr>
+<tr><td class="hl-num" data-line="58"></td><td>    &lt;<span class="hl-ent">a</span> href=<span class="hl-s">"https://pinia.vuejs.org/"</span> target=<span class="hl-s">"_blank"</span> rel=<span class="hl-s">"noopener"</span>&gt;Pinia&lt;/<span class="hl-ent">a</span>&gt;,</td></tr>
+<tr><td class="hl-num" data-line="59"></td><td>    &lt;<span class="hl-ent">a</span> href=<span class="hl-s">"https://router.vuejs.org/"</span> target=<span class="hl-s">"_blank"</span> rel=<span class="hl-s">"noopener"</span>&gt;Vue Router&lt;/<span class="hl-ent">a</span>&gt;,</td></tr>
+<tr><td class="hl-num" data-line="60"></td><td>    &lt;<span class="hl-ent">a</span> href=<span class="hl-s">"https://test-utils.vuejs.org/"</span> target=<span class="hl-s">"_blank"</span> rel=<span class="hl-s">"noopener"</span>&gt;Vue Test Utils&lt;/<span class="hl-ent">a</span>&gt;, and</td></tr>
+<tr><td class="hl-num" data-line="61"></td><td>    &lt;<span class="hl-ent">a</span> href=<span class="hl-s">"https://github.com/vuejs/devtools"</span> target=<span class="hl-s">"_blank"</span> rel=<span class="hl-s">"noopener"</span>&gt;Vue Dev Tools&lt;/<span class="hl-ent">a</span>&gt;. If</td></tr>
+<tr><td class="hl-num" data-line="62"></td><td>    you need more resources, we suggest paying</td></tr>
+<tr><td class="hl-num" data-line="63"></td><td>    &lt;<span class="hl-ent">a</span> href=<span class="hl-s">"https://github.com/vuejs/awesome-vue"</span> target=<span class="hl-s">"_blank"</span> rel=<span class="hl-s">"noopener"</span>&gt;Awesome Vue&lt;/<span class="hl-ent">a</span>&gt;</td></tr>
+<tr><td class="hl-num" data-line="64"></td><td>    a visit.</td></tr>
+<tr><td class="hl-num" data-line="65"></td><td>  &lt;/<span class="hl-ent">WelcomeItem</span>&gt;</td></tr>
+<tr><td class="hl-num" data-line="66"></td><td></td></tr>
+<tr><td class="hl-num" data-line="67"></td><td>  &lt;<span class="hl-ent">WelcomeItem</span>&gt;</td></tr>
+<tr><td class="hl-num" data-line="68"></td><td>    &lt;<span class="hl-ent">template</span> <span class="hl-k">#icon</span>&gt;</td></tr>
+<tr><td class="hl-num" data-line="69"></td><td>      &lt;<span class="hl-ent">CommunityIcon</span> /&gt;</td></tr>
+<tr><td class="hl-num" data-line="70"></td><td>    &lt;/<span class="hl-ent">template</span>&gt;</td></tr>
+<tr><td class="hl-num" data-line="71"></td><td>    &lt;<span class="hl-ent">template</span> <span class="hl-k">#heading</span>&gt;Community&lt;/<span class="hl-ent">template</span>&gt;</td></tr>
+<tr><td class="hl-num" data-line="72"></td><td></td></tr>
+<tr><td class="hl-num" data-line="73"></td><td>    Got stuck? Ask your question on</td></tr>
+<tr><td class="hl-num" data-line="74"></td><td>    &lt;<span class="hl-ent">a</span> href=<span class="hl-s">"https://chat.vuejs.org"</span> target=<span class="hl-s">"_blank"</span> rel=<span class="hl-s">"noopener"</span>&gt;Vue Land&lt;/<span class="hl-ent">a</span>&gt;</td></tr>
+<tr><td class="hl-num" data-line="75"></td><td>    (our official Discord server), or</td></tr>
+<tr><td class="hl-num" data-line="76"></td><td>    &lt;<span class="hl-ent">a</span> href=<span class="hl-s">"https://stackoverflow.com/questions/tagged/vue.js"</span> target=<span class="hl-s">"_blank"</span> rel=<span class="hl-s">"noopener"</span></td></tr>
+<tr><td class="hl-num" data-line="77"></td><td>      &gt;StackOverflow&lt;/<span class="hl-ent">a</span></td></tr>
+<tr><td class="hl-num" data-line="78"></td><td>    &gt;. You should also follow the official</td></tr>
+<tr><td class="hl-num" data-line="79"></td><td>    &lt;<span class="hl-ent">a</span> href=<span class="hl-s">"https://bsky.app/profile/vuejs.org"</span> target=<span class="hl-s">"_blank"</span> rel=<span class="hl-s">"noopener"</span>&gt;@vuejs.<span class="hl-en">org</span>&lt;/<span class="hl-ent">a</span>&gt;</td></tr>
+<tr><td class="hl-num" data-line="80"></td><td>    Bluesky account or the</td></tr>
+<tr><td class="hl-num" data-line="81"></td><td>    &lt;<span class="hl-ent">a</span> href=<span class="hl-s">"https://x.com/vuejs"</span> target=<span class="hl-s">"_blank"</span> rel=<span class="hl-s">"noopener"</span>&gt;@vuejs&lt;/<span class="hl-ent">a</span>&gt;</td></tr>
+<tr><td class="hl-num" data-line="82"></td><td>    X account for latest news in the Vue world.</td></tr>
+<tr><td class="hl-num" data-line="83"></td><td>  &lt;/<span class="hl-ent">WelcomeItem</span>&gt;</td></tr>
+<tr><td class="hl-num" data-line="84"></td><td></td></tr>
+<tr><td class="hl-num" data-line="85"></td><td>  &lt;<span class="hl-ent">WelcomeItem</span>&gt;</td></tr>
+<tr><td class="hl-num" data-line="86"></td><td>    &lt;<span class="hl-ent">template</span> <span class="hl-k">#icon</span>&gt;</td></tr>
+<tr><td class="hl-num" data-line="87"></td><td>      &lt;<span class="hl-ent">SupportIcon</span> /&gt;</td></tr>
+<tr><td class="hl-num" data-line="88"></td><td>    &lt;/<span class="hl-ent">template</span>&gt;</td></tr>
+<tr><td class="hl-num" data-line="89"></td><td>    &lt;<span class="hl-ent">template</span> <span class="hl-k">#heading</span>&gt;Support Vue&lt;/<span class="hl-ent">template</span>&gt;</td></tr>
+<tr><td class="hl-num" data-line="90"></td><td></td></tr>
+<tr><td class="hl-num" data-line="91"></td><td>    As an independent project, Vue relies on community backing for its sustainability. You can help</td></tr>
+<tr><td class="hl-num" data-line="92"></td><td>    us by</td></tr>
+<tr><td class="hl-num" data-line="93"></td><td>    &lt;<span class="hl-ent">a</span> href=<span class="hl-s">"https://vuejs.org/sponsor/"</span> target=<span class="hl-s">"_blank"</span> rel=<span class="hl-s">"noopener"</span>&gt;becoming a sponsor&lt;/<span class="hl-ent">a</span>&gt;.</td></tr>
+<tr><td class="hl-num" data-line="94"></td><td>  &lt;/<span class="hl-ent">WelcomeItem</span>&gt;</td></tr>
+<tr><td class="hl-num" data-line="95"></td><td>&lt;/<span class="hl-ent">template</span>&gt;</td></tr>
+</tbody>
+</table>

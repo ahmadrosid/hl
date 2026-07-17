@@ -1,0 +1,12 @@
+if start_position > 0 {
+    let prev = self.input[start_position - 1];
+    if prev == '<' || prev == '/' {
+        if identifier
+            .first()
+            .map(|c| c.is_uppercase())
+            .unwrap_or(false)
+        {
+            return Token::ENTITYTAG(identifier);
+        }
+    }
+}

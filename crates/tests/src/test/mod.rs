@@ -261,6 +261,16 @@ fn test_typescript() {
 }
 
 #[test]
+fn test_vue() {
+    let input = include_str!("testdata/input/vue.vue.stub")
+        .chars()
+        .collect::<Vec<char>>();
+    let expected = include_str!("testdata/output/vue.html.stub");
+    let actual = vue::render_html(input);
+    assert_eq!(expected, actual);
+}
+
+#[test]
 fn test_v() {
     let input = include_str!("testdata/input/v.v.stub")
         .chars()

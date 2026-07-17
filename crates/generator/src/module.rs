@@ -53,6 +53,50 @@ const MARK_AS_CONSTANT_ON_PREFIX: &str = "MARK_AS_CONSTANT_ON_PREFIX";
 const MARK_AS_ENTITY_ON_FUNCTION_SCOPE: &str = "MARK_AS_ENTITY_ON_FUNCTION_SCOPE";
 const MARK_AS_STRING_ON_PREFIX: &str = "MARK_AS_STRING_ON_PREFIX";
 const SKIP_READ_ONE_QUOTE_STRING_ON_PREFIX: &str = "SKIP_READ_ONE_QUOTE_STRING_ON_PREFIX";
+const MARK_PASCALCASE_ENTITYTAG_IN_TAG: &str = "MARK_PASCALCASE_ENTITYTAG_IN_TAG";
+const MARK_VUE_SFC_SECTIONS: &str = "MARK_VUE_SFC_SECTIONS";
+
+fn push_vue_plain_text_suppress(module: &mut StringBuilder, h: &Hash, indent: usize) {
+    if h.check_condition(MARK_VUE_SFC_SECTIONS).is_none() {
+        return;
+    }
+    module.push_tabln(indent, "if vue_template_plain_text(self, start_position) {");
+    module.push_tabln(indent + 1, "return Token::IDENT(identifier);");
+    module.push_tabln(indent, "}");
+}
+
+fn push_vue_sfc_track_section(module: &mut StringBuilder, h: &Hash, indent: usize) {
+    if h.check_condition(MARK_VUE_SFC_SECTIONS).is_none() {
+        return;
+    }
+    module.push_tabln(indent, "if start_position > 0 {");
+    module.push_tabln(indent + 1, "let prev = self.input[start_position - 1];");
+    module.push_tabln(
+        indent + 1,
+        "let sfc_tag: String = identifier.iter().collect();",
+    );
+    module.push_tabln(indent + 1, "if prev == '<' {");
+    module.push_tabln(indent + 2, "if sfc_tag == \"template\" {");
+    module.push_tabln(indent + 3, "self.template_depth += 1;");
+    module.push_tabln(indent + 2, "} else if sfc_tag == \"script\" {");
+    module.push_tabln(indent + 3, "self.in_script = true;");
+    module.push_tabln(indent + 2, "} else if sfc_tag == \"style\" {");
+    module.push_tabln(indent + 3, "self.in_style = true;");
+    module.push_tabln(indent + 2, "}");
+    module.push_tabln(indent + 1, "} else if prev == '/' {");
+    module.push_tabln(indent + 2, "if sfc_tag == \"template\" {");
+    module.push_tabln(
+        indent + 3,
+        "self.template_depth = self.template_depth.saturating_sub(1);",
+    );
+    module.push_tabln(indent + 2, "} else if sfc_tag == \"script\" {");
+    module.push_tabln(indent + 3, "self.in_script = false;");
+    module.push_tabln(indent + 2, "} else if sfc_tag == \"style\" {");
+    module.push_tabln(indent + 3, "self.in_style = false;");
+    module.push_tabln(indent + 2, "}");
+    module.push_tabln(indent + 1, "}");
+    module.push_tabln(indent, "}");
+}
 
 pub fn generate_module(h: &Hash) -> String {
     let mut initial_module = include_str!("stub/module/initial_module.stub").to_string();
@@ -63,6 +107,13 @@ pub fn generate_module(h: &Hash) -> String {
             "input: Vec<char>,",
             "input: Vec<char>,\nfunction_scope: bool,",
         )
+    }
+    if h.check_condition(MARK_VUE_SFC_SECTIONS).is_some() {
+        initial_module = initial_module.replace(
+            "ch: char,",
+            "ch: char,\n    template_depth: usize,\n    in_script: bool,\n    in_style: bool,",
+        );
+        initial_module.push_str(include_str!("stub/module/vue_sfc_plain_text_helper.stub"));
     }
     let mut module = StringBuilder::new();
     module.push_str(&initial_module);
@@ -79,6 +130,13 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
         module.push_str(
             &include_str!("stub/module/impl_lexer.stub")
                 .replace("input,", "input,function_scope: false,"),
+        );
+    } else if h.check_condition(MARK_VUE_SFC_SECTIONS).is_some() {
+        module.push_str(
+            &include_str!("stub/module/impl_lexer.stub").replace(
+                "ch: '\\0',",
+                "ch: '\\0',\n            template_depth: 0,\n            in_script: false,\n            in_style: false,",
+            ),
         );
     } else {
         module.push_str(include_str!("stub/module/impl_lexer.stub"));
@@ -561,6 +619,7 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
         );
         module.push_tabln(8, "if self.input[position] ==");
         module.push_strln(&format!("'{}' {{", ch.as_str().unwrap()));
+        push_vue_plain_text_suppress(module, h, 9);
         module.push_tabln(9, "return Token::ENTITY(identifier)");
         module.push_tabln(8, "}");
     }
@@ -573,6 +632,8 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
         module.push_tabln(8, "}");
         module.push_tabln(8, "return Token::IDENT(identifier);");
     } else {
+        push_vue_sfc_track_section(module, h, 8);
+        push_vue_plain_text_suppress(module, h, 8);
         module.push_tabln(8, "keyword_token");
     }
     module.push_tabln(7, "},");
@@ -609,6 +670,7 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
                 9,
                 "identifier.append(&mut self.input[position..self.position].to_vec());",
             );
+            push_vue_plain_text_suppress(module, h, 9);
             module.push_tabln(9, "return Token::ENTITY(identifier)");
             module.push_tabln(8, "}")
         }
@@ -655,6 +717,7 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
                 9,
                 "identifier.append(&mut self.input[position..self.position].to_vec());",
             );
+            push_vue_plain_text_suppress(module, h, 9);
             module.push_tabln(9, "return Token::ENTITY(identifier)");
             module.push_tabln(8, "}")
         }
@@ -691,23 +754,41 @@ fn write_impl_lexer(module: &mut StringBuilder, h: &Hash) {
         let ch = v.as_str().unwrap();
         module.push_tab(8, "if start_position > 0 ");
         module.push_strln(&format!("&& self.input[start_position - 1] == '{}' {{", ch));
+        push_vue_plain_text_suppress(module, h, 9);
         module.push_tabln(9, "return Token::ENTITY(identifier)");
         module.push_tabln(8, "}");
     }
 
     for ch in get_entity_suffix(h).values() {
         let source = include_str!("stub/module/handle_identifier_suffix.stub").to_string();
-        module.push_str(
-            &source
-                .replace("{ch}", ch.as_str().unwrap())
-                .replace("{token}", "ENTITY"),
-        );
+        let mut generated = source
+            .replace("{ch}", ch.as_str().unwrap())
+            .replace("{token}", "ENTITY");
+        if h.check_condition(MARK_VUE_SFC_SECTIONS).is_some() {
+            generated = generated.replace(
+                "return Token::ENTITY(identifier);",
+                "if vue_template_plain_text(self, start_position) { return Token::IDENT(identifier); } return Token::ENTITY(identifier);",
+            );
+            generated = generated.replace(
+                "return Token::ENTITY(identifier)",
+                "if vue_template_plain_text(self, start_position) { return Token::IDENT(identifier); } return Token::ENTITY(identifier)",
+            );
+        }
+        module.push_str(&generated);
     }
 
     if let Some(ch) = h.check_condition(MARK_ENTITY_TAG_SUFFIX) {
         module.push_tabln(8, &format!("if self.ch == '{}' {{", ch.as_str().unwrap()));
         module.push_tabln(9, "return Token::ENTITYTAG(identifier)");
         module.push_tabln(8, "}");
+    }
+
+    if h.check_condition(MARK_PASCALCASE_ENTITYTAG_IN_TAG)
+        .is_some()
+    {
+        module.push_str(include_str!(
+            "stub/module/mark_pascalcase_entitytag_in_tag.stub"
+        ));
     }
 
     for v in get_constant_prefix(h).values() {
