@@ -62,7 +62,7 @@
 <tr><td class="hl-num" data-line="60"></td><td>  <span class="hl-k">fn</span> <span class="hl-en">poll_next</span>(</td></tr>
 <tr><td class="hl-num" data-line="61"></td><td>    <span class="hl-k">self</span>: Pin<span class="hl-k"><</span><span class="hl-k">&</span><span class="hl-k">mut</span> <span class="hl-k">Self</span><span class="hl-k">></span>,</td></tr>
 <tr><td class="hl-num" data-line="62"></td><td>    cx: <span class="hl-k">&</span><span class="hl-k">mut</span> Context,</td></tr>
-<tr><td class="hl-num" data-line="63"></td><td>  ) <span class="hl-k">-</span><span class="hl-k">></span> Poll<span class="hl-k"><</span><span class="hl-k">Option</span><span class="hl-k"><</span><span class="hl-k">Self</span><span class="hl-k">::</span>Item<span class="hl-k">></span><span class="hl-k">></span> {</td></tr>
+<tr><td class="hl-num" data-line="63"></td><td>  ) <span class="hl-k">-></span> Poll<span class="hl-k"><</span><span class="hl-k">Option</span><span class="hl-k"><</span><span class="hl-k">Self</span><span class="hl-k">::</span>Item<span class="hl-k">></span><span class="hl-k">></span> {</td></tr>
 <tr><td class="hl-num" data-line="64"></td><td>    <span class="hl-k">let</span> inner <span class="hl-k">=</span> <span class="hl-k">self</span>.<span class="hl-en">get_mut</span>();</td></tr>
 <tr><td class="hl-num" data-line="65"></td><td>    <span class="hl-k">match</span> inner.<span class="hl-en">state</span> {</td></tr>
 <tr><td class="hl-num" data-line="66"></td><td>      LoadState<span class="hl-k">::</span>Init <span class="hl-k">=></span> {</td></tr>
@@ -99,5 +99,17 @@
 <tr><td class="hl-num" data-line="97"></td><td>  }</td></tr>
 <tr><td class="hl-num" data-line="98"></td><td>}</td></tr>
 <tr><td class="hl-num" data-line="99"></td><td></td></tr>
+<tr><td class="hl-num" data-line="100"></td><td><span class="hl-k">fn</span> <span class="hl-en">foo</span>() <span class="hl-k">-></span> <span class="hl-k">bool</span> {</td></tr>
+<tr><td class="hl-num" data-line="101"></td><td>    <span class="hl-k">let</span> a <span class="hl-k">=</span> <span class="hl-c">true</span>;</td></tr>
+<tr><td class="hl-num" data-line="102"></td><td>    <span class="hl-k">let</span> b <span class="hl-k">=</span> <span class="hl-c">false</span>;</td></tr>
+<tr><td class="hl-num" data-line="103"></td><td>    <span class="hl-k">if</span> a <span class="hl-k">||</span> b {</td></tr>
+<tr><td class="hl-num" data-line="104"></td><td>        <span class="hl-k">return</span> <span class="hl-en">a</span> <span class="hl-k">!=</span> b;</td></tr>
+<tr><td class="hl-num" data-line="105"></td><td>    }</td></tr>
+<tr><td class="hl-num" data-line="106"></td><td>    <span class="hl-k">let</span> name: <span class="hl-k">&</span><span class="hl-k">str</span> <span class="hl-k">=</span> <span class="hl-s">"hl"</span>;</td></tr>
+<tr><td class="hl-num" data-line="107"></td><td>    <span class="hl-k">let</span> range <span class="hl-k">=</span> <span class="hl-c">0</span><span class="hl-k">..</span><span class="hl-c">10</span>;</td></tr>
+<tr><td class="hl-num" data-line="108"></td><td>    <span class="hl-k">let</span> ok <span class="hl-k">=</span> <span class="hl-c">1</span> <span class="hl-k"><=</span> range.<span class="hl-en">end</span> <span class="hl-k">&&</span> range.<span class="hl-en">end</span> <span class="hl-k">>=</span> <span class="hl-c">0</span>;</td></tr>
+<tr><td class="hl-num" data-line="109"></td><td>    ok</td></tr>
+<tr><td class="hl-num" data-line="110"></td><td>}</td></tr>
+<tr><td class="hl-num" data-line="111"></td><td></td></tr>
 </tbody>
 </table>

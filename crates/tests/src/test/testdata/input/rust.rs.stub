@@ -96,3 +96,15 @@ impl Stream for RecursiveModuleLoad {
     }
   }
 }
+
+fn foo() -> bool {
+    let a = true;
+    let b = false;
+    if a || b {
+        return a != b;
+    }
+    let name: &str = "hl";
+    let range = 0..10;
+    let ok = 1 <= range.end && range.end >= 0;
+    ok
+}

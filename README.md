@@ -50,7 +50,7 @@ See the result in browser [here](https://play.tailwindcss.com/JevzqYGpuH).
 - [x] Go ( ✅ Done )
 - [ ] HTML ( 🚧 In Progress )
 - [x] Ruby ( ✅ Done )
-- [ ] Rust ( 🚧 In Progress )
+- [x] Rust ( ✅ Done )
 - [x] Java ( ✅ Done )
 - [x] Javascript ( ✅ Done )
 - [x] JSON ( ✅ Done )

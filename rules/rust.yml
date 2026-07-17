@@ -19,6 +19,12 @@ double_keyword:
   double_arrow: "=>"
   path_separator: "::"
   logical_and: "&&"
+  logical_or: "||"
+  arrow: "->"
+  not_equal: "!="
+  less_equal: "<="
+  greater_equal: ">="
+  range: ".."
 condition:
   ACCEPT_ESCAPED_STRING: true
   ACCEPT_HEXADECIMAL_NUMBER: true
@@ -28,4 +34,4 @@ condition:
   ACCEPT_ENTITY_TAG_SUFFIX: self.ch.is_numeric()
   BREAK_ENTITY_TAG_SUFFIX: "!self.ch.is_numeric() && !is_letter(self.ch)"
   PREFIX_ONE_LINE_COMMENT: //
-keyword: "as,break,const,continue,char,crate,else,enum,extern,fn,for,if,impl,in,let,loop,match,mod,move,mut,pub,ref,return,self,Self,static,struct,super,trait,type,unsafe,use,where,while,async,await,dyn,abstract,become,box,do,final,macro,override,priv,typeof,unsized,virtual,yield,try,union,'static,String,Option,Default,Result,Vec,i8,i16,i32,i64,i128,isize,u8,u16,u32,u64,u128,usize,f32,f64"
+keyword: "as,break,const,continue,char,crate,else,enum,extern,fn,for,if,impl,in,let,loop,match,mod,move,mut,pub,ref,return,self,Self,static,struct,super,trait,type,unsafe,use,where,while,async,await,dyn,abstract,become,box,do,final,macro,override,priv,typeof,unsized,virtual,yield,try,union,bool,str,String,Option,Default,Result,Vec,i8,i16,i32,i64,i128,isize,u8,u16,u32,u64,u128,usize,f32,f64"
