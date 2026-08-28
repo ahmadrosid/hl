@@ -1,6 +1,6 @@
 ## Test Server
 
-We use this server to debug HTML rendering so every time we generate a html highlight we won't have to reload the page.
+Live-reloads the browser when `table.html` changes. Zero deps — plain `std` HTTP + mtime poll.
 
 Start server:
 ```bash
@@ -12,4 +12,4 @@ Generate debug html:
 cargo run --package hl --example html examples/html.rs -l raw > table.html
 ```
 
-Open webserver at [http://localhost:8080](http://localhost:8080)
+Open [http://127.0.0.1:8080](http://127.0.0.1:8080)

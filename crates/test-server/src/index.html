@@ -3,7 +3,6 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Highlight</title>
   <style>
@@ -28,57 +27,16 @@
       content: attr(data-line);
     }
 
-    /* Markup Heading */
-    .hl-mh {
-      color: #0550ae
-    }
-
-    /* String */
-    .hl-s {
-      color: #0a3069
-    }
-
-    /* Identifier */
-    .hl-id {
-      color: #b465e2
-    }
-
-    /* Keyword */
-    .hl-k {
-      color: #cf222e
-    }
-
-    /* Constant */
-    .hl-c {
-      color: #0550ae
-    }
-
-    .hl-cmt {
-      color: #6e7781
-    }
-
-    /* Entity */
-    .hl-en {
-      color: #8250df
-    }
-
-    /* Entity tag */
-    .hl-ent {
-      color: #116329
-    }
-
-    /* Var */
-    .hl-v {
-      color: #953800
-    }
-
-    .hl-vid {
-      color: #404040
-    }
-
-    .hl-mh {
-      color: #0550ae
-    }
+    .hl-mh { color: #0550ae }
+    .hl-s { color: #0a3069 }
+    .hl-id { color: #b465e2 }
+    .hl-k { color: #cf222e }
+    .hl-c { color: #0550ae }
+    .hl-cmt { color: #6e7781 }
+    .hl-en { color: #8250df }
+    .hl-ent { color: #116329 }
+    .hl-v { color: #953800 }
+    .hl-vid { color: #404040 }
   </style>
 </head>
 
@@ -87,32 +45,16 @@
 </body>
 
 <script>
-  let socket = new WebSocket("ws://localhost:8080/ws");
-
-  socket.onopen = function(e) {
-    console.log("[open] Connection established");
-    console.log("Sending to server");
-    socket.send("start_connection");
-  };
-
-  socket.onmessage = function(event) {
-    console.log(`[message] Data received from server: ${event.data}`);
-    if (event.data == "file_changed") {
-      window.location.reload();
-    }
-  };
-
-  socket.onclose = function(event) {
-    if (event.wasClean) {
-      console.log(`[close] Connection closed cleanly, code=${event.code} reason=${event.reason}`);
-    } else {
-      console.log('[close] Connection died');
-    }
-  };
-
-  socket.onerror = function(error) {
-    console.log(error)
-  };
-
+  let mtime = null;
+  async function poll() {
+    try {
+      const res = await fetch("/mtime");
+      const next = await res.text();
+      if (mtime === null) mtime = next;
+      else if (next !== mtime) location.reload();
+    } catch (_) {}
+  }
+  setInterval(poll, 500);
+  poll();
 </script>
 </html>
