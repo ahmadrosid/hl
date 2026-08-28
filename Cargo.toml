@@ -8,6 +8,7 @@ authors = ["Ahmad Rosid <alahmadrosid@gmail.com>"]
 members = [
   "crates/generator",
   "crates/tests",
+  "crates/test-server",
 ]
 
 [lib]
