@@ -7,7 +7,6 @@ pub mod coffescript;
 pub mod cpp;
 pub mod cs;
 pub mod css;
-pub mod cuda;
 pub mod dart;
 pub mod edn;
 pub mod erlang;

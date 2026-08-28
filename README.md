@@ -43,7 +43,6 @@ See the result in browser [here](https://play.tailwindcss.com/JevzqYGpuH).
 - [x] C ( ✅ Done )
 - [x] Clojure ( ✅ Done )
 - [x] CSS ( ✅ Done )
-- [x] CUDA ( ✅ Done )
 - [x] Dart ( ✅ Done )
 - [x] CPP ( ✅ Done )
 - [x] C# ( ✅ Done )

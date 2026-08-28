@@ -1,4 +1,3 @@
-extern crate yaml_rust;
 use crate::color::ColorExt;
 use crate::module;
 use crate::render;
@@ -137,44 +136,6 @@ impl ConditionExt for Hash {
     }
 }
 
-fn get_val(data: &Hash, key: &Yaml) -> String {
-    if data.get(key).is_none() {
-        std::process::exit(0);
-    }
-
-    let xml_tag = data
-        .get(key)
-        .unwrap()
-        .as_hash()
-        .unwrap()
-        .values()
-        .collect::<Vec<_>>();
-
-    let mut values = vec![];
-    for tag in xml_tag.iter() {
-        values.push(tag.as_str().unwrap());
-    }
-    println!("\nconstant: \"{}\"\n", values.join(","));
-    return values.join(",");
-}
-
-#[allow(dead_code)]
-fn rewrite_yaml(h: &Hash, file_path: &str) {
-    let k = Yaml::String("var".to_string());
-    let keyword = get_val(h, &k);
-    let mut out_str = String::new();
-    let mut emitter = yaml_rust::YamlEmitter::new(&mut out_str);
-    let mut dh = h.clone();
-    dh.remove(&k).unwrap();
-    dh.insert(k, Yaml::String(keyword));
-    emitter.dump(&Yaml::Hash(dh)).unwrap();
-    let name = Path::new(file_path).file_name().unwrap().to_str().unwrap();
-    out_str = out_str.replace("---\n", "");
-    write_file(&out_str, &"rules".to_string(), name);
-    println!("{}\n", out_str);
-    std::process::exit(0)
-}
-
 pub fn parse(file_path: &str, output_path: &str) -> String {
     let content = read_file(file_path);
     let docs = YamlLoader::load_from_str(&content).unwrap();
@@ -210,9 +171,7 @@ pub fn parse(file_path: &str, output_path: &str) -> String {
     message.push_str(&"Success generate lexer for \"".green());
     message.push_str(&get_file_name(file_path).bold_green());
     message.push_str(&"\" language!\n".green());
-    message.push_str(&format!("- {}token.rs\n", out_file_path).cyan());
-    message.push_str(&format!("- {}mod.rs\n", out_file_path).cyan());
-    message.push_str(&format!("- {}render.rs\n", out_file_path).cyan());
+    message.push_str(&format!("- {}{}.rs\n", out_file_path, name).cyan());
     message
 }
 

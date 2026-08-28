@@ -1,8 +1,8 @@
 pub mod lexers;
 pub use crate::lexers::{
-    actionscript, ada, bash, c, clojure, coffescript, cpp, cs, css, cuda, dart, edn, erlang, go,
-    groovy, haskell, html, java, javascript, json, kotlin, lua, makefile, markdown, nim, php,
-    proto, python, raw, ruby, rust, toml, typescript, v, vue, yaml, zig,
+    actionscript, ada, bash, c, clojure, coffescript, cpp, cs, css, dart, edn, erlang, go, groovy,
+    haskell, html, java, javascript, json, kotlin, lua, makefile, markdown, nim, php, proto, python,
+    raw, ruby, rust, toml, typescript, v, vue, yaml, zig,
 };
 
 pub fn render_html(input: Vec<char>, lang: &str) -> String {
@@ -15,7 +15,7 @@ pub fn render_html(input: Vec<char>, lang: &str) -> String {
         "toml" => toml::render_html(input),
         "ruby" => ruby::render_html(input),
         "groovy" => groovy::render_html(input),
-        "c" => c::render_html(input),
+        "c" | "cuda" => c::render_html(input),
         "haskell" => haskell::render_html(input),
         "zig" => zig::render_html(input),
         "go" => go::render_html(input),
@@ -23,7 +23,6 @@ pub fn render_html(input: Vec<char>, lang: &str) -> String {
         "yaml" => yaml::render_html(input),
         "php" => php::render_html(input),
         "erlang" => erlang::render_html(input),
-        "cuda" => cuda::render_html(input),
         "edn" => edn::render_html(input),
         "css" => css::render_html(input),
         "makefile" => makefile::render_html(input),
